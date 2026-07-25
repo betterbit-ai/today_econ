@@ -123,7 +123,7 @@ async function runCategoryStep(ledger, category, {
   if (!publication || publication.status === 'no_publish') return ledger;
 
   if (phase === 'prepare') {
-    if (['published', 'manual_action_required'].includes(publication.status)) return ledger;
+    if (['published', 'manual_action_required', 'no_publish'].includes(publication.status)) return ledger;
     
     // In CI environments, the status might be 'ready' or 'retry_pending' in the JSON, 
     // but the actual artifact files (.diem-cache/...) might have been lost when the runner spun down.

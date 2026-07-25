@@ -79,13 +79,15 @@ async function runCommand({ command, options }) {
     return result.ledger;
   }
   if (command === 'retry') {
-    await runPersistedPhase({ phase: 'prepare', date, category: options.category });
+    const prepared = await runPersistedPhase({ phase: 'prepare', date, category: options.category });
+    console.log(`[DIEM] ${date} retry:prepare: ${prepared.results.map(item => `${item.category}=${item.status}`).join(', ') || '(no results)'}`);
     const published = await runPersistedPhase({
       phase: 'publish',
       date,
       category: options.category,
       publish: options.publish || config.publishInstagram,
     });
+    console.log(`[DIEM] ${date} retry:publish: ${published.results.map(item => `${item.category}=${item.status}`).join(', ') || '(no results)'}`);
     rebuildEditorialHistory({ referenceDate: nextDate(date) });
     console.log(`[DIEM] ${date} retry complete${published.skipped ? ' (publishing disabled)' : ''}.`);
     return published.ledger;
