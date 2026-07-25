@@ -74,7 +74,10 @@ async function preparePublication(ledger, category, {
     handle: config.instagramUsername,
   });
 
-  let imageSelection = await selectImageImpl(article, {
+  let imageSelection = await selectImageImpl({
+    ...article,
+    imageKeyword: editorial.imageKeyword,
+  }, {
     pexelsApiKey: config.pexelsApiKey,
     unsplashAccessKey: config.unsplashAccessKey,
   });

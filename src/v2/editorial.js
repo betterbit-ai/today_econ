@@ -215,6 +215,7 @@ function assembleEditorial({
   selectedTitleIndex = 0,
   sentenceDrafts,
   emojis = selectEmojis(article),
+  imageKeyword,
   handle,
   generation,
 }) {
@@ -238,6 +239,7 @@ function assembleEditorial({
     },
     caption: { sentences, text: caption },
     emojis,
+    imageKeyword,
     comments,
     generation,
   };
@@ -325,10 +327,11 @@ function modelPrompt(article) {
       '[4. 이모지 및 태그 규칙]',
       '- emojis.first는 1문장 끝, emojis.third는 3문장 끝에 가장 어울리는 직관적인 이모지 1개씩을 지정하세요.',
       '- topicTags는 관련 핵심 해시태그 3~5개를 배열로 작성하세요. 반드시 띄어쓰기가 없는 단일 명사형 단어로만 작성해야 하며 문장이나 구문은 절대 금지합니다. (예: ["#주식", "#금리인하"])',
+      '- imageKeyword는 기사의 메인 주제를 가장 잘 나타낼 수 있는 배경 이미지 검색용 영문 키워드 1~2개(예: "pokemon card", "semiconductor factory")를 지정하세요.',
       '',
       '[5. 출력 형식]',
       '- 오직 지정된 JSON 형식으로만 응답하며, 어떠한 서문이나 설명도 포함하지 마세요.',
-      '{"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}],"selectedTitleIndex":0,"sentences":["1문장","2문장","3문장"],"emojis":{"first":"🔥","third":"🚀"},"topicTags":["#AI동맹", "#반도체", "#빅테크"]}'
+      '{"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}],"selectedTitleIndex":0,"sentences":["1문장","2문장","3문장"],"emojis":{"first":"🔥","third":"🚀"},"topicTags":["#AI동맹", "#반도체", "#빅테크"],"imageKeyword":"server rack"}'
     ].join('\n'),
     userPrompt: JSON.stringify({
       category: article.category,

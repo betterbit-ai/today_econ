@@ -36,6 +36,7 @@ function buildImageQueries(candidate = {}) {
     .map(({ english }) => english);
 
   return [...new Set([
+    candidate.imageKeyword || '',
     ...visualKeywords,
     tokens.slice(0, 3).join(' '),
     `${tokens.slice(0, 2).join(' ')} ${candidate.event || ''}`.trim(),
