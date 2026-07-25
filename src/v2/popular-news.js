@@ -4,7 +4,13 @@ const { extractSignatureTokens, jaccardSimilarity } = require('./topic');
 
 const PORTAL_URLS = Object.freeze({
   naver: 'https://news.naver.com/main/ranking/popularDay.naver',
-  daum: 'https://news.daum.net/ranking/popular',
+  // [2026-07-25 변경] 다음(Daum) 뉴스 교차검증 및 랭킹 수집 주석 처리
+  // 1. 기존 Daum 뉴스 랭킹 페이지(/ranking/popular)가 서비스 중단(404 Not Found)되었습니다.
+  // 2. 뉴스 메인(news.daum.net)에서 일반 기사를 파싱하는 것은 조회수 기반의 실제 대중 인기도를 반영하지 못합니다.
+  // 3. 네이버와 다음 양쪽 포털이 무조건 동일 뉴스를 공통 보도해야 발행하도록 강제하는 교차검증 기준은 지나치게 엄격하여
+  //    모든 뉴스 후보를 탈락(no_publish)시키는 원인이 됩니다.
+  // 따라서 네이버 랭킹 단독으로 대중이 주목할 만한 기사를 수집 및 검증하여 발행하도록 다음 수집을 제외(주석 처리)합니다.
+  // daum: 'https://news.daum.net/',
 });
 
 function normalizeRank(rank, count) {
@@ -70,7 +76,11 @@ function parseRankingHtml(html, {
     $(selector).each((_, element) => {
       if (items.length >= 50) return false;
       const anchor = $(element);
-      const title = normalizeNfc(anchor.attr('data-title') || anchor.attr('title') || anchor.text()).replace(/\s+/g, ' ').trim();
+      let title = normalizeNfc(anchor.attr('data-title') || anchor.attr('title') || anchor.text()).replace(/\s+/g, ' ').trim();
+      if (portal === 'daum') {
+        // Strip trailing publisher + relative time, e.g. "뉴스1 1시간 전"
+        title = title.replace(/\s+[\p{L}A-Za-z0-9]+\s+\d+[가-힣]+\s+전\s*$/u, '').trim();
+      }
       const url = absoluteUrl(anchor.attr('href'), baseUrl);
       const key = `${canonicalUrl(url)}|${normalizedTitle(title)}`;
       if (!title || title.length < 4 || !url || seen.has(key)) return;

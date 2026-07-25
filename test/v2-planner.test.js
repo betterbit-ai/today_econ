@@ -79,3 +79,20 @@ test('uses the legacy RSS order only when both portals fail', async () => {
   assert.equal(result.publications.economy.status, 'no_publish');
   assert.equal(result.publications.issue.status, 'no_publish');
 });
+
+test('allows standalone Naver ranking candidates to pass when independent corroboration is absent', async () => {
+  const candidates = [
+    { title: '한국은행 기준금리 2.50% 동결 확정', url: 'https://n.news.naver.com/article/009/0000001', popularityScore: 100, crossPortal: false, sources: [{ portal: 'naver', title: '한국은행 기준금리 2.50% 동결 확정', url: 'https://n.news.naver.com/article/009/0000001' }] },
+    { title: '청년 주거 지원 월세 보조금 50만원 확대', url: 'https://n.news.naver.com/article/009/0000002', popularityScore: 90, crossPortal: false, sources: [{ portal: 'naver', title: '청년 주거 지원 월세 보조금 50만원 확대', url: 'https://n.news.naver.com/article/009/0000002' }] },
+  ];
+  const result = await planDailyQueue({
+    date: '2026-07-25',
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async () => '본문 길이 80자 충족을 위한 장문의 텍스트입니다. 한국은행이 7월 25일 기준금리를 2.50%로 동결하고 향후 물가 흐름 및 주택 가계대출을 주시하며 청년 월세 주거 지원도 대거 확대한다고 공식 발표하였습니다.',
+    embedder: async () => [],
+  });
+  assert.equal(result.publications.economy.ok, true);
+  assert.equal(result.publications.economy.corroboration, null);
+  assert.equal(result.publications.issue.ok, true);
+  assert.equal(result.publications.issue.corroboration, null);
+});

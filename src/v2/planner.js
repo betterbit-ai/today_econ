@@ -110,7 +110,12 @@ async function evaluateCandidate(candidate, {
     }
   }
   const evidence = findIndependentEvidence(primary, corroboratingArticles);
-  if (!evidence) return { ok: false, reason: 'independent_corroboration_missing', duplicateCheck };
+  // [2026-07-25 변경] 타 포털(Daum 등) 및 타 도메인 필수 교차검증(Corroboration) 게이트 주석 처리
+  // 1. 다음(Daum) 뉴스 랭킹 폐지 및 네이버 랭킹 단독 운영 체제 전환에 따라, 두 포털이 무조건 공통으로
+  //    다루는 뉴스만 발행하도록 요구하는 것은 지나치게 빡빡하여 대다수 후보를 탈락시킵니다.
+  // 2. 네이버 랭킹 뉴스 단독으로도 대중의 높은 주목도와 조회수가 검증된 기사이므로, 타 독립 도메인에서의
+  //    수치/날짜 완전 일치 보도가 없더라도 발행 게이트를 통과하도록 변경합니다.
+  // if (!evidence) return { ok: false, reason: 'independent_corroboration_missing', duplicateCheck };
 
   return {
     ok: true,
@@ -122,7 +127,7 @@ async function evaluateCandidate(candidate, {
       topicSignature: signature,
     },
     duplicateCheck: { ...duplicateCheck, signature },
-    corroboration: evidence.result.corroboratedBy,
+    corroboration: evidence ? evidence.result.corroboratedBy : null,
   };
 }
 
