@@ -45,7 +45,7 @@ function nextDate(date) {
 async function runCommand({ command, options }) {
   const date = options.date || kstDate();
   if (command === 'plan') {
-    const result = await planPhase({ date, force: options.force });
+    const result = await planPhase({ date, force: options.force ?? true });
     let ledger = saveLedger(result.ledger);
     if (!result.reused) {
       for (const category of ['economy', 'issue']) {

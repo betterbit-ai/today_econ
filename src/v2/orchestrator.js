@@ -35,22 +35,24 @@ function applyPlan(ledger, plan) {
   for (const category of CATEGORY_ORDER) {
     const result = plan.publications[category];
     if (result?.ok) {
-      next = updatePublication(next, category, {
+      next.publications[category] = {
+        publicationKey: next.publications[category]?.publicationKey || `${category}:${new Date().toISOString()}`,
+        category,
         status: 'planned',
         reason: null,
         candidate: result.selected,
         corroboration: result.corroboration,
         duplicateCheck: result.duplicateCheck,
-      });
+      };
+      next.updatedAt = new Date().toISOString();
       continue;
     }
-    const publication = next.publications[category];
     next = updatePublication(next, category, {
       status: 'no_publish',
       reason: result?.reason || 'no_candidate_passed_quality_gates',
-      reel: { ...publication.reel, status: 'no_publish' },
-      comment: { ...publication.comment, status: 'no_publish' },
-      reply: { ...publication.reply, status: 'no_publish' },
+      reel: { ...next.publications[category]?.reel, status: 'no_publish' },
+      comment: { ...next.publications[category]?.comment, status: 'no_publish' },
+      reply: { ...next.publications[category]?.reply, status: 'no_publish' },
     });
   }
   return next;
