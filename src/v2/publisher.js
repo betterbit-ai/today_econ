@@ -103,14 +103,13 @@ async function preparePublication(ledger, category, {
     outputPath: coverPath,
   });
 
-  // const music = selectMusicImpl({
-  //   category,
-  //   history,
-  //   publicationKey: publication.publicationKey,
-  //   topic: article,
-  //   sensitive: isSensitiveTopic(article),
-  // });
-  const music = null; // Audio disabled by user feedback
+  const music = selectMusicImpl({
+    category,
+    history,
+    publicationKey: publication.publicationKey,
+    topic: article,
+    sensitive: isSensitiveTopic(article),
+  });
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,
