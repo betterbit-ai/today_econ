@@ -59,6 +59,7 @@ function sourceSentences(article = {}) {
   return [...preferred, ...body]
     .map(cleanVisibleText)
     .filter(Boolean)
+    .filter(value => !/^[▲■◇◆]/u.test(value.trim()) && !/^사진=/u.test(value.trim()))
     .filter(value => {
       const key = value.replace(/\s+/gu, '');
       if (seen.has(key)) return false;
