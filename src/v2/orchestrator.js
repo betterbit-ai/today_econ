@@ -118,11 +118,16 @@ async function runCategoryStep(ledger, category, {
   if (!publication || publication.status === 'no_publish') return ledger;
 
   if (phase === 'prepare') {
-    if (['ready', 'published', 'manual_action_required'].includes(publication.status)) return ledger;
-    if (
-      publication.artifacts?.reelPath
-      && ['ready', 'retry_pending'].includes(publication.reel?.status)
-    ) return ledger;
+    if (['published', 'manual_action_required'].includes(publication.status)) return ledger;
+    
+    // In CI environments, the status might be 'ready' or 'retry_pending' in the JSON, 
+    // but the actual artifact files (.diem-cache/...) might have been lost when the runner spun down.
+    // We must verify the physical file exists before skipping the prepare step.
+    const reelPath = publication.artifacts?.reelPath ? require('path').resolve(process.cwd(), publication.artifacts.reelPath) : null;
+    const hasReel = reelPath && require('fs').existsSync(reelPath);
+    
+    if (publication.status === 'ready' && hasReel) return ledger;
+    if (publication.reel?.status === 'retry_pending' && hasReel) return ledger;
     try {
       return await preparePublicationImpl(ledger, category, { history });
     } catch (error) {
