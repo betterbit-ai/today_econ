@@ -34,18 +34,23 @@ test('publishes only one Reel and records its external identity', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-publisher-'));
   const ledger = readyLedger(root);
   let reelCalls = 0;
+  let passedAudioConfig = null;
   const result = await publishPreparedPublication(ledger, 'economy', 'token', {
     cleanupReleasesImpl: async () => [],
     createReleaseImpl: async () => ({ releaseId: 1, tag: 'temp', createdAt: new Date().toISOString(), videoUrl: 'https://example.com/reel.mp4' }),
     reconcileReelImpl: async () => ({ status: 'not_found', shouldPublish: true }),
-    publishReelImpl: async () => {
+    publishReelImpl: async (params) => {
       reelCalls += 1;
+      passedAudioConfig = params.audioConfiguration;
       return { id: 'ig-reel', permalink: 'https://instagram.com/reel/ig-reel' };
     },
     publishStoryImpl: async () => ({ id: 'ig-story' }),
+    searchInstagramAudioImpl: async () => [{ id: 'mock-audio-123' }],
     publishCommentsImpl: async publication => publication,
   });
   assert.equal(reelCalls, 1);
+  assert.equal(passedAudioConfig.audio_id, 'mock-audio-123');
+  assert.equal(passedAudioConfig.audio_volume, 100);
   assert.equal(result.publications.economy.reel.status, 'published');
   assert.equal(result.publications.economy.reel.externalId, 'ig-reel');
   assert.equal(result.publications.economy.status, 'published');

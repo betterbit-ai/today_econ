@@ -13,10 +13,12 @@ async function instagramRequest({
   fetchImpl = fetch,
   retries = 3,
 }) {
-  const base = `https://graph.instagram.com/${version}/${String(path).replace(/^\//, '')}`;
+  const base = String(path).startsWith('ig_audio')
+    ? `https://graph.facebook.com/${version}/${String(path).replace(/^\//, '')}`
+    : `https://graph.instagram.com/${version}/${String(path).replace(/^\//, '')}`;
   const body = new URLSearchParams();
   Object.entries(params).forEach(([key, value]) => {
-    if (value !== undefined && value !== null) body.set(key, String(value));
+    if (value !== undefined && value !== null) body.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
   });
   const url = method === 'GET' && body.size ? `${base}?${body}` : base;
 
@@ -122,22 +124,27 @@ async function publishCarousel({ imageUrls, caption, userId, token, version = 'v
   return { ...media, id: published.id, containerId: carousel.id, childIds };
 }
 
-async function publishReel({ videoUrl, caption, userId, token, version = 'v23.0', shareToFeed = true, fetchImpl = fetch }) {
+async function publishReel({ videoUrl, caption, userId, audioConfiguration, token, version = 'v23.0', shareToFeed = true, fetchImpl = fetch }) {
   if (!token || !userId) throw new Error('[Instagram] Missing access token or user ID.');
   if (!videoUrl || !/^https?:\/\//i.test(videoUrl)) throw new Error('[Instagram] A Reel requires one public video URL.');
   if (!caption || caption.length > 2200) throw new Error('[Instagram] Caption must be 1-2200 characters.');
+
+  const params = {
+    media_type: 'REELS',
+    video_url: videoUrl,
+    caption,
+    share_to_feed: shareToFeed,
+  };
+  if (audioConfiguration) {
+    params.audio_configuration = audioConfiguration;
+  }
 
   const reel = await instagramRequest({
     path: `${userId}/media`,
     token,
     version,
     method: 'POST',
-    params: {
-      media_type: 'REELS',
-      video_url: videoUrl,
-      caption,
-      share_to_feed: shareToFeed,
-    },
+    params,
     fetchImpl,
   });
   await waitForContainer({ id: reel.id, token, version, fetchImpl, attempts: 30, delayMs: 4000 });
@@ -262,6 +269,19 @@ async function getAccountInsights({ userId, token, version = 'v23.0', metrics = 
   }
 }
 
+async function searchInstagramAudio({ query, userId, token, version = 'v23.0', fetchImpl = fetch }) {
+  if (!token || !userId) throw new Error('[Instagram] Missing access token or user ID for audio search.');
+  const response = await instagramRequest({
+    path: 'ig_audio',
+    token,
+    version,
+    method: 'GET',
+    params: { audio_type: 'music', search_query: query, user_id: userId },
+    fetchImpl,
+  });
+  return response.data || [];
+}
+
 module.exports = {
   DEFAULT_METRICS,
   getAccountInsights,
@@ -270,5 +290,6 @@ module.exports = {
   publishCarousel,
   publishReel,
   publishStory,
+  searchInstagramAudio,
   waitForContainer,
 };

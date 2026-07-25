@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../../config');
 const { cleanupExpiredReleases, createTemporaryRelease } = require('../github-assets');
-const { publishReel, publishStory } = require('../instagram');
+const { publishReel, publishStory, searchInstagramAudio } = require('../instagram');
 const { generateEditorial } = require('./editorial');
 const { createGroqCaller } = require('./groq');
 const { downloadSelectedImage, selectLicensedImage } = require('./image-selector');
@@ -267,6 +267,7 @@ async function publishPreparedPublication(ledger, category, token, {
   reconcileReelImpl = reconcileRecentReel,
   publishReelImpl = publishReel,
   publishStoryImpl = publishStory,
+  searchInstagramAudioImpl = searchInstagramAudio,
   publishCommentsImpl = publishCommentChain,
 } = {}) {
   let publication = structuredClone(ledger.publications[category]);
@@ -324,10 +325,32 @@ async function publishPreparedPublication(ledger, category, token, {
         deleteAfter: new Date(Date.now() + 72 * 3600000).toISOString(),
       };
       try {
+        const searchQueries = ['lofi beat', 'vlog music', 'news background', 'corporate upbeat'];
+        const query = searchQueries[Math.floor(Math.random() * searchQueries.length)];
+        let audioConfiguration = undefined;
+        try {
+          const audioResults = await searchInstagramAudioImpl({
+            query,
+            userId: config.instagramUserId,
+            token,
+            version: config.instagramApiVersion,
+          });
+          if (audioResults && audioResults.length > 0) {
+            audioConfiguration = {
+              audio_id: String(audioResults[0].id || audioResults[0].ig_artist?.id), // some endpoints use different keys, but id is standard
+              audio_volume: 100,
+              video_volume: 0,
+            };
+          }
+        } catch (audioError) {
+          console.error('[DIEM Publisher] Audio search failed, falling back to silent Reel:', audioError.message);
+        }
+
         const result = await publishReelImpl({
           videoUrl: release.videoUrl,
           caption: publication.editorial.caption.text,
           userId: config.instagramUserId,
+          audioConfiguration,
           token,
           version: config.instagramApiVersion,
         });
