@@ -137,22 +137,10 @@ function buildDeterministicTitleCandidates(article = {}) {
   return candidates;
 }
 
-function ensureSentence(value = '', maximum = 120, emoji = '') {
-  let text = cleanVisibleText(value).replace(/[.!?。！？]+$/u, '').trim();
+function ensureSentence(value = '', emoji = '') {
+  const text = cleanVisibleText(value).replace(/[.!?。！？]+$/u, '').trim();
   const suffix = emoji ? `.${emoji}` : '.';
-  const allowed = maximum - graphemeCount(suffix);
-  if (graphemeCount(text) > allowed) {
-    const words = text.split(/\s+/u);
-    const kept = [];
-    for (const word of words) {
-      const candidate = [...kept, word].join(' ');
-      if (graphemeCount(candidate) > allowed) break;
-      kept.push(word);
-    }
-    text = kept.join(' ').replace(/[,;:·—–-]+$/u, '').trim();
-  }
-  if (!text) text = '핵심 내용';
-  return `${text}${suffix}`.normalize('NFC');
+  return `${text || '핵심 내용'}${suffix}`.normalize('NFC');
 }
 
 function selectEmojis(article = {}) {
@@ -229,9 +217,9 @@ function assembleEditorial({
   generation,
 }) {
   const sentences = [
-    ensureSentence(sentenceDrafts[0], 120, emojis.first),
-    ensureSentence(sentenceDrafts[1], 120),
-    ensureSentence(sentenceDrafts[2], 120, emojis.third),
+    ensureSentence(sentenceDrafts[0], emojis.first),
+    ensureSentence(sentenceDrafts[1]),
+    ensureSentence(sentenceDrafts[2], emojis.third),
   ];
   const caption = sentences.join('\n\n').normalize('NFC');
   const selected = titleCandidates[selectedTitleIndex] || titleCandidates[0];
@@ -310,9 +298,9 @@ function modelPrompt(article) {
       'DIEM 경제·시사 매거진의 수석 에디터다.',
       '[규칙]',
       '1. 인스타그램 릴스 시청자가 바로 이해할 수 있도록 쉽고 매끄러운 문장으로 작성하라.',
-      '2. 기사 원문에 포함된 사진/이미지 묘사(예: \'건배하고 있다\', \'오른쪽부터 ~\')나 언론사 이름(연합뉴스, 뉴시스 등), 기자 이름은 절대 포함하지 마라.',
-      '3. titleCandidates는 시청자의 이목을 끄는 직관적인 훅(Hook) 형태여야 한다. 단순 키워드 나열(예: \'대통령 젠슨 24일 흐름정리\')은 절대 금지한다. 각 title은 줄바꿈(\'\\n\') 하나를 포함한 정확히 2줄, 공백 포함 14자 이하여야 한다.',
-      '4. sentences는 정확히 3개다. 각 문장은 120자 이하로 작성하며 서술어는 \'~다\', \'~요\' 등 자연스러운 문장 형태로 끝맺는다.',
+      '2. 기사 원문에 포함된 사진/이미지 묘사(예: \'건배하고 있다\'), [자료사진], [단독] 등 기사 서두의 불필요한 언론사 찌꺼기나 기자 이름은 완벽히 배제한다.',
+      '3. titleCandidates는 시청자의 이목을 끄는 직관적인 훅(Hook) 형태여야 한다. 단순 키워드 나열은 절대 금지한다. 각 title은 줄바꿈(\'\\n\') 하나를 포함한 정확히 2줄, 공백 포함 24자 이하여야 한다.',
+      '4. sentences는 정확히 3개다. 각 문장은 160자 이하로 작성하며 서술어는 \'~다\', \'~요\' 등 자연스러운 문장 형태로 끝맺는다.',
       '   - 1문장: 사건의 핵심 요약 및 훅',
       '   - 2문장: 구체적인 사실, 수치 또는 전개',
       '   - 3문장: 배경, 전망, 또는 시청자에게 미치는 영향',

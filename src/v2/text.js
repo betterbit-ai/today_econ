@@ -46,7 +46,7 @@ function validateTitle(title) {
   const visible = lines.join('');
   const errors = [];
   if (lines.length !== 2 || lines.some(line => !line.trim())) errors.push('title must contain exactly two non-empty lines');
-  if (graphemeCount(visible) > 14) errors.push('title must be at most 14 graphemes including spaces');
+  if (graphemeCount(visible) > 24) errors.push('title must be at most 24 graphemes including spaces');
   if (CLICKBAIT_PATTERNS.some(pattern => pattern.test(normalized))) errors.push('title contains prohibited clickbait wording');
   if (/["“”‘’!?]{2,}|[!?]$/u.test(normalized)) errors.push('title contains unnecessary punctuation');
   return {
@@ -68,7 +68,7 @@ function validateCaption(caption) {
   }
   if (sentences.some(sentence => sentence.includes('\n'))) errors.push('caption sentences cannot contain internal line breaks');
   sentences.forEach((sentence, index) => {
-    if (graphemeCount(sentence) > 120) errors.push(`caption sentence ${index + 1} exceeds 120 graphemes`);
+    if (graphemeCount(sentence) > 160) errors.push(`caption sentence ${index + 1} exceeds 160 graphemes`);
   });
   if (URL_PATTERN.test(normalized)) errors.push('caption cannot contain URLs');
   if (HASHTAG_PATTERN.test(normalized)) errors.push('caption cannot contain hashtags');

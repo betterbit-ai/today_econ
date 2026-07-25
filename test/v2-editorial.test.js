@@ -152,9 +152,10 @@ test('falls back deterministically when both model calls fail or invent a number
 
 test('rejects malformed title, caption, comment, and hashtag reply contracts', () => {
   assert.equal(validateTitle('한 줄뿐').ok, false);
-  assert.equal(validateTitle('일이삼사오육칠팔\n구십일이삼사오육').ok, false);
+  assert.equal(validateTitle('일이삼사오육칠팔\n구십일이삼사오육').ok, true);
+  assert.equal(validateTitle('일이삼사오육칠팔구십일이삼사\n오육칠팔구십일이삼사오육칠팔').ok, false);
   assert.equal(validateCaption('첫 문장📊\n둘째 문장\n셋째 문장📊').ok, false);
-  assert.equal(validateCaption(`첫 문장📊\n\n${'가'.repeat(121)}\n\n셋째 문장📊`).ok, false);
+  assert.equal(validateCaption(`첫 문장📊\n\n${'가'.repeat(161)}\n\n셋째 문장📊`).ok, false);
   assert.equal(validateHashtagReply('@diem.magazine #경제 #경제').ok, false);
 
   const editorial = buildDeterministicEditorial(economyArticle());
