@@ -169,7 +169,8 @@ function topicTagValues(article = {}) {
     article.event,
     ...meaningfulTokens(article),
   ];
-  const tags = uniqueHashtags(tokens.map(value => normalizeHashtag(value)))
+  const flatTokens = tokens.flatMap(token => String(token || '').split(/\s+/)).filter(Boolean);
+  const tags = uniqueHashtags(flatTokens.map(value => normalizeHashtag(value)))
     .filter(tag => /^#[0-9A-Za-z가-힣_]+$/u.test(tag))
     .filter(tag => !/^#\d+$/u.test(tag))
     .filter(tag => graphemeCount(tag) <= 20)
@@ -322,7 +323,7 @@ function modelPrompt(article) {
       '',
       '[4. 이모지 및 태그 규칙]',
       '- emojis.first는 1문장 끝, emojis.third는 3문장 끝에 가장 어울리는 직관적인 이모지 1개씩을 지정하세요.',
-      '- topicTags는 관련 핵심 해시태그 3~5개를 배열로 작성하세요.',
+      '- topicTags는 관련 핵심 해시태그 3~5개를 배열로 작성하세요. 반드시 띄어쓰기가 없는 단일 명사형 단어로만 작성해야 하며 문장이나 구문은 절대 금지합니다. (예: ["#주식", "#금리인하"])',
       '',
       '[5. 출력 형식]',
       '- 오직 지정된 JSON 형식으로만 응답하며, 어떠한 서문이나 설명도 포함하지 마세요.',
