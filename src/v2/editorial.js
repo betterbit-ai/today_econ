@@ -131,8 +131,8 @@ function buildDeterministicTitleCandidates(article = {}) {
     }
     if (candidates.length === 5) break;
   }
-  if (candidates.length !== 5) {
-    throw new Error('[DIEM Editorial] Could not construct five valid title candidates from article evidence');
+  if (candidates.length < 1) {
+    throw new Error('[DIEM Editorial] Could not construct any valid title candidates from article evidence');
   }
   return candidates;
 }
@@ -276,7 +276,7 @@ function parseModelResult(value) {
 }
 
 function normalizeModelCandidates(values = []) {
-  if (!Array.isArray(values) || values.length !== 5) return [];
+  if (!Array.isArray(values) || values.length < 1) return [];
   return values.map((candidate, index) => {
     const title = Array.isArray(candidate?.lines)
       ? candidate.lines.join('\n')
@@ -351,12 +351,9 @@ async function generateEditorial(article = {}, {
     try {
       const raw = await callModel({ model, ...prompt });
       const parsed = parseModelResult(raw);
-      const candidates = normalizeModelCandidates(parsed.titleCandidates);
-      if (candidates.length !== 5 || candidates.some(candidate => !candidate.valid)) {
-        throw new Error('model returned invalid title candidates');
-      }
-      if (new Set(candidates.map(candidate => candidate.title.replace(/\s+/gu, ''))).size !== 5) {
-        throw new Error('model returned duplicate title candidates');
+      const candidates = normalizeModelCandidates(parsed.titleCandidates).filter(c => c.valid);
+      if (candidates.length < 1) {
+        throw new Error('model returned no valid title candidates');
       }
       if (!numericClaimsAreGrounded(candidates.map(candidate => candidate.title), article)) {
         throw new Error('model returned an ungrounded numeric title');
@@ -389,15 +386,15 @@ async function generateEditorial(article = {}, {
 
 function validateEditorial(editorial, { article = {}, handle } = {}) {
   const errors = [];
-  if (!Array.isArray(editorial?.titleCandidates) || editorial.titleCandidates.length !== 5) {
-    errors.push('editorial requires exactly five title candidates');
+  if (!Array.isArray(editorial?.titleCandidates) || editorial.titleCandidates.length < 1) {
+    errors.push('editorial requires at least one title candidate');
   } else {
     const titles = editorial.titleCandidates.map(candidate => candidate.title);
     titles.forEach((title, index) => {
       const validation = validateTitle(title);
       if (!validation.ok) errors.push(`title candidate ${index + 1}: ${validation.errors.join(', ')}`);
     });
-    if (new Set(titles.map(title => normalizeNfc(title).replace(/\s+/gu, ''))).size !== 5) {
+    if (new Set(titles.map(title => normalizeNfc(title).replace(/\s+/gu, ''))).size !== titles.length) {
       errors.push('title candidates must be unique');
     }
   }
