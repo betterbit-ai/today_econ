@@ -153,6 +153,13 @@ async function renderDiemCover({
     const layout = await page.evaluate(() => {
       const cover = document.querySelector('[data-cover]');
       const lines = [...document.querySelectorAll('[data-title-line]')];
+      lines.forEach(line => {
+        let fontSize = 118;
+        while (line.getBoundingClientRect().height > fontSize * 1.2 && fontSize > 60) {
+          fontSize -= 2;
+          line.style.fontSize = `${fontSize}px`;
+        }
+      });
       const meta = document.querySelector('[data-cover-meta]');
       const brand = document.querySelector('[data-cover-brand]');
       const coverRect = cover.getBoundingClientRect();

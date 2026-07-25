@@ -166,13 +166,16 @@ async function selectLicensedImage(candidate, {
           .filter(image => image.downloadUrl && image.width >= 800 && image.height >= 800)
           .sort((a, b) => b.score - a.score);
         attempts.push({ provider: provider.name, query, count: scored.length, bestScore: scored[0]?.score ?? null });
-        if (scored[0]?.score >= minimumScore) {
+        const eligible = scored.filter(img => img.score >= minimumScore);
+        if (eligible.length > 0) {
+          const topN = eligible.slice(0, 5);
+          const selected = topN[Math.floor(Math.random() * topN.length)];
           return {
             kind: 'web',
             selectedAt: new Date().toISOString(),
-            ...scored[0],
+            ...selected,
             attempts,
-            selectionReason: `highest licensed ${provider.name} result above ${minimumScore}`,
+            selectionReason: `randomly selected from top ${topN.length} ${provider.name} results above ${minimumScore}`,
           };
         }
       } catch (error) {
