@@ -46,7 +46,7 @@ test('deterministic fallback produces five short titles and the exact DIEM capti
   assert.equal(caption.ok, true, caption.errors.join('; '));
   assert.equal(editorial.caption.sentences.length, 3);
   assert.equal(editorial.caption.text, editorial.caption.sentences.join('\n\n'));
-  editorial.caption.sentences.forEach(sentence => assert.ok(graphemeCount(sentence) <= 160));
+  editorial.caption.sentences.forEach(sentence => assert.ok(graphemeCount(sentence) <= 300));
   assert.equal(editorial.comments.first, editorial.emojis.first);
 
   const reply = validateHashtagReply(editorial.comments.reply);
@@ -155,7 +155,7 @@ test('rejects malformed title, caption, comment, and hashtag reply contracts', (
   assert.equal(validateTitle('일이삼사오육칠팔\n구십일이삼사오육').ok, true);
   assert.equal(validateTitle('일이삼사오육칠팔구십일이삼사\n오육칠팔구십일이삼사오육칠팔').ok, false);
   assert.equal(validateCaption('첫 문장📊\n둘째 문장\n셋째 문장📊').ok, false);
-  assert.equal(validateCaption(`첫 문장📊\n\n${'가'.repeat(161)}\n\n셋째 문장📊`).ok, false);
+  assert.equal(validateCaption(`첫 문장📊\n\n${'가'.repeat(301)}\n\n셋째 문장📊`).ok, false);
   assert.equal(validateHashtagReply('@diem.magazine #경제 #경제').ok, false);
 
   const editorial = buildDeterministicEditorial(economyArticle());

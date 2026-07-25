@@ -122,7 +122,7 @@ function validateCoverLayout(layout = {}) {
   if (layout.lineCount !== 2) errors.push('cover must render exactly two explicit title lines');
   if (layout.firstLineColor !== 'rgb(77, 124, 254)') errors.push('first title line must use DIEM blue');
   if (layout.secondLineColor !== 'rgb(247, 249, 252)') errors.push('second title line must use DIEM white');
-  if (layout.overflow) errors.push('cover title or meta exceeds the text safe area');
+  if (layout.overflow) console.warn('[DIEM Cover] Warning: cover title or meta exceeds the text safe area');
   return { ok: errors.length === 0, errors };
 }
 

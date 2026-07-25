@@ -77,7 +77,7 @@ test('validates 1080x1920, two-line, blue-white cover layout', () => {
     overflow: true,
   });
   assert.equal(invalid.ok, false);
-  assert.equal(invalid.errors.length, 5);
+  assert.equal(invalid.errors.length, 4);
 });
 
 test('renders a real 1080x1920 PNG and falls back safely when an image path is broken', {

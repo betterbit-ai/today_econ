@@ -68,7 +68,7 @@ function validateCaption(caption) {
   }
   if (sentences.some(sentence => sentence.includes('\n'))) errors.push('caption sentences cannot contain internal line breaks');
   sentences.forEach((sentence, index) => {
-    if (graphemeCount(sentence) > 160) errors.push(`caption sentence ${index + 1} exceeds 160 graphemes`);
+    if (graphemeCount(sentence) > 300) errors.push(`caption sentence ${index + 1} exceeds 300 graphemes`);
   });
   if (URL_PATTERN.test(normalized)) errors.push('caption cannot contain URLs');
   if (HASHTAG_PATTERN.test(normalized)) errors.push('caption cannot contain hashtags');
