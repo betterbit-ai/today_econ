@@ -2,14 +2,20 @@ const path = require('path');
 require('dotenv').config();
 
 module.exports = {
+  pipelineVersion: process.env.PIPELINE_VERSION || 'v1',
   groqApiKey: process.env.GROQ_API_KEY,
+  groqPrimaryModel: process.env.GROQ_PRIMARY_MODEL || 'openai/gpt-oss-120b',
+  groqFallbackModel: process.env.GROQ_FALLBACK_MODEL || 'qwen/qwen3.6-27b',
   hfToken: process.env.HF_TOKEN,
   pollinationsApiKey: process.env.POLLINATIONS_API_KEY,
+  pexelsApiKey: process.env.PEXELS_API_KEY,
+  unsplashAccessKey: process.env.UNSPLASH_ACCESS_KEY,
   slackBotToken: process.env.SLACK_BOT_TOKEN,
   slackChannelId: process.env.SLACK_CHANNEL_ID,
   instagramAccessToken: process.env.INSTAGRAM_ACCESS_TOKEN,
   instagramTokenEncryptionKey: process.env.INSTAGRAM_TOKEN_ENCRYPTION_KEY,
   instagramUserId: process.env.INSTAGRAM_USER_ID,
+  instagramUsername: process.env.INSTAGRAM_USERNAME || 'diem.magazine',
   instagramApiVersion: process.env.INSTAGRAM_API_VERSION || 'v23.0',
   instagramFormat: process.env.INSTAGRAM_FORMAT || 'reel',
   publishInstagramStory: process.env.PUBLISH_INSTAGRAM_STORY !== 'false',
@@ -25,6 +31,8 @@ module.exports = {
   historyFile: process.env.HISTORY_FILE || path.join(__dirname, 'history.json'),
   postsFile: process.env.POSTS_FILE || path.join(__dirname, 'data', 'posts.json'),
   pipelineStateFile: process.env.PIPELINE_STATE_FILE || path.join(__dirname, 'data', 'pipeline-state.json'),
+  publicationsRoot: process.env.PUBLICATIONS_ROOT || path.join(__dirname, 'data', 'publications'),
+  editorialHistoryFile: process.env.EDITORIAL_HISTORY_FILE || path.join(__dirname, 'data', 'editorial-history.json'),
   instagramTokenFile: process.env.INSTAGRAM_TOKEN_FILE || path.join(__dirname, 'data', 'instagram-token.enc'),
   maxHistoryDays: parseInt(process.env.MAX_HISTORY_DAYS || '7', 10),
 };

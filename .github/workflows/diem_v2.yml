@@ -1,0 +1,166 @@
+name: DIEM V2 Daily Reels
+
+on:
+  schedule:
+    # 18:30 and 21:00 Asia/Seoul (UTC+9)
+    - cron: '30 9 * * *'
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: 'Bounded phase to run'
+        required: true
+        default: 'retry-all'
+        type: choice
+        options:
+          - plan
+          - economy
+          - issue
+          - retry-all
+      publish_instagram:
+        description: 'Actually publish to Instagram'
+        required: true
+        default: false
+        type: boolean
+
+concurrency:
+  group: diem-v2-durable-writes
+  cancel-in-progress: false
+
+jobs:
+  run-diem:
+    if: vars.DIEM_PIPELINE_ENABLED == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    env:
+      PIPELINE_VERSION: v2
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      GROQ_PRIMARY_MODEL: openai/gpt-oss-120b
+      GROQ_FALLBACK_MODEL: qwen/qwen3.6-27b
+      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+      UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      INSTAGRAM_TOKEN_ENCRYPTION_KEY: ${{ secrets.INSTAGRAM_TOKEN_ENCRYPTION_KEY }}
+      INSTAGRAM_USER_ID: ${{ vars.INSTAGRAM_USER_ID }}
+      INSTAGRAM_USERNAME: ${{ vars.INSTAGRAM_USERNAME || 'diem.magazine' }}
+      INSTAGRAM_API_VERSION: v23.0
+      GITHUB_TOKEN: ${{ github.token }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
+      GITHUB_RUN_ID: ${{ github.run_id }}
+      GITHUB_SHA: ${{ github.sha }}
+      PUBLISH_INSTAGRAM: ${{ github.event_name == 'schedule' || inputs.publish_instagram }}
+      PUBLICATIONS_ROOT: ./data/publications
+      EDITORIAL_HISTORY_FILE: ./data/editorial-history.json
+      MAX_HISTORY_DAYS: '7'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-v2.txt
+
+      - name: Cache multilingual embedding model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: diem-minilm-${{ runner.os }}-${{ hashFiles('requirements-v2.txt', 'scripts/topic_similarity.py') }}
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          python -m pip install -r requirements-v2.txt
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Resolve phase
+        id: phase
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_PHASE: ${{ inputs.phase }}
+        run: |
+          if [ "$EVENT_NAME" = "schedule" ] && [ "$EVENT_SCHEDULE" = "30 9 * * *" ]; then
+            echo "value=economy" >> "$GITHUB_OUTPUT"
+            echo "plan=true" >> "$GITHUB_OUTPUT"
+          elif [ "$EVENT_NAME" = "schedule" ]; then
+            echo "value=issue" >> "$GITHUB_OUTPUT"
+            echo "plan=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$MANUAL_PHASE" >> "$GITHUB_OUTPUT"
+            if [ "$MANUAL_PHASE" = "plan" ]; then
+              echo "plan=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "plan=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Validate topic similarity calibration
+        if: steps.phase.outputs.plan == 'true'
+        run: npm run diem:similarity
+
+      - name: Plan and freeze today's two-item queue
+        if: steps.phase.outputs.plan == 'true'
+        run: npm run diem:plan
+
+      - name: Commit planned queue
+        if: steps.phase.outputs.plan == 'true'
+        run: bash scripts/commit-diem-state.sh "Freeze DIEM daily editorial queue before generation"
+
+      - name: Prepare economy Reel
+        if: steps.phase.outputs.value == 'economy'
+        run: node src/v2/index.js prepare --category economy
+
+      - name: Commit ready economy state
+        if: steps.phase.outputs.value == 'economy'
+        run: bash scripts/commit-diem-state.sh "Preserve DIEM economy Reel before external publishing"
+
+      - name: Publish economy Reel
+        if: steps.phase.outputs.value == 'economy'
+        run: node src/v2/index.js publish --category economy
+
+      - name: Commit economy publication result
+        if: steps.phase.outputs.value == 'economy'
+        run: bash scripts/commit-diem-state.sh "Record DIEM economy publication identity and recovery state"
+
+      - name: Prepare issue Reel
+        if: steps.phase.outputs.value == 'issue'
+        run: node src/v2/index.js prepare --category issue
+
+      - name: Commit ready issue state
+        if: steps.phase.outputs.value == 'issue'
+        run: bash scripts/commit-diem-state.sh "Preserve DIEM issue Reel before external publishing"
+
+      - name: Publish issue Reel
+        if: steps.phase.outputs.value == 'issue'
+        run: node src/v2/index.js publish --category issue
+
+      - name: Commit issue publication result
+        if: steps.phase.outputs.value == 'issue'
+        run: bash scripts/commit-diem-state.sh "Record DIEM issue publication identity and recovery state"
+
+      - name: Retry all unfinished steps
+        if: steps.phase.outputs.value == 'retry-all'
+        run: node src/v2/index.js retry
+
+      - name: Commit retry results
+        if: steps.phase.outputs.value == 'retry-all'
+        run: bash scripts/commit-diem-state.sh "Recover unfinished DIEM publication steps without duplication"

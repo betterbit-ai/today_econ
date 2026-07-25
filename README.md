@@ -1,120 +1,65 @@
-# 오늘경제 (Today's Economy) 📈
+# DIEM — Daily Issue & Economy Magazine
 
-`@today.econ`은 “오늘 가장 중요한 경제 뉴스 하나를, 내 돈에 미치는 영향과 지금 확인할 것까지 1분 안에 설명한다”는 약속으로 운영되는 자동 경제 미디어입니다. 매일경제 RSS에서 기사를 고르고, 근거가 확인된 3장 카드와 저장 가능한 캡션을 만든 뒤 Slack 전달과 Instagram 게시까지 GitHub Actions에서 수행합니다.
+DIEM은 재테크 초보자가 오늘의 경제 뉴스 1건과 시사 뉴스 1건을 짧게
+이해할 수 있도록 매일 두 편의 7초 Instagram Reel을 만드는 데일리
+매거진 파이프라인입니다.
 
-- **편집**: 대출·주거·소득·세금·투자 영향, 실행 가능성, 시의성, 저장 가치를 기준으로 15개 후보를 평가하고 최근 7일 중복을 피합니다.
-- **콘텐츠**: 오늘의 돈 신호 고정 포맷으로 가장 강한 숫자의 표지 → 검증된 사실 2개 → 독자 영향 2개와 오늘 확인할 행동 1개로 이어지는 3장 구조입니다.
-- **품질 게이트와 복구**: 사실 정확성뿐 아니라 중요한 뉴스인지, 표지에서 핵심이 보이는지, 한 화면에서 쉽게 읽히는지를 별도로 검사합니다. 범용 문구로 품질을 낮추지 않으며 선택한 기사로 고유한 설명을 만들 수 없으면 다음 후보 기사로 이동합니다.
-- **디자인**: Instagram 피드 캐러셀 권장 비율인 4:5(1080×1350), Pretendard, 주제별 골드·블루·퍼플 에디토리얼 색상과 카드 진행 번호를 사용합니다. 민감한 경제 기사에는 관련 없는 인물 AI 이미지 대신 대출·주거·투자 메커니즘을 보여주는 결정론적 배경을 사용합니다.
-- **자동화**: 같은 Actions 실행 안에서 1회 실패하면 저장된 실패 힌트를 반영해 자동 재시도합니다. 한 실행에서 릴스와 이미지 캐러셀을 각각 게시하고, 형식별 성공 상태를 저장해 재실행 시 빠진 형식만 복구합니다. 임시 GitHub prerelease는 Instagram 수집 뒤 정리합니다.
-- **성장 측정**: 게시 후 24시간·72시간·7일에 릴스와 캐러셀의 도달, 조회, 좋아요, 댓글, 저장, 공유, 참여율을 따로 수집하고 Slack 주간 리포트로 다음 훅 실험을 제안합니다.
-- **대원칙**: 중요한 경제 소식을 놓치지 않게 하고, 읽는 즉시 이해되게 합니다. 세부 편집 규칙은 [`docs/today-econ-editorial-principles.md`](docs/today-econ-editorial-principles.md)에 고정해 두었습니다.
+- 채널: `@diem.magazine` (`diem_magazine`은 사용자 이름 폴백)
+- 소개: `하루 두 번, 돈과 세상을 이해하는 가장 짧은 방법. 경제 1개,
+  시사 1개를 쉽고 정확하게 전합니다.`
+- 발행: 18:30 KST 경제, 21:00 KST 시사
+- 저장: 별도 DB 없이 GitHub 일일 원장과 파생 인덱스
+- 원칙: 인기 순서를 따르되 독립 교차 검증·7일 중복·권리·형식 게이트를
+  통과하지 못하면 억지로 발행하지 않습니다.
 
----
+제품 방향은 [`spec/mission.md`](spec/mission.md), 실행 계약과 수용 기준은
+[`spec/spec.md`](spec/spec.md), 실제 설정·전환 절차는
+[`docs/diem-v2-operations.md`](docs/diem-v2-operations.md)에 있습니다.
 
-## 🛠️ 기능 아키텍처
+## V2 흐름
 
-1. **뉴스 수집**: 매일경제 경제 RSS를 최대 15개 후보로 정제합니다.
-2. **뉴스 선정**: Groq의 `llama-3.3-70b-versatile`을 사용하고 실패 시 `llama-3.1-8b-instant`로 재시도합니다.
-3. **원고 생성**: NFC 정규화와 JSON 모드로 카드 원고·짧은 훅형 캡션·성과 분류 메타데이터를 만듭니다.
-4. **렌더링**: 주제별 결정론적 금융 배경과 Playwright로 `slide_1.png`~`slide_3.png`를 생성하고 실제 줄 수와 오버플로를 검사합니다.
-5. **게시**: 카드 3장을 역할별 읽기 시간과 오디오가 포함된 9:16 릴스로 합성한 뒤, 같은 이미지로 캐러셀도 게시합니다. 이어 릴스를 독립 Instagram Story로 게시하며, 스토리는 24시간 뒤 자동 삭제됩니다.
-6. **알림·기록**: Slack에 카드·캡션·원문·릴스·캐러셀·스토리 상태를 보내고 `history.json`, `data/posts.json`에 형식별 내구성 있는 메타데이터만 저장합니다.
-7. **측정·정리**: 별도 Actions가 성과 창을 수집하고 72시간이 지난 임시 release를 삭제합니다.
+1. 네이버·다음 당일 인기 뉴스 최대 50건씩을 통합하고, 양쪽 실패 시
+   기존 RSS를 명시적 폴백으로 사용합니다.
+2. 경제·시사 후보를 분류하고 독립 기사 교차 검증과 최근 7일 주제
+   중복 판정을 통과한 최상위 1건씩을 같은 일일 큐에 고정합니다.
+3. 14자 이하 2줄 타이틀, 권리 확인 웹 이미지 또는 무사진 표지,
+   정확히 3문장인 본문과 댓글 체인을 생성합니다.
+4. 저장소에 포함된 DIEM 자체 제작 음원 6곡 중 분야별 1곡을 골라
+   1080×1920 H.264/AAC 단일 표지 Reel을 만듭니다.
+5. Reel·첫 댓글·해시태그 대댓글을 독립 상태로 발행하고 재실행 전에
+   Instagram과 조정하여 중복을 막습니다.
 
----
+## 로컬 실행
 
-## 🔑 API 키 및 슬랙 토큰 발급 가이드
-
-### 1. Groq API Key 발급 (무료)
-1. [Groq Console](https://console.groq.com/)에 접속하여 가입합니다.
-2. 왼쪽 메뉴에서 **API Keys**를 클릭합니다.
-3. **Create API Key** 버튼을 눌러 키를 생성하고 복사합니다 (이름 예: `today-economy-key`).
-4. 발급된 키(`gsk_...`)를 안전한 곳에 저장합니다.
-
-### 2. Hugging Face Access Token 발급 (무료)
-1. [Hugging Face](https://huggingface.co/)에 가입 및 로그인합니다.
-2. 우측 상단 프로필 이미지 클릭 ➡️ **Settings** ➡️ **Access Tokens** 메뉴로 이동합니다.
-3. **New token** 버튼을 누릅니다.
-4. Token Name을 입력하고, Type을 **Read**로 설정한 후 **Generate a token**을 클릭합니다.
-5. 생성된 토큰(`hf_...`)을 복사하여 저장합니다.
-
-### 3. Slack Bot 토큰 및 채널 설정 (무료)
-1. [Slack API - Your Apps](https://api.slack.com/apps)에 접속합니다.
-2. **Create New App** ➡️ **From scratch**를 선택합니다.
-   - App Name: `오늘경제봇` (원하는 이름)
-   - Development Slack Workspace: 사용할 워크스페이스 선택
-3. 왼쪽 메뉴에서 **OAuth & Permissions**로 이동합니다.
-4. 하단의 **Scopes** -> **Bot Token Scopes**에 다음 두 가지 권한을 추가합니다:
-   - `chat:write` (메시지 전송 권한)
-   - `files:write` (파일/이미지 업로드 권한)
-5. 페이지 상단으로 돌아와 **Install to Workspace** 버튼을 클릭하고 허용합니다.
-6. 설치 완료 후 생성된 **Bot User OAuth Token** (`xoxb-...`로 시작)을 복사합니다.
-7. **슬랙 채널 연동**:
-   - 카드 뉴스를 전송받을 슬랙 채널을 새로 생성하거나 기존 채널(예: `#오늘경제`)에 들어갑니다.
-   - 채널 대화창에 `@오늘경제봇`을 입력해 **봇을 채널에 초대**합니다 (`이 채널에 초대하기` 클릭).
-   - 채널 우클릭 ➡️ **채널 세부정보 보기** ➡️ 맨 하단의 **채널 ID**(`C0...`로 시작)를 복사합니다.
-
----
-
-## 💻 로컬 실행 방법
-
-### 1. 의존성 설치
 ```bash
-npm install
+npm ci
 npx playwright install chromium
+python3 -m pip install -r requirements-v2.txt
+
+npm run diem:similarity
+npm run diem:plan
+npm run diem:prepare -- --category economy
+node src/v2/index.js publish --category economy
 ```
 
-### 2. 환경 변수 설정
-프로젝트 루트 폴더에 `.env` 파일을 생성하고 발급받은 값을 입력합니다:
-```env
-POLLINATIONS_API_KEY=sk_...
-GROQ_API_KEY=gsk_...
-HF_TOKEN=hf_...
-SLACK_BOT_TOKEN=xoxb-...
-SLACK_CHANNEL_ID=C0...
-```
-
-### 3. 스크립트 실행
-```bash
-npm start
-```
-기본 실행은 Slack 전달만 수행합니다. Instagram 게시까지 로컬에서 시험하려면 `PUBLISH_INSTAGRAM=true`, `INSTAGRAM_ACCESS_TOKEN`, `INSTAGRAM_USER_ID`, `GITHUB_TOKEN`, `GITHUB_REPOSITORY`를 설정하세요. 실행이 완료되면 Slack에 카드·캡션·원문 링크가 도착합니다.
+`PUBLISH_INSTAGRAM=false`가 기본이므로 마지막 명령도 실제 게시하지 않고
+준비 상태를 보존합니다. 실제 게시에는 환경 변수 설정 후
+`PUBLISH_INSTAGRAM=true`를 명시해야 합니다.
 
 ```bash
 npm test
-npm run check:instagram
-npm run insights
+node .codex-harness/scripts/verify-project.mjs
 ```
 
----
+## 데이터와 롤백
 
-## 🚀 GitHub Actions 자동화 배포 가이드
+- 원장: `data/publications/YYYY/MM/YYYY-MM-DD.json`
+- 재생성 가능한 7일 인덱스: `data/editorial-history.json`
+- 임시 렌더·다운로드: `.diem-cache/` (Git 제외)
+- 프로필: `assets/brand/diem-profile.png`
+- 자체 음원: `assets/audio/diem/`
 
-매일 아침 컴퓨터를 켜지 않아도 지정된 시간에 슬랙으로 카드 뉴스가 배달되도록 설정합니다.
-
-1. **GitHub 리포지토리 생성**: 이 프로젝트의 모든 파일(package.json, src/, .github/ 등)을 본인의 GitHub public/private 저장소에 올립니다.
-2. **Secrets/Variables 등록**: GitHub 저장소의 **Settings → Secrets and variables → Actions**에 다음 값을 등록합니다.
-   - `GROQ_API_KEY`: Groq API Key (`gsk_...`)
-   - `POLLINATIONS_API_KEY`: 선택값
-   - `HF_TOKEN`: Hugging Face Token (`hf_...`)
-   - `SLACK_BOT_TOKEN`: Slack Bot Token (`xoxb-...`)
-   - `SLACK_CHANNEL_ID`: 슬랙 채널 ID (`C0...`)
-   - `INSTAGRAM_ACCESS_TOKEN`: Meta Instagram API setup에서 발급한 토큰
-   - `INSTAGRAM_TOKEN_ENCRYPTION_KEY`: 32바이트 base64 키(토큰 회전용)
-   - `INSTAGRAM_USER_ID`: Instagram API setup에 표시된 사용자 ID (Actions **Secret** 또는 Variable)
-3. **동작 확인**:
-   - GitHub 저장소의 **Actions** 탭으로 이동합니다.
-   - 왼쪽 메뉴에서 **Daily Economic Card News Creator** 워크플로우를 선택합니다.
-   - `Instagram Connection Check`를 먼저 실행해 `@today.econ` 토큰을 게시 없이 확인합니다.
-   - `Daily Economic Card News Creator`의 수동 실행은 기본적으로 Slack만 사용합니다. `publish_instagram=true`를 선택하면 실제 게시합니다.
-   - 예약 실행은 한국 시간 07:45와 19:45에 생성·게시합니다.
-   - `Instagram Growth Measurement`는 6시간마다 24시간·72시간·7일 창을 수집합니다.
-   - `Instagram Token Rotation`은 장기 토큰을 갱신해 저장소에는 AES-256-GCM 암호문만 커밋합니다.
-
-## 🔐 보안 원칙
-
-- Instagram 아이디·비밀번호는 코드나 GitHub에 저장하지 않습니다. OAuth 액세스 토큰만 사용합니다.
-- 토큰은 로그·Slack·커밋에 출력하지 않습니다.
-- GitHub 공개 저장소에는 임시 이미지와 암호화된 토큰 ciphertext만 남고, 복호화 키는 Actions Secret에만 둡니다.
-- Meta 앱이 개발 모드인 동안에는 앱 역할에 등록하고 Instagram 테스터 초대를 수락한 `today.econ`만 연결할 수 있습니다.
+V2 예약은 저장소 변수 `DIEM_PIPELINE_ENABLED=true`일 때만 동작합니다.
+전환 전에는 false로 두고 수동 dry-run을 수행합니다. 기존 V1 코드는
+보존되어 있으며, `.github/workflows/daily_news.yml`은 예약 없이 수동
+롤백 용도로만 남아 있습니다.

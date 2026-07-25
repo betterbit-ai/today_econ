@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "installedMode": "global",
+  "verification": {
+    "commands": [
+      {
+        "name": "test",
+        "command": "npm run test"
+      },
+      {
+        "name": "diff-check",
+        "command": "git diff --check"
+      }
+    ]
+  },
+  "coverage": {
+    "roots": [
+      "lib",
+      "server",
+      "core",
+      "domain",
+      "src"
+    ],
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".mjs",
+      ".cjs",
+      ".ts",
+      ".tsx",
+      ".py",
+      ".rs",
+      ".go"
+    ]
+  }
+}

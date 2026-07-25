@@ -16,8 +16,8 @@ async function checkInstagramConnection({ fetchImpl = fetch, bootstrap = false }
   if (config.instagramUserId && returnedId !== String(config.instagramUserId)) {
     throw new Error(`[Instagram Check] Connected account ID ${returnedId} does not match INSTAGRAM_USER_ID.`);
   }
-  if (profile.username !== 'today.econ') {
-    throw new Error(`[Instagram Check] Expected today.econ but token belongs to ${profile.username}.`);
+  if (config.instagramUsername && profile.username !== config.instagramUsername) {
+    throw new Error(`[Instagram Check] Expected ${config.instagramUsername} but token belongs to ${profile.username}.`);
   }
   if (config.publishInstagramStory && String(profile.account_type || '').toUpperCase() !== 'BUSINESS') {
     throw new Error('[Instagram Check] Automatic Story publishing requires an Instagram Business account.');
@@ -26,7 +26,7 @@ async function checkInstagramConnection({ fetchImpl = fetch, bootstrap = false }
     writeEncryptedToken(token);
     console.log('[Instagram Check] Encrypted token vault initialized.');
   }
-  console.log(`[Instagram Check] Connected to @${profile.username} (${profile.account_type || 'professional'}, ${profile.media_count ?? '?'} posts).`);
+  console.log(`[Instagram Check] Connected to @${profile.username} (${returnedId}; ${profile.account_type || 'professional'}, ${profile.media_count ?? '?'} posts).`);
   return profile;
 }
 

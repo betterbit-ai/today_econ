@@ -103,3 +103,39 @@ graph TD
 4. **문장형 서술과 가독성 유지**: 짧은 명사형 축약으로 문맥이 유실되는 것보다, 서술형(문장형)으로 충분한 정보를 전달하는 것을 우선시하십시오. CSS에서 텍스트 짤림(`line-clamp`) 처리를 하지 않으므로 텍스트가 다소 길어도 괜찮습니다.
 5. **마지막 카드(Action)의 템플릿**: 무리한 행동 지침(Action Item)으로만 채우지 마십시오. "동향/예측 2개 + 가벼운 액션 아이템 1개"의 구성을 기본으로 합니다. 뱃지 색상 수정 시 쌩뚱맞은 색깔이 아닌 기존 테마 톤앤매너 내에서 선택하십시오.
 6. **기사 선정 시 투자 우선**: `selector.js`에서 AI가 기사를 고를 때, 항상 주식/부동산/예적금 등 '직접 투자' 관련 기사를 가장 우선적으로 큐레이션 하도록 강제하십시오.
+
+<!-- CODEX-PROJECT-HARNESS:START -->
+## Codex Project Harness
+
+### Lifecycle
+
+- Define or update `spec/mission.md` with `$harness-interview` before major
+  product-direction work.
+- Define the active feature in `spec/spec.md` with `$harness-spec` before
+  implementation.
+- Implement only the approved scope with `$harness-implement`.
+- Run `$harness-verify`, then `$harness-review`, before
+  `$harness-ship`.
+- Use `$harness-help` when the next step is unclear.
+
+### Working agreements
+
+- Read active decisions and relevant learnings before changing related code.
+- Keep changes small, reviewable, and reversible.
+- Preserve existing behavior with regression tests before risky refactors.
+- Do not claim completion until the configured checks pass.
+- Record reusable debugging lessons in `learnings/` and material choices in
+  `decisions/`.
+- Prefer the simplest design that satisfies the current spec.
+
+### Verification commands
+
+Run through `node .codex-harness/scripts/verify-project.mjs`:
+  - `npm run test`
+  - `git diff --check`
+
+### Completion evidence
+
+Final reports must state changed files, checks run and results, known gaps, and
+remaining risks.
+<!-- CODEX-PROJECT-HARNESS:END -->

@@ -1,13 +1,10 @@
-name: Daily Economic Card News Creator
+name: Legacy V1 Economic Card News Creator
 
 on:
-  schedule:
-    # Runs twice a day: 22:45 UTC (7:45 AM KST) and 10:45 UTC (7:45 PM KST) to avoid GitHub Actions peak delays
-    - cron: '45 10,22 * * *'
   workflow_dispatch:
     inputs:
       publish_instagram:
-        description: 'Publish the generated Reel, carousel, and Story to Instagram (uncheck for Slack-only test)'
+        description: 'Legacy rollback only: publish the V1 Reel, carousel, and Story'
         required: true
         default: true
         type: boolean
