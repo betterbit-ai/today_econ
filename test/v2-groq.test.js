@@ -36,7 +36,7 @@ test('does not sleep through a daily-quota retry window or switch to a paid tier
   error.headers = new Map([['retry-after', '7200']]);
   const client = { chat: { completions: { create: async () => { throw error; } } } };
   const call = createGroqCaller({ client, sleep: async () => { slept = true; } });
-  await assert.rejects(call({ model: 'qwen/qwen3.6-27b' }), /tokens per day/);
+  await assert.rejects(call({ model: 'openai/gpt-oss-20b' }), /tokens per day/);
   assert.equal(slept, false);
   assert.equal(retryAfterMs(error), 7_200_000);
 });

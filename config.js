@@ -5,7 +5,7 @@ module.exports = {
   pipelineVersion: process.env.PIPELINE_VERSION || 'v1',
   groqApiKey: process.env.GROQ_API_KEY,
   groqPrimaryModel: process.env.GROQ_PRIMARY_MODEL || 'openai/gpt-oss-120b',
-  groqFallbackModel: process.env.GROQ_FALLBACK_MODEL || 'qwen/qwen3.6-27b',
+  groqFallbackModel: process.env.GROQ_FALLBACK_MODEL || 'openai/gpt-oss-20b',
   hfToken: process.env.HF_TOKEN,
   pollinationsApiKey: process.env.POLLINATIONS_API_KEY,
   pexelsApiKey: process.env.PEXELS_API_KEY,
