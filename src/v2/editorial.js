@@ -14,7 +14,7 @@ const { isSensitiveTopic } = require('./topic');
 
 const DEFAULT_MODELS = Object.freeze({
   primary: 'openai/gpt-oss-120b',
-  fallback: 'qwen/qwen3.6-27b',
+  fallback: 'openai/gpt-oss-20b',
 });
 
 const SENTENCE_ENDING = /[.!?。！？]$/u;
@@ -307,12 +307,18 @@ function normalizeModelCandidates(values = []) {
 function modelPrompt(article) {
   return {
     systemPrompt: [
-      'DIEM 경제·시사 매거진의 편집자다.',
-      '제공된 근거 밖의 사실·전망·생활 영향을 만들지 않는다.',
-      'titleCandidates는 정확히 5개이며 각 title은 줄바꿈 하나를 포함한 정확히 2줄, 공백 포함 총 14 grapheme 이하다.',
-      'sentences는 정확히 3개다. 각 문장은 120 grapheme 이하이고 문장 내부 줄바꿈, URL, 해시태그, 이모지를 넣지 않는다.',
-      '1문장은 사건, 2문장은 핵심 사실, 3문장은 근거에 명시된 배경·전망·의미 또는 다음 중요 사실이다.',
-      'JSON만 응답한다: {"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100} x5],"selectedTitleIndex":0,"sentences":["","",""],"topicTags":[""]}',
+      'DIEM 경제·시사 매거진의 수석 에디터다.',
+      '[규칙]',
+      '1. 인스타그램 릴스 시청자가 바로 이해할 수 있도록 쉽고 매끄러운 문장으로 작성하라.',
+      '2. 기사 원문에 포함된 사진/이미지 묘사(예: \'건배하고 있다\', \'오른쪽부터 ~\')나 언론사 이름(연합뉴스, 뉴시스 등), 기자 이름은 절대 포함하지 마라.',
+      '3. titleCandidates는 시청자의 이목을 끄는 직관적인 훅(Hook) 형태여야 한다. 단순 키워드 나열(예: \'대통령 젠슨 24일 흐름정리\')은 절대 금지한다. 각 title은 줄바꿈(\'\\n\') 하나를 포함한 정확히 2줄, 공백 포함 14자 이하여야 한다.',
+      '4. sentences는 정확히 3개다. 각 문장은 120자 이하로 작성하며 서술어는 \'~다\', \'~요\' 등 자연스러운 문장 형태로 끝맺는다.',
+      '   - 1문장: 사건의 핵심 요약 및 훅',
+      '   - 2문장: 구체적인 사실, 수치 또는 전개',
+      '   - 3문장: 배경, 전망, 또는 시청자에게 미치는 영향',
+      '5. 문장 내용에 어울리는 이모지 2개를 생성하라 (first는 1문장 끝, third는 3문장 끝에 어울림). 문장 내부에는 이모지를 넣지 않는다.',
+      '6. 제공된 기사 외의 사실을 날조하지 않는다.',
+      '7. 오직 JSON 형식으로만 응답한다: {"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}],"selectedTitleIndex":0,"sentences":["1문장","2문장","3문장"],"emojis":{"first":"🔥","third":"📉"},"topicTags":["#해시태그"]}'
     ].join('\n'),
     userPrompt: JSON.stringify({
       category: article.category,
@@ -360,6 +366,7 @@ async function generateEditorial(article = {}, {
         titleCandidates: candidates,
         selectedTitleIndex: Number.isInteger(parsed.selectedTitleIndex) ? parsed.selectedTitleIndex : 0,
         sentenceDrafts: parsed.sentences,
+        emojis: (parsed.emojis && parsed.emojis.first && parsed.emojis.third) ? parsed.emojis : undefined,
         handle,
         generation: { method: 'model', model, attempts },
       });
