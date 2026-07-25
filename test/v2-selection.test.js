@@ -6,6 +6,8 @@ const test = require('node:test');
 const { verifyCoreClaims, isLikelySyndicatedCopy } = require('../src/v2/fact-verifier');
 const { scoreImageCandidate, selectLicensedImage } = require('../src/v2/image-selector');
 const {
+  decodeResponseBody,
+  detectCharset,
   mergePopularCandidates,
   normalizeRank,
   parseDaumRanking,
@@ -119,4 +121,36 @@ test('ships 30 labeled Korean article pairs for live embedding calibration', () 
   assert.equal(dataset.length, 30);
   assert.equal(dataset.filter(pair => pair.expectedDuplicate).length, 15);
   assert.equal(dataset.filter(pair => !pair.expectedDuplicate).length, 15);
+});
+
+test('detectCharset extracts charset from Content-Type header values', () => {
+  assert.equal(detectCharset('text/html;charset=EUC-KR'), 'euc-kr');
+  assert.equal(detectCharset('text/html; charset=utf-8'), 'utf-8');
+  assert.equal(detectCharset('text/html'), '');
+  assert.equal(detectCharset(''), '');
+  assert.equal(detectCharset('text/html; charset="euc-kr"'), 'euc-kr');
+});
+
+test('decodeResponseBody correctly decodes EUC-KR encoded Korean text', async () => {
+  const encoder = new TextEncoder();
+  // "한국은행" in EUC-KR: 0xC7 0xD1 0xB1 0xB9 0xC0 0xBA 0xC7 0xE0
+  const eucKrBytes = new Uint8Array([0xC7, 0xD1, 0xB1, 0xB9, 0xC0, 0xBA, 0xC7, 0xE0]);
+  const eucKrResponse = {
+    headers: new Map([['content-type', 'text/html;charset=EUC-KR']]),
+    arrayBuffer: async () => eucKrBytes.buffer,
+    text: async () => new TextDecoder('utf-8').decode(eucKrBytes),
+  };
+  // Patch headers.get
+  eucKrResponse.headers.get = (key) => eucKrResponse.headers.get(key);
+  const fakeHeaders = { get: (key) => key === 'content-type' ? 'text/html;charset=EUC-KR' : null };
+  const result = await decodeResponseBody({ headers: fakeHeaders, arrayBuffer: async () => eucKrBytes.buffer });
+  assert.equal(result, '한국은행');
+
+  // UTF-8 path uses response.text()
+  const utf8Response = {
+    headers: { get: () => 'text/html; charset=utf-8' },
+    text: async () => '한국은행 기준금리',
+  };
+  const utf8Result = await decodeResponseBody(utf8Response);
+  assert.equal(utf8Result, '한국은행 기준금리');
 });

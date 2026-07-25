@@ -140,6 +140,21 @@ function mergePopularCandidates(portalResults = {}) {
     .sort((a, b) => b.popularityScore - a.popularityScore);
 }
 
+function detectCharset(contentType = '') {
+  const match = contentType.match(/charset\s*=\s*([^\s;]+)/i);
+  if (!match) return '';
+  return match[1].trim().toLowerCase().replace(/^["']|["']$/g, '');
+}
+
+async function decodeResponseBody(response) {
+  const charset = detectCharset(response.headers.get('content-type') || '');
+  if (!charset || charset === 'utf-8' || charset === 'utf8') {
+    return response.text();
+  }
+  const buffer = await response.arrayBuffer();
+  return new TextDecoder(charset).decode(buffer);
+}
+
 async function fetchHtml(url, { fetchImpl = fetch, timeoutMs = 10000 } = {}) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -152,7 +167,7 @@ async function fetchHtml(url, { fetchImpl = fetch, timeoutMs = 10000 } = {}) {
       },
     });
     if (!response.ok) throw new Error(`${response.status} ${response.statusText}`.trim());
-    return await response.text();
+    return await decodeResponseBody(response);
   } finally {
     clearTimeout(timeout);
   }
@@ -182,6 +197,8 @@ async function fetchPortalRankings({ date, fetchImpl = fetch } = {}) {
 module.exports = {
   PORTAL_URLS,
   canonicalUrl,
+  decodeResponseBody,
+  detectCharset,
   fetchPortalRankings,
   mergePopularCandidates,
   normalizeRank,
