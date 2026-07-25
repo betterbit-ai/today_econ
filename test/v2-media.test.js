@@ -20,50 +20,47 @@ const {
   createDiemReelWithMusic,
 } = require('../src/v2/reel');
 
-test('ships three verified original tracks for each DIEM category', () => {
+test('ships verified original tracks for each mood category', () => {
   const manifest = loadMusicManifest();
-  assert.equal(manifest.source, 'original-procedural');
-  assert.equal(manifest.durationSeconds, 7);
-  assert.equal(manifest.sampleRate, 48000);
-  for (const category of ['economy', 'issue']) {
-    const tracks = manifest.tracks.filter(track => track.category === category);
-    assert.equal(tracks.length, 3);
-    assert.equal(new Set(tracks.map(track => track.id)).size, 3);
-    tracks.forEach(track => {
-      assert.match(track.sha256, /^[a-f0-9]{64}$/);
-      assert.equal(verifyTrackAsset(track).ok, true);
-    });
-  }
+  const brightTracks = manifest.tracks.filter(track => track.mood === 'bright');
+  const seriousTracks = manifest.tracks.filter(track => track.mood === 'serious');
+
+  assert.equal(brightTracks.length, 3);
+  assert.equal(seriousTracks.length, 4);
+  assert.equal(new Set(brightTracks.map(track => track.id)).size, 3);
+
+  manifest.tracks.forEach(track => {
+    assert.match(track.sha256, /^[a-f0-9]{64}$/);
+    assert.equal(verifyTrackAsset(track).ok, true);
+  });
   assert.equal(fs.existsSync(path.join(DEFAULT_AUDIO_ROOT, 'LICENSE.md')), true);
 });
 
 test('rotates the least-used track and excludes the previous track', () => {
   const manifest = loadMusicManifest();
   const history = [
-    { category: 'economy', audioTrackId: 'economy-steady' },
-    { category: 'economy', audioTrackId: 'economy-bright' },
-    { category: 'economy', audioTrackId: 'economy-steady' },
+    { mood: 'bright', audioTrackId: 'bright2' },
+    { mood: 'bright', audioTrackId: 'bright1' },
+    { mood: 'bright', audioTrackId: 'bright2' },
   ];
   const ranked = rankMusicTracks({
-    category: 'economy',
     history,
-    previousTrackId: 'economy-bright',
-    mood: 'tech',
+    previousTrackId: 'bright1',
+    mood: 'bright',
     publicationKey: 'diem:2026-07-25:economy',
     manifest,
   });
-  assert.equal(ranked[0].id, 'economy-tech');
-  assert.ok(ranked.every(track => track.id !== 'economy-bright'));
+  assert.equal(ranked[0].id, 'bright3');
+  assert.ok(ranked.every(track => track.id !== 'bright1'));
 
   const selection = selectMusic({
-    category: 'economy',
     history,
-    previousTrackId: 'economy-bright',
-    mood: 'tech',
+    previousTrackId: 'bright1',
+    mood: 'bright',
     publicationKey: 'diem:2026-07-25:economy',
     manifest,
   });
-  assert.equal(selection.trackId, 'economy-tech');
+  assert.equal(selection.trackId, 'bright3');
   assert.equal(selection.candidates.length, 2);
   assert.match(selection.sha256, /^[a-f0-9]{64}$/);
 });

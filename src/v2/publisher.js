@@ -16,7 +16,7 @@ const {
   replyToComment,
 } = require('./instagram');
 const { updatePublication } = require('./ledger');
-const { selectMusic } = require('./music');
+const { selectMusic, getMood } = require('./music');
 const { createDiemReelWithMusic } = require('./reel');
 const { renderDiemCover } = require('./cover');
 const { isSensitiveTopic } = require('./topic');
@@ -103,7 +103,15 @@ async function preparePublication(ledger, category, {
     outputPath: coverPath,
   });
 
-  const music = null; // Local BGM disabled – use Instagram music search API at publish time instead
+  const articleText = `${article.title} ${article.summary} ${article.fullText}`;
+  const mood = getMood(articleText);
+
+  const music = selectMusicImpl({
+    history,
+    publicationKey: publication.publicationKey,
+    topic: article,
+    mood,
+  });
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,

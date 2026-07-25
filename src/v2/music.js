@@ -27,11 +27,6 @@ function loadMusicManifest({
   if (manifest.schemaVersion !== 1 || !Array.isArray(manifest.tracks)) {
     throw new Error('[DIEM Music] Invalid manifest.');
   }
-  for (const category of Object.values(CATEGORIES)) {
-    if (manifest.tracks.filter(track => track.category === category).length !== 3) {
-      throw new Error(`[DIEM Music] ${category} must have exactly three tracks.`);
-    }
-  }
   return manifest;
 }
 
@@ -62,6 +57,14 @@ function isSensitiveTopic(input = {}) {
   return SENSITIVE_TERMS.some(term => String(text).includes(term));
 }
 
+function getMood(text) {
+  const brightKeywords = /(상승|최고|호조|흑자|회복|기대|성공|합의|지원|완화|급등|돌파|잭팟|수혜|혁신|통과)/u;
+  const seriousKeywords = /(하락|최저|부진|적자|침체|위기|실패|결렬|규제|제재|급락|붕괴|재난|참사|사망|희생|경고|우려|타격|피해)/u;
+  if (brightKeywords.test(text)) return 'bright';
+  if (seriousKeywords.test(text)) return 'serious';
+  return 'serious'; // default to serious for economy/news if ambiguous
+}
+
 function historyTrackId(entry) {
   return entry?.audioTrackId || entry?.trackId || entry?.audio?.trackId || null;
 }
@@ -72,36 +75,34 @@ function stableNumber(value) {
 }
 
 function rankMusicTracks({
-  category,
   history = [],
   previousTrackId,
   mood,
   publicationKey = '',
   manifest = loadMusicManifest(),
 } = {}) {
-  if (!Object.values(CATEGORIES).includes(category)) {
-    throw new Error(`[DIEM Music] Invalid category: ${category}`);
-  }
-  const categoryTracks = manifest.tracks.filter(track => track.category === category);
-  const categoryHistory = history.filter(entry => !entry?.category || entry.category === category);
-  const lastTrackId = previousTrackId || historyTrackId(categoryHistory.at(-1));
-  const useCounts = new Map(categoryTracks.map(track => [track.id, 0]));
-  for (const entry of categoryHistory) {
+  const moodTracks = mood ? manifest.tracks.filter(track => track.mood === mood) : manifest.tracks;
+  const poolTracks = moodTracks.length > 0 ? moodTracks : manifest.tracks;
+
+  const historyTracks = history.filter(entry => !mood || entry.mood === mood);
+  const lastTrackId = previousTrackId || historyTrackId(historyTracks.at(-1));
+
+  const useCounts = new Map(poolTracks.map(track => [track.id, 0]));
+  for (const entry of historyTracks) {
     const trackId = historyTrackId(entry);
     if (useCounts.has(trackId)) useCounts.set(trackId, useCounts.get(trackId) + 1);
   }
-  const eligible = categoryTracks.filter(track => track.id !== lastTrackId);
-  const pool = eligible.length ? eligible : categoryTracks;
+
+  const eligible = poolTracks.filter(track => track.id !== lastTrackId);
+  const pool = eligible.length ? eligible : poolTracks;
   return pool
     .map(track => ({
       ...track,
       useCount: useCounts.get(track.id) || 0,
-      moodMatch: mood && track.mood === mood ? 1 : 0,
       tieBreaker: stableNumber(`${publicationKey}:${track.id}`),
     }))
     .sort((left, right) => (
       left.useCount - right.useCount ||
-      right.moodMatch - left.moodMatch ||
       left.tieBreaker - right.tieBreaker ||
       left.id.localeCompare(right.id)
     ));
@@ -130,7 +131,6 @@ function selectMusic({
   }
 
   const ranked = rankMusicTracks({
-    category,
     history,
     previousTrackId,
     mood,
@@ -187,6 +187,7 @@ module.exports = {
   DEFAULT_AUDIO_ROOT,
   SENSITIVE_TERMS,
   isSensitiveTopic,
+  getMood,
   loadMusicManifest,
   rankMusicTracks,
   selectMusic,
