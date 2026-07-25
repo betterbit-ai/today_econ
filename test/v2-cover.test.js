@@ -23,7 +23,8 @@ test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () =
   });
 
   assert.match(html, /width: 1080px; height: 1920px/u);
-  assert.match(html, /2026\.07\.25 · ECONOMY/u);
+  assert.match(html, /2026\.07\.25 \| Economy/u);
+  assert.match(html, /@diem\.magazine/u);
   assert.equal((html.match(/data-title-line=/g) || []).length, 2);
   assert.match(html, new RegExp(`--diem-blue: ${BRAND.colors.blue}`, 'u'));
   assert.match(html, new RegExp(`--diem-white: ${BRAND.colors.white}`, 'u'));
@@ -34,8 +35,8 @@ test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () =
 });
 
 test('uses the exact category labels and rejects invalid date or category values', () => {
-  assert.equal(coverMeta('2026.07.25', CATEGORIES.ECONOMY), '2026.07.25 · ECONOMY');
-  assert.equal(coverMeta('2026-07-25', CATEGORIES.ISSUE), '2026.07.25 · ISSUE');
+  assert.equal(coverMeta('2026.07.25', CATEGORIES.ECONOMY), '2026.07.25 | Economy');
+  assert.equal(coverMeta('2026-07-25', CATEGORIES.ISSUE), '2026.07.25 | Issue');
   assert.throws(() => coverMeta('2026.7.25', CATEGORIES.ECONOMY), /date/u);
   assert.throws(() => coverMeta('2026-07-25', 'sports'), /category/u);
 });

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../../config');
 const { cleanupExpiredReleases, createTemporaryRelease } = require('../github-assets');
-const { publishReel } = require('../instagram');
+const { publishReel, publishStory } = require('../instagram');
 const { generateEditorial } = require('./editorial');
 const { createGroqCaller } = require('./groq');
 const { downloadSelectedImage, selectLicensedImage } = require('./image-selector');
@@ -103,13 +103,14 @@ async function preparePublication(ledger, category, {
     outputPath: coverPath,
   });
 
-  const music = selectMusicImpl({
-    category,
-    history,
-    publicationKey: publication.publicationKey,
-    topic: article,
-    sensitive: isSensitiveTopic(article),
-  });
+  // const music = selectMusicImpl({
+  //   category,
+  //   history,
+  //   publicationKey: publication.publicationKey,
+  //   topic: article,
+  //   sensitive: isSensitiveTopic(article),
+  // });
+  const music = null; // Audio disabled by user feedback
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,
@@ -265,6 +266,7 @@ async function publishPreparedPublication(ledger, category, token, {
   createReleaseImpl = createTemporaryRelease,
   reconcileReelImpl = reconcileRecentReel,
   publishReelImpl = publishReel,
+  publishStoryImpl = publishStory,
   publishCommentsImpl = publishCommentChain,
 } = {}) {
   let publication = structuredClone(ledger.publications[category]);
@@ -329,6 +331,19 @@ async function publishPreparedPublication(ledger, category, token, {
           token,
           version: config.instagramApiVersion,
         });
+
+        let storyResult = null;
+        try {
+          storyResult = await publishStoryImpl({
+            videoUrl: release.videoUrl,
+            userId: config.instagramUserId,
+            token,
+            version: config.instagramApiVersion,
+          });
+        } catch (storyError) {
+          console.error('[DIEM Publisher] Story publish failed:', storyError.message);
+        }
+
         publication.reel = {
           ...publication.reel,
           status: 'published',
@@ -339,6 +354,13 @@ async function publishPreparedPublication(ledger, category, token, {
           error: null,
           updatedAt: new Date().toISOString(),
         };
+        if (storyResult) {
+          publication.story = {
+            status: 'published',
+            externalId: String(storyResult.id),
+            updatedAt: new Date().toISOString(),
+          };
+        }
         publication.status = 'published';
       } catch (error) {
         const attempts = (publication.reel.attempts || 0) + 1;

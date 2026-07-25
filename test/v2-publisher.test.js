@@ -42,6 +42,7 @@ test('publishes only one Reel and records its external identity', async () => {
       reelCalls += 1;
       return { id: 'ig-reel', permalink: 'https://instagram.com/reel/ig-reel' };
     },
+    publishStoryImpl: async () => ({ id: 'ig-story' }),
     publishCommentsImpl: async publication => publication,
   });
   assert.equal(reelCalls, 1);
@@ -49,7 +50,8 @@ test('publishes only one Reel and records its external identity', async () => {
   assert.equal(result.publications.economy.reel.externalId, 'ig-reel');
   assert.equal(result.publications.economy.status, 'published');
   assert.equal(result.publications.economy.carousel, undefined);
-  assert.equal(result.publications.economy.story, undefined);
+  assert.equal(result.publications.economy.story.status, 'published');
+  assert.equal(result.publications.economy.story.externalId, 'ig-story');
 });
 
 test('reconciles an existing exact Reel instead of republishing', async () => {

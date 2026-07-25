@@ -11,10 +11,32 @@ const LICENSES = Object.freeze({
 });
 const WIKIMEDIA_LICENSE = /public domain|cc0|cc by(?:-sa)?(?:\s|$)/i;
 
+const KOR_TO_ENG_VISUALS = [
+  { match: /반도체|칩|웨이퍼|설계|메모리/u, english: 'semiconductor microchip processor' },
+  { match: /인공지능|AI|데이터센터|머신러닝/ui, english: 'artificial intelligence server data center' },
+  { match: /금리|환율|물가|인플레이션|디플레이션|금융|대출/u, english: 'stock market trading finance chart' },
+  { match: /부동산|주택|아파트|전세|월세/u, english: 'real estate modern apartment building' },
+  { match: /배터리|전기차|EV|이차전지/ui, english: 'electric vehicle EV battery charging' },
+  { match: /수출|수입|관세|무역|항만/u, english: 'cargo ship container port trade' },
+  { match: /소비|유통|마트|백화점|쇼핑/u, english: 'retail shopping mall consumer' },
+  { match: /의료|복지|연금|국민연금|병원|건강/u, english: 'healthcare hospital medical clinic' },
+  { match: /자동차|모빌리티|현대|기아/u, english: 'modern car automotive manufacturing' },
+  { match: /주식|증시|코스피|나스닥|주가|종목|투자/u, english: 'stock market graph finance investment' },
+  { match: /정부|정책|국회|정치|대통령|선거/u, english: 'government parliament policy law' },
+  { match: /고용|취업|일자리|노동/u, english: 'office workers business meeting career' },
+];
+
 function buildImageQueries(candidate = {}) {
-  const tokens = extractSignatureTokens(`${candidate.target || ''} ${candidate.event || ''} ${candidate.title || ''}`);
+  const sourceText = `${candidate.target || ''} ${candidate.event || ''} ${candidate.title || ''}`;
+  const tokens = extractSignatureTokens(sourceText);
   const categoryConcept = candidate.category === 'issue' ? 'Korea current affairs policy' : 'Korea economy finance';
+
+  const visualKeywords = KOR_TO_ENG_VISUALS
+    .filter(({ match }) => match.test(sourceText))
+    .map(({ english }) => english);
+
   return [...new Set([
+    ...visualKeywords,
     tokens.slice(0, 3).join(' '),
     `${tokens.slice(0, 2).join(' ')} ${candidate.event || ''}`.trim(),
     `${tokens[0] || ''} ${categoryConcept}`.trim(),
