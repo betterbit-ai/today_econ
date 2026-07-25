@@ -43,6 +43,9 @@ function applyPlan(ledger, plan) {
         candidate: result.selected,
         corroboration: result.corroboration,
         duplicateCheck: result.duplicateCheck,
+        reel: { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null },
+        comment: { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null },
+        reply: { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null },
       };
       next.updatedAt = new Date().toISOString();
       continue;
