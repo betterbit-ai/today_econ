@@ -338,15 +338,21 @@ async function publishPreparedPublication(ledger, category, token, {
         });
 
         let storyResult = null;
-        try {
-          storyResult = await publishStoryImpl({
-            videoUrl: release.videoUrl,
-            userId: config.instagramUserId,
-            token,
-            version: config.instagramApiVersion,
-          });
-        } catch (storyError) {
-          console.error('[DIEM Publisher] Story publish failed:', storyError.message);
+        if (config.publishInstagramStory) {
+          for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+              storyResult = await publishStoryImpl({
+                videoUrl: release.videoUrl,
+                userId: config.instagramUserId,
+                token,
+                version: config.instagramApiVersion,
+              });
+              break;
+            } catch (storyError) {
+              console.error(`[DIEM Publisher] Story publish failed on attempt ${attempt}:`, storyError.message);
+              if (attempt < 3) await new Promise(r => setTimeout(r, 10000));
+            }
+          }
         }
 
         publication.reel = {
