@@ -92,7 +92,7 @@ function buildCoverHtml({
     .content { position: absolute; inset: 0; padding: 140px 92px 240px; display: flex; flex-direction: column; justify-content: flex-end; }
     .meta { color: #b8c6e2; font-size: 32px; line-height: 1; font-weight: 600; letter-spacing: .12em; white-space: nowrap; margin-bottom: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
     .title { margin: 0 0 36px 0; font-size: 118px; line-height: 1.05; font-weight: 900; letter-spacing: -.035em; text-shadow: 0 4px 24px rgba(0,0,0,0.85); }
-    .title-line { display: block; width: max-content; max-width: 896px; white-space: nowrap; overflow: visible; }
+    .title-line { display: block; width: max-content; max-width: 896px; white-space: pre-wrap; word-break: keep-all; overflow: visible; }
     .title-line-1 { color: var(--diem-blue); }
     .title-line-2 { color: var(--diem-white); margin-top: 20px; }
     .brand { color: #ffffff; opacity: 0.95; font-size: 32px; font-weight: 600; letter-spacing: 0.05em; text-shadow: 0 2px 12px rgba(0,0,0,0.8); }

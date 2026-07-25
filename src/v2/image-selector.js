@@ -14,8 +14,8 @@ const WIKIMEDIA_LICENSE = /public domain|cc0|cc by(?:-sa)?(?:\s|$)/i;
 const KOR_TO_ENG_VISUALS = [
   { match: /반도체|칩|웨이퍼|설계|메모리/u, english: 'semiconductor microchip processor' },
   { match: /인공지능|AI|데이터센터|머신러닝/ui, english: 'artificial intelligence server data center' },
-  { match: /금리|환율|물가|인플레이션|디플레이션|금융|대출/u, english: 'stock market trading finance chart' },
   { match: /부동산|주택|아파트|전세|월세/u, english: 'real estate modern apartment building' },
+  { match: /금리|환율|물가|인플레이션|디플레이션|금융|대출/u, english: 'stock market trading finance chart' },
   { match: /배터리|전기차|EV|이차전지/ui, english: 'electric vehicle EV battery charging' },
   { match: /수출|수입|관세|무역|항만/u, english: 'cargo ship container port trade' },
   { match: /소비|유통|마트|백화점|쇼핑/u, english: 'retail shopping mall consumer' },

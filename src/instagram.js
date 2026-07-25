@@ -124,7 +124,7 @@ async function publishCarousel({ imageUrls, caption, userId, token, version = 'v
   return { ...media, id: published.id, containerId: carousel.id, childIds };
 }
 
-async function publishReel({ videoUrl, caption, userId, audioConfiguration, token, version = 'v23.0', shareToFeed = true, fetchImpl = fetch }) {
+async function publishReel({ videoUrl, caption, userId, token, version = 'v23.0', shareToFeed = true, fetchImpl = fetch }) {
   if (!token || !userId) throw new Error('[Instagram] Missing access token or user ID.');
   if (!videoUrl || !/^https?:\/\//i.test(videoUrl)) throw new Error('[Instagram] A Reel requires one public video URL.');
   if (!caption || caption.length > 2200) throw new Error('[Instagram] Caption must be 1-2200 characters.');
@@ -135,9 +135,6 @@ async function publishReel({ videoUrl, caption, userId, audioConfiguration, toke
     caption,
     share_to_feed: shareToFeed,
   };
-  if (audioConfiguration) {
-    params.audio_configuration = audioConfiguration;
-  }
 
   const reel = await instagramRequest({
     path: `${userId}/media`,

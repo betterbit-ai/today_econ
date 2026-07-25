@@ -318,39 +318,10 @@ async function publishPreparedPublication(ledger, category, token, {
         deleteAfter: new Date(Date.now() + 72 * 3600000).toISOString(),
       };
       try {
-        const searchQueries = ['lofi beat', 'vlog music', 'news background', 'corporate upbeat'];
-        const query = searchQueries[Math.floor(Math.random() * searchQueries.length)];
-        let audioConfiguration = undefined;
-        try {
-          console.log(`[DIEM Publisher] 🎵 Searching Instagram audio: "${query}"`);
-          const audioResults = await searchInstagramAudioImpl({
-            query,
-            userId: config.instagramUserId,
-            token,
-            version: config.instagramApiVersion,
-          });
-          console.log(`[DIEM Publisher] 🎵 Audio search returned ${audioResults?.length || 0} results`);
-          if (audioResults && audioResults.length > 0) {
-            const chosen = audioResults[0];
-            console.log(`[DIEM Publisher] 🎵 Using audio: id=${chosen.id}, name=${chosen.title || chosen.name || 'unknown'}`);
-            audioConfiguration = {
-              audio_id: String(chosen.id || chosen.ig_artist?.id),
-              audio_volume: 100,
-              video_volume: 0,
-            };
-          } else {
-            console.warn('[DIEM Publisher] ⚠️ Audio search returned no results — publishing silent Reel');
-          }
-        } catch (audioError) {
-          console.error(`[DIEM Publisher] ❌ Audio search failed: ${audioError.message}`);
-          console.error(`[DIEM Publisher] ❌ Full error: ${JSON.stringify({ status: audioError.status, body: audioError.body || audioError.message })}`);
-        }
-
         const result = await publishReelImpl({
           videoUrl: release.videoUrl,
           caption: publication.editorial.caption.text,
           userId: config.instagramUserId,
-          audioConfiguration,
           token,
           version: config.instagramApiVersion,
         });

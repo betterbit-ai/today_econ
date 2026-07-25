@@ -41,7 +41,6 @@ test('publishes only one Reel and records its external identity', async () => {
     reconcileReelImpl: async () => ({ status: 'not_found', shouldPublish: true }),
     publishReelImpl: async (params) => {
       reelCalls += 1;
-      passedAudioConfig = params.audioConfiguration;
       return { id: 'ig-reel', permalink: 'https://instagram.com/reel/ig-reel' };
     },
     publishStoryImpl: async () => ({ id: 'ig-story' }),
@@ -49,8 +48,6 @@ test('publishes only one Reel and records its external identity', async () => {
     publishCommentsImpl: async publication => publication,
   });
   assert.equal(reelCalls, 1);
-  assert.equal(passedAudioConfig.audio_id, 'mock-audio-123');
-  assert.equal(passedAudioConfig.audio_volume, 100);
   assert.equal(result.publications.economy.reel.status, 'published');
   assert.equal(result.publications.economy.reel.externalId, 'ig-reel');
   assert.equal(result.publications.economy.status, 'published');

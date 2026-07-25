@@ -3,6 +3,7 @@ const path = require('path');
 const config = require('../../config');
 const { CATEGORIES, PUBLICATION_STATES } = require('./constants');
 const { kstDate } = require('./time');
+const { saveMarkdownReport } = require('./report');
 
 function publicationKey(date, category) {
   if (!Object.values(CATEGORIES).includes(category)) throw new Error(`[DIEM Ledger] Invalid category: ${category}`);
@@ -80,6 +81,7 @@ function saveLedger(ledger, filePath = ledgerPath(ledger.date)) {
   const tempPath = `${filePath}.tmp`;
   fs.writeFileSync(tempPath, `${JSON.stringify(next, null, 2).normalize('NFC')}\n`, 'utf8');
   fs.renameSync(tempPath, filePath);
+  saveMarkdownReport(next, filePath);
   return next;
 }
 
