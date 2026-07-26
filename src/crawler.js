@@ -9,9 +9,10 @@ const parser = new Parser();
  * @returns {Promise<string|null>} The og:image URL or null if not found.
  */
 async function fetchOgImage(articleUrl) {
+  let timeout;
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    timeout = setTimeout(() => controller.abort(), 8000);
     
     const response = await fetch(articleUrl, {
       signal: controller.signal,
@@ -73,6 +74,8 @@ async function fetchOgImage(articleUrl) {
   } catch (error) {
     console.warn(`[Crawler] Failed to fetch og:image from ${articleUrl}:`, error.message);
     return null;
+  } finally {
+    clearTimeout(timeout);
   }
 }
 
@@ -129,10 +132,11 @@ async function fetchNews(rssUrl) {
  * @returns {Promise<string>} The full text of the article.
  */
 async function fetchArticleBody(articleUrl) {
+  let timeout;
   try {
     console.log(`[Crawler] Fetching full article body from: ${articleUrl}`);
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 10000);
+    timeout = setTimeout(() => controller.abort(), 10000);
     
     const response = await fetch(articleUrl, {
       signal: controller.signal,
@@ -142,7 +146,6 @@ async function fetchArticleBody(articleUrl) {
         'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
       },
     });
-    clearTimeout(timeout);
     
     if (!response.ok) {
       console.warn(`[Crawler] Failed to fetch article body, status: ${response.status}`);
@@ -186,8 +189,14 @@ async function fetchArticleBody(articleUrl) {
     console.log(`[Crawler] Successfully extracted ${fullText.length} characters from article body.`);
     return fullText;
   } catch (error) {
+    if (error.name === 'AbortError') {
+      console.warn(`[Crawler] Fetch timed out for: ${articleUrl}`);
+      return '';
+    }
     console.error(`[Crawler] Failed to fetch article body: ${error.message}`);
     return '';
+  } finally {
+    if (typeof timeout !== 'undefined') clearTimeout(timeout);
   }
 }
 
