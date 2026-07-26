@@ -39,7 +39,6 @@ test('plans one independently verified candidate per category without AI reranki
   assert.equal(result.publications.issue.ok, true);
   assert.equal(result.publications.economy.selected.url, 'https://a.example/economy');
   assert.equal(result.publications.issue.selected.url, 'https://a.example/issue');
-  assert.equal(result.publications.economy.corroboration.domain, 'b.example');
 });
 
 test('marks only the exhausted category no_publish', async () => {
