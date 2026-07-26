@@ -11,10 +11,13 @@ const {
   validateCaption,
   validateHashtagReply,
   validateTitle,
+  validateTitleAgainstFrame,
 } = require('../src/v2/text');
 const { isSameKstDate, kstDate, kstDateLabel } = require('../src/v2/time');
 const {
+  assessDiemEditorialValue,
   assessDuplicate,
+  buildNewsFrame,
   buildTopicSignature,
   classifyCandidate,
   isSensitiveTopic,
@@ -77,6 +80,51 @@ test('classifies allowed economy and issue topics and excludes low-value items',
   assert.equal(classifyCandidate({ title: '청년 주거 지원 정책 시행' }).category, CATEGORIES.ISSUE);
   assert.equal(classifyCandidate({ title: '증권사 임원 인사 발표' }).category, null);
   assert.equal(isSensitiveTopic({ title: '대형 화재로 인명 피해' }), true);
+});
+
+test('builds claim-state frames that prevent misleading denial and acronym-date titles', () => {
+  const denialArticle = {
+    category: CATEGORIES.ISSUE,
+    title: '보건복지부, 건강보험료 상하한선 기준 개선 확정되지 않아',
+    summary: '보건복지부는 연합뉴스 기사에서 언급된 내용은 확정된 바 없다고 밝혔습니다.',
+  };
+  const denialFrame = buildNewsFrame(denialArticle, CATEGORIES.ISSUE);
+  assert.equal(denialFrame.claimState, 'official_denial');
+  assert.equal(validateTitleAgainstFrame('보건복지부\n0.01% 확정', denialFrame).ok, false);
+  assert.equal(validateTitleAgainstFrame('건보료 개편\n확정 아님', denialFrame).ok, true);
+
+  const ipoArticle = {
+    category: CATEGORIES.ECONOMY,
+    title: 'CXMT, 내일 중국 증시 데뷔…올해 아시아 증시 최대 IPO',
+    summary: '중국 창신메모리테크놀로지(CXMT)가 27일 과창판에서 첫 거래에 나섭니다.',
+    entities: ['CXMT', 'IPO'],
+  };
+  const ipoFrame = buildNewsFrame(ipoArticle, CATEGORIES.ECONOMY);
+  assert.equal(ipoFrame.eventKind, 'ipo');
+  assert.equal(validateTitleAgainstFrame('CXMT 내일\n27일', ipoFrame).ok, false);
+  assert.equal(validateTitleAgainstFrame('CXMT IPO\n27일 상장', ipoFrame).ok, true);
+});
+
+test('scores DIEM editorial value instead of accepting every broad issue keyword', () => {
+  const denial = assessDiemEditorialValue({
+    title: '보건복지부, 건강보험료 상하한선 기준 개선 확정되지 않아',
+    summary: '연합뉴스 보도와 관련해 확정된 바 없다고 설명자료를 냈습니다.',
+  }, CATEGORIES.ISSUE);
+  assert.equal(denial.ok, false);
+  assert.equal(denial.reason, 'official_denial_without_confirmed_change');
+
+  const narrowClimate = assessDiemEditorialValue({
+    title: '과수원 꽃눈에 천연 패딩…이상기후 냉해 막는 이 기술',
+    summary: '농가가 과수원 꽃눈 냉해를 막기 위해 새 재배 기술을 시험했습니다.',
+  }, CATEGORIES.ISSUE);
+  assert.equal(narrowClimate.ok, false);
+  assert.equal(narrowClimate.reason, 'narrow_or_local_issue');
+
+  const housing = assessDiemEditorialValue({
+    title: '청년 주거 지원 월세 보조금 50만원 확대',
+    summary: '정부는 전국 청년 가구의 주거 부담을 낮추기 위한 정책 확대안을 발표했습니다.',
+  }, CATEGORIES.ISSUE);
+  assert.equal(housing.ok, true);
 });
 
 test('applies automatic and gray-zone duplicate thresholds', () => {

@@ -9,8 +9,9 @@ const {
   validateCaption,
   validateHashtagReply,
   validateTitle,
+  validateTitleAgainstFrame,
 } = require('./text');
-const { isSensitiveTopic } = require('./topic');
+const { buildNewsFrame, isSensitiveTopic } = require('./topic');
 
 const DEFAULT_MODELS = Object.freeze({
   primary: 'openai/gpt-oss-120b',
@@ -91,11 +92,28 @@ function meaningfulTokens(article = {}) {
     .filter(value => value.length >= 2 && !TOPIC_STOPWORDS.has(value));
 }
 
+function articleFrame(article = {}) {
+  return article.newsFrame || buildNewsFrame(article, article.category);
+}
+
+function cleanTitleLines(lines, frame) {
+  const title = lines.join('\n').normalize('NFC');
+  const validation = validateTitleAgainstFrame(title, frame);
+  return validation.ok
+    ? {
+      title: validation.normalized,
+      lines: validation.lines,
+      validation,
+    }
+    : null;
+}
+
 function buildDeterministicTitleCandidates(article = {}) {
   const category = article.category === CATEGORIES.ISSUE ? CATEGORIES.ISSUE : CATEGORIES.ECONOMY;
   const categoryLabel = category === CATEGORIES.ISSUE ? '시사브리핑' : '경제브리핑';
+  const frame = articleFrame(article);
   const tokens = meaningfulTokens(article);
-  const subject = fitWords(article.target || article.entities?.[0] || tokens[0], 7, category === CATEGORIES.ISSUE ? '오늘시사' : '오늘경제');
+  const subject = fitWords(frame.subject || article.target || article.entities?.[0] || tokens[0], 9, category === CATEGORIES.ISSUE ? '오늘시사' : '오늘경제');
   const secondary = fitWords(article.entities?.[1] || tokens.find(token => token !== subject), 7, categoryLabel);
   const explicitEvent = cleanVisibleText(article.event).match(EVENT_WORDS)?.[0];
   const eventToken = explicitEvent
@@ -109,6 +127,20 @@ function buildDeterministicTitleCandidates(article = {}) {
     event
   );
   const templates = [
+    ...(frame.claimState === 'official_denial'
+      ? [
+        [subject, '확정 아님'],
+        ['정부 반박', subject],
+        [subject, '미확정'],
+      ]
+      : []),
+    ...(frame.eventKind === 'ipo'
+      ? [
+        [`${subject} IPO`, `${frame.date || '증시'} 상장`],
+        [subject, 'IPO 상장'],
+        [/CXMT|창신메모리/iu.test(sourceText(article)) ? '중국 D램' : secondary, 'IPO 상장'],
+      ]
+      : []),
     [subject, numberLine],
     [subject, event],
     [number ? fitWords(number, 7, categoryLabel) : secondary, subject],
@@ -119,13 +151,13 @@ function buildDeterministicTitleCandidates(article = {}) {
   ];
   const candidates = [];
   for (const lines of templates) {
-    const title = lines.join('\n').normalize('NFC');
-    const validation = validateTitle(title);
-    const key = title.replace(/\s+/gu, '');
-    if (validation.ok && !candidates.some(candidate => candidate.title.replace(/\s+/gu, '') === key)) {
+    const cleaned = cleanTitleLines(lines, frame);
+    if (!cleaned) continue;
+    const key = cleaned.title.replace(/\s+/gu, '');
+    if (!candidates.some(candidate => candidate.title.replace(/\s+/gu, '') === key)) {
       candidates.push({
-        title,
-        lines: validation.lines,
+        title: cleaned.title,
+        lines: cleaned.lines,
         source: 'deterministic',
         score: 100 - candidates.length * 5,
       });
@@ -219,22 +251,30 @@ function assembleEditorial({
   handle,
   generation,
 }) {
+  const frame = articleFrame(article);
   const sentences = [
     ensureSentence(sentenceDrafts[0], emojis.first),
     ensureSentence(sentenceDrafts[1]),
     ensureSentence(sentenceDrafts[2], emojis.third),
   ];
   const caption = sentences.join('\n\n').normalize('NFC');
-  const selected = titleCandidates[selectedTitleIndex] || titleCandidates[0];
+  const validTitleCandidates = titleCandidates.filter(candidate => validateTitleAgainstFrame(candidate.title, frame).ok);
+  if (validTitleCandidates.length < 1) {
+    throw new Error('[DIEM Editorial] No title candidate matches the article claim state and event.');
+  }
+  const requested = titleCandidates[selectedTitleIndex] || titleCandidates[0];
+  const selected = validateTitleAgainstFrame(requested.title, frame).ok
+    ? requested
+    : validTitleCandidates[0];
   const comments = buildCommentChain(article, emojis.first, handle);
   const editorial = {
     schemaVersion: 2,
     category: article.category,
-    titleCandidates,
+    titleCandidates: validTitleCandidates,
     title: {
       text: selected.title,
       lines: selected.lines,
-      selectedIndex: titleCandidates.indexOf(selected),
+      selectedIndex: validTitleCandidates.indexOf(selected),
       selectionReason: 'accuracy_format_clarity_curiosity',
     },
     caption: { sentences, text: caption },
@@ -279,13 +319,15 @@ function parseModelResult(value) {
   return JSON.parse(text);
 }
 
-function normalizeModelCandidates(values = []) {
+function normalizeModelCandidates(values = [], frame) {
   if (!Array.isArray(values) || values.length < 1) return [];
   return values.map((candidate, index) => {
     const title = Array.isArray(candidate?.lines)
       ? candidate.lines.join('\n')
       : String(candidate?.title || candidate || '');
-    const validation = validateTitle(title);
+    const validation = frame
+      ? validateTitleAgainstFrame(title, frame)
+      : validateTitle(title);
     return {
       title: validation.normalized,
       lines: validation.lines,
@@ -297,6 +339,7 @@ function normalizeModelCandidates(values = []) {
 }
 
 function modelPrompt(article) {
+  const frame = articleFrame(article);
   return {
     systemPrompt: [
       '당신은 인스타그램 시사·경제 매거진 DIEM의 전문 에디터입니다.',
@@ -308,12 +351,15 @@ function modelPrompt(article) {
       '',
       '[2. 제목(title) 작성 규칙]',
       '- 단순 단어/키워드 나열(예: "빅테크 AI / 1400")은 절대 금지합니다.',
-      '- 반드시 [핵심 주체 + 파격적 사건/결과]가 드러나는 직관적인 훅(Hook) 형태로 작성하세요.',
+      '- 반드시 [핵심 주체 + 사건 + 기사 상태]가 드러나는 직관적인 훅(Hook) 형태로 작성하세요.',
+      '- 기사 상태가 "확정 아님/부인/반박/해명"이면 제목에도 반드시 그 상태를 드러내고, 확정·결정·시행처럼 뒤집어 쓰지 마세요.',
+      '- IPO/상장 기사라면 제목에 반드시 IPO, 기업공개, 상장, 첫 거래, 증시 데뷔 중 하나를 넣으세요.',
+      '- 알파벳 약어만 쓰지 말고 사건어 또는 쉬운 설명어를 함께 넣으세요. 날짜만 반복하는 제목은 금지합니다.',
       '- 각 title은 줄바꿈(\'\\n\') 1개를 포함한 정확히 2줄이어야 하며, 전체 공백 포함 20자 내외(최대 24자)로 제한합니다.',
       '- 좋은 예시:',
-      '  "한미 AI 동맹 결성\\n1400조 잭팟 터졌다"',
-      '  "엔비디아·삼성 손잡다\\n역대급 AI 파트너십"',
-      '  "한국 AI 생태계에\\n1375조원 쏟아붓는다"',
+      '  "건보료 개편\\n확정 아님"',
+      '  "CXMT IPO\\n27일 상장"',
+      '  "청년 월세\\n지원 확대"',
       '',
       '[3. 본문(sentences) 작성 규칙]',
       '- 원문 문장을 절대 그대로 복사하지 말고, 에디터의 언어로 완전히 "새로 재작성(Re-writing)"하세요.',
@@ -336,6 +382,7 @@ function modelPrompt(article) {
     userPrompt: JSON.stringify({
       category: article.category,
       title: article.title,
+      newsFrame: frame,
       verifiedFacts: article.verifiedFacts || article.facts || [],
       context: article.context || '',
       source: sourceText(article).slice(0, 9000),
@@ -352,13 +399,14 @@ async function generateEditorial(article = {}, {
   if (typeof callModel !== 'function') return buildDeterministicEditorial(article, { handle });
   const attempts = [];
   const prompt = modelPrompt(article);
+  const frame = articleFrame(article);
   for (const model of [primaryModel, fallbackModel]) {
     try {
       const raw = await callModel({ model, ...prompt });
       const parsed = parseModelResult(raw);
-      const candidates = normalizeModelCandidates(parsed.titleCandidates).filter(c => c.valid);
+      const candidates = normalizeModelCandidates(parsed.titleCandidates, frame).filter(c => c.valid);
       if (candidates.length < 1) {
-        throw new Error('model returned no valid title candidates');
+        throw new Error('model returned no valid title candidates for article frame');
       }
       if (!numericClaimsAreGrounded(candidates.map(candidate => candidate.title), article)) {
         throw new Error('model returned an ungrounded numeric title');
@@ -391,22 +439,23 @@ async function generateEditorial(article = {}, {
 
 function validateEditorial(editorial, { article = {}, handle } = {}) {
   const errors = [];
+  const frame = articleFrame(article);
   if (!Array.isArray(editorial?.titleCandidates) || editorial.titleCandidates.length < 1) {
     errors.push('editorial requires at least one title candidate');
   } else {
     const titles = editorial.titleCandidates.map(candidate => candidate.title);
     titles.forEach((title, index) => {
-      const validation = validateTitle(title);
+      const validation = validateTitleAgainstFrame(title, frame);
       if (!validation.ok) errors.push(`title candidate ${index + 1}: ${validation.errors.join(', ')}`);
     });
     if (new Set(titles.map(title => normalizeNfc(title).replace(/\s+/gu, ''))).size !== titles.length) {
       errors.push('title candidates must be unique');
     }
   }
-  const titleValidation = validateTitle(editorial?.title?.text || '');
+  const titleValidation = validateTitleAgainstFrame(editorial?.title?.text || '', frame);
   if (!titleValidation.ok) errors.push(...titleValidation.errors.map(error => `selected ${error}`));
   if (!editorial?.titleCandidates?.some(candidate => candidate.title === editorial?.title?.text)) {
-    errors.push('selected title must be one of the five candidates');
+    errors.push('selected title must be one of the title candidates');
   }
   const captionValidation = validateCaption(editorial?.caption?.text || '');
   if (!captionValidation.ok) errors.push(...captionValidation.errors);
@@ -439,6 +488,7 @@ module.exports = {
   modelPrompt,
   parseModelResult,
   selectEmojis,
+  articleFrame,
   sourceSentences,
   validateEditorial,
 };

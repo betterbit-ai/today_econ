@@ -95,3 +95,43 @@ test('allows standalone Naver ranking candidates to pass when independent corrob
   assert.equal(result.publications.issue.ok, true);
   assert.equal(result.publications.issue.corroboration, null);
 });
+
+test('skips official-denial and narrow issue candidates before selecting a useful issue', async () => {
+  const candidates = [
+    {
+      title: '보건복지부, 건강보험료 상하한선 기준 개선 확정되지 않아',
+      url: 'https://n.news.naver.com/article/001/denial',
+      popularityScore: 100,
+      sources: [{ portal: 'naver', title: '보건복지부, 건강보험료 상하한선 기준 개선 확정되지 않아', url: 'https://n.news.naver.com/article/001/denial' }],
+    },
+    {
+      title: '과수원 꽃눈에 천연 패딩…이상기후 냉해 막는 이 기술',
+      url: 'https://n.news.naver.com/article/001/climate',
+      popularityScore: 95,
+      sources: [{ portal: 'naver', title: '과수원 꽃눈에 천연 패딩…이상기후 냉해 막는 이 기술', url: 'https://n.news.naver.com/article/001/climate' }],
+    },
+    {
+      title: '청년 주거 지원 월세 보조금 50만원 확대',
+      url: 'https://n.news.naver.com/article/001/housing',
+      popularityScore: 90,
+      sources: [{ portal: 'naver', title: '청년 주거 지원 월세 보조금 50만원 확대', url: 'https://n.news.naver.com/article/001/housing' }],
+    },
+  ];
+  const bodies = {
+    denial: '보건복지부는 건강보험료 상하한선 개편 보도와 관련해 확정된 바 없다고 설명자료를 냈습니다. 연합뉴스 보도에서 언급된 내용은 확정된 바 없으며 향후 건강보험정책심의위원회에서 논의될 수 있다고 밝혔습니다.',
+    climate: '농가가 이상기후에 따른 과수원 꽃눈 냉해를 막기 위해 천연 패딩 기술을 시험했습니다. 과수원과 작물 재배 현장에서 활용되는 기술이며 전국 정책이나 생활비 변화는 발표되지 않았습니다.',
+    housing: '정부는 전국 청년 가구의 주거 부담을 낮추기 위해 월세 보조금 지원을 50만원까지 확대한다고 발표했습니다. 지원 대상과 신청 절차는 다음 달 확정되며 청년 주거 정책의 핵심 대책으로 추진됩니다.',
+  };
+  const result = await planDailyQueue({
+    date: '2026-07-25',
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => bodies[url.split('/').at(-1)],
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.issue.ok, true);
+  assert.equal(result.publications.issue.selected.url, 'https://n.news.naver.com/article/001/housing');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('low_editorial_value:official_denial_without_confirmed_change')));
+  assert.ok(result.candidates[1].rejectionReasons.some(reason => reason.includes('low_editorial_value:narrow_or_local_issue')));
+  assert.equal(result.publications.issue.selected.editorialValue.ok, true);
+});

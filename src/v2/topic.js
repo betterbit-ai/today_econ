@@ -7,6 +7,14 @@ const ECONOMY_EXCLUDE = /(종목\s*추천|매수\s*추천|급등주|인사|선�
 const ISSUE_EXCLUDE = /(정쟁|공방|막말|연예|스포츠|가십|화보|단독\s*사진)/u;
 const SENSITIVE = /(사망|참사|재난|희생|피해자|전쟁|테러|폭발|화재|산불|침수|붕괴|실종|학대)/u;
 const FOLLOW_UP = /(확정|최종|결정|판결|선고|시행|의결|기준금리|발표)/u;
+const OFFICIAL_DENIAL = /(확정된?\s*바\s*없|확정되지\s*않|사실이\s*아니|사실\s*무근|부인했|반박했|해명자료|설명자료|오보|허위|잘못된\s*보도)/u;
+const TENTATIVE = /(검토|논의|추진|계획|예정|가능성|전망|유력|가닥|방침|초안|보도했다|보도했)/u;
+const DECIDED = /(확정|결정|의결|통과|시행|발표|인상|인하|선고|판결|도입|개편|확대|축소|폐지)/u;
+const IPO_EVENT = /(\bIPO\b|기업공개|상장|첫\s*거래|증시\s*데뷔|공모가|공모주)/iu;
+const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험료|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|인공지능|\bAI\b|자동차|수출|관세|연금)/iu;
+const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|재배|수확|축산|어촌|마을|지역축제|천연\s*패딩|곤충|반려동물|맛집|여행지)/u;
+const NARROW_WITH_PUBLIC_POLICY = /(정부.{0,20}(지원|보조금|규제|법안|발표|시행)|국회|전국.{0,20}(지원|보조금|시행)|보험|세금|대출|주거|교육|복지|의료|노동|고용)/u;
+const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|목격담|인증샷|사진\s*한\s*장)/u;
 const TOPIC_ALIASES = Object.freeze([
   [/한전/gu, '한국전력'],
   [/주택용/gu, '가정용'],
@@ -30,6 +38,132 @@ function normalizeTopicAliases(value = '') {
 
 function candidateText(candidate = {}) {
   return normalizeNfc(`${candidate.title || ''} ${candidate.summary || ''} ${(candidate.entities || []).join(' ')}`);
+}
+
+function compactSubject(text = '', category = CATEGORIES.ISSUE) {
+  const normalized = normalizeTopicAliases(text);
+  if (/(건강보험료|건보료)/u.test(normalized)) return '건보료 개편';
+  if (/(최저임금)/u.test(normalized)) return '최저임금';
+  if (/(기준금리|한국은행)/u.test(normalized)) return '기준금리';
+  if (/(전세|월세|주거|주택)/u.test(normalized)) return '주거 정책';
+  if (/(국민연금|연금)/u.test(normalized)) return '연금 개편';
+  if (/(CXMT|창신메모리)/iu.test(normalized)) return 'CXMT';
+  if (/(삼성전자|SK하이닉스|D램|반도체)/u.test(normalized)) return '반도체';
+  if (/(관세|수출|수입)/u.test(normalized)) return '관세';
+  const tokens = extractSignatureTokens(normalized)
+    .filter(token => !/^(오늘|내일|어제|\d{1,2}일|\d{1,2}월)$/u.test(token));
+  return tokens.slice(0, 2).join(' ') || (category === CATEGORIES.ECONOMY ? '경제 이슈' : '시사 이슈');
+}
+
+function dateLabel(text = '') {
+  const normalized = normalizeNfc(text);
+  if (/내일/u.test(normalized)) return '내일';
+  if (/오늘/u.test(normalized)) return '오늘';
+  const match = normalized.match(/(?:오는\s*)?(\d{1,2}일)/u);
+  return match ? match[1] : '';
+}
+
+function claimState(text = '') {
+  if (OFFICIAL_DENIAL.test(text)) return 'official_denial';
+  if (IPO_EVENT.test(text) || /(예정|나선다|데뷔한다|시작한다)/u.test(text)) return 'scheduled';
+  if (DECIDED.test(text)) return 'decided';
+  if (TENTATIVE.test(text)) return 'tentative';
+  return 'reported';
+}
+
+function eventKind(text = '') {
+  if (IPO_EVENT.test(text)) return 'ipo';
+  if (/(건강보험료|건보료|보험료)/u.test(text)) return 'insurance_premium';
+  if (/(기준금리|금리)/u.test(text)) return 'interest_rate';
+  if (/(주거|전세|월세|주택)/u.test(text)) return 'housing_policy';
+  if (/(반도체|D램|HBM|메모리)/iu.test(text)) return 'semiconductor';
+  return 'general';
+}
+
+function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).category) {
+  const text = candidateText(candidate);
+  const state = claimState(text);
+  const kind = eventKind(text);
+  const subject = compactSubject(`${candidate.title || ''} ${candidate.summary || ''}`, category);
+  const date = dateLabel(text);
+  const requiredTitleTerms = [];
+  const forbiddenTitleTerms = [];
+
+  if (state === 'official_denial') {
+    requiredTitleTerms.push('확정 아님', '미확정', '반박', '부인', '해명', '사실 아님');
+    forbiddenTitleTerms.push('확정', '결정', '시행', '인상');
+  }
+  if (kind === 'ipo') {
+    requiredTitleTerms.push('IPO', '기업공개', '상장', '첫 거래', '증시 데뷔', '데뷔');
+  }
+
+  return {
+    category,
+    subject,
+    eventKind: kind,
+    claimState: state,
+    date,
+    requiredTitleTerms,
+    forbiddenTitleTerms,
+  };
+}
+
+function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(candidate).category, frame = buildNewsFrame(candidate, category)) {
+  const text = candidateText(candidate);
+  const signals = [];
+  const penalties = [];
+  let score = 0;
+
+  if (BROAD_LIFE_IMPACT.test(text)) {
+    score += 35;
+    signals.push('reader_money_work_life_impact');
+  }
+  if (DECIDED.test(text) || IPO_EVENT.test(text)) {
+    score += 25;
+    signals.push('concrete_event_or_decision');
+  }
+  if (/(전국|국민|청년|직장인|근로자|가구|기업|시장|산업|정부|국회)/u.test(text)) {
+    score += 15;
+    signals.push('broad_audience_or_market_scope');
+  }
+  if (category === CATEGORIES.ECONOMY && /(금리|물가|환율|세금|부동산|대출|금융|증시|반도체|IPO|기업공개|상장|수출|관세|연금)/iu.test(text)) {
+    score += 20;
+    signals.push('economy_core_topic');
+  }
+  if (category === CATEGORIES.ISSUE && /(정책|노동|고용|주거|교육|인구|복지|의료|보건|규제|법안|판결|국제)/u.test(text)) {
+    score += 20;
+    signals.push('issue_core_topic');
+  }
+
+  let hardReject = '';
+  if (frame.claimState === 'official_denial') {
+    score -= 50;
+    penalties.push('official_denial_without_confirmed_change');
+    hardReject = 'official_denial_without_confirmed_change';
+  }
+  if (category === CATEGORIES.ISSUE && NARROW_OR_LOCAL.test(text) && !NARROW_WITH_PUBLIC_POLICY.test(text)) {
+    score -= 40;
+    penalties.push('narrow_or_local_issue');
+    hardReject ||= 'narrow_or_local_issue';
+  }
+  if (LOW_SIGNAL_NEWS.test(text)) {
+    score -= 35;
+    penalties.push('low_signal_click_story');
+  }
+  if (/상위\s*0\.01%|초고소득자/u.test(text) && !/(세금|건강보험료|건보료|부과체계|제도|정책)/u.test(text)) {
+    score -= 20;
+    penalties.push('too_narrow_audience');
+  }
+
+  const ok = !hardReject && score >= 45;
+  return {
+    ok,
+    score,
+    signals,
+    penalties,
+    reason: ok ? 'passes_editorial_value_gate' : (hardReject || 'insufficient_reader_value'),
+    frame,
+  };
 }
 
 function classifyCandidate(candidate = {}) {
@@ -134,6 +268,8 @@ function isSensitiveTopic(candidate = {}) {
 
 module.exports = {
   assessDuplicate,
+  assessDiemEditorialValue,
+  buildNewsFrame,
   buildTopicSignature,
   candidateText,
   classifyCandidate,

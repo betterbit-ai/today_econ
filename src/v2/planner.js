@@ -4,7 +4,13 @@ const { CATEGORIES } = require('./constants');
 const { findIndependentEvidence } = require('./fact-verifier');
 const { fetchPortalRankings, mergePopularCandidates, normalizeRank, titleEventSimilarity } = require('./popular-news');
 const { computeEmbeddingMatrix, evaluateAgainstHistory } = require('./similarity');
-const { buildTopicSignature, classifyCandidate, isMaterialFollowUp } = require('./topic');
+const {
+  assessDiemEditorialValue,
+  buildNewsFrame,
+  buildTopicSignature,
+  classifyCandidate,
+  isMaterialFollowUp,
+} = require('./topic');
 
 function rssCandidates(items = [], date) {
   return items.slice(0, 50).map((item, index, all) => ({
@@ -87,7 +93,18 @@ async function evaluateCandidate(candidate, {
   }, { fetchArticleBodyImpl });
   if (!primary.fullText || primary.fullText.length < 80) return { ok: false, reason: 'primary_article_inaccessible' };
 
-  const enrichedCandidate = { ...candidate, summary: primary.fullText.slice(0, 800), category };
+  const enrichedCandidate = { ...candidate, summary: primary.fullText.slice(0, 800), fullText: primary.fullText, category };
+  const newsFrame = buildNewsFrame(enrichedCandidate, category);
+  const editorialValue = assessDiemEditorialValue(enrichedCandidate, category, newsFrame);
+  if (!editorialValue.ok) {
+    return {
+      ok: false,
+      reason: `low_editorial_value:${editorialValue.reason}`,
+      editorialValue,
+      newsFrame,
+    };
+  }
+
   const signature = buildTopicSignature(enrichedCandidate, category);
   const duplicateCheck = await evaluateAgainstHistory(signature, history, {
     embedder: semanticScores
@@ -127,6 +144,8 @@ async function evaluateCandidate(candidate, {
       fullText: primary.fullText,
       summary: candidate.summary || primary.fullText.slice(0, 300),
       topicSignature: signature,
+      newsFrame,
+      editorialValue,
     },
     duplicateCheck: { ...duplicateCheck, signature },
     corroboration: evidence ? evidence.result.corroboratedBy : null,

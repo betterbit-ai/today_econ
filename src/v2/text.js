@@ -11,6 +11,10 @@ const CLICKBAIT_PATTERNS = [
 const URL_PATTERN = /https?:\/\/\S+/iu;
 const HASHTAG_PATTERN = /#[0-9A-Za-z가-힣_]+/gu;
 const EMOJI_PATTERN = /\p{Extended_Pictographic}/u;
+const DATE_TOKEN = /(오늘|내일|모레|어제|\d{1,2}일|\d{1,2}월)/u;
+const TITLE_EVENT_TOKEN = /(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔|인상|인하|상승|하락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|개편|반박|부인|해명|미확정|아님|출시|거래)/iu;
+const DENIAL_TITLE_TOKEN = /(확정\s*아님|미확정|반박|부인|해명|사실\s*아님|아니다|아냐|오보)/u;
+const DENIAL_ALLOWED = /(확정\s*아님|미확정|확정되지\s*않)/u;
 
 function normalizeNfc(value = '') {
   return String(value ?? '').normalize('NFC');
@@ -56,6 +60,45 @@ function validateTitle(title) {
     lines,
     graphemeCount: graphemeCount(visible),
     recommendedLineLengths: lines.map(graphemeCount),
+  };
+}
+
+function validateTitleAgainstFrame(title, frame = {}) {
+  const basic = validateTitle(title);
+  const errors = [...basic.errors];
+  const normalized = basic.normalized || normalizeNfc(title).trim();
+  const compact = normalized.replace(/\s+/gu, '');
+  const strippedDenial = normalized.replace(DENIAL_ALLOWED, '');
+
+  if (frame.claimState === 'official_denial') {
+    if (!DENIAL_TITLE_TOKEN.test(normalized)) {
+      errors.push('official-denial title must say the claim is unconfirmed, denied, or rebutted');
+    }
+    if (/(확정|결정|시행|인상|올린다|오른다)/u.test(strippedDenial)) {
+      errors.push('official-denial title cannot present the denied claim as confirmed');
+    }
+  }
+
+  if (frame.eventKind === 'ipo' && !/(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔)/iu.test(normalized)) {
+    errors.push('IPO title must name the IPO, listing, first-trade, or market-debut event');
+  }
+
+  if (DATE_TOKEN.test(normalized) && !TITLE_EVENT_TOKEN.test(normalized)) {
+    errors.push('date-based title must include the actual event, not only a date');
+  }
+
+  if (/\b[A-Z]{2,}\b/u.test(normalized) && !TITLE_EVENT_TOKEN.test(normalized) && !/(반도체|D램|기업|정책|금리|주가|시장)/u.test(normalized)) {
+    errors.push('acronym title must include an event or plain-language descriptor');
+  }
+
+  if (/^(?:[A-Z]{2,}|오늘|내일|모레|\d{1,2}일)+$/iu.test(compact)) {
+    errors.push('title cannot be only an acronym and date');
+  }
+
+  return {
+    ...basic,
+    ok: errors.length === 0,
+    errors,
   };
 }
 
@@ -142,4 +185,5 @@ module.exports = {
   validateCaption,
   validateHashtagReply,
   validateTitle,
+  validateTitleAgainstFrame,
 };

@@ -30,6 +30,30 @@ function economyArticle() {
   };
 }
 
+function officialDenialArticle() {
+  return {
+    category: CATEGORIES.ISSUE,
+    title: '보건복지부, “건강보험료 상하한선 기준 개선 확정되지 않아”',
+    summary: '보건복지부는 건강보험료의 상한선과 하한선을 동시에 높이는 부과 체계 개편을 추진한다는 보도와 관련해 확정된 바 없다고 밝혔습니다.',
+    fullText: '보건복지부는 건강보험료의 상한선과 하한선을 동시에 높이는 부과 체계 개편을 추진한다는 보도와 관련해 확정된 바 없다고 밝혔습니다. 연합뉴스는 상위 0.01% 초고소득자의 건보료 상한 기준을 인상하는 내용을 보도했습니다. 보건복지부는 설명자료를 내고 연합뉴스 기사에서 언급된 내용은 확정된 바 없다고 밝혔습니다.',
+    entities: ['보건복지부', '건강보험료'],
+    target: '건강보험료 상하한선',
+    event: '확정되지 않아',
+  };
+}
+
+function ipoArticle() {
+  return {
+    category: CATEGORIES.ECONOMY,
+    title: 'CXMT, 내일 중국 증시 데뷔…올해 아시아 증시 최대 IPO',
+    summary: '중국 창신메모리테크놀로지(CXMT)가 27일 과창판에서 첫 거래에 나서며 중국 본토 증시에 데뷔합니다.',
+    fullText: '삼성전자와 SK하이닉스, 미국 마이크론이 과점하는 글로벌 D램 반도체 시장에 도전하고 있는 중국 창신메모리테크놀로지(CXMT)가 27일 과창판에서 첫 거래에 나서며 중국 본토 증시에 데뷔합니다. CXMT는 기업공개(IPO)를 통해 공모가 8.66위안에 신주 66억8천800만주를 발행해 579억2천만 위안을 조달했습니다. 이는 올해 아시아 증시 최대 IPO입니다.',
+    entities: ['CXMT', 'IPO'],
+    target: 'CXMT',
+    event: 'IPO 상장',
+  };
+}
+
 test('deterministic fallback produces five short titles and the exact DIEM caption contract', () => {
   const editorial = buildDeterministicEditorial(economyArticle());
 
@@ -119,6 +143,61 @@ test('uses the fallback model after an invalid primary response', async () => {
   assert.equal(result.title.selectedIndex, 1);
   assert.equal(result.generation.attempts[0].status, 'failed');
   assert.equal(result.generation.attempts[1].status, 'succeeded');
+});
+
+test('rejects official-denial titles that invert the article state', async () => {
+  const article = officialDenialArticle();
+  const result = await generateEditorial(article, {
+    callModel: async () => ({
+      titleCandidates: [
+        { title: '보건복지부\n0.01% 확정' },
+      ],
+      sentences: [
+        '보건복지부는 건강보험료 상하한선 개편 보도와 관련해 확정된 바 없다고 밝혔습니다.',
+        '연합뉴스는 상위 0.01% 초고소득자의 건보료 상한 기준 인상 내용을 보도했습니다.',
+        '복지부는 설명자료를 통해 기사에서 언급된 내용은 확정된 바 없다고 밝혔습니다.',
+      ],
+    }),
+  });
+
+  assert.equal(result.generation.method, 'deterministic_fallback');
+  assert.match(result.title.text, /(확정 아님|미확정|반박)/u);
+  assert.doesNotMatch(result.title.text, /0\.01%\s*확정/u);
+});
+
+test('rejects acronym-date IPO titles that omit the actual listing event', async () => {
+  const article = ipoArticle();
+  const result = await generateEditorial(article, {
+    callModel: async ({ model }) => {
+      if (model === DEFAULT_MODELS.primary) {
+        return {
+          titleCandidates: [
+            { title: 'CXMT 내일\n27일' },
+          ],
+          sentences: [
+            'CXMT가 27일 중국 과창판에서 첫 거래에 나서며 본토 증시에 데뷔합니다.',
+            '이번 IPO 공모가는 8.66위안이며 약 579억2천만 위안을 조달했습니다.',
+            '삼성전자·SK하이닉스가 있는 D램 시장에서 중국 메모리 기업의 자금 조달이 주목받고 있습니다.',
+          ],
+        };
+      }
+      return {
+        titleCandidates: [
+          { title: 'CXMT IPO\n27일 상장' },
+        ],
+        selectedTitleIndex: 0,
+        sentences: [
+          'CXMT가 27일 중국 과창판에서 첫 거래에 나서며 본토 증시에 데뷔합니다.',
+          '이번 IPO 공모가는 8.66위안이며 약 579억2천만 위안을 조달했습니다.',
+          '삼성전자·SK하이닉스가 있는 D램 시장에서 중국 메모리 기업의 자금 조달이 주목받고 있습니다.',
+        ],
+      };
+    },
+  });
+
+  assert.equal(result.generation.method, 'model');
+  assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
+  assert.equal(result.title.text, 'CXMT IPO\n27일 상장');
 });
 
 test('falls back deterministically when both model calls fail or invent a number', async () => {
