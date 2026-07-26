@@ -94,6 +94,16 @@ async function evaluateCandidate(candidate, {
   if (!primary.fullText || primary.fullText.length < 80) return { ok: false, reason: 'primary_article_inaccessible' };
 
   const enrichedCandidate = { ...candidate, summary: primary.fullText.slice(0, 800), fullText: primary.fullText, category };
+  const enrichedClassification = classifyCandidate(enrichedCandidate);
+  if (enrichedClassification.category !== category) {
+    return {
+      ok: false,
+      reason: enrichedClassification.category
+        ? `assigned_to_${enrichedClassification.category}_after_hydration`
+        : enrichedClassification.excluded.join(','),
+    };
+  }
+
   const newsFrame = buildNewsFrame(enrichedCandidate, category);
   const editorialValue = assessDiemEditorialValue(enrichedCandidate, category, newsFrame);
   if (!editorialValue.ok) {

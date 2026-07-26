@@ -4,7 +4,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const { verifyCoreClaims, isLikelySyndicatedCopy } = require('../src/v2/fact-verifier');
-const { scoreImageCandidate, selectLicensedImage } = require('../src/v2/image-selector');
+const { imageReuseKeys, scoreImageCandidate, selectLicensedImage } = require('../src/v2/image-selector');
 const {
   decodeResponseBody,
   detectCharset,
@@ -111,6 +111,65 @@ test('scores licensed portrait imagery and falls back to typography', async () =
   assert.equal(selection.kind, 'typographic');
   assert.equal(selection.source, 'diem-original');
   assert.ok(selection.attempts.length > 0);
+});
+
+test('skips licensed images used in the recent seven-day image history', async () => {
+  const photos = [
+    {
+      id: 15476105,
+      url: 'https://www.pexels.com/photo/the-inside-of-a-large-building-with-a-dome-15476105/',
+      src: { portrait: 'https://images.pexels.com/photos/15476105/pexels-photo-15476105.jpeg?auto=compress&h=1200&w=800' },
+      photographer: 'Used Creator',
+      photographer_url: 'https://www.pexels.com/@used',
+      width: 3000,
+      height: 4000,
+      alt: 'government parliament policy law chamber',
+    },
+    {
+      id: 222222,
+      url: 'https://www.pexels.com/photo/another-government-building-222222/',
+      src: { portrait: 'https://images.pexels.com/photos/222222/pexels-photo-222222.jpeg?auto=compress&h=1200&w=800' },
+      photographer: 'Fresh Creator',
+      photographer_url: 'https://www.pexels.com/@fresh',
+      width: 3000,
+      height: 4000,
+      alt: 'government parliament policy law building',
+    },
+  ];
+  const selection = await selectLicensedImage(
+    { title: '정부 정책 국회 발표', category: 'issue' },
+    {
+      pexelsApiKey: 'pexels-key',
+      recentImages: [{ id: 'pexels:15476105' }],
+      fetchImpl: async () => ({
+        ok: true,
+        json: async () => ({ photos }),
+      }),
+    }
+  );
+
+  assert.equal(selection.kind, 'web');
+  assert.equal(selection.id, 'pexels:222222');
+  assert.equal(selection.rankWithinQuery, 2);
+  assert.equal(selection.selectedPoolIndex, 1);
+  assert.equal(selection.selectionPoolSize, 1);
+  assert.equal(selection.reuseGuard.allowed, true);
+  assert.equal(selection.reuseGuard.blockedCandidateCount, 1);
+  assert.equal(selection.reuseGuard.windowDays, 7);
+  assert.ok(selection.selectionReason.includes('rank #2'));
+});
+
+test('normalizes reusable image identifiers across ids, urls, and hashes', () => {
+  const keys = imageReuseKeys({
+    id: 'pexels:15476105',
+    originalUrl: 'https://www.pexels.com/photo/x/?utm_source=diem',
+    downloadUrl: 'https://images.pexels.com/photos/15476105/photo.jpeg?auto=compress',
+    localSha256: 'abc123',
+  });
+  assert.ok(keys.includes('pexels:15476105'));
+  assert.ok(keys.includes('https://www.pexels.com/photo/x/'));
+  assert.ok(keys.includes('https://images.pexels.com/photos/15476105/photo.jpeg'));
+  assert.ok(keys.includes('abc123'));
 });
 
 test('ships 30 labeled Korean article pairs for live embedding calibration', () => {

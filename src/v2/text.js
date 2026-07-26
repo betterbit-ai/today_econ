@@ -15,6 +15,8 @@ const DATE_TOKEN = /(오늘|내일|모레|어제|\d{1,2}일|\d{1,2}월)/u;
 const TITLE_EVENT_TOKEN = /(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔|인상|인하|상승|하락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|개편|반박|부인|해명|미확정|아님|출시|거래)/iu;
 const DENIAL_TITLE_TOKEN = /(확정\s*아님|미확정|반박|부인|해명|사실\s*아님|아니다|아냐|오보)/u;
 const DENIAL_ALLOWED = /(확정\s*아님|미확정|확정되지\s*않)/u;
+const GENERIC_TITLE_LINE = /^(흐름\s*정리|쟁점\s*정리|경제\s*브리핑|시사\s*브리핑|오늘\s*경제|오늘\s*시사)$/u;
+const CAPTION_BOILERPLATE_PATTERN = /(▲|■|◇|◆|ⓒ|©|자료\s*사진|사진\s*=|프레스\s*컨퍼런스|무대에\s*공개|기념\s*촬영|제공\s*사진|연합뉴스)/u;
 
 function normalizeNfc(value = '') {
   return String(value ?? '').normalize('NFC');
@@ -53,6 +55,9 @@ function validateTitle(title) {
   if (graphemeCount(visible) > 24) errors.push('title must be at most 24 graphemes including spaces');
   if (CLICKBAIT_PATTERNS.some(pattern => pattern.test(normalized))) errors.push('title contains prohibited clickbait wording');
   if (/["“”‘’!?]{2,}|[!?]$/u.test(normalized)) errors.push('title contains unnecessary punctuation');
+  if (lines.some(line => GENERIC_TITLE_LINE.test(line.replace(/\s+/gu, '').trim()))) {
+    errors.push('title contains generic filler wording');
+  }
   return {
     ok: errors.length === 0,
     errors,
@@ -111,10 +116,11 @@ function validateCaption(caption) {
   }
   if (sentences.some(sentence => sentence.includes('\n'))) errors.push('caption sentences cannot contain internal line breaks');
   sentences.forEach((sentence, index) => {
-    if (graphemeCount(sentence) > 300) errors.push(`caption sentence ${index + 1} exceeds 300 graphemes`);
+    if (graphemeCount(sentence) > 120) errors.push(`caption sentence ${index + 1} exceeds 120 graphemes`);
   });
   if (URL_PATTERN.test(normalized)) errors.push('caption cannot contain URLs');
   if (HASHTAG_PATTERN.test(normalized)) errors.push('caption cannot contain hashtags');
+  if (CAPTION_BOILERPLATE_PATTERN.test(normalized)) errors.push('caption contains source boilerplate or photo caption text');
   if (sentences[0] && !endsWithSingleEmoji(sentences[0])) errors.push('caption sentence 1 must end with exactly one emoji');
   if (sentences[1] && extractEmojiClusters(sentences[1]).length !== 0) errors.push('caption sentence 2 cannot contain emoji');
   if (sentences[2] && !endsWithSingleEmoji(sentences[2])) errors.push('caption sentence 3 must end with exactly one emoji');

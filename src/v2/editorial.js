@@ -22,6 +22,9 @@ const SENTENCE_ENDING = /[.!?。！？]$/u;
 const EVENT_WORDS = /(인상|인하|상승|하락|급등|급락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과)/u;
 const NUMBER_TOKEN = /\d[\d,.]*(?:\s*(?:%|퍼센트|조\s*원|억\s*원|만\s*원|원|만\s*명|명|개|배|년|월|일))?/gu;
 const INPUT_EMOJI = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}{2}|[#*0-9]\uFE0F?\u20E3)/gu;
+const PHOTO_CAPTION_BLOCK = /[▲■◇◆][^.!?。！？]{0,280}(?:공개돼\s*있다|촬영[^.!?。！？]*있다|기념\s*촬영|자료\s*사진|사진)[.!?。！？]?/gu;
+const SOURCE_CREDIT = /[ⓒ©]\s*(?:연합뉴스|뉴스1|뉴시스|로이터|AP|EPA|게티이미지|공동취재단)?/giu;
+const BOILERPLATE_SENTENCE = /(▲|■|◇|◆|ⓒ|©|자료\s*사진|사진\s*=|프레스\s*컨퍼런스|무대에\s*공개|기념\s*촬영|연합뉴스)/u;
 const TOPIC_STOPWORDS = new Set([
   '오늘', '관련', '대한', '위해', '이번', '기사', '뉴스', '기자', '발표',
   '따르면', '그리고', '하지만', '것으로', '나타났다', '밝혔다',
@@ -31,6 +34,8 @@ function cleanVisibleText(value = '') {
   return normalizeNfc(value)
     .replace(/https?:\/\/\S+/giu, '')
     .replace(/#[0-9A-Za-z가-힣_]+/gu, '')
+    .replace(PHOTO_CAPTION_BLOCK, ' ')
+    .replace(SOURCE_CREDIT, ' ')
     .replace(INPUT_EMOJI, '')
     .replace(/[\u200D\uFE0F\u{1F3FB}-\u{1F3FF}]/gu, '')
     .replace(/\s+/gu, ' ')
@@ -55,12 +60,16 @@ function sourceSentences(article = {}) {
   ].filter(Boolean);
   const body = [article.fullText, article.body, article.summary, article.title]
     .filter(Boolean)
-    .flatMap(value => normalizeNfc(value).split(/(?<=[.!?。！？])\s+|\n+/u));
+    .flatMap(value => normalizeNfc(value)
+      .replace(PHOTO_CAPTION_BLOCK, ' ')
+      .replace(SOURCE_CREDIT, ' ')
+      .split(/(?<=[.!?。！？])\s+|\n+|(?=[▲■◇◆])|(?=[ⓒ©])/u));
   const seen = new Set();
   return [...preferred, ...body]
     .map(cleanVisibleText)
     .filter(Boolean)
-    .filter(value => !/^[▲■◇◆]/u.test(value.trim()) && !/^사진=/u.test(value.trim()))
+    .filter(value => !BOILERPLATE_SENTENCE.test(value))
+    .filter(value => graphemeCount(value) <= 120)
     .filter(value => {
       const key = value.replace(/\s+/gu, '');
       if (seen.has(key)) return false;
@@ -110,16 +119,18 @@ function cleanTitleLines(lines, frame) {
 
 function buildDeterministicTitleCandidates(article = {}) {
   const category = article.category === CATEGORIES.ISSUE ? CATEGORIES.ISSUE : CATEGORIES.ECONOMY;
-  const categoryLabel = category === CATEGORIES.ISSUE ? '시사브리핑' : '경제브리핑';
   const frame = articleFrame(article);
   const tokens = meaningfulTokens(article);
-  const subject = fitWords(frame.subject || article.target || article.entities?.[0] || tokens[0], 9, category === CATEGORIES.ISSUE ? '오늘시사' : '오늘경제');
-  const secondary = fitWords(article.entities?.[1] || tokens.find(token => token !== subject), 7, categoryLabel);
-  const explicitEvent = cleanVisibleText(article.event).match(EVENT_WORDS)?.[0];
+  const subject = fitWords(frame.subject || article.target || article.entities?.[0] || tokens[0], 9, '');
+  const secondary = fitWords(article.entities?.[1] || tokens.find(token => token !== subject), 7, '');
+  const explicitEvent = fitWords(article.event, 7, '') || cleanVisibleText(article.event).match(EVENT_WORDS)?.[0];
   const eventToken = explicitEvent
     || tokens.find(token => EVENT_WORDS.test(token) && token !== subject)
-    || (category === CATEGORIES.ISSUE ? '쟁점정리' : '흐름정리');
-  const event = fitWords(eventToken, 7, category === CATEGORIES.ISSUE ? '쟁점정리' : '흐름정리');
+    || '';
+  const event = fitWords(eventToken, 7, '');
+  if (!subject || (!event && frame.claimState !== 'official_denial' && frame.eventKind !== 'ipo')) {
+    throw new Error('[DIEM Editorial] Deterministic fallback lacks a concrete article subject/event for a safe title');
+  }
   const number = (sourceText(article).match(NUMBER_TOKEN) || [])[0] || '';
   const numberLine = fitWords(
     `${number} ${event}`.trim(),
@@ -143,11 +154,9 @@ function buildDeterministicTitleCandidates(article = {}) {
       : []),
     [subject, numberLine],
     [subject, event],
-    [number ? fitWords(number, 7, categoryLabel) : secondary, subject],
+    [number ? fitWords(number, 7, '') : secondary, subject],
     [secondary, event],
-    [categoryLabel, subject],
     [event, subject],
-    [subject, categoryLabel],
   ];
   const candidates = [];
   for (const lines of templates) {
@@ -432,9 +441,13 @@ async function generateEditorial(article = {}, {
       attempts.push({ model, status: 'failed', error: error.message });
     }
   }
-  const fallback = buildDeterministicEditorial(article, { handle });
-  fallback.generation.attempts = attempts;
-  return fallback;
+  try {
+    const fallback = buildDeterministicEditorial(article, { handle });
+    fallback.generation.attempts = attempts;
+    return fallback;
+  } catch (error) {
+    throw new Error(`[DIEM Editorial] Model attempts failed and deterministic fallback rejected: ${error.message}`);
+  }
 }
 
 function validateEditorial(editorial, { article = {}, handle } = {}) {

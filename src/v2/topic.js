@@ -1,8 +1,11 @@
 const { CATEGORIES } = require('./constants');
 const { normalizeNfc } = require('./text');
 
-const ECONOMY_INCLUDE = /(금리|물가|환율|세금|부동산|주택|대출|예금|적금|금융|증시|고용|소득|반도체|인공지능|\bAI\b|자동차|유통|수출|수입|관세|연금)/iu;
-const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|판결|기후|의료|보건|정부|국회)/u;
+const ECONOMY_CORE_TOPIC = /(금리|물가|환율|세금|부동산|주택|대출|예금|적금|금융|증시|고용|소득|임금|반도체|D램|HBM|자동차|유통|수출|수입|관세|연금|IPO|기업공개|상장|공모주|공모가|주가|코스피|코스닥)/iu;
+const AI_ECONOMY_CONTEXT = /((인공지능|\bAI\b).{0,45}(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가)|(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가).{0,45}(인공지능|\bAI\b))/iu;
+const PRIVACY_RIGHTS_POLICY = /(개인정보|정보인권|프라이버시|기본권|동의\s*없이|원본\s*데이터|생체정보|얼굴|목소리|노동계|시민사회|특별법|법안|규제\s*특례)/u;
+const ECONOMY_INCLUDE = ECONOMY_CORE_TOPIC;
+const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|특별법|판결|기후|의료|보건|정부|국회|개인정보|정보인권|프라이버시|기본권|생체정보)/u;
 const ECONOMY_EXCLUDE = /(종목\s*추천|매수\s*추천|급등주|인사|선임|취임|업무협약|\bMOU\b|신제품\s*홍보|이벤트)/iu;
 const ISSUE_EXCLUDE = /(정쟁|공방|막말|연예|스포츠|가십|화보|단독\s*사진)/u;
 const SENSITIVE = /(사망|참사|재난|희생|피해자|전쟁|테러|폭발|화재|산불|침수|붕괴|실종|학대)/u;
@@ -11,7 +14,7 @@ const OFFICIAL_DENIAL = /(확정된?\s*바\s*없|확정되지\s*않|사실이\s*
 const TENTATIVE = /(검토|논의|추진|계획|예정|가능성|전망|유력|가닥|방침|초안|보도했다|보도했)/u;
 const DECIDED = /(확정|결정|의결|통과|시행|발표|인상|인하|선고|판결|도입|개편|확대|축소|폐지)/u;
 const IPO_EVENT = /(\bIPO\b|기업공개|상장|첫\s*거래|증시\s*데뷔|공모가|공모주)/iu;
-const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험료|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|인공지능|\bAI\b|자동차|수출|관세|연금)/iu;
+const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험료|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금)/iu;
 const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|재배|수확|축산|어촌|마을|지역축제|천연\s*패딩|곤충|반려동물|맛집|여행지)/u;
 const NARROW_WITH_PUBLIC_POLICY = /(정부.{0,20}(지원|보조금|규제|법안|발표|시행)|국회|전국.{0,20}(지원|보조금|시행)|보험|세금|대출|주거|교육|복지|의료|노동|고용)/u;
 const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|목격담|인증샷|사진\s*한\s*장)/u;
@@ -49,6 +52,7 @@ function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   if (/(기준금리|한국은행)/u.test(normalized)) return '기준금리';
   if (/(전세|월세|주거|주택)/u.test(normalized)) return '주거 정책';
   if (/(국민연금|연금)/u.test(normalized)) return '연금 개편';
+  if (/(개인정보|정보인권|프라이버시|피지컬AI|특별법)/u.test(normalized)) return 'AI 개인정보';
   if (/(CXMT|창신메모리)/iu.test(normalized)) return 'CXMT';
   if (/(삼성전자|SK하이닉스|D램|반도체)/u.test(normalized)) return '반도체';
   if (/(관세|수출|수입)/u.test(normalized)) return '관세';
@@ -124,6 +128,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   const text = candidateText(candidate);
   const signals = [];
   const penalties = [];
+  const hasEconomyCore = ECONOMY_CORE_TOPIC.test(text) || AI_ECONOMY_CONTEXT.test(text);
   let score = 0;
 
   if (BROAD_LIFE_IMPACT.test(text)) {
@@ -138,7 +143,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     score += 15;
     signals.push('broad_audience_or_market_scope');
   }
-  if (category === CATEGORIES.ECONOMY && /(금리|물가|환율|세금|부동산|대출|금융|증시|반도체|IPO|기업공개|상장|수출|관세|연금)/iu.test(text)) {
+  if (category === CATEGORIES.ECONOMY && hasEconomyCore) {
     score += 20;
     signals.push('economy_core_topic');
   }
@@ -152,6 +157,16 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     score -= 50;
     penalties.push('official_denial_without_confirmed_change');
     hardReject = 'official_denial_without_confirmed_change';
+  }
+  if (category === CATEGORIES.ECONOMY && PRIVACY_RIGHTS_POLICY.test(text) && !hasEconomyCore) {
+    score -= 50;
+    penalties.push('privacy_rights_policy_not_economy');
+    hardReject ||= 'privacy_rights_policy_not_economy';
+  }
+  if (category === CATEGORIES.ECONOMY && !hasEconomyCore) {
+    score -= 35;
+    penalties.push('economy_core_topic_missing');
+    hardReject ||= 'economy_core_topic_missing';
   }
   if (category === CATEGORIES.ISSUE && NARROW_OR_LOCAL.test(text) && !NARROW_WITH_PUBLIC_POLICY.test(text)) {
     score -= 40;
@@ -183,13 +198,17 @@ function classifyCandidate(candidate = {}) {
   const excluded = [];
   if (ECONOMY_EXCLUDE.test(text)) excluded.push('economy_low_value');
   if (ISSUE_EXCLUDE.test(text)) excluded.push('issue_low_value');
-  const economy = ECONOMY_INCLUDE.test(text) && !ECONOMY_EXCLUDE.test(text);
+  const economy = (ECONOMY_INCLUDE.test(text) || AI_ECONOMY_CONTEXT.test(text)) && !ECONOMY_EXCLUDE.test(text);
   const issue = ISSUE_INCLUDE.test(text) && !ISSUE_EXCLUDE.test(text);
   if (!economy && !issue) return { category: null, excluded: excluded.length ? excluded : ['category_not_allowed'] };
   if (economy && !issue) return { category: CATEGORIES.ECONOMY, excluded: [] };
   if (issue && !economy) return { category: CATEGORIES.ISSUE, excluded: [] };
 
-  const directEconomy = /(금리|물가|환율|세금|대출|예금|적금|증시|수출|수입|관세|연금)/u.test(text);
+  if (PRIVACY_RIGHTS_POLICY.test(text) && !AI_ECONOMY_CONTEXT.test(text)) {
+    return { category: CATEGORIES.ISSUE, excluded: [], ambiguous: true };
+  }
+
+  const directEconomy = ECONOMY_CORE_TOPIC.test(text) || AI_ECONOMY_CONTEXT.test(text);
   return { category: directEconomy ? CATEGORIES.ECONOMY : CATEGORIES.ISSUE, excluded: [], ambiguous: true };
 }
 

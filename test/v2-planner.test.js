@@ -87,7 +87,9 @@ test('allows standalone Naver ranking candidates to pass when independent corrob
   const result = await planDailyQueue({
     date: '2026-07-25',
     fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
-    fetchArticleBodyImpl: async () => '본문 길이 80자 충족을 위한 장문의 텍스트입니다. 한국은행이 7월 25일 기준금리를 2.50%로 동결하고 향후 물가 흐름 및 주택 가계대출을 주시하며 청년 월세 주거 지원도 대거 확대한다고 공식 발표하였습니다.',
+    fetchArticleBodyImpl: async url => (url.endsWith('0000001')
+      ? articleBody('금리')
+      : articleBody('주거')),
     embedder: async () => [],
   });
   assert.equal(result.publications.economy.ok, true);
@@ -134,4 +136,43 @@ test('skips official-denial and narrow issue candidates before selecting a usefu
   assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('low_editorial_value:official_denial_without_confirmed_change')));
   assert.ok(result.candidates[1].rejectionReasons.some(reason => reason.includes('low_editorial_value:narrow_or_local_issue')));
   assert.equal(result.publications.issue.selected.editorialValue.ok, true);
+});
+
+test('reclassifies hydrated article text before accepting an economy candidate', async () => {
+  const candidates = [
+    {
+      title: '"내 얼굴·목소리 원본, 동의 없이 수집·활용" 피지컬AI 특별법 논란',
+      url: 'https://n.news.naver.com/article/001/privacy-ai',
+      popularityScore: 100,
+      sources: [{
+        portal: 'naver',
+        title: '"내 얼굴·목소리 원본, 동의 없이 수집·활용" 피지컬AI 특별법 논란',
+        url: 'https://n.news.naver.com/article/001/privacy-ai',
+      }],
+    },
+    {
+      title: '한국은행 기준금리 2.50% 동결',
+      url: 'https://n.news.naver.com/article/001/rate',
+      popularityScore: 90,
+      sources: [{
+        portal: 'naver',
+        title: '한국은행 기준금리 2.50% 동결',
+        url: 'https://n.news.naver.com/article/001/rate',
+      }],
+    },
+  ];
+  const bodies = {
+    'privacy-ai': '국회에서 피지컬AI 특별법안이 논의되며 개인정보 원본을 정보주체 동의 없이 활용할 수 있다는 우려가 나왔습니다. 노동계와 정보인권단체는 얼굴과 목소리 원본 활용이 기본권 침해로 이어질 수 있다고 비판했습니다.',
+    rate: articleBody('금리'),
+  };
+  const result = await planDailyQueue({
+    date: '2026-07-26',
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => bodies[url.split('/').at(-1)],
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.economy.ok, true);
+  assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/rate');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => /economy:(assigned_to_issue|low_editorial_value)/u.test(reason)));
 });

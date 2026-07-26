@@ -117,6 +117,25 @@ function updateStep(ledger, category, step, patch = {}, now = new Date()) {
   });
 }
 
+function imageRecordFromPublication(publication = {}, date = '') {
+  if (!publication.image) return null;
+  return {
+    date,
+    publicationKey: publication.publicationKey,
+    category: publication.category,
+    status: publication.status,
+    image: {
+      kind: publication.image.kind || null,
+      id: publication.image.id || null,
+      source: publication.image.source || null,
+      originalUrl: publication.image.originalUrl || null,
+      downloadUrl: publication.image.downloadUrl || null,
+      localSha256: publication.image.localSha256 || publication.image.sha256 || null,
+      query: publication.image.query || null,
+    },
+  };
+}
+
 function historyFromLedgers(ledgers = [], referenceDate = kstDate(), days = 7) {
   const cutoff = new Date(`${referenceDate}T00:00:00+09:00`);
   cutoff.setUTCDate(cutoff.getUTCDate() - days);
@@ -134,6 +153,7 @@ function historyFromLedgers(ledgers = [], referenceDate = kstDate(), days = 7) {
       title: publication.candidate?.title || '',
       signature: publication.duplicateCheck.signature,
       audioTrackId: publication.audio?.trackId || null,
+      image: imageRecordFromPublication(publication, publication.publicationKey.split(':')[1])?.image || null,
     }));
 }
 
@@ -179,6 +199,7 @@ module.exports = {
   createDailyLedger,
   emptyPublication,
   historyFromLedgers,
+  imageRecordFromPublication,
   ledgerPath,
   listLedgers,
   loadLedger,

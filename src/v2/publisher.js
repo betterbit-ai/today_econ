@@ -15,7 +15,7 @@ const {
   reconcileRecentReel,
   replyToComment,
 } = require('./instagram');
-const { updatePublication } = require('./ledger');
+const { imageRecordFromPublication, updatePublication } = require('./ledger');
 const { selectMusic, getMood } = require('./music');
 const { createDiemReelWithMusic } = require('./reel');
 const { renderDiemCover } = require('./cover');
@@ -49,6 +49,29 @@ function stripEphemeralImageFields(selection = {}) {
   return durable;
 }
 
+function currentLedgerImages(ledger, excludePublicationKey) {
+  return Object.values(ledger.publications || {})
+    .filter(publication => publication.publicationKey !== excludePublicationKey)
+    .filter(publication => publication.image)
+    .filter(publication => (
+      ['ready', 'publishing', 'published', 'retry_pending'].includes(publication.status)
+      || ['ready', 'publishing', 'published', 'retry_pending'].includes(publication.reel?.status)
+    ))
+    .map(publication => imageRecordFromPublication(publication, ledger.date)?.image)
+    .filter(Boolean);
+}
+
+function recentImagesForSelection(ledger, publication, history = []) {
+  const historicalImages = history
+    .filter(entry => entry.publicationKey !== publication.publicationKey)
+    .map(entry => entry.image || entry)
+    .filter(Boolean);
+  return [
+    ...historicalImages,
+    ...currentLedgerImages(ledger, publication.publicationKey),
+  ];
+}
+
 async function preparePublication(ledger, category, {
   callModel,
   selectImageImpl = selectLicensedImage,
@@ -80,6 +103,8 @@ async function preparePublication(ledger, category, {
   }, {
     pexelsApiKey: config.pexelsApiKey,
     unsplashAccessKey: config.unsplashAccessKey,
+    recentImages: recentImagesForSelection(ledger, publication, history),
+    reuseWindowDays: config.maxHistoryDays,
   });
   let downloaded = imageSelection;
   if (imageSelection.kind === 'web') {

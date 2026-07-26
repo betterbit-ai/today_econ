@@ -67,6 +67,31 @@ function scoreImageCandidate(image, query, signature = '') {
   };
 }
 
+function normalizeImageIdentifier(value = '') {
+  const normalized = normalizeNfc(value).trim();
+  if (!normalized) return '';
+  return normalized.replace(/[?#].*$/u, '');
+}
+
+function imageReuseKeys(image = {}) {
+  const source = image.image || image;
+  return [...new Set([
+    source.id,
+    source.originalUrl,
+    source.downloadUrl,
+    source.localSha256,
+    source.sha256,
+  ].map(value => normalizeImageIdentifier(String(value || ''))).filter(Boolean))];
+}
+
+function recentImageKeySet(recentImages = []) {
+  return new Set(recentImages.flatMap(imageReuseKeys));
+}
+
+function imageWasRecentlyUsed(image, recentKeys) {
+  return imageReuseKeys(image).some(key => recentKeys.has(key));
+}
+
 async function fetchJson(url, { fetchImpl = fetch, headers = {} } = {}) {
   const response = await fetchImpl(url, { headers: { 'User-Agent': 'DIEMNewsBot/2.0', ...headers } });
   if (!response.ok) throw new Error(`${response.status} ${response.statusText}`.trim());
@@ -149,9 +174,13 @@ async function selectLicensedImage(candidate, {
   unsplashAccessKey,
   fetchImpl = fetch,
   minimumScore = 0.42,
+  recentImages = [],
+  reuseWindowDays = 7,
+  randomImpl = Math.random,
 } = {}) {
   const queries = buildImageQueries(candidate);
   const attempts = [];
+  const recentKeys = recentImageKeySet(recentImages);
   const providers = [
     { name: 'pexels', search: query => searchPexels(query, { apiKey: pexelsApiKey, fetchImpl }) },
     { name: 'unsplash', search: query => searchUnsplash(query, { accessKey: unsplashAccessKey, fetchImpl }) },
@@ -165,18 +194,39 @@ async function selectLicensedImage(candidate, {
         const scored = images
           .map(image => ({ ...image, query, ...scoreImageCandidate(image, query, candidate.title) }))
           .filter(image => image.downloadUrl && image.width >= 800 && image.height >= 800)
-          .sort((a, b) => b.score - a.score);
-        attempts.push({ provider: provider.name, query, count: scored.length, bestScore: scored[0]?.score ?? null });
+          .sort((a, b) => b.score - a.score)
+          .map((image, index) => ({ ...image, rankWithinQuery: index + 1 }));
         const eligible = scored.filter(img => img.score >= minimumScore);
-        if (eligible.length > 0) {
-          const topN = eligible.slice(0, 5);
-          const selected = topN[Math.floor(Math.random() * topN.length)];
+        const blocked = eligible.filter(image => imageWasRecentlyUsed(image, recentKeys));
+        const unused = eligible.filter(image => !imageWasRecentlyUsed(image, recentKeys));
+        attempts.push({
+          provider: provider.name,
+          query,
+          count: scored.length,
+          eligibleCount: eligible.length,
+          recentReuseBlocked: blocked.length,
+          bestScore: scored[0]?.score ?? null,
+        });
+        if (unused.length > 0) {
+          const topN = unused.slice(0, 5);
+          const selectedIndex = Math.min(topN.length - 1, Math.max(0, Math.floor(randomImpl() * topN.length)));
+          const selected = topN[selectedIndex];
           return {
             kind: 'web',
             selectedAt: new Date().toISOString(),
             ...selected,
+            selectedPoolIndex: selectedIndex + 1,
+            selectionPoolSize: topN.length,
             attempts,
-            selectionReason: `randomly selected from top ${topN.length} ${provider.name} results above ${minimumScore}`,
+            reuseGuard: {
+              allowed: true,
+              windowDays: reuseWindowDays,
+              recentImageCount: recentImages.length,
+              recentKeyCount: recentKeys.size,
+              blockedCandidateCount: blocked.length,
+              selectedImageKeys: imageReuseKeys(selected),
+            },
+            selectionReason: `selected unused rank #${selected.rankWithinQuery} from top ${topN.length} ${provider.name} results above ${minimumScore}; ${blocked.length} recent images blocked`,
           };
         }
       } catch (error) {
@@ -192,7 +242,14 @@ async function selectLicensedImage(candidate, {
     selectedAt: new Date().toISOString(),
     attempts,
     score: 0,
-    selectionReason: 'no licensed image met the confidence threshold',
+    reuseGuard: {
+      allowed: true,
+      windowDays: reuseWindowDays,
+      recentImageCount: recentImages.length,
+      recentKeyCount: recentKeys.size,
+      blockedCandidateCount: attempts.reduce((sum, attempt) => sum + (attempt.recentReuseBlocked || 0), 0),
+    },
+    selectionReason: 'no licensed unused image met the confidence threshold',
   };
 }
 
@@ -216,6 +273,7 @@ module.exports = {
   LICENSES,
   buildImageQueries,
   downloadSelectedImage,
+  imageReuseKeys,
   scoreImageCandidate,
   searchPexels,
   searchUnsplash,

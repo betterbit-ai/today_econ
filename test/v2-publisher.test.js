@@ -5,7 +5,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const { createDailyLedger, updatePublication } = require('../src/v2/ledger');
-const { publishCommentChain, publishPreparedPublication } = require('../src/v2/publisher');
+const { preparePublication, publishCommentChain, publishPreparedPublication } = require('../src/v2/publisher');
 
 function readyLedger(root) {
   fs.mkdirSync(root, { recursive: true });
@@ -54,6 +54,67 @@ test('publishes only one Reel and records its external identity', async () => {
   assert.equal(result.publications.economy.carousel, undefined);
   assert.equal(result.publications.economy.story.status, 'published');
   assert.equal(result.publications.economy.story.externalId, 'ig-story');
+});
+
+test('passes recent historical and same-day ledger images into image selection', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-prepare-'));
+  let ledger = createDailyLedger('2026-07-26');
+  ledger = updatePublication(ledger, 'issue', {
+    status: 'published',
+    image: {
+      kind: 'web',
+      id: 'pexels:same-day',
+      originalUrl: 'https://www.pexels.com/photo/same-day/',
+      downloadUrl: 'https://images.pexels.com/photos/same-day/photo.jpeg',
+    },
+    reel: { status: 'published', attempts: 1, externalId: 'ig-issue' },
+  });
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: {
+      title: '한국은행 기준금리 2.50% 동결',
+      fullText: '한국은행은 기준금리를 2.50%로 동결했습니다. 물가와 가계대출 흐름을 더 지켜보기 위한 결정입니다. 다음 회의에서도 경제 지표를 확인할 예정입니다.',
+      category: 'economy',
+    },
+    duplicateCheck: {
+      signature: {
+        target: '기준금리',
+        event: '동결',
+        entities: ['한국은행'],
+      },
+    },
+  });
+
+  let recentImages = null;
+  const result = await preparePublication(ledger, 'economy', {
+    artifactRoot: root,
+    history: [{
+      publicationKey: 'diem:2026-07-25:issue',
+      image: { id: 'pexels:yesterday', originalUrl: 'https://www.pexels.com/photo/yesterday/' },
+    }],
+    selectImageImpl: async (_article, options) => {
+      recentImages = options.recentImages;
+      return {
+        kind: 'web',
+        id: 'pexels:fresh',
+        source: 'pexels',
+        originalUrl: 'https://www.pexels.com/photo/fresh/',
+        downloadUrl: 'https://images.pexels.com/photos/fresh/photo.jpeg',
+        license: { name: 'Pexels License', url: 'https://www.pexels.com/license/' },
+      };
+    },
+    downloadImageImpl: async selection => ({ ...selection, localPath: null, sha256: 'fresh-image-sha' }),
+    renderCoverImpl: async ({ outputPath }) => fs.writeFileSync(outputPath, 'cover'),
+    selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
+    createReelImpl: async ({ outputPath, music }) => {
+      fs.writeFileSync(outputPath, 'video');
+      return { outputPath, audio: { trackId: music.trackId } };
+    },
+  });
+
+  assert.deepEqual(recentImages.map(image => image.id).sort(), ['pexels:same-day', 'pexels:yesterday']);
+  assert.equal(result.publications.economy.image.id, 'pexels:fresh');
+  assert.equal(result.publications.economy.image.localSha256, 'fresh-image-sha');
 });
 
 test('reconciles an existing exact Reel instead of republishing', async () => {

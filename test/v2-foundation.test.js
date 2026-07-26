@@ -60,6 +60,8 @@ test('validates exactly three short caption sentences and emoji positions', () =
   assert.equal(result.sentences.length, 3);
   assert.ok(result.sentences.every(sentence => graphemeCount(sentence) <= 120));
   assert.equal(validateCaption(caption.replace('흐름을', '흐름을📉')).ok, false);
+  assert.equal(validateCaption(`첫 문장입니다.📊\n\n${'가'.repeat(121)}\n\n셋째 문장입니다.🔎`).ok, false);
+  assert.equal(validateCaption('자료사진 설명이 들어간 문장입니다.📰\n\nⓒ연합뉴스개인정보를 원문 그대로 수집했다는 내용입니다.\n\n셋째 문장입니다.🔎').ok, false);
 });
 
 test('builds a mention plus 12-15 unique dot-free hashtags', () => {
@@ -78,6 +80,10 @@ test('builds a mention plus 12-15 unique dot-free hashtags', () => {
 test('classifies allowed economy and issue topics and excludes low-value items', () => {
   assert.equal(classifyCandidate({ title: '한국은행 기준금리 동결' }).category, CATEGORIES.ECONOMY);
   assert.equal(classifyCandidate({ title: '청년 주거 지원 정책 시행' }).category, CATEGORIES.ISSUE);
+  assert.equal(classifyCandidate({
+    title: '"내 얼굴·목소리 원본, 동의 없이 수집·활용" 피지컬AI 특별법 논란',
+    summary: '국회에서 피지컬AI 특별법안이 논의되며 개인정보 원본을 정보주체 동의 없이 활용할 수 있다는 우려가 나온다.',
+  }).category, CATEGORIES.ISSUE);
   assert.equal(classifyCandidate({ title: '증권사 임원 인사 발표' }).category, null);
   assert.equal(isSensitiveTopic({ title: '대형 화재로 인명 피해' }), true);
 });
@@ -112,6 +118,10 @@ test('builds claim-state frames that prevent misleading denial and acronym-date 
   assert.equal(ipoFrame.eventKind, 'ipo');
   assert.equal(validateTitleAgainstFrame('CXMT 내일\n27일', ipoFrame).ok, false);
   assert.equal(validateTitleAgainstFrame('CXMT IPO\n27일 상장', ipoFrame).ok, true);
+  assert.equal(validateTitleAgainstFrame('얼굴 목소리\n흐름정리', buildNewsFrame({
+    category: CATEGORIES.ISSUE,
+    title: '피지컬AI 특별법 개인정보 활용 논란',
+  }, CATEGORIES.ISSUE)).ok, false);
 });
 
 test('scores DIEM editorial value instead of accepting every broad issue keyword', () => {
@@ -134,6 +144,13 @@ test('scores DIEM editorial value instead of accepting every broad issue keyword
     summary: '정부는 전국 청년 가구의 주거 부담을 낮추기 위한 정책 확대안을 발표했습니다.',
   }, CATEGORIES.ISSUE);
   assert.equal(housing.ok, true);
+
+  const privacyAiAsEconomy = assessDiemEditorialValue({
+    title: '"내 얼굴·목소리 원본, 동의 없이 수집·활용" 피지컬AI 특별법 논란',
+    summary: '국회에서 피지컬AI 특별법안이 논의되며 개인정보 원본을 정보주체 동의 없이 활용할 수 있다는 우려가 나온다.',
+  }, CATEGORIES.ECONOMY);
+  assert.equal(privacyAiAsEconomy.ok, false);
+  assert.match(privacyAiAsEconomy.reason, /economy_core_topic_missing|privacy_rights_policy_not_economy/u);
 });
 
 test('applies automatic and gray-zone duplicate thresholds', () => {
@@ -178,6 +195,13 @@ test('creates, atomically stores, and reloads a two-category daily ledger', () =
     candidate: { title: '한국은행 기준금리 동결' },
     duplicateCheck: { signature },
     audio: { trackId: 'economy-steady' },
+    image: {
+      kind: 'web',
+      id: 'pexels:rate',
+      originalUrl: 'https://www.pexels.com/photo/rate/',
+      downloadUrl: 'https://images.pexels.com/photos/rate/photo.jpeg',
+      localSha256: 'rate-image-sha',
+    },
   });
   ledger = updateStep(ledger, CATEGORIES.ECONOMY, 'reel', {
     status: 'published',
@@ -194,4 +218,6 @@ test('creates, atomically stores, and reloads a two-category daily ledger', () =
   const history = historyFromLedgers([loaded, future], '2026-07-26', 7);
   assert.equal(history.length, 1);
   assert.equal(history[0].audioTrackId, 'economy-steady');
+  assert.equal(history[0].image.id, 'pexels:rate');
+  assert.equal(history[0].image.localSha256, 'rate-image-sha');
 });

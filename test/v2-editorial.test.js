@@ -5,6 +5,7 @@ const {
   DEFAULT_MODELS,
   buildDeterministicEditorial,
   generateEditorial,
+  sourceSentences,
   validateEditorial,
 } = require('../src/v2/editorial');
 const {
@@ -70,7 +71,7 @@ test('deterministic fallback produces five short titles and the exact DIEM capti
   assert.equal(caption.ok, true, caption.errors.join('; '));
   assert.equal(editorial.caption.sentences.length, 3);
   assert.equal(editorial.caption.text, editorial.caption.sentences.join('\n\n'));
-  editorial.caption.sentences.forEach(sentence => assert.ok(graphemeCount(sentence) <= 300));
+  editorial.caption.sentences.forEach(sentence => assert.ok(graphemeCount(sentence) <= 120));
   assert.equal(editorial.comments.first, editorial.emojis.first);
 
   const reply = validateHashtagReply(editorial.comments.reply);
@@ -230,12 +231,48 @@ test('falls back deterministically when both model calls fail or invent a number
   assert.doesNotMatch(editorial.caption.text, /9\.9%/u);
 });
 
+test('filters photo captions and source credits before deterministic captioning', () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '피지컬AI 특별법 개인정보 활용 논란',
+    summary: '국회에서 피지컬AI 특별법안이 논의되며 개인정보 원본 활용 우려가 커지고 있습니다.',
+    fullText: '피지컬AI 성능 명분으로 개인정보 원본 동의 없이 활용하는 특례를 두고 시민사회와 노동계가 비판했습니다. ▲지난 1월6일 미국 네바다주 라스베이거스 만달레이베이에서 열린 프레스 컨퍼런스에서 시제품이 무대에 공개돼 있다. ⓒ연합뉴스개인정보를 정보주체의 동의 없이 원본 그대로 수집해 피지컬AI에 활용할 수 있도록 허용하는 특별법안을 두고 시민사회의 우려가 큽니다. 국회에서 AI 개발과 활용을 위해 특례 입법이 논의되면서 기본권을 박탈하는 예외주의라는 비판이 나오고 있습니다.',
+    entities: ['피지컬AI', '개인정보', '특별법'],
+    target: 'AI 개인정보',
+    event: '특별법 논란',
+  };
+  const sentences = sourceSentences(article);
+  assert.equal(sentences.some(sentence => /▲|ⓒ|연합뉴스|프레스\s*컨퍼런스|무대에\s*공개/u.test(sentence)), false);
+
+  const editorial = buildDeterministicEditorial(article);
+  assert.equal(validateEditorial(editorial, { article }).ok, true);
+  assert.equal(/▲|ⓒ|연합뉴스|프레스\s*컨퍼런스|무대에\s*공개/u.test(editorial.caption.text), false);
+  editorial.caption.sentences.forEach(sentence => assert.ok(graphemeCount(sentence) <= 120));
+});
+
+test('fails closed when model output is unusable and deterministic evidence cannot form a safe title', async () => {
+  await assert.rejects(
+    generateEditorial({
+      category: CATEGORIES.ECONOMY,
+      title: '얼굴 목소리 원본 동의 없이 수집 논란',
+      summary: 'AI 관련 논란입니다.',
+      fullText: 'AI 관련 논란입니다. 개인정보 활용 논란입니다. 시민사회가 우려했습니다.',
+      entities: ['피지컬AI'],
+      target: '얼굴 목소리',
+      event: '',
+    }, {
+      callModel: async () => ({ titleCandidates: [], sentences: [] }),
+    }),
+    /valid title candidates|fallback/i
+  );
+});
+
 test('rejects malformed title, caption, comment, and hashtag reply contracts', () => {
   assert.equal(validateTitle('한 줄뿐').ok, false);
   assert.equal(validateTitle('일이삼사오육칠팔\n구십일이삼사오육').ok, true);
   assert.equal(validateTitle('일이삼사오육칠팔구십일이삼사\n오육칠팔구십일이삼사오육칠팔').ok, false);
   assert.equal(validateCaption('첫 문장📊\n둘째 문장\n셋째 문장📊').ok, false);
-  assert.equal(validateCaption(`첫 문장📊\n\n${'가'.repeat(301)}\n\n셋째 문장📊`).ok, false);
+  assert.equal(validateCaption(`첫 문장입니다.📊\n\n${'가'.repeat(121)}\n\n셋째 문장입니다.📊`).ok, false);
   assert.equal(validateHashtagReply('@diem.magazine #경제 #경제').ok, false);
 
   const editorial = buildDeterministicEditorial(economyArticle());
