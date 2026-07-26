@@ -32,7 +32,8 @@ async function computeEmbeddingMatrix(queries, corpus, {
   const { stdout } = await execFileImpl(pythonPath, [scriptPath], {
     input,
     maxBuffer: 1024 * 1024 * 4,
-    env: { ...process.env, TOKENIZERS_PARALLELISM: 'false' },
+    timeout: 60000,
+    env: { ...process.env, TOKENIZERS_PARALLELISM: 'false', HF_HUB_OFFLINE: '1' },
   });
   const result = JSON.parse(stdout);
   if (!Array.isArray(result.matrix) || result.matrix.length !== queries.length) {
