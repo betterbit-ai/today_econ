@@ -19,21 +19,30 @@ const DEFAULT_MODELS = Object.freeze({
 });
 
 const SENTENCE_ENDING = /[.!?。！？]$/u;
-const EVENT_WORDS = /(인상|인하|상승|하락|급등|급락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과)/u;
+const EVENT_WORDS = /(인상|인하|상승|하락|급등|급락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|전환)/u;
 const NUMBER_TOKEN = /\d[\d,.]*(?:\s*(?:%|퍼센트|조\s*원|억\s*원|만\s*원|원|만\s*명|명|개|배|년|월|일))?/gu;
 const INPUT_EMOJI = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}{2}|[#*0-9]\uFE0F?\u20E3)/gu;
 const PHOTO_CAPTION_BLOCK = /[▲■◇◆][^.!?。！？]{0,280}(?:공개돼\s*있다|촬영[^.!?。！？]*있다|기념\s*촬영|자료\s*사진|사진)[.!?。！？]?/gu;
 const SOURCE_CREDIT = /[ⓒ©]\s*(?:연합뉴스|뉴스1|뉴시스|로이터|AP|EPA|게티이미지|공동취재단)?/giu;
-const BOILERPLATE_SENTENCE = /(▲|■|◇|◆|ⓒ|©|자료\s*사진|사진\s*=|프레스\s*컨퍼런스|무대에\s*공개|기념\s*촬영|연합뉴스)/u;
+const BROADCAST_CHROME_BLOCK = /(?:\[[^\]]{0,40}뉴스데스크[^\]]{0,40}\]|◀\s*(?:앵커|리포트)\s*▶|MBC\s*뉴스는\s*24시간[^.!?。！？]*[.!?。！？]?|▷\s*(?:전화|이메일|카카오톡)[^.!?。！？]*[.!?。！？]?)/gu;
+const SPEAKER_LABEL = /\[[^\]]{0,60}(?:관계자|음성변조|기자|앵커|리포트)[^\]]{0,60}\]/gu;
+const NEWSROOM_CREDIT = /(?:MBC뉴스\s*\S+입니다|영상취재\s*:[^.!?。！？]*|영상편집\s*:[^.!?。！？]*|취재\s*:[^.!?。！？]*|전화\s*\d{2,4}-\d{3,4}-\d{4}|이메일\s*\S+|카카오톡\s*@?\S+|제보를\s*기다립니다)[.!?。！？]?/gu;
+const BOILERPLATE_SENTENCE = /(▲|■|◇|◆|ⓒ|©|자료\s*사진|사진\s*=|프레스\s*컨퍼런스|무대에\s*공개|기념\s*촬영|연합뉴스|뉴스1|뉴시스|로이터|AP|EPA|게티이미지|뉴스데스크|앵커|리포트|영상취재|영상편집|MBC\s*뉴스|MBC뉴스|제보|전화|이메일|카카오톡)/iu;
+const EMAIL_TEXT = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/iu;
+const MENTION_TEXT = /@[0-9A-Za-z가-힣_.]+/u;
+const INCOMPLETE_FRAGMENT_ENDING = /(다는|라는|이라는|했다는|됐다는|받았다는|나왔다는|있다는|없다는|한다는|추진한다는|허용한다는)[.!?。！？]?$/u;
 const TOPIC_STOPWORDS = new Set([
   '오늘', '관련', '대한', '위해', '이번', '기사', '뉴스', '기자', '발표',
-  '따르면', '그리고', '하지만', '것으로', '나타났다', '밝혔다',
+  '따르면', '그리고', '하지만', '것으로', '나타났다', '밝혔다', '만에',
 ]);
 
 function cleanVisibleText(value = '') {
   return normalizeNfc(value)
     .replace(/https?:\/\/\S+/giu, '')
     .replace(/#[0-9A-Za-z가-힣_]+/gu, '')
+    .replace(BROADCAST_CHROME_BLOCK, ' ')
+    .replace(SPEAKER_LABEL, ' ')
+    .replace(NEWSROOM_CREDIT, ' ')
     .replace(PHOTO_CAPTION_BLOCK, ' ')
     .replace(SOURCE_CREDIT, ' ')
     .replace(INPUT_EMOJI, '')
@@ -43,7 +52,7 @@ function cleanVisibleText(value = '') {
 }
 
 function sourceText(article = {}) {
-  return normalizeNfc([
+  return cleanVisibleText([
     article.title,
     article.summary,
     article.fullText,
@@ -53,29 +62,98 @@ function sourceText(article = {}) {
   ].filter(Boolean).join(' '));
 }
 
-function sourceSentences(article = {}) {
+function comparableNewsText(value = '') {
+  return cleanVisibleText(value)
+    .replace(/[^0-9A-Za-z가-힣]/gu, '')
+    .toLowerCase();
+}
+
+function sentencePunctuationCount(value = '') {
+  const plain = cleanVisibleText(value)
+    .replace(EMAIL_TEXT, 'EMAIL')
+    .replace(/(\d)\.(\d)/gu, '$1§$2');
+  return (plain.match(/[.!?。！？]/gu) || []).length;
+}
+
+function splitSourceSentences(value = '') {
+  return normalizeNfc(value)
+    .replace(BROADCAST_CHROME_BLOCK, ' ')
+    .replace(SPEAKER_LABEL, ' ')
+    .replace(NEWSROOM_CREDIT, ' ')
+    .replace(PHOTO_CAPTION_BLOCK, ' ')
+    .replace(SOURCE_CREDIT, ' ')
+    .replace(/([.!?。！？])(?=[가-힣A-Z0-9"“‘\[])/gu, '$1\n')
+    .split(/(?<=[.!?。！？])\s+|\n+|(?=[▲■◇◆])|(?=[ⓒ©])/u);
+}
+
+function usableSourceSentence(value = '', article = {}) {
+  const clean = cleanVisibleText(value);
+  if (!clean) return false;
+  if (BOILERPLATE_SENTENCE.test(clean)) return false;
+  if (EMAIL_TEXT.test(clean) || MENTION_TEXT.test(clean)) return false;
+  if (sentencePunctuationCount(clean) > 1) return false;
+  if (INCOMPLETE_FRAGMENT_ENDING.test(clean.replace(/[.!?。！？]+$/u, ''))) return false;
+  if (graphemeCount(clean) > 120) return false;
+  const sentenceKey = comparableNewsText(clean);
+  const titleKey = comparableNewsText(article.title || '');
+  if (titleKey && sentenceKey && (sentenceKey === titleKey || sentenceKey.includes(titleKey) || titleKey.includes(sentenceKey))) {
+    return false;
+  }
+  return true;
+}
+
+function sourceSentences(article = {}, { structuredOnly = false } = {}) {
   const preferred = [
     ...(article.verifiedFacts || article.facts || []),
     article.context,
   ].filter(Boolean);
-  const body = [article.fullText, article.body, article.summary, article.title]
+  const body = structuredOnly ? [] : [article.fullText, article.body, article.summary]
     .filter(Boolean)
-    .flatMap(value => normalizeNfc(value)
-      .replace(PHOTO_CAPTION_BLOCK, ' ')
-      .replace(SOURCE_CREDIT, ' ')
-      .split(/(?<=[.!?。！？])\s+|\n+|(?=[▲■◇◆])|(?=[ⓒ©])/u));
+    .flatMap(splitSourceSentences);
   const seen = new Set();
   return [...preferred, ...body]
     .map(cleanVisibleText)
     .filter(Boolean)
-    .filter(value => !BOILERPLATE_SENTENCE.test(value))
-    .filter(value => graphemeCount(value) <= 120)
+    .filter(value => usableSourceSentence(value, article))
     .filter(value => {
       const key = value.replace(/\s+/gu, '');
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     });
+}
+
+function rawSourceSentences(article = {}) {
+  const seen = new Set();
+  return [article.fullText, article.body, article.summary]
+    .filter(Boolean)
+    .flatMap(splitSourceSentences)
+    .map(cleanVisibleText)
+    .filter(Boolean)
+    .filter(value => usableSourceSentence(value, article))
+    .filter(value => {
+      const key = value.replace(/\s+/gu, '');
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+}
+
+function copiedRawSourceViolations(sentences = [], article = {}) {
+  const rawSentences = rawSourceSentences(article)
+    .map(sentence => comparableNewsText(sentence))
+    .filter(sentence => sentence.length >= 35);
+  if (rawSentences.length < 1) return [];
+  return sentences.flatMap((sentence, index) => {
+    const normalized = comparableNewsText(sentence);
+    if (normalized.length < 35) return [];
+    const copied = rawSentences.find(raw => (
+      normalized === raw
+      || (raw.includes(normalized) && normalized.length / raw.length >= 0.65)
+      || (normalized.includes(raw) && raw.length / normalized.length >= 0.65)
+    ));
+    return copied ? [{ index, sentence: cleanVisibleText(sentence).slice(0, 80) }] : [];
+  });
 }
 
 function fitWords(value, maximum = 7, fallback = '') {
@@ -215,6 +293,8 @@ function topicTagValues(article = {}) {
   const tags = uniqueHashtags(flatTokens.map(value => normalizeHashtag(value)))
     .filter(tag => /^#[0-9A-Za-z가-힣_]+$/u.test(tag))
     .filter(tag => !/^#\d+$/u.test(tag))
+    .filter(tag => !/^#\d+(?:년|개월|월|일|명|개)$/u.test(tag))
+    .filter(tag => !['#만에', '#쳐도', '#주범'].includes(tag))
     .filter(tag => graphemeCount(tag) <= 20)
     .slice(0, 6);
   const categoryFill = article.category === CATEGORIES.ISSUE
@@ -242,12 +322,18 @@ function buildCommentChain(article, firstEmoji, handle = BRAND.primaryHandle) {
   };
 }
 
-function numericClaimsAreGrounded(sentences, article) {
+function ungroundedNumericClaims(sentences, article) {
   const evidence = sourceText(article).replace(/[\s,]/gu, '');
-  return sentences.every(sentence => {
+  return sentences.flatMap(sentence => {
     const numbers = sentence.match(NUMBER_TOKEN) || [];
-    return numbers.every(number => evidence.includes(number.replace(/[\s,]/gu, '')));
+    return numbers
+      .filter(number => !evidence.includes(number.replace(/[\s,]/gu, '')))
+      .map(number => ({ number, sentence: cleanVisibleText(sentence).slice(0, 80) }));
   });
+}
+
+function numericClaimsAreGrounded(sentences, article) {
+  return ungroundedNumericClaims(sentences, article).length === 0;
 }
 
 function assembleEditorial({
@@ -301,12 +387,14 @@ function buildDeterministicEditorial(article = {}, { handle } = {}) {
   if (!Object.values(CATEGORIES).includes(article.category)) {
     throw new Error('[DIEM Editorial] Article category must be economy or issue');
   }
-  const facts = sourceSentences(article);
-  if (facts.length === 0) throw new Error('[DIEM Editorial] Article evidence is required');
+  const facts = sourceSentences(article, { structuredOnly: true });
+  if (facts.length < 3) {
+    throw new Error('[DIEM Editorial] Deterministic fallback requires trusted structured evidence with three verified facts/context sentences');
+  }
   const sentenceDrafts = [
     facts[0],
-    facts[1] || facts[0],
-    cleanVisibleText(article.context) || facts[2] || facts[1] || facts[0],
+    facts[1],
+    facts[2],
   ];
   return assembleEditorial({
     article,
@@ -357,6 +445,8 @@ function modelPrompt(article) {
       '[1. 원문 필터링 규칙 (중요)]',
       '- 원문의 사진 설명(예: "기념촬영을 하고 있다", "건배하고 있다"), 단순 행사 동정, 식사/만찬 메뉴, 참석자 인사말 등 본질과 상관없는 부차적 사실은 완전히 배제합니다.',
       '- 기자 이름, [단독], [자료사진], [속보] 등 언론사 찌꺼기 텍스트를 완벽히 제거합니다.',
+      '- 방송 기사에 포함된 [뉴스데스크], ◀ 앵커 ▶, ◀ 리포트 ▶, 영상취재/영상편집, MBC뉴스, 전화/이메일/카카오톡 제보 문구는 절대 본문이나 제목에 쓰지 않습니다.',
+      '- 원문 문장 두 개가 붙은 문자열(예: "...말합니다.규모가...")은 그대로 쓰지 말고, 의미를 한 문장으로 다시 정리합니다.',
       '',
       '[2. 제목(title) 작성 규칙]',
       '- 단순 단어/키워드 나열(예: "빅테크 AI / 1400")은 절대 금지합니다.',
@@ -372,11 +462,13 @@ function modelPrompt(article) {
       '',
       '[3. 본문(sentences) 작성 규칙]',
       '- 원문 문장을 절대 그대로 복사하지 말고, 에디터의 언어로 완전히 "새로 재작성(Re-writing)"하세요.',
-      '- sentences는 정확히 3개의 문장으로 구성되며, 각 문장은 80~120자 내외로 매우 명확하고 깔끔해야 합니다.',
+      '- 기사 제목을 본문 문장 중 하나로 그대로 복사하지 마세요.',
+      '- sentences는 정확히 3개의 문장으로 구성되며, 각 문장은 60~115자 내외로 매우 명확하고 깔끔해야 합니다.',
       '- 구체적 역할 구분:',
       '  1문장 (Hook): 이번 뉴스의 가장 결정적인 사건과 핵심 수치 요약',
-      '  2문장 (Fact): 삼성·SK·현대차 등 주요 기업들의 구체적인 협력/투자 내용',
-      '  3문장 (Impact): 이 사건이 한국 AI 산업 및 시장에 가져올 전망이나 의미',
+      '  2문장 (Fact): 원문에 나온 가장 중요한 수치·대상·정책·기업·배경 근거',
+      '  3문장 (Context): 기사나 검증 근거에 명시된 배경·전망·의미, 없으면 다음으로 중요한 사실',
+      '- 기사에 없는 투자 조언, 생활 영향, 전망, 원인 분석을 새로 만들지 마세요.',
       '- 어조: "~했습니다", "~로 나타났습니다", "~전망입니다" 등 격식있고 자연스러운 매거진체 하십시오.',
       '',
       '[4. 이모지 및 태그 규칙]',
@@ -404,8 +496,12 @@ async function generateEditorial(article = {}, {
   primaryModel = DEFAULT_MODELS.primary,
   fallbackModel = DEFAULT_MODELS.fallback,
   handle,
+  allowDeterministicFallback = false,
 } = {}) {
-  if (typeof callModel !== 'function') return buildDeterministicEditorial(article, { handle });
+  if (typeof callModel !== 'function') {
+    if (allowDeterministicFallback) return buildDeterministicEditorial(article, { handle });
+    throw new Error('[DIEM Editorial] LLM generation is required; deterministic fallback is disabled for automatic publishing');
+  }
   const attempts = [];
   const prompt = modelPrompt(article);
   const frame = articleFrame(article);
@@ -418,14 +514,22 @@ async function generateEditorial(article = {}, {
         throw new Error('model returned no valid title candidates for article frame');
       }
       if (!numericClaimsAreGrounded(candidates.map(candidate => candidate.title), article)) {
-        throw new Error('model returned an ungrounded numeric title');
+        const ungrounded = ungroundedNumericClaims(candidates.map(candidate => candidate.title), article)
+          .map(item => item.number)
+          .slice(0, 3)
+          .join(', ');
+        throw new Error(`model returned an ungrounded numeric title: ${ungrounded}`);
       }
       if (!Array.isArray(parsed.sentences) || parsed.sentences.length !== 3) {
         throw new Error('model returned invalid sentence structure');
       }
       const augmentedArticle = { ...article, topicTags: parsed.topicTags || article.topicTags };
       if (!numericClaimsAreGrounded(parsed.sentences, article)) {
-        throw new Error('model returned an ungrounded numeric claim');
+        const ungrounded = ungroundedNumericClaims(parsed.sentences, article)
+          .map(item => `${item.number} in "${item.sentence}"`)
+          .slice(0, 3)
+          .join('; ');
+        throw new Error(`model returned an ungrounded numeric claim: ${ungrounded}`);
       }
       attempts.push({ model, status: 'succeeded' });
       return assembleEditorial({
@@ -441,13 +545,16 @@ async function generateEditorial(article = {}, {
       attempts.push({ model, status: 'failed', error: error.message });
     }
   }
-  try {
-    const fallback = buildDeterministicEditorial(article, { handle });
-    fallback.generation.attempts = attempts;
-    return fallback;
-  } catch (error) {
-    throw new Error(`[DIEM Editorial] Model attempts failed and deterministic fallback rejected: ${error.message}`);
+  if (allowDeterministicFallback) {
+    try {
+      const fallback = buildDeterministicEditorial(article, { handle });
+      fallback.generation.attempts = attempts;
+      return fallback;
+    } catch (error) {
+      throw new Error(`[DIEM Editorial] Model attempts failed and deterministic fallback rejected: ${error.message}`);
+    }
   }
+  throw new Error('[DIEM Editorial] Model attempts failed and deterministic fallback is disabled; try the next candidate');
 }
 
 function validateEditorial(editorial, { article = {}, handle } = {}) {
@@ -489,6 +596,10 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   if (article && !numericClaimsAreGrounded(editorial?.caption?.sentences || [], article)) {
     errors.push('caption contains numeric claims absent from article evidence');
   }
+  const copiedRawSource = copiedRawSourceViolations(editorial?.caption?.sentences || [], article);
+  copiedRawSource.forEach(({ index }) => {
+    errors.push(`caption sentence ${index + 1} copies raw source wording instead of summarizing`);
+  });
   return { ok: errors.length === 0, errors };
 }
 

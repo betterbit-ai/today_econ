@@ -37,6 +37,11 @@ function officialDenialArticle() {
     title: '보건복지부, “건강보험료 상하한선 기준 개선 확정되지 않아”',
     summary: '보건복지부는 건강보험료의 상한선과 하한선을 동시에 높이는 부과 체계 개편을 추진한다는 보도와 관련해 확정된 바 없다고 밝혔습니다.',
     fullText: '보건복지부는 건강보험료의 상한선과 하한선을 동시에 높이는 부과 체계 개편을 추진한다는 보도와 관련해 확정된 바 없다고 밝혔습니다. 연합뉴스는 상위 0.01% 초고소득자의 건보료 상한 기준을 인상하는 내용을 보도했습니다. 보건복지부는 설명자료를 내고 연합뉴스 기사에서 언급된 내용은 확정된 바 없다고 밝혔습니다.',
+    verifiedFacts: [
+      '보건복지부는 건강보험료 부과체계 개편 보도와 관련해 확정된 바 없다고 밝혔습니다.',
+      '해당 보도는 상위 0.01% 초고소득자의 건보료 상한 기준 인상 내용을 다뤘습니다.',
+      '복지부는 설명자료에서 기사에 언급된 내용은 확정된 바 없다고 설명했습니다.',
+    ],
     entities: ['보건복지부', '건강보험료'],
     target: '건강보험료 상하한선',
     event: '확정되지 않아',
@@ -52,6 +57,27 @@ function ipoArticle() {
     entities: ['CXMT', 'IPO'],
     target: 'CXMT',
     event: 'IPO 상장',
+  };
+}
+
+function autoInsuranceBroadcastArticle() {
+  return {
+    category: CATEGORIES.ECONOMY,
+    title: '자동차보험 6년 만에 적자‥"사이드미러 툭 쳐도 MRI, 한방병원이 주범"',
+    summary: '올해 상반기 자동차보험 영업손익이 6년 만에 적자로 돌아섰습니다.',
+    fullText: [
+      '[뉴스데스크]',
+      '◀ 앵커 ▶',
+      '국내 자동차보험이 6년 만에 적자로 돌아섰습니다.',
+      '◀ 리포트 ▶',
+      '자동차보험금이 과잉진료와 과잉수리 등에 새면서 올해 상반기 영업손익이 적자로 전환했습니다.',
+      '비싼 MRI도 일단 찍고 봤다고 말합니다.규모가 작아 MRI 기기를 설치할 수 없지만, 다른 병원으로 한 달에 수십 명씩 보내고 건당 뒷돈을 받았다는.',
+      '보험업계는 한방병원 과잉진료와 일부 정비업체의 과잉수리가 손해율을 끌어올렸다고 설명했습니다.',
+      'MBC뉴스 이지은입니다.',
+      '영상취재: 김민수 / 영상편집: 박지영',
+      'MBC 뉴스는 24시간 여러분의 제보를 기다립니다. ▷ 전화 02-784-4000▷ 이메일 mbcjebo@mbc.co.kr▷ 카카오톡 @mbc제보.',
+    ].join(' '),
+    entities: ['자동차보험', 'MRI', '한방병원'],
   };
 }
 
@@ -146,25 +172,23 @@ test('uses the fallback model after an invalid primary response', async () => {
   assert.equal(result.generation.attempts[1].status, 'succeeded');
 });
 
-test('rejects official-denial titles that invert the article state', async () => {
+test('rejects official-denial titles that invert the article state instead of auto-fallback publishing', async () => {
   const article = officialDenialArticle();
-  const result = await generateEditorial(article, {
-    callModel: async () => ({
-      titleCandidates: [
-        { title: '보건복지부\n0.01% 확정' },
-      ],
-      sentences: [
-        '보건복지부는 건강보험료 상하한선 개편 보도와 관련해 확정된 바 없다고 밝혔습니다.',
-        '연합뉴스는 상위 0.01% 초고소득자의 건보료 상한 기준 인상 내용을 보도했습니다.',
-        '복지부는 설명자료를 통해 기사에서 언급된 내용은 확정된 바 없다고 밝혔습니다.',
-      ],
+  await assert.rejects(
+    generateEditorial(article, {
+      callModel: async () => ({
+        titleCandidates: [
+          { title: '보건복지부\n0.01% 확정' },
+        ],
+        sentences: [
+          '보건복지부는 건강보험료 상하한선 개편 보도와 관련해 확정된 바 없다고 밝혔습니다.',
+          '연합뉴스는 상위 0.01% 초고소득자의 건보료 상한 기준 인상 내용을 보도했습니다.',
+          '복지부는 설명자료를 통해 기사에서 언급된 내용은 확정된 바 없다고 밝혔습니다.',
+        ],
+      }),
     }),
-  });
-
-  assert.equal(result.generation.method, 'deterministic_fallback');
-  assert.match(result.title.text, /(반박|해명)/u);
-  assert.doesNotMatch(result.title.text, /확정\s*아님/u);
-  assert.doesNotMatch(result.title.text, /0\.01%\s*확정/u);
+    /fallback is disabled|try the next candidate/i
+  );
 });
 
 test('rejects acronym-date IPO titles that omit the actual listing event', async () => {
@@ -202,33 +226,65 @@ test('rejects acronym-date IPO titles that omit the actual listing event', async
   assert.equal(result.title.text, 'CXMT IPO\n27일 상장');
 });
 
-test('falls back deterministically when both model calls fail or invent a number', async () => {
+test('rejects the article when both model calls fail or invent a number', async () => {
   const calls = [];
-  const editorial = await generateEditorial(economyArticle(), {
+  await assert.rejects(
+    generateEditorial(economyArticle(), {
+      callModel: async ({ model }) => {
+        calls.push(model);
+        if (model === DEFAULT_MODELS.primary) throw new Error('429 free tier limit');
+        return {
+          titleCandidates: [
+            '기준금리\n0.25%',
+            '금리인하\n오늘확정',
+            '한국은행\n금리인하',
+            '0.25%\n금리인하',
+            '기준금리\n인하확정',
+          ],
+          sentences: [
+            '한국은행이 기준금리를 9.9% 인하했습니다.',
+            '새 기준금리는 다음 달부터 적용됩니다.',
+            '한국은행은 물가 둔화를 배경으로 설명했습니다.',
+          ],
+        };
+      },
+    }),
+    /fallback is disabled|try the next candidate/i
+  );
+
+  assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback]);
+});
+
+test('rejects copied raw source sentences and accepts rewritten model summaries', async () => {
+  const calls = [];
+  const result = await generateEditorial(autoInsuranceBroadcastArticle(), {
     callModel: async ({ model }) => {
       calls.push(model);
-      if (model === DEFAULT_MODELS.primary) throw new Error('429 free tier limit');
+      if (model === DEFAULT_MODELS.primary) {
+        return {
+          titleCandidates: [{ title: '자동차보험\n적자 전환' }],
+          sentences: [
+            '국내 자동차보험이 6년 만에 적자로 돌아섰습니다.',
+            '보험업계는 한방병원 과잉진료와 일부 정비업체의 과잉수리가 손해율을 끌어올렸다고 설명했습니다.',
+            '손해율 부담이 커지면서 자동차보험료 조정 논의에도 관심이 쏠리고 있습니다.',
+          ],
+        };
+      }
       return {
-        titleCandidates: [
-          '기준금리\n0.25%',
-          '금리인하\n오늘확정',
-          '한국은행\n금리인하',
-          '0.25%\n금리인하',
-          '기준금리\n인하확정',
-        ],
+        titleCandidates: [{ title: '자동차보험\n적자 전환' }],
         sentences: [
-          '한국은행이 기준금리를 9.9% 인하했습니다.',
-          '새 기준금리는 다음 달부터 적용됩니다.',
-          '한국은행은 물가 둔화를 배경으로 설명했습니다.',
+          '자동차보험이 올해 상반기 6년 만에 영업적자로 돌아섰습니다.',
+          '업계는 한방병원 진료비와 정비업체 수리비 누수가 손해율 상승을 키웠다고 봤습니다.',
+          '손해율 압박이 이어지면 보험료 조정 논의에도 영향을 줄 수 있습니다.',
         ],
+        topicTags: ['자동차보험', '손해율', '보험료', '한방병원'],
       };
     },
   });
 
   assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback]);
-  assert.equal(editorial.generation.method, 'deterministic_fallback');
-  assert.equal(editorial.generation.attempts.length, 2);
-  assert.doesNotMatch(editorial.caption.text, /9\.9%/u);
+  assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
+  assert.doesNotMatch(result.caption.text, /일부 정비업체의 과잉수리가 손해율을 끌어올렸다고 설명/u);
 });
 
 test('filters photo captions and source credits before deterministic captioning', () => {
@@ -244,10 +300,45 @@ test('filters photo captions and source credits before deterministic captioning'
   const sentences = sourceSentences(article);
   assert.equal(sentences.some(sentence => /▲|ⓒ|연합뉴스|프레스\s*컨퍼런스|무대에\s*공개/u.test(sentence)), false);
 
+  assert.throws(
+    () => buildDeterministicEditorial(article),
+    /structured evidence|verified facts/i
+  );
+});
+
+test('filters broadcast chrome and fails closed for raw-body-only fallback', () => {
+  const article = autoInsuranceBroadcastArticle();
+  const sentences = sourceSentences(article);
+  assert.equal(sentences.some(sentence => /전화|이메일|카카오톡|제보|뉴스데스크|앵커|리포트|영상취재|영상편집|MBC뉴스/u.test(sentence)), false);
+  assert.equal(sentences.some(sentence => /말합니다\.규모가/u.test(sentence)), false);
+  assert.equal(sentences.some(sentence => /받았다는[.!?。！？]?$/u.test(sentence)), false);
+  assert.equal(sentences.some(sentence => sentence.replace(/\s+/g, '') === article.title.replace(/\s+/g, '')), false);
+
+  assert.throws(
+    () => buildDeterministicEditorial(article),
+    /structured evidence|verified facts/i
+  );
+  assert.equal(validateTitle('자동차보험 6년\n6년 적자').ok, false);
+});
+
+test('builds a safe auto-insurance fallback only from trusted structured facts', () => {
+  const article = {
+    ...autoInsuranceBroadcastArticle(),
+    verifiedFacts: [
+      '국내 자동차보험이 올해 상반기 6년 만에 영업손익 적자로 돌아섰습니다.',
+      '보험업계는 과잉진료와 과잉수리가 손해율을 끌어올린 배경으로 꼽았습니다.',
+      '손해율 부담이 커지면 향후 자동차보험료 조정 논의에도 영향을 줄 수 있습니다.',
+    ],
+    context: '자동차보험 적자는 운전자 보험료와 손해보험사 실적에 모두 영향을 줄 수 있는 생활경제 이슈입니다.',
+    target: '자동차보험',
+    event: '적자 전환',
+  };
   const editorial = buildDeterministicEditorial(article);
   assert.equal(validateEditorial(editorial, { article }).ok, true);
-  assert.equal(/▲|ⓒ|연합뉴스|프레스\s*컨퍼런스|무대에\s*공개/u.test(editorial.caption.text), false);
-  editorial.caption.sentences.forEach(sentence => assert.ok(graphemeCount(sentence) <= 120));
+  assert.doesNotMatch(editorial.title.text, /자동차보험 6년\n6년/u);
+  assert.match(editorial.title.text, /자동차보험/u);
+  assert.match(editorial.title.text, /적자/u);
+  assert.doesNotMatch(editorial.caption.text, /전화|이메일|카카오톡|제보|말합니다\.규모가|받았다는|MBC뉴스/u);
 });
 
 test('fails closed when model output is unusable and deterministic evidence cannot form a safe title', async () => {

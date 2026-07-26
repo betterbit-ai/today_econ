@@ -47,6 +47,8 @@ test('validates a two-line DIEM title by grapheme count', () => {
   assert.ok(valid.graphemeCount <= 14);
   assert.equal(validateTitle('모르면 손해\n금리 비밀').ok, false);
   assert.equal(validateTitle('한 줄뿐인 제목').ok, false);
+  assert.equal(validateTitle('자동차보험 6년\n6년 적자').ok, false);
+  assert.equal(validateTitle('6년\n자동차보험 적자').ok, false);
 });
 
 test('validates exactly three short caption sentences and emoji positions', () => {
@@ -62,6 +64,9 @@ test('validates exactly three short caption sentences and emoji positions', () =
   assert.equal(validateCaption(caption.replace('흐름을', '흐름을📉')).ok, false);
   assert.equal(validateCaption(`첫 문장입니다.📊\n\n${'가'.repeat(121)}\n\n셋째 문장입니다.🔎`).ok, false);
   assert.equal(validateCaption('자료사진 설명이 들어간 문장입니다.📰\n\nⓒ연합뉴스개인정보를 원문 그대로 수집했다는 내용입니다.\n\n셋째 문장입니다.🔎').ok, false);
+  assert.equal(validateCaption('▷ 전화 02-784-4000▷ 이메일 mbcjebo@mbc.co.kr▷ 카카오톡 @mbc제보.📊\n\n둘째 문장입니다.\n\n셋째 문장입니다.🔎').ok, false);
+  assert.equal(validateCaption('첫 문장입니다.📊\n\n비싼 MRI도 일단 찍고 봤다고 말합니다.규모가 작아 MRI를 보냈다는.\n\n셋째 문장입니다.🔎').ok, false);
+  assert.equal(validateCaption('첫 문장입니다.📊\n\n둘째 문장입니다.\n\n기사 파편을 받았다는.🔎').ok, false);
 });
 
 test('builds a mention plus 12-15 unique dot-free hashtags', () => {
@@ -118,10 +123,29 @@ test('builds claim-state frames that prevent misleading denial and acronym-date 
   assert.equal(ipoFrame.eventKind, 'ipo');
   assert.equal(validateTitleAgainstFrame('CXMT 내일\n27일', ipoFrame).ok, false);
   assert.equal(validateTitleAgainstFrame('CXMT IPO\n27일 상장', ipoFrame).ok, true);
+  assert.equal(validateTitleAgainstFrame('자동차보험 6년\n6년 적자', buildNewsFrame({
+    category: CATEGORIES.ECONOMY,
+    title: '자동차보험 6년 만에 적자‥사이드미러 툭 쳐도 MRI, 한방병원이 주범',
+    summary: '올해 상반기 자동차보험 영업손익이 6년 만에 적자로 돌아섰습니다.',
+  }, CATEGORIES.ECONOMY)).ok, false);
   assert.equal(validateTitleAgainstFrame('얼굴 목소리\n흐름정리', buildNewsFrame({
     category: CATEGORIES.ISSUE,
     title: '피지컬AI 특별법 개인정보 활용 논란',
   }, CATEGORIES.ISSUE)).ok, false);
+});
+
+test('normalizes auto-insurance loss articles to a concrete subject and event', () => {
+  const article = {
+    category: CATEGORIES.ECONOMY,
+    title: '자동차보험 6년 만에 적자‥"사이드미러 툭 쳐도 MRI, 한방병원이 주범"',
+    summary: '올해 상반기 자동차보험 영업손익이 6년 만에 적자로 돌아섰습니다.',
+  };
+  const frame = buildNewsFrame(article, CATEGORIES.ECONOMY);
+  const signature = buildTopicSignature(article, CATEGORIES.ECONOMY);
+  assert.equal(frame.subject, '자동차보험');
+  assert.equal(frame.eventKind, 'auto_insurance_loss');
+  assert.equal(signature.target, '자동차보험');
+  assert.equal(signature.event, '적자 전환');
 });
 
 test('scores DIEM editorial value instead of accepting every broad issue keyword', () => {

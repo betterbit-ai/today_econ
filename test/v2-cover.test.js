@@ -17,7 +17,7 @@ const {
 
 test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () => {
   const html = buildCoverHtml({
-    title: '기준금리\n0.25%',
+    title: '기준금리\n인하 확정',
     date: '2026-07-25',
     category: CATEGORIES.ECONOMY,
   });
@@ -86,7 +86,7 @@ test('renders a real 1080x1920 PNG and falls back safely when an image path is b
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-cover-'));
   const outputPath = path.join(directory, 'cover.png');
   const result = await renderDiemCover({
-    title: '기준금리\n0.25%',
+    title: '기준금리\n인하 확정',
     date: '2026-07-25',
     category: CATEGORIES.ECONOMY,
     imagePath: path.join(directory, 'missing.jpg'),

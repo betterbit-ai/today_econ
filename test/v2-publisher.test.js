@@ -74,6 +74,12 @@ test('passes recent historical and same-day ledger images into image selection',
     candidate: {
       title: '한국은행 기준금리 2.50% 동결',
       fullText: '한국은행은 기준금리를 2.50%로 동결했습니다. 물가와 가계대출 흐름을 더 지켜보기 위한 결정입니다. 다음 회의에서도 경제 지표를 확인할 예정입니다.',
+      verifiedFacts: [
+        '한국은행은 기준금리를 2.50%로 동결했습니다.',
+        '물가와 가계대출 흐름을 더 지켜보기 위한 결정입니다.',
+        '다음 회의에서도 경제 지표를 확인할 예정입니다.',
+      ],
+      context: '기준금리 동결은 예금과 대출 금리 흐름을 보는 생활경제 신호입니다.',
       category: 'economy',
     },
     duplicateCheck: {
@@ -92,6 +98,18 @@ test('passes recent historical and same-day ledger images into image selection',
       publicationKey: 'diem:2026-07-25:issue',
       image: { id: 'pexels:yesterday', originalUrl: 'https://www.pexels.com/photo/yesterday/' },
     }],
+    callModel: async () => ({
+      titleCandidates: [{ title: '기준금리\n2.50% 동결' }],
+      selectedTitleIndex: 0,
+      sentences: [
+        '한국은행은 기준금리를 2.50%로 동결하며 현재 통화정책 기조를 유지했습니다.',
+        '물가와 가계대출 흐름을 더 지켜보기 위한 결정입니다.',
+        '다음 회의에서도 경제 지표를 확인하며 추가 조정 여부를 판단할 예정입니다.',
+      ],
+      emojis: { first: '🏦', third: '📊' },
+      topicTags: ['한국은행', '기준금리', '물가', '가계대출'],
+      imageKeyword: 'central bank',
+    }),
     selectImageImpl: async (_article, options) => {
       recentImages = options.recentImages;
       return {

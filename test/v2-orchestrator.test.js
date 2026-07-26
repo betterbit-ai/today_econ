@@ -34,6 +34,22 @@ function plannedResult(date = '2026-07-25') {
   };
 }
 
+function plannedStep() {
+  return { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null };
+}
+
+function readyPublication(ledger, category) {
+  return updatePublication(ledger, category, {
+    status: 'ready',
+    editorial: {
+      title: { text: '좋은 경제\n핵심 요약' },
+      caption: { text: '좋은 경제 기사입니다.📊\n\n핵심 근거가 정리됐습니다.\n\n다음 흐름을 지켜볼 내용입니다.🔎' },
+      comments: { first: '📊', reply: '@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #기준금리 #물가 #대출' },
+    },
+    reel: { ...plannedStep(), status: 'ready' },
+  });
+}
+
 test('18:30 planning freezes both fields in one daily queue', async () => {
   let calls = 0;
   const result = await planPhase({
@@ -77,6 +93,85 @@ test('one field generation failure does not mutate the other field', async () =>
   assert.equal(failed.publications.economy.generation.attempts, 1);
   assert.equal(failed.publications.issue.status, 'planned');
   assert.equal(failed.publications.issue.generation, undefined);
+});
+
+test('editorial generation failure reroutes the category to the next ranked candidate', async () => {
+  let ledger = applyPlan(createDailyLedger('2026-07-27'), plannedResult('2026-07-27'));
+  ledger.candidates = [
+    { title: '나쁜 경제 기사', url: 'https://example.com/bad-economy', sources: [], rejectionReasons: [] },
+    { title: '좋은 경제 기사', url: 'https://example.com/good-economy', sources: [], rejectionReasons: [] },
+    { title: '시사 기사', url: 'https://example.com/issue', sources: [], rejectionReasons: [] },
+  ];
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: { title: '나쁜 경제 기사', url: 'https://example.com/bad-economy', fullText: '본문입니다.'.repeat(20), category: 'economy' },
+    reel: plannedStep(),
+    comment: plannedStep(),
+    reply: plannedStep(),
+  });
+
+  const preparedUrls = [];
+  const evaluatedUrls = [];
+  const result = await runCategoryStep(ledger, 'economy', {
+    phase: 'prepare',
+    preparePublicationImpl: async current => {
+      const url = current.publications.economy.candidate.url;
+      preparedUrls.push(url);
+      if (url.includes('bad-economy')) {
+        throw new Error('[DIEM Editorial] Model attempts failed and deterministic fallback is disabled; try the next candidate');
+      }
+      return readyPublication(current, 'economy');
+    },
+    evaluateCandidateImpl: async candidate => {
+      evaluatedUrls.push(candidate.url);
+      if (candidate.url.includes('good-economy')) {
+        return {
+          ok: true,
+          selected: { title: candidate.title, url: candidate.url, fullText: '좋은 본문입니다.'.repeat(20), category: 'economy' },
+          corroboration: null,
+          duplicateCheck: { duplicate: false, signature: { text: '경제 | 좋은 경제 기사' } },
+        };
+      }
+      return { ok: false, reason: 'assigned_to_issue' };
+    },
+  });
+
+  assert.deepEqual(preparedUrls, ['https://example.com/bad-economy', 'https://example.com/good-economy']);
+  assert.deepEqual(evaluatedUrls, ['https://example.com/good-economy']);
+  assert.equal(result.publications.economy.status, 'ready');
+  assert.equal(result.publications.economy.candidate.url, 'https://example.com/good-economy');
+  assert.equal(result.publications.economy.generation.status, 'rerouted');
+  assert.equal(result.publications.economy.generation.candidateFailures.length, 1);
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('economy:editorial_generation_failed')));
+  assert.equal(result.publications.issue.status, 'planned');
+});
+
+test('editorial generation failure marks no_publish after candidate exhaustion', async () => {
+  let ledger = applyPlan(createDailyLedger('2026-07-27'), plannedResult('2026-07-27'));
+  ledger.candidates = [
+    { title: '나쁜 경제 기사', url: 'https://example.com/bad-economy', sources: [], rejectionReasons: [] },
+  ];
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: { title: '나쁜 경제 기사', url: 'https://example.com/bad-economy', fullText: '본문입니다.'.repeat(20), category: 'economy' },
+    reel: plannedStep(),
+    comment: plannedStep(),
+    reply: plannedStep(),
+  });
+
+  const result = await runCategoryStep(ledger, 'economy', {
+    phase: 'prepare',
+    preparePublicationImpl: async () => {
+      throw new Error('[DIEM Editorial] LLM generation is required; deterministic fallback is disabled for automatic publishing');
+    },
+  });
+
+  assert.equal(result.publications.economy.status, 'no_publish');
+  assert.equal(result.publications.economy.reason, 'no_candidate_passed_editorial_generation');
+  assert.equal(result.publications.economy.reel.status, 'no_publish');
+  assert.equal(result.publications.economy.generation.candidateFailures.length, 1);
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('economy:editorial_generation_failed')));
+  assert.equal(result.publications.issue.status, 'planned');
 });
 
 test('manual retry skips an already published Reel and repairs comments only', async () => {

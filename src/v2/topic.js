@@ -1,7 +1,7 @@
 const { CATEGORIES } = require('./constants');
 const { normalizeNfc } = require('./text');
 
-const ECONOMY_CORE_TOPIC = /(금리|물가|환율|세금|부동산|주택|대출|예금|적금|금융|증시|고용|소득|임금|반도체|D램|HBM|자동차|유통|수출|수입|관세|연금|IPO|기업공개|상장|공모주|공모가|주가|코스피|코스닥)/iu;
+const ECONOMY_CORE_TOPIC = /(금리|물가|환율|세금|부동산|주택|대출|예금|적금|금융|보험|자동차보험|손해보험|손해율|증시|고용|소득|임금|반도체|D램|HBM|자동차|유통|수출|수입|관세|연금|IPO|기업공개|상장|공모주|공모가|주가|코스피|코스닥)/iu;
 const AI_ECONOMY_CONTEXT = /((인공지능|\bAI\b).{0,45}(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가)|(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가).{0,45}(인공지능|\bAI\b))/iu;
 const PRIVACY_RIGHTS_POLICY = /(개인정보|정보인권|프라이버시|기본권|동의\s*없이|원본\s*데이터|생체정보|얼굴|목소리|노동계|시민사회|특별법|법안|규제\s*특례)/u;
 const ECONOMY_INCLUDE = ECONOMY_CORE_TOPIC;
@@ -14,7 +14,7 @@ const OFFICIAL_DENIAL = /(확정된?\s*바\s*없|확정되지\s*않|사실이\s*
 const TENTATIVE = /(검토|논의|추진|계획|예정|가능성|전망|유력|가닥|방침|초안|보도했다|보도했)/u;
 const DECIDED = /(확정|결정|의결|통과|시행|발표|인상|인하|선고|판결|도입|개편|확대|축소|폐지)/u;
 const IPO_EVENT = /(\bIPO\b|기업공개|상장|첫\s*거래|증시\s*데뷔|공모가|공모주)/iu;
-const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험료|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금)/iu;
+const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험|보험료|자동차보험|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금)/iu;
 const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|재배|수확|축산|어촌|마을|지역축제|천연\s*패딩|곤충|반려동물|맛집|여행지)/u;
 const NARROW_WITH_PUBLIC_POLICY = /(정부.{0,20}(지원|보조금|규제|법안|발표|시행)|국회|전국.{0,20}(지원|보조금|시행)|보험|세금|대출|주거|교육|복지|의료|노동|고용)/u;
 const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|목격담|인증샷|사진\s*한\s*장)/u;
@@ -48,6 +48,8 @@ function candidateText(candidate = {}) {
 function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   const normalized = normalizeTopicAliases(text);
   if (/(건강보험료|건보료)/u.test(normalized)) return '건보료 개편';
+  if (/(자동차보험)/u.test(normalized)) return '자동차보험';
+  if (/(손해보험|손보사|손해율)/u.test(normalized)) return '손해보험';
   if (/(최저임금)/u.test(normalized)) return '최저임금';
   if (/(기준금리|한국은행)/u.test(normalized)) return '기준금리';
   if (/(전세|월세|주거|주택)/u.test(normalized)) return '주거 정책';
@@ -89,6 +91,7 @@ function claimState(candidate = {}, text = candidateText(candidate)) {
 
 function eventKind(text = '') {
   if (IPO_EVENT.test(text)) return 'ipo';
+  if (/(자동차보험|손해보험|손보사|손해율)/u.test(text) && /(적자|손해율|과잉진료|과잉수리)/u.test(text)) return 'auto_insurance_loss';
   if (/(건강보험료|건보료|보험료)/u.test(text)) return 'insurance_premium';
   if (/(기준금리|금리)/u.test(text)) return 'interest_rate';
   if (/(주거|전세|월세|주택)/u.test(text)) return 'housing_policy';
@@ -213,17 +216,40 @@ function classifyCandidate(candidate = {}) {
 }
 
 function extractSignatureTokens(value = '') {
-  const stop = new Set(['오늘', '관련', '대한', '위해', '이번', '정부', '기자', '뉴스', '발표']);
+  const stop = new Set(['오늘', '관련', '대한', '위해', '이번', '정부', '기자', '뉴스', '발표', '만에', '주범', '쳐도']);
   return [...new Set(
     normalizeTopicAliases(value)
       .replace(/[^0-9A-Za-z가-힣\s]/g, ' ')
       .split(/\s+/)
       .map(token => token.trim())
       .filter(token => token.length >= 2 && !stop.has(token))
+      .filter(token => !/^\d+(?:년|개월|월|일|명|개)$/u.test(token))
   )].slice(0, 12);
 }
 
 function buildTopicSignature(candidate = {}, category = classifyCandidate(candidate).category) {
+  const normalized = normalizeTopicAliases(`${candidate.title || ''} ${candidate.summary || ''} ${(candidate.entities || []).join(' ')}`);
+  if (/(자동차보험)/u.test(normalized)) {
+    const event = /(적자|손해율)/u.test(normalized)
+      ? '적자 전환'
+      : /(보험료|인상|인하)/u.test(normalized)
+        ? '보험료 변화'
+        : '보험 이슈';
+    const entities = [...new Set([
+      ...(candidate.entities || []),
+      '자동차보험',
+      ...(['MRI', '한방병원', '손해보험'].filter(token => normalized.includes(token))),
+    ])].slice(0, 6);
+    return {
+      category,
+      target: candidate.target || '자동차보험',
+      event: candidate.event || event,
+      entities,
+      text: normalizeTopicAliases([category, candidate.target || '자동차보험', candidate.event || event, entities.join(' ')]
+        .filter(Boolean)
+        .join(' | ')),
+    };
+  }
   const tokens = extractSignatureTokens(`${candidate.title || ''} ${candidate.summary || ''}`);
   const entities = [...new Set([...(candidate.entities || []), ...tokens.filter(token => (
     /[A-Z]{2,}|\d|은행|전자|그룹|정부|위원회|부처|법|제도|정책/u.test(token)

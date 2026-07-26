@@ -9,14 +9,20 @@ const CLICKBAIT_PATTERNS = [
   /무조건/u,
 ];
 const URL_PATTERN = /https?:\/\/\S+/iu;
+const EMAIL_PATTERN = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/iu;
 const HASHTAG_PATTERN = /#[0-9A-Za-z가-힣_]+/gu;
+const MENTION_PATTERN = /@[0-9A-Za-z가-힣_.]+/u;
 const EMOJI_PATTERN = /\p{Extended_Pictographic}/u;
 const DATE_TOKEN = /(오늘|내일|모레|어제|\d{1,2}일|\d{1,2}월)/u;
-const TITLE_EVENT_TOKEN = /(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔|인상|인하|상승|하락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|개편|반박|부인|해명|미확정|아님|출시|거래)/iu;
+const TITLE_EVENT_TOKEN = /(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔|인상|인하|상승|하락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|개편|전환|반박|부인|해명|미확정|아님|출시|거래)/iu;
 const DENIAL_TITLE_TOKEN = /(확정\s*아님|미확정|반박|부인|해명|사실\s*아님|아니다|아냐|오보)/u;
 const DENIAL_ALLOWED = /(확정\s*아님|미확정|확정되지\s*않)/u;
 const GENERIC_TITLE_LINE = /^(흐름\s*정리|쟁점\s*정리|경제\s*브리핑|시사\s*브리핑|오늘\s*경제|오늘\s*시사)$/u;
-const CAPTION_BOILERPLATE_PATTERN = /(▲|■|◇|◆|ⓒ|©|자료\s*사진|사진\s*=|프레스\s*컨퍼런스|무대에\s*공개|기념\s*촬영|제공\s*사진|연합뉴스)/u;
+const CAPTION_BOILERPLATE_PATTERN = /(▲|■|◇|◆|ⓒ|©|자료\s*사진|사진\s*=|프레스\s*컨퍼런스|무대에\s*공개|기념\s*촬영|제공\s*사진|연합뉴스|뉴스1|뉴시스|로이터|AP|EPA|게티이미지|뉴스데스크|앵커|리포트|영상취재|영상편집|MBC\s*뉴스|MBC뉴스|제보|전화|이메일|카카오톡)/iu;
+const PHONE_OR_CONTACT_PATTERN = /(?:\b\d{2,4}-\d{3,4}-\d{4}\b|전화\s*\d|카카오톡|제보|이메일)/u;
+const NUMERIC_TITLE_TOKEN = /\d+(?:[.,]\d+)?(?:\s*(?:%|퍼센트|조\s*원|억\s*원|만\s*원|원|만\s*명|명|개|배|년|개월|월|일))?/gu;
+const STANDALONE_WEAK_TITLE_LINE = /^(?:오늘|내일|모레|어제|\d+(?:[.,]\d+)?(?:%|퍼센트|조원|억원|만원|원|만명|명|개|배|년|개월|월|일)?)$/iu;
+const INCOMPLETE_FRAGMENT_ENDING = /(다는|라는|이라는|했다는|됐다는|받았다는|나왔다는|있다는|없다는|한다는|추진한다는|허용한다는)[.!?。！？]?(?:\p{Extended_Pictographic})?$/u;
 
 function normalizeNfc(value = '') {
   return String(value ?? '').normalize('NFC');
@@ -39,6 +45,22 @@ function extractEmojiClusters(value = '') {
   return graphemes(value).filter(cluster => EMOJI_PATTERN.test(cluster));
 }
 
+function stripEmojiClusters(value = '') {
+  return graphemes(value).filter(cluster => !EMOJI_PATTERN.test(cluster)).join('');
+}
+
+function numericTitleTokens(value = '') {
+  return normalizeNfc(value)
+    .match(NUMERIC_TITLE_TOKEN)?.map(token => token.replace(/[\s,]/gu, '')) || [];
+}
+
+function sentencePunctuationCount(value = '') {
+  const plain = stripEmojiClusters(value)
+    .replace(EMAIL_PATTERN, 'EMAIL')
+    .replace(/(\d)\.(\d)/gu, '$1§$2');
+  return (plain.match(/[.!?。！？]/gu) || []).length;
+}
+
 function endsWithSingleEmoji(value = '') {
   const clusters = graphemes(String(value).trim());
   if (clusters.length === 0) return false;
@@ -57,6 +79,13 @@ function validateTitle(title) {
   if (/["“”‘’!?]{2,}|[!?]$/u.test(normalized)) errors.push('title contains unnecessary punctuation');
   if (lines.some(line => GENERIC_TITLE_LINE.test(line.replace(/\s+/gu, '').trim()))) {
     errors.push('title contains generic filler wording');
+  }
+  if (lines.some(line => STANDALONE_WEAK_TITLE_LINE.test(line.replace(/\s+/gu, '').trim()))) {
+    errors.push('title line cannot be only a date, duration, or number');
+  }
+  const numericTokens = numericTitleTokens(normalized);
+  if (numericTokens.some((token, index) => numericTokens.indexOf(token) !== index)) {
+    errors.push('title repeats the same numeric/date token');
   }
   return {
     ok: errors.length === 0,
@@ -119,8 +148,19 @@ function validateCaption(caption) {
     if (graphemeCount(sentence) > 120) errors.push(`caption sentence ${index + 1} exceeds 120 graphemes`);
   });
   if (URL_PATTERN.test(normalized)) errors.push('caption cannot contain URLs');
+  if (EMAIL_PATTERN.test(normalized)) errors.push('caption cannot contain email addresses');
+  if (PHONE_OR_CONTACT_PATTERN.test(normalized)) errors.push('caption cannot contain newsroom contact or tip-off text');
+  if (MENTION_PATTERN.test(normalized)) errors.push('caption cannot contain account mentions');
   if (HASHTAG_PATTERN.test(normalized)) errors.push('caption cannot contain hashtags');
   if (CAPTION_BOILERPLATE_PATTERN.test(normalized)) errors.push('caption contains source boilerplate or photo caption text');
+  sentences.forEach((sentence, index) => {
+    if (sentencePunctuationCount(sentence) > 1) {
+      errors.push(`caption sentence ${index + 1} contains multiple source sentences`);
+    }
+    if (INCOMPLETE_FRAGMENT_ENDING.test(sentence.trim())) {
+      errors.push(`caption sentence ${index + 1} ends with an incomplete source fragment`);
+    }
+  });
   if (sentences[0] && !endsWithSingleEmoji(sentences[0])) errors.push('caption sentence 1 must end with exactly one emoji');
   if (sentences[1] && extractEmojiClusters(sentences[1]).length !== 0) errors.push('caption sentence 2 cannot contain emoji');
   if (sentences[2] && !endsWithSingleEmoji(sentences[2])) errors.push('caption sentence 3 must end with exactly one emoji');
