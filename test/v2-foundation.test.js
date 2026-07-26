@@ -91,7 +91,16 @@ test('builds claim-state frames that prevent misleading denial and acronym-date 
   const denialFrame = buildNewsFrame(denialArticle, CATEGORIES.ISSUE);
   assert.equal(denialFrame.claimState, 'official_denial');
   assert.equal(validateTitleAgainstFrame('보건복지부\n0.01% 확정', denialFrame).ok, false);
-  assert.equal(validateTitleAgainstFrame('건보료 개편\n확정 아님', denialFrame).ok, true);
+  assert.equal(validateTitleAgainstFrame('정부 반박\n건보료 개편', denialFrame).ok, true);
+
+  const pensionArticle = {
+    category: CATEGORIES.ECONOMY,
+    title: '국민연금 리밸런싱 재개…유가증권시장 684억 순매수',
+    summary: '국민연금은 7월 리밸런싱을 재개하며 올해 처음 순매수를 기록했습니다. 다만 세부 운용 방향이 모두 확정된 바는 없다는 시장 설명도 나왔습니다.',
+  };
+  const pensionFrame = buildNewsFrame(pensionArticle, CATEGORIES.ECONOMY);
+  assert.notEqual(pensionFrame.claimState, 'official_denial');
+  assert.equal(validateTitleAgainstFrame('국민연금\n순매수', pensionFrame).ok, true);
 
   const ipoArticle = {
     category: CATEGORIES.ECONOMY,

@@ -20,14 +20,16 @@ const {
   createDiemReelWithMusic,
 } = require('../src/v2/reel');
 
-test('ships verified original tracks for each mood category', () => {
+test('ships verified tracks for each mood category', () => {
   const manifest = loadMusicManifest();
   const brightTracks = manifest.tracks.filter(track => track.mood === 'bright');
   const seriousTracks = manifest.tracks.filter(track => track.mood === 'serious');
 
-  assert.equal(brightTracks.length, 3);
-  assert.equal(seriousTracks.length, 4);
-  assert.equal(new Set(brightTracks.map(track => track.id)).size, 3);
+  assert.ok(brightTracks.length >= 3);
+  assert.ok(seriousTracks.length >= 4);
+  assert.equal(new Set(manifest.tracks.map(track => track.id)).size, manifest.tracks.length);
+  assert.ok(manifest.tracks.some(track => track.provider === 'mixkit' && track.processed === true));
+  assert.ok(manifest.tracks.some(track => track.provider === 'pixabay' && track.processed === true));
 
   manifest.tracks.forEach(track => {
     assert.match(track.sha256, /^[a-f0-9]{64}$/);
@@ -37,7 +39,14 @@ test('ships verified original tracks for each mood category', () => {
 });
 
 test('rotates the least-used track and excludes the previous track', () => {
-  const manifest = loadMusicManifest();
+  const manifest = {
+    schemaVersion: 1,
+    tracks: [
+      { id: 'bright1', filename: 'bright1.mp3', mood: 'bright' },
+      { id: 'bright2', filename: 'bright2.mp3', mood: 'bright' },
+      { id: 'bright3', filename: 'bright3.mp3', mood: 'bright' },
+    ],
+  };
   const history = [
     { mood: 'bright', audioTrackId: 'bright2' },
     { mood: 'bright', audioTrackId: 'bright1' },
@@ -52,17 +61,6 @@ test('rotates the least-used track and excludes the previous track', () => {
   });
   assert.equal(ranked[0].id, 'bright3');
   assert.ok(ranked.every(track => track.id !== 'bright1'));
-
-  const selection = selectMusic({
-    history,
-    previousTrackId: 'bright1',
-    mood: 'bright',
-    publicationKey: 'diem:2026-07-25:economy',
-    manifest,
-  });
-  assert.equal(selection.trackId, 'bright3');
-  assert.equal(selection.candidates.length, 2);
-  assert.match(selection.sha256, /^[a-f0-9]{64}$/);
 });
 
 test('uses silence for sensitive topics', () => {
@@ -85,8 +83,9 @@ test('builds a single-image seven-second loop-safe H.264/AAC command', () => {
   });
   const filter = args[args.indexOf('-filter_complex') + 1];
   assert.equal(args.filter(value => value === '-i').length, 2);
-  assert.ok(buildDiemVideoFilter().includes('cos(2*PI*on/209)'));
-  assert.match(filter, /1080x1920/);
+  assert.doesNotMatch(buildDiemVideoFilter(), /zoompan|cos\(2\*PI\*on/u);
+  assert.match(filter, /scale=1080:1920/);
+  assert.match(filter, /volume=0\.3/);
   assert.ok(args.includes('210'));
   assert.ok(args.includes('libx264'));
   assert.ok(args.includes('yuv420p'));

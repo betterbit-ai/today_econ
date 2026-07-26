@@ -161,7 +161,8 @@ test('rejects official-denial titles that invert the article state', async () =>
   });
 
   assert.equal(result.generation.method, 'deterministic_fallback');
-  assert.match(result.title.text, /(확정 아님|미확정|반박)/u);
+  assert.match(result.title.text, /(반박|해명)/u);
+  assert.doesNotMatch(result.title.text, /확정\s*아님/u);
   assert.doesNotMatch(result.title.text, /0\.01%\s*확정/u);
 });
 

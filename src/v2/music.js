@@ -167,7 +167,7 @@ function selectMusic({
     title: selected.title,
     path: selected.path,
     license: selected.license,
-    source: manifest.source,
+    source: selected.source || manifest.source,
     sha256: selected.sha256,
     reason: `${selected.useCount} recent uses; ${selected.moodMatch ? 'mood matched' : 'least-used rotation'}`,
     candidates: usable.slice(0, 2).map(track => ({
@@ -177,7 +177,7 @@ function selectMusic({
       mood: track.mood,
       title: track.title,
       license: track.license,
-      source: manifest.source,
+      source: track.source || manifest.source,
       sha256: track.sha256,
     })),
   };

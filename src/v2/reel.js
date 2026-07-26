@@ -12,6 +12,7 @@ const DIEM_REEL = Object.freeze({
   fps: 30,
   frameCount: 210,
   audioSampleRate: 48_000,
+  audioVolume: 0.3,
 });
 
 function resolveFfmpegPath() {
@@ -31,12 +32,10 @@ async function runFfmpeg(args, {
 }
 
 function buildDiemVideoFilter() {
-  const { width, height, frameCount, fps } = DIEM_REEL;
-  const lastFrame = frameCount - 1;
+  const { width, height } = DIEM_REEL;
   return [
     `scale=${width}:${height}:force_original_aspect_ratio=increase`,
     `crop=${width}:${height}`,
-    `zoompan=z='1+0.012*(1-cos(2*PI*on/${lastFrame}))/2':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=${width}x${height}:fps=${fps}`,
     'setsar=1',
     'format=yuv420p',
   ].join(',');
@@ -47,7 +46,7 @@ function buildDiemReelArgs({
   audioPath,
   outputPath,
 } = {}) {
-  const { durationSeconds, fps, frameCount, audioSampleRate } = DIEM_REEL;
+  const { durationSeconds, fps, frameCount, audioSampleRate, audioVolume } = DIEM_REEL;
   const args = [
     '-y',
     '-loop', '1',
@@ -66,7 +65,7 @@ function buildDiemReelArgs({
   }
   args.push(
     '-filter_complex',
-    `[0:v]${buildDiemVideoFilter()}[v];[1:a]atrim=duration=${durationSeconds},asetpts=N/SR/TB,volume=0.16,afade=t=in:st=0:d=0.18,afade=t=out:st=6.55:d=0.45,aresample=${audioSampleRate}[a]`,
+    `[0:v]${buildDiemVideoFilter()}[v];[1:a]atrim=duration=${durationSeconds},asetpts=N/SR/TB,volume=${audioVolume},afade=t=in:st=0:d=0.18,afade=t=out:st=6.55:d=0.45,aresample=${audioSampleRate}[a]`,
     '-map', '[v]',
     '-map', '[a]',
     '-frames:v', String(frameCount),
