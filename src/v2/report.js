@@ -3,9 +3,14 @@ const path = require('path');
 
 function generateMarkdownReport(ledger) {
   const lines = [`# DIEM Publication Report: ${ledger.date}`, ''];
-  
-  for (const [category, pub] of Object.entries(ledger.publications)) {
-    lines.push(`## ${category.toUpperCase()} (${pub.status})`);
+  const publications = [
+    ...(ledger.publicationHistory || []),
+    ...Object.values(ledger.publications || {}),
+  ];
+
+  for (const pub of publications) {
+    lines.push(`## ${pub.category.toUpperCase()} (${pub.status})`);
+    lines.push(`- **Publication key**: \`${pub.publicationKey}\``);
     
     if (pub.candidate) {
       lines.push(`### 📰 Selected Article`);

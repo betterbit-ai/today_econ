@@ -234,6 +234,7 @@ test('creates, atomically stores, and reloads a two-category daily ledger', () =
   }, new Date('2026-07-25T09:31:00.000Z'));
   saveLedger(ledger, file);
   const loaded = loadLedger('2026-07-25', file);
+  assert.equal(loaded.schemaVersion, 3);
   assert.equal(loaded.publications.economy.publicationKey, publicationKey('2026-07-25', 'economy'));
   assert.equal(loaded.publications.economy.reel.attempts, 1);
   assert.equal(fs.existsSync(`${file}.tmp`), false);
@@ -244,4 +245,63 @@ test('creates, atomically stores, and reloads a two-category daily ledger', () =
   assert.equal(history[0].audioTrackId, 'economy-steady');
   assert.equal(history[0].image.id, 'pexels:rate');
   assert.equal(history[0].image.localSha256, 'rate-image-sha');
+});
+
+test('archives completed intraday runs and includes same-day publications in hot-news history', () => {
+  const {
+    archivePublication,
+    historyFromLedgers,
+    startPublicationRun,
+  } = require('../src/v2/ledger');
+  let ledger = createDailyLedger('2026-07-29');
+  ledger = startPublicationRun(ledger, 'economy', 'run-0900');
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'published',
+    candidate: { title: '코스피 사이드카 발동' },
+    duplicateCheck: { signature: { target: '코스피', event: '사이드카 발동', text: 'economy | 코스피 | 사이드카 발동' } },
+    reel: { status: 'published', attempts: 1, externalId: 'reel-1' },
+  });
+  ledger = archivePublication(ledger, 'economy');
+  ledger = startPublicationRun(ledger, 'economy', 'run-1300');
+
+  assert.equal(ledger.publicationHistory.length, 1);
+  assert.equal(ledger.publicationHistory[0].publicationKey, 'diem:2026-07-29:economy:run-0900');
+  assert.equal(ledger.publications.economy.publicationKey, 'diem:2026-07-29:economy:run-1300');
+  const history = historyFromLedgers([ledger], '2026-07-29', 7, { includeReferenceDate: true });
+  assert.equal(history.length, 1);
+  assert.equal(history[0].publicationKey, 'diem:2026-07-29:economy:run-0900');
+});
+
+test('keeps an externally published image in reuse history even after the top-level status changes', () => {
+  let ledger = createDailyLedger('2026-07-28');
+  ledger = updatePublication(ledger, 'issue', {
+    status: 'no_publish',
+    image: { id: 'pexels:already-seen', localSha256: 'seen-sha' },
+    reel: { status: 'no_publish', attempts: 1, externalId: 'deleted-reel-id' },
+  });
+  const history = historyFromLedgers([ledger], '2026-07-29', 7);
+  assert.equal(history.length, 1);
+  assert.equal(history[0].image.id, 'pexels:already-seen');
+  assert.equal(history[0].signature, null);
+});
+
+test('the image and topic history window is exactly seven KST calendar dates', () => {
+  const ledgers = Array.from({ length: 8 }, (_, index) => {
+    const day = String(22 + index).padStart(2, '0');
+    let ledger = createDailyLedger(`2026-07-${day}`);
+    ledger = updatePublication(ledger, 'issue', {
+      status: 'published',
+      candidate: { title: `${day}일 시사 기사` },
+      duplicateCheck: { signature: { target: `${day}일`, event: '발표', text: `issue | ${day}일 | 발표` } },
+      image: { id: `pexels:${day}`, localSha256: `sha-${day}` },
+      reel: { status: 'published', attempts: 1, externalId: `reel-${day}` },
+    });
+    return ledger;
+  });
+
+  const history = historyFromLedgers(ledgers, '2026-07-29', 7, { includeReferenceDate: true });
+  assert.equal(history.length, 7);
+  assert.equal(history.some(item => item.date === '2026-07-22'), false);
+  assert.equal(history.some(item => item.date === '2026-07-23'), true);
+  assert.equal(history.some(item => item.date === '2026-07-29'), true);
 });

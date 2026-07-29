@@ -12,6 +12,14 @@ const LICENSES = Object.freeze({
 const WIKIMEDIA_LICENSE = /public domain|cc0|cc by(?:-sa)?(?:\s|$)/i;
 
 const KOR_TO_ENG_VISUALS = [
+  { match: /결혼|혼인|신혼|축의금|예식/u, english: 'wedding couple marriage ceremony' },
+  { match: /출산|육아|아동|보육|양육|저출생/u, english: 'family parents child childcare' },
+  { match: /교육|학교|대학|학생|입시/u, english: 'students school education classroom' },
+  { match: /개인정보|프라이버시|생체정보|얼굴|목소리/u, english: 'digital privacy face recognition data' },
+  { match: /기후|폭염|한파|홍수|가뭄|탄소/u, english: 'climate weather environment' },
+  { match: /외교|정상회담|국제정세/u, english: 'diplomacy international summit leaders' },
+  { match: /자동차보험|차보험|교통사고|차량수리/u, english: 'car insurance accident repair' },
+  { match: /국민연금|퇴직연금|연금개혁|노후/u, english: 'retirement pension senior finance' },
   { match: /반도체|칩|웨이퍼|설계|메모리/u, english: 'semiconductor microchip processor' },
   { match: /인공지능|AI|데이터센터|머신러닝/ui, english: 'artificial intelligence server data center' },
   { match: /부동산|주택|아파트|전세|월세/u, english: 'real estate modern apartment building' },
@@ -19,34 +27,88 @@ const KOR_TO_ENG_VISUALS = [
   { match: /배터리|전기차|EV|이차전지/ui, english: 'electric vehicle EV battery charging' },
   { match: /수출|수입|관세|무역|항만/u, english: 'cargo ship container port trade' },
   { match: /소비|유통|마트|백화점|쇼핑/u, english: 'retail shopping mall consumer' },
-  { match: /의료|복지|연금|국민연금|병원|건강/u, english: 'healthcare hospital medical clinic' },
+  { match: /의료|복지|병원|건강|건보/u, english: 'healthcare hospital medical clinic' },
   { match: /자동차|모빌리티|현대|기아/u, english: 'modern car automotive manufacturing' },
   { match: /주식|증시|코스피|나스닥|주가|종목|투자/u, english: 'stock market graph finance investment' },
   { match: /정부|정책|국회|정치|대통령|선거/u, english: 'government parliament policy law' },
   { match: /고용|취업|일자리|노동/u, english: 'office workers business meeting career' },
 ];
 
+const GENERIC_IMAGE_KEYWORD = /^(?:government|policy|government policy|parliament|law|news|economy|finance|current affairs)(?:\s+(?:government|policy|parliament|law|news|economy|finance|current affairs))*$/i;
+const GENERIC_VISUAL_TOKENS = new Set([
+  'government',
+  'policy',
+  'news',
+  'economy',
+  'finance',
+  'current',
+  'affairs',
+  'support',
+  'program',
+  'announcement',
+  'change',
+]);
+
+function isSpecificImageKeyword(value = '') {
+  const keyword = normalizeNfc(value).trim();
+  if (keyword.length < 3 || GENERIC_IMAGE_KEYWORD.test(keyword)) return false;
+  return keyword.toLowerCase().split(/\s+/u).some(token => token.length >= 4 && !GENERIC_VISUAL_TOKENS.has(token));
+}
+
+function imageMetadata(image = {}) {
+  return normalizeNfc(`${image.description || ''} ${image.alt || ''} ${(image.tags || []).join(' ')}`);
+}
+
+function assessImageSuitability(image = {}, query = '') {
+  const queryTokens = extractSignatureTokens(normalizeNfc(query))
+    .map(token => token.toLowerCase());
+  const concreteQueryTokens = [...new Set(
+    queryTokens.filter(token => !GENERIC_VISUAL_TOKENS.has(token))
+  )];
+  const metadataTokens = new Set(
+    extractSignatureTokens(imageMetadata(image)).map(token => token.toLowerCase())
+  );
+  const matchedConcreteTokens = concreteQueryTokens.filter(token => metadataTokens.has(token));
+  const ok = concreteQueryTokens.length > 0 && matchedConcreteTokens.length > 0;
+
+  return {
+    ok,
+    reason: concreteQueryTokens.length === 0
+      ? 'concrete_query_missing'
+      : ok
+        ? 'concrete_subject_matched'
+        : 'concrete_subject_missing',
+    concreteQueryTokens,
+    matchedConcreteTokens,
+    matchRatio: Number((matchedConcreteTokens.length / Math.max(1, concreteQueryTokens.length)).toFixed(4)),
+  };
+}
+
 function buildImageQueries(candidate = {}) {
   const sourceText = `${candidate.target || ''} ${candidate.event || ''} ${candidate.title || ''}`;
   const tokens = extractSignatureTokens(sourceText);
-  const categoryConcept = candidate.category === 'issue' ? 'Korea current affairs policy' : 'Korea economy finance';
 
   const visualKeywords = KOR_TO_ENG_VISUALS
     .filter(({ match }) => match.test(sourceText))
     .map(({ english }) => english);
 
+  const concreteVisuals = visualKeywords.filter(keyword => !/government parliament policy law/i.test(keyword));
+  const governmentVisuals = visualKeywords.filter(keyword => /government parliament policy law/i.test(keyword));
+  const explicitKeyword = isSpecificImageKeyword(candidate.imageKeyword) ? candidate.imageKeyword : '';
+  const directArticleIsAboutParliament = /국회(?:의사당|본회의|상임위|청문회)|국회.{0,12}(?:발표|법안|표결|회의)|의회\s*(?:내부|본회의)|국회의사당/u.test(sourceText);
+  const fallbackVisuals = directArticleIsAboutParliament ? governmentVisuals : [];
+
   return [...new Set([
-    candidate.imageKeyword || '',
-    ...visualKeywords,
+    ...concreteVisuals,
+    explicitKeyword,
+    ...fallbackVisuals,
     tokens.slice(0, 3).join(' '),
-    `${tokens.slice(0, 2).join(' ')} ${candidate.event || ''}`.trim(),
-    `${tokens[0] || ''} ${categoryConcept}`.trim(),
-    categoryConcept,
+    tokens.slice(0, 2).join(' '),
   ].map(value => normalizeNfc(value).trim()).filter(value => value.length >= 2))].slice(0, 5);
 }
 
 function scoreImageCandidate(image, query, signature = '') {
-  const metadata = `${image.description || ''} ${image.alt || ''} ${(image.tags || []).join(' ')}`;
+  const metadata = imageMetadata(image);
   const queryTokens = extractSignatureTokens(`${query} ${signature}`);
   const metadataTokens = new Set(extractSignatureTokens(metadata));
   const overlap = queryTokens.filter(token => metadataTokens.has(token)).length / Math.max(1, queryTokens.length);
@@ -55,7 +117,7 @@ function scoreImageCandidate(image, query, signature = '') {
   const resolution = width >= 1080 && height >= 1350 ? 1 : Math.min(1, (width * height) / (1080 * 1350));
   const portrait = height >= width ? 1 : Math.max(0.2, height / Math.max(1, width));
   const watermarkPenalty = /watermark|logo|template|mockup/i.test(metadata) ? 0.5 : 0;
-  const score = overlap * 0.55 + resolution * 0.2 + portrait * 0.2 + (image.source === 'pexels' ? 0.05 : 0) - watermarkPenalty;
+  const score = overlap * 0.65 + resolution * 0.15 + portrait * 0.15 + (image.source === 'pexels' ? 0.05 : 0) - watermarkPenalty;
   return {
     score: Number(Math.max(0, Math.min(1, score)).toFixed(4)),
     components: {
@@ -176,7 +238,6 @@ async function selectLicensedImage(candidate, {
   minimumScore = 0.42,
   recentImages = [],
   reuseWindowDays = 7,
-  randomImpl = Math.random,
 } = {}) {
   const queries = buildImageQueries(candidate);
   const attempts = [];
@@ -192,24 +253,45 @@ async function selectLicensedImage(candidate, {
       try {
         const images = (await provider.search(query)).slice(0, 20);
         const scored = images
-          .map(image => ({ ...image, query, ...scoreImageCandidate(image, query, candidate.title) }))
+          .map(image => ({
+            ...image,
+            query,
+            ...scoreImageCandidate(image, query, candidate.title),
+            suitability: assessImageSuitability(image, query),
+          }))
           .filter(image => image.downloadUrl && image.width >= 800 && image.height >= 800)
           .sort((a, b) => b.score - a.score)
           .map((image, index) => ({ ...image, rankWithinQuery: index + 1 }));
-        const eligible = scored.filter(img => img.score >= minimumScore);
+        const suitable = scored.filter(image => (
+          image.components.semanticMetadata > 0 && image.suitability.ok
+        ));
+        const eligible = suitable.filter(img => img.score >= minimumScore);
         const blocked = eligible.filter(image => imageWasRecentlyUsed(image, recentKeys));
         const unused = eligible.filter(image => !imageWasRecentlyUsed(image, recentKeys));
+        const suitabilityRejections = scored
+          .filter(image => !image.suitability.ok)
+          .map(image => ({
+            id: image.id,
+            rankWithinQuery: image.rankWithinQuery,
+            reason: image.suitability.reason,
+            concreteQueryTokens: image.suitability.concreteQueryTokens,
+            matchedConcreteTokens: image.suitability.matchedConcreteTokens,
+          }));
+        const suitabilityRejected = suitabilityRejections.length;
         attempts.push({
           provider: provider.name,
           query,
           count: scored.length,
+          suitableCount: suitable.length,
+          suitabilityRejected,
+          suitabilityRejections,
           eligibleCount: eligible.length,
           recentReuseBlocked: blocked.length,
           bestScore: scored[0]?.score ?? null,
         });
         if (unused.length > 0) {
           const topN = unused.slice(0, 5);
-          const selectedIndex = Math.min(topN.length - 1, Math.max(0, Math.floor(randomImpl() * topN.length)));
+          const selectedIndex = 0;
           const selected = topN[selectedIndex];
           return {
             kind: 'web',
@@ -226,7 +308,7 @@ async function selectLicensedImage(candidate, {
               blockedCandidateCount: blocked.length,
               selectedImageKeys: imageReuseKeys(selected),
             },
-            selectionReason: `selected unused rank #${selected.rankWithinQuery} from top ${topN.length} ${provider.name} results above ${minimumScore}; ${blocked.length} recent images blocked`,
+            selectionReason: `selected concrete-subject-matched unused rank #${selected.rankWithinQuery} from ${provider.name} results above ${minimumScore}; ${suitabilityRejected} unsuitable and ${blocked.length} recent images blocked`,
           };
         }
       } catch (error) {
@@ -249,7 +331,7 @@ async function selectLicensedImage(candidate, {
       recentKeyCount: recentKeys.size,
       blockedCandidateCount: attempts.reduce((sum, attempt) => sum + (attempt.recentReuseBlocked || 0), 0),
     },
-    selectionReason: 'no licensed unused image met the confidence threshold',
+    selectionReason: 'no concrete-subject-matched licensed unused image met the confidence threshold',
   };
 }
 
@@ -271,10 +353,12 @@ async function downloadSelectedImage(selection, { fetchImpl = fetch, outputDir =
 
 module.exports = {
   LICENSES,
+  assessImageSuitability,
   buildImageQueries,
   downloadSelectedImage,
   imageReuseKeys,
   scoreImageCandidate,
+  isSpecificImageKeyword,
   searchPexels,
   searchUnsplash,
   searchWikimedia,

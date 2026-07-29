@@ -2,16 +2,20 @@ const config = require('../../config');
 const { resolveInstagramToken } = require('../token-vault');
 const { CATEGORIES } = require('./constants');
 const {
+  archivePublication,
   createDailyLedger,
+  emptyPublication,
+  historyFromLedgers,
   listLedgers,
   loadLedger,
   saveLedger,
+  startPublicationRun,
   updatePublication,
 } = require('./ledger');
 const { notifyTransitions } = require('./operations');
 const { evaluateCandidate, planDailyQueue } = require('./planner');
 const { preparePublication, publishPreparedPublication } = require('./publisher');
-const { kstDate } = require('./time');
+const { kstDate, kstRunSlot } = require('./time');
 
 const CATEGORY_ORDER = [CATEGORIES.ECONOMY, CATEGORIES.ISSUE];
 
@@ -59,6 +63,106 @@ function applyPlan(ledger, plan) {
     });
   }
   return next;
+}
+
+function applyCategoryPlan(ledger, plan, category) {
+  let next = structuredClone(ledger);
+  const currentKey = next.publications[category].publicationKey;
+  next.selectionMode = 'hot';
+  next.popularityFallback = plan.popularityFallback;
+  next.candidates = plan.candidates;
+  next.candidateCategory = category;
+  next.candidatePublicationKey = currentKey;
+  const result = plan.publications[category];
+  if (result?.ok) {
+    next.publications[category] = {
+      ...emptyPublication(next.date, category),
+      publicationKey: currentKey,
+      status: 'planned',
+      reason: null,
+      plannedAt: new Date().toISOString(),
+      candidate: result.selected,
+      hotness: result.selected.hotness || null,
+      corroboration: result.corroboration,
+      duplicateCheck: result.duplicateCheck,
+    };
+    return next;
+  }
+  return updatePublication(next, category, {
+    status: 'no_publish',
+    reason: result?.reason || 'no_candidate_passed_hotness_gate',
+    observedAt: new Date().toISOString(),
+    reel: { ...next.publications[category].reel, status: 'no_publish' },
+    comment: { ...next.publications[category].comment, status: 'no_publish' },
+    reply: { ...next.publications[category].reply, status: 'no_publish' },
+  });
+}
+
+function publicationNeedsRecovery(publication = {}) {
+  if (!publication.candidate) return false;
+  if (['planned', 'generating', 'ready', 'publishing', 'retry_pending', 'failed'].includes(publication.status)) return true;
+  if (publication.reel?.status !== 'published') return false;
+  const commentTerminal = ['published', 'manual_action_required', 'no_publish'].includes(publication.comment?.status);
+  if (!commentTerminal) return true;
+  if (publication.comment?.status !== 'published') return false;
+  return !['published', 'manual_action_required', 'no_publish'].includes(publication.reply?.status);
+}
+
+function replaceLedgerForDate(ledgers, ledger) {
+  return [...ledgers.filter(item => item.date !== ledger.date), ledger];
+}
+
+async function planCategoryPhase({
+  date = kstDate(),
+  category,
+  slot,
+  now = new Date(),
+  loadLedgerImpl = loadLedger,
+  listLedgersImpl = listLedgers,
+  planDailyQueueImpl = planDailyQueue,
+  historyBuilder,
+} = {}) {
+  selectedCategories(category);
+  const previousLedger = loadLedgerImpl(date) || createDailyLedger(date, now);
+  const current = previousLedger.publications[category];
+  if (publicationNeedsRecovery(current)) {
+    return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true };
+  }
+
+  let ledger = archivePublication(previousLedger, category);
+  if ((ledger.candidates || []).length > 0 && ledger.candidatePublicationKey) {
+    ledger.candidateRuns = Array.isArray(ledger.candidateRuns) ? ledger.candidateRuns : [];
+    if (!ledger.candidateRuns.some(run => run.publicationKey === ledger.candidatePublicationKey)) {
+      ledger.candidateRuns.push({
+        publicationKey: ledger.candidatePublicationKey,
+        category: ledger.candidateCategory,
+        observedAt: previousLedger.updatedAt || now.toISOString(),
+        candidates: structuredClone(ledger.candidates),
+      });
+    }
+  }
+  ledger = startPublicationRun(ledger, category, slot || config.githubRunId || kstRunSlot(now));
+  ledger.candidates = [];
+  ledger.candidateCategory = null;
+  ledger.candidatePublicationKey = null;
+
+  const ledgers = replaceLedgerForDate(listLedgersImpl(), ledger);
+  const history = historyBuilder
+    ? historyBuilder(ledgers, date)
+    : historyFromLedgers(ledgers, date, config.maxHistoryDays, { includeReferenceDate: true });
+  const plan = await planDailyQueueImpl({
+    date,
+    history,
+    categories: [category],
+    hotMode: true,
+    now,
+  });
+  return {
+    ledger: applyCategoryPlan(ledger, plan, category),
+    previousLedger: structuredClone(previousLedger),
+    reused: false,
+    recovery: false,
+  };
 }
 
 async function planPhase({
@@ -218,6 +322,8 @@ async function rerouteAfterEditorialFailure(ledger, category, {
         history,
         fetchArticleBodyImpl,
         embedder,
+        hotMode: ledger.selectionMode === 'hot',
+        referenceDate: ledger.date,
       });
     } catch (candidateError) {
       next = appendCandidateRejection(next, candidate, category, `evaluation_error:${candidateError.message}`);
@@ -328,7 +434,7 @@ async function runPersistedPhase({
   ...stepDependencies
 } = {}) {
   let ledger = loadLedgerImpl(date);
-  if (!ledger) throw new Error(`[DIEM] No frozen queue exists for ${date}. Run plan first.`);
+  if (!ledger) throw new Error(`[DIEM] No category selection exists for ${date}. Run select first.`);
   if (phase === 'publish' && !publish) return { ledger, skipped: true, reason: 'publishing_disabled', results: [] };
   const categories = selectedCategories(category);
   const hasPublishWork = categories.some(selectedCategory => {
@@ -338,7 +444,7 @@ async function runPersistedPhase({
         && (publication.comment?.status !== 'published' || publication.reply?.status !== 'published'));
   });
   const resolvedToken = phase === 'publish' && hasPublishWork ? (token || resolveInstagramToken()) : null;
-  const history = require('./ledger').historyFromLedgers(listLedgersImpl(), date, config.maxHistoryDays);
+  const history = historyFromLedgers(listLedgersImpl(), date, config.maxHistoryDays, { includeReferenceDate: true });
   const results = [];
 
   for (const selectedCategory of categories) {
@@ -363,12 +469,15 @@ async function runPersistedPhase({
 
 module.exports = {
   CATEGORY_ORDER,
+  applyCategoryPlan,
   applyPlan,
   failedGenerationPublication,
   failedPublishPublication,
   hasFrozenQueue,
   isEditorialGenerationError,
+  planCategoryPhase,
   planPhase,
+  publicationNeedsRecovery,
   rerouteAfterEditorialFailure,
   runCategoryStep,
   runPersistedPhase,

@@ -27,7 +27,8 @@ function transitionEvents(before = {}, after = {}, { actionsUrl = githubActionsU
   const title = publicationTitle(after);
   const base = { publicationKey, category, title, actionsUrl };
 
-  if (before.status !== after.status && after.status === 'no_publish') {
+  const routineHotPoll = after.reason === 'no_candidate_passed_hotness_gate';
+  if (before.status !== after.status && after.status === 'no_publish' && !routineHotPoll) {
     events.push({
       ...base,
       stage: 'selection',

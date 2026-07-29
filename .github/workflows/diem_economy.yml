@@ -1,0 +1,170 @@
+name: DIEM Economy
+
+on:
+  schedule:
+    # Every four hours: 01:00, 05:00, 09:00, 13:00, 17:00 and 21:00 Asia/Seoul
+    - cron: '0 */4 * * *'
+    # Weekly encrypted Instagram token rotation (Monday 05:30 KST)
+    - cron: '30 20 * * 0'
+  workflow_dispatch:
+
+concurrency:
+  group: diem-v2-durable-writes
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+env:
+  PIPELINE_VERSION: v2
+  GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+  GROQ_PRIMARY_MODEL: openai/gpt-oss-120b
+  GROQ_FALLBACK_MODEL: openai/gpt-oss-20b
+  PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+  UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+  INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+  INSTAGRAM_TOKEN_ENCRYPTION_KEY: ${{ secrets.INSTAGRAM_TOKEN_ENCRYPTION_KEY }}
+  INSTAGRAM_USER_ID: ${{ vars.INSTAGRAM_USER_ID }}
+  INSTAGRAM_USERNAME: ${{ vars.INSTAGRAM_USERNAME || 'diem.magazine' }}
+  INSTAGRAM_API_VERSION: v23.0
+  PUBLISH_INSTAGRAM: 'true'
+  PUBLISH_INSTAGRAM_STORY: 'false'
+  GITHUB_TOKEN: ${{ github.token }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_RUN_ID: ${{ github.run_id }}
+  GITHUB_SHA: ${{ github.sha }}
+  PUBLICATIONS_ROOT: ./data/publications
+  EDITORIAL_HISTORY_FILE: ./data/editorial-history.json
+  MAX_HISTORY_DAYS: '7'
+  HF_HUB_OFFLINE: '1'
+
+jobs:
+  publish-economy:
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule != '30 20 * * 0'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-v2.txt
+
+      - name: Cache multilingual embedding model
+        id: embedding-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: diem-minilm-${{ runner.os }}-${{ hashFiles('requirements-v2.txt', 'scripts/topic_similarity.py') }}
+
+      - name: Install pipeline dependencies
+        run: |
+          npm ci
+          python -m pip install -r requirements-v2.txt
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Seed multilingual embedding model cache
+        if: steps.embedding-cache.outputs.cache-hit != 'true'
+        env:
+          HF_HUB_OFFLINE: '0'
+        run: python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')"
+
+      - name: Validate topic similarity calibration
+        run: npm run diem:similarity
+
+      - name: Select current hot economy news
+        run: node src/v2/index.js select --category economy --slot "$GITHUB_RUN_ID"
+
+      - name: Commit economy selection
+        run: bash scripts/commit-diem-state.sh "Select a timely DIEM economy candidate"
+
+      - name: Prepare economy Reel
+        run: node src/v2/index.js prepare --category economy
+
+      - name: Commit ready economy state
+        run: bash scripts/commit-diem-state.sh "Preserve a ready DIEM economy Reel before publishing"
+
+      - name: Publish economy Reel
+        run: node src/v2/index.js publish --category economy
+
+      - name: Commit economy publication result
+        run: bash scripts/commit-diem-state.sh "Record the DIEM economy publication outcome"
+
+      - name: Collect due Instagram insights
+        continue-on-error: true
+        run: |
+          node src/cleanup-assets.js
+          node src/collect-insights.js
+
+      - name: Commit measurement snapshots
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/posts.json data/analytics-state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Retain Instagram growth evidence for editorial decisions" -m "Store due measurement snapshots after the economy polling run.
+
+          Constraint: Keep only two operator-facing publishing workflows
+          Confidence: high
+          Scope-risk: narrow
+          Tested: Scheduled insight collection path
+          Not-tested: Metric availability for newly published media"
+            git pull --rebase origin "${GITHUB_REF_NAME:-main}"
+            git push origin "HEAD:${GITHUB_REF_NAME:-main}"
+          fi
+
+  refresh-token:
+    if: github.event_name == 'schedule' && github.event.schedule == '30 20 * * 0'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Refresh and encrypt Instagram token
+        run: node src/refresh-instagram-token.js
+
+      - name: Commit rotated encrypted token
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/instagram-token.enc
+          if ! git diff --cached --quiet; then
+            git commit -m "Keep Instagram automation authenticated without manual rotation" -m "Refresh the long-lived token and persist only its encrypted payload.
+
+          Constraint: GitHub Actions cannot rewrite repository secrets
+          Confidence: high
+          Scope-risk: narrow
+          Tested: Existing token refresh command
+          Not-tested: Provider-side expiry beyond the returned lifetime"
+            git pull --rebase origin "${GITHUB_REF_NAME:-main}"
+            git push origin "HEAD:${GITHUB_REF_NAME:-main}"
+          fi

@@ -135,6 +135,60 @@ test('passes recent historical and same-day ledger images into image selection',
   assert.equal(result.publications.economy.image.localSha256, 'fresh-image-sha');
 });
 
+test('reselects an image when its downloaded hash matches the recent seven-day history', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-image-hash-'));
+  let ledger = createDailyLedger('2026-07-29');
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: {
+      title: '한국은행 기준금리 2.50% 동결',
+      fullText: '한국은행은 기준금리를 2.50%로 동결했습니다. 물가와 가계대출 흐름을 확인한 결정입니다. 다음 회의에서도 경제 지표를 점검합니다.',
+      category: 'economy',
+    },
+    duplicateCheck: { signature: { target: '기준금리', event: '동결', entities: ['한국은행'] } },
+  });
+  const selections = [
+    { kind: 'web', id: 'pexels:duplicate-alias', source: 'pexels', downloadUrl: 'https://images.example/duplicate.jpg' },
+    { kind: 'web', id: 'pexels:fresh-after-hash', source: 'pexels', downloadUrl: 'https://images.example/fresh.jpg' },
+  ];
+  let selectionCalls = 0;
+  const result = await preparePublication(ledger, 'economy', {
+    artifactRoot: root,
+    history: [{
+      publicationKey: 'diem:2026-07-28:economy',
+      image: { id: 'unsplash:different-id', localSha256: 'same-binary-sha' },
+    }],
+    callModel: async () => ({
+      titleCandidates: [{ title: '기준금리\n2.50% 동결' }],
+      selectedTitleIndex: 0,
+      sentences: [
+        '한국은행은 기준금리를 2.50%로 동결하며 통화정책 기조를 유지했습니다.',
+        '물가와 가계대출 흐름을 더 확인하기 위한 결정입니다.',
+        '다음 회의에서도 새 경제 지표를 점검할 예정입니다.',
+      ],
+      emojis: { first: '🏦', third: '📊' },
+      topicTags: ['한국은행', '기준금리', '물가'],
+      imageKeyword: 'central bank finance',
+    }),
+    selectImageImpl: async () => selections[Math.min(selectionCalls++, selections.length - 1)],
+    downloadImageImpl: async selection => ({
+      ...selection,
+      localPath: null,
+      sha256: selection.id.includes('duplicate') ? 'same-binary-sha' : 'fresh-binary-sha',
+    }),
+    renderCoverImpl: async ({ outputPath }) => fs.writeFileSync(outputPath, 'cover'),
+    selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
+    createReelImpl: async ({ outputPath, music }) => {
+      fs.writeFileSync(outputPath, 'video');
+      return { outputPath, audio: { trackId: music.trackId } };
+    },
+  });
+
+  assert.equal(selectionCalls, 2);
+  assert.equal(result.publications.economy.image.id, 'pexels:fresh-after-hash');
+  assert.equal(result.publications.economy.image.localSha256, 'fresh-binary-sha');
+});
+
 test('reconciles an existing exact Reel instead of republishing', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-publisher-'));
   const ledger = readyLedger(root);

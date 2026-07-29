@@ -1,8 +1,9 @@
 ---
 date: 2026-07-25
 scope: project
-status: active
+status: superseded
 source: harness-spec
+superseded_by: 2026-07-29-category-hot-news-actions.md
 ---
 
 # GitHub 원장과 독립 상태로 하루 두 편을 발행
@@ -60,4 +61,3 @@ Instagram 발행과 Git 커밋은 하나의 트랜잭션이 아니므로 발행 
 - Instagram 원본 보존 정책만으로 과거 결과물 감사 요구를 충족하지
   못할 때
 - Slack 외 다른 메신저가 주 운영 채널로 바뀔 때
-

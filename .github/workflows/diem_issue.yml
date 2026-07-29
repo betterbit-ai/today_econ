@@ -1,0 +1,105 @@
+name: DIEM Issue
+
+on:
+  schedule:
+    # Every four hours: 01:00, 05:00, 09:00, 13:00, 17:00 and 21:00 Asia/Seoul
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: diem-v2-durable-writes
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+env:
+  PIPELINE_VERSION: v2
+  GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+  GROQ_PRIMARY_MODEL: openai/gpt-oss-120b
+  GROQ_FALLBACK_MODEL: openai/gpt-oss-20b
+  PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+  UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+  SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+  INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+  INSTAGRAM_TOKEN_ENCRYPTION_KEY: ${{ secrets.INSTAGRAM_TOKEN_ENCRYPTION_KEY }}
+  INSTAGRAM_USER_ID: ${{ vars.INSTAGRAM_USER_ID }}
+  INSTAGRAM_USERNAME: ${{ vars.INSTAGRAM_USERNAME || 'diem.magazine' }}
+  INSTAGRAM_API_VERSION: v23.0
+  PUBLISH_INSTAGRAM: 'true'
+  PUBLISH_INSTAGRAM_STORY: 'false'
+  GITHUB_TOKEN: ${{ github.token }}
+  GITHUB_REPOSITORY: ${{ github.repository }}
+  GITHUB_RUN_ID: ${{ github.run_id }}
+  GITHUB_SHA: ${{ github.sha }}
+  PUBLICATIONS_ROOT: ./data/publications
+  EDITORIAL_HISTORY_FILE: ./data/editorial-history.json
+  MAX_HISTORY_DAYS: '7'
+  HF_HUB_OFFLINE: '1'
+
+jobs:
+  publish-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-v2.txt
+
+      - name: Cache multilingual embedding model
+        id: embedding-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: diem-minilm-${{ runner.os }}-${{ hashFiles('requirements-v2.txt', 'scripts/topic_similarity.py') }}
+
+      - name: Install pipeline dependencies
+        run: |
+          npm ci
+          python -m pip install -r requirements-v2.txt
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Seed multilingual embedding model cache
+        if: steps.embedding-cache.outputs.cache-hit != 'true'
+        env:
+          HF_HUB_OFFLINE: '0'
+        run: python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')"
+
+      - name: Validate topic similarity calibration
+        run: npm run diem:similarity
+
+      - name: Select current hot issue news
+        run: node src/v2/index.js select --category issue --slot "$GITHUB_RUN_ID"
+
+      - name: Commit issue selection
+        run: bash scripts/commit-diem-state.sh "Select a timely DIEM issue candidate"
+
+      - name: Prepare issue Reel
+        run: node src/v2/index.js prepare --category issue
+
+      - name: Commit ready issue state
+        run: bash scripts/commit-diem-state.sh "Preserve a ready DIEM issue Reel before publishing"
+
+      - name: Publish issue Reel
+        run: node src/v2/index.js publish --category issue
+
+      - name: Commit issue publication result
+        run: bash scripts/commit-diem-state.sh "Record the DIEM issue publication outcome"

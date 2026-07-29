@@ -6,7 +6,7 @@ const { cleanupExpiredReleases, createTemporaryRelease } = require('../github-as
 const { publishReel, publishStory, searchInstagramAudio } = require('../instagram');
 const { generateEditorial } = require('./editorial');
 const { createGroqCaller } = require('./groq');
-const { downloadSelectedImage, selectLicensedImage } = require('./image-selector');
+const { downloadSelectedImage, imageReuseKeys, selectLicensedImage } = require('./image-selector');
 const {
   applyIndependentStepOutcome,
   createTopLevelComment,
@@ -15,7 +15,7 @@ const {
   reconcileRecentReel,
   replyToComment,
 } = require('./instagram');
-const { imageRecordFromPublication, updatePublication } = require('./ledger');
+const { allLedgerPublications, imageRecordFromPublication, updatePublication } = require('./ledger');
 const { selectMusic, getMood } = require('./music');
 const { createDiemReelWithMusic } = require('./reel');
 const { renderDiemCover } = require('./cover');
@@ -50,7 +50,7 @@ function stripEphemeralImageFields(selection = {}) {
 }
 
 function currentLedgerImages(ledger, excludePublicationKey) {
-  return Object.values(ledger.publications || {})
+  return allLedgerPublications(ledger)
     .filter(publication => publication.publicationKey !== excludePublicationKey)
     .filter(publication => publication.image)
     .filter(publication => (
@@ -59,6 +59,11 @@ function currentLedgerImages(ledger, excludePublicationKey) {
     ))
     .map(publication => imageRecordFromPublication(publication, ledger.date)?.image)
     .filter(Boolean);
+}
+
+function sharesRecentImageKey(image, recentImages = []) {
+  const recentKeys = new Set(recentImages.flatMap(imageReuseKeys));
+  return imageReuseKeys(image).some(key => recentKeys.has(key));
 }
 
 function recentImagesForSelection(ledger, publication, history = []) {
@@ -97,19 +102,27 @@ async function preparePublication(ledger, category, {
     handle: config.instagramUsername,
   });
 
-  let imageSelection = await selectImageImpl({
-    ...article,
-    imageKeyword: editorial.imageKeyword,
-  }, {
-    pexelsApiKey: config.pexelsApiKey,
-    unsplashAccessKey: config.unsplashAccessKey,
-    recentImages: recentImagesForSelection(ledger, publication, history),
-    reuseWindowDays: config.maxHistoryDays,
-  });
-  let downloaded = imageSelection;
-  if (imageSelection.kind === 'web') {
+  const recentImages = recentImagesForSelection(ledger, publication, history);
+  let imageSelection;
+  let downloaded;
+  for (let selectionAttempt = 1; selectionAttempt <= 5; selectionAttempt += 1) {
+    imageSelection = await selectImageImpl({
+      ...article,
+      imageKeyword: editorial.imageKeyword,
+    }, {
+      pexelsApiKey: config.pexelsApiKey,
+      unsplashAccessKey: config.unsplashAccessKey,
+      recentImages,
+      reuseWindowDays: config.maxHistoryDays,
+    });
+    downloaded = imageSelection;
+    if (imageSelection.kind !== 'web') break;
     try {
       downloaded = await downloadImageImpl(imageSelection, { outputDir });
+      if (!sharesRecentImageKey(downloaded, recentImages)) break;
+      recentImages.push({ ...imageSelection, localSha256: downloaded.sha256 });
+      imageSelection = null;
+      downloaded = null;
     } catch (error) {
       imageSelection = {
         ...imageSelection,
@@ -119,7 +132,19 @@ async function preparePublication(ledger, category, {
         selectionReason: 'licensed image download failed; typography fallback used',
       };
       downloaded = imageSelection;
+      break;
     }
+  }
+  if (!imageSelection || !downloaded) {
+    imageSelection = {
+      kind: 'typographic',
+      source: 'diem-original',
+      license: { name: 'Project-owned original', url: null },
+      selectedAt: new Date().toISOString(),
+      score: 0,
+      selectionReason: 'all licensed candidates matched a recent seven-day image hash',
+    };
+    downloaded = imageSelection;
   }
 
   const coverPath = path.join(outputDir, `${category}-cover.png`);
@@ -426,4 +451,5 @@ module.exports = {
   selectedArticle,
   sha256File,
   stripEphemeralImageFields,
+  sharesRecentImageKey,
 };

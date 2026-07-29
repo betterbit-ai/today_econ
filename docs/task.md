@@ -1,5 +1,9 @@
 # 태스크 리스트
 
+> [!NOTE]
+> 이 문서는 V1 완료 기록입니다. 현재 운영 액션은 `DIEM Economy`와
+> `DIEM Issue` 두 개뿐이며 상세 절차는 `docs/diem-v2-operations.md`에 있습니다.
+
 - [x] **초기 설정 및 패키지 초기화**
   - [x] `package.json` 생성 및 필요한 패키지(`groq-sdk`, `rss-parser`, `playwright`, `@slack/web-api`, `dotenv`) 설치
   - [x] `.env.example` 및 `config.js` 작성

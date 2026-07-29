@@ -142,6 +142,8 @@ function mergePopularCandidates(portalResults = {}) {
         title: primary.title,
         url: primary.url,
         publishedDate: primary.date,
+        publishedAt: primary.publishedAt || null,
+        observedAt: primary.observedAt || null,
         popularityScore: Number((mean + (portals.size >= 2 ? 10 : 0)).toFixed(4)),
         crossPortal: portals.size >= 2,
         sources: cluster.sources.sort((a, b) => b.normalizedScore - a.normalizedScore),
@@ -183,13 +185,14 @@ async function fetchHtml(url, { fetchImpl = fetch, timeoutMs = 10000 } = {}) {
   }
 }
 
-async function fetchPortalRankings({ date, fetchImpl = fetch } = {}) {
+async function fetchPortalRankings({ date, now = new Date(), fetchImpl = fetch } = {}) {
   const results = {};
   const errors = {};
   await Promise.all(Object.entries(PORTAL_URLS).map(async ([portal, url]) => {
     try {
       const html = await fetchHtml(url, { fetchImpl });
-      results[portal] = portal === 'naver' ? parseNaverRanking(html, date) : parseDaumRanking(html, date);
+      results[portal] = (portal === 'naver' ? parseNaverRanking(html, date) : parseDaumRanking(html, date))
+        .map(item => ({ ...item, observedAt: now.toISOString() }));
       if (results[portal].length === 0) throw new Error('ranking parser returned no articles');
     } catch (error) {
       results[portal] = [];

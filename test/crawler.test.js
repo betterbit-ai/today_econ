@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { fetchArticleBody, fetchOgImage } = require('../src/crawler');
+const { fetchArticleBody, fetchArticleDocument, fetchOgImage } = require('../src/crawler');
 
 test('rejects the publisher-wide social image as a story background', async () => {
   const originalFetch = global.fetch;
@@ -55,6 +55,21 @@ test('preserves paragraph boundaries so adjacent facts remain separate sentences
     const text = await fetchArticleBody('https://example.com/article');
     assert.match(text, /급증했다\.\s+20대/);
     assert.doesNotMatch(text, /급증했다\.20대/);
+  } finally {
+    global.fetch = originalFetch;
+  }
+});
+
+test('extracts the article publication timestamp with the body', async () => {
+  const originalFetch = global.fetch;
+  global.fetch = async () => new Response(`
+    <meta property="article:published_time" content="2026-07-29T10:15:00+09:00">
+    <article><p>코스피 급락으로 장중 사이드카가 발동했습니다.</p></article>
+  `, { status: 200 });
+  try {
+    const article = await fetchArticleDocument('https://example.com/article');
+    assert.equal(article.publishedAt, '2026-07-29T10:15:00+09:00');
+    assert.match(article.fullText, /사이드카/);
   } finally {
     global.fetch = originalFetch;
   }

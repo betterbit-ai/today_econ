@@ -22,6 +22,11 @@ function kstDateLabel(date = new Date()) {
   return kstDate(date).replaceAll('-', '.');
 }
 
+function kstRunSlot(date = new Date()) {
+  const { year, month, day, hour, minute } = kstParts(date);
+  return `${year}${month}${day}-${hour}${minute}`;
+}
+
 function isSameKstDate(value, date = new Date()) {
   const parsed = value instanceof Date ? value : new Date(value);
   return !Number.isNaN(parsed.getTime()) && kstDate(parsed) === kstDate(date);
@@ -33,4 +38,5 @@ module.exports = {
   kstDate,
   kstDateLabel,
   kstParts,
+  kstRunSlot,
 };

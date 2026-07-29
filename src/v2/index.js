@@ -6,7 +6,7 @@ const {
   saveLedger,
 } = require('./ledger');
 const { notifyTransitions } = require('./operations');
-const { planPhase, runPersistedPhase } = require('./orchestrator');
+const { planCategoryPhase, planPhase, runPersistedPhase } = require('./orchestrator');
 const { kstDate } = require('./time');
 
 function parseArgs(argv = process.argv.slice(2)) {
@@ -18,6 +18,7 @@ function parseArgs(argv = process.argv.slice(2)) {
     else if (token === '--publish') options.publish = true;
     else if (token === '--date') options.date = rest[++index];
     else if (token === '--category') options.category = rest[++index];
+    else if (token === '--slot') options.slot = rest[++index];
     else throw new Error(`[DIEM] Unknown option: ${token}`);
   }
   return { command, options };
@@ -27,6 +28,7 @@ function helpText() {
   return [
     'DIEM V2 pipeline',
     '',
+    '  node src/v2/index.js select --category economy|issue [--date YYYY-MM-DD] [--slot RUN_ID]',
     '  node src/v2/index.js plan [--date YYYY-MM-DD] [--force]',
     '  node src/v2/index.js prepare [--date YYYY-MM-DD] [--category economy|issue]',
     '  node src/v2/index.js publish [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
@@ -44,6 +46,24 @@ function nextDate(date) {
 
 async function runCommand({ command, options }) {
   const date = options.date || kstDate();
+  if (command === 'select') {
+    if (!options.category) throw new Error('[DIEM] select requires --category economy|issue.');
+    const result = await planCategoryPhase({
+      date,
+      category: options.category,
+      slot: options.slot,
+    });
+    let ledger = saveLedger(result.ledger);
+    if (!result.reused) {
+      const before = result.previousLedger.publications[options.category];
+      const notified = await notifyTransitions(ledger, options.category, before);
+      ledger = saveLedger(notified.ledger);
+    }
+    rebuildEditorialHistory({ referenceDate: nextDate(date) });
+    const publication = ledger.publications[options.category];
+    console.log(`[DIEM] ${date} ${options.category} ${result.recovery ? 'recovery reused' : 'hot-news selected'}: ${publication.status}${publication.candidate ? ` (${publication.candidate.title})` : ''}`);
+    return ledger;
+  }
   if (command === 'plan') {
     const result = await planPhase({ date, force: options.force ?? true });
     let ledger = saveLedger(result.ledger);

@@ -5,6 +5,7 @@ const { createDailyLedger, updatePublication } = require('../src/v2/ledger');
 const {
   applyPlan,
   hasFrozenQueue,
+  planCategoryPhase,
   planPhase,
   runCategoryStep,
 } = require('../src/v2/orchestrator');
@@ -219,4 +220,102 @@ test('transition events are independent and mark retries recovered', () => {
 test('published history is rebuilt against the next KST day', () => {
   assert.equal(nextDate('2026-07-25'), '2026-07-26');
   assert.equal(nextDate('2026-12-31'), '2027-01-01');
+});
+
+test('category polling archives a completed run and selects only that category into a new slot', async () => {
+  let existing = createDailyLedger('2026-07-29');
+  existing.publications.economy = {
+    ...existing.publications.economy,
+    status: 'published',
+    candidate: { title: '오전 경제 기사', url: 'https://example.com/morning' },
+    duplicateCheck: { signature: { text: 'economy | 오전 경제 | 발표' } },
+    reel: { status: 'published', attempts: 1, externalId: 'reel-morning' },
+    comment: { status: 'published', attempts: 1, externalId: 'comment-morning' },
+    reply: { status: 'published', attempts: 1, externalId: 'reply-morning' },
+  };
+  let plannerOptions = null;
+  const result = await planCategoryPhase({
+    date: '2026-07-29',
+    category: 'economy',
+    slot: 'run-1300',
+    now: new Date('2026-07-29T04:00:00.000Z'),
+    loadLedgerImpl: () => existing,
+    listLedgersImpl: () => [existing],
+    planDailyQueueImpl: async options => {
+      plannerOptions = options;
+      return {
+        date: options.date,
+        popularityFallback: null,
+        candidates: [{ title: '오후 경제 기사', url: 'https://example.com/afternoon', rejectionReasons: [] }],
+        publications: {
+          economy: {
+            ok: true,
+            selected: {
+              title: '오후 경제 기사',
+              url: 'https://example.com/afternoon',
+              fullText: '검증된 경제 기사 본문입니다.'.repeat(10),
+              hotness: { ok: true, score: 88 },
+            },
+            duplicateCheck: { duplicate: false, signature: { text: 'economy | 오후 경제 | 발표' } },
+            corroboration: null,
+          },
+        },
+      };
+    },
+  });
+
+  assert.deepEqual(plannerOptions.categories, ['economy']);
+  assert.equal(plannerOptions.hotMode, true);
+  assert.equal(plannerOptions.history[0].publicationKey, 'diem:2026-07-29:economy');
+  assert.equal(result.ledger.publicationHistory.length, 1);
+  assert.equal(result.ledger.publications.economy.publicationKey, 'diem:2026-07-29:economy:run-1300');
+  assert.equal(result.ledger.publications.economy.candidate.title, '오후 경제 기사');
+  assert.equal(result.ledger.publications.issue.candidate, null);
+});
+
+test('category polling recovers an unfinished run before selecting another article', async () => {
+  let existing = createDailyLedger('2026-07-29');
+  existing = updatePublication(existing, 'issue', {
+    status: 'retry_pending',
+    candidate: { title: '복구할 시사 기사', url: 'https://example.com/retry' },
+    reel: { status: 'retry_pending', attempts: 1, externalId: null },
+  });
+  let plannerCalls = 0;
+  const result = await planCategoryPhase({
+    date: '2026-07-29',
+    category: 'issue',
+    slot: 'run-1700',
+    loadLedgerImpl: () => existing,
+    listLedgersImpl: () => [existing],
+    planDailyQueueImpl: async () => { plannerCalls += 1; },
+  });
+
+  assert.equal(plannerCalls, 0);
+  assert.equal(result.recovery, true);
+  assert.equal(result.ledger.publications.issue.candidate.title, '복구할 시사 기사');
+});
+
+test('category polling repairs pending comments after the Reel was published', async () => {
+  let existing = createDailyLedger('2026-07-29');
+  existing = updatePublication(existing, 'economy', {
+    status: 'published',
+    candidate: { title: '댓글 복구 경제 기사', url: 'https://example.com/comment-recovery' },
+    reel: { status: 'published', attempts: 1, externalId: 'reel-comment-recovery' },
+    comment: { status: 'planned', attempts: 0, externalId: null },
+    reply: { status: 'planned', attempts: 0, externalId: null },
+  });
+  let plannerCalls = 0;
+  const result = await planCategoryPhase({
+    date: '2026-07-29',
+    category: 'economy',
+    slot: 'run-2100',
+    loadLedgerImpl: () => existing,
+    listLedgersImpl: () => [existing],
+    planDailyQueueImpl: async () => { plannerCalls += 1; },
+  });
+
+  assert.equal(plannerCalls, 0);
+  assert.equal(result.recovery, true);
+  assert.equal(result.ledger.publications.economy.reel.externalId, 'reel-comment-recovery');
+  assert.equal(result.ledger.publications.economy.comment.status, 'planned');
 });

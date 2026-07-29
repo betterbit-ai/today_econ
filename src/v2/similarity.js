@@ -48,6 +48,7 @@ async function computeEmbeddingMatrix(queries, corpus, {
 async function evaluateAgainstHistory(signature, history = [], {
   embedder = computeEmbeddingSimilarities,
   candidate,
+  referenceDate,
 } = {}) {
   if (history.length === 0) return {
     duplicate: false,
@@ -63,7 +64,7 @@ async function evaluateAgainstHistory(signature, history = [], {
       entry,
       result: assessDuplicate(signature, entry.signature, {
         semanticScore: scores[index],
-        allowMaterialFollowUp: Boolean(candidate?.materialFollowUp),
+        allowMaterialFollowUp: Boolean(candidate?.materialFollowUp) && entry.date !== referenceDate,
       }),
     })).sort((a, b) => b.result.score - a.result.score);
     const best = evaluations[0];
@@ -76,7 +77,7 @@ async function evaluateAgainstHistory(signature, history = [], {
     const evaluations = history.map(entry => ({
       entry,
       result: assessDuplicate(signature, entry.signature, {
-        allowMaterialFollowUp: Boolean(candidate?.materialFollowUp),
+        allowMaterialFollowUp: Boolean(candidate?.materialFollowUp) && entry.date !== referenceDate,
       }),
     })).sort((a, b) => b.result.score - a.result.score);
     const best = evaluations[0];

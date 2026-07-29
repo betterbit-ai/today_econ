@@ -1,8 +1,9 @@
 ---
 date: 2026-07-25
 scope: project
-status: active
+status: superseded
 source: harness-interview
+superseded_by: 2026-07-29-category-hot-news-actions.md
 ---
 
 # 경제·시사 릴스 매거진으로 프로젝트 방향 전환

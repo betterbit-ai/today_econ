@@ -4,7 +4,13 @@ const path = require('node:path');
 const test = require('node:test');
 
 const { verifyCoreClaims, isLikelySyndicatedCopy } = require('../src/v2/fact-verifier');
-const { imageReuseKeys, scoreImageCandidate, selectLicensedImage } = require('../src/v2/image-selector');
+const {
+  assessImageSuitability,
+  buildImageQueries,
+  imageReuseKeys,
+  scoreImageCandidate,
+  selectLicensedImage,
+} = require('../src/v2/image-selector');
 const {
   decodeResponseBody,
   detectCharset,
@@ -82,6 +88,22 @@ test('uses injected embeddings and deterministic fallback for seven-day checks',
   const fallback = await evaluateAgainstHistory(signature, history, { embedder: async () => { throw new Error('model unavailable'); } });
   assert.equal(fallback.method, 'deterministic_fallback');
   assert.match(fallback.error, /model unavailable/);
+});
+
+test('never applies a material-follow-up override to the same event on the same KST date', async () => {
+  const signature = { target: '코스피', event: '사이드카 발동', text: 'economy | 코스피 | 사이드카 발동' };
+  const result = await evaluateAgainstHistory(signature, [{
+    date: '2026-07-29',
+    publicationKey: 'diem:2026-07-29:economy:run-0900',
+    signature,
+  }], {
+    embedder: async () => [0.95],
+    candidate: { materialFollowUp: true },
+    referenceDate: '2026-07-29',
+  });
+
+  assert.equal(result.duplicate, true);
+  assert.equal(result.repeatOverride, false);
 });
 
 test('parses one batched local embedding matrix', async () => {
@@ -170,6 +192,74 @@ test('normalizes reusable image identifiers across ids, urls, and hashes', () =>
   assert.ok(keys.includes('https://www.pexels.com/photo/x/'));
   assert.ok(keys.includes('https://images.pexels.com/photos/15476105/photo.jpeg'));
   assert.ok(keys.includes('abc123'));
+});
+
+test('prioritizes the concrete article subject over a generic government background', () => {
+  const queries = buildImageQueries({
+    title: '정부, 결혼 축의금 100만원 현금 지원',
+    category: 'issue',
+    imageKeyword: 'government policy',
+  });
+  assert.match(queries[0], /wedding|couple|marriage/i);
+  assert.doesNotMatch(queries[0], /government|parliament/i);
+});
+
+test('does not let resolution alone pass an unrelated image', () => {
+  const unrelated = scoreImageCandidate({
+    source: 'pexels',
+    width: 3000,
+    height: 4500,
+    description: 'grand parliament chamber interior',
+  }, 'wedding couple marriage', '결혼 축의금 현금 지원');
+  assert.equal(unrelated.components.semanticMetadata, 0);
+  assert.ok(unrelated.score < 0.42);
+});
+
+test('rejects generic keyword matches and selects the next image with the concrete subject', async () => {
+  const generic = assessImageSuitability({
+    description: 'government support policy parliament building',
+  }, 'government childcare support');
+  assert.equal(generic.ok, false);
+  assert.equal(generic.reason, 'concrete_subject_missing');
+
+  const photos = [
+    {
+      id: 101,
+      url: 'https://www.pexels.com/photo/government-building-101/',
+      src: { portrait: 'https://images.pexels.com/photos/101/government.jpeg' },
+      photographer: 'Generic Creator',
+      width: 3000,
+      height: 4500,
+      alt: 'government support policy parliament building',
+    },
+    {
+      id: 202,
+      url: 'https://www.pexels.com/photo/family-childcare-202/',
+      src: { portrait: 'https://images.pexels.com/photos/202/childcare.jpeg' },
+      photographer: 'Relevant Creator',
+      width: 3000,
+      height: 4500,
+      alt: 'family parents child using childcare service at home',
+    },
+  ];
+  const selection = await selectLicensedImage({
+    title: '정부, 아이돌봄 지원 확대',
+    category: 'issue',
+    imageKeyword: 'government childcare support',
+  }, {
+    pexelsApiKey: 'pexels-key',
+    fetchImpl: async () => ({
+      ok: true,
+      json: async () => ({ photos }),
+    }),
+  });
+
+  assert.equal(selection.kind, 'web');
+  assert.equal(selection.id, 'pexels:202');
+  assert.equal(selection.suitability.ok, true);
+  assert.equal(selection.attempts[0].suitabilityRejected, 1);
+  assert.equal(selection.attempts[0].suitabilityRejections[0].id, 'pexels:101');
+  assert.equal(selection.attempts[0].suitabilityRejections[0].reason, 'concrete_subject_missing');
 });
 
 test('ships 30 labeled Korean article pairs for live embedding calibration', () => {

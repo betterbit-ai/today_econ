@@ -1,15 +1,16 @@
 # DIEM — Daily Issue & Economy Magazine
 
-DIEM은 재테크 초보자가 오늘의 경제 뉴스 1건과 시사 뉴스 1건을 짧게
-이해할 수 있도록 매일 두 편의 7초 Instagram Reel을 만드는 데일리
-매거진 파이프라인입니다.
+DIEM은 재테크 초보자가 지금 주목받는 경제·시사 뉴스를 짧게 이해하도록,
+검증된 핫뉴스가 있을 때만 7초 Instagram Reel을 만드는 데일리 매거진
+파이프라인입니다.
 
 - 채널: `@diem.magazine` (`diem_magazine`은 사용자 이름 폴백)
-- 소개: `하루 두 번, 돈과 세상을 이해하는 가장 짧은 방법. 경제 1개,
-  시사 1개를 쉽고 정확하게 전합니다.`
-- 발행: 18:30 KST 경제, 21:00 KST 시사
+- 소개: `오늘을 놓치지 않는 경제·시사 브리핑. 20·30 재테크 초보자를
+  위한 1분 매거진.`
+- 감시: `DIEM Economy`와 `DIEM Issue`가 KST 01·05·09·13·17·21시에 독립 실행
+- 발행: 현재 인기·게시 시각·편집 가치 기준을 통과한 분야만 발행
 - 저장: 별도 DB 없이 GitHub 일일 원장과 파생 인덱스
-- 원칙: 인기 순서를 따르되 독립 교차 검증·7일 중복·권리·형식 게이트를
+- 원칙: 인기 순서를 따르되 기사 근거·7일 중복·권리·형식 게이트를
   통과하지 못하면 억지로 발행하지 않습니다.
 
 제품 방향은 [`spec/mission.md`](spec/mission.md), 실행 계약과 수용 기준은
@@ -18,10 +19,10 @@ DIEM은 재테크 초보자가 오늘의 경제 뉴스 1건과 시사 뉴스 1�
 
 ## V2 흐름
 
-1. 네이버·다음 당일 인기 뉴스 최대 50건씩을 통합하고, 양쪽 실패 시
-   기존 RSS를 명시적 폴백으로 사용합니다.
-2. 경제·시사 후보를 분류하고 독립 기사 교차 검증과 최근 7일 주제
-   중복 판정을 통과한 최상위 1건씩을 같은 일일 큐에 고정합니다.
+1. 현재 네이버 인기 뉴스 최대 50건을 수집하고, 수집 실패 시 기존 RSS는
+   장애 진단 자료로만 기록하며 자동 발행하지 않습니다.
+2. 선택한 분야 후보만 분류해 인기 순위·게시 후 경과 시간·편집 가치와
+   최근 7일 주제 중복 판정을 통과한 최상위 핫뉴스를 고릅니다.
 3. 14자 이하 2줄 타이틀, 권리 확인 웹 이미지 또는 무사진 표지,
    정확히 3문장인 본문과 댓글 체인을 생성합니다.
 4. 저장소에 포함된 DIEM 자체 제작 음원 6곡 중 분야별 1곡을 골라
@@ -37,7 +38,7 @@ npx playwright install chromium
 python3 -m pip install -r requirements-v2.txt
 
 npm run diem:similarity
-npm run diem:plan
+node src/v2/index.js select --category economy --slot local-test
 npm run diem:prepare -- --category economy
 node src/v2/index.js publish --category economy
 ```
@@ -59,7 +60,7 @@ node .codex-harness/scripts/verify-project.mjs
 - 프로필: `assets/brand/diem-profile.png`
 - 자체 음원: `assets/audio/diem/`
 
-V2 예약은 저장소 변수 `DIEM_PIPELINE_ENABLED=true`일 때만 동작합니다.
-전환 전에는 false로 두고 수동 dry-run을 수행합니다. 기존 V1 코드는
-보존되어 있으며, `.github/workflows/daily_news.yml`은 예약 없이 수동
-롤백 용도로만 남아 있습니다.
+예약 실행에는 별도 활성화 변수가 필요하지 않습니다. GitHub Actions의
+`DIEM Economy` 또는 `DIEM Issue`를 수동 실행해도 선택한 분야의 선별부터
+실제 발행까지 동일하게 진행됩니다. 발행을 긴급 중단하려면 해당 두
+워크플로를 GitHub Actions 화면에서 비활성화합니다.

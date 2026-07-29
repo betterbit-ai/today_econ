@@ -176,3 +176,41 @@ test('reclassifies hydrated article text before accepting an economy candidate',
   assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/rate');
   assert.ok(result.candidates[0].rejectionReasons.some(reason => /economy:(assigned_to_issue|low_editorial_value)/u.test(reason)));
 });
+
+test('hot mode skips stale popular news and selects the next fresh candidate for one category', async () => {
+  const candidates = [
+    {
+      title: '한국은행 기준금리 2.50% 동결',
+      url: 'https://n.news.naver.com/article/001/old',
+      popularityScore: 100,
+      observedAt: '2026-07-29T04:00:00.000Z',
+      sources: [{ portal: 'naver', rank: 1, normalizedScore: 100, title: '한국은행 기준금리 2.50% 동결', url: 'https://n.news.naver.com/article/001/old' }],
+    },
+    {
+      title: '코스피 급락에 사이드카 발동',
+      url: 'https://n.news.naver.com/article/001/fresh',
+      popularityScore: 80,
+      observedAt: '2026-07-29T04:00:00.000Z',
+      sources: [{ portal: 'naver', rank: 2, normalizedScore: 80, title: '코스피 급락에 사이드카 발동', url: 'https://n.news.naver.com/article/001/fresh' }],
+    },
+  ];
+  const result = await planDailyQueue({
+    date: '2026-07-29',
+    categories: ['economy'],
+    hotMode: true,
+    now: new Date('2026-07-29T04:00:00.000Z'),
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => ({
+      fullText: url.endsWith('/old')
+        ? '한국은행은 기준금리를 연 2.50%로 동결했습니다. 물가와 가계대출 흐름을 더 확인할 필요가 있다고 밝혔습니다. 다음 통화정책 회의에서도 새 경제 지표를 점검합니다.'
+        : '코스피 급락으로 장중 프로그램 매도호가 효력이 일시 정지되는 사이드카가 발동했습니다. 시장 변동성이 커지면서 거래소가 조치를 시행했습니다. 이후 지수 흐름이 주목됩니다.',
+      publishedAt: url.endsWith('/old') ? '2026-07-28T06:00:00+09:00' : '2026-07-29T11:00:00+09:00',
+    }),
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.economy.ok, true);
+  assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/fresh');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('not_hot:article_too_old')));
+  assert.equal(result.publications.issue, undefined);
+});

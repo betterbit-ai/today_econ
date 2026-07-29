@@ -14,7 +14,7 @@ fi
 
 git commit \
   -m "$intent" \
-  -m "The daily ledger remains the source of truth across generation, publishing, and independent comment recovery.
+  -m "The intraday ledger remains the source of truth across hot-news selection, generation, publishing, and independent comment recovery.
 
 Constraint: Durable state must be committed before and after external publishing
 Confidence: high

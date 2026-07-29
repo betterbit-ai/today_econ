@@ -126,15 +126,79 @@ async function fetchNews(rssUrl) {
   }
 }
 
+function normalizePublishedAt(value = '') {
+  const clean = String(value).normalize('NFC').trim();
+  if (!clean) return null;
+  if (!Number.isNaN(new Date(clean).getTime())) return clean;
+  const korean = clean.match(/(\d{4})[.\/-](\d{1,2})[.\/-](\d{1,2})[.\s]+(\d{1,2}):(\d{2})(?::(\d{2}))?/u);
+  if (!korean) return null;
+  const [, year, month, day, hour, minute, second = '00'] = korean;
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}T${hour.padStart(2, '0')}:${minute}:${second}+09:00`;
+}
+
+function extractPublishedAt($) {
+  const selectors = [
+    'meta[property="article:published_time"]',
+    'meta[name="article:published_time"]',
+    'meta[property="og:regDate"]',
+    'meta[name="date"]',
+    'meta[name="pubdate"]',
+  ];
+  for (const selector of selectors) {
+    const value = $(selector).first().attr('content');
+    const normalized = normalizePublishedAt(value);
+    if (normalized) return normalized;
+  }
+  const dataDateTime = $('[data-date-time]').first().attr('data-date-time');
+  const normalizedDataDate = normalizePublishedAt(dataDateTime);
+  if (normalizedDataDate) return normalizedDataDate;
+
+  for (const element of $('script[type="application/ld+json"]').toArray()) {
+    try {
+      const parsed = JSON.parse($(element).text());
+      const records = Array.isArray(parsed) ? parsed : [parsed];
+      const date = records.flatMap(record => record?.['@graph'] || [record])
+        .map(record => record?.datePublished)
+        .find(Boolean);
+      const normalized = normalizePublishedAt(date);
+      if (normalized) return normalized;
+    } catch {
+      // Invalid page-owned JSON-LD must not block body extraction.
+    }
+  }
+  return null;
+}
+
+function parseArticleDocument(html = '') {
+  const $ = cheerio.load(html);
+  const publishedAt = extractPublishedAt($);
+
+  // Remove page chrome before selecting the editorial body. MK occasionally
+  // renders author/search widgets inside the article wrapper, so selectors and
+  // a final phrase sanitizer are both required.
+  $('script, style, noscript, iframe, header, footer, nav, aside, form, button, figcaption').remove();
+  $('[class*="author"], [class*="reporter"], [class*="byline"], [class*="google"], [class*="related"], [class*="recommend"], [class*="share"], [id*="author"], [id*="reporter"], [id*="google"], [id*="related"]').remove();
+  $('[class*="caption"], [class*="photo_desc"], [class*="photo-desc"], [class*="copyright"], [class*="image_desc"], [class*="image-desc"]').remove();
+
+  let contentNode = $('.news_cnt_detail_wrap, .news_cnt_detail, .article_body, .article-body, #article_body, #news_body, #art_body, #dic_area, article').first();
+  if (contentNode.length === 0) contentNode = $('body');
+  contentNode.find('p, li, h2, h3, h4, blockquote').each((_, element) => {
+    $(element).append('\n');
+  });
+
+  const fullText = cleanArticleText(contentNode.text()).slice(0, 16000).normalize('NFC');
+  return { fullText, publishedAt };
+}
+
 /**
- * Fetches the full text of an article from its URL.
+ * Fetches the full text and publication time of an article from its URL.
  * @param {string} articleUrl The URL of the news article.
- * @returns {Promise<string>} The full text of the article.
+ * @returns {Promise<{fullText: string, publishedAt: string|null}>}
  */
-async function fetchArticleBody(articleUrl) {
+async function fetchArticleDocument(articleUrl) {
   let timeout;
   try {
-    console.log(`[Crawler] Fetching full article body from: ${articleUrl}`);
+    console.log(`[Crawler] Fetching article document from: ${articleUrl}`);
     const controller = new AbortController();
     timeout = setTimeout(() => controller.abort(), 10000);
     
@@ -149,59 +213,33 @@ async function fetchArticleBody(articleUrl) {
     
     if (!response.ok) {
       console.warn(`[Crawler] Failed to fetch article body, status: ${response.status}`);
-      return '';
+      return { fullText: '', publishedAt: null };
     }
     
-    const html = await response.text();
-    const $ = cheerio.load(html);
-
-    // Remove page chrome before selecting the editorial body. MK occasionally
-    // renders author/search widgets inside the article wrapper, so selectors and
-    // a final phrase sanitizer are both required.
-    $('script, style, noscript, iframe, header, footer, nav, aside, form, button, figcaption').remove();
-    $('[class*="author"], [class*="reporter"], [class*="byline"], [class*="google"], [class*="related"], [class*="recommend"], [class*="share"], [id*="author"], [id*="reporter"], [id*="google"], [id*="related"]').remove();
-    $('[class*="caption"], [class*="photo_desc"], [class*="photo-desc"], [class*="copyright"], [class*="image_desc"], [class*="image-desc"]').remove();
-
-    // Most news sites put their main content in article, .article, #article, #content, etc.
-    let contentNode = $('.news_cnt_detail_wrap, .news_cnt_detail, .article_body, .article-body, #article_body, #news_body, #art_body, #dic_area, article').first();
-    
-    if (contentNode.length === 0) {
-      // Fallback: Just grab body and let text extraction handle the rest
-      contentNode = $('body');
-    }
-
-    // Cheerio's .text() concatenates adjacent block elements without a space.
-    // Preserve editorial boundaries before extraction so `...했다.</p><p>20대`
-    // cannot become `...했다.20대`, which makes multiple facts look like one
-    // overlong sentence and causes the article to be rejected.
-    contentNode.find('p, li, h2, h3, h4, blockquote').each((_, element) => {
-      $(element).append('\n');
-    });
-
-    // Extract text and clean up excess whitespace
-    let fullText = cleanArticleText(contentNode.text()).slice(0, 16000);
-    
-    // Normalize to NFC to avoid tokenizer issues as instructed in AGENTS.md
-    if (fullText) {
-      fullText = fullText.normalize('NFC');
-    }
-
-    console.log(`[Crawler] Successfully extracted ${fullText.length} characters from article body.`);
-    return fullText;
+    const article = parseArticleDocument(await response.text());
+    console.log(`[Crawler] Successfully extracted ${article.fullText.length} characters from article body.`);
+    return article;
   } catch (error) {
     if (error.name === 'AbortError') {
       console.warn(`[Crawler] Fetch timed out for: ${articleUrl}`);
-      return '';
+      return { fullText: '', publishedAt: null };
     }
     console.error(`[Crawler] Failed to fetch article body: ${error.message}`);
-    return '';
+    return { fullText: '', publishedAt: null };
   } finally {
     if (typeof timeout !== 'undefined') clearTimeout(timeout);
   }
+}
+
+async function fetchArticleBody(articleUrl) {
+  return (await fetchArticleDocument(articleUrl)).fullText;
 }
 
 module.exports = {
   fetchNews,
   fetchOgImage,
   fetchArticleBody,
+  fetchArticleDocument,
+  normalizePublishedAt,
+  parseArticleDocument,
 };
