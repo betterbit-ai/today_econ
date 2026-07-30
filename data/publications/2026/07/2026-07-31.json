@@ -4,7 +4,7 @@
   "date": "2026-07-31",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-07-30T17:31:04.722Z",
-  "updatedAt": "2026-07-30T21:20:47.500Z",
+  "updatedAt": "2026-07-30T21:22:02.885Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -103,7 +103,9 @@
         }
       ],
       "category": "economy",
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed and deterministic fallback is disabled; try the next candidate"
+      ]
     },
     {
       "title": "홍명보, 손흥민 뺀 건 \"전술이었다\"…의원들 질의 수준은 '최악'",
@@ -126,7 +128,9 @@
         }
       ],
       "category": null,
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed"
+      ]
     },
     {
       "title": "'223배 폭증' 반도체 또 일냈다…삼성 2분기도 '세계 1위'",
@@ -5522,24 +5526,24 @@
     "economy": {
       "publicationKey": "diem:2026-07-31:economy:30582796399",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "삼전하닉 주가 회복돼도 내 계좌는 마이너스?…'2배 레버리지'의 덫",
-        "url": "https://n.news.naver.com/article/003/0014099763?ntype=RANKING",
+        "title": "'223배 폭증' 반도체 또 일냈다…삼성 2분기도 '세계 1위'",
+        "url": "https://n.news.naver.com/article/437/0000503833?ntype=RANKING",
         "publishedDate": "2026-07-31",
-        "publishedAt": "2026-07-31 02:20:00",
+        "publishedAt": "2026-07-30 20:02:56",
         "observedAt": "2026-07-30T21:19:45.268Z",
-        "popularityScore": 91.9184,
+        "popularityScore": 87.8776,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 84.31,
-          "popularityScore": 91.9184,
-          "freshnessScore": 90,
-          "editorialValueScore": 45,
-          "ageHours": 4,
-          "publishedAt": "2026-07-31 02:20:00",
+          "score": 83.58,
+          "popularityScore": 87.8776,
+          "freshnessScore": 70,
+          "editorialValueScore": 95,
+          "ageHours": 10.3,
+          "publishedAt": "2026-07-30 20:02:56",
           "observedAt": "2026-07-30T21:19:45.268Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -5558,40 +5562,35 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 5,
-            "normalizedScore": 91.9184,
-            "title": "삼전하닉 주가 회복돼도 내 계좌는 마이너스?…'2배 레버리지'의 덫",
-            "url": "https://n.news.naver.com/article/003/0014099763?ntype=RANKING"
+            "rank": 7,
+            "normalizedScore": 87.8776,
+            "title": "'223배 폭증' 반도체 또 일냈다…삼성 2분기도 '세계 1위'",
+            "url": "https://n.news.naver.com/article/437/0000503833?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "[서울=뉴시스]삼성전자와 SK하이닉스 주가가 제자리로 돌아와도 단일종목 레버리지 ETF 투자자는 큰 손실을 볼 수 있다는 분석이 나왔다. 2026.07.30[서울=뉴시스]김성은 인턴 기자 = 삼성전자와 SK하이닉스 주가가 제자리로 돌아와도 단일종목 레버리지 ETF 투자자는 큰 손실을 볼 수 있다는 분석이 나왔다. 일간 수익률을 추종하는 상품 구조 탓에 변동성이 클수록 손실이 될 수 있다는 설명이다.28일 한양증권 유튜브 채널에 따르면, 많은 투자자들이 레버리지 ETF를 기초자산 수익률의 두 배를 얻는 상품으로 인식하지만 실제 수익률은 이와 다를 수 있다고 밝혔다.한양증권은 지난 5월 27일부터 7월 22일까지 삼성전자와 SK하이닉스 주가 및 국내 상장 단일종목 2배 레버리지 ETF의 수익률을 비교했다. 그 결과 삼성전자 주가는 15.2% 하락했지만 관련 레버리지 ETF의 평균 수익률은 40.2% 하락했다. 같은 기간 SK하이닉스는 18.4% 내렸고, 레버리지 ETF 평균 수익률은 49.4% 떨어졌다.이 같은 차이는 레버리지 ETF의 구조 때문이다. 레버리지 ETF는 투자 기간 전체 수익률의 두 배를 추종하는 상품이 아니라 기초자산의 하루 수익률을 두 배로 추종하도록 설계돼 있다. 매일의 상승과 하락이 복리 방식으로 누적되기 때문에 최종 수익률은 단순히 기초자산 수익률의 두 배와 달라질 수 있다.한양증권은 이해를 돕기 위해 예시도 제시했다. 100만 원을 투자한 주식이 첫날 20% 하락한 뒤 다음 날 25% 상승하면 원금을 회복하지만, 같은 상황에서 2배 레버리지 상품은 첫날 40% 하락해 60만 원이 되고 다음 날 50% 상승하더라도 90만 원에 그쳐 10% 손실이 발생한다.또 실제와 동일한 일간 변동성을 유지하면서 마지막 가격만 처음 수준으로 돌아온다고 가정한 시뮬레이션도 공개했다. 이 경우 삼성전자 주가는 최종적으로 변동이 없지만 관련 레버리지 ETF 평균 수익률은 14.4% 손실을 기록했다. SK하이닉스 역시 주가는 제자리지만 레버리지 ETF 평균 수익률은 21.1% 하락하는 것으로 나타났다.한양증권은 변동성이 큰 종목일수록 이러한 손실 폭도 커질 수 있다고 설명했다. 실제 시뮬레이션에서도 삼성전자보다 변동성이 컸던 SK하이닉스의 레버리지 ETF 손실률이 더 크게 나타났다.다만 주가가 큰 조정 없이 한 방향으로 꾸준히 상승하면 복리 효과로 기초자산 수익률의 두 배를 웃도는 성과를 낼 수도 있다. 반대로 주가가 급등락을 반복하거나 횡보하는 기간이 길어질수록 기초자산과 레버리지 ETF의 최종 수익률 차이는 더욱 벌어질 수 있다.한양증권은 레버리지 ETF는 투자 기간 전체 수익률의 두 배가 아니라 매일의 수익률을 두 배씩 추종하는 상품인 만큼, 투자 전 상품 구조를 충분히 이해해야 한다고 당부했다．",
-        "summary": "[서울=뉴시스]삼성전자와 SK하이닉스 주가가 제자리로 돌아와도 단일종목 레버리지 ETF 투자자는 큰 손실을 볼 수 있다는 분석이 나왔다. 2026.07.30[서울=뉴시스]김성은 인턴 기자 = 삼성전자와 SK하이닉스 주가가 제자리로 돌아와도 단일종목 레버리지 ETF 투자자는 큰 손실을 볼 수 있다는 분석이 나왔다. 일간 수익률을 추종하는 상품 구조 탓에 변동성이 클수록 손실이 될 수 있다는 설명이다.28일 한양증권 유튜브 채널에 따르면, 많은 투자자들이 레버리지 ETF를 기초자산 수익률의 두 배를 얻는 상품으로 인식하지만 실제 수익률",
+        "fullText": "[앵커]삼성전자의 2분기 실적이 발표됐습니다. 1분기에 이어 이번에도 세계에서 돈을 가장 많이 번 기업이었습니다. 반도체 부문의 영업이익은 89조 2천억원입니다. 1년 전과 비교하면 223배로 늘었습니다. 이런 삼성전자의 역대급 실적과, 주주 환원책, 외국인 투자자의 저가 매수세에 힘입어 오늘 코스피는 큰 폭의 하락을 막았습니다.박소연 기자입니다.[기자]89조 5000억 원, 삼성전자는 1분기에 이어 2분기에도 영업이익에서 세계 1위를 기록하며 가장 돈을 잘 버는 회사가 됐습니다.반도체에서만 89조 2천억 원을 벌었는데 1년 전 4천억 원이었던 영업이익이 220배 이상 뛴 겁니다.스스로 판단하고 행동하는 '에이전틱 AI' 경쟁으로 메모리 수요가 빠르게 늘고 있기 때문인데 이 같은 메모리 공급 부족 현상이 당분간 이어질 것으로 내다봤습니다.[삼성전자 2분기 실적 설명회 : 공급 부족은 2026년보다 2027년에 더욱 심화할 것으로 예상되어 공급 부족이 2028년까지 지속할 것이라는 기존 전망을 재확인합니다.]현금성 자산이 190조원으로 늘어 연간 설비투자 규모의 3배를 웃도는 데다 차세대 AI메모리인 HBM4의 매출 비중도 3분기에는 3배 이상 될 것으로 전망했습니다.반도체가 역대급 실적을 이끌었지만 스마트폰이 주력인 MX와 네트워크 사업부는 7000억원 영업 손실로 사상 첫 분기 적자를 기록했습니다.다만 주가 흐름은 기대에 미치지 못했습니다.개장 직후 주가가 올랐다가 오후들어 상승폭을 반납하며 전날보다 -0.72% 떨어진 20만 7천 원에 거래를 마쳤습니다.[한지영/키움증권 투자전략팀 책임연구원 : (삼성전자 실적은) 주가에 호재성 재료였지만 아직 회복할 거에 대한 자신감이 부족하다 보니깐 전강후약(초반 상승, 후반 하락) 장세를 보였습니다.]AI 고점론에 대한 우려도 남아 있는데, AI 인프라 투자를 하기로 한 마이크로소프트와 메타 등 미국 빅테크의 결정이 삼성전자 주가에 긍정적 요소가 될 것으로 보입니다.[영상취재 정상원 영상편집 홍여울 영상디자인 김현주]",
+        "summary": "[앵커]삼성전자의 2분기 실적이 발표됐습니다. 1분기에 이어 이번에도 세계에서 돈을 가장 많이 번 기업이었습니다. 반도체 부문의 영업이익은 89조 2천억원입니다. 1년 전과 비교하면 223배로 늘었습니다. 이런 삼성전자의 역대급 실적과, 주주 환원책, 외국인 투자자의 저가 매수세에 힘입어 오늘 코스피는 큰 폭의 하락을 막았습니다.박소연 기자입니다.[기자]89조 5000억 원, 삼성전자는 1분기에 이어 2분기에도 영업이익에서 세계 1위를 기록하며 가장 돈을 잘 버는 회사가 됐습니다.반도체에서만 89조 2천억 원을 벌었는데 1년 전 4",
         "topicSignature": {
           "category": "economy",
-          "target": "삼전하닉 주가 회복돼도",
-          "event": "계좌는 마이너스 2배",
+          "target": "223배 폭증 반도체",
+          "event": "일냈다 삼성 2분기도",
           "entities": [
-            "2배",
-            "삼성전자와",
-            "SK하이닉스"
+            "223배",
+            "2분기도",
+            "1위",
+            "삼성전자의",
+            "2분기"
           ],
-          "text": "economy | 삼전하닉 주가 회복돼도 | 2배 삼성전자와 SK하이닉스"
+          "text": "economy | 223배 폭증 반도체 | 223배 2분기도 1위 삼성전자의 2분기"
         },
         "newsFrame": {
           "category": "economy",
           "subject": "반도체",
-          "eventKind": "ipo",
-          "claimState": "scheduled",
-          "date": "28일",
-          "requiredTitleTerms": [
-            "IPO",
-            "기업공개",
-            "상장",
-            "첫 거래",
-            "증시 데뷔",
-            "데뷔"
-          ],
+          "eventKind": "semiconductor",
+          "claimState": "decided",
+          "date": "오늘",
+          "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
           "competitiveLeader": null,
@@ -5599,9 +5598,11 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 45,
+          "score": 95,
           "signals": [
+            "reader_money_work_life_impact",
             "concrete_event_or_decision",
+            "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
           "penalties": [],
@@ -5609,17 +5610,10 @@
           "frame": {
             "category": "economy",
             "subject": "반도체",
-            "eventKind": "ipo",
-            "claimState": "scheduled",
-            "date": "28일",
-            "requiredTitleTerms": [
-              "IPO",
-              "기업공개",
-              "상장",
-              "첫 거래",
-              "증시 데뷔",
-              "데뷔"
-            ],
+            "eventKind": "semiconductor",
+            "claimState": "decided",
+            "date": "오늘",
+            "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
@@ -5631,32 +5625,429 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.1111,
+        "score": 0.1818,
         "method": "deterministic_fallback",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-07-26:economy",
+        "matchedPublicationKey": "diem:2026-07-25:economy",
         "signature": {
           "category": "economy",
-          "target": "삼전하닉 주가 회복돼도",
-          "event": "계좌는 마이너스 2배",
+          "target": "223배 폭증 반도체",
+          "event": "일냈다 삼성 2분기도",
           "entities": [
-            "2배",
-            "삼성전자와",
-            "SK하이닉스"
+            "223배",
+            "2분기도",
+            "1위",
+            "삼성전자의",
+            "2분기"
           ],
-          "text": "economy | 삼전하닉 주가 회복돼도 | 2배 삼성전자와 SK하이닉스"
+          "text": "economy | 223배 폭증 반도체 | 223배 2분기도 1위 삼성전자의 2분기"
         },
         "error": "Command failed: python3 /home/runner/work/today_econ/today_econ/scripts/topic_similarity.py\n"
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "삼성 반도체\n2분기 223배",
+            "lines": [
+              "삼성 반도체",
+              "2분기 223배"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "삼성 반도체\n2분기 223배",
+          "lines": [
+            "삼성 반도체",
+            "2분기 223배"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "삼성전자는 2분기 반도체 영업이익 89조2천억원을 기록, 전년 대비 223배 급증하며 세계 1위 기업 지위를 재확인했습니다.📈",
+            "반도체 부문 매출 급증은 AI 메모리 수요 증가와 공급 부족 전망에 힘입은 것으로, 현금성 자산은 190조원으로 연간 설비투자의 3배에 달합니다.",
+            "하지만 MX·네트워크 사업부는 7천억원 손실을 기록해 사상 첫 분기 적자를 보였으며, 주가는 발표 직후 소폭 하락해 전일 대비 -0.72% 마감했습니다.📉"
+          ],
+          "text": "삼성전자는 2분기 반도체 영업이익 89조2천억원을 기록, 전년 대비 223배 급증하며 세계 1위 기업 지위를 재확인했습니다.📈\n\n반도체 부문 매출 급증은 AI 메모리 수요 증가와 공급 부족 전망에 힘입은 것으로, 현금성 자산은 190조원으로 연간 설비투자의 3배에 달합니다.\n\n하지만 MX·네트워크 사업부는 7천억원 손실을 기록해 사상 첫 분기 적자를 보였으며, 주가는 발표 직후 소폭 하락해 전일 대비 -0.72% 마감했습니다.📉"
+        },
+        "emojis": {
+          "first": "📈",
+          "third": "📉"
+        },
+        "comments": {
+          "first": "📈",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #삼성전자 #반도체 #AI메모리 #실적 #주가 #223배",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#삼성전자",
+            "#반도체",
+            "#AI메모리",
+            "#실적",
+            "#주가",
+            "#223배"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#삼성전자",
+              "#반도체",
+              "#AI메모리",
+              "#실적",
+              "#주가",
+              "#223배"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-07-30T21:21:58.351Z",
+        "id": "pexels:11272008",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/close-up-shot-of-a-chip-processor-11272008/",
+        "downloadUrl": "https://images.pexels.com/photos/11272008/pexels-photo-11272008.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Rogeer Marques",
+        "creatorUrl": "https://www.pexels.com/@rogeer-marques-42038281",
+        "width": 3456,
+        "height": 5184,
+        "description": "Detailed close-up image of a computer processor chip on a dark background.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "semiconductor microchip processor",
+        "score": 0.5667,
+        "components": {
+          "semanticMetadata": 0.3333,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "semiconductor",
+            "microchip",
+            "processor"
+          ],
+          "matchedConcreteTokens": [
+            "processor"
+          ],
+          "matchRatio": 0.3333,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": []
+        },
+        "rankWithinQuery": 1,
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 4,
+        "attempts": [
+          {
+            "provider": "pexels",
+            "query": "semiconductor microchip processor",
+            "count": 20,
+            "suitableCount": 4,
+            "suitabilityRejected": 16,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:37368175",
+                "rankWithinQuery": 5,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:38770168",
+                "rankWithinQuery": 6,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:38745172",
+                "rankWithinQuery": 7,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:27282366",
+                "rankWithinQuery": 8,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:7102037",
+                "rankWithinQuery": 9,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:6477201",
+                "rankWithinQuery": 10,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:6477206",
+                "rankWithinQuery": 11,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:37368170",
+                "rankWithinQuery": 12,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:2182863",
+                "rankWithinQuery": 13,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:28223016",
+                "rankWithinQuery": 14,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:27977986",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:10068454",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:8108722",
+                "rankWithinQuery": 17,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:2582934",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:6477216",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              },
+              {
+                "id": "pexels:38717704",
+                "rankWithinQuery": 20,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "semiconductor",
+                  "microchip",
+                  "processor"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": []
+              }
+            ],
+            "eligibleCount": 4,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.5667
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 15,
+          "recentKeyCount": 53,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "pexels:11272008",
+            "https://www.pexels.com/photo/close-up-shot-of-a-chip-processor-11272008/",
+            "https://images.pexels.com/photos/11272008/pexels-photo-11272008.jpeg"
+          ]
+        },
+        "selectionReason": "selected concrete-subject-matched unused rank #1 from pexels results above 0.42; 16 unsuitable and 0 recent images blocked",
+        "localSha256": "44203ca544c6a95f0410c8ca58527c735563c37e76c3c26f6e9ced227dc1876c"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "bright1",
+        "mood": "bright",
+        "sha256": "3d262d01f0a1fe6d91a4806cab40beb8f793d0ea9bb8a5c3c48ea33b5ce7d0d1",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-07-30T21:22:02.868Z"
       },
       "story": {
         "status": "planned",
@@ -5703,6 +6094,26 @@
           "maximumAgeHours": 12,
           "score": 70
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-07-31/economy/economy-cover.png",
+        "coverSha256": "754c39429315cad6fd33d8145741e56b4617460011684a21595662e3c60e33d9",
+        "reelPath": ".diem-cache/2026-07-31/economy/economy-reel.mp4",
+        "reelSha256": "559a34c0a16ffda2180b2f25e41462f30b2c4f1dfd9047aefd33c7d90b3ed682",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "삼전하닉 주가 회복돼도 내 계좌는 마이너스?…'2배 레버리지'의 덫",
+            "url": "https://n.news.naver.com/article/003/0014099763?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed and deterministic fallback is disabled; try the next candidate",
+            "rejectedAt": "2026-07-30T21:20:54.394Z"
+          }
+        ],
+        "updatedAt": "2026-07-30T21:21:54.910Z"
       }
     },
     "issue": {
