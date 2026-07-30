@@ -48,6 +48,7 @@ function applyPlan(ledger, plan) {
         corroboration: result.corroboration,
         duplicateCheck: result.duplicateCheck,
         reel: { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null },
+        story: { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null },
         comment: { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null },
         reply: { status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null },
       };
@@ -58,6 +59,7 @@ function applyPlan(ledger, plan) {
       status: 'no_publish',
       reason: result?.reason || 'no_candidate_passed_quality_gates',
       reel: { ...next.publications[category]?.reel, status: 'no_publish' },
+      story: { ...(next.publications[category]?.story || emptyStep()), status: 'no_publish' },
       comment: { ...next.publications[category]?.comment, status: 'no_publish' },
       reply: { ...next.publications[category]?.reply, status: 'no_publish' },
     });
@@ -93,6 +95,7 @@ function applyCategoryPlan(ledger, plan, category) {
     reason: result?.reason || 'no_candidate_passed_hotness_gate',
     observedAt: new Date().toISOString(),
     reel: { ...next.publications[category].reel, status: 'no_publish' },
+    story: { ...(next.publications[category].story || emptyStep()), status: 'no_publish' },
     comment: { ...next.publications[category].comment, status: 'no_publish' },
     reply: { ...next.publications[category].reply, status: 'no_publish' },
   });
@@ -102,6 +105,8 @@ function publicationNeedsRecovery(publication = {}) {
   if (!publication.candidate) return false;
   if (['planned', 'generating', 'ready', 'publishing', 'retry_pending', 'failed'].includes(publication.status)) return true;
   if (publication.reel?.status !== 'published') return false;
+  const storyTerminal = ['published', 'manual_action_required', 'no_publish'].includes(publication.story?.status);
+  if (config.publishInstagramStory && !storyTerminal) return true;
   const commentTerminal = ['published', 'manual_action_required', 'no_publish'].includes(publication.comment?.status);
   if (!commentTerminal) return true;
   if (publication.comment?.status !== 'published') return false;
@@ -252,6 +257,7 @@ function applySelectedCandidate(ledger, category, evaluation, candidateFailures 
       }
       : existing.generation,
     reel: emptyStep(),
+    story: emptyStep(),
     comment: emptyStep(),
     reply: emptyStep(),
   });
@@ -271,6 +277,7 @@ function failedNoPublishAfterCandidateExhaustion(publication, candidateFailures 
       updatedAt: now.toISOString(),
     },
     reel: { ...publication.reel, status: 'no_publish', error: last?.error || null, updatedAt: now.toISOString() },
+    story: { ...(publication.story || emptyStep()), status: 'no_publish', updatedAt: now.toISOString() },
     comment: { ...publication.comment, status: 'no_publish', updatedAt: now.toISOString() },
     reply: { ...publication.reply, status: 'no_publish', updatedAt: now.toISOString() },
   };
@@ -409,9 +416,12 @@ async function runCategoryStep(ledger, category, {
   }
 
   if (phase === 'publish') {
+    const storyIncomplete = config.publishInstagramStory
+      && publication.reel?.status === 'published'
+      && !['published', 'manual_action_required', 'no_publish'].includes(publication.story?.status);
     const commentsIncomplete = publication.reel?.status === 'published'
       && (publication.comment?.status !== 'published' || publication.reply?.status !== 'published');
-    if (publication.status !== 'ready' && !commentsIncomplete) return ledger;
+    if (publication.status !== 'ready' && !storyIncomplete && !commentsIncomplete) return ledger;
     try {
       return await publishPublicationImpl(ledger, category, token);
     } catch (error) {
@@ -439,7 +449,11 @@ async function runPersistedPhase({
   const categories = selectedCategories(category);
   const hasPublishWork = categories.some(selectedCategory => {
     const publication = ledger.publications[selectedCategory];
+    const storyIncomplete = config.publishInstagramStory
+      && publication?.reel?.status === 'published'
+      && !['published', 'manual_action_required', 'no_publish'].includes(publication?.story?.status);
     return publication?.status === 'ready'
+      || storyIncomplete
       || (publication?.reel?.status === 'published'
         && (publication.comment?.status !== 'published' || publication.reply?.status !== 'published'));
   });

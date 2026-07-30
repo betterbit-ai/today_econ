@@ -230,6 +230,7 @@ test('category polling archives a completed run and selects only that category i
     candidate: { title: '오전 경제 기사', url: 'https://example.com/morning' },
     duplicateCheck: { signature: { text: 'economy | 오전 경제 | 발표' } },
     reel: { status: 'published', attempts: 1, externalId: 'reel-morning' },
+    story: { status: 'published', attempts: 1, externalId: 'story-morning' },
     comment: { status: 'published', attempts: 1, externalId: 'comment-morning' },
     reply: { status: 'published', attempts: 1, externalId: 'reply-morning' },
   };
@@ -318,4 +319,72 @@ test('category polling repairs pending comments after the Reel was published', a
   assert.equal(result.recovery, true);
   assert.equal(result.ledger.publications.economy.reel.externalId, 'reel-comment-recovery');
   assert.equal(result.ledger.publications.economy.comment.status, 'planned');
+});
+
+test('category polling repairs a pending Story before selecting another article', async () => {
+  let existing = createDailyLedger('2026-07-30');
+  existing = updatePublication(existing, 'issue', {
+    status: 'published',
+    candidate: { title: 'Story 복구 시사 기사', url: 'https://example.com/story-recovery' },
+    reel: { status: 'published', attempts: 1, externalId: 'reel-story-recovery' },
+    story: { status: 'retry_pending', attempts: 1, externalId: null, error: 'temporary outage' },
+    comment: { status: 'published', attempts: 1, externalId: 'comment-story-recovery' },
+    reply: { status: 'published', attempts: 1, externalId: 'reply-story-recovery' },
+  });
+  let plannerCalls = 0;
+  const result = await planCategoryPhase({
+    date: '2026-07-30',
+    category: 'issue',
+    slot: 'run-2100',
+    loadLedgerImpl: () => existing,
+    listLedgersImpl: () => [existing],
+    planDailyQueueImpl: async () => { plannerCalls += 1; },
+  });
+
+  assert.equal(plannerCalls, 0);
+  assert.equal(result.recovery, true);
+  assert.equal(result.ledger.publications.issue.story.status, 'retry_pending');
+  assert.equal(result.ledger.publications.issue.reel.externalId, 'reel-story-recovery');
+});
+
+test('Story recovery is publish work even when Reel and comments are already complete', async () => {
+  let ledger = createDailyLedger('2026-07-30');
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'published',
+    candidate: { title: 'Story 재시도 경제 기사', url: 'https://example.com/story' },
+    reel: { status: 'published', attempts: 1, externalId: 'reel-1' },
+    story: { status: 'retry_pending', attempts: 1, externalId: null, error: 'retry' },
+    comment: { status: 'published', attempts: 1, externalId: 'comment-1' },
+    reply: { status: 'published', attempts: 1, externalId: 'reply-1' },
+  });
+  let calls = 0;
+  const result = await runCategoryStep(ledger, 'economy', {
+    phase: 'publish',
+    token: 'token',
+    publishPublicationImpl: async current => {
+      calls += 1;
+      return updatePublication(current, 'economy', {
+        story: { status: 'published', attempts: 2, externalId: 'story-1', error: null },
+      });
+    },
+  });
+  assert.equal(calls, 1);
+  assert.equal(result.publications.economy.story.status, 'published');
+});
+
+test('Story transitions emit their own retry and recovery events', () => {
+  const before = {
+    publicationKey: 'diem:2026-07-30:economy:run-2100',
+    category: 'economy',
+    status: 'published',
+    candidate: { title: '반도체 기사' },
+    reel: { status: 'published', permalink: 'https://instagram.com/reel/1' },
+    story: { status: 'retry_pending', attempts: 1, error: 'temporary outage' },
+  };
+  const after = structuredClone(before);
+  after.story = { status: 'published', attempts: 2, externalId: 'story-1', error: null };
+  const events = transitionEvents(before, after);
+  assert.equal(events.length, 1);
+  assert.equal(events[0].stage, 'story');
+  assert.equal(events[0].status, 'recovered');
 });

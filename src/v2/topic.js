@@ -18,6 +18,9 @@ const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부�
 const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|재배|수확|축산|어촌|마을|지역축제|천연\s*패딩|곤충|반려동물|맛집|여행지)/u;
 const NARROW_WITH_PUBLIC_POLICY = /(정부.{0,20}(지원|보조금|규제|법안|발표|시행)|국회|전국.{0,20}(지원|보조금|시행)|보험|세금|대출|주거|교육|복지|의료|노동|고용)/u;
 const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|목격담|인증샷|사진\s*한\s*장)/u;
+const SENSATIONAL_ANECDOTE = /(귀신|분장|경악|황당|기이한|엽기|반전|정체|진풍경|SNS|온라인\s*화제|누리꾼|사진이?\s*퍼|응급\s*이송|긴급\s*이송|복통을?\s*호소|구조대가?\s*(?:출동|이송))/iu;
+const SINGLE_PERSON_INCIDENT = /(\d{1,2}세|여학생|남학생|고등학생|중학생|초등학생|미성년|한\s*(?:남성|여성|학생|환자)|개인\s*(?:사연|사건))/u;
+const PUBLIC_INTEREST_ANCHOR = /(법안|법률|정책|제도|규제|판결|정부.{0,24}(?:발표|결정|시행|확대|축소|지원)|국회|전국|국민|다수|집단|공중보건|감염병|유행|안전\s*(?:기준|대책|규정)|권리|차별|복지\s*(?:정책|제도)|교육\s*(?:정책|제도|과정)|한국\s*(?:사회|정부|국민))/u;
 const OFFICIAL_ACTOR = /(정부|부처|복지부|보건복지부|기획재정부|금융위원회|금융감독원|국토교통부|고용노동부|교육부|대통령실|국회|공단|공사|위원회|당국|관계자)/u;
 const OFFICIAL_RESPONSE = /(설명자료|해명자료|보도\s*설명|보도\s*해명|반박|부인|해명|오보|허위|사실\s*무근|보도와\s*관련|기사에서\s*언급된\s*내용)/u;
 const TOPIC_ALIASES = Object.freeze([
@@ -107,6 +110,8 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
   const date = dateLabel(text);
   const requiredTitleTerms = [];
   const forbiddenTitleTerms = [];
+  const chinaLeadsBatteryShipbuilding = /(배터리|이차전지|전기차).{0,80}(조선)|조선.{0,80}(배터리|이차전지|전기차)/iu.test(text)
+    && /중국.{0,80}(?:싹쓸이|선두|1위|우위|앞섰|앞서|점유율\s*(?:선두|1위))/u.test(text);
 
   if (state === 'official_denial') {
     requiredTitleTerms.push('미확정', '반박', '부인', '해명', '사실 아님');
@@ -124,6 +129,9 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
     date,
     requiredTitleTerms,
     forbiddenTitleTerms,
+    competitiveState: chinaLeadsBatteryShipbuilding ? 'china_leads_battery_shipbuilding' : null,
+    competitiveLeader: chinaLeadsBatteryShipbuilding ? '중국' : null,
+    competitiveSectors: chinaLeadsBatteryShipbuilding ? ['배터리', '조선'] : [],
   };
 }
 
@@ -179,6 +187,14 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   if (LOW_SIGNAL_NEWS.test(text)) {
     score -= 35;
     penalties.push('low_signal_click_story');
+  }
+  if (category === CATEGORIES.ISSUE
+    && SENSATIONAL_ANECDOTE.test(text)
+    && SINGLE_PERSON_INCIDENT.test(text)
+    && !PUBLIC_INTEREST_ANCHOR.test(text)) {
+    score -= 60;
+    penalties.push('sensational_anecdote_without_public_interest');
+    hardReject ||= 'sensational_anecdote_without_public_interest';
   }
   if (/상위\s*0\.01%|초고소득자/u.test(text) && !/(세금|건강보험료|건보료|부과체계|제도|정책)/u.test(text)) {
     score -= 20;

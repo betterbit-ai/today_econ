@@ -105,6 +105,28 @@ test('publishes a video Story through its own container after the Reel', async (
   assert.ok(calls.every(call => !call.url.includes('secret')));
 });
 
+test('treats media_publish success as Story success even when optional metadata lookup fails', async () => {
+  const fetchImpl = async (url, options = {}) => {
+    if (String(url).endsWith('/1784/media') && options.method === 'POST') return jsonResponse({ id: 'story-container' });
+    if (String(url).includes('/story-container?')) return jsonResponse({ status_code: 'FINISHED' });
+    if (String(url).endsWith('/1784/media_publish')) return jsonResponse({ id: 'story-post' });
+    if (String(url).includes('/story-post?')) return jsonResponse({ error: { message: 'metadata temporarily unavailable' } }, 503);
+    throw new Error(`Unexpected request: ${url}`);
+  };
+
+  const result = await publishStory({
+    videoUrl: 'https://github.com/example/diem-story.mp4',
+    userId: '1784',
+    token: 'secret',
+    fetchImpl,
+  });
+
+  assert.equal(result.id, 'story-post');
+  assert.equal(result.containerId, 'story-container');
+  assert.equal(result.format, 'story');
+  assert.match(result.metadataWarning, /metadata temporarily unavailable/u);
+});
+
 test('keeps account-level metrics explicit when Instagram does not return them', async () => {
   const metrics = await getAccountInsights({
     userId: '1784',

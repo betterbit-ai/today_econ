@@ -1,6 +1,6 @@
 const { normalizeNfc } = require('./text');
 
-const URGENT_NEWS = /사이드카|서킷브레이커|거래정지|매매정지|긴급|비상|속보|기준금리\s*(?:인상|인하|동결)|환율[^.!?]{0,20}(?:급등|급락)|(?:코스피|코스닥|증시)[^.!?]{0,20}(?:폭락|폭등|급락|급등)/u;
+const URGENT_NEWS = /사이드카|서킷브레이커|거래정지|매매정지|긴급\s*(?:정책|결정|회의|명령|조치|대책|브리핑|금리)|비상\s*(?:계엄|회의|대책|조치|경영)|기준금리\s*(?:인상|인하|동결)|환율[^.!?]{0,20}(?:급등|급락)|(?:코스피|코스닥|증시)[^.!?]{0,20}(?:폭락|폭등|급락|급등)/u;
 
 function clamp(value, minimum = 0, maximum = 100) {
   return Math.min(maximum, Math.max(minimum, Number(value) || 0));
@@ -8,7 +8,11 @@ function clamp(value, minimum = 0, maximum = 100) {
 
 function parsedInstant(value) {
   if (!value) return null;
-  const instant = value instanceof Date ? value : new Date(value);
+  const normalized = String(value).trim();
+  const kstLocal = normalized.match(/^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}(?::\d{2})?)$/u);
+  const instant = value instanceof Date
+    ? value
+    : new Date(kstLocal ? `${kstLocal[1]}T${kstLocal[2]}+09:00` : normalized);
   return Number.isNaN(instant.getTime()) ? null : instant;
 }
 
@@ -38,8 +42,12 @@ function assessHotness(candidate = {}, {
   unknownTimeEditorialMinimum = 60,
 } = {}) {
   const current = parsedInstant(now) || new Date();
-  const published = parsedInstant(candidate.publishedAt);
+  const parsedPublished = parsedInstant(candidate.publishedAt);
   const observed = parsedInstant(candidate.observedAt);
+  const publishedIsFuture = parsedPublished
+    && (parsedPublished.getTime() > current.getTime() + 300000
+      || (observed && parsedPublished.getTime() > observed.getTime() + 300000));
+  const published = publishedIsFuture ? null : parsedPublished;
   const popularity = clamp(candidate.popularityScore);
   const editorial = clamp(candidate.editorialValue?.score ?? candidate.editorialScore);
   const urgent = URGENT_NEWS.test(normalizeNfc(`${candidate.title || ''} ${candidate.summary || ''} ${candidate.fullText || ''}`));
@@ -102,6 +110,7 @@ function assessHotness(candidate = {}, {
     observedAt: candidate.observedAt || current.toISOString(),
     freshnessSource,
     usedPublishedAtFallback: !published,
+    publishedAtInvalidReason: publishedIsFuture ? 'published_at_in_future' : null,
     urgent,
     urgencyBonus,
     popularitySignalReliable: candidate.popularitySignalReliable !== false,

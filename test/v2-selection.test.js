@@ -215,6 +215,38 @@ test('does not let resolution alone pass an unrelated image', () => {
   assert.ok(unrelated.score < 0.42);
 });
 
+test('scores provider metadata against the image query without diluting it with a Korean headline', () => {
+  const result = scoreImageCandidate({
+    source: 'pexels',
+    width: 2400,
+    height: 3600,
+    description: 'semiconductor microchip processor factory',
+  }, 'semiconductor microchip processor', '한국 반도체 1위 유지 배터리 조선 중국 선두');
+
+  assert.equal(result.components.semanticMetadata, 1);
+  assert.ok(result.score >= 0.9);
+});
+
+test('rejects a medical professional photo when the article subject is a teenage patient', () => {
+  const candidate = {
+    title: "태국 고등학생 '귀신 분장' 응급 이송",
+    summary: '16세 여학생이 복통을 호소해 병원으로 옮겨졌습니다.',
+    category: 'issue',
+  };
+  const doctor = assessImageSuitability({
+    description: 'adult female doctor medical professional smiling in clinic',
+  }, 'healthcare hospital medical clinic', candidate);
+  const patient = assessImageSuitability({
+    description: 'teenage student patient receiving care in hospital emergency room',
+  }, 'healthcare hospital medical clinic', candidate);
+
+  assert.equal(doctor.ok, false);
+  assert.equal(doctor.reason, 'article_subject_role_mismatch');
+  assert.equal(patient.ok, true);
+  assert.ok(patient.matchedVisualRoles.includes('minor_student'));
+  assert.ok(patient.matchedVisualRoles.includes('patient'));
+});
+
 test('rejects generic keyword matches and selects the next image with the concrete subject', async () => {
   const generic = assessImageSuitability({
     description: 'government support policy parliament building',

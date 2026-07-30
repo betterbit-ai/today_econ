@@ -226,6 +226,61 @@ test('rejects acronym-date IPO titles that omit the actual listing event', async
   assert.equal(result.title.text, 'CXMT IPO\n27일 상장');
 });
 
+test('uses the next model when a competitive title reverses who already leads', async () => {
+  const article = {
+    category: CATEGORIES.ECONOMY,
+    title: '한국은 반도체만 세계 1위…중국이 배터리·조선 싹쓸이했다',
+    summary: '한국은 메모리 반도체 1위를 지켰지만 배터리와 조선에서는 중국 기업이 점유율 선두를 차지했습니다.',
+    fullText: '한국은 메모리 반도체 1위를 지켰습니다. 차량용 배터리와 조선에서는 중국 기업이 세계 점유율 선두를 차지해 한국을 앞섰습니다. 중국 기업은 동남아시아 수출도 확대하고 있습니다.',
+    verifiedFacts: [
+      '한국은 메모리 반도체에서 세계 1위를 지켰습니다.',
+      '차량용 배터리와 조선에서는 중국 기업이 세계 점유율 선두를 차지했습니다.',
+      '중국 기업은 동남아시아 수출도 확대하고 있습니다.',
+    ],
+  };
+  const result = await generateEditorial(article, {
+    callModel: async ({ model }) => ({
+      titleCandidates: [{
+        title: model === DEFAULT_MODELS.primary
+          ? '한국 반도체 1위 유지\n배터리·조선 중국 추격'
+          : '반도체 한국 1위\n배터리·조선 중국 선두',
+      }],
+      selectedTitleIndex: 0,
+      sentences: article.verifiedFacts,
+      emojis: { first: '💻', third: '📊' },
+      topicTags: ['반도체', '배터리', '조선', '중국기업'],
+      imageKeyword: 'semiconductor microchip processor',
+    }),
+  });
+
+  assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
+  assert.equal(result.title.text, '반도체 한국 1위\n배터리·조선 중국 선두');
+});
+
+test('rejects celebratory reaction emojis for a minor medical incident', async () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '태국 고등학생 응급 이송',
+    summary: '16세 여학생이 복통을 호소해 병원으로 옮겨졌습니다.',
+    fullText: '태국의 16세 여학생이 복통을 호소해 구조대가 병원으로 응급 이송했습니다. 학생은 의료진의 치료를 받았습니다. 이후 안정을 되찾았습니다.',
+    verifiedFacts: [
+      '16세 여학생이 복통을 호소해 병원으로 응급 이송됐습니다.',
+      '학생은 의료진의 치료를 받았습니다.',
+      '학생은 이후 안정을 되찾았습니다.',
+    ],
+  };
+  await assert.rejects(generateEditorial(article, {
+    callModel: async () => ({
+      titleCandidates: [{ title: '태국 고등학생\n응급 이송' }],
+      selectedTitleIndex: 0,
+      sentences: article.verifiedFacts,
+      emojis: { first: '😲', third: '👍' },
+      topicTags: ['태국', '고등학생', '응급이송', '병원'],
+      imageKeyword: 'teenage patient hospital',
+    }),
+  }), /fallback is disabled|try the next candidate/i);
+});
+
 test('rejects the article when both model calls fail or invent a number', async () => {
   const calls = [];
   await assert.rejects(

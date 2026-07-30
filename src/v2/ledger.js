@@ -35,6 +35,7 @@ function emptyPublication(date, category, slot) {
     image: null,
     audio: null,
     reel: emptyStep(),
+    story: emptyStep(),
     comment: emptyStep(),
     reply: emptyStep(),
     notifications: [],
@@ -74,6 +75,9 @@ function validateLedger(ledger) {
     if (!PUBLICATION_STATES.includes(publication.status)) errors.push(`invalid ${category} status`);
     for (const step of ['reel', 'comment', 'reply']) {
       if (!PUBLICATION_STATES.includes(publication?.[step]?.status)) errors.push(`invalid ${category}.${step} status`);
+    }
+    if (publication.story && !PUBLICATION_STATES.includes(publication.story.status)) {
+      errors.push(`invalid ${category}.story status`);
     }
   }
   if (ledger?.schemaVersion === 3 && !Array.isArray(ledger.publicationHistory)) errors.push('publicationHistory must be an array');
@@ -147,8 +151,8 @@ function allLedgerPublications(ledger = {}) {
 }
 
 function updateStep(ledger, category, step, patch = {}, now = new Date()) {
-  if (!['reel', 'comment', 'reply'].includes(step)) throw new Error(`[DIEM Ledger] Invalid step: ${step}`);
-  const current = ledger.publications[category][step];
+  if (!['reel', 'story', 'comment', 'reply'].includes(step)) throw new Error(`[DIEM Ledger] Invalid step: ${step}`);
+  const current = ledger.publications[category][step] || emptyStep();
   return updatePublication(ledger, category, {
     [step]: {
       ...current,

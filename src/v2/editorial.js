@@ -454,6 +454,7 @@ function modelPrompt(article) {
       '- 기사 상태가 "부인/반박/해명/미확정"이면 제목에도 반드시 그 상태를 드러내고, 확정·결정·시행처럼 뒤집어 쓰지 마세요.',
       '- IPO/상장 기사라면 제목에 반드시 IPO, 기업공개, 상장, 첫 거래, 증시 데뷔 중 하나를 넣으세요.',
       '- 알파벳 약어만 쓰지 말고 사건어 또는 쉬운 설명어를 함께 넣으세요. 날짜만 반복하는 제목은 금지합니다.',
+      '- 선두·추격·우위가 핵심이면 누가 현재 앞서는지 명시하고, 이미 선두인 주체를 추격한다고 뒤집거나 추격 주체를 모호하게 쓰지 마세요.',
       '- 각 title은 줄바꿈(\'\\n\') 1개를 포함한 정확히 2줄이어야 하며, 전체 공백 포함 20자 내외(최대 24자)로 제한합니다.',
       '- 좋은 예시:',
       '  "정부 반박\\n건보료 개편"',
@@ -473,6 +474,7 @@ function modelPrompt(article) {
       '',
       '[4. 이모지 및 태그 규칙]',
       '- emojis.first는 1문장 끝, emojis.third는 3문장 끝에 가장 어울리는 직관적인 이모지 1개씩을 지정하세요.',
+      '- 미성년자, 환자, 응급 이송, 사고 기사에는 👍, 😂, 🎉, 🔥, 🚀처럼 축하·재미·호응으로 읽히는 이모지를 쓰지 말고 📰처럼 중립적인 이모지를 사용하세요.',
       '- topicTags는 관련 핵심 해시태그 3~5개를 배열로 작성하세요. 반드시 띄어쓰기가 없는 단일 명사형 단어로만 작성해야 하며 문장이나 구문은 절대 금지합니다. (예: ["#주식", "#금리인하"])',
       '- imageKeyword는 기사의 핵심 대상과 사건이 사진으로 보이도록 구체적인 영문 2~5단어(예: "wedding couple cash gift", "semiconductor factory")로 지정하세요.',
       '- "government", "policy", "parliament", "law", "economy", "news" 같은 범용어만 쓰지 마세요. 정부 정책 기사라도 실제 대상이 결혼·연금·주택이면 그 대상을 사진 검색어로 쓰세요.',
@@ -585,6 +587,12 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   }
   const firstEmoji = editorial?.emojis?.first;
   if (editorial?.comments?.first !== firstEmoji) errors.push('first comment must contain only the first sentence emoji');
+  if (/(미성년|\d{1,2}세|학생|환자|응급\s*이송|긴급\s*이송|사고|복통)/u.test(sourceText(article))) {
+    const unsafeEmoji = new Set(['👍', '😂', '🤣', '🎉', '🥳', '🔥', '🚀', '😍']);
+    if ([editorial?.emojis?.first, editorial?.emojis?.third].some(emoji => unsafeEmoji.has(emoji))) {
+      errors.push('sensitive people or medical incident requires neutral, non-celebratory emoji');
+    }
+  }
   const replyValidation = validateHashtagReply(editorial?.comments?.reply || '', { handle });
   if (!replyValidation.ok) errors.push(...replyValidation.errors);
   const roles = editorial?.comments?.hashtagsByRole || {};

@@ -37,7 +37,7 @@ function transitionEvents(before = {}, after = {}, { actionsUrl = githubActionsU
     });
   }
 
-  for (const stage of ['reel', 'comment', 'reply']) {
+  for (const stage of ['reel', 'story', 'comment', 'reply']) {
     const previous = before?.[stage] || {};
     const current = after?.[stage] || {};
     if (previous.status === current.status) continue;
@@ -46,7 +46,7 @@ function transitionEvents(before = {}, after = {}, { actionsUrl = githubActionsU
       stage,
       attempts: current.attempts,
       error: current.error,
-      permalink: stage === 'reel' ? current.permalink : after.reel?.permalink,
+      permalink: stage === 'reel' ? current.permalink : (current.permalink || after.reel?.permalink),
     };
     if (current.status === 'retry_pending') {
       events.push({ ...shared, status: 'retry_pending' });

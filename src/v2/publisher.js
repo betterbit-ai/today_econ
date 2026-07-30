@@ -14,6 +14,7 @@ const {
   reconcileExactComment,
   reconcileRecentReel,
   replyToComment,
+  instagramErrorDisposition,
 } = require('./instagram');
 const { allLedgerPublications, imageRecordFromPublication, updatePublication } = require('./ledger');
 const { selectMusic, getMood } = require('./music');
@@ -315,6 +316,119 @@ async function publishCommentChain(publication, {
   }
 }
 
+function pendingStoryStep(value = {}) {
+  return {
+    status: 'planned',
+    attempts: 0,
+    externalId: null,
+    error: null,
+    updatedAt: null,
+    ...value,
+  };
+}
+
+function releaseAssetFilename(publication = {}) {
+  return `${publication.publicationKey.replaceAll(':', '-')}.mp4`;
+}
+
+function storedReleaseVideoUrl(publication = {}) {
+  if (publication.release?.videoUrl) return publication.release.videoUrl;
+  if (publication.release?.tag && config.githubRepository) {
+    return `https://github.com/${config.githubRepository}/releases/download/${encodeURIComponent(publication.release.tag)}/${encodeURIComponent(releaseAssetFilename(publication))}`;
+  }
+  return '';
+}
+
+async function ensureTemporaryRelease(publication, reelPath, {
+  cleanupReleasesImpl,
+  createReleaseImpl,
+} = {}) {
+  const existingUrl = storedReleaseVideoUrl(publication);
+  if (existingUrl) {
+    return {
+      ...publication,
+      release: { ...publication.release, videoUrl: existingUrl },
+    };
+  }
+  if (!reelPath || !fs.existsSync(reelPath)) {
+    throw new Error('[DIEM Publisher] Story source video is unavailable and no active temporary Release URL was recorded.');
+  }
+  await cleanupReleasesImpl({
+    token: config.githubToken,
+    repository: config.githubRepository,
+    maxAgeHours: 72,
+  }).catch(() => []);
+  const release = await createReleaseImpl({
+    assetPaths: [{ path: reelPath, filename: releaseAssetFilename(publication), contentType: 'video/mp4' }],
+    token: config.githubToken,
+    repository: config.githubRepository,
+    runId: publication.publicationKey.replaceAll(':', '-'),
+    targetCommitish: config.githubSha,
+  });
+  return {
+    ...publication,
+    release: {
+      id: release.releaseId,
+      tag: release.tag,
+      videoUrl: release.videoUrl,
+      createdAt: release.createdAt,
+      deleteAfter: new Date(Date.now() + 72 * 3600000).toISOString(),
+    },
+  };
+}
+
+async function publishIndependentStory(publication, {
+  videoUrl,
+  token,
+  publishStoryImpl,
+} = {}) {
+  const story = pendingStoryStep(publication.story);
+  if (['published', 'manual_action_required', 'no_publish'].includes(story.status)) return publication;
+  if (!config.publishInstagramStory) {
+    return {
+      ...publication,
+      story: { ...story, status: 'no_publish', error: 'story_disabled', updatedAt: new Date().toISOString() },
+    };
+  }
+
+  const attempts = story.attempts + 1;
+  try {
+    if (!videoUrl) throw new Error('public Story video URL is missing');
+    const result = await publishStoryImpl({
+      videoUrl,
+      userId: config.instagramUserId,
+      token,
+      version: config.instagramApiVersion,
+    });
+    return {
+      ...publication,
+      story: {
+        ...story,
+        status: 'published',
+        attempts,
+        externalId: String(result.id),
+        containerId: result.containerId || null,
+        permalink: result.permalink || null,
+        error: null,
+        updatedAt: new Date().toISOString(),
+      },
+    };
+  } catch (error) {
+    const requiresManualAction = error.ambiguousExternalState
+      || instagramErrorDisposition(error) === 'manual_action_required';
+    return {
+      ...publication,
+      story: {
+        ...story,
+        status: requiresManualAction || attempts >= 3 ? 'manual_action_required' : 'retry_pending',
+        attempts,
+        error: error.message,
+        updatedAt: new Date().toISOString(),
+      },
+    };
+  }
+}
+
 async function publishPreparedPublication(ledger, category, token, {
   cleanupReleasesImpl = cleanupExpiredReleases,
   createReleaseImpl = createTemporaryRelease,
@@ -327,9 +441,10 @@ async function publishPreparedPublication(ledger, category, token, {
   let publication = structuredClone(ledger.publications[category]);
   if (!publication) throw new Error(`[DIEM Publisher] Missing ${category} publication.`);
   if (publication.status === 'no_publish') return ledger;
+  publication.story = pendingStoryStep(publication.story);
+  const reelPath = resolveArtifact(publication.artifacts?.reelPath);
   if (publication.reel.status !== 'published') {
     if (publication.status !== 'ready') throw new Error(`[DIEM Publisher] ${category} is not ready.`);
-    const reelPath = resolveArtifact(publication.artifacts?.reelPath);
     if (!fs.existsSync(reelPath)) throw new Error(`[DIEM Publisher] Prepared Reel is missing: ${reelPath}`);
 
     const reconciliation = await reconcileReelImpl({
@@ -360,50 +475,18 @@ async function publishPreparedPublication(ledger, category, token, {
       };
       publication.status = 'published';
     } else {
-      await cleanupReleasesImpl({
-        token: config.githubToken,
-        repository: config.githubRepository,
-        maxAgeHours: 72,
-      }).catch(() => []);
-      const release = await createReleaseImpl({
-        assetPaths: [{ path: reelPath, filename: `${publication.publicationKey.replaceAll(':', '-')}.mp4`, contentType: 'video/mp4' }],
-        token: config.githubToken,
-        repository: config.githubRepository,
-        runId: publication.publicationKey.replaceAll(':', '-'),
-        targetCommitish: config.githubSha,
+      publication = await ensureTemporaryRelease(publication, reelPath, {
+        cleanupReleasesImpl,
+        createReleaseImpl,
       });
-      publication.release = {
-        id: release.releaseId,
-        tag: release.tag,
-        createdAt: release.createdAt,
-        deleteAfter: new Date(Date.now() + 72 * 3600000).toISOString(),
-      };
       try {
         const result = await publishReelImpl({
-          videoUrl: release.videoUrl,
+          videoUrl: publication.release.videoUrl,
           caption: publication.editorial.caption.text,
           userId: config.instagramUserId,
           token,
           version: config.instagramApiVersion,
         });
-
-        let storyResult = null;
-        if (config.publishInstagramStory) {
-          for (let attempt = 1; attempt <= 3; attempt++) {
-            try {
-              storyResult = await publishStoryImpl({
-                videoUrl: release.videoUrl,
-                userId: config.instagramUserId,
-                token,
-                version: config.instagramApiVersion,
-              });
-              break;
-            } catch (storyError) {
-              console.error(`[DIEM Publisher] Story publish failed on attempt ${attempt}:`, storyError.message);
-              if (attempt < 3) await new Promise(r => setTimeout(r, 10000));
-            }
-          }
-        }
 
         publication.reel = {
           ...publication.reel,
@@ -415,13 +498,6 @@ async function publishPreparedPublication(ledger, category, token, {
           error: null,
           updatedAt: new Date().toISOString(),
         };
-        if (storyResult) {
-          publication.story = {
-            status: 'published',
-            externalId: String(storyResult.id),
-            updatedAt: new Date().toISOString(),
-          };
-        }
         publication.status = 'published';
       } catch (error) {
         const attempts = (publication.reel.attempts || 0) + 1;
@@ -438,6 +514,38 @@ async function publishPreparedPublication(ledger, category, token, {
     }
   }
 
+  if (publication.reel.status === 'published'
+    && !['published', 'manual_action_required', 'no_publish'].includes(publication.story?.status)) {
+    if (!config.publishInstagramStory) {
+      publication = await publishIndependentStory(publication, { token, publishStoryImpl });
+    } else {
+      let releaseReady = true;
+      try {
+        publication = await ensureTemporaryRelease(publication, reelPath, {
+          cleanupReleasesImpl,
+          createReleaseImpl,
+        });
+      } catch (error) {
+        releaseReady = false;
+        const attempts = (publication.story?.attempts || 0) + 1;
+        publication.story = {
+          ...pendingStoryStep(publication.story),
+          status: attempts >= 3 ? 'manual_action_required' : 'retry_pending',
+          attempts,
+          error: error.message,
+          updatedAt: new Date().toISOString(),
+        };
+      }
+      if (releaseReady) {
+        publication = await publishIndependentStory(publication, {
+          videoUrl: storedReleaseVideoUrl(publication),
+          token,
+          publishStoryImpl,
+        });
+      }
+    }
+  }
+
   publication = await publishCommentsImpl(publication, { token });
   return updatePublication(ledger, category, publication);
 }
@@ -447,6 +555,7 @@ module.exports = {
   isHashtagCountError,
   preparePublication,
   publishCommentChain,
+  publishIndependentStory,
   publishPreparedPublication,
   selectedArticle,
   sha256File,

@@ -54,6 +54,8 @@ test('publishes only one Reel and records its external identity', async () => {
   assert.equal(result.publications.economy.carousel, undefined);
   assert.equal(result.publications.economy.story.status, 'published');
   assert.equal(result.publications.economy.story.externalId, 'ig-story');
+  assert.equal(result.publications.economy.story.attempts, 1);
+  assert.equal(result.publications.economy.release.videoUrl, 'https://example.com/reel.mp4');
 });
 
 test('passes recent historical and same-day ledger images into image selection', async () => {
@@ -193,14 +195,65 @@ test('reconciles an existing exact Reel instead of republishing', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-publisher-'));
   const ledger = readyLedger(root);
   let reelCalls = 0;
+  let storyCalls = 0;
+  ledger.publications.economy.release = {
+    tag: 'diem-media-existing',
+    videoUrl: 'https://example.com/existing.mp4',
+  };
   const result = await publishPreparedPublication(ledger, 'economy', 'token', {
     reconcileReelImpl: async () => ({ status: 'reconciled', match: { id: 'existing', permalink: 'https://instagram.com/reel/existing' } }),
     publishReelImpl: async () => { reelCalls += 1; },
+    publishStoryImpl: async ({ videoUrl }) => {
+      storyCalls += 1;
+      assert.equal(videoUrl, 'https://example.com/existing.mp4');
+      return { id: 'story-existing' };
+    },
     publishCommentsImpl: async publication => publication,
   });
   assert.equal(reelCalls, 0);
+  assert.equal(storyCalls, 1);
   assert.equal(result.publications.economy.reel.externalId, 'existing');
   assert.equal(result.publications.economy.reel.reconciled, true);
+  assert.equal(result.publications.economy.story.externalId, 'story-existing');
+});
+
+test('retries Story across persisted runs without republishing the successful Reel', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-story-retry-'));
+  let ledger = readyLedger(root);
+  let reelCalls = 0;
+  let storyCalls = 0;
+  const dependencies = {
+    cleanupReleasesImpl: async () => [],
+    createReleaseImpl: async () => ({
+      releaseId: 1,
+      tag: 'temp-story-retry',
+      createdAt: new Date().toISOString(),
+      videoUrl: 'https://example.com/story-retry.mp4',
+    }),
+    reconcileReelImpl: async () => ({ status: 'not_found', shouldPublish: true }),
+    publishReelImpl: async () => {
+      reelCalls += 1;
+      return { id: 'ig-reel-stable', permalink: 'https://instagram.com/reel/stable' };
+    },
+    publishStoryImpl: async () => {
+      storyCalls += 1;
+      throw new Error('temporary Story API outage');
+    },
+    publishCommentsImpl: async publication => publication,
+  };
+
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    ledger = await publishPreparedPublication(ledger, 'economy', 'token', dependencies);
+    assert.equal(ledger.publications.economy.reel.status, 'published');
+    assert.equal(ledger.publications.economy.reel.externalId, 'ig-reel-stable');
+    assert.equal(ledger.publications.economy.story.attempts, attempt);
+  }
+
+  assert.equal(reelCalls, 1);
+  assert.equal(storyCalls, 3);
+  assert.equal(ledger.publications.economy.status, 'published');
+  assert.equal(ledger.publications.economy.story.status, 'manual_action_required');
+  assert.match(ledger.publications.economy.story.error, /Story API outage/u);
 });
 
 test('keeps a published Reel when top-level comment permission fails', async () => {

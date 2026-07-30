@@ -129,6 +129,15 @@ function validateTitleAgainstFrame(title, frame = {}) {
     errors.push('title cannot be only an acronym and date');
   }
 
+  if (frame.competitiveState === 'china_leads_battery_shipbuilding') {
+    if (/중국\s*(?:이|은)?\s*추격/u.test(normalized)) {
+      errors.push('competitive title cannot describe China as chasing when China already leads the named sectors');
+    }
+    if (!/(중국.{0,6}(?:선두|1위|우위|독주|앞서)|중국에.{0,6}(?:밀려|뒤져|뒤처져)|배터리.{0,12}조선.{0,12}중국.{0,6}(?:선두|우위))/u.test(normalized)) {
+      errors.push('competitive title must make the current leader and direction explicit');
+    }
+  }
+
   return {
     ...basic,
     ok: errors.length === 0,

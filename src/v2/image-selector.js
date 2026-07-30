@@ -59,7 +59,36 @@ function imageMetadata(image = {}) {
   return normalizeNfc(`${image.description || ''} ${image.alt || ''} ${(image.tags || []).join(' ')}`);
 }
 
-function assessImageSuitability(image = {}, query = '') {
+const ARTICLE_VISUAL_ROLES = Object.freeze([
+  {
+    id: 'minor_student',
+    article: /(\d{1,2}세|미성년|여학생|남학생|고등학생|중학생|초등학생|청소년)/u,
+    metadata: /(teen|teenage|student|schoolgirl|schoolboy|youth|child|adolescent)/iu,
+  },
+  {
+    id: 'patient',
+    article: /(환자|복통|응급\s*이송|긴급\s*이송|병원으로\s*(?:이송|옮겨)|치료를?\s*받)/u,
+    metadata: /(patient|receiving\s*(?:care|treatment)|emergency\s*(?:room|patient)|ambulance|hospital\s*bed|sick|injured)/iu,
+  },
+]);
+
+function visualRoleAssessment(image = {}, candidate = {}) {
+  const articleText = normalizeNfc(`${candidate.title || ''} ${candidate.summary || ''} ${candidate.fullText || ''}`);
+  const metadata = imageMetadata(image);
+  const requiredVisualRoles = ARTICLE_VISUAL_ROLES
+    .filter(role => role.article.test(articleText))
+    .map(role => role.id);
+  const matchedVisualRoles = ARTICLE_VISUAL_ROLES
+    .filter(role => requiredVisualRoles.includes(role.id) && role.metadata.test(metadata))
+    .map(role => role.id);
+  return {
+    requiredVisualRoles,
+    matchedVisualRoles,
+    missingVisualRoles: requiredVisualRoles.filter(role => !matchedVisualRoles.includes(role)),
+  };
+}
+
+function assessImageSuitability(image = {}, query = '', candidate = {}) {
   const queryTokens = extractSignatureTokens(normalizeNfc(query))
     .map(token => token.toLowerCase());
   const concreteQueryTokens = [...new Set(
@@ -69,18 +98,26 @@ function assessImageSuitability(image = {}, query = '') {
     extractSignatureTokens(imageMetadata(image)).map(token => token.toLowerCase())
   );
   const matchedConcreteTokens = concreteQueryTokens.filter(token => metadataTokens.has(token));
-  const ok = concreteQueryTokens.length > 0 && matchedConcreteTokens.length > 0;
+  const roles = visualRoleAssessment(image, candidate);
+  const subjectMatched = concreteQueryTokens.length > 0 && matchedConcreteTokens.length > 0;
+  const roleMatched = roles.missingVisualRoles.length === 0;
+  const ok = subjectMatched && roleMatched;
 
   return {
     ok,
     reason: concreteQueryTokens.length === 0
       ? 'concrete_query_missing'
-      : ok
+      : !subjectMatched
+        ? 'concrete_subject_missing'
+        : !roleMatched
+          ? 'article_subject_role_mismatch'
+          : ok
         ? 'concrete_subject_matched'
         : 'concrete_subject_missing',
     concreteQueryTokens,
     matchedConcreteTokens,
     matchRatio: Number((matchedConcreteTokens.length / Math.max(1, concreteQueryTokens.length)).toFixed(4)),
+    ...roles,
   };
 }
 
@@ -107,10 +144,10 @@ function buildImageQueries(candidate = {}) {
   ].map(value => normalizeNfc(value).trim()).filter(value => value.length >= 2))].slice(0, 5);
 }
 
-function scoreImageCandidate(image, query, signature = '') {
+function scoreImageCandidate(image, query, _signature = '') {
   const metadata = imageMetadata(image);
-  const queryTokens = extractSignatureTokens(`${query} ${signature}`);
-  const metadataTokens = new Set(extractSignatureTokens(metadata));
+  const queryTokens = extractSignatureTokens(query).map(token => token.toLowerCase());
+  const metadataTokens = new Set(extractSignatureTokens(metadata).map(token => token.toLowerCase()));
   const overlap = queryTokens.filter(token => metadataTokens.has(token)).length / Math.max(1, queryTokens.length);
   const width = Number(image.width) || 0;
   const height = Number(image.height) || 0;
@@ -257,7 +294,7 @@ async function selectLicensedImage(candidate, {
             ...image,
             query,
             ...scoreImageCandidate(image, query, candidate.title),
-            suitability: assessImageSuitability(image, query),
+            suitability: assessImageSuitability(image, query, candidate),
           }))
           .filter(image => image.downloadUrl && image.width >= 800 && image.height >= 800)
           .sort((a, b) => b.score - a.score)
@@ -276,6 +313,9 @@ async function selectLicensedImage(candidate, {
             reason: image.suitability.reason,
             concreteQueryTokens: image.suitability.concreteQueryTokens,
             matchedConcreteTokens: image.suitability.matchedConcreteTokens,
+            requiredVisualRoles: image.suitability.requiredVisualRoles,
+            matchedVisualRoles: image.suitability.matchedVisualRoles,
+            missingVisualRoles: image.suitability.missingVisualRoles,
           }));
         const suitabilityRejected = suitabilityRejections.length;
         attempts.push({

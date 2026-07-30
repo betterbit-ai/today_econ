@@ -46,6 +46,34 @@ function resolveImageData({ imagePath, imageDataUri } = {}) {
   return '';
 }
 
+function typographicBackdrop(category) {
+  const economy = category === CATEGORIES.ECONOMY;
+  const art = economy
+    ? `<svg class="typography-art" data-typographic-art="economy" viewBox="0 0 1080 1120" aria-hidden="true">
+        <defs><linearGradient id="economy-glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4D7CFE" stop-opacity=".9"/><stop offset="1" stop-color="#6EE7F9" stop-opacity=".16"/></linearGradient></defs>
+        <g fill="none" stroke="url(#economy-glow)" stroke-width="4">
+          <rect x="250" y="188" width="580" height="580" rx="72" opacity=".32"/>
+          <rect x="350" y="288" width="380" height="380" rx="38" opacity=".62"/>
+          <path d="M350 388H215M350 478H140M350 568H205M730 388H865M730 478H940M730 568H875M450 288V150M540 288V94M630 288V150M450 668V806M540 668V862M630 668V806" opacity=".55"/>
+          <path d="M402 600L492 505L568 554L690 410" stroke-width="14" stroke-linecap="round" opacity=".82"/>
+        </g>
+        <g fill="#4D7CFE"><circle cx="215" cy="388" r="10"/><circle cx="140" cy="478" r="10"/><circle cx="940" cy="478" r="10"/><circle cx="540" cy="94" r="10"/></g>
+      </svg>`
+    : `<svg class="typography-art" data-typographic-art="issue" viewBox="0 0 1080 1120" aria-hidden="true">
+        <defs><linearGradient id="issue-glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4D7CFE" stop-opacity=".82"/><stop offset="1" stop-color="#F7F9FC" stop-opacity=".08"/></linearGradient></defs>
+        <g fill="none" stroke="url(#issue-glow)">
+          <circle cx="750" cy="340" r="270" stroke-width="4" opacity=".5"/><circle cx="750" cy="340" r="190" stroke-width="3" opacity=".34"/><circle cx="750" cy="340" r="105" stroke-width="18" opacity=".6"/>
+          <path d="M84 690H770M84 770H910M84 850H690" stroke-width="20" stroke-linecap="round" opacity=".25"/>
+          <path d="M170 164V560H560" stroke-width="5" opacity=".45"/>
+        </g>
+        <circle cx="750" cy="340" r="34" fill="#4D7CFE" opacity=".9"/>
+      </svg>`;
+  return `<div class="typography-backdrop typography-backdrop-${category}" data-no-photo="true">
+    <div class="diem-watermark" data-diem-watermark>DIEM</div>
+    ${art}
+  </div>`;
+}
+
 function buildCoverHtml({
   title,
   date,
@@ -59,7 +87,7 @@ function buildCoverHtml({
   const hasPhoto = /^data:image\//i.test(imageDataUri);
   const background = hasPhoto
     ? `<img class="background-photo" alt="" src="${escapeHtml(imageDataUri)}">`
-    : '<div class="typography-backdrop" data-no-photo="true"></div>';
+    : typographicBackdrop(category);
   return `<!doctype html>
 <html lang="ko">
 <head>
@@ -82,6 +110,10 @@ function buildCoverHtml({
     .typography-backdrop { position: absolute; inset: 0; z-index: -4; background:
       radial-gradient(circle at 77% 18%, rgba(77,124,254,.31), transparent 34%),
       linear-gradient(145deg, #101a31 0%, var(--diem-bg) 58%, #05070d 100%); }
+    .typography-backdrop-economy { background: radial-gradient(circle at 68% 20%, rgba(77,124,254,.35), transparent 36%), linear-gradient(145deg, #0f1a33 0%, var(--diem-bg) 62%, #05070d 100%); }
+    .typography-backdrop-issue { background: radial-gradient(circle at 72% 17%, rgba(77,124,254,.25), transparent 32%), linear-gradient(150deg, #111a2c 0%, var(--diem-bg) 60%, #05070d 100%); }
+    .typography-art { position: absolute; left: 0; top: 40px; width: 1080px; height: 1120px; filter: drop-shadow(0 20px 60px rgba(14,38,94,.42)); }
+    .diem-watermark { position: absolute; top: 110px; left: 74px; color: var(--diem-white); opacity: .07; font-size: 190px; line-height: 1; font-weight: 900; letter-spacing: -.055em; }
     .shade { position: absolute; inset: 0; z-index: -3; background:
       linear-gradient(180deg, rgba(8,12,22,.45) 0%, rgba(8,12,22,.35) 35%, rgba(8,12,22,.88) 75%, rgba(8,12,22,.96) 100%),
       linear-gradient(90deg, rgba(8,12,22,.68), rgba(8,12,22,.15) 75%); }

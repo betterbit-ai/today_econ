@@ -43,6 +43,14 @@ function generateMarkdownReport(ledger) {
       lines.push(`- [Instagram Reel](${pub.reel.permalink})`);
     }
 
+    if (pub.story) {
+      lines.push(`### 📱 Instagram Story`);
+      lines.push(`- **Status**: ${pub.story.status}`);
+      lines.push(`- **Attempts**: ${pub.story.attempts || 0}`);
+      if (pub.story.externalId) lines.push(`- **External ID**: ${pub.story.externalId}`);
+      if (pub.story.error) lines.push(`- **Error**: ${pub.story.error}`);
+    }
+
     lines.push('---');
   }
   return lines.join('\n');

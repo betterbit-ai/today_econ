@@ -138,6 +138,39 @@ test('skips official-denial and narrow issue candidates before selecting a usefu
   assert.equal(result.publications.issue.selected.editorialValue.ok, true);
 });
 
+test('skips a sensational foreign personal anecdote before selecting a public-interest issue', async () => {
+  const candidates = [
+    {
+      title: "태국 고등학생 '귀신 분장' 응급 이송…병원도 경악",
+      url: 'https://n.news.naver.com/article/001/ghost-student',
+      summary: '학교 행사 뒤 의료진의 치료를 받은 학생 사진이 SNS에서 화제가 됐습니다.',
+      popularityScore: 100,
+      sources: [{ portal: 'naver', title: "태국 고등학생 '귀신 분장' 응급 이송…병원도 경악", url: 'https://n.news.naver.com/article/001/ghost-student' }],
+    },
+    {
+      title: '청년 주거 지원 월세 보조금 50만원 확대',
+      url: 'https://n.news.naver.com/article/001/housing-policy',
+      popularityScore: 90,
+      sources: [{ portal: 'naver', title: '청년 주거 지원 월세 보조금 50만원 확대', url: 'https://n.news.naver.com/article/001/housing-policy' }],
+    },
+  ];
+  const result = await planDailyQueue({
+    date: '2026-07-30',
+    categories: ['issue'],
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => (url.endsWith('ghost-student')
+      ? "태국 야소톤주의 16세 여학생이 학교 행사에서 귀신 피까 분장을 한 채 복통을 호소해 구조대가 병원으로 긴급 이송했습니다. 의료진과 방문객이 놀란 사진이 SNS에 퍼졌고 학생은 치료 뒤 귀가했습니다."
+      : '정부는 전국 청년 가구의 주거 부담을 낮추기 위해 월세 보조금 지원을 50만원까지 확대한다고 발표했습니다. 지원 대상과 신청 절차는 다음 달 확정되며 청년 주거 정책의 핵심 대책으로 추진됩니다.'),
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.issue.ok, true);
+  assert.equal(result.publications.issue.selected.url, 'https://n.news.naver.com/article/001/housing-policy');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => (
+    reason.includes('low_editorial_value:sensational_anecdote_without_public_interest')
+  )));
+});
+
 test('reclassifies hydrated article text before accepting an economy candidate', async () => {
   const candidates = [
     {

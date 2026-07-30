@@ -183,22 +183,34 @@ async function publishStory({ imageUrl, videoUrl, userId, token, version = 'v23.
   });
   await waitForContainer({ id: story.id, token, version, fetchImpl, attempts: hasVideo ? 30 : 20, delayMs: hasVideo ? 4000 : 3000 });
 
-  const published = await instagramRequest({
-    path: `${userId}/media_publish`,
-    token,
-    version,
-    method: 'POST',
-    params: { creation_id: story.id },
-    fetchImpl,
-  });
-  const media = await instagramRequest({
-    path: published.id,
-    token,
-    version,
-    params: { fields: 'id,permalink,timestamp,media_type,media_product_type,username' },
-    fetchImpl,
-  });
-  return { ...media, id: published.id, containerId: story.id, format: 'story' };
+  let published;
+  try {
+    published = await instagramRequest({
+      path: `${userId}/media_publish`,
+      token,
+      version,
+      method: 'POST',
+      params: { creation_id: story.id },
+      fetchImpl,
+    });
+  } catch (error) {
+    if (!error.status || Number(error.status) >= 500) error.ambiguousExternalState = true;
+    throw error;
+  }
+  let media = {};
+  let metadataWarning = null;
+  try {
+    media = await instagramRequest({
+      path: published.id,
+      token,
+      version,
+      params: { fields: 'id,permalink,timestamp,media_type,media_product_type,username' },
+      fetchImpl,
+    });
+  } catch (error) {
+    metadataWarning = error.message;
+  }
+  return { ...media, id: published.id, containerId: story.id, format: 'story', metadataWarning };
 }
 
 function insightValue(item) {

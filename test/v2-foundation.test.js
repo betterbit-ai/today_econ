@@ -31,6 +31,7 @@ const {
   saveLedger,
   updatePublication,
   updateStep,
+  validateLedger,
 } = require('../src/v2/ledger');
 
 test('uses Asia/Seoul for publication dates around the UTC boundary', () => {
@@ -132,6 +133,16 @@ test('builds claim-state frames that prevent misleading denial and acronym-date 
     category: CATEGORIES.ISSUE,
     title: '피지컬AI 특별법 개인정보 활용 논란',
   }, CATEGORIES.ISSUE)).ok, false);
+
+  const industryArticle = {
+    category: CATEGORIES.ECONOMY,
+    title: '한국은 반도체만 세계 1위…중국이 배터리·조선 싹쓸이했다',
+    summary: '한국은 메모리 반도체 1위를 지켰지만 차량용 배터리와 조선에서는 중국 기업이 점유율 선두를 차지했다.',
+  };
+  const industryFrame = buildNewsFrame(industryArticle, CATEGORIES.ECONOMY);
+  assert.equal(industryFrame.competitiveState, 'china_leads_battery_shipbuilding');
+  assert.equal(validateTitleAgainstFrame('한국 반도체 1위 유지\n배터리·조선 중국 추격', industryFrame).ok, false);
+  assert.equal(validateTitleAgainstFrame('반도체 한국 1위\n배터리·조선 중국 선두', industryFrame).ok, true);
 });
 
 test('normalizes auto-insurance loss articles to a concrete subject and event', () => {
@@ -162,6 +173,13 @@ test('scores DIEM editorial value instead of accepting every broad issue keyword
   }, CATEGORIES.ISSUE);
   assert.equal(narrowClimate.ok, false);
   assert.equal(narrowClimate.reason, 'narrow_or_local_issue');
+
+  const foreignHumanInterest = assessDiemEditorialValue({
+    title: "태국 고등학생 '귀신 분장' 응급 이송…병원도 경악",
+    summary: "태국 야소톤주의 16세 여학생이 학교 행사에서 귀신 '피까' 분장을 한 채 복통을 호소해 구조대가 병원으로 옮겼고 사진이 SNS에서 화제가 됐습니다.",
+  }, CATEGORIES.ISSUE);
+  assert.equal(foreignHumanInterest.ok, false);
+  assert.equal(foreignHumanInterest.reason, 'sensational_anecdote_without_public_interest');
 
   const housing = assessDiemEditorialValue({
     title: '청년 주거 지원 월세 보조금 50만원 확대',
@@ -245,6 +263,17 @@ test('creates, atomically stores, and reloads a two-category daily ledger', () =
   assert.equal(history[0].audioTrackId, 'economy-steady');
   assert.equal(history[0].image.id, 'pexels:rate');
   assert.equal(history[0].image.localSha256, 'rate-image-sha');
+});
+
+test('new ledgers track Story independently while legacy ledgers without Story remain readable', () => {
+  const ledger = createDailyLedger('2026-07-30');
+  assert.deepEqual(ledger.publications.economy.story, {
+    status: 'planned', attempts: 0, externalId: null, error: null, updatedAt: null,
+  });
+  const legacy = structuredClone(ledger);
+  delete legacy.publications.economy.story;
+  delete legacy.publications.issue.story;
+  assert.equal(validateLedger(legacy).ok, true);
 });
 
 test('archives completed intraday runs and includes same-day publications in hot-news history', () => {

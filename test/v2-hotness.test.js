@@ -76,3 +76,19 @@ test('never treats RSS ordering as a verified hotness signal', () => {
   assert.equal(result.reason, 'popularity_signal_unavailable');
   assert.equal(result.popularitySignalReliable, false);
 });
+
+test('parses timezone-less Korean publisher timestamps as KST and does not promote emergency transport', () => {
+  const result = assessHotness({
+    title: "태국 고등학생 '귀신 분장' 응급 이송",
+    summary: '16세 여학생이 복통을 호소해 구조대가 병원으로 긴급 이송했습니다.',
+    popularityScore: 85.86,
+    publishedAt: '2026-07-30 10:41:52',
+    observedAt: '2026-07-30T10:28:23.387Z',
+    editorialValue: { score: 80 },
+  }, { now: new Date('2026-07-30T10:28:23.387Z') });
+
+  assert.equal(result.freshnessSource, 'article_published_at');
+  assert.ok(result.ageHours > 8 && result.ageHours < 9, `unexpected age: ${result.ageHours}`);
+  assert.equal(result.urgent, false);
+  assert.equal(result.urgencyBonus, 0);
+});

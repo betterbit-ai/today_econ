@@ -31,6 +31,9 @@ test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () =
   assert.match(html, /title-line-1 \{ color: var\(--diem-blue\)/u);
   assert.match(html, /title-line-2 \{ color: var\(--diem-white\)/u);
   assert.match(html, /data-no-photo="true"/u);
+  assert.match(html, /data-typographic-art="economy"/u);
+  assert.match(html, /typography-backdrop-economy/u);
+  assert.match(html, /data-diem-watermark/u);
   assert.doesNotMatch(html, /today\.econ|subtitle|card2|mascot/u);
 });
 

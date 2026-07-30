@@ -20,6 +20,7 @@ test('ships exactly two category publishing workflows on a continuous four-hour 
     assert.match(content, /id:\s*embedding-cache/u);
     assert.match(content, /steps\.embedding-cache\.outputs\.cache-hit != 'true'/u);
     assert.match(content, /HF_HUB_OFFLINE:\s*'0'/u);
+    assert.match(content, /PUBLISH_INSTAGRAM_STORY:\s*'true'/u);
     assert.doesNotMatch(content, /retry-all|inputs:\s*\n\s+phase:/u);
     assert.doesNotMatch(content, /DIEM_PIPELINE_ENABLED/u);
   }
