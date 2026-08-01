@@ -8,13 +8,14 @@ const CLICKBAIT_PATTERNS = [
   /소름/u,
   /무조건/u,
 ];
+const SENSATIONAL_TITLE_PATTERN = /(절망\s*시대|완전\s*통과|환호\s*터|대박|기대\s*[↑↓]|[↑↓])/u;
 const URL_PATTERN = /https?:\/\/\S+/iu;
 const EMAIL_PATTERN = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/iu;
 const HASHTAG_PATTERN = /#[0-9A-Za-z가-힣_]+/gu;
 const MENTION_PATTERN = /@[0-9A-Za-z가-힣_.]+/u;
 const EMOJI_PATTERN = /\p{Extended_Pictographic}/u;
 const DATE_TOKEN = /(오늘|내일|모레|어제|\d{1,2}일|\d{1,2}월)/u;
-const TITLE_EVENT_TOKEN = /(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔|인상|인하|상승|하락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|개편|전환|반박|부인|해명|미확정|아님|출시|거래)/iu;
+const TITLE_EVENT_TOKEN = /(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔|인상|인하|상승|하락|둔화|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|개편|전환|반박|부인|해명|미확정|아님|출시|거래)/iu;
 const DENIAL_TITLE_TOKEN = /(확정\s*아님|미확정|반박|부인|해명|사실\s*아님|아니다|아냐|오보)/u;
 const DENIAL_ALLOWED = /(확정\s*아님|미확정|확정되지\s*않)/u;
 const GENERIC_TITLE_LINE = /^(흐름\s*정리|쟁점\s*정리|경제\s*브리핑|시사\s*브리핑|오늘\s*경제|오늘\s*시사)$/u;
@@ -74,8 +75,9 @@ function validateTitle(title) {
   const visible = lines.join('');
   const errors = [];
   if (lines.length !== 2 || lines.some(line => !line.trim())) errors.push('title must contain exactly two non-empty lines');
-  if (graphemeCount(visible) > 24) errors.push('title must be at most 24 graphemes including spaces');
+  if (graphemeCount(visible) > 14) errors.push('title must be at most 14 graphemes including spaces');
   if (CLICKBAIT_PATTERNS.some(pattern => pattern.test(normalized))) errors.push('title contains prohibited clickbait wording');
+  if (SENSATIONAL_TITLE_PATTERN.test(normalized)) errors.push('title contains sensational or mechanical shorthand');
   if (/["“”‘’!?]{2,}|[!?]$/u.test(normalized)) errors.push('title contains unnecessary punctuation');
   if (lines.some(line => GENERIC_TITLE_LINE.test(line.replace(/\s+/gu, '').trim()))) {
     errors.push('title contains generic filler wording');
@@ -117,6 +119,22 @@ function validateTitleAgainstFrame(title, frame = {}) {
     errors.push('IPO title must name the IPO, listing, first-trade, or market-debut event');
   }
 
+  const forbiddenSearchText = frame.claimState === 'official_denial' ? strippedDenial : normalized;
+  const forbiddenTerms = (frame.forbiddenTitleTerms || [])
+    .filter(Boolean)
+    .filter(term => forbiddenSearchText.includes(term));
+  if (forbiddenTerms.length > 0) {
+    errors.push(`title contains a tangential or contradicted event: ${forbiddenTerms.join(', ')}`);
+  }
+
+  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings'].includes(frame.eventKind)) {
+    const lower = normalized.toLowerCase();
+    const hasSubject = (frame.subjectTerms || []).some(term => lower.includes(String(term).toLowerCase()));
+    const hasEvent = (frame.eventTerms || []).some(term => lower.includes(String(term).toLowerCase()));
+    if (!hasSubject) errors.push('title must name the primary subject');
+    if (!hasEvent) errors.push('title must name the primary event');
+  }
+
   if (DATE_TOKEN.test(normalized) && !TITLE_EVENT_TOKEN.test(normalized)) {
     errors.push('date-based title must include the actual event, not only a date');
   }
@@ -130,10 +148,10 @@ function validateTitleAgainstFrame(title, frame = {}) {
   }
 
   if (frame.competitiveState === 'china_leads_battery_shipbuilding') {
-    if (/중국\s*(?:이|은)?\s*추격/u.test(normalized)) {
+    if (/(?:중국|中)\s*(?:이|은)?\s*추격/u.test(normalized)) {
       errors.push('competitive title cannot describe China as chasing when China already leads the named sectors');
     }
-    if (!/(중국.{0,6}(?:선두|1위|우위|독주|앞서)|중국에.{0,6}(?:밀려|뒤져|뒤처져)|배터리.{0,12}조선.{0,12}중국.{0,6}(?:선두|우위))/u.test(normalized)) {
+    if (!/((?:중국|中).{0,6}(?:선두|1위|우위|독주|앞서)|중국에.{0,6}(?:밀려|뒤져|뒤처져)|배터리.{0,12}조선.{0,12}(?:중국|中).{0,6}(?:선두|우위))/u.test(normalized)) {
       errors.push('competitive title must make the current leader and direction explicit');
     }
   }

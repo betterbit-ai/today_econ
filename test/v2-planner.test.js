@@ -247,3 +247,33 @@ test('hot mode skips stale popular news and selects the next fresh candidate for
   assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('not_hot:article_too_old')));
   assert.equal(result.publications.issue, undefined);
 });
+
+test('requires independent evidence for extraordinary market and earnings claims before selecting them', async () => {
+  const candidates = [
+    {
+      title: "'223배 폭증' 반도체…삼성 2분기 세계 1위",
+      url: 'https://n.news.naver.com/article/001/extreme',
+      popularityScore: 100,
+      sources: [{ portal: 'naver', title: "'223배 폭증' 반도체…삼성 2분기 세계 1위", url: 'https://n.news.naver.com/article/001/extreme' }],
+    },
+    {
+      title: '한국은행 기준금리 2.50% 동결',
+      url: 'https://n.news.naver.com/article/001/rate-safe',
+      popularityScore: 90,
+      sources: [{ portal: 'naver', title: '한국은행 기준금리 2.50% 동결', url: 'https://n.news.naver.com/article/001/rate-safe' }],
+    },
+  ];
+  const result = await planDailyQueue({
+    date: '2026-07-31',
+    categories: ['economy'],
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => (url.endsWith('/extreme')
+      ? '삼성전자 반도체 영업이익은 89조 2천억원으로 1년 전보다 223배 늘어세계 1위를 기록했습니다. AI 메모리 수요가 배경으로 제시됐습니다. 설비투자도 늘릴 계획입니다.'
+      : articleBody('금리')),
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.economy.ok, true);
+  assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/rate-safe');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('extraordinary_claim_unverified')));
+});

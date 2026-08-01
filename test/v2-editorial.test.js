@@ -90,7 +90,7 @@ test('deterministic fallback produces five short titles and the exact DIEM capti
     const validation = validateTitle(candidate.title);
     assert.equal(validation.ok, true, validation.errors.join('; '));
     assert.equal(validation.lines.length, 2);
-    assert.ok(validation.graphemeCount <= 24);
+    assert.ok(validation.graphemeCount <= 14);
   });
 
   const caption = validateCaption(editorial.caption.text);
@@ -191,6 +191,26 @@ test('rejects official-denial titles that invert the article state instead of au
   );
 });
 
+test('accepts an official-denial caption only when its lead preserves the denial', async () => {
+  const article = officialDenialArticle();
+  const result = await generateEditorial(article, {
+    callModel: async () => ({
+      titleCandidates: [
+        { title: '정부 반박\n건보료 개편' },
+      ],
+      selectedTitleIndex: 0,
+      sentences: [
+        '보건복지부는 건보료 부과체계 개편안이 확정되지 않았다고 공식 설명했습니다.',
+        '논란이 된 보도는 고소득층의 보험료 상한을 높이는 방안을 다뤘습니다.',
+        '현재로선 정부의 최종 결정이 아니므로 추가 발표를 확인해야 합니다.',
+      ],
+    }),
+  });
+
+  assert.equal(result.title.text, '정부 반박\n건보료 개편');
+  assert.match(result.caption.sentences[0], /확정되지 않았/u);
+});
+
 test('rejects acronym-date IPO titles that omit the actual listing event', async () => {
   const article = ipoArticle();
   const result = await generateEditorial(article, {
@@ -243,7 +263,7 @@ test('uses the next model when a competitive title reverses who already leads', 
       titleCandidates: [{
         title: model === DEFAULT_MODELS.primary
           ? '한국 반도체 1위 유지\n배터리·조선 중국 추격'
-          : '반도체 한국 1위\n배터리·조선 중국 선두',
+          : '반도체1위\n배·조선 中선두',
       }],
       selectedTitleIndex: 0,
       sentences: article.verifiedFacts,
@@ -254,7 +274,7 @@ test('uses the next model when a competitive title reverses who already leads', 
   });
 
   assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
-  assert.equal(result.title.text, '반도체 한국 1위\n배터리·조선 중국 선두');
+  assert.equal(result.title.text, '반도체1위\n배·조선 中선두');
 });
 
 test('rejects celebratory reaction emojis for a minor medical incident', async () => {
@@ -415,7 +435,8 @@ test('fails closed when model output is unusable and deterministic evidence cann
 
 test('rejects malformed title, caption, comment, and hashtag reply contracts', () => {
   assert.equal(validateTitle('한 줄뿐').ok, false);
-  assert.equal(validateTitle('일이삼사오육칠팔\n구십일이삼사오육').ok, true);
+  assert.equal(validateTitle('일이삼사오육칠팔\n구십일이삼사오육').ok, false);
+  assert.equal(validateTitle('일이삼사오육\n칠팔구십일이').ok, true);
   assert.equal(validateTitle('일이삼사오육칠팔구십일이삼사\n오육칠팔구십일이삼사오육칠팔').ok, false);
   assert.equal(validateCaption('첫 문장📊\n둘째 문장\n셋째 문장📊').ok, false);
   assert.equal(validateCaption(`첫 문장입니다.📊\n\n${'가'.repeat(121)}\n\n셋째 문장입니다.📊`).ok, false);
@@ -426,4 +447,28 @@ test('rejects malformed title, caption, comment, and hashtag reply contracts', (
   const report = validateEditorial(editorial, { article: economyArticle() });
   assert.equal(report.ok, false);
   assert.match(report.errors.join(' '), /first comment/u);
+});
+
+test('rejects a numeric sentence when its comparison basis contradicts the source context', async () => {
+  const article = {
+    category: CATEGORIES.ECONOMY,
+    title: '미국 2분기 GDP 성장률 1.5% 둔화',
+    summary: '미국의 2분기 GDP 증가율은 전기 대비 연율 1.5%로 집계됐습니다.',
+    fullText: '미 상무부는 2분기 국내총생산 증가율이 전기 대비 연율 1.5%로 집계됐다고 발표했습니다. 1분기 2.1%보다 낮은 수치입니다. 개인소비는 증가했습니다.',
+    target: '미국 성장률',
+    event: '1.5% 둔화',
+  };
+
+  await assert.rejects(generateEditorial(article, {
+    callModel: async () => ({
+      titleCandidates: [{ title: '미국 성장률\n1.5% 둔화' }],
+      sentences: [
+        '미국의 2분기 GDP 성장률은 전년 대비 1.5%로 둔화했습니다.',
+        '1분기 2.1%보다 낮은 수치입니다.',
+        '개인소비는 증가했습니다.',
+      ],
+      emojis: { first: '📰', third: '📊' },
+      topicTags: ['미국GDP', '성장률', '개인소비', '미국경제'],
+    }),
+  }), /comparison basis|evidence|next candidate/i);
 });

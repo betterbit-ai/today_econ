@@ -3,7 +3,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 
-const { verifyCoreClaims, isLikelySyndicatedCopy } = require('../src/v2/fact-verifier');
+const {
+  isLikelySyndicatedCopy,
+  verifyCoreClaims,
+  verifyExtraordinaryClaims,
+} = require('../src/v2/fact-verifier');
 const {
   assessImageSuitability,
   buildImageQueries,
@@ -19,7 +23,7 @@ const {
   parseDaumRanking,
   parseNaverRanking,
 } = require('../src/v2/popular-news');
-const { computeEmbeddingMatrix, evaluateAgainstHistory } = require('../src/v2/similarity');
+const { computeEmbeddingMatrix, evaluateAgainstHistory, executeJsonProcess } = require('../src/v2/similarity');
 
 test('normalizes portal ranks to 100 through 1', () => {
   assert.equal(normalizeRank(1, 50), 100);
@@ -71,6 +75,22 @@ test('requires independent corroboration and matching material facts', () => {
   assert.equal(verifyCoreClaims(primary, { ...secondary, url: 'https://publisher-a.example/other' }).ok, false);
 });
 
+test('accepts an extraordinary claim only when another Naver publisher confirms the same value and event', () => {
+  const primary = {
+    title: '삼성 반도체 영업이익 223배 증가',
+    url: 'https://n.news.naver.com/mnews/article/001/1001',
+    fullText: '삼성전자의 반도체 영업이익이 1년 전보다 223배 늘었습니다.',
+  };
+  const secondary = {
+    title: '메모리 회복으로 삼성 반도체 이익 223배',
+    url: 'https://n.news.naver.com/mnews/article/015/2002',
+    fullText: 'AI 메모리 수요 회복으로 삼성전자 반도체 부문의 이익이 전년보다 223배 커졌습니다.',
+  };
+
+  assert.equal(verifyExtraordinaryClaims(primary, secondary).ok, true);
+  assert.equal(verifyExtraordinaryClaims(primary, { ...secondary, url: 'https://n.news.naver.com/mnews/article/001/2002' }).ok, false);
+});
+
 test('rejects highly similar syndicated body copy', () => {
   const body = '정부는 청년 주거 지원 정책을 다음 달부터 확대한다고 발표했다. 지원 대상은 전국 청년 가구다.';
   assert.equal(isLikelySyndicatedCopy({ fullText: body }, { fullText: body }), true);
@@ -117,6 +137,18 @@ test('parses one batched local embedding matrix', async () => {
   assert.deepEqual(matrix, [[0.8], [0.2]]);
 });
 
+test('writes the embedding payload to the helper stdin instead of relying on an unsupported execFile option', async () => {
+  const { stdout } = await executeJsonProcess(process.execPath, [
+    '-e',
+    'let value = ""; process.stdin.setEncoding("utf8"); process.stdin.on("data", chunk => value += chunk); process.stdin.on("end", () => process.stdout.write(value));',
+  ], {
+    input: JSON.stringify({ queries: ['보완수사권'], corpus: ['형사소송법'] }),
+    timeout: 2000,
+  });
+
+  assert.deepEqual(JSON.parse(stdout), { queries: ['보완수사권'], corpus: ['형사소송법'] });
+});
+
 test('scores licensed portrait imagery and falls back to typography', async () => {
   const score = scoreImageCandidate({
     source: 'pexels',
@@ -145,7 +177,7 @@ test('skips licensed images used in the recent seven-day image history', async (
       photographer_url: 'https://www.pexels.com/@used',
       width: 3000,
       height: 4000,
-      alt: 'government parliament policy law chamber',
+      alt: 'Korean National Assembly Seoul chamber',
     },
     {
       id: 222222,
@@ -155,7 +187,7 @@ test('skips licensed images used in the recent seven-day image history', async (
       photographer_url: 'https://www.pexels.com/@fresh',
       width: 3000,
       height: 4000,
-      alt: 'government parliament policy law building',
+      alt: 'Korean National Assembly Seoul building',
     },
   ];
   const selection = await selectLicensedImage(
@@ -245,6 +277,52 @@ test('rejects a medical professional photo when the article subject is a teenage
   assert.equal(patient.ok, true);
   assert.ok(patient.matchedVisualRoles.includes('minor_student'));
   assert.ok(patient.matchedVisualRoles.includes('patient'));
+});
+
+test('does not infer a minor visual role from an incidental biography buried in a business article', () => {
+  const candidate = {
+    title: '헤지펀드 SA, 반도체 보유주식 시타델에 매각',
+    summary: 'SA가 반도체·AI 인프라 주식을 시타델에 넘기며 반대매매 우려가 완화됐습니다.',
+    fullText: '창업자는 19세에 대학을 졸업한 경력이 있습니다.',
+    category: 'economy',
+  };
+  const result = assessImageSuitability({
+    description: 'semiconductor microchip processor factory',
+  }, 'semiconductor microchip processor', candidate);
+
+  assert.equal(result.ok, true);
+  assert.deepEqual(result.requiredVisualRoles, []);
+});
+
+test('rejects a foreign parliament photo for a Korean National Assembly story', () => {
+  const candidate = {
+    title: '한국 국회, 형사소송법 개정안 통과',
+    summary: '대한민국 국회 본회의에서 법안이 통과됐습니다.',
+    category: 'issue',
+  };
+  const foreign = assessImageSuitability({
+    description: 'ornate Houses of Parliament building in London England',
+  }, 'Korean National Assembly Seoul', candidate);
+  const korean = assessImageSuitability({
+    description: 'Korean National Assembly building in Seoul South Korea',
+  }, 'Korean National Assembly Seoul', candidate);
+
+  assert.equal(foreign.ok, false);
+  assert.equal(foreign.reason, 'geographic_context_mismatch');
+  assert.equal(korean.ok, true);
+});
+
+test('prioritizes GDP imagery over incidental AI infrastructure in a macroeconomic article', () => {
+  const queries = buildImageQueries({
+    title: '미국 2분기 GDP 성장률 1.5% 둔화',
+    summary: '개인소비와 AI 민간투자가 성장률을 받쳤습니다.',
+    category: 'economy',
+    newsFrame: { eventKind: 'gdp', subject: '미국 성장률' },
+    imageKeyword: 'artificial intelligence server data center',
+  });
+
+  assert.match(queries[0], /GDP|gross domestic product|economic growth/i);
+  assert.doesNotMatch(queries[0], /server|data center/i);
 });
 
 test('rejects generic keyword matches and selects the next image with the concrete subject', async () => {

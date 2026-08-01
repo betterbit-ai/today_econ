@@ -1,16 +1,61 @@
 const path = require('path');
-const { execFile } = require('child_process');
-const { promisify } = require('util');
+const { spawn } = require('child_process');
 const { assessDuplicate } = require('./topic');
 
-const execFileAsync = promisify(execFile);
 const DEFAULT_MODEL = 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2';
+
+function executeJsonProcess(command, args = [], {
+  input = '',
+  maxBuffer = 1024 * 1024 * 4,
+  timeout = 60000,
+  env = process.env,
+} = {}) {
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, args, {
+      env,
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+    let stdout = '';
+    let stderr = '';
+    let settled = false;
+    const finish = (error, result) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      if (error) reject(error);
+      else resolve(result);
+    };
+    const append = (current, chunk) => {
+      const next = current + chunk.toString('utf8');
+      if (Buffer.byteLength(next, 'utf8') > maxBuffer) {
+        child.kill('SIGKILL');
+        finish(new Error(`[DIEM Similarity] helper exceeded ${maxBuffer} bytes`));
+      }
+      return next;
+    };
+    const timer = setTimeout(() => {
+      child.kill('SIGKILL');
+      finish(new Error(`[DIEM Similarity] helper timed out after ${timeout}ms`));
+    }, timeout);
+
+    child.stdout.on('data', chunk => { stdout = append(stdout, chunk); });
+    child.stderr.on('data', chunk => { stderr = append(stderr, chunk); });
+    child.on('error', error => finish(error));
+    child.on('close', (code, signal) => {
+      if (code === 0) return finish(null, { stdout, stderr });
+      const detail = stderr.trim() || `exit code ${code}${signal ? ` (${signal})` : ''}`;
+      return finish(new Error(`Command failed: ${command} ${args.join(' ')}\n${detail}`));
+    });
+    child.stdin.on('error', error => finish(error));
+    child.stdin.end(input);
+  });
+}
 
 async function computeEmbeddingSimilarities(query, corpus, {
   pythonPath = process.env.PYTHON_PATH || 'python3',
   scriptPath = path.join(__dirname, '..', '..', 'scripts', 'topic_similarity.py'),
   model = DEFAULT_MODEL,
-  execFileImpl = execFileAsync,
+  execFileImpl,
 } = {}) {
   const matrix = await computeEmbeddingMatrix([query], corpus, {
     pythonPath,
@@ -25,11 +70,12 @@ async function computeEmbeddingMatrix(queries, corpus, {
   pythonPath = process.env.PYTHON_PATH || 'python3',
   scriptPath = path.join(__dirname, '..', '..', 'scripts', 'topic_similarity.py'),
   model = DEFAULT_MODEL,
-  execFileImpl = execFileAsync,
+  execFileImpl,
 } = {}) {
   if (!Array.isArray(queries) || queries.length === 0 || !Array.isArray(corpus) || corpus.length === 0) return [];
   const input = JSON.stringify({ queries, corpus, model }).normalize('NFC');
-  const { stdout } = await execFileImpl(pythonPath, [scriptPath], {
+  const processRunner = execFileImpl || executeJsonProcess;
+  const { stdout } = await processRunner(pythonPath, [scriptPath], {
     input,
     maxBuffer: 1024 * 1024 * 4,
     timeout: 60000,
@@ -95,5 +141,6 @@ module.exports = {
   DEFAULT_MODEL,
   computeEmbeddingMatrix,
   computeEmbeddingSimilarities,
+  executeJsonProcess,
   evaluateAgainstHistory,
 };

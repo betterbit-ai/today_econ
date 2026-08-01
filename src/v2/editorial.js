@@ -21,6 +21,14 @@ const DEFAULT_MODELS = Object.freeze({
 const SENTENCE_ENDING = /[.!?。！？]$/u;
 const EVENT_WORDS = /(인상|인하|상승|하락|급등|급락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|전환)/u;
 const NUMBER_TOKEN = /\d[\d,.]*(?:\s*(?:%|퍼센트|조\s*원|억\s*원|만\s*원|원|만\s*명|명|개|배|년|월|일))?/gu;
+const COMPARISON_BASES = Object.freeze([
+  { id: 'year_on_year', pattern: /전년(?:\s*동기)?\s*대비|전년보다|1년\s*전보다|지난해보다|작년보다/u },
+  { id: 'quarter_on_quarter', pattern: /전기\s*대비|전\s*분기\s*대비|전분기보다|직전\s*분기보다/u },
+  { id: 'month_on_month', pattern: /전월\s*대비|전월보다/u },
+  { id: 'day_on_day', pattern: /전일\s*대비|전일보다|하루\s*전보다/u },
+  { id: 'annualized', pattern: /연율/u },
+  { id: 'cumulative', pattern: /누적/u },
+]);
 const INPUT_EMOJI = /(?:\p{Extended_Pictographic}|\p{Regional_Indicator}{2}|[#*0-9]\uFE0F?\u20E3)/gu;
 const PHOTO_CAPTION_BLOCK = /[▲■◇◆][^.!?。！？]{0,280}(?:공개돼\s*있다|촬영[^.!?。！？]*있다|기념\s*촬영|자료\s*사진|사진)[.!?。！？]?/gu;
 const SOURCE_CREDIT = /[ⓒ©]\s*(?:연합뉴스|뉴스1|뉴시스|로이터|AP|EPA|게티이미지|공동취재단)?/giu;
@@ -336,6 +344,80 @@ function numericClaimsAreGrounded(sentences, article) {
   return ungroundedNumericClaims(sentences, article).length === 0;
 }
 
+function comparisonBases(value = '') {
+  const text = normalizeNfc(value);
+  return COMPARISON_BASES.filter(({ pattern }) => pattern.test(text)).map(({ id }) => id);
+}
+
+function numericContextViolations(sentences = [], article = {}) {
+  const evidenceSentences = [
+    ...(article.verifiedFacts || article.facts || []),
+    article.context,
+    article.fullText,
+    article.body,
+    article.summary,
+  ]
+    .filter(Boolean)
+    .flatMap(splitSourceSentences)
+    .map(cleanVisibleText)
+    .filter(Boolean);
+  return sentences.flatMap((sentence, index) => {
+    const cleanSentence = cleanVisibleText(sentence);
+    const generatedBases = comparisonBases(cleanSentence);
+    const numbers = cleanSentence.match(NUMBER_TOKEN) || [];
+    return numbers.flatMap(number => {
+      const normalizedNumber = number.replace(/[\s,]/gu, '');
+      const matchingEvidence = evidenceSentences.filter(evidence => (
+        evidence.replace(/[\s,]/gu, '').includes(normalizedNumber)
+      ));
+      if (matchingEvidence.length === 0) return [];
+      const evidenceBases = matchingEvidence.map(comparisonBases);
+      const preservesBasis = evidenceBases.some(bases => (
+        generatedBases.every(base => bases.includes(base))
+        && bases.every(base => generatedBases.includes(base))
+      ));
+      const isRateClaim = /%|퍼센트|성장률|증가율|감소율|상승률|하락률|GDP/iu.test(`${number} ${cleanSentence}`);
+      const basisRequired = isRateClaim && evidenceBases.some(bases => bases.length > 0);
+      if ((generatedBases.length > 0 || basisRequired) && !preservesBasis) {
+        return [{
+          index,
+          number,
+          generatedBases,
+          evidenceBases: [...new Set(evidenceBases.flat())],
+        }];
+      }
+      return [];
+    });
+  });
+}
+
+function frameAlignmentViolations(sentences = [], frame = {}) {
+  const first = cleanVisibleText(sentences[0] || '');
+  const full = sentences.map(cleanVisibleText).join(' ');
+  const violations = [];
+  const officialDenial = frame.claimState === 'official_denial';
+  const denialLanguage = /(확정된?\s*바\s*없|확정되지\s*않|확정하지\s*않|미확정|사실이\s*아니|반박|부인|해명)/u;
+  if (officialDenial && !denialLanguage.test(first)) {
+    violations.push('caption first sentence must preserve the official denial');
+  }
+  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings'].includes(frame.eventKind)) {
+    const firstLower = first.toLowerCase();
+    if (!(frame.subjectTerms || []).some(term => firstLower.includes(String(term).toLowerCase()))) {
+      violations.push('caption first sentence omits the primary subject');
+    }
+    if (!(frame.eventTerms || []).some(term => firstLower.includes(String(term).toLowerCase()))) {
+      violations.push('caption first sentence omits the primary event');
+    }
+  }
+  const tangential = officialDenial
+    ? []
+    : (frame.forbiddenTitleTerms || []).filter(term => full.includes(term));
+  if (tangential.length > 0) {
+    violations.push(`caption centers a tangential event: ${tangential.join(', ')}`);
+  }
+  return violations;
+}
+
 function assembleEditorial({
   article,
   titleCandidates,
@@ -455,7 +537,9 @@ function modelPrompt(article) {
       '- IPO/상장 기사라면 제목에 반드시 IPO, 기업공개, 상장, 첫 거래, 증시 데뷔 중 하나를 넣으세요.',
       '- 알파벳 약어만 쓰지 말고 사건어 또는 쉬운 설명어를 함께 넣으세요. 날짜만 반복하는 제목은 금지합니다.',
       '- 선두·추격·우위가 핵심이면 누가 현재 앞서는지 명시하고, 이미 선두인 주체를 추격한다고 뒤집거나 추격 주체를 모호하게 쓰지 마세요.',
-      '- 각 title은 줄바꿈(\'\\n\') 1개를 포함한 정확히 2줄이어야 하며, 전체 공백 포함 20자 내외(최대 24자)로 제한합니다.',
+      '- 각 title은 줄바꿈(\'\\n\') 1개를 포함한 정확히 2줄이어야 하며, 두 줄 합계 공백 포함 최대 14자입니다.',
+      '- 절망 시대, 완전 통과, 대박, 환호 터졌다 같은 과장어와 ↑·↓ 기호를 쓰지 마세요.',
+      '- 제목·요약·본문 도입부가 말하는 하나의 주요 사건만 제목으로 삼고, 본문 뒤쪽의 이력·예정·부수 키워드를 주제로 바꾸지 마세요.',
       '- 좋은 예시:',
       '  "정부 반박\\n건보료 개편"',
       '  "CXMT IPO\\n27일 상장"',
@@ -534,6 +618,14 @@ async function generateEditorial(article = {}, {
           .join('; ');
         throw new Error(`model returned an ungrounded numeric claim: ${ungrounded}`);
       }
+      const contextViolations = numericContextViolations(parsed.sentences, article);
+      if (contextViolations.length > 0) {
+        throw new Error(`model returned a comparison basis that conflicts with article evidence: ${JSON.stringify(contextViolations.slice(0, 3))}`);
+      }
+      const alignmentViolations = frameAlignmentViolations(parsed.sentences, frame);
+      if (alignmentViolations.length > 0) {
+        throw new Error(`model returned content outside the primary news frame: ${alignmentViolations.join('; ')}`);
+      }
       attempts.push({ model, status: 'succeeded' });
       return assembleEditorial({
         article: augmentedArticle,
@@ -605,6 +697,10 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   if (article && !numericClaimsAreGrounded(editorial?.caption?.sentences || [], article)) {
     errors.push('caption contains numeric claims absent from article evidence');
   }
+  numericContextViolations(editorial?.caption?.sentences || [], article).forEach(({ index, number }) => {
+    errors.push(`caption sentence ${index + 1} has a comparison basis unsupported for ${number}`);
+  });
+  errors.push(...frameAlignmentViolations(editorial?.caption?.sentences || [], frame));
   const copiedRawSource = copiedRawSourceViolations(editorial?.caption?.sentences || [], article);
   copiedRawSource.forEach(({ index }) => {
     errors.push(`caption sentence ${index + 1} copies raw source wording instead of summarizing`);
@@ -623,5 +719,6 @@ module.exports = {
   selectEmojis,
   articleFrame,
   sourceSentences,
+  numericContextViolations,
   validateEditorial,
 };

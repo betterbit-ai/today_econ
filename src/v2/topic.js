@@ -14,6 +14,7 @@ const OFFICIAL_DENIAL = /(확정된?\s*바\s*없|확정되지\s*않|사실이\s*
 const TENTATIVE = /(검토|논의|추진|계획|예정|가능성|전망|유력|가닥|방침|초안|보도했다|보도했)/u;
 const DECIDED = /(확정|결정|의결|통과|시행|발표|인상|인하|선고|판결|도입|개편|확대|축소|폐지)/u;
 const IPO_EVENT = /(\bIPO\b|기업공개|상장|첫\s*거래|증시\s*데뷔|공모가|공모주)/iu;
+const PRIMARY_IPO_EVENT = /(\bIPO\b|기업공개|공모가|공모주|증시\s*데뷔|첫\s*거래|신규\s*상장|상장\s*(?:예정|추진|확정|승인|신청|첫날|앞둠|나선다|한다|했다))/iu;
 const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험|보험료|자동차보험|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금)/iu;
 const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|재배|수확|축산|어촌|마을|지역축제|천연\s*패딩|곤충|반려동물|맛집|여행지)/u;
 const NARROW_WITH_PUBLIC_POLICY = /(정부.{0,20}(지원|보조금|규제|법안|발표|시행)|국회|전국.{0,20}(지원|보조금|시행)|보험|세금|대출|주거|교육|복지|의료|노동|고용)/u;
@@ -33,6 +34,8 @@ const TOPIC_ALIASES = Object.freeze([
   [/다음\s*해/gu, '내년도'],
   [/최종\s*액수/gu, '금액'],
   [/최저임금위(?!원회)/gu, '최저임금위원회'],
+  [/형소법/gu, '형사소송법'],
+  [/형사소송법\s*개정안/gu, '형사소송법 개정'],
   [/유지/gu, '동결'],
   [/결정/gu, '확정'],
 ]);
@@ -48,8 +51,30 @@ function candidateText(candidate = {}) {
   return normalizeNfc(`${candidate.title || ''} ${candidate.summary || ''} ${(candidate.entities || []).join(' ')}`);
 }
 
+function primaryCandidateText(candidate = {}) {
+  return normalizeNfc(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 900)}`);
+}
+
+function canonicalEventKey(text = '') {
+  const normalized = normalizeTopicAliases(text);
+  const criminalProcedureSubject = /(형사소송법|형소법)/u.test(normalized);
+  const criminalProcedureDetail = /(보완수사권|공소기각|공소권\s*남용)/u.test(normalized);
+  if (/보완수사권/u.test(normalized) || (criminalProcedureSubject && criminalProcedureDetail)) {
+    return 'criminal_procedure_amendment';
+  }
+  if (/자동차보험/u.test(normalized) && /(적자|손해율)/u.test(normalized)) {
+    return 'auto_insurance_loss';
+  }
+  return null;
+}
+
 function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   const normalized = normalizeTopicAliases(text);
+  if (/(형사소송법|보완수사권|공소기각|공소권\s*남용)/u.test(normalized)) return '형사소송법';
+  if (/(국내총생산|\bGDP\b|성장률)/iu.test(normalized)) return /미국|미\s*상무부/u.test(normalized) ? '미국 성장률' : '경제성장률';
+  if (/(코스피|코스닥)/u.test(normalized)) return normalized.match(/(코스피|코스닥)/u)?.[0] || '한국 증시';
+  if (/(시타델|시추에이셔널어웨어니스|\bSA\b)/iu.test(normalized) && /(매각|인수|보유\s*주식|포트폴리오|넘기)/u.test(normalized)) return 'SA 주식';
+  if (/삼성전자/u.test(normalized) && /(실적|영업이익|매출)/u.test(normalized)) return '삼성 반도체';
   if (/(건강보험료|건보료)/u.test(normalized)) return '건보료 개편';
   if (/(자동차보험)/u.test(normalized)) return '자동차보험';
   if (/(손해보험|손보사|손해율)/u.test(normalized)) return '손해보험';
@@ -84,16 +109,23 @@ function isOfficialDenialCandidate(candidate = {}, text = candidateText(candidat
     && /(보도|기사|언급|추진|개편|인상|시행).{0,80}(확정된?\s*바\s*없|확정되지\s*않|사실이\s*아니)/u.test(lead || text);
 }
 
-function claimState(candidate = {}, text = candidateText(candidate)) {
+function claimState(candidate = {}, text = primaryCandidateText(candidate), kind = eventKind(candidate, text)) {
   if (isOfficialDenialCandidate(candidate, text)) return 'official_denial';
-  if (IPO_EVENT.test(text) || /(예정|나선다|데뷔한다|시작한다)/u.test(text)) return 'scheduled';
+  if (kind === 'ipo') return 'scheduled';
+  if (kind === 'asset_sale' && /(매각|인수|넘겼|넘긴|넘기며|매수자로\s*선정)/u.test(text)) return 'decided';
   if (DECIDED.test(text)) return 'decided';
   if (TENTATIVE.test(text)) return 'tentative';
   return 'reported';
 }
 
-function eventKind(text = '') {
-  if (IPO_EVENT.test(text)) return 'ipo';
+function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
+  const title = normalizeNfc(candidate.title || '');
+  if (/(시타델|헤지펀드|포트폴리오|\bSA\b)/iu.test(text) && /(매각|인수|보유\s*주식|넘기)/u.test(text)) return 'asset_sale';
+  if (PRIMARY_IPO_EVENT.test(title) || PRIMARY_IPO_EVENT.test(text)) return 'ipo';
+  if (/(국내총생산|\bGDP\b|성장률)/iu.test(text)) return 'gdp';
+  if (/(코스피|코스닥|증시|주가)/u.test(text) && /(급등|급락|폭등|폭락|상승|하락|반등|반전)/u.test(text)) return 'market_move';
+  if (/(형사소송법|형소법|보완수사권|법안|개정안)/u.test(text) && /(통과|개정|폐지|의결)/u.test(text)) return 'legislation';
+  if (/(영업이익|순이익|실적|매출)/u.test(text)) return 'earnings';
   if (/(자동차보험|손해보험|손보사|손해율)/u.test(text) && /(적자|손해율|과잉진료|과잉수리)/u.test(text)) return 'auto_insurance_loss';
   if (/(건강보험료|건보료|보험료)/u.test(text)) return 'insurance_premium';
   if (/(기준금리|금리)/u.test(text)) return 'interest_rate';
@@ -102,11 +134,51 @@ function eventKind(text = '') {
   return 'general';
 }
 
+function frameEventLabel(text = '', kind = 'general') {
+  if (kind === 'asset_sale') return /(매각|넘기)/u.test(text) ? '주식 매각' : '주식 인수';
+  if (kind === 'ipo') return 'IPO 상장';
+  if (kind === 'gdp') return /(둔화|하락|감소)/u.test(text) ? '성장률 둔화' : '성장률 변화';
+  if (kind === 'market_move') return text.match(/(급등|급락|폭등|폭락|상승|하락|반등|반전)/u)?.[0] || '증시 변동';
+  if (kind === 'legislation') return text.match(/(통과|개정|폐지|의결)/u)?.[0] || '법 개정';
+  if (kind === 'earnings') return text.match(/(폭증|증가|감소|적자|흑자|영업이익|실적)/u)?.[0] || '실적 발표';
+  if (kind === 'auto_insurance_loss') return '적자 전환';
+  if (kind === 'interest_rate') return text.match(/(동결|인상|인하)/u)?.[0] || '금리 결정';
+  return text.match(/(인상|인하|상승|하락|확대|축소|시행|폐지|확정|결정|판결|규제|지원|증가|감소|돌파|합의|통과|개편|전환|매각|인수)/u)?.[0] || '';
+}
+
+function frameTerms(subject, eventLabel, kind, text) {
+  const subjectTerms = extractSignatureTokens(subject);
+  const eventTerms = extractSignatureTokens(eventLabel);
+  if (kind === 'asset_sale') {
+    subjectTerms.push(...['SA', '시타델']);
+    eventTerms.push(...['매각', '인수', '넘기']);
+  } else if (kind === 'gdp') {
+    subjectTerms.push(...['GDP', '성장률']);
+    eventTerms.splice(0, eventTerms.length, ...eventTerms.filter(term => !['GDP', '성장률'].includes(term)));
+    eventTerms.push(...(
+      /둔화/u.test(eventLabel)
+        ? ['둔화', '하락', '감소']
+        : ['변화', '성장', '증가']
+    ));
+  } else if (kind === 'legislation') {
+    subjectTerms.push(...['형사소송법', '형소법', '보완수사권']);
+    eventTerms.push(...['통과', '개정', '폐지']);
+  } else if (kind === 'market_move') {
+    subjectTerms.push(...['코스피', '코스닥', '증시']);
+  }
+  return {
+    subjectTerms: [...new Set(subjectTerms.filter(term => normalizeNfc(text).includes(term) || term.length >= 2))],
+    eventTerms: [...new Set(eventTerms.filter(Boolean))],
+  };
+}
+
 function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).category) {
-  const text = candidateText(candidate);
-  const state = claimState(candidate, text);
-  const kind = eventKind(text);
-  const subject = compactSubject(`${candidate.title || ''} ${candidate.summary || ''}`, category);
+  const text = primaryCandidateText(candidate);
+  const kind = eventKind(candidate, text);
+  const state = claimState(candidate, text, kind);
+  const subject = compactSubject(text, category);
+  const eventLabel = frameEventLabel(text, kind);
+  const { subjectTerms, eventTerms } = frameTerms(subject, eventLabel, kind, text);
   const date = dateLabel(text);
   const requiredTitleTerms = [];
   const forbiddenTitleTerms = [];
@@ -119,12 +191,18 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
   }
   if (kind === 'ipo') {
     requiredTitleTerms.push('IPO', '기업공개', '상장', '첫 거래', '증시 데뷔', '데뷔');
+  } else if (IPO_EVENT.test(text)) {
+    forbiddenTitleTerms.push('IPO', '기업공개', '공모주', '증시 데뷔');
   }
 
   return {
     category,
     subject,
+    subjectTerms,
     eventKind: kind,
+    eventLabel,
+    eventTerms,
+    eventKey: canonicalEventKey(text),
     claimState: state,
     date,
     requiredTitleTerms,
@@ -245,6 +323,17 @@ function extractSignatureTokens(value = '') {
 
 function buildTopicSignature(candidate = {}, category = classifyCandidate(candidate).category) {
   const normalized = normalizeTopicAliases(`${candidate.title || ''} ${candidate.summary || ''} ${(candidate.entities || []).join(' ')}`);
+  const eventKey = canonicalEventKey(normalized);
+  if (eventKey === 'criminal_procedure_amendment') {
+    return {
+      category,
+      target: '형사소송법 개정',
+      event: '수사·기소 제도 개정',
+      entities: ['형사소송법', '보완수사권', '공소기각'].filter(token => normalized.includes(token)),
+      eventKey,
+      text: `${category} | 형사소송법 개정 | 수사 기소 제도`,
+    };
+  }
   if (/(자동차보험)/u.test(normalized)) {
     const event = /(적자|손해율)/u.test(normalized)
       ? '적자 전환'
@@ -261,11 +350,13 @@ function buildTopicSignature(candidate = {}, category = classifyCandidate(candid
       target: candidate.target || '자동차보험',
       event: candidate.event || event,
       entities,
+      eventKey: eventKey || 'auto_insurance_loss',
       text: normalizeTopicAliases([category, candidate.target || '자동차보험', candidate.event || event, entities.join(' ')]
         .filter(Boolean)
         .join(' | ')),
     };
   }
+  const frame = buildNewsFrame(candidate, category);
   const tokens = extractSignatureTokens(`${candidate.title || ''} ${candidate.summary || ''}`);
   const entities = [...new Set([...(candidate.entities || []), ...tokens.filter(token => (
     /[A-Z]{2,}|\d|은행|전자|그룹|정부|위원회|부처|법|제도|정책/u.test(token)
@@ -273,10 +364,11 @@ function buildTopicSignature(candidate = {}, category = classifyCandidate(candid
   const eventTokens = tokens.filter(token => /(인상|인하|상승|하락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원)/u.test(token));
   return {
     category,
-    target: candidate.target || tokens.slice(0, 3).join(' '),
-    event: candidate.event || eventTokens.slice(0, 3).join(' ') || tokens.slice(3, 6).join(' '),
+    target: candidate.target || frame.subject || tokens.slice(0, 3).join(' '),
+    event: candidate.event || frame.eventLabel || eventTokens.slice(0, 3).join(' ') || tokens.slice(3, 6).join(' '),
     entities,
-    text: normalizeTopicAliases([category, candidate.target || tokens.slice(0, 3).join(' '), candidate.event || eventTokens.join(' '), entities.join(' ')]
+    eventKey: eventKey || frame.eventKey || null,
+    text: normalizeTopicAliases([category, candidate.target || frame.subject || tokens.slice(0, 3).join(' '), candidate.event || frame.eventLabel || eventTokens.join(' '), entities.join(' ')]
       .filter(Boolean)
       .join(' | ')),
   };
@@ -295,6 +387,7 @@ function jaccardSimilarity(left, right) {
 }
 
 function hasTargetAndEventOverlap(current = {}, previous = {}) {
+  if (current.eventKey && current.eventKey === previous.eventKey) return true;
   return jaccardSimilarity(current.target, previous.target) > 0
     && jaccardSimilarity(current.event, previous.event) > 0;
 }
@@ -310,10 +403,15 @@ function assessDuplicate(current, previous, {
   grayThreshold = 0.68,
   allowMaterialFollowUp = false,
 } = {}) {
-  const score = Number.isFinite(semanticScore)
+  const currentEventKey = current.eventKey || canonicalEventKey(`${current.target || ''} ${current.event || ''} ${current.text || ''}`);
+  const previousEventKey = previous.eventKey || canonicalEventKey(`${previous.target || ''} ${previous.event || ''} ${previous.text || ''}`);
+  const sameCanonicalEvent = Boolean(currentEventKey && currentEventKey === previousEventKey);
+  const score = sameCanonicalEvent
+    ? 1
+    : Number.isFinite(semanticScore)
     ? semanticScore
     : jaccardSimilarity(current.text || '', previous.text || '');
-  let duplicate = score >= automaticThreshold
+  let duplicate = sameCanonicalEvent || score >= automaticThreshold
     || (score >= grayThreshold && hasTargetAndEventOverlap(current, previous));
   let repeatOverride = false;
   if (duplicate && allowMaterialFollowUp) {
@@ -327,6 +425,8 @@ function assessDuplicate(current, previous, {
     method: Number.isFinite(semanticScore) ? 'embedding' : 'deterministic_fallback',
     reason: repeatOverride
       ? 'material_follow_up'
+      : sameCanonicalEvent
+        ? 'canonical_event_key'
       : score >= automaticThreshold
         ? 'automatic_threshold'
         : score >= grayThreshold

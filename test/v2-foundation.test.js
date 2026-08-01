@@ -50,6 +50,9 @@ test('validates a two-line DIEM title by grapheme count', () => {
   assert.equal(validateTitle('한 줄뿐인 제목').ok, false);
   assert.equal(validateTitle('자동차보험 6년\n6년 적자').ok, false);
   assert.equal(validateTitle('6년\n자동차보험 적자').ok, false);
+  assert.equal(validateTitle('개인투자자\n절망 시대').ok, false);
+  assert.equal(validateTitle('코스피 반등\n기대↑').ok, false);
+  assert.equal(validateTitle('보완수사권\n완전 통과').ok, false);
 });
 
 test('validates exactly three short caption sentences and emoji positions', () => {
@@ -105,6 +108,14 @@ test('builds claim-state frames that prevent misleading denial and acronym-date 
   assert.equal(validateTitleAgainstFrame('보건복지부\n0.01% 확정', denialFrame).ok, false);
   assert.equal(validateTitleAgainstFrame('정부 반박\n건보료 개편', denialFrame).ok, true);
 
+  const slowdownFrame = buildNewsFrame({
+    category: CATEGORIES.ECONOMY,
+    title: '미국 2분기 GDP 성장률 1.5%로 둔화',
+    summary: '미국의 성장률은 1분기 2.1%에서 2분기 1.5%로 낮아졌습니다.',
+  }, CATEGORIES.ECONOMY);
+  assert.equal(validateTitleAgainstFrame('미국 GDP\n성장률 증가', slowdownFrame).ok, false);
+  assert.equal(validateTitleAgainstFrame('미국 GDP\n성장률 둔화', slowdownFrame).ok, true);
+
   const pensionArticle = {
     category: CATEGORIES.ECONOMY,
     title: '국민연금 리밸런싱 재개…유가증권시장 684억 순매수',
@@ -142,7 +153,37 @@ test('builds claim-state frames that prevent misleading denial and acronym-date 
   const industryFrame = buildNewsFrame(industryArticle, CATEGORIES.ECONOMY);
   assert.equal(industryFrame.competitiveState, 'china_leads_battery_shipbuilding');
   assert.equal(validateTitleAgainstFrame('한국 반도체 1위 유지\n배터리·조선 중국 추격', industryFrame).ok, false);
-  assert.equal(validateTitleAgainstFrame('반도체 한국 1위\n배터리·조선 중국 선두', industryFrame).ok, true);
+  assert.equal(validateTitleAgainstFrame('반도체1위\n배·조선 中선두', industryFrame).ok, true);
+
+  const portfolioSale = {
+    category: CATEGORIES.ECONOMY,
+    title: "'1500% 수익 신화' 20대男 몰락에…반도체 폭등 '환호' 터졌다",
+    summary: '헤지펀드 SA가 보유한 상장 주식을 시타델에 매각하면서 반대매매 우려가 완화됐습니다. 이전에 SK하이닉스 ADR 상장에 참여한 이력이 있습니다.',
+  };
+  const saleFrame = buildNewsFrame(portfolioSale, CATEGORIES.ECONOMY);
+  assert.equal(saleFrame.eventKind, 'asset_sale');
+  assert.equal(validateTitleAgainstFrame('시타델 인수\n반도체 IPO', saleFrame).ok, false);
+});
+
+test('canonicalizes related criminal-procedure coverage as the same event even when headlines change angle', () => {
+  const first = buildTopicSignature({
+    title: "'보완수사권 폐지' 국회 본회의 통과",
+    summary: '형사소송법 개정안이 국회를 통과했습니다.',
+  }, CATEGORIES.ISSUE);
+  const second = buildTopicSignature({
+    title: "법 통과 '직전'에야 국회 도착한 검토자료",
+    summary: '형소법 개정안의 공소기각 선고 사유 검토 자료가 법안 통과 1시간 전 제출됐습니다.',
+  }, CATEGORIES.ISSUE);
+
+  assert.equal(first.eventKey, 'criminal_procedure_amendment');
+  assert.equal(second.eventKey, 'criminal_procedure_amendment');
+  const legacyFirst = {
+    category: CATEGORIES.ISSUE,
+    target: '보완수사권 폐지 국회',
+    event: '폐지',
+    text: 'issue | 보완수사권 폐지 국회 | 폐지',
+  };
+  assert.equal(assessDuplicate(second, legacyFirst, { semanticScore: 0.22 }).duplicate, true);
 });
 
 test('normalizes auto-insurance loss articles to a concrete subject and event', () => {

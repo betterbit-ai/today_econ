@@ -47,6 +47,8 @@ const GENERIC_VISUAL_TOKENS = new Set([
   'program',
   'announcement',
   'change',
+  'parliament',
+  'law',
 ]);
 
 function isSpecificImageKeyword(value = '') {
@@ -73,7 +75,7 @@ const ARTICLE_VISUAL_ROLES = Object.freeze([
 ]);
 
 function visualRoleAssessment(image = {}, candidate = {}) {
-  const articleText = normalizeNfc(`${candidate.title || ''} ${candidate.summary || ''} ${candidate.fullText || ''}`);
+  const articleText = normalizeNfc(`${candidate.title || ''} ${String(candidate.summary || '').slice(0, 900)}`);
   const metadata = imageMetadata(image);
   const requiredVisualRoles = ARTICLE_VISUAL_ROLES
     .filter(role => role.article.test(articleText))
@@ -88,6 +90,27 @@ function visualRoleAssessment(image = {}, candidate = {}) {
   };
 }
 
+function geographicAssessment(image = {}, candidate = {}) {
+  const titleText = normalizeNfc(candidate.title || '');
+  const articleText = normalizeNfc(`${titleText} ${String(candidate.summary || '').slice(0, 900)}`);
+  const metadata = imageMetadata(image);
+  const explicitlyKorean = /(대한민국|한국|서울|청와대|대통령실|여의도)/u.test(articleText);
+  const explicitlyForeign = /(미국|영국|중국|일본|태국|프랑스|독일|러시아|유럽연합|EU)/iu.test(articleText);
+  const titleIsKorean = /(대한민국|한국|서울|청와대|대통령실|여의도)/u.test(titleText);
+  const titleIsForeign = /(미국|영국|중국|일본|태국|프랑스|독일|러시아|유럽연합|EU)/iu.test(titleText);
+  const koreanInstitution = /(국회|국회의사당|본회의|청와대|대통령실)/u.test(articleText);
+  const requiredGeography = titleIsKorean || (!titleIsForeign && (explicitlyKorean || (koreanInstitution && !explicitlyForeign)))
+    ? 'south_korea'
+    : null;
+  const matchedGeography = requiredGeography === 'south_korea'
+    && /(south\s*korea|korean|korea|seoul|yeouido|대한민국|한국|서울|여의도)/iu.test(metadata);
+  return {
+    requiredGeography,
+    matchedGeography: requiredGeography ? matchedGeography : true,
+    missingGeography: requiredGeography && !matchedGeography ? requiredGeography : null,
+  };
+}
+
 function assessImageSuitability(image = {}, query = '', candidate = {}) {
   const queryTokens = extractSignatureTokens(normalizeNfc(query))
     .map(token => token.toLowerCase());
@@ -99,14 +122,18 @@ function assessImageSuitability(image = {}, query = '', candidate = {}) {
   );
   const matchedConcreteTokens = concreteQueryTokens.filter(token => metadataTokens.has(token));
   const roles = visualRoleAssessment(image, candidate);
+  const geography = geographicAssessment(image, candidate);
   const subjectMatched = concreteQueryTokens.length > 0 && matchedConcreteTokens.length > 0;
   const roleMatched = roles.missingVisualRoles.length === 0;
-  const ok = subjectMatched && roleMatched;
+  const geographyMatched = geography.missingGeography === null;
+  const ok = subjectMatched && roleMatched && geographyMatched;
 
   return {
     ok,
     reason: concreteQueryTokens.length === 0
       ? 'concrete_query_missing'
+      : !geographyMatched
+        ? 'geographic_context_mismatch'
       : !subjectMatched
         ? 'concrete_subject_missing'
         : !roleMatched
@@ -118,12 +145,31 @@ function assessImageSuitability(image = {}, query = '', candidate = {}) {
     matchedConcreteTokens,
     matchRatio: Number((matchedConcreteTokens.length / Math.max(1, concreteQueryTokens.length)).toFixed(4)),
     ...roles,
+    ...geography,
   };
 }
 
 function buildImageQueries(candidate = {}) {
-  const sourceText = `${candidate.target || ''} ${candidate.event || ''} ${candidate.title || ''}`;
+  const sourceText = `${candidate.target || ''} ${candidate.event || ''} ${candidate.title || ''} ${candidate.summary || ''}`;
   const tokens = extractSignatureTokens(sourceText);
+  const frame = candidate.newsFrame || {};
+  const directArticleIsAboutParliament = /국회(?:의사당|본회의|상임위|청문회)|국회.{0,12}(?:발표|법안|표결|회의)|의회\s*(?:내부|본회의)|국회의사당/u.test(sourceText);
+  const frameQueries = [];
+  if (frame.eventKind === 'gdp') {
+    frameQueries.push(/미국|미\s*상무부/u.test(sourceText)
+      ? 'United States GDP economic growth'
+      : 'GDP economic growth chart');
+  } else if ((frame.eventKind === 'legislation' || directArticleIsAboutParliament) && /(대한민국|한국|국회|여의도)/u.test(sourceText)) {
+    frameQueries.push('Korean National Assembly Seoul');
+  } else if (frame.eventKind === 'market_move') {
+    frameQueries.push(/코스닥/u.test(sourceText) ? 'KOSDAQ stock market chart' : 'KOSPI stock market chart');
+  } else if (frame.eventKind === 'asset_sale') {
+    frameQueries.push(/반도체|칩|메모리/u.test(sourceText)
+      ? 'semiconductor stock portfolio trading'
+      : 'investment portfolio asset sale');
+  } else if (frame.eventKind === 'earnings' && /반도체|삼성전자/u.test(sourceText)) {
+    frameQueries.push('semiconductor microchip factory');
+  }
 
   const visualKeywords = KOR_TO_ENG_VISUALS
     .filter(({ match }) => match.test(sourceText))
@@ -131,11 +177,16 @@ function buildImageQueries(candidate = {}) {
 
   const concreteVisuals = visualKeywords.filter(keyword => !/government parliament policy law/i.test(keyword));
   const governmentVisuals = visualKeywords.filter(keyword => /government parliament policy law/i.test(keyword));
-  const explicitKeyword = isSpecificImageKeyword(candidate.imageKeyword) ? candidate.imageKeyword : '';
-  const directArticleIsAboutParliament = /국회(?:의사당|본회의|상임위|청문회)|국회.{0,12}(?:발표|법안|표결|회의)|의회\s*(?:내부|본회의)|국회의사당/u.test(sourceText);
+  const requestedKeyword = isSpecificImageKeyword(candidate.imageKeyword) ? candidate.imageKeyword : '';
+  const frameTokenSet = new Set(frameQueries.flatMap(query => extractSignatureTokens(query).map(token => token.toLowerCase())));
+  const explicitKeyword = requestedKeyword && (
+    frameQueries.length === 0
+    || extractSignatureTokens(requestedKeyword).some(token => frameTokenSet.has(token.toLowerCase()))
+  ) ? requestedKeyword : '';
   const fallbackVisuals = directArticleIsAboutParliament ? governmentVisuals : [];
 
   return [...new Set([
+    ...frameQueries,
     ...concreteVisuals,
     explicitKeyword,
     ...fallbackVisuals,
@@ -316,6 +367,9 @@ async function selectLicensedImage(candidate, {
             requiredVisualRoles: image.suitability.requiredVisualRoles,
             matchedVisualRoles: image.suitability.matchedVisualRoles,
             missingVisualRoles: image.suitability.missingVisualRoles,
+            requiredGeography: image.suitability.requiredGeography,
+            matchedGeography: image.suitability.matchedGeography,
+            missingGeography: image.suitability.missingGeography,
           }));
         const suitabilityRejected = suitabilityRejections.length;
         attempts.push({

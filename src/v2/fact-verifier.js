@@ -11,6 +11,19 @@ function sourceDomain(value = '') {
   }
 }
 
+function sourceIdentity(article = {}) {
+  if (article.publisher) return `publisher:${normalizeNfc(article.publisher).trim().toLowerCase()}`;
+  const value = article.url || article.link || '';
+  try {
+    const url = new URL(value);
+    const naverOffice = url.pathname.match(/\/article\/(\d{3})\//u)?.[1];
+    if (naverOffice) return `naver-office:${naverOffice}`;
+  } catch {
+    // Fall through to the domain identity below.
+  }
+  return sourceDomain(value);
+}
+
 function normalizeEvidence(value = '') {
   return normalizeNfc(value).replace(/[\s,]/g, '').toLowerCase();
 }
@@ -31,9 +44,69 @@ function extractCoreClaims(article = {}) {
 }
 
 function isIndependentSource(primary = {}, secondary = {}) {
-  const first = sourceDomain(primary.url || primary.link);
-  const second = sourceDomain(secondary.url || secondary.link);
+  const first = sourceIdentity(primary);
+  const second = sourceIdentity(secondary);
   return Boolean(first && second && first !== second);
+}
+
+function extraordinaryClaims(article = {}) {
+  const text = normalizeNfc(`${article.title || ''} ${String(article.fullText || article.summary || '').slice(0, 1800)}`);
+  const claims = [];
+  for (const match of text.matchAll(/(\d+(?:\.\d+)?)\s*배/gu)) {
+    if (Number(match[1]) >= 10) claims.push({ kind: 'multiplier', value: `${match[1]}배` });
+  }
+  if (/(코스피|코스닥|증시|주가|종목|상한가|하한가)/u.test(text)) {
+    for (const match of text.matchAll(/(\d+(?:\.\d+)?)\s*%/gu)) {
+      if (Number(match[1]) >= 15) claims.push({ kind: 'market_percentage', value: `${match[1]}%` });
+    }
+  }
+  for (const match of text.matchAll(/(세계\s*1위|사상\s*(?:첫|최대|최고)|역대\s*(?:최대|최고)|최대\s*일일\s*(?:상승|하락))/gu)) {
+    claims.push({ kind: 'superlative', value: match[1].replace(/\s+/gu, '') });
+  }
+  const seen = new Set();
+  return claims.filter(claim => {
+    const key = `${claim.kind}:${claim.value}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function verifyExtraordinaryClaims(primary = {}, secondary = {}) {
+  const errors = [];
+  const claims = extraordinaryClaims(primary);
+  if (claims.length === 0) return { ok: true, errors, claims, corroboratedBy: null };
+  if (!isIndependentSource(primary, secondary)) errors.push('extraordinary evidence must use an independent publisher');
+  if (canonicalUrl(primary.url || primary.link) === canonicalUrl(secondary.url || secondary.link)) {
+    errors.push('extraordinary evidence cannot reuse the primary URL');
+  }
+  if (isLikelySyndicatedCopy(primary, secondary)) errors.push('extraordinary evidence appears to be syndicated copy');
+  const evidence = normalizeEvidence(`${secondary.title || ''} ${secondary.fullText || secondary.summary || ''}`);
+  const missing = claims.filter(claim => !evidence.includes(normalizeEvidence(claim.value)));
+  if (missing.length > 0) errors.push(`unconfirmed extraordinary claims: ${missing.map(claim => claim.value).join(', ')}`);
+  const titleOverlap = jaccardSimilarity(primary.title || '', secondary.title || '');
+  const primaryTokens = extractSignatureTokens(primary.title || '');
+  const sharedCore = primaryTokens.filter(token => evidence.includes(normalizeEvidence(token)));
+  if (titleOverlap < 0.25 && sharedCore.length < 2) errors.push('extraordinary evidence does not describe the same event');
+  return {
+    ok: errors.length === 0,
+    errors,
+    claims,
+    corroboratedBy: errors.length === 0 ? {
+      title: secondary.title,
+      url: secondary.url || secondary.link,
+      domain: sourceDomain(secondary.url || secondary.link),
+      sourceIdentity: sourceIdentity(secondary),
+      checkedAt: new Date().toISOString(),
+    } : null,
+  };
+}
+
+function findExtraordinaryEvidence(primary, candidates = []) {
+  return candidates
+    .filter(candidate => isIndependentSource(primary, candidate))
+    .map(candidate => ({ candidate, result: verifyExtraordinaryClaims(primary, candidate) }))
+    .find(entry => entry.result.ok) || null;
 }
 
 function isLikelySyndicatedCopy(primary = {}, secondary = {}) {
@@ -85,10 +158,14 @@ function findIndependentEvidence(primary, candidates = []) {
 module.exports = {
   extractCoreClaims,
   extractDateTokens,
+  extraordinaryClaims,
+  findExtraordinaryEvidence,
   findIndependentEvidence,
   isIndependentSource,
   isLikelySyndicatedCopy,
   normalizeEvidence,
   sourceDomain,
+  sourceIdentity,
+  verifyExtraordinaryClaims,
   verifyCoreClaims,
 };
