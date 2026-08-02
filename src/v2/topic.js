@@ -3,9 +3,10 @@ const { normalizeNfc } = require('./text');
 
 const ECONOMY_CORE_TOPIC = /(금리|물가|환율|세금|부동산|주택|대출|예금|적금|금융|보험|자동차보험|손해보험|손해율|증시|고용|소득|임금|반도체|D램|HBM|자동차|유통|수출|수입|관세|연금|IPO|기업공개|상장|공모주|공모가|주가|코스피|코스닥)/iu;
 const AI_ECONOMY_CONTEXT = /((인공지능|\bAI\b).{0,45}(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가)|(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가).{0,45}(인공지능|\bAI\b))/iu;
+const PUBLIC_TRANSPORT_ECONOMY_CONTEXT = /((KTX|SRT|고속철도|철도|대중교통).{0,45}(요금|운임|할인|인하|인상|교통비)|(요금|운임|할인|인하|인상|교통비).{0,45}(KTX|SRT|고속철도|철도|대중교통))/iu;
 const PRIVACY_RIGHTS_POLICY = /(개인정보|정보인권|프라이버시|기본권|동의\s*없이|원본\s*데이터|생체정보|얼굴|목소리|노동계|시민사회|특별법|법안|규제\s*특례)/u;
 const ECONOMY_INCLUDE = ECONOMY_CORE_TOPIC;
-const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|특별법|판결|기후|의료|보건|정부|국회|개인정보|정보인권|프라이버시|기본권|생체정보)/u;
+const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|특별법|판결|기후|의료|보건|정부|국회|개인정보|정보인권|프라이버시|기본권|생체정보|KTX|SRT|고속철도|철도|대중교통|폭염|한파|태풍|산불|홍수|집중호우|재난|재해|중앙재난안전대책본부)/iu;
 const ECONOMY_EXCLUDE = /(종목\s*추천|매수\s*추천|급등주|인사|선임|취임|업무협약|\bMOU\b|신제품\s*홍보|이벤트)/iu;
 const ISSUE_EXCLUDE = /(정쟁|공방|막말|연예|스포츠|가십|화보|단독\s*사진)/u;
 const SENSITIVE = /(사망|참사|재난|희생|피해자|전쟁|테러|폭발|화재|산불|침수|붕괴|실종|학대)/u;
@@ -15,16 +16,21 @@ const TENTATIVE = /(검토|논의|추진|계획|예정|가능성|전망|유력|�
 const DECIDED = /(확정|결정|의결|통과|시행|발표|인상|인하|선고|판결|도입|개편|확대|축소|폐지)/u;
 const IPO_EVENT = /(\bIPO\b|기업공개|상장|첫\s*거래|증시\s*데뷔|공모가|공모주)/iu;
 const PRIMARY_IPO_EVENT = /(\bIPO\b|기업공개|공모가|공모주|증시\s*데뷔|첫\s*거래|신규\s*상장|상장\s*(?:예정|추진|확정|승인|신청|첫날|앞둠|나선다|한다|했다))/iu;
-const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험|보험료|자동차보험|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금)/iu;
+const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험|보험료|자동차보험|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금|KTX|SRT|고속철도|철도|대중교통|교통비|운임|폭염|한파|태풍|산불|홍수|집중호우|재난|재해)/iu;
 const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|재배|수확|축산|어촌|마을|지역축제|천연\s*패딩|곤충|반려동물|맛집|여행지)/u;
 const NARROW_WITH_PUBLIC_POLICY = /(정부.{0,20}(지원|보조금|규제|법안|발표|시행)|국회|전국.{0,20}(지원|보조금|시행)|보험|세금|대출|주거|교육|복지|의료|노동|고용)/u;
 const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|목격담|인증샷|사진\s*한\s*장)/u;
 const SENSATIONAL_ANECDOTE = /(귀신|분장|경악|황당|기이한|엽기|반전|정체|진풍경|SNS|온라인\s*화제|누리꾼|사진이?\s*퍼|응급\s*이송|긴급\s*이송|복통을?\s*호소|구조대가?\s*(?:출동|이송))/iu;
 const SINGLE_PERSON_INCIDENT = /(\d{1,2}세|여학생|남학생|고등학생|중학생|초등학생|미성년|한\s*(?:남성|여성|학생|환자)|개인\s*(?:사연|사건))/u;
-const PUBLIC_INTEREST_ANCHOR = /(법안|법률|정책|제도|규제|판결|정부.{0,24}(?:발표|결정|시행|확대|축소|지원)|국회|전국|국민|다수|집단|공중보건|감염병|유행|안전\s*(?:기준|대책|규정)|권리|차별|복지\s*(?:정책|제도)|교육\s*(?:정책|제도|과정)|한국\s*(?:사회|정부|국민))/u;
+const PUBLIC_INTEREST_ANCHOR = /(법안|법률|정책|제도|규제|판결|정부.{0,24}(?:발표|결정|시행|확대|축소|지원)|국회|전국|국민|다수|집단|공중보건|감염병|유행|안전\s*(?:기준|대책|규정)|권리|차별|복지\s*(?:정책|제도)|교육\s*(?:정책|제도|과정)|한국\s*(?:사회|정부|국민)|중앙재난안전대책본부|재난\s*(?:대응|대책|경보)|대중교통|철도)/u;
 const OFFICIAL_ACTOR = /(정부|부처|복지부|보건복지부|기획재정부|금융위원회|금융감독원|국토교통부|고용노동부|교육부|대통령실|국회|공단|공사|위원회|당국|관계자)/u;
 const OFFICIAL_RESPONSE = /(설명자료|해명자료|보도\s*설명|보도\s*해명|반박|부인|해명|오보|허위|사실\s*무근|보도와\s*관련|기사에서\s*언급된\s*내용)/u;
 const TOPIC_ALIASES = Object.freeze([
+  [/마통/gu, '마이너스통장 대출'],
+  [/주담대/gu, '주택담보대출 대출'],
+  [/\bKTX\b(?!\s*고속철도)/giu, 'KTX 고속철도'],
+  [/\bSRT\b(?!\s*고속철도)/giu, 'SRT 고속철도'],
+  [/중대본/gu, '중앙재난안전대책본부 재난 대응'],
   [/한전/gu, '한국전력'],
   [/주택용/gu, '가정용'],
   [/전기료/gu, '전기요금'],
@@ -48,11 +54,11 @@ function normalizeTopicAliases(value = '') {
 }
 
 function candidateText(candidate = {}) {
-  return normalizeNfc(`${candidate.title || ''} ${candidate.summary || ''} ${(candidate.entities || []).join(' ')}`);
+  return normalizeTopicAliases(`${candidate.title || ''} ${candidate.summary || ''} ${(candidate.entities || []).join(' ')}`);
 }
 
 function primaryCandidateText(candidate = {}) {
-  return normalizeNfc(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 900)}`);
+  return normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 900)}`);
 }
 
 function canonicalEventKey(text = '') {
@@ -217,7 +223,9 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   const text = candidateText(candidate);
   const signals = [];
   const penalties = [];
-  const hasEconomyCore = ECONOMY_CORE_TOPIC.test(text) || AI_ECONOMY_CONTEXT.test(text);
+  const hasEconomyCore = ECONOMY_CORE_TOPIC.test(text)
+    || AI_ECONOMY_CONTEXT.test(text)
+    || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);
   let score = 0;
 
   if (BROAD_LIFE_IMPACT.test(text)) {
@@ -236,7 +244,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     score += 20;
     signals.push('economy_core_topic');
   }
-  if (category === CATEGORIES.ISSUE && /(정책|노동|고용|주거|교육|인구|복지|의료|보건|규제|법안|판결|국제)/u.test(text)) {
+  if (category === CATEGORIES.ISSUE && /(정책|노동|고용|주거|교육|인구|복지|의료|보건|규제|법안|판결|국제|철도|대중교통|폭염|한파|태풍|산불|홍수|집중호우|재난|재해)/u.test(text)) {
     score += 20;
     signals.push('issue_core_topic');
   }
@@ -295,7 +303,10 @@ function classifyCandidate(candidate = {}) {
   const excluded = [];
   if (ECONOMY_EXCLUDE.test(text)) excluded.push('economy_low_value');
   if (ISSUE_EXCLUDE.test(text)) excluded.push('issue_low_value');
-  const economy = (ECONOMY_INCLUDE.test(text) || AI_ECONOMY_CONTEXT.test(text)) && !ECONOMY_EXCLUDE.test(text);
+  const economy = (ECONOMY_INCLUDE.test(text)
+    || AI_ECONOMY_CONTEXT.test(text)
+    || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text))
+    && !ECONOMY_EXCLUDE.test(text);
   const issue = ISSUE_INCLUDE.test(text) && !ISSUE_EXCLUDE.test(text);
   if (!economy && !issue) return { category: null, excluded: excluded.length ? excluded : ['category_not_allowed'] };
   if (economy && !issue) return { category: CATEGORIES.ECONOMY, excluded: [] };
@@ -305,7 +316,9 @@ function classifyCandidate(candidate = {}) {
     return { category: CATEGORIES.ISSUE, excluded: [], ambiguous: true };
   }
 
-  const directEconomy = ECONOMY_CORE_TOPIC.test(text) || AI_ECONOMY_CONTEXT.test(text);
+  const directEconomy = ECONOMY_CORE_TOPIC.test(text)
+    || AI_ECONOMY_CONTEXT.test(text)
+    || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);
   return { category: directEconomy ? CATEGORIES.ECONOMY : CATEGORIES.ISSUE, excluded: [], ambiguous: true };
 }
 

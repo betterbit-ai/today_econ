@@ -210,6 +210,99 @@ test('reclassifies hydrated article text before accepting an economy candidate',
   assert.ok(result.candidates[0].rejectionReasons.some(reason => /economy:(assigned_to_issue|low_editorial_value)/u.test(reason)));
 });
 
+test('hydrates an ambiguous top-ranked title before deciding its final category', async () => {
+  const candidate = {
+    title: '9월 통합 운행 시작…좌석 더 늘어난다',
+    url: 'https://n.news.naver.com/article/001/rail-integration',
+    popularityScore: 86,
+    sources: [{
+      portal: 'naver',
+      rank: 4,
+      normalizedScore: 86,
+      title: '9월 통합 운행 시작…좌석 더 늘어난다',
+      url: 'https://n.news.naver.com/article/001/rail-integration',
+    }],
+  };
+  const result = await planDailyQueue({
+    date: '2026-08-02',
+    categories: ['economy'],
+    fetchPortalRankingsImpl: async () => ({ candidates: [candidate], allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async () => ({
+      fullText: '국토교통부는 9월부터 전국 KTX와 SRT 철도 운행을 통합하고 요금을 10% 인하한다고 발표했습니다. 열차 운행 횟수와 좌석이 늘어나 전국 이용자의 교통비 부담이 줄어듭니다. 정부는 시행 일정과 환불 기준을 확정했습니다.',
+      publishedAt: '2026-08-02T10:00:00+09:00',
+    }),
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.economy.ok, true, JSON.stringify(result.publications.economy));
+  assert.equal(result.publications.economy.selected.url, candidate.url);
+  assert.equal(result.publications.economy.selected.classificationTrace.initial.status, 'uncertain');
+  assert.equal(result.publications.economy.selected.classificationTrace.hydration.attempted, true);
+  assert.equal(result.publications.economy.selected.classificationTrace.final.category, 'economy');
+  assert.equal(result.candidates[0].classificationTrace.final.category, 'economy');
+});
+
+test('bounds uncertain-category article hydration to the top 25 candidates', async () => {
+  const candidates = Array.from({ length: 26 }, (_, index) => ({
+    title: `분류 전 후보 ${index + 1}`,
+    url: `https://n.news.naver.com/article/001/uncertain-${index + 1}`,
+    popularityScore: 100 - index,
+    sources: [{
+      portal: 'naver',
+      rank: index + 1,
+      normalizedScore: 100 - index,
+      title: `분류 전 후보 ${index + 1}`,
+      url: `https://n.news.naver.com/article/001/uncertain-${index + 1}`,
+    }],
+  }));
+  let fetchCount = 0;
+  const result = await planDailyQueue({
+    date: '2026-08-02',
+    categories: ['economy'],
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => {
+      fetchCount += 1;
+      if (url.endsWith('uncertain-26')) {
+        return '한국은행이 기준금리를 동결하고 전국 가계대출과 금융시장 영향을 설명했습니다. 물가와 소득 흐름도 함께 점검했습니다. 다음 회의에서 새 경제 지표를 검토합니다.';
+      }
+      return '행사 일정과 참석자 발언을 전한 일반 기사입니다. 경제나 정책, 사회 변화와 관련된 구체적인 내용은 포함하지 않았습니다. 추가 발표 없이 현장 분위기를 소개했습니다.';
+    },
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.economy.status, 'no_publish');
+  assert.equal(fetchCount, 25);
+  assert.ok(result.candidates[25].rejectionReasons.includes(
+    'economy:uncertain_category_hydration_budget_exhausted'
+  ));
+  assert.equal(result.candidates[25].classificationTrace.hydration.reason, 'candidate_outside_top_25');
+});
+
+test('does not hydrate an explicitly excluded entertainment candidate', async () => {
+  const candidate = {
+    title: '연예 스타 화보 공개…온라인 화제',
+    url: 'https://n.news.naver.com/article/001/entertainment',
+    popularityScore: 100,
+    sources: [{ portal: 'naver', rank: 1, normalizedScore: 100, title: '연예 스타 화보 공개…온라인 화제', url: 'https://n.news.naver.com/article/001/entertainment' }],
+  };
+  let fetchCount = 0;
+  const result = await planDailyQueue({
+    date: '2026-08-02',
+    categories: ['issue'],
+    fetchPortalRankingsImpl: async () => ({ candidates: [candidate], allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async () => {
+      fetchCount += 1;
+      return '본문은 조회되면 안 됩니다.'.repeat(10);
+    },
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.issue.status, 'no_publish');
+  assert.equal(fetchCount, 0);
+  assert.equal(result.candidates[0].classificationTrace.initial.status, 'excluded');
+  assert.equal(result.candidates[0].classificationTrace.hydration.reason, 'explicitly_excluded');
+});
+
 test('hot mode skips stale popular news and selects the next fresh candidate for one category', async () => {
   const candidates = [
     {

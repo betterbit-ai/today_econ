@@ -13,6 +13,35 @@ const {
   isMaterialFollowUp,
 } = require('./topic');
 
+const UNCERTAIN_HYDRATION_LIMIT = 25;
+
+function classificationStatus(classification = {}) {
+  if (classification.category) return 'classified';
+  if ((classification.excluded || []).length === 1
+    && classification.excluded[0] === 'category_not_allowed') return 'uncertain';
+  return 'excluded';
+}
+
+function classificationSnapshot(classification = {}) {
+  return {
+    status: classificationStatus(classification),
+    category: classification.category || null,
+    excluded: classification.excluded || [],
+    ambiguous: Boolean(classification.ambiguous),
+  };
+}
+
+function createClassificationTrace(classification = {}) {
+  return {
+    initial: classificationSnapshot(classification),
+    hydration: {
+      attempted: false,
+      reason: 'pending_evaluation',
+    },
+    final: null,
+  };
+}
+
 function rssCandidates(items = [], date) {
   return items.slice(0, 50).map((item, index, all) => ({
     title: item.title,
@@ -96,12 +125,45 @@ async function evaluateCandidate(candidate, {
   dailyFloorMode = false,
   now = new Date(),
   referenceDate,
+  candidateIndex = 0,
+  uncertainHydrationLimit = UNCERTAIN_HYDRATION_LIMIT,
 } = {}) {
   const topicHistory = (history || []).filter(entry => entry.signature?.text);
   const classified = classifyCandidate(candidate);
+  const classificationTrace = createClassificationTrace(classified);
   if (classified.category !== category) {
-    return { ok: false, reason: classified.category ? `assigned_to_${classified.category}` : classified.excluded.join(',') };
+    if (classificationTrace.initial.status === 'classified') {
+      classificationTrace.hydration.reason = `assigned_to_${classified.category}`;
+      return {
+        ok: false,
+        reason: `assigned_to_${classified.category}`,
+        classificationTrace,
+      };
+    }
+    if (classificationTrace.initial.status === 'excluded') {
+      classificationTrace.hydration.reason = 'explicitly_excluded';
+      return {
+        ok: false,
+        reason: classified.excluded.join(','),
+        classificationTrace,
+      };
+    }
+    if (candidateIndex >= uncertainHydrationLimit) {
+      classificationTrace.hydration.reason = `candidate_outside_top_${uncertainHydrationLimit}`;
+      return {
+        ok: false,
+        reason: 'uncertain_category_hydration_budget_exhausted',
+        classificationTrace,
+      };
+    }
   }
+
+  classificationTrace.hydration = {
+    attempted: true,
+    reason: classificationTrace.initial.status === 'uncertain'
+      ? 'uncertain_initial_classification'
+      : 'verify_primary_article',
+  };
 
   const primarySource = (candidate.sources || [])[0] || candidate;
   const primary = await hydrateArticle({
@@ -112,7 +174,9 @@ async function evaluateCandidate(candidate, {
     publishedAt: primarySource.publishedAt || candidate.publishedAt || null,
     observedAt: primarySource.observedAt || candidate.observedAt || now.toISOString(),
   }, { fetchArticleBodyImpl });
-  if (!primary.fullText || primary.fullText.length < 80) return { ok: false, reason: 'primary_article_inaccessible' };
+  if (!primary.fullText || primary.fullText.length < 80) {
+    return { ok: false, reason: 'primary_article_inaccessible', classificationTrace };
+  }
 
   const enrichedCandidate = {
     ...candidate,
@@ -123,12 +187,17 @@ async function evaluateCandidate(candidate, {
     category,
   };
   const enrichedClassification = classifyCandidate(enrichedCandidate);
+  classificationTrace.final = classificationSnapshot(enrichedClassification);
   if (enrichedClassification.category !== category) {
     return {
       ok: false,
       reason: enrichedClassification.category
         ? `assigned_to_${enrichedClassification.category}_after_hydration`
-        : enrichedClassification.excluded.join(','),
+        : enrichedClassification.excluded.length === 1
+          && enrichedClassification.excluded[0] === 'category_not_allowed'
+          ? 'category_not_allowed_after_hydration'
+          : enrichedClassification.excluded.join(','),
+      classificationTrace,
     };
   }
 
@@ -140,6 +209,7 @@ async function evaluateCandidate(candidate, {
       reason: `low_editorial_value:${editorialValue.reason}`,
       editorialValue,
       newsFrame,
+      classificationTrace,
     };
   }
 
@@ -153,6 +223,7 @@ async function evaluateCandidate(candidate, {
       editorialValue,
       newsFrame,
       hotness,
+      classificationTrace,
     };
   }
 
@@ -166,7 +237,9 @@ async function evaluateCandidate(candidate, {
     candidate: { materialFollowUp: isMaterialFollowUp(enrichedCandidate) },
     referenceDate,
   });
-  if (duplicateCheck.duplicate) return { ok: false, reason: 'recent_duplicate', duplicateCheck };
+  if (duplicateCheck.duplicate) {
+    return { ok: false, reason: 'recent_duplicate', duplicateCheck, classificationTrace };
+  }
 
   let evidence = null;
   const extraordinary = extraordinaryClaims(primary);
@@ -187,6 +260,7 @@ async function evaluateCandidate(candidate, {
         reason: 'extraordinary_claim_unverified',
         duplicateCheck,
         extraordinaryClaims: extraordinary,
+        classificationTrace,
       };
     }
   }
@@ -205,9 +279,11 @@ async function evaluateCandidate(candidate, {
       newsFrame,
       editorialValue,
       hotness,
+      classificationTrace,
     },
     duplicateCheck: { ...duplicateCheck, signature },
     corroboration: evidence ? evidence.result.corroboratedBy : null,
+    classificationTrace,
   };
 }
 
@@ -242,7 +318,15 @@ async function planDailyQueue({
     date,
     selectionMode: dailyFloorMode ? 'daily_floor' : (hotMode ? 'hot' : 'quality'),
     popularityFallback,
-    candidates: candidates.map(candidate => ({ ...serializeCandidate(candidate), category: classifyCandidate(candidate).category, rejectionReasons: [] })),
+    candidates: candidates.map(candidate => {
+      const classification = classifyCandidate(candidate);
+      return {
+        ...serializeCandidate(candidate),
+        category: classification.category,
+        classificationTrace: createClassificationTrace(classification),
+        rejectionReasons: [],
+      };
+    }),
     publications: {},
   };
   const topicHistory = history.filter(entry => entry.signature?.text);
@@ -283,7 +367,12 @@ async function planDailyQueue({
           dailyFloorMode,
           now,
           referenceDate: date,
+          candidateIndex,
+          uncertainHydrationLimit: UNCERTAIN_HYDRATION_LIMIT,
         });
+        if (evaluation.classificationTrace) {
+          record.classificationTrace = evaluation.classificationTrace;
+        }
         if (!evaluation.ok) {
           record.rejectionReasons.push(`${category}:${evaluation.reason}`);
           continue;

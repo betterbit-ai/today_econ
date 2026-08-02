@@ -97,6 +97,18 @@ test('classifies allowed economy and issue topics and excludes low-value items',
   assert.equal(isSensitiveTopic({ title: '대형 화재로 인명 피해' }), true);
 });
 
+test('classifies real-world finance, public transport, and disaster shorthand', () => {
+  assert.equal(classifyCandidate({
+    title: '마통 6일간 1.8조 늘었다…주담대 11개월만에 최대폭',
+  }).category, CATEGORIES.ECONOMY);
+  assert.equal(classifyCandidate({
+    title: '9월부터 KTX·SRT 통합…요금 10% 내리고 운행횟수·좌석 늘어나',
+  }).category, CATEGORIES.ECONOMY);
+  assert.equal(classifyCandidate({
+    title: '기상관측 사상 첫 42도 돌파…중대본 2단계 격상',
+  }).category, CATEGORIES.ISSUE);
+});
+
 test('builds claim-state frames that prevent misleading denial and acronym-date titles', () => {
   const denialArticle = {
     category: CATEGORIES.ISSUE,
