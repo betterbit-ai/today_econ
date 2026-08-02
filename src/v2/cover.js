@@ -46,28 +46,111 @@ function resolveImageData({ imagePath, imageDataUri } = {}) {
   return '';
 }
 
-function typographicBackdrop(category) {
-  const economy = category === CATEGORIES.ECONOMY;
-  const art = economy
-    ? `<svg class="typography-art" data-typographic-art="economy" viewBox="0 0 1080 1120" aria-hidden="true">
-        <defs><linearGradient id="economy-glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4D7CFE" stop-opacity=".9"/><stop offset="1" stop-color="#6EE7F9" stop-opacity=".16"/></linearGradient></defs>
-        <g fill="none" stroke="url(#economy-glow)" stroke-width="4">
-          <rect x="250" y="188" width="580" height="580" rx="72" opacity=".32"/>
-          <rect x="350" y="288" width="380" height="380" rx="38" opacity=".62"/>
-          <path d="M350 388H215M350 478H140M350 568H205M730 388H865M730 478H940M730 568H875M450 288V150M540 288V94M630 288V150M450 668V806M540 668V862M630 668V806" opacity=".55"/>
-          <path d="M402 600L492 505L568 554L690 410" stroke-width="14" stroke-linecap="round" opacity=".82"/>
-        </g>
-        <g fill="#4D7CFE"><circle cx="215" cy="388" r="10"/><circle cx="140" cy="478" r="10"/><circle cx="940" cy="478" r="10"/><circle cx="540" cy="94" r="10"/></g>
-      </svg>`
-    : `<svg class="typography-art" data-typographic-art="issue" viewBox="0 0 1080 1120" aria-hidden="true">
-        <defs><linearGradient id="issue-glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4D7CFE" stop-opacity=".82"/><stop offset="1" stop-color="#F7F9FC" stop-opacity=".08"/></linearGradient></defs>
-        <g fill="none" stroke="url(#issue-glow)">
-          <circle cx="750" cy="340" r="270" stroke-width="4" opacity=".5"/><circle cx="750" cy="340" r="190" stroke-width="3" opacity=".34"/><circle cx="750" cy="340" r="105" stroke-width="18" opacity=".6"/>
-          <path d="M84 690H770M84 770H910M84 850H690" stroke-width="20" stroke-linecap="round" opacity=".25"/>
-          <path d="M170 164V560H560" stroke-width="5" opacity=".45"/>
-        </g>
-        <circle cx="750" cy="340" r="34" fill="#4D7CFE" opacity=".9"/>
-      </svg>`;
+const TYPOGRAPHY_THEMES = new Set([
+  'climate',
+  'health',
+  'housing',
+  'legislation',
+  'markets',
+  'occupational-heat',
+  'public-interest',
+  'technology',
+  'work',
+]);
+
+function normalizedTypographyTheme(category, fallbackTheme = '') {
+  if (TYPOGRAPHY_THEMES.has(fallbackTheme)) return fallbackTheme;
+  return category === CATEGORIES.ECONOMY ? 'markets' : 'public-interest';
+}
+
+function typographyMotif(theme) {
+  const motifs = {
+    legislation: {
+      id: 'assembly-document',
+      body: `<path d="M170 410L430 250L690 410Z"/><path d="M205 430H655M225 690H635"/>
+        <path d="M250 450V670M340 450V670M430 450V670M520 450V670M610 450V670"/>
+        <rect x="625" y="170" width="285" height="390" rx="28"/><path d="M680 265H850M680 335H850M680 405H805"/>`,
+    },
+    'occupational-heat': {
+      id: 'sun-rooftop-workers',
+      body: `<circle cx="770" cy="270" r="112"/><path d="M770 82V24M770 516V458M582 270H524M1016 270H958M636 136L594 94M944 444L902 402M904 136L946 94"/>
+        <path d="M92 730L315 555L505 675L695 510L970 730"/><path d="M178 790H910"/>
+        <path d="M350 505C390 465 458 465 498 505M374 505V556M474 505V556"/>`,
+    },
+    markets: {
+      id: 'market-candles',
+      body: `<path d="M120 760L300 615L448 680L615 430L760 520L950 260"/>
+        <path d="M220 290V640M190 380H250V535H190ZM420 265V610M390 340H450V485H390ZM700 195V500M670 260H730V410H670ZM870 120V390M840 180H900V310H840Z"/>`,
+    },
+    technology: {
+      id: 'circuit-chip',
+      body: `<rect x="300" y="210" width="480" height="480" rx="72"/><rect x="405" y="315" width="270" height="270" rx="34"/>
+        <path d="M300 320H155M300 450H90M300 580H170M780 320H925M780 450H990M780 580H910M420 210V70M540 210V28M660 210V70M420 690V830M540 690V872M660 690V830"/>`,
+    },
+    housing: {
+      id: 'city-homes',
+      body: `<path d="M100 770H980M180 770V410L360 275L540 410V770M610 770V240H900V770"/>
+        <path d="M260 510H340V590H260ZM405 510H485V590H405ZM680 330H750V410H680ZM790 330H860V410H790ZM680 475H750V555H680ZM790 475H860V555H790Z"/>`,
+    },
+    health: {
+      id: 'health-pulse',
+      body: `<path d="M105 515H315L385 350L505 690L590 460L650 515H975"/>
+        <path d="M540 805C360 675 225 555 225 365C225 225 390 155 540 310C690 155 855 225 855 365C855 555 720 675 540 805Z"/>`,
+    },
+    climate: {
+      id: 'climate-horizon',
+      body: `<circle cx="790" cy="250" r="140"/><path d="M105 585C230 505 350 505 475 585S720 665 975 585M105 690C230 610 350 610 475 690S720 770 975 690"/>
+        <path d="M215 380C280 310 375 315 425 390C500 310 620 330 645 430"/>`,
+    },
+    work: {
+      id: 'people-work',
+      body: `<circle cx="350" cy="310" r="92"/><circle cx="730" cy="310" r="92"/>
+        <path d="M165 720C180 535 275 450 350 450S520 535 535 720M545 720C560 535 655 450 730 450S900 535 915 720"/>
+        <rect x="400" y="600" width="280" height="205" rx="28"/>`,
+    },
+    'public-interest': {
+      id: 'public-signal',
+      body: `<circle cx="540" cy="410" r="225"/><circle cx="540" cy="410" r="130"/><circle cx="540" cy="410" r="34"/>
+        <path d="M140 760H650M140 830H850M140 900H560"/>`,
+    },
+  };
+  return motifs[theme] || motifs['public-interest'];
+}
+
+function typographyVariantDecoration(variant) {
+  const decorations = [
+    '<circle cx="150" cy="220" r="46"/><circle cx="920" cy="650" r="82"/><path d="M90 895H380"/>',
+    '<path d="M120 120V420M190 80V360M890 610V910M960 545V845"/><circle cx="190" cy="80" r="9"/><circle cx="890" cy="910" r="9"/>',
+    '<path d="M35 560L285 310M760 940L1030 670M70 680L250 500M850 820L1010 660"/>',
+    '<rect x="70" y="110" width="220" height="145" rx="24"/><rect x="790" y="690" width="220" height="145" rx="24"/><path d="M180 255V345M900 600V690"/>',
+  ];
+  return decorations[Math.floor(variant / 2) % decorations.length];
+}
+
+function typographicBackdrop(category, {
+  fallbackTheme,
+  fallbackVariant = 0,
+  visualFingerprint = '',
+} = {}) {
+  const theme = normalizedTypographyTheme(category, fallbackTheme);
+  const variant = Math.max(0, Math.min(63, Number.parseInt(fallbackVariant, 10) || 0));
+  const motif = typographyMotif(theme);
+  const shiftX = ((variant % 8) - 3.5) * 18;
+  const shiftY = ((Math.floor(variant / 8) % 8) - 3.5) * 12;
+  const rotation = ((variant * 7) % 19) - 9;
+  const lineWidth = 4 + (variant % 4);
+  const mirrored = variant % 2 === 1;
+  const scale = 0.9 + ((Math.floor(variant / 8) % 4) * 0.025);
+  const motifTransform = mirrored ? 'translate(1080 0) scale(-1 1)' : '';
+  const decoration = typographyVariantDecoration(variant);
+  const fingerprint = visualFingerprint || `diem-art:${theme}:v${variant}`;
+  const art = `<svg class="typography-art" data-typographic-art="${escapeHtml(theme)}" data-typographic-variant="${variant}" data-visual-fingerprint="${escapeHtml(fingerprint)}" data-art-motif="${motif.id}" viewBox="0 0 1080 1120" aria-hidden="true">
+      <defs><linearGradient id="diem-art-glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4D7CFE" stop-opacity=".9"/><stop offset="1" stop-color="#6EE7F9" stop-opacity=".14"/></linearGradient></defs>
+      <g transform="translate(${shiftX} ${shiftY}) rotate(${rotation} 540 480) scale(${scale})" fill="none" stroke="url(#diem-art-glow)" stroke-width="${lineWidth}" stroke-linecap="round" stroke-linejoin="round" opacity=".7">
+        <g transform="${motifTransform}">${motif.body}</g>
+        <g opacity=".26">${decoration}</g>
+      </g>
+    </svg>`;
   return `<div class="typography-backdrop typography-backdrop-${category}" data-no-photo="true">
     <div class="diem-watermark" data-diem-watermark>DIEM</div>
     ${art}
@@ -79,6 +162,9 @@ function buildCoverHtml({
   date,
   category,
   imageDataUri = '',
+  fallbackTheme,
+  fallbackVariant = 0,
+  visualFingerprint = '',
 } = {}) {
   const titleText = Array.isArray(title) ? title.join('\n') : String(title || '');
   const validation = validateTitle(titleText);
@@ -87,7 +173,7 @@ function buildCoverHtml({
   const hasPhoto = /^data:image\//i.test(imageDataUri);
   const background = hasPhoto
     ? `<img class="background-photo" alt="" src="${escapeHtml(imageDataUri)}">`
-    : typographicBackdrop(category);
+    : typographicBackdrop(category, { fallbackTheme, fallbackVariant, visualFingerprint });
   return `<!doctype html>
 <html lang="ko">
 <head>
@@ -165,6 +251,9 @@ async function renderDiemCover({
   category,
   imagePath,
   imageDataUri,
+  fallbackTheme,
+  fallbackVariant,
+  visualFingerprint,
   outputPath = path.resolve('diem-cover.png'),
   chromiumImpl = chromium,
 } = {}) {
@@ -175,6 +264,9 @@ async function renderDiemCover({
     date,
     category: category || editorial?.category,
     imageDataUri: resolvedImage,
+    fallbackTheme,
+    fallbackVariant,
+    visualFingerprint,
   });
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   const browser = await chromiumImpl.launch({ headless: true });

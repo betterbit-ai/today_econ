@@ -178,6 +178,12 @@ function imageRecordFromPublication(publication = {}, date = '') {
       downloadUrl: publication.image.downloadUrl || null,
       localSha256: publication.image.localSha256 || publication.image.sha256 || null,
       query: publication.image.query || null,
+      fallbackTheme: publication.image.fallbackTheme || null,
+      fallbackVariant: Number.isInteger(publication.image.fallbackVariant)
+        ? publication.image.fallbackVariant
+        : null,
+      artVariantId: publication.image.artVariantId || null,
+      visualFingerprint: publication.image.visualFingerprint || null,
     },
   };
 }

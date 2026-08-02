@@ -6,7 +6,12 @@ const { cleanupExpiredReleases, createTemporaryRelease } = require('../github-as
 const { publishReel, publishStory, searchInstagramAudio } = require('../instagram');
 const { generateEditorial } = require('./editorial');
 const { createGroqCaller } = require('./groq');
-const { downloadSelectedImage, imageReuseKeys, selectLicensedImage } = require('./image-selector');
+const {
+  createTypographyFallback,
+  downloadSelectedImage,
+  imageReuseKeys,
+  selectLicensedImage,
+} = require('./image-selector');
 const {
   applyIndependentStepOutcome,
   createTopLevelComment,
@@ -104,13 +109,14 @@ async function preparePublication(ledger, category, {
   });
 
   const recentImages = recentImagesForSelection(ledger, publication, history);
+  const imageCandidate = {
+    ...article,
+    imageKeyword: editorial.imageKeyword,
+  };
   let imageSelection;
   let downloaded;
   for (let selectionAttempt = 1; selectionAttempt <= 5; selectionAttempt += 1) {
-    imageSelection = await selectImageImpl({
-      ...article,
-      imageKeyword: editorial.imageKeyword,
-    }, {
+    imageSelection = await selectImageImpl(imageCandidate, {
       pexelsApiKey: config.pexelsApiKey,
       unsplashAccessKey: config.unsplashAccessKey,
       recentImages,
@@ -125,27 +131,30 @@ async function preparePublication(ledger, category, {
       imageSelection = null;
       downloaded = null;
     } catch (error) {
-      imageSelection = {
-        ...imageSelection,
-        kind: 'typographic',
-        source: 'diem-original',
-        downloadError: error.message,
-        selectionReason: 'licensed image download failed; typography fallback used',
-      };
+      imageSelection = createTypographyFallback(imageCandidate, {
+        recentImages,
+        reuseWindowDays: config.maxHistoryDays,
+        attempts: [
+          ...(imageSelection.attempts || []),
+          { provider: imageSelection.source, query: imageSelection.query, error: error.message, stage: 'download' },
+        ],
+        reason: 'licensed image download failed',
+      });
+      imageSelection.downloadError = error.message;
       downloaded = imageSelection;
       break;
     }
   }
   if (!imageSelection || !downloaded) {
-    imageSelection = {
-      kind: 'typographic',
-      source: 'diem-original',
-      license: { name: 'Project-owned original', url: null },
-      selectedAt: new Date().toISOString(),
-      score: 0,
-      selectionReason: 'all licensed candidates matched a recent seven-day image hash',
-    };
+    imageSelection = createTypographyFallback(imageCandidate, {
+      recentImages,
+      reuseWindowDays: config.maxHistoryDays,
+      reason: 'all licensed candidates matched a recent seven-day image hash',
+    });
     downloaded = imageSelection;
+  }
+  if (imageSelection.kind === 'typographic' && imageSelection.reuseGuard?.allowed === false) {
+    throw new Error('[DIEM Image] No unused topic-grounded fallback art remains inside the seven-day window.');
   }
 
   const coverPath = path.join(outputDir, `${category}-cover.png`);
@@ -154,6 +163,9 @@ async function preparePublication(ledger, category, {
     date: ledger.date,
     category,
     imagePath: downloaded.localPath,
+    fallbackTheme: imageSelection.fallbackTheme,
+    fallbackVariant: imageSelection.fallbackVariant,
+    visualFingerprint: imageSelection.visualFingerprint,
     outputPath: coverPath,
   });
 

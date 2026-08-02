@@ -26,6 +26,7 @@ const {
 const {
   createDailyLedger,
   historyFromLedgers,
+  imageRecordFromPublication,
   loadLedger,
   publicationKey,
   saveLedger,
@@ -33,6 +34,29 @@ const {
   updateStep,
   validateLedger,
 } = require('../src/v2/ledger');
+
+test('preserves fallback art identity separately from the final rendered cover hash', () => {
+  const record = imageRecordFromPublication({
+    publicationKey: 'diem:2026-08-02:issue:run-2200',
+    category: 'issue',
+    status: 'published',
+    image: {
+      kind: 'typographic',
+      id: 'diem-art:occupational-heat:v11',
+      source: 'diem-original',
+      localSha256: 'final-cover-sha-changes-with-title',
+      fallbackTheme: 'occupational-heat',
+      fallbackVariant: 11,
+      artVariantId: 'diem-art:occupational-heat:v11',
+      visualFingerprint: 'diem-art:occupational-heat:v11',
+    },
+  }, '2026-08-02');
+
+  assert.equal(record.image.localSha256, 'final-cover-sha-changes-with-title');
+  assert.equal(record.image.fallbackTheme, 'occupational-heat');
+  assert.equal(record.image.fallbackVariant, 11);
+  assert.equal(record.image.visualFingerprint, 'diem-art:occupational-heat:v11');
+});
 
 test('uses Asia/Seoul for publication dates around the UTC boundary', () => {
   const instant = new Date('2026-07-25T15:30:00.000Z');

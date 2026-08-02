@@ -191,6 +191,60 @@ test('reselects an image when its downloaded hash matches the recent seven-day h
   assert.equal(result.publications.economy.image.localSha256, 'fresh-binary-sha');
 });
 
+test('passes topic-grounded typography metadata to the cover and persists its stable fingerprint', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-typography-art-'));
+  let ledger = createDailyLedger('2026-08-02');
+  ledger = updatePublication(ledger, 'issue', {
+    status: 'planned',
+    candidate: {
+      title: '옥상 작업 현장 49.7도 폭염',
+      fullText: '김포 옥상 작업 현장의 온도가 49.7도까지 올라 노동자들이 폭염에 노출됐습니다. 안전 대책이 필요합니다.',
+      category: 'issue',
+    },
+    duplicateCheck: { signature: { target: '옥상 작업자', event: '49.7도 폭염', entities: ['김포'] } },
+  });
+  let rendered = null;
+  const result = await preparePublication(ledger, 'issue', {
+    artifactRoot: root,
+    callModel: async () => ({
+      titleCandidates: [{ title: '옥상 작업\n49.7도 폭염' }],
+      selectedTitleIndex: 0,
+      sentences: [
+        '김포 옥상 작업 현장의 온도가 49.7도까지 올랐습니다.',
+        '노동자들은 그늘 없이 두 시간 넘게 폭염에 노출됐습니다.',
+        '현장 휴식과 냉방 설비 보강이 시급합니다.',
+      ],
+      emojis: { first: '☀️', third: '🥵' },
+      topicTags: ['폭염', '노동자', '산업안전'],
+      imageKeyword: 'construction workers rooftop extreme heat',
+    }),
+    selectImageImpl: async () => ({
+      kind: 'typographic',
+      id: 'diem-art:occupational-heat:v11',
+      source: 'diem-original',
+      fallbackTheme: 'occupational-heat',
+      fallbackVariant: 11,
+      visualFingerprint: 'diem-art:occupational-heat:v11',
+      license: { name: 'Project-owned original', url: null },
+    }),
+    renderCoverImpl: async options => {
+      rendered = options;
+      fs.writeFileSync(options.outputPath, 'cover');
+    },
+    selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
+    createReelImpl: async ({ outputPath, music }) => {
+      fs.writeFileSync(outputPath, 'video');
+      return { outputPath, audio: { trackId: music.trackId } };
+    },
+  });
+
+  assert.equal(rendered.fallbackTheme, 'occupational-heat');
+  assert.equal(rendered.fallbackVariant, 11);
+  assert.equal(rendered.visualFingerprint, 'diem-art:occupational-heat:v11');
+  assert.equal(result.publications.issue.image.visualFingerprint, 'diem-art:occupational-heat:v11');
+  assert.equal(result.publications.issue.image.id, 'diem-art:occupational-heat:v11');
+});
+
 test('reconciles an existing exact Reel instead of republishing', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-publisher-'));
   const ledger = readyLedger(root);

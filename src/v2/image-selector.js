@@ -50,6 +50,65 @@ const GENERIC_VISUAL_TOKENS = new Set([
   'parliament',
   'law',
 ]);
+const TYPOGRAPHY_VARIANT_COUNT = 64;
+
+function articleSourceText(candidate = {}) {
+  const frame = candidate.newsFrame || {};
+  const primary = normalizeNfc([
+    candidate.target,
+    candidate.event,
+    candidate.title,
+    candidate.summary,
+    frame.subject,
+    frame.target,
+    frame.event,
+    frame.action,
+    frame.state,
+  ].filter(Boolean).join(' '));
+  if (primary.length >= 24) return primary;
+  return normalizeNfc(`${primary} ${String(candidate.fullText || '').slice(0, 500)}`).trim();
+}
+
+function isOccupationalHeatStory(text = '') {
+  const normalized = normalizeNfc(text);
+  const heat = /(폭염|고온|온열|열사병|체감온도|온도계|\d{2}(?:\.\d+)?\s*도)/u.test(normalized);
+  const work = /(작업|작업자|노동|근로|현장|옥상|건설|배달|물류|농사|그늘|휴식)/u.test(normalized);
+  return heat && work;
+}
+
+function eventVisualQueries(sourceText = '') {
+  const queries = [];
+  if (isOccupationalHeatStory(sourceText)) {
+    queries.push('construction workers rooftop extreme heat', 'outdoor workers heatwave safety');
+    return queries;
+  }
+  if (/(보완수사권|형사소송법|법안|개정안|본회의|국회|청와대|대통령실)/u.test(sourceText)) {
+    if (/(대한민국|한국|국회|청와대|대통령실|여의도)/u.test(sourceText)) {
+      queries.push('Korean National Assembly Seoul');
+    }
+    queries.push('law legislation legal document gavel');
+  }
+  return queries;
+}
+
+function inferFallbackTheme(candidate = {}) {
+  const sourceText = articleSourceText(candidate);
+  if (isOccupationalHeatStory(sourceText)) return 'occupational-heat';
+  if (/(보완수사권|형사소송법|법안|개정안|본회의|국회|청와대|대통령실|정치|선거)/u.test(sourceText)) return 'legislation';
+  if (/(주식|증시|코스피|코스닥|나스닥|주가|투자|금리|환율|GDP|성장률|물가|대출)/iu.test(sourceText)) return 'markets';
+  if (/(반도체|칩|웨이퍼|AI|인공지능|데이터센터|배터리|전기차)/iu.test(sourceText)) return 'technology';
+  if (/(부동산|주택|아파트|전세|월세)/u.test(sourceText)) return 'housing';
+  if (/(의료|병원|건강|환자|보험|복지)/u.test(sourceText)) return 'health';
+  if (/(기후|폭염|한파|홍수|가뭄|산불|탄소)/u.test(sourceText)) return 'climate';
+  if (/(고용|취업|일자리|노동|근로)/u.test(sourceText)) return 'work';
+  return candidate.category === 'economy' ? 'markets' : 'public-interest';
+}
+
+function stableVariantStart(candidate = {}, theme = '') {
+  const seed = `${theme}|${candidate.target || ''}|${candidate.event || ''}|${candidate.title || ''}`;
+  return Number.parseInt(crypto.createHash('sha256').update(normalizeNfc(seed)).digest('hex').slice(0, 8), 16)
+    % TYPOGRAPHY_VARIANT_COUNT;
+}
 
 function isSpecificImageKeyword(value = '') {
   const keyword = normalizeNfc(value).trim();
@@ -90,16 +149,14 @@ function visualRoleAssessment(image = {}, candidate = {}) {
   };
 }
 
-function geographicAssessment(image = {}, candidate = {}) {
+function geographicAssessment(image = {}, candidate = {}, query = '') {
   const titleText = normalizeNfc(candidate.title || '');
   const articleText = normalizeNfc(`${titleText} ${String(candidate.summary || '').slice(0, 900)}`);
   const metadata = imageMetadata(image);
-  const explicitlyKorean = /(대한민국|한국|서울|청와대|대통령실|여의도)/u.test(articleText);
-  const explicitlyForeign = /(미국|영국|중국|일본|태국|프랑스|독일|러시아|유럽연합|EU)/iu.test(articleText);
-  const titleIsKorean = /(대한민국|한국|서울|청와대|대통령실|여의도)/u.test(titleText);
-  const titleIsForeign = /(미국|영국|중국|일본|태국|프랑스|독일|러시아|유럽연합|EU)/iu.test(titleText);
   const koreanInstitution = /(국회|국회의사당|본회의|청와대|대통령실)/u.test(articleText);
-  const requiredGeography = titleIsKorean || (!titleIsForeign && (explicitlyKorean || (koreanInstitution && !explicitlyForeign)))
+  const queryRequestsKoreanPlace = /(korean|south\s*korea|seoul|yeouido).*(assembly|parliament|government|building|chamber)|(assembly|parliament|government|building|chamber).*(korean|south\s*korea|seoul|yeouido)/iu.test(query);
+  const imageClaimsInstitution = /(parliament|assembly|government\s*building|chamber|국회|의사당|청와대)/iu.test(metadata);
+  const requiredGeography = koreanInstitution && (queryRequestsKoreanPlace || imageClaimsInstitution)
     ? 'south_korea'
     : null;
   const matchedGeography = requiredGeography === 'south_korea'
@@ -122,7 +179,7 @@ function assessImageSuitability(image = {}, query = '', candidate = {}) {
   );
   const matchedConcreteTokens = concreteQueryTokens.filter(token => metadataTokens.has(token));
   const roles = visualRoleAssessment(image, candidate);
-  const geography = geographicAssessment(image, candidate);
+  const geography = geographicAssessment(image, candidate, query);
   const subjectMatched = concreteQueryTokens.length > 0 && matchedConcreteTokens.length > 0;
   const roleMatched = roles.missingVisualRoles.length === 0;
   const geographyMatched = geography.missingGeography === null;
@@ -150,16 +207,16 @@ function assessImageSuitability(image = {}, query = '', candidate = {}) {
 }
 
 function buildImageQueries(candidate = {}) {
-  const sourceText = `${candidate.target || ''} ${candidate.event || ''} ${candidate.title || ''} ${candidate.summary || ''}`;
-  const tokens = extractSignatureTokens(sourceText);
+  const sourceText = articleSourceText(candidate);
   const frame = candidate.newsFrame || {};
   const directArticleIsAboutParliament = /국회(?:의사당|본회의|상임위|청문회)|국회.{0,12}(?:발표|법안|표결|회의)|의회\s*(?:내부|본회의)|국회의사당/u.test(sourceText);
+  const eventQueries = eventVisualQueries(sourceText);
   const frameQueries = [];
   if (frame.eventKind === 'gdp') {
     frameQueries.push(/미국|미\s*상무부/u.test(sourceText)
       ? 'United States GDP economic growth'
       : 'GDP economic growth chart');
-  } else if ((frame.eventKind === 'legislation' || directArticleIsAboutParliament) && /(대한민국|한국|국회|여의도)/u.test(sourceText)) {
+  } else if (eventQueries.length === 0 && (frame.eventKind === 'legislation' || directArticleIsAboutParliament) && /(대한민국|한국|국회|여의도|청와대|대통령실)/u.test(sourceText)) {
     frameQueries.push('Korean National Assembly Seoul');
   } else if (frame.eventKind === 'market_move') {
     frameQueries.push(/코스닥/u.test(sourceText) ? 'KOSDAQ stock market chart' : 'KOSPI stock market chart');
@@ -171,9 +228,11 @@ function buildImageQueries(candidate = {}) {
     frameQueries.push('semiconductor microchip factory');
   }
 
+  const occupationalHeat = isOccupationalHeatStory(sourceText);
   const visualKeywords = KOR_TO_ENG_VISUALS
     .filter(({ match }) => match.test(sourceText))
-    .map(({ english }) => english);
+    .map(({ english }) => english)
+    .filter(keyword => !(occupationalHeat && /real estate|apartment building/i.test(keyword)));
 
   const concreteVisuals = visualKeywords.filter(keyword => !/government parliament policy law/i.test(keyword));
   const governmentVisuals = visualKeywords.filter(keyword => /government parliament policy law/i.test(keyword));
@@ -184,14 +243,14 @@ function buildImageQueries(candidate = {}) {
     || extractSignatureTokens(requestedKeyword).some(token => frameTokenSet.has(token.toLowerCase()))
   ) ? requestedKeyword : '';
   const fallbackVisuals = directArticleIsAboutParliament ? governmentVisuals : [];
+  const providerReadyKeyword = explicitKeyword && /[a-z]{3}/iu.test(explicitKeyword) ? explicitKeyword : '';
 
   return [...new Set([
+    ...eventQueries,
     ...frameQueries,
     ...concreteVisuals,
-    explicitKeyword,
+    providerReadyKeyword,
     ...fallbackVisuals,
-    tokens.slice(0, 3).join(' '),
-    tokens.slice(0, 2).join(' '),
   ].map(value => normalizeNfc(value).trim()).filter(value => value.length >= 2))].slice(0, 5);
 }
 
@@ -231,6 +290,8 @@ function imageReuseKeys(image = {}) {
     source.downloadUrl,
     source.localSha256,
     source.sha256,
+    source.visualFingerprint,
+    source.artVariantId,
   ].map(value => normalizeImageIdentifier(String(value || ''))).filter(Boolean))];
 }
 
@@ -240,6 +301,52 @@ function recentImageKeySet(recentImages = []) {
 
 function imageWasRecentlyUsed(image, recentKeys) {
   return imageReuseKeys(image).some(key => recentKeys.has(key));
+}
+
+function createTypographyFallback(candidate = {}, {
+  attempts = [],
+  recentImages = [],
+  reuseWindowDays = 7,
+  reason = 'no concrete-subject-matched licensed unused image met the confidence threshold',
+} = {}) {
+  const fallbackTheme = inferFallbackTheme(candidate);
+  const recentKeys = recentImageKeySet(recentImages);
+  const start = stableVariantStart(candidate, fallbackTheme);
+  let fallbackVariant = start;
+  let blockedCandidateCount = 0;
+  for (let offset = 0; offset < TYPOGRAPHY_VARIANT_COUNT; offset += 1) {
+    const variant = (start + offset) % TYPOGRAPHY_VARIANT_COUNT;
+    const fingerprint = `diem-art:${fallbackTheme}:v${variant}`;
+    if (!recentKeys.has(fingerprint)) {
+      fallbackVariant = variant;
+      break;
+    }
+    blockedCandidateCount += 1;
+  }
+  const visualFingerprint = `diem-art:${fallbackTheme}:v${fallbackVariant}`;
+  return {
+    kind: 'typographic',
+    id: visualFingerprint,
+    source: 'diem-original',
+    license: { name: 'Project-owned original', url: null },
+    selectedAt: new Date().toISOString(),
+    attempts,
+    score: 0,
+    fallbackTheme,
+    fallbackVariant,
+    artVariantId: visualFingerprint,
+    visualFingerprint,
+    reuseGuard: {
+      allowed: blockedCandidateCount < TYPOGRAPHY_VARIANT_COUNT,
+      windowDays: reuseWindowDays,
+      recentImageCount: recentImages.length,
+      recentKeyCount: recentKeys.size,
+      blockedCandidateCount: blockedCandidateCount
+        + attempts.reduce((sum, attempt) => sum + (attempt.recentReuseBlocked || 0), 0),
+      selectedImageKeys: [visualFingerprint],
+    },
+    selectionReason: `${reason}; topic-grounded ${fallbackTheme} art variant ${fallbackVariant} selected`,
+  };
 }
 
 async function fetchJson(url, { fetchImpl = fetch, headers = {} } = {}) {
@@ -411,22 +518,11 @@ async function selectLicensedImage(candidate, {
     }
   }
 
-  return {
-    kind: 'typographic',
-    source: 'diem-original',
-    license: { name: 'Project-owned original', url: null },
-    selectedAt: new Date().toISOString(),
+  return createTypographyFallback(candidate, {
     attempts,
-    score: 0,
-    reuseGuard: {
-      allowed: true,
-      windowDays: reuseWindowDays,
-      recentImageCount: recentImages.length,
-      recentKeyCount: recentKeys.size,
-      blockedCandidateCount: attempts.reduce((sum, attempt) => sum + (attempt.recentReuseBlocked || 0), 0),
-    },
-    selectionReason: 'no concrete-subject-matched licensed unused image met the confidence threshold',
-  };
+    recentImages,
+    reuseWindowDays,
+  });
 }
 
 async function downloadSelectedImage(selection, { fetchImpl = fetch, outputDir = os.tmpdir() } = {}) {
@@ -449,6 +545,7 @@ module.exports = {
   LICENSES,
   assessImageSuitability,
   buildImageQueries,
+  createTypographyFallback,
   downloadSelectedImage,
   imageReuseKeys,
   scoreImageCandidate,

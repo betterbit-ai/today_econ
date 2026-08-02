@@ -31,10 +31,48 @@ test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () =
   assert.match(html, /title-line-1 \{ color: var\(--diem-blue\)/u);
   assert.match(html, /title-line-2 \{ color: var\(--diem-white\)/u);
   assert.match(html, /data-no-photo="true"/u);
-  assert.match(html, /data-typographic-art="economy"/u);
+  assert.match(html, /data-typographic-art="markets"/u);
+  assert.match(html, /data-typographic-variant="0"/u);
   assert.match(html, /typography-backdrop-economy/u);
   assert.match(html, /data-diem-watermark/u);
   assert.doesNotMatch(html, /today\.econ|subtitle|card2|mascot/u);
+});
+
+test('renders distinct article-grounded fallback art instead of one category-wide static background', () => {
+  const legislation = buildCoverHtml({
+    title: '보완수사권\n국회 통과',
+    date: '2026-07-31',
+    category: CATEGORIES.ISSUE,
+    fallbackTheme: 'legislation',
+    fallbackVariant: 7,
+    visualFingerprint: 'diem-art:legislation:v7',
+  });
+  const heat = buildCoverHtml({
+    title: '옥상 작업\n49.7도 폭염',
+    date: '2026-08-02',
+    category: CATEGORIES.ISSUE,
+    fallbackTheme: 'occupational-heat',
+    fallbackVariant: 11,
+    visualFingerprint: 'diem-art:occupational-heat:v11',
+  });
+
+  assert.match(legislation, /data-typographic-art="legislation"/u);
+  assert.match(legislation, /data-visual-fingerprint="diem-art:legislation:v7"/u);
+  assert.match(legislation, /data-art-motif="assembly-document"/u);
+  assert.match(heat, /data-typographic-art="occupational-heat"/u);
+  assert.match(heat, /data-art-motif="sun-rooftop-workers"/u);
+  assert.notEqual(legislation, heat);
+
+  const adjacentHeatVariant = buildCoverHtml({
+    title: '옥상 작업\n49.7도 폭염',
+    date: '2026-08-03',
+    category: CATEGORIES.ISSUE,
+    fallbackTheme: 'occupational-heat',
+    fallbackVariant: 10,
+    visualFingerprint: 'diem-art:occupational-heat:v10',
+  });
+  assert.match(heat, /scale\(-1 1\)/u);
+  assert.doesNotMatch(adjacentHeatVariant, /scale\(-1 1\)/u);
 });
 
 test('uses the exact category labels and rejects invalid date or category values', () => {

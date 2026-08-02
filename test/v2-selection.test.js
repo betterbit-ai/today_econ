@@ -11,6 +11,7 @@ const {
 const {
   assessImageSuitability,
   buildImageQueries,
+  createTypographyFallback,
   imageReuseKeys,
   scoreImageCandidate,
   selectLicensedImage,
@@ -219,11 +220,124 @@ test('normalizes reusable image identifiers across ids, urls, and hashes', () =>
     originalUrl: 'https://www.pexels.com/photo/x/?utm_source=diem',
     downloadUrl: 'https://images.pexels.com/photos/15476105/photo.jpeg?auto=compress',
     localSha256: 'abc123',
+    visualFingerprint: 'diem-art:markets:v12',
   });
   assert.ok(keys.includes('pexels:15476105'));
   assert.ok(keys.includes('https://www.pexels.com/photo/x/'));
   assert.ok(keys.includes('https://images.pexels.com/photos/15476105/photo.jpeg'));
   assert.ok(keys.includes('abc123'));
+  assert.ok(keys.includes('diem-art:markets:v12'));
+});
+
+test('prioritizes occupational heat and rooftop work over incidental apartment imagery', () => {
+  const queries = buildImageQueries({
+    title: '49.7도 치솟았는데 지금이 성수기',
+    summary: '한국 김포 아파트 옥상 작업자들이 그늘 없이 두 시간 넘게 일했습니다.',
+    fullText: '옥상 방수 작업 현장의 온도계가 49.7도를 기록했고 노동자들은 폭염에 노출됐습니다.',
+    category: 'issue',
+  });
+
+  assert.match(queries[0], /construction|outdoor workers|rooftop/i);
+  assert.match(queries[0], /heat/i);
+  assert.doesNotMatch(queries[0], /real estate|apartment building/i);
+  assert.ok(queries.every(query => !/^\s*\d/u.test(query)));
+});
+
+test('does not require country metadata for a conceptual domestic workplace photo', () => {
+  const candidate = {
+    title: '김포 옥상 작업 49.7도 폭염',
+    summary: '한국의 건설 노동자들이 옥상에서 그늘 없이 작업했습니다.',
+    category: 'issue',
+  };
+  const result = assessImageSuitability({
+    description: 'construction workers on a rooftop during extreme heat',
+  }, 'construction workers rooftop extreme heat', candidate);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.requiredGeography, null);
+});
+
+test('selects a licensed occupational heat photo before unrelated apartment imagery', async () => {
+  const photos = [
+    {
+      id: 401,
+      url: 'https://www.pexels.com/photo/apartment-building-401/',
+      src: { portrait: 'https://images.pexels.com/photos/401/apartment.jpeg' },
+      photographer: 'Apartment Creator',
+      width: 2400,
+      height: 3600,
+      alt: 'modern luxury apartment building exterior',
+    },
+    {
+      id: 402,
+      url: 'https://www.pexels.com/photo/roof-workers-402/',
+      src: { portrait: 'https://images.pexels.com/photos/402/roof-workers.jpeg' },
+      photographer: 'Safety Creator',
+      width: 2400,
+      height: 3600,
+      alt: 'construction workers on rooftop during extreme heat',
+    },
+  ];
+  const selection = await selectLicensedImage({
+    title: '49.7도 치솟은 김포 옥상 작업',
+    summary: '한국 김포 아파트 옥상 노동자들이 그늘 없이 일했습니다.',
+    fullText: '현장 온도계가 49.7도를 기록한 폭염 속에서 작업이 이어졌습니다.',
+    category: 'issue',
+  }, {
+    pexelsApiKey: 'pexels-key',
+    fetchImpl: async () => ({ ok: true, json: async () => ({ photos }) }),
+  });
+
+  assert.equal(selection.kind, 'web');
+  assert.equal(selection.id, 'pexels:402');
+  assert.match(selection.query, /construction workers rooftop extreme heat/i);
+  assert.equal(selection.suitability.requiredGeography, null);
+});
+
+test('allows neutral legal imagery while keeping foreign parliament photos out of Korean institution stories', () => {
+  const candidate = {
+    title: '청와대, 보완수사권 폐지 국회 판단 존중',
+    summary: '형사소송법 개정안이 대한민국 국회 본회의를 통과했습니다.',
+    category: 'issue',
+  };
+  const conceptual = assessImageSuitability({
+    description: 'legal document and gavel representing legislation and law',
+  }, 'law legislation legal document gavel', candidate);
+
+  assert.equal(conceptual.ok, true);
+  assert.equal(conceptual.requiredGeography, null);
+});
+
+test('assigns topic-grounded typography art and avoids its recent seven-day fingerprint', () => {
+  const candidate = {
+    title: '옥상 작업 49.7도 폭염',
+    summary: '건설 노동자들이 그늘 없이 옥상에서 작업했습니다.',
+    fullText: '현장 온도계가 49.7도를 기록했습니다.',
+    category: 'issue',
+  };
+  const first = createTypographyFallback(candidate, { recentImages: [] });
+  const second = createTypographyFallback(candidate, { recentImages: [first] });
+
+  assert.equal(first.kind, 'typographic');
+  assert.equal(first.fallbackTheme, 'occupational-heat');
+  assert.match(first.visualFingerprint, /^diem-art:occupational-heat:v\d+$/u);
+  assert.notEqual(second.visualFingerprint, first.visualFingerprint);
+  assert.notEqual(second.id, first.id);
+  assert.ok(second.reuseGuard.blockedCandidateCount >= 1);
+});
+
+test('fails the fallback reuse guard instead of silently repeating an exhausted art theme', () => {
+  const recentImages = Array.from({ length: 64 }, (_, variant) => ({
+    visualFingerprint: `diem-art:occupational-heat:v${variant}`,
+  }));
+  const fallback = createTypographyFallback({
+    title: '옥상 작업 49.7도 폭염',
+    summary: '폭염 속 옥상 노동 현장',
+    category: 'issue',
+  }, { recentImages });
+
+  assert.equal(fallback.reuseGuard.allowed, false);
+  assert.equal(fallback.reuseGuard.blockedCandidateCount, 64);
 });
 
 test('prioritizes the concrete article subject over a generic government background', () => {
@@ -323,6 +437,19 @@ test('prioritizes GDP imagery over incidental AI infrastructure in a macroeconom
 
   assert.match(queries[0], /GDP|gross domestic product|economic growth/i);
   assert.doesNotMatch(queries[0], /server|data center/i);
+});
+
+test('does not let incidental legislation in the article body replace the primary earnings image', () => {
+  const queries = buildImageQueries({
+    title: '삼성 반도체 2분기 영업이익 급증',
+    summary: 'AI 메모리 수요로 반도체 실적이 개선됐습니다.',
+    fullText: '기사 뒤쪽에서는 정부의 데이터센터 지원 법안과 국회 논의도 짧게 소개합니다.',
+    category: 'economy',
+    newsFrame: { eventKind: 'earnings', subject: '삼성전자 반도체', event: '2분기 영업이익 증가' },
+  });
+
+  assert.match(queries[0], /semiconductor|microchip/i);
+  assert.doesNotMatch(queries[0], /assembly|parliament|legislation/i);
 });
 
 test('rejects generic keyword matches and selects the next image with the concrete subject', async () => {
