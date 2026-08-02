@@ -14,6 +14,7 @@ const {
 } = require('./ledger');
 const { notifyTransitions } = require('./operations');
 const { evaluateCandidate, planDailyQueue } = require('./planner');
+const { assessPublicationHealth } = require('./publication-health');
 const { preparePublication, publishPreparedPublication } = require('./publisher');
 const { kstDate, kstRunSlot } = require('./time');
 
@@ -70,7 +71,7 @@ function applyPlan(ledger, plan) {
 function applyCategoryPlan(ledger, plan, category) {
   let next = structuredClone(ledger);
   const currentKey = next.publications[category].publicationKey;
-  next.selectionMode = 'hot';
+  next.selectionMode = plan.selectionMode || 'hot';
   next.popularityFallback = plan.popularityFallback;
   next.candidates = plan.candidates;
   next.candidateCategory = category;
@@ -87,12 +88,14 @@ function applyCategoryPlan(ledger, plan, category) {
       hotness: result.selected.hotness || null,
       corroboration: result.corroboration,
       duplicateCheck: result.duplicateCheck,
+      selectionDiagnostics: result.selectionDiagnostics || null,
     };
     return next;
   }
   return updatePublication(next, category, {
     status: 'no_publish',
     reason: result?.reason || 'no_candidate_passed_hotness_gate',
+    selectionDiagnostics: result?.selectionDiagnostics || null,
     observedAt: new Date().toISOString(),
     reel: { ...next.publications[category].reel, status: 'no_publish' },
     story: { ...(next.publications[category].story || emptyStep()), status: 'no_publish' },
@@ -134,6 +137,10 @@ async function planCategoryPhase({
     return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true };
   }
 
+  const sourceLedgers = replaceLedgerForDate(listLedgersImpl(), previousLedger);
+  const publicationHealth = assessPublicationHealth(sourceLedgers, { now });
+  const dailyFloorMode = category === CATEGORIES.ECONOMY && publicationHealth.dailyFloorDue;
+
   let ledger = archivePublication(previousLedger, category);
   if ((ledger.candidates || []).length > 0 && ledger.candidatePublicationKey) {
     ledger.candidateRuns = Array.isArray(ledger.candidateRuns) ? ledger.candidateRuns : [];
@@ -151,7 +158,7 @@ async function planCategoryPhase({
   ledger.candidateCategory = null;
   ledger.candidatePublicationKey = null;
 
-  const ledgers = replaceLedgerForDate(listLedgersImpl(), ledger);
+  const ledgers = replaceLedgerForDate(sourceLedgers, ledger);
   const history = historyBuilder
     ? historyBuilder(ledgers, date)
     : historyFromLedgers(ledgers, date, config.maxHistoryDays, { includeReferenceDate: true });
@@ -159,9 +166,18 @@ async function planCategoryPhase({
     date,
     history,
     categories: [category],
-    hotMode: true,
+    hotMode: !dailyFloorMode,
+    dailyFloorMode,
     now,
   });
+  plan.selectionMode = dailyFloorMode ? 'daily_floor' : 'hot';
+  const result = plan.publications[category];
+  if (result) {
+    result.selectionDiagnostics = {
+      ...(result.selectionDiagnostics || {}),
+      publicationHealth,
+    };
+  }
   return {
     ledger: applyCategoryPlan(ledger, plan, category),
     previousLedger: structuredClone(previousLedger),
@@ -330,6 +346,7 @@ async function rerouteAfterEditorialFailure(ledger, category, {
         fetchArticleBodyImpl,
         embedder,
         hotMode: ledger.selectionMode === 'hot',
+        dailyFloorMode: ledger.selectionMode === 'daily_floor',
         referenceDate: ledger.date,
       });
     } catch (candidateError) {

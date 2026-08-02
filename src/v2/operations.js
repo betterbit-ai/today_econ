@@ -20,6 +20,50 @@ function publicationTitle(publication = {}) {
     || '선정 후보 없음';
 }
 
+function rejectionLabel(reason = '') {
+  if (reason === 'category_not_allowed') return '분야 부적합';
+  if (/^assigned_to_/u.test(reason)) return '다른 분야 배정';
+  if (reason === 'not_hot:article_too_old') return '기사 신선도 초과';
+  if (/popularity/u.test(reason)) return '인기 기준 미달';
+  if (/editorial_value/u.test(reason)) return '편집 가치 미달';
+  if (reason === 'recent_duplicate') return '최근 7일 중복';
+  if (reason === 'primary_article_inaccessible') return '원문 접근 실패';
+  if (reason === 'extraordinary_claim_unverified') return '고위험 주장 검증 실패';
+  if (/evaluation_error/u.test(reason)) return '후보 평가 오류';
+  return reason.replace(/^not_hot:/u, '').slice(0, 80);
+}
+
+function formatKstTimestamp(value) {
+  const instant = new Date(value || '');
+  if (Number.isNaN(instant.getTime())) return '시각 미상';
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(instant).map(part => [part.type, part.value]));
+  return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute} KST`;
+}
+
+function dailyWatchdogReason(publication = {}) {
+  const diagnostics = publication.selectionDiagnostics || {};
+  const health = diagnostics.publicationHealth || {};
+  const elapsed = Number(health.hoursSinceLastPublished);
+  const elapsedText = Number.isFinite(elapsed) ? `${Math.floor(elapsed)}시간` : '24시간 이상';
+  const lastPublished = health.lastPublishedAt
+    ? `마지막 성공 Reel ${formatKstTimestamp(health.lastPublishedAt)}`
+    : `성공 Reel 기록 없음(감시 시작 ${formatKstTimestamp(health.monitoringStartedAt)})`;
+  const reasons = Object.entries(diagnostics.rejectionCounts || {})
+    .sort((left, right) => right[1] - left[1])
+    .slice(0, 4)
+    .map(([reason, count]) => `${rejectionLabel(reason)} ${count}건`)
+    .join(', ');
+  return `${lastPublished}, 현재까지 ${elapsedText} 무발행. 일일 최소 발행 후보 ${diagnostics.candidateCount || 0}건을 검토했지만 안전 기준 통과 후보가 없습니다.${reasons ? ` 주요 탈락 사유: ${reasons}.` : ''}`;
+}
+
 function transitionEvents(before = {}, after = {}, { actionsUrl = githubActionsUrl() } = {}) {
   const events = [];
   const publicationKey = after.publicationKey;
@@ -27,13 +71,20 @@ function transitionEvents(before = {}, after = {}, { actionsUrl = githubActionsU
   const title = publicationTitle(after);
   const base = { publicationKey, category, title, actionsUrl };
 
+  const isNewRun = before.publicationKey !== after.publicationKey;
+  const changedToNoPublish = after.status === 'no_publish'
+    && (before.status !== after.status || isNewRun);
   const routineHotPoll = after.reason === 'no_candidate_passed_hotness_gate';
-  if (before.status !== after.status && after.status === 'no_publish' && !routineHotPoll) {
+  const dailyFloorMiss = after.reason === 'no_candidate_passed_daily_floor_gates';
+  const watchdogAlertDue = Boolean(after.selectionDiagnostics?.publicationHealth?.watchdogAlertDue);
+  if (changedToNoPublish && !routineHotPoll && (!dailyFloorMiss || watchdogAlertDue)) {
     events.push({
       ...base,
-      stage: 'selection',
+      stage: dailyFloorMiss ? 'daily_watchdog' : 'selection',
       status: 'no_publish',
-      reason: after.reason || after.error || '품질 기준을 통과한 후보가 없습니다.',
+      reason: dailyFloorMiss
+        ? dailyWatchdogReason(after)
+        : (after.reason || after.error || '품질 기준을 통과한 후보가 없습니다.'),
     });
   }
 
@@ -105,7 +156,8 @@ async function dispatchOperationalEvent(publication, event, {
     }
   }
 
-  const usesIssue = ['retry_pending', 'manual_action_required', 'no_publish', 'recovered'].includes(event.status);
+  const usesIssue = ['retry_pending', 'manual_action_required', 'no_publish', 'recovered'].includes(event.status)
+    && event.stage !== 'daily_watchdog';
   if (usesIssue && githubToken && githubRepository) {
     configuredTargets += 1;
     try {
@@ -154,5 +206,8 @@ module.exports = {
   notifyTransitions,
   operationalClients,
   publicationTitle,
+  dailyWatchdogReason,
+  formatKstTimestamp,
+  rejectionLabel,
   transitionEvents,
 };

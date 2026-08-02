@@ -2,7 +2,7 @@ const config = require('../../config');
 const { fetchNews, fetchArticleDocument } = require('../crawler');
 const { CATEGORIES } = require('./constants');
 const { extraordinaryClaims, findExtraordinaryEvidence } = require('./fact-verifier');
-const { assessHotness } = require('./hotness');
+const { assessDailyFloor, assessHotness } = require('./hotness');
 const { fetchPortalRankings, mergePopularCandidates, normalizeRank, titleEventSimilarity } = require('./popular-news');
 const { computeEmbeddingMatrix, evaluateAgainstHistory } = require('./similarity');
 const {
@@ -93,6 +93,7 @@ async function evaluateCandidate(candidate, {
   semanticScores,
   embeddingError,
   hotMode = false,
+  dailyFloorMode = false,
   now = new Date(),
   referenceDate,
 } = {}) {
@@ -142,8 +143,10 @@ async function evaluateCandidate(candidate, {
     };
   }
 
-  const hotness = assessHotness({ ...enrichedCandidate, editorialValue }, { now });
-  if (hotMode && !hotness.ok) {
+  const hotness = dailyFloorMode
+    ? assessDailyFloor({ ...enrichedCandidate, editorialValue }, { now })
+    : assessHotness({ ...enrichedCandidate, editorialValue }, { now });
+  if ((hotMode || dailyFloorMode) && !hotness.ok) {
     return {
       ok: false,
       reason: `not_hot:${hotness.reason}`,
@@ -213,6 +216,7 @@ async function planDailyQueue({
   history = [],
   categories = [CATEGORIES.ECONOMY, CATEGORIES.ISSUE],
   hotMode = false,
+  dailyFloorMode = false,
   now = new Date(),
   fetchPortalRankingsImpl = fetchPortalRankings,
   fetchNewsImpl = fetchNews,
@@ -236,6 +240,7 @@ async function planDailyQueue({
 
   const results = {
     date,
+    selectionMode: dailyFloorMode ? 'daily_floor' : (hotMode ? 'hot' : 'quality'),
     popularityFallback,
     candidates: candidates.map(candidate => ({ ...serializeCandidate(candidate), category: classifyCandidate(candidate).category, rejectionReasons: [] })),
     publications: {},
@@ -275,6 +280,7 @@ async function planDailyQueue({
           semanticScores: embeddingMatrix?.[candidateIndex],
           embeddingError,
           hotMode,
+          dailyFloorMode,
           now,
           referenceDate: date,
         });
@@ -289,13 +295,43 @@ async function planDailyQueue({
         record.rejectionReasons.push(`${category}:evaluation_error:${error.message}`);
       }
     }
-    results.publications[category] = selected || {
+    const selectionDiagnostics = summarizeCandidateRejections(results.candidates, category);
+    results.publications[category] = selected
+      ? { ...selected, selectionDiagnostics }
+      : {
       ok: false,
       status: 'no_publish',
-      reason: hotMode ? 'no_candidate_passed_hotness_gate' : 'no_candidate_passed_quality_gates',
+      reason: dailyFloorMode
+        ? 'no_candidate_passed_daily_floor_gates'
+        : hotMode
+          ? 'no_candidate_passed_hotness_gate'
+          : 'no_candidate_passed_quality_gates',
+      selectionDiagnostics,
     };
   }
   return results;
+}
+
+function summarizeCandidateRejections(candidates = [], category) {
+  const prefix = `${category}:`;
+  const rejectionCounts = {};
+  let rejectedCandidateCount = 0;
+  for (const candidate of candidates) {
+    const reasons = (candidate.rejectionReasons || [])
+      .filter(reason => reason.startsWith(prefix))
+      .map(reason => reason.slice(prefix.length));
+    if (reasons.length > 0) rejectedCandidateCount += 1;
+    for (const reason of reasons) {
+      rejectionCounts[reason] = (rejectionCounts[reason] || 0) + 1;
+    }
+  }
+  return {
+    candidateCount: candidates.length,
+    rejectedCandidateCount,
+    rejectionCounts: Object.fromEntries(
+      Object.entries(rejectionCounts).sort((left, right) => right[1] - left[1])
+    ),
+  };
 }
 
 module.exports = {
@@ -305,4 +341,5 @@ module.exports = {
   planDailyQueue,
   rssCandidates,
   serializeCandidate,
+  summarizeCandidateRejections,
 };

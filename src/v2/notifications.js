@@ -66,6 +66,9 @@ function buildSlackStatusText(event = {}) {
     return `🚨 DIEM ${label} ${stage} 수동 조치 필요\n${title}${safeError(event.error) ? `\n${safeError(event.error)}` : ''}${links ? `\n${links}` : ''}`.normalize('NFC');
   }
   if (event.status === 'no_publish') {
+    if (stage === 'daily_watchdog') {
+      return `🚨 DIEM 24시간 이상 무발행\n${safeError(event.reason) || '안전 기준을 통과한 후보가 없습니다.'}${links ? `\n${links}` : ''}`.normalize('NFC');
+    }
     return `ℹ️ DIEM ${label} 발행 생략\n${title}${safeError(event.reason) ? `\n사유: ${safeError(event.reason)}` : ''}${links ? `\n${links}` : ''}`.normalize('NFC');
   }
   throw new Error(`[DIEM Notifications] Unsupported notification status: ${event.status}`);

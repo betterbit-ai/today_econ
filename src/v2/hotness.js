@@ -122,8 +122,34 @@ function assessHotness(candidate = {}, {
   };
 }
 
+function assessDailyFloor(candidate = {}, { now = new Date() } = {}) {
+  const result = assessHotness(candidate, {
+    now,
+    regularPopularityMinimum: 50,
+    regularMaximumAgeHours: 24,
+    regularScoreMinimum: 55,
+    urgentPopularityMinimum: 50,
+    urgentMaximumAgeHours: 24,
+    urgentScoreMinimum: 55,
+    unknownTimePopularityMinimum: 80,
+    unknownTimeEditorialMinimum: 70,
+  });
+  if (result.editorialValueScore < 70) {
+    return {
+      ...result,
+      ok: false,
+      reason: 'editorial_value_below_daily_floor',
+      thresholds: { ...result.thresholds, editorial: 70 },
+    };
+  }
+  return result.ok
+    ? { ...result, reason: 'daily_floor_candidate', mode: 'daily_floor' }
+    : { ...result, mode: 'daily_floor' };
+}
+
 module.exports = {
   URGENT_NEWS,
+  assessDailyFloor,
   assessHotness,
   freshnessScore,
 };

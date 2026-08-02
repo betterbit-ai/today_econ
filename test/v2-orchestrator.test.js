@@ -274,6 +274,119 @@ test('category polling archives a completed run and selects only that category i
   assert.equal(result.ledger.publications.issue.candidate, null);
 });
 
+test('economy polling owns the daily floor when the next run would cross 24 hours', async () => {
+  let prior = createDailyLedger('2026-08-01', new Date('2026-08-01T00:00:00.000Z'));
+  prior = updatePublication(prior, 'issue', {
+    status: 'published',
+    reel: { status: 'published', externalId: 'reel-yesterday', updatedAt: '2026-08-01T00:00:00.000Z' },
+  });
+  const current = createDailyLedger('2026-08-02', new Date('2026-08-01T20:00:00.000Z'));
+  let plannerOptions;
+
+  const result = await planCategoryPhase({
+    date: '2026-08-02',
+    category: 'economy',
+    slot: 'run-0500',
+    now: new Date('2026-08-01T20:00:00.000Z'),
+    loadLedgerImpl: () => current,
+    listLedgersImpl: () => [prior, current],
+    planDailyQueueImpl: async options => {
+      plannerOptions = options;
+      return {
+        date: options.date,
+        selectionMode: 'daily_floor',
+        popularityFallback: null,
+        candidates: [],
+        publications: {
+          economy: {
+            ok: false,
+            status: 'no_publish',
+            reason: 'no_candidate_passed_daily_floor_gates',
+            selectionDiagnostics: { candidateCount: 0, rejectionCounts: {} },
+          },
+        },
+      };
+    },
+  });
+
+  assert.equal(plannerOptions.hotMode, false);
+  assert.equal(plannerOptions.dailyFloorMode, true);
+  assert.equal(result.ledger.selectionMode, 'daily_floor');
+  assert.equal(result.ledger.publications.economy.selectionDiagnostics.publicationHealth.dailyFloorDue, true);
+});
+
+test('issue polling never owns the rolling daily floor', async () => {
+  const current = createDailyLedger('2026-08-02', new Date('2026-08-02T00:00:00.000Z'));
+  let plannerOptions;
+  await planCategoryPhase({
+    date: '2026-08-02',
+    category: 'issue',
+    slot: 'run-0900',
+    now: new Date('2026-08-02T00:00:00.000Z'),
+    loadLedgerImpl: () => current,
+    listLedgersImpl: () => [current],
+    planDailyQueueImpl: async options => {
+      plannerOptions = options;
+      return {
+        date: options.date,
+        selectionMode: 'hot',
+        popularityFallback: null,
+        candidates: [],
+        publications: { issue: { ok: false, status: 'no_publish', reason: 'no_candidate_passed_hotness_gate' } },
+      };
+    },
+  });
+
+  assert.equal(plannerOptions.hotMode, true);
+  assert.equal(plannerOptions.dailyFloorMode, false);
+});
+
+test('daily watchdog emits a reason even when consecutive runs are both no_publish', () => {
+  const before = {
+    publicationKey: 'diem:2026-08-02:economy:old-run',
+    category: 'economy',
+    status: 'no_publish',
+    reason: 'no_candidate_passed_hotness_gate',
+  };
+  const after = {
+    publicationKey: 'diem:2026-08-02:economy:new-run',
+    category: 'economy',
+    status: 'no_publish',
+    reason: 'no_candidate_passed_daily_floor_gates',
+    selectionDiagnostics: {
+      candidateCount: 50,
+      rejectionCounts: {
+        category_not_allowed: 43,
+        'not_hot:article_too_old': 4,
+      },
+      publicationHealth: {
+        lastPublishedAt: '2026-08-01T00:00:00.000Z',
+        hoursSinceLastPublished: 25,
+        watchdogAlertDue: true,
+      },
+    },
+  };
+
+  const events = transitionEvents(before, after);
+  assert.equal(events.length, 1);
+  assert.equal(events[0].stage, 'daily_watchdog');
+  assert.equal(events[0].status, 'no_publish');
+  assert.match(events[0].reason, /2026-08-01 09:00 KST/);
+  assert.match(events[0].reason, /25시간/);
+  assert.match(events[0].reason, /분야 부적합 43건/);
+});
+
+test('routine hot-news misses remain quiet even when a new run is archived', () => {
+  const before = { publicationKey: 'old', category: 'issue', status: 'no_publish' };
+  const after = {
+    publicationKey: 'new',
+    category: 'issue',
+    status: 'no_publish',
+    reason: 'no_candidate_passed_hotness_gate',
+  };
+  assert.deepEqual(transitionEvents(before, after), []);
+});
+
 test('category polling recovers an unfinished run before selecting another article', async () => {
   let existing = createDailyLedger('2026-07-29');
   existing = updatePublication(existing, 'issue', {

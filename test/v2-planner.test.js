@@ -43,7 +43,7 @@ test('plans one independently verified candidate per category without AI reranki
 
 test('marks only the exhausted category no_publish', async () => {
   const candidates = [{
-    title: '한국은행 기준금리 2.50% 동결',
+    title: '한국은행 기준금리 2.50% 동결 확정…전국 가계대출 영향',
     url: 'https://a.example/economy',
     popularityScore: 100,
     sources: [
@@ -184,7 +184,7 @@ test('reclassifies hydrated article text before accepting an economy candidate',
       }],
     },
     {
-      title: '한국은행 기준금리 2.50% 동결',
+      title: '한국은행 기준금리 2.50% 동결 확정…전국 가계대출 영향',
       url: 'https://n.news.naver.com/article/001/rate',
       popularityScore: 90,
       sources: [{
@@ -246,6 +246,41 @@ test('hot mode skips stale popular news and selects the next fresh candidate for
   assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/fresh');
   assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('not_hot:article_too_old')));
   assert.equal(result.publications.issue, undefined);
+});
+
+test('daily floor keeps a strong 18-hour economy article while regular hot mode rejects it', async () => {
+  const candidate = {
+    title: '한국은행 기준금리 2.50% 동결',
+    url: 'https://n.news.naver.com/article/001/daily-floor',
+    popularityScore: 82,
+    observedAt: '2026-07-29T04:00:00.000Z',
+    sources: [{
+      portal: 'naver',
+      rank: 3,
+      normalizedScore: 82,
+      title: '한국은행 기준금리 2.50% 동결',
+      url: 'https://n.news.naver.com/article/001/daily-floor',
+    }],
+  };
+  const options = {
+    date: '2026-07-29',
+    categories: ['economy'],
+    now: new Date('2026-07-29T04:00:00.000Z'),
+    fetchPortalRankingsImpl: async () => ({ candidates: [candidate], allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async () => ({
+      fullText: `${articleBody('금리')} 이번 결정은 전국 가구의 대출 이자와 금융시장에 영향을 준다.`,
+      publishedAt: '2026-07-28T19:00:00+09:00',
+    }),
+    embedder: async () => [],
+  };
+
+  const hot = await planDailyQueue({ ...options, hotMode: true });
+  const dailyFloor = await planDailyQueue({ ...options, dailyFloorMode: true });
+
+  assert.equal(hot.publications.economy.status, 'no_publish');
+  assert.equal(dailyFloor.publications.economy.ok, true, JSON.stringify(dailyFloor.publications.economy));
+  assert.equal(dailyFloor.selectionMode, 'daily_floor');
+  assert.equal(dailyFloor.publications.economy.selected.hotness.reason, 'daily_floor_candidate');
 });
 
 test('requires independent evidence for extraordinary market and earnings claims before selecting them', async () => {

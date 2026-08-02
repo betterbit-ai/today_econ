@@ -78,6 +78,20 @@ test('formats only defined state transitions', () => {
   assert.throws(() => buildSlackStatusText({ ...baseEvent, status: 'failed' }), /Unsupported/);
 });
 
+test('formats a 24-hour watchdog alert with an actionable reason and no content payload', () => {
+  const text = buildSlackStatusText({
+    ...baseEvent,
+    stage: 'daily_watchdog',
+    status: 'no_publish',
+    reason: '마지막 발행 후 25시간 경과. 분야 부적합 43건, 기사 신선도 초과 4건.',
+    caption: '게시물 본문은 보내면 안 됩니다.',
+  });
+
+  assert.match(text, /24시간 이상 무발행/);
+  assert.match(text, /25시간 경과/);
+  assert.doesNotMatch(text, /게시물 본문은/);
+});
+
 test('creates a GitHub issue with a stable hidden marker', async () => {
   const calls = [];
   const fetchImpl = async (url, options = {}) => {
