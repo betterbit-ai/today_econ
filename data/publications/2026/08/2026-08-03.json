@@ -4,7 +4,7 @@
   "date": "2026-08-03",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-02T17:02:27.177Z",
-  "updatedAt": "2026-08-03T02:55:24.337Z",
+  "updatedAt": "2026-08-03T02:55:36.384Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -11206,7 +11206,7 @@
     "issue": {
       "publicationKey": "diem:2026-08-03:issue:30780340991",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "\"수천만 원 줘도 안 해요\"…20분마다 울린 호출, 교도관은 또 뛰었다",
         "url": "https://n.news.naver.com/article/469/0000945857?ntype=RANKING",
@@ -11353,15 +11353,150 @@
           "text": "issue | 수천만 줘도 | 지원 | 20분마다"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "교도관 소진\n과열 교정",
+            "lines": [
+              "교도관 소진",
+              "과열 교정"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "교도관 소진\n과열 교정",
+          "lines": [
+            "교도관 소진",
+            "과열 교정"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "청주여자교도소에서 교도관이 20분마다 호출에 달려가며 소진이 극에 달해, 밤새 긴장과 과열을 견뎌야 했으며, 수용자들의 자해·폭력 위험이 끊임없이 발생해 언제든 대응해야 했다.📰",
+            "과밀 수용률 120%를 기록한 교도소는 760명의 수용자를 18명 교도관이 관리하며, 정신질환자와 마약류 수용자 증가로 업무 부담이 가중된다.",
+            "이러한 과중한 업무와 지속적 자해·폭력 위험은 교도관의 정신건강을 위협하고, 재범 방지와 사회 복귀에 부정적 영향을 미칠 수 있다.📰"
+          ],
+          "text": "청주여자교도소에서 교도관이 20분마다 호출에 달려가며 소진이 극에 달해, 밤새 긴장과 과열을 견뎌야 했으며, 수용자들의 자해·폭력 위험이 끊임없이 발생해 언제든 대응해야 했다.📰\n\n과밀 수용률 120%를 기록한 교도소는 760명의 수용자를 18명 교도관이 관리하며, 정신질환자와 마약류 수용자 증가로 업무 부담이 가중된다.\n\n이러한 과중한 업무와 지속적 자해·폭력 위험은 교도관의 정신건강을 위협하고, 재범 방지와 사회 복귀에 부정적 영향을 미칠 수 있다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #교도관소진 #과열교정 #과밀수용 #20분마다 #수천만 #줘도",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#교도관소진",
+            "#과열교정",
+            "#과밀수용",
+            "#20분마다",
+            "#수천만",
+            "#줘도"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#교도관소진",
+              "#과열교정",
+              "#과밀수용",
+              "#20분마다",
+              "#수천만",
+              "#줘도"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 7,600 in \"교도관들의 심리적 소진이 심각해 고소·고발이 연간 7,600건을 넘어가며, 정신건강 위험군 비율이 25%에 달한다는 조사 결과가 있다.\"; 25% in \"교도관들의 심리적 소진이 심각해 고소·고발이 연간 7,600건을 넘어가며, 정신건강 위험군 비율이 25%에 달한다는 조사 결과가 있다.\""
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "typographic",
+        "id": "diem-art:public-interest:v20",
+        "source": "diem-original",
+        "license": {
+          "name": "Project-owned original",
+          "url": null
+        },
+        "selectedAt": "2026-08-03T02:55:31.657Z",
+        "attempts": [],
+        "score": 0,
+        "fallbackTheme": "public-interest",
+        "fallbackVariant": 20,
+        "artVariantId": "diem-art:public-interest:v20",
+        "visualFingerprint": "diem-art:public-interest:v20",
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 22,
+          "recentKeyCount": 66,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-art:public-interest:v20"
+          ]
+        },
+        "selectionReason": "no concrete-subject-matched licensed unused image met the confidence threshold; topic-grounded public-interest art variant 20 selected",
+        "localSha256": "61abf499ff0be940c723cff7cb1ed8388cda391b436e3c767240d387171fe1e5"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-magpiemusic-action-trailer-promo-rock-513687",
+        "mood": "bright",
+        "title": "Action Trailer Promo Rock",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/rock-action-trailer-promo-rock-513687/",
+        "sha256": "250b00f625931e22732a4d62beb328e849b67283234b5edf5309e25ba1cbeb1d",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-03T02:55:36.369Z"
       },
       "story": {
         "status": "planned",
@@ -11432,6 +11567,13 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-03/issue/issue-cover.png",
+        "coverSha256": "61abf499ff0be940c723cff7cb1ed8388cda391b436e3c767240d387171fe1e5",
+        "reelPath": ".diem-cache/2026-08-03/issue/issue-reel.mp4",
+        "reelSha256": "69017953512cf0455ce1dfd845fa2a9488f1fb1aa06aa1fc4ef07f1e57449678",
+        "temporary": true
       }
     }
   },
