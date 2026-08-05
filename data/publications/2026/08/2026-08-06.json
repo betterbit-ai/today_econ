@@ -4,7 +4,7 @@
   "date": "2026-08-06",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-05T17:40:40.966Z",
-  "updatedAt": "2026-08-05T17:40:52.308Z",
+  "updatedAt": "2026-08-05T17:41:05.900Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -1916,7 +1916,7 @@
     "issue": {
       "publicationKey": "diem:2026-08-06:issue:31030962712",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "태풍 3개 연속 발생…한반도는 '불가마 더위' 계속되나",
         "url": "https://n.news.naver.com/article/018/0006345354?ntype=RANKING",
@@ -2059,15 +2059,150 @@
           "text": "issue | 태풍 연속 | 제13호 DOLPHIN"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "태풍 연속\n폭염 지속",
+            "lines": [
+              "태풍 연속",
+              "폭염 지속"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "태풍 연속\n폭염 지속",
+          "lines": [
+            "태풍 연속",
+            "폭염 지속"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "제13호 태풍 ‘돌핀’, 제14호 ‘구지라’, 제15호 ‘찬홈’이 연속 발생해 서태평양에서 강풍과 폭우를 일으키고 있다.📰",
+            "‘구지라’는 5일 오후 3시 기준 마닐라 북북서쪽 430km 해상에서 시속 15km로 북진하며 중심기압 998hPa, 최대풍속 19m/s를 기록했다.",
+            "한반도는 티베트·북태평양 고기압이 동시에 자리해 ‘이중 열돔’을 형성, 폭염이 지속되는 가운데 태풍 진로가 폭염 강도와 기간을 결정할 중요한 변수로 작용한다.📰"
+          ],
+          "text": "제13호 태풍 ‘돌핀’, 제14호 ‘구지라’, 제15호 ‘찬홈’이 연속 발생해 서태평양에서 강풍과 폭우를 일으키고 있다.📰\n\n‘구지라’는 5일 오후 3시 기준 마닐라 북북서쪽 430km 해상에서 시속 15km로 북진하며 중심기압 998hPa, 최대풍속 19m/s를 기록했다.\n\n한반도는 티베트·북태평양 고기압이 동시에 자리해 ‘이중 열돔’을 형성, 폭염이 지속되는 가운데 태풍 진로가 폭염 강도와 기간을 결정할 중요한 변수로 작용한다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #태풍 #폭염 #기상 #제13호 #DOLPHIN #연속",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#태풍",
+            "#폭염",
+            "#기상",
+            "#제13호",
+            "#DOLPHIN",
+            "#연속"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#태풍",
+              "#폭염",
+              "#기상",
+              "#제13호",
+              "#DOLPHIN",
+              "#연속"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "status": "failed",
+              "error": "Unexpected non-whitespace character after JSON at position 393"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "typographic",
+        "id": "diem-art:public-interest:v5",
+        "source": "diem-original",
+        "license": {
+          "name": "Project-owned original",
+          "url": null
+        },
+        "selectedAt": "2026-08-05T17:41:01.871Z",
+        "attempts": [],
+        "score": 0,
+        "fallbackTheme": "public-interest",
+        "fallbackVariant": 5,
+        "artVariantId": "diem-art:public-interest:v5",
+        "visualFingerprint": "diem-art:public-interest:v5",
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 35,
+          "recentKeyCount": 111,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-art:public-interest:v5"
+          ]
+        },
+        "selectionReason": "no concrete-subject-matched licensed unused image met the confidence threshold; topic-grounded public-interest art variant 5 selected",
+        "localSha256": "ddbc37bbc63a7bfca339702c56e02d5cf9c8548371f9a4ed2052604b638c77e1"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-bransboynd-night-summer-lounge-473222",
+        "mood": "serious",
+        "title": "Night Summer Lounge",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/trap-night-summer-lounge-473222/",
+        "sha256": "39049003ed0e5a76f148558186bf6c6b8510f874457755b50390b7923f0a16f8",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-05T17:41:05.892Z"
       },
       "story": {
         "status": "planned",
@@ -2139,6 +2274,13 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-06/issue/issue-cover.png",
+        "coverSha256": "ddbc37bbc63a7bfca339702c56e02d5cf9c8548371f9a4ed2052604b638c77e1",
+        "reelPath": ".diem-cache/2026-08-06/issue/issue-reel.mp4",
+        "reelSha256": "17c1417efdf191a9a0213dd6ca0297c0125c0ee5613ba9e58cc450ae6a33fffa",
+        "temporary": true
       }
     }
   },
