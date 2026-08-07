@@ -5,14 +5,19 @@ const test = require('node:test');
 
 const ROOT = path.join(__dirname, '..');
 
-test('ships exactly two category publishing workflows on a continuous four-hour schedule', () => {
+test('ships exactly two category publishing workflows on staggered six-hour schedules', () => {
   const workflowRoot = path.join(ROOT, '.github', 'workflows');
   const files = fs.readdirSync(workflowRoot).filter(file => /\.ya?ml$/u.test(file)).sort();
   assert.deepEqual(files, ['diem_economy.yml', 'diem_issue.yml']);
 
-  for (const [file, category] of [['diem_economy.yml', 'economy'], ['diem_issue.yml', 'issue']]) {
+  const schedules = [
+    ['diem_economy.yml', 'economy', '0 4,10,16,22 * * *'],
+    ['diem_issue.yml', 'issue', '0 1,7,13,19 * * *'],
+  ];
+  for (const [file, category, cron] of schedules) {
     const content = fs.readFileSync(path.join(workflowRoot, file), 'utf8');
-    assert.match(content, /cron:\s*['"]0 \*\/4 \* \* \*['"]/u);
+    assert.match(content, new RegExp(`cron:\\s*['"]${cron.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&')}['"]`));
+    assert.doesNotMatch(content, /cron:\s*['"]0 \*\/4 \* \* \*['"]/u);
     assert.match(content, new RegExp(`select --category ${category}`));
     assert.match(content, new RegExp(`prepare --category ${category}`));
     assert.match(content, new RegExp(`publish --category ${category}`));

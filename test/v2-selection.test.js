@@ -12,6 +12,7 @@ const {
   assessImageSuitability,
   buildImageQueries,
   createTypographyFallback,
+  extractPrimaryPersonIdentity,
   imageReuseKeys,
   scoreImageCandidate,
   selectLicensedImage,
@@ -178,7 +179,7 @@ test('skips licensed images used in the recent seven-day image history', async (
       photographer_url: 'https://www.pexels.com/@used',
       width: 3000,
       height: 4000,
-      alt: 'Korean National Assembly Seoul chamber',
+      alt: 'Korean National Assembly Seoul building chamber',
     },
     {
       id: 222222,
@@ -243,14 +244,14 @@ test('prioritizes occupational heat and rooftop work over incidental apartment i
   assert.ok(queries.every(query => !/^\s*\d/u.test(query)));
 });
 
-test('does not require country metadata for a conceptual domestic workplace photo', () => {
+test('does not require country metadata for a person-free conceptual domestic workplace photo', () => {
   const candidate = {
     title: '김포 옥상 작업 49.7도 폭염',
     summary: '한국의 건설 노동자들이 옥상에서 그늘 없이 작업했습니다.',
     category: 'issue',
   };
   const result = assessImageSuitability({
-    description: 'construction workers on a rooftop during extreme heat',
+    description: 'construction site rooftop thermometer during extreme heat',
   }, 'construction workers rooftop extreme heat', candidate);
 
   assert.equal(result.ok, true);
@@ -275,7 +276,7 @@ test('selects a licensed occupational heat photo before unrelated apartment imag
       photographer: 'Safety Creator',
       width: 2400,
       height: 3600,
-      alt: 'construction workers on rooftop during extreme heat',
+      alt: 'construction site rooftop thermometer and safety equipment during extreme heat',
     },
   ];
   const selection = await selectLicensedImage({
@@ -387,10 +388,9 @@ test('rejects a medical professional photo when the article subject is a teenage
   }, 'healthcare hospital medical clinic', candidate);
 
   assert.equal(doctor.ok, false);
-  assert.equal(doctor.reason, 'article_subject_role_mismatch');
-  assert.equal(patient.ok, true);
-  assert.ok(patient.matchedVisualRoles.includes('minor_student'));
-  assert.ok(patient.matchedVisualRoles.includes('patient'));
+  assert.equal(doctor.reason, 'unverified_stock_person');
+  assert.equal(patient.ok, false);
+  assert.equal(patient.reason, 'unverified_stock_person');
 });
 
 test('does not infer a minor visual role from an incidental biography buried in a business article', () => {
@@ -452,7 +452,7 @@ test('does not let incidental legislation in the article body replace the primar
   assert.doesNotMatch(queries[0], /assembly|parliament|legislation/i);
 });
 
-test('rejects generic keyword matches and selects the next image with the concrete subject', async () => {
+test('rejects generic keyword matches and selects the next person-free image with the concrete subject', async () => {
   const generic = assessImageSuitability({
     description: 'government support policy parliament building',
   }, 'government childcare support');
@@ -471,12 +471,12 @@ test('rejects generic keyword matches and selects the next image with the concre
     },
     {
       id: 202,
-      url: 'https://www.pexels.com/photo/family-childcare-202/',
-      src: { portrait: 'https://images.pexels.com/photos/202/childcare.jpeg' },
+      url: 'https://www.pexels.com/photo/childcare-application-202/',
+      src: { portrait: 'https://images.pexels.com/photos/202/childcare-application.jpeg' },
       photographer: 'Relevant Creator',
       width: 3000,
       height: 4500,
-      alt: 'family parents child using childcare service at home',
+      alt: 'childcare service enrollment application document on home table',
     },
   ];
   const selection = await selectLicensedImage({
@@ -497,6 +497,230 @@ test('rejects generic keyword matches and selects the next image with the concre
   assert.equal(selection.attempts[0].suitabilityRejected, 1);
   assert.equal(selection.attempts[0].suitabilityRejections[0].id, 'pexels:101');
   assert.equal(selection.attempts[0].suitabilityRejections[0].reason, 'concrete_subject_missing');
+});
+
+test('keeps a named cover subject identity-critical but searches event context before a portrait', () => {
+  const candidate = {
+    title: '"어리석은 왕 불쌍히" 남산에 플래카드 걸었다가 벌어진 일',
+    summary: '서울고법은 국가가 서울제일교회와 박형규 목사에게 배상해야 한다고 판결했다. 과거 학생운동과 대학 강연 이력도 소개됐다.',
+    editorialTitle: '서울고법\n박형규 배상',
+    category: 'issue',
+  };
+
+  assert.deepEqual(extractPrimaryPersonIdentity(candidate), { name: '박형규', role: '목사', critical: true });
+  assert.match(buildImageQueries(candidate)[0], /legal|court|gavel|document/i);
+  assert.doesNotMatch(buildImageQueries(candidate).join(' '), /박형규/u);
+});
+
+test('rejects unrelated stock people and accepts only exact-page verified portrait imagery', () => {
+  const candidate = {
+    title: "조세심판원, 배우 유연석 '30억 세금' 불복 청구 기각",
+    summary: '배우 유연석의 조세심판 청구가 기각됐다.',
+    editorialTitle: '조세심판원\n유연석 청구 기각',
+    category: 'economy',
+  };
+  const stockPerson = assessImageSuitability({
+    source: 'pexels',
+    description: 'Korean actor portrait in a studio',
+  }, '유연석', candidate, { selectionRole: 'portrait' });
+  const verifiedPerson = assessImageSuitability({
+    source: 'wikimedia',
+    description: 'File:배우 유연석 2025년 공식 행사.jpg',
+    identityAuthority: 'wikipedia-page',
+  }, '유연석', candidate, { selectionRole: 'portrait' });
+
+  assert.equal(stockPerson.ok, false);
+  assert.equal(stockPerson.reason, 'named_person_identity_unverified');
+  assert.equal(stockPerson.identity.required, true);
+  assert.equal(verifiedPerson.ok, true);
+  assert.equal(verifiedPerson.identity.verified, true);
+});
+
+test('uses a person-free contextual image before looking up a named subject portrait', async () => {
+  const requestedUrls = [];
+  const selection = await selectLicensedImage({
+    title: '이재명 대통령, 폭염 시 휴가 권고',
+    summary: '이재명 대통령이 폭염 기간 휴가 사용을 권고했다.',
+    editorialTitle: '이재명 대통령\n휴가 권고',
+    category: 'issue',
+  }, {
+    pexelsApiKey: 'pexels-key',
+    fetchImpl: async url => {
+      requestedUrls.push(String(url));
+      return {
+        ok: true,
+        json: async () => ({ photos: [{
+          id: 701,
+          url: 'https://www.pexels.com/photo/presidential-office-701/',
+          src: { portrait: 'https://images.pexels.com/photos/701/office.jpg' },
+          photographer: 'Architecture Creator',
+          width: 2400,
+          height: 3600,
+          alt: 'South Korea presidential office building exterior in Seoul',
+        }] }),
+      };
+    },
+  });
+
+  assert.equal(selection.kind, 'web');
+  assert.equal(selection.id, 'pexels:701');
+  assert.equal(selection.visualRole, 'context');
+  assert.equal(selection.identity.required, false);
+  assert.ok(requestedUrls.some(url => /api\.pexels/u.test(url)));
+  assert.ok(requestedUrls.every(url => !/ko\.wikipedia/u.test(url)));
+});
+
+test('rejects a generic stock person even when the setting matches the article query', () => {
+  const suitability = assessImageSuitability({
+    source: 'pexels',
+    description: 'Black woman student sitting in a classroom',
+  }, 'students school education classroom', {
+    title: '서울고법 판결',
+    summary: '교육 현장을 둘러싼 판결이 나왔다.',
+  });
+
+  assert.equal(suitability.ok, false);
+  assert.equal(suitability.reason, 'unverified_stock_person');
+});
+
+test('falls back to typography when named-subject context and exact portrait are unavailable', async () => {
+  const requestedUrls = [];
+  const selection = await selectLicensedImage({
+    title: "조세심판원, 배우 유연석 '30억 세금' 불복 청구 기각",
+    summary: '배우 유연석이 낸 조세심판 청구가 기각됐다.',
+    editorialTitle: '조세심판원\n유연석 청구 기각',
+    category: 'economy',
+  }, {
+    pexelsApiKey: 'context-search-key',
+    unsplashAccessKey: 'context-search-key',
+    fetchImpl: async url => {
+      requestedUrls.push(String(url));
+      if (/api\.pexels/u.test(String(url))) return { ok: true, json: async () => ({ photos: [] }) };
+      if (/api\.unsplash/u.test(String(url))) return { ok: true, json: async () => ({ results: [] }) };
+      return { ok: true, json: async () => ({ query: { pages: {} } }) };
+    },
+  });
+
+  assert.equal(selection.kind, 'typographic');
+  assert.equal(selection.identity.required, false);
+  assert.equal(selection.identity.depicted, false);
+  assert.ok(requestedUrls.some(url => /api\.pexels/u.test(url)));
+  assert.ok(requestedUrls.some(url => /ko\.wikipedia/u.test(url)));
+});
+
+test('resolves an exact Korean Wikipedia person page to its freely licensed Commons image', async () => {
+  const requestedUrls = [];
+  const selection = await selectLicensedImage({
+    title: '이재명 대통령, 폭염 시 휴가 권고',
+    summary: '이재명 대통령이 폭염 기간 휴가 사용을 권고했다.',
+    editorialTitle: '이재명 대통령\n휴가 권고',
+    category: 'issue',
+  }, {
+    fetchImpl: async url => {
+      requestedUrls.push(String(url));
+      if (String(url).includes('ko.wikipedia.org')) {
+        return {
+          ok: true,
+          json: async () => ({ query: { pages: { 1: { pageid: 1, title: '이재명', pageimage: 'Lee Jae-myung 2026.jpg' } } } }),
+        };
+      }
+      if (/titles=File(?::|%3A)/u.test(String(url))) {
+        return {
+          ok: true,
+          json: async () => ({ query: { pages: { 2: {
+            pageid: 2,
+            title: 'File:Lee Jae-myung 2026.jpg',
+            imageinfo: [{
+              url: 'https://upload.wikimedia.org/lee.jpg',
+              descriptionurl: 'https://commons.wikimedia.org/wiki/File:Lee_Jae-myung_2026.jpg',
+              width: 1600,
+              height: 2400,
+              extmetadata: { LicenseShortName: { value: 'CC BY-SA 4.0' } },
+            }],
+          } } } }),
+        };
+      }
+      return { ok: true, json: async () => ({ query: { pages: {} } }) };
+    },
+  });
+
+  assert.equal(selection.kind, 'web');
+  assert.equal(selection.source, 'wikimedia');
+  assert.equal(selection.identityAuthority, 'wikipedia-page');
+  assert.equal(selection.identity.verified, true);
+  assert.equal(selection.identity.name, '이재명');
+  assert.ok(requestedUrls.some(url => url.includes('ko.wikipedia.org')));
+  assert.ok(requestedUrls.some(url => /titles=File(?::|%3A)/u.test(url)));
+});
+
+test('uses typography instead of repeating a recently used verified portrait', async () => {
+  const selection = await selectLicensedImage({
+    title: '이재명 대통령, 폭염 시 휴가 권고',
+    summary: '이재명 대통령이 폭염 기간 휴가 사용을 권고했다.',
+    editorialTitle: '이재명 대통령\n휴가 권고',
+    category: 'issue',
+  }, {
+    recentImages: [{ id: 'wikimedia:2' }],
+    fetchImpl: async url => {
+      const requestUrl = String(url);
+      if (requestUrl.includes('ko.wikipedia.org')) {
+        return {
+          ok: true,
+          json: async () => ({ query: { pages: { 1: { pageid: 1, title: '이재명', pageimage: 'Lee representative.jpg' } } } }),
+        };
+      }
+      if (/titles=File(?::|%3A)/u.test(requestUrl)) {
+        return {
+          ok: true,
+          json: async () => ({ query: { pages: { 2: {
+            pageid: 2,
+            title: 'File:Lee representative.jpg',
+            imageinfo: [{
+              url: 'https://upload.wikimedia.org/lee-representative.jpg',
+              descriptionurl: 'https://commons.wikimedia.org/wiki/File:Lee_representative.jpg',
+              width: 1600,
+              height: 2400,
+              extmetadata: { LicenseShortName: { value: 'CC BY-SA 4.0' } },
+            }],
+          } } } }),
+        };
+      }
+      return {
+        ok: true,
+        json: async () => ({ query: { pages: {
+          2: {
+            pageid: 2,
+            title: 'File:이재명 대표 사진.jpg',
+            imageinfo: [{
+              url: 'https://upload.wikimedia.org/lee-representative.jpg',
+              descriptionurl: 'https://commons.wikimedia.org/wiki/File:Lee_representative.jpg',
+              width: 1600,
+              height: 2400,
+              extmetadata: { LicenseShortName: { value: 'CC BY-SA 4.0' } },
+            }],
+          },
+          3: {
+            pageid: 3,
+            title: 'File:이재명 공식 행사 2026.jpg',
+            imageinfo: [{
+              url: 'https://upload.wikimedia.org/lee-event-2026.jpg',
+              descriptionurl: 'https://commons.wikimedia.org/wiki/File:Lee_event_2026.jpg',
+              width: 1800,
+              height: 2700,
+              extmetadata: {
+                LicenseShortName: { value: 'CC BY 4.0' },
+                ImageDescription: { value: '이재명 대통령 공식 행사 사진' },
+              },
+            }],
+          },
+        } } }),
+      };
+    },
+  });
+
+  assert.equal(selection.kind, 'typographic');
+  assert.equal(selection.identity.depicted, false);
+  assert.ok(selection.attempts.some(attempt => attempt.recentReuseBlocked >= 1));
 });
 
 test('ships 30 labeled Korean article pairs for live embedding calibration', () => {

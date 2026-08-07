@@ -2,8 +2,8 @@ name: DIEM Issue
 
 on:
   schedule:
-    # Every four hours: 01:00, 05:00, 09:00, 13:00, 17:00 and 21:00 Asia/Seoul
-    - cron: '0 */4 * * *'
+    # Every six hours, staggered from Economy: 04:00, 10:00, 16:00 and 22:00 Asia/Seoul
+    - cron: '0 1,7,13,19 * * *'
   workflow_dispatch:
 
 concurrency:

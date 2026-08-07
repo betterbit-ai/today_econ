@@ -2,8 +2,8 @@ name: DIEM Economy
 
 on:
   schedule:
-    # Every four hours: 01:00, 05:00, 09:00, 13:00, 17:00 and 21:00 Asia/Seoul
-    - cron: '0 */4 * * *'
+    # Every six hours: 01:00, 07:00, 13:00 and 19:00 Asia/Seoul
+    - cron: '0 4,10,16,22 * * *'
     # Weekly encrypted Instagram token rotation (Monday 05:30 KST)
     - cron: '30 20 * * 0'
   workflow_dispatch:

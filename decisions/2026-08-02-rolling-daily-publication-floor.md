@@ -1,8 +1,9 @@
 ---
 date: 2026-08-02
 scope: feature
-status: active
+status: superseded
 source: user
+superseded_by: 2026-08-06-staggered-six-hour-publishing.md
 ---
 
 # Keep a safe rolling daily publication floor

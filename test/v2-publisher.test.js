@@ -245,6 +245,56 @@ test('passes topic-grounded typography metadata to the cover and persists its st
   assert.equal(result.publications.issue.image.id, 'diem-art:occupational-heat:v11');
 });
 
+test('allows person-free typography when a named-person story has no safe photo', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-person-identity-'));
+  let ledger = createDailyLedger('2026-08-05');
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: {
+      title: "조세심판원, 배우 유연석 '30억 세금' 불복 청구 기각",
+      summary: '배우 유연석의 30억 원대 조세심판 청구가 기각됐다.',
+      fullText: '조세심판원은 배우 유연석의 청구를 기각했다. 유연석은 세액을 납부했다. 소속사는 후속 절차를 검토 중이라고 밝혔다.',
+      category: 'economy',
+    },
+    duplicateCheck: { signature: { target: '유연석 세금', event: '조세심판 기각', entities: ['유연석'] } },
+  });
+
+  const result = await preparePublication(ledger, 'economy', {
+    artifactRoot: root,
+    callModel: async () => ({
+      titleCandidates: [{ title: '조세심판원\n유연석 청구 기각' }],
+      selectedTitleIndex: 0,
+      sentences: [
+        '조세심판원이 배우 유연석의 세금 불복 청구를 기각했습니다.',
+        '유연석은 확정된 세액을 이미 납부했습니다.',
+        '소속사는 법이 정한 후속 절차를 검토 중이라고 밝혔습니다.',
+      ],
+      emojis: { first: '📰', third: '📰' },
+      topicTags: ['유연석', '조세심판원', '세금'],
+      imageKeyword: 'tax appeal court',
+    }),
+    selectImageImpl: async () => ({
+      kind: 'typographic',
+      source: 'diem-original',
+      fallbackTheme: 'markets',
+      fallbackVariant: 3,
+      visualFingerprint: 'diem-art:markets:v3',
+      identity: { required: false, name: '유연석', depicted: false, verified: null },
+      reuseGuard: { allowed: true },
+    }),
+    renderCoverImpl: async ({ outputPath }) => fs.writeFileSync(outputPath, 'cover'),
+    selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
+    createReelImpl: async ({ outputPath }) => {
+      fs.writeFileSync(outputPath, 'video');
+      return { outputPath, audio: { trackId: 'mock-track' } };
+    },
+  });
+
+  assert.equal(result.publications.economy.status, 'ready');
+  assert.equal(result.publications.economy.image.kind, 'typographic');
+  assert.equal(result.publications.economy.image.identity.depicted, false);
+});
+
 test('reconciles an existing exact Reel instead of republishing', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-publisher-'));
   const ledger = readyLedger(root);

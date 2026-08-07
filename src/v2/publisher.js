@@ -9,6 +9,7 @@ const { createGroqCaller } = require('./groq');
 const {
   createTypographyFallback,
   downloadSelectedImage,
+  extractPrimaryPersonIdentity,
   imageReuseKeys,
   selectLicensedImage,
 } = require('./image-selector');
@@ -112,7 +113,9 @@ async function preparePublication(ledger, category, {
   const imageCandidate = {
     ...article,
     imageKeyword: editorial.imageKeyword,
+    editorialTitle: editorial.title.text,
   };
+  const personIdentity = extractPrimaryPersonIdentity(imageCandidate);
   let imageSelection;
   let downloaded;
   for (let selectionAttempt = 1; selectionAttempt <= 5; selectionAttempt += 1) {
@@ -155,6 +158,12 @@ async function preparePublication(ledger, category, {
   }
   if (imageSelection.kind === 'typographic' && imageSelection.reuseGuard?.allowed === false) {
     throw new Error('[DIEM Image] No unused topic-grounded fallback art remains inside the seven-day window.');
+  }
+  const claimsNamedPortrait = imageSelection.visualRole === 'portrait'
+    || imageSelection.identity?.required === true;
+  if (personIdentity?.critical && claimsNamedPortrait
+    && !(imageSelection.kind === 'web' && imageSelection.identity?.verified)) {
+    throw new Error(`[DIEM Image] named-person identity could not be verified: ${personIdentity.name}`);
   }
 
   const coverPath = path.join(outputDir, `${category}-cover.png`);

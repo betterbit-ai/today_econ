@@ -39,7 +39,7 @@ function latestWatchdogInstant(ledgers = []) {
 
 function assessPublicationHealth(ledgers = [], {
   now = new Date(),
-  dailyFloorAfterHours = 20,
+  dailyFloorAfterHours = 18,
   overdueAfterHours = 24,
   alertCooldownHours = 24,
 } = {}) {

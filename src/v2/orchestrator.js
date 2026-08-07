@@ -229,6 +229,19 @@ function isEditorialGenerationError(error = {}) {
   return /^\[DIEM Editorial\]/u.test(String(error.message || ''));
 }
 
+function candidatePreparationReason(error = {}) {
+  const message = String(error.message || '');
+  if (isEditorialGenerationError(error)) return 'editorial_generation_failed';
+  if (/^\[DIEM Image\].*named-person identity could not be verified/iu.test(message)) {
+    return 'image_identity_unverified';
+  }
+  return null;
+}
+
+function isCandidatePreparationError(error = {}) {
+  return Boolean(candidatePreparationReason(error));
+}
+
 function appendCandidateRejection(ledger, candidate, category, reason) {
   const next = structuredClone(ledger);
   const index = (next.candidates || []).findIndex(item => (
@@ -281,10 +294,11 @@ function applySelectedCandidate(ledger, category, evaluation, candidateFailures 
 
 function failedNoPublishAfterCandidateExhaustion(publication, candidateFailures = [], now = new Date()) {
   const last = candidateFailures.at(-1);
+  const onlyEditorialFailures = candidateFailures.every(failure => failure.reason === 'editorial_generation_failed');
   return {
     ...publication,
     status: 'no_publish',
-    reason: 'no_candidate_passed_editorial_generation',
+    reason: onlyEditorialFailures ? 'no_candidate_passed_editorial_generation' : 'no_candidate_passed_preparation',
     generation: {
       status: 'no_publish',
       attempts: candidateFailures.length,
@@ -304,6 +318,8 @@ function candidateFailure(publication, error, now = new Date()) {
     title: publication?.candidate?.title || null,
     url: publication?.candidate?.url || null,
     error: error.message,
+    reason: candidatePreparationReason(error) || 'generation_failed',
+    stage: candidatePreparationReason(error) === 'image_identity_unverified' ? 'image_selection' : 'editorial_generation',
     rejectedAt: now.toISOString(),
   };
 }
@@ -322,7 +338,8 @@ async function rerouteAfterEditorialFailure(ledger, category, {
     ...(next.publications[category]?.generation?.candidateFailures || []),
     firstFailure,
   ];
-  next = appendCandidateRejection(next, next.publications[category]?.candidate, category, `editorial_generation_failed:${error.message}`);
+  const firstReason = candidatePreparationReason(error) || 'editorial_generation_failed';
+  next = appendCandidateRejection(next, next.publications[category]?.candidate, category, `${firstReason}:${error.message}`);
 
   const candidates = next.candidates || [];
   const currentUrl = next.publications[category]?.candidate?.url;
@@ -362,13 +379,13 @@ async function rerouteAfterEditorialFailure(ledger, category, {
     try {
       return await preparePublicationImpl(next, category, { history });
     } catch (candidateError) {
-      if (!isEditorialGenerationError(candidateError)) {
+      if (!isCandidatePreparationError(candidateError)) {
         return updatePublication(next, category, failedGenerationPublication(next.publications[category], candidateError));
       }
       const failure = candidateFailure(next.publications[category], candidateError);
       candidateFailures = [...candidateFailures, failure];
       attemptedUrls.add(failure.url);
-      next = appendCandidateRejection(next, next.publications[category]?.candidate, category, `editorial_generation_failed:${candidateError.message}`);
+      next = appendCandidateRejection(next, next.publications[category]?.candidate, category, `${failure.reason}:${candidateError.message}`);
     }
   }
 
@@ -418,7 +435,7 @@ async function runCategoryStep(ledger, category, {
     try {
       return await preparePublicationImpl(ledger, category, { history });
     } catch (error) {
-      if (isEditorialGenerationError(error)) {
+      if (isCandidatePreparationError(error)) {
         return rerouteAfterEditorialFailure(ledger, category, {
           error,
           history,
@@ -506,6 +523,7 @@ module.exports = {
   failedPublishPublication,
   hasFrozenQueue,
   isEditorialGenerationError,
+  isCandidatePreparationError,
   planCategoryPhase,
   planPhase,
   publicationNeedsRecovery,

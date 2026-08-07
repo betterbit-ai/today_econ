@@ -13,13 +13,13 @@ function publishedLedger(updatedAt = '2026-08-01T00:00:00.000Z') {
   return ledger;
 }
 
-test('starts the daily floor before the next four-hour run would cross 24 hours', () => {
+test('starts the daily floor before the next six-hour run would cross 24 hours', () => {
   const ledger = publishedLedger();
   const early = assessPublicationHealth([ledger], {
-    now: new Date('2026-08-01T19:59:00.000Z'),
+    now: new Date('2026-08-01T17:59:00.000Z'),
   });
   const due = assessPublicationHealth([ledger], {
-    now: new Date('2026-08-01T20:00:00.000Z'),
+    now: new Date('2026-08-01T18:00:00.000Z'),
   });
 
   assert.equal(early.dailyFloorDue, false);
@@ -27,6 +27,7 @@ test('starts the daily floor before the next four-hour run would cross 24 hours'
   assert.equal(due.dailyFloorDue, true);
   assert.equal(due.overdue, false);
   assert.equal(due.lastPublishedAt, '2026-08-01T00:00:00.000Z');
+  assert.equal(due.thresholds.dailyFloorAfterHours, 18);
 });
 
 test('alerts after 24 hours and suppresses another watchdog alert for one day', () => {

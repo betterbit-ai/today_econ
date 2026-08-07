@@ -175,6 +175,45 @@ test('editorial generation failure marks no_publish after candidate exhaustion',
   assert.equal(result.publications.issue.status, 'planned');
 });
 
+test('named-person image verification failure reroutes to the next ranked candidate', async () => {
+  let ledger = applyPlan(createDailyLedger('2026-08-05'), plannedResult('2026-08-05'));
+  ledger.candidates = [
+    { title: '배우 세금 기사', url: 'https://example.com/person-tax', sources: [], rejectionReasons: [] },
+    { title: '기준금리 기사', url: 'https://example.com/rate', sources: [], rejectionReasons: [] },
+  ];
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: { title: '배우 세금 기사', url: 'https://example.com/person-tax', fullText: '본문입니다.'.repeat(20), category: 'economy' },
+    reel: plannedStep(),
+    comment: plannedStep(),
+    reply: plannedStep(),
+  });
+
+  const preparedUrls = [];
+  const result = await runCategoryStep(ledger, 'economy', {
+    phase: 'prepare',
+    preparePublicationImpl: async current => {
+      const url = current.publications.economy.candidate.url;
+      preparedUrls.push(url);
+      if (url.includes('person-tax')) {
+        throw new Error('[DIEM Image] named-person identity could not be verified: 유연석');
+      }
+      return readyPublication(current, 'economy');
+    },
+    evaluateCandidateImpl: async candidate => ({
+      ok: true,
+      selected: { title: candidate.title, url: candidate.url, fullText: '검증 본문입니다.'.repeat(20), category: 'economy' },
+      corroboration: null,
+      duplicateCheck: { duplicate: false, signature: { text: '경제 | 기준금리' } },
+    }),
+  });
+
+  assert.deepEqual(preparedUrls, ['https://example.com/person-tax', 'https://example.com/rate']);
+  assert.equal(result.publications.economy.status, 'ready');
+  assert.equal(result.publications.economy.candidate.url, 'https://example.com/rate');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('economy:image_identity_unverified')));
+});
+
 test('manual retry skips an already published Reel and repairs comments only', async () => {
   let ledger = applyPlan(createDailyLedger('2026-07-25'), plannedResult());
   ledger = updatePublication(ledger, 'economy', {
@@ -280,14 +319,14 @@ test('economy polling owns the daily floor when the next run would cross 24 hour
     status: 'published',
     reel: { status: 'published', externalId: 'reel-yesterday', updatedAt: '2026-08-01T00:00:00.000Z' },
   });
-  const current = createDailyLedger('2026-08-02', new Date('2026-08-01T20:00:00.000Z'));
+  const current = createDailyLedger('2026-08-02', new Date('2026-08-01T18:00:00.000Z'));
   let plannerOptions;
 
   const result = await planCategoryPhase({
     date: '2026-08-02',
     category: 'economy',
     slot: 'run-0500',
-    now: new Date('2026-08-01T20:00:00.000Z'),
+    now: new Date('2026-08-01T18:00:00.000Z'),
     loadLedgerImpl: () => current,
     listLedgersImpl: () => [prior, current],
     planDailyQueueImpl: async options => {

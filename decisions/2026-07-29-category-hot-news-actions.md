@@ -1,8 +1,9 @@
 ---
 date: 2026-07-29
 scope: project
-status: active
+status: superseded
 source: harness-architecture
+superseded_by: 2026-08-06-staggered-six-hour-publishing.md
 supersedes:
   - 2026-07-25-github-first-diem-publishing.md
   - 2026-07-25-mission-economy-current-affairs-reels.md

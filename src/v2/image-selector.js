@@ -51,6 +51,34 @@ const GENERIC_VISUAL_TOKENS = new Set([
   'law',
 ]);
 const TYPOGRAPHY_VARIANT_COUNT = 64;
+const PERSON_ROLE_PATTERN = '대통령|전\\s*대통령|총리|부총리|장관|의원|대표|회장|총재|배우|가수|목사|교수|감독|선수|변호사|검사|판사|작가|방송인|후보';
+const NON_PERSON_NAMES = new Set([
+  '국내', '국민', '국회', '당국', '대표', '미국', '법원', '서울', '정부', '전직', '현직', '한국', '회사',
+]);
+const PERSON_METADATA_PATTERN = /\b(?:person|people|portraits?|models?|man|men|woman|women|boys?|girls?|students?|workers?|doctors?|nurses?|teachers?|actors?|actresses|singers?|couples?|parents?|children?|famil(?:y|ies)|crowds?)\b|(?:사람|인물|남성|여성|학생|노동자|근로자|의사|간호사|교사|배우|가수|아동|자녀|부부|부모|가족|군중)/iu;
+const PERSON_FREE_CONTEXT_PATTERN = /\b(?:building|exterior|interior|architecture|office|institution|document|paper|contract|legislation|law|gavel|courtroom|cityscape|skyline|flag|chart|screen|computer|phone|factory|microchip|chip|vehicle|car|apartment|house|hospital|classroom|landscape|weather|storm|heatwave|thermometer|equipment|machinery|road|street|roof|rooftop|construction\s+site)\b|(?:건물|외관|내부|건축|기관|문서|서류|계약서|법안|법률|의사봉|법정|도시|전경|국기|차트|화면|컴퓨터|공장|반도체|차량|자동차|아파트|주택|병원|교실|풍경|날씨|폭염|온도계|장비|기자재|도로|거리|지붕|옥상|건설현장)/iu;
+
+function extractPrimaryPersonIdentity(candidate = {}) {
+  const patterns = [
+    { expression: new RegExp(`(${PERSON_ROLE_PATTERN})\\s+([\uac00-\ud7a3]{2,4})`, 'u'), roleFirst: true },
+    { expression: new RegExp(`([\uac00-\ud7a3]{2,4})\\s*(${PERSON_ROLE_PATTERN})`, 'u'), roleFirst: false },
+  ];
+  const sources = [candidate.title, String(candidate.summary || '').slice(0, 900)]
+    .map(value => normalizeNfc(value || ''))
+    .filter(Boolean);
+  for (const source of sources) {
+    for (const pattern of patterns) {
+      const match = source.match(pattern.expression);
+      if (!match) continue;
+      const name = normalizeNfc(pattern.roleFirst ? match[2] : match[1]).trim();
+      const role = normalizeNfc(pattern.roleFirst ? match[1] : match[2]).replace(/\s+/gu, ' ').trim();
+      if (!name || NON_PERSON_NAMES.has(name)) continue;
+      const coverText = normalizeNfc(`${candidate.editorialTitle || ''} ${candidate.title || ''}`);
+      return { name, role, critical: coverText.includes(name) };
+    }
+  }
+  return null;
+}
 
 function articleSourceText(candidate = {}) {
   const frame = candidate.newsFrame || {};
@@ -81,6 +109,12 @@ function eventVisualQueries(sourceText = '') {
   if (isOccupationalHeatStory(sourceText)) {
     queries.push('construction workers rooftop extreme heat', 'outdoor workers heatwave safety');
     return queries;
+  }
+  if (/(대통령|청와대|대통령실)/u.test(sourceText)) {
+    queries.push('South Korea presidential office building Seoul');
+  }
+  if (/(법원|고법|대법원|판결|조세심판원|심판청구|재판)/u.test(sourceText)) {
+    queries.push('legal court document gavel');
   }
   if (/(보완수사권|형사소송법|법안|개정안|본회의|국회|청와대|대통령실)/u.test(sourceText)) {
     if (/(대한민국|한국|국회|청와대|대통령실|여의도)/u.test(sourceText)) {
@@ -118,6 +152,47 @@ function isSpecificImageKeyword(value = '') {
 
 function imageMetadata(image = {}) {
   return normalizeNfc(`${image.description || ''} ${image.alt || ''} ${(image.tags || []).join(' ')}`);
+}
+
+function identityAssessment(image = {}, candidate = {}, { selectionRole = 'context' } = {}) {
+  const identity = extractPrimaryPersonIdentity(candidate);
+  if (!identity?.critical || selectionRole !== 'portrait') {
+    return {
+      required: false,
+      name: identity?.name || null,
+      role: identity?.role || null,
+      depicted: false,
+      verified: null,
+      trustedProvider: null,
+      metadataMatched: null,
+    };
+  }
+  const trustedProvider = image.identityAuthority === 'wikipedia-page'
+    || image.identityAuthority === 'official'
+    || image.source === 'official-press';
+  const metadataMatched = imageMetadata(image).includes(identity.name)
+    || normalizeNfc(image.identityVerifiedName || '').trim() === identity.name;
+  return {
+    required: true,
+    name: identity.name,
+    role: identity.role,
+    depicted: true,
+    verified: trustedProvider && metadataMatched,
+    trustedProvider,
+    metadataMatched,
+  };
+}
+
+function personPresenceAssessment(image = {}, { requirePersonFreeEvidence = false } = {}) {
+  const metadata = imageMetadata(image);
+  const detected = PERSON_METADATA_PATTERN.test(metadata);
+  const personFreeEvidence = PERSON_FREE_CONTEXT_PATTERN.test(metadata);
+  return {
+    detected,
+    personFreeEvidence,
+    requiredPersonFreeEvidence: requirePersonFreeEvidence,
+    safe: !detected && (!requirePersonFreeEvidence || personFreeEvidence),
+  };
 }
 
 const ARTICLE_VISUAL_ROLES = Object.freeze([
@@ -168,7 +243,10 @@ function geographicAssessment(image = {}, candidate = {}, query = '') {
   };
 }
 
-function assessImageSuitability(image = {}, query = '', candidate = {}) {
+function assessImageSuitability(image = {}, query = '', candidate = {}, {
+  selectionRole = 'context',
+  requirePersonFreeEvidence = false,
+} = {}) {
   const queryTokens = extractSignatureTokens(normalizeNfc(query))
     .map(token => token.toLowerCase());
   const concreteQueryTokens = [...new Set(
@@ -180,14 +258,24 @@ function assessImageSuitability(image = {}, query = '', candidate = {}) {
   const matchedConcreteTokens = concreteQueryTokens.filter(token => metadataTokens.has(token));
   const roles = visualRoleAssessment(image, candidate);
   const geography = geographicAssessment(image, candidate, query);
+  const identity = identityAssessment(image, candidate, { selectionRole });
+  const personScreening = personPresenceAssessment(image, { requirePersonFreeEvidence });
   const subjectMatched = concreteQueryTokens.length > 0 && matchedConcreteTokens.length > 0;
   const roleMatched = roles.missingVisualRoles.length === 0;
   const geographyMatched = geography.missingGeography === null;
-  const ok = subjectMatched && roleMatched && geographyMatched;
+  const identityMatched = !identity.required || identity.verified;
+  const personSafe = selectionRole === 'portrait' || personScreening.safe;
+  const ok = subjectMatched && roleMatched && geographyMatched && identityMatched && personSafe;
 
   return {
     ok,
-    reason: concreteQueryTokens.length === 0
+    reason: selectionRole !== 'portrait' && personScreening.detected
+      ? 'unverified_stock_person'
+      : selectionRole !== 'portrait' && requirePersonFreeEvidence && !personScreening.personFreeEvidence
+        ? 'person_free_context_unverified'
+      : !identityMatched
+      ? 'named_person_identity_unverified'
+      : concreteQueryTokens.length === 0
       ? 'concrete_query_missing'
       : !geographyMatched
         ? 'geographic_context_mismatch'
@@ -203,6 +291,9 @@ function assessImageSuitability(image = {}, query = '', candidate = {}) {
     matchRatio: Number((matchedConcreteTokens.length / Math.max(1, concreteQueryTokens.length)).toFixed(4)),
     ...roles,
     ...geography,
+    identity,
+    personScreening,
+    selectionRole,
   };
 }
 
@@ -309,6 +400,7 @@ function createTypographyFallback(candidate = {}, {
   reuseWindowDays = 7,
   reason = 'no concrete-subject-matched licensed unused image met the confidence threshold',
 } = {}) {
+  const personIdentity = extractPrimaryPersonIdentity(candidate);
   const fallbackTheme = inferFallbackTheme(candidate);
   const recentKeys = recentImageKeySet(recentImages);
   const start = stableVariantStart(candidate, fallbackTheme);
@@ -336,6 +428,13 @@ function createTypographyFallback(candidate = {}, {
     fallbackVariant,
     artVariantId: visualFingerprint,
     visualFingerprint,
+    identity: {
+      required: false,
+      name: personIdentity?.name || null,
+      role: personIdentity?.role || null,
+      depicted: false,
+      verified: null,
+    },
     reuseGuard: {
       allowed: blockedCandidateCount < TYPOGRAPHY_VARIANT_COUNT,
       windowDays: reuseWindowDays,
@@ -409,6 +508,15 @@ async function searchWikimedia(query, { fetchImpl = fetch } = {}) {
     const metadata = info?.extmetadata || {};
     const licenseName = metadata.LicenseShortName?.value || metadata.UsageTerms?.value || '';
     if (!info?.url || !WIKIMEDIA_LICENSE.test(licenseName)) return [];
+    const description = [
+      page.title,
+      metadata.ObjectName?.value,
+      metadata.ImageDescription?.value,
+      metadata.Categories?.value,
+    ]
+      .map(value => String(value || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())
+      .filter(Boolean)
+      .join(' ');
     return [{
       id: `wikimedia:${page.pageid}`,
       source: 'wikimedia',
@@ -417,7 +525,75 @@ async function searchWikimedia(query, { fetchImpl = fetch } = {}) {
       creator: String(metadata.Artist?.value || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
       width: info.width,
       height: info.height,
-      description: page.title,
+      description,
+      license: {
+        name: licenseName,
+        url: metadata.LicenseUrl?.value || 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia',
+      },
+    }];
+  });
+}
+
+async function searchVerifiedWikimediaPerson(name, { fetchImpl = fetch } = {}) {
+  const identityName = normalizeNfc(name).trim();
+  if (!identityName) return [];
+  const pageParams = new URLSearchParams({
+    action: 'query',
+    titles: identityName,
+    redirects: '1',
+    prop: 'pageimages',
+    piprop: 'name',
+    pilicense: 'free',
+    format: 'json',
+    origin: '*',
+  });
+  const pageData = await fetchJson(`https://ko.wikipedia.org/w/api.php?${pageParams}`, { fetchImpl });
+  const page = Object.values(pageData.query?.pages || {}).find(item => item && !item.missing);
+  if (!page?.pageimage) return [];
+  const normalizedTitle = normalizeNfc(page.title || '').trim();
+  const redirectedFromIdentity = (pageData.query?.redirects || []).some(redirect => (
+    normalizeNfc(redirect.from || '').trim() === identityName
+    && normalizeNfc(redirect.to || '').trim() === normalizedTitle
+  ));
+  if (normalizedTitle !== identityName && !redirectedFromIdentity) return [];
+
+  const fileTitle = String(page.pageimage).startsWith('File:')
+    ? String(page.pageimage)
+    : `File:${page.pageimage}`;
+  const fileParams = new URLSearchParams({
+    action: 'query',
+    titles: fileTitle,
+    prop: 'imageinfo',
+    iiprop: 'url|extmetadata|size',
+    iiurlwidth: '1600',
+    format: 'json',
+    origin: '*',
+  });
+  const fileData = await fetchJson(`https://commons.wikimedia.org/w/api.php?${fileParams}`, { fetchImpl });
+  return Object.values(fileData.query?.pages || {}).flatMap(filePage => {
+    const info = filePage.imageinfo?.[0];
+    const metadata = info?.extmetadata || {};
+    const licenseName = metadata.LicenseShortName?.value || metadata.UsageTerms?.value || '';
+    if (!info?.url || !WIKIMEDIA_LICENSE.test(licenseName)) return [];
+    const metadataDescription = [
+      metadata.ObjectName?.value,
+      metadata.ImageDescription?.value,
+      metadata.Categories?.value,
+    ]
+      .map(value => String(value || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())
+      .filter(Boolean)
+      .join(' ');
+    return [{
+      id: `wikimedia:${filePage.pageid}`,
+      source: 'wikimedia',
+      originalUrl: info.descriptionurl,
+      downloadUrl: info.thumburl || info.url,
+      creator: String(metadata.Artist?.value || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+      width: info.thumbwidth || info.width,
+      height: info.thumbheight || info.height,
+      description: `${identityName} 한국어 위키백과 문서 ${normalizedTitle} ${filePage.title || ''} ${metadataDescription}`.trim(),
+      identityAuthority: 'wikipedia-page',
+      identityVerifiedName: identityName,
       license: {
         name: licenseName,
         url: metadata.LicenseUrl?.value || 'https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia',
@@ -437,33 +613,55 @@ async function selectLicensedImage(candidate, {
   const queries = buildImageQueries(candidate);
   const attempts = [];
   const recentKeys = recentImageKeySet(recentImages);
-  const providers = [
+  const identity = extractPrimaryPersonIdentity(candidate);
+  const contextProviders = [
     { name: 'pexels', search: query => searchPexels(query, { apiKey: pexelsApiKey, fetchImpl }) },
     { name: 'unsplash', search: query => searchUnsplash(query, { accessKey: unsplashAccessKey, fetchImpl }) },
     { name: 'wikimedia', search: query => searchWikimedia(query, { fetchImpl }) },
   ];
+  const phases = [
+    {
+      visualRole: 'context',
+      queries,
+      providers: contextProviders,
+      requirePersonFreeEvidence: true,
+    },
+    ...(identity?.critical ? [{
+      visualRole: 'portrait',
+      queries: [identity.name],
+      providers: [{
+        name: 'wikimedia-person-page',
+        search: query => searchVerifiedWikimediaPerson(query, { fetchImpl }),
+      }],
+      requirePersonFreeEvidence: false,
+    }] : []),
+  ];
 
-  for (const provider of providers) {
-    for (const query of queries) {
-      try {
-        const images = (await provider.search(query)).slice(0, 20);
-        const scored = images
+  for (const phase of phases) {
+    for (const provider of phase.providers) {
+      for (const query of phase.queries) {
+        try {
+          const images = (await provider.search(query)).slice(0, 20);
+          const scored = images
           .map(image => ({
             ...image,
             query,
             ...scoreImageCandidate(image, query, candidate.title),
-            suitability: assessImageSuitability(image, query, candidate),
+            suitability: assessImageSuitability(image, query, candidate, {
+              selectionRole: phase.visualRole,
+              requirePersonFreeEvidence: phase.requirePersonFreeEvidence,
+            }),
           }))
           .filter(image => image.downloadUrl && image.width >= 800 && image.height >= 800)
           .sort((a, b) => b.score - a.score)
           .map((image, index) => ({ ...image, rankWithinQuery: index + 1 }));
-        const suitable = scored.filter(image => (
-          image.components.semanticMetadata > 0 && image.suitability.ok
-        ));
-        const eligible = suitable.filter(img => img.score >= minimumScore);
-        const blocked = eligible.filter(image => imageWasRecentlyUsed(image, recentKeys));
-        const unused = eligible.filter(image => !imageWasRecentlyUsed(image, recentKeys));
-        const suitabilityRejections = scored
+          const suitable = scored.filter(image => (
+            image.components.semanticMetadata > 0 && image.suitability.ok
+          ));
+          const eligible = suitable.filter(img => img.score >= minimumScore);
+          const blocked = eligible.filter(image => imageWasRecentlyUsed(image, recentKeys));
+          const unused = eligible.filter(image => !imageWasRecentlyUsed(image, recentKeys));
+          const suitabilityRejections = scored
           .filter(image => !image.suitability.ok)
           .map(image => ({
             id: image.id,
@@ -477,10 +675,13 @@ async function selectLicensedImage(candidate, {
             requiredGeography: image.suitability.requiredGeography,
             matchedGeography: image.suitability.matchedGeography,
             missingGeography: image.suitability.missingGeography,
+            identity: image.suitability.identity,
+            personScreening: image.suitability.personScreening,
           }));
-        const suitabilityRejected = suitabilityRejections.length;
-        attempts.push({
+          const suitabilityRejected = suitabilityRejections.length;
+          attempts.push({
           provider: provider.name,
+          visualRole: phase.visualRole,
           query,
           count: scored.length,
           suitableCount: suitable.length,
@@ -489,15 +690,17 @@ async function selectLicensedImage(candidate, {
           eligibleCount: eligible.length,
           recentReuseBlocked: blocked.length,
           bestScore: scored[0]?.score ?? null,
-        });
-        if (unused.length > 0) {
-          const topN = unused.slice(0, 5);
-          const selectedIndex = 0;
-          const selected = topN[selectedIndex];
-          return {
+          });
+          if (unused.length > 0) {
+            const topN = unused.slice(0, 5);
+            const selectedIndex = 0;
+            const selected = topN[selectedIndex];
+            return {
             kind: 'web',
             selectedAt: new Date().toISOString(),
             ...selected,
+            visualRole: phase.visualRole,
+            identity: selected.suitability.identity,
             selectedPoolIndex: selectedIndex + 1,
             selectionPoolSize: topN.length,
             attempts,
@@ -510,10 +713,11 @@ async function selectLicensedImage(candidate, {
               selectedImageKeys: imageReuseKeys(selected),
             },
             selectionReason: `selected concrete-subject-matched unused rank #${selected.rankWithinQuery} from ${provider.name} results above ${minimumScore}; ${suitabilityRejected} unsuitable and ${blocked.length} recent images blocked`,
-          };
+            };
+          }
+        } catch (error) {
+          attempts.push({ provider: provider.name, visualRole: phase.visualRole, query, count: 0, error: error.message });
         }
-      } catch (error) {
-        attempts.push({ provider: provider.name, query, count: 0, error: error.message });
       }
     }
   }
@@ -547,11 +751,13 @@ module.exports = {
   buildImageQueries,
   createTypographyFallback,
   downloadSelectedImage,
+  extractPrimaryPersonIdentity,
   imageReuseKeys,
   scoreImageCandidate,
   isSpecificImageKeyword,
   searchPexels,
   searchUnsplash,
+  searchVerifiedWikimediaPerson,
   searchWikimedia,
   selectLicensedImage,
 };
