@@ -10,6 +10,7 @@ const LICENSES = Object.freeze({
   unsplash: { name: 'Unsplash License', url: 'https://unsplash.com/license' },
 });
 const WIKIMEDIA_LICENSE = /public domain|cc0|cc by(?:-sa)?(?:\s|$)/i;
+const OPENVERSE_LICENSES = new Set(['cc0', 'pdm', 'by', 'by-sa']);
 
 const KOR_TO_ENG_VISUALS = [
   { match: /결혼|혼인|신혼|축의금|예식/u, english: 'wedding couple marriage ceremony' },
@@ -112,6 +113,16 @@ function eventVisualQueries(sourceText = '') {
   }
   if (/(대통령|청와대|대통령실)/u.test(sourceText)) {
     queries.push('South Korea presidential office building Seoul');
+  }
+  if (/(아파트|주택|부동산).{0,30}(신고가|거래|매매|실거주|세입자)/u.test(sourceText)) {
+    queries.push('South Korea apartment buildings city skyline', 'apartment sale contract house keys');
+  }
+  if (/(민생지원금|지원금|현금\s*지원|보조금|지역화폐|소비쿠폰)/u.test(sourceText)
+    && !/(결혼|혼인|신혼|축의금|예식)/u.test(sourceText)) {
+    queries.push('cash assistance voucher wallet document', 'local currency voucher payment');
+  }
+  if (/(퇴직|퇴사|실업|구직|고용).{0,30}(지원|수당|정책|급여)/u.test(sourceText)) {
+    queries.push('employment benefit application document desk');
   }
   if (/(법원|고법|대법원|판결|조세심판원|심판청구|재판)/u.test(sourceText)) {
     queries.push('legal court document gavel');
@@ -490,6 +501,36 @@ async function searchUnsplash(query, { accessKey, fetchImpl = fetch } = {}) {
   }));
 }
 
+async function searchOpenverse(query, { fetchImpl = fetch } = {}) {
+  const params = new URLSearchParams({
+    q: query,
+    page_size: '20',
+    license_type: 'commercial,modification',
+  });
+  const data = await fetchJson(`https://api.openverse.org/v1/images/?${params}`, { fetchImpl });
+  return (data.results || []).flatMap(image => {
+    const licenseKey = String(image.license || '').toLowerCase().trim();
+    if (!OPENVERSE_LICENSES.has(licenseKey) || !image.url) return [];
+    const tags = (image.tags || []).map(tag => tag?.name || tag).filter(Boolean);
+    return [{
+      id: `openverse:${image.id}`,
+      source: 'openverse',
+      originalUrl: image.foreign_landing_url || image.detail_url || image.url,
+      downloadUrl: image.url,
+      creator: image.creator || '',
+      creatorUrl: image.creator_url || '',
+      width: image.width,
+      height: image.height,
+      description: [image.title, ...tags].filter(Boolean).join(' '),
+      tags,
+      license: {
+        name: licenseKey === 'pdm' ? 'Public Domain Mark' : licenseKey.toUpperCase(),
+        url: image.license_url || 'https://creativecommons.org/share-your-work/cclicenses/',
+      },
+    }];
+  });
+}
+
 async function searchWikimedia(query, { fetchImpl = fetch } = {}) {
   const params = new URLSearchParams({
     action: 'query',
@@ -617,6 +658,7 @@ async function selectLicensedImage(candidate, {
   const contextProviders = [
     { name: 'pexels', search: query => searchPexels(query, { apiKey: pexelsApiKey, fetchImpl }) },
     { name: 'unsplash', search: query => searchUnsplash(query, { accessKey: unsplashAccessKey, fetchImpl }) },
+    { name: 'openverse', search: query => searchOpenverse(query, { fetchImpl }) },
     { name: 'wikimedia', search: query => searchWikimedia(query, { fetchImpl }) },
   ];
   const phases = [
@@ -756,6 +798,7 @@ module.exports = {
   scoreImageCandidate,
   isSpecificImageKeyword,
   searchPexels,
+  searchOpenverse,
   searchUnsplash,
   searchVerifiedWikimediaPerson,
   searchWikimedia,

@@ -66,6 +66,18 @@ function dailyWatchdogReason(publication = {}) {
   return `${lastPublished}, 현재까지 ${elapsedText} 무발행. 일일 최소 발행 후보 ${diagnostics.candidateCount || 0}건을 검토했지만 안전 기준 통과 후보가 없습니다.${reasons ? ` 주요 탈락 사유: ${reasons}.` : ''}`;
 }
 
+function noPublishReason(publication = {}) {
+  const base = publication.reason || publication.error || '품질 기준을 통과한 후보가 없습니다.';
+  if (base !== 'no_candidate_passed_editorial_generation') return base;
+  const failures = publication.generation?.candidateFailures || [];
+  const last = failures.at(-1);
+  const lastAttempt = (last?.modelAttempts || []).filter(attempt => attempt.status === 'failed').at(-1);
+  const detail = lastAttempt?.error || last?.error || publication.generation?.error;
+  return detail
+    ? `안전한 편집 원고 생성 실패 · ${detail}`
+    : '안전한 편집 원고 생성 실패 · 같은 분야의 다음 후보까지 통과하지 못했습니다.';
+}
+
 function transitionEvents(before = {}, after = {}, { actionsUrl = githubActionsUrl() } = {}) {
   const events = [];
   const publicationKey = after.publicationKey;
@@ -86,7 +98,7 @@ function transitionEvents(before = {}, after = {}, { actionsUrl = githubActionsU
       status: 'no_publish',
       reason: dailyFloorMiss
         ? dailyWatchdogReason(after)
-        : (after.reason || after.error || '품질 기준을 통과한 후보가 없습니다.'),
+        : noPublishReason(after),
     });
   }
 

@@ -22,6 +22,7 @@ on:
           - retry_basic
           - reject_basic
           - record_moderation
+          - collect_insights
       publication_key:
         description: 'publish_basic 또는 reject_basic 대상 publication_key'
         required: false
@@ -149,6 +150,7 @@ jobs:
           node src/cleanup-assets.js
           node src/collect-insights.js
           node src/v2/index.js basic-report
+          node src/v2/index.js performance-report
 
       - name: Commit measurement snapshots
         continue-on-error: true
@@ -167,6 +169,34 @@ jobs:
             git pull --rebase origin "${GITHUB_REF_NAME:-main}"
             git push origin "HEAD:${GITHUB_REF_NAME:-main}"
           fi
+
+  collect-performance-insights:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'collect_insights'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install measurement dependencies
+        run: npm ci
+
+      - name: Collect due insights and rebuild performance evidence
+        run: |
+          node src/collect-insights.js
+          node src/v2/index.js basic-report
+          node src/v2/index.js performance-report
+
+      - name: Commit measurement snapshots
+        run: bash scripts/commit-diem-state.sh "Refresh DIEM performance evidence without publishing"
 
   prepare-diem-basic:
     if: >-

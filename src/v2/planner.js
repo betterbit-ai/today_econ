@@ -4,6 +4,7 @@ const { CATEGORIES } = require('./constants');
 const { extraordinaryClaims, findExtraordinaryEvidence } = require('./fact-verifier');
 const { assessDailyFloor, assessHotness } = require('./hotness');
 const { fetchPortalRankings, mergePopularCandidates, normalizeRank, titleEventSimilarity } = require('./popular-news');
+const { loadPerformanceReport, performancePrior } = require('./performance-loop');
 const { computeEmbeddingMatrix, evaluateAgainstHistory } = require('./similarity');
 const {
   assessDiemEditorialValue,
@@ -127,6 +128,7 @@ async function evaluateCandidate(candidate, {
   referenceDate,
   candidateIndex = 0,
   uncertainHydrationLimit = UNCERTAIN_HYDRATION_LIMIT,
+  performanceReport = null,
 } = {}) {
   const topicHistory = (history || []).filter(entry => entry.signature?.text);
   const classified = classifyCandidate(candidate);
@@ -213,14 +215,22 @@ async function evaluateCandidate(candidate, {
     };
   }
 
+  const prior = performancePrior(enrichedCandidate, performanceReport || {}, { category });
+  const adjustedEditorialValue = {
+    ...editorialValue,
+    baseScore: editorialValue.score,
+    score: Math.max(0, Math.min(100, editorialValue.score + prior.adjustment)),
+    performancePrior: prior,
+  };
+
   const hotness = dailyFloorMode
-    ? assessDailyFloor({ ...enrichedCandidate, editorialValue }, { now })
-    : assessHotness({ ...enrichedCandidate, editorialValue }, { now });
+    ? assessDailyFloor({ ...enrichedCandidate, editorialValue: adjustedEditorialValue }, { now })
+    : assessHotness({ ...enrichedCandidate, editorialValue: adjustedEditorialValue }, { now });
   if ((hotMode || dailyFloorMode) && !hotness.ok) {
     return {
       ok: false,
       reason: `not_hot:${hotness.reason}`,
-      editorialValue,
+      editorialValue: adjustedEditorialValue,
       newsFrame,
       hotness,
       classificationTrace,
@@ -277,7 +287,8 @@ async function evaluateCandidate(candidate, {
       summary: candidate.summary || primary.fullText.slice(0, 300),
       topicSignature: signature,
       newsFrame,
-      editorialValue,
+      editorialValue: adjustedEditorialValue,
+      performancePrior: prior,
       hotness,
       classificationTrace,
     },
@@ -299,6 +310,8 @@ async function planDailyQueue({
   fetchArticleBodyImpl = fetchArticleDocument,
   embedder,
   embeddingMatrixImpl = computeEmbeddingMatrix,
+  performanceReport,
+  loadPerformanceReportImpl = loadPerformanceReport,
 } = {}) {
   const portal = await fetchPortalRankingsImpl({ date, now });
   let candidates = portal.candidates || mergePopularCandidates(portal.results || {});
@@ -344,6 +357,9 @@ async function planDailyQueue({
     }
   }
   const usedUrls = new Set();
+  const resolvedPerformanceReport = performanceReport === undefined
+    ? loadPerformanceReportImpl()
+    : performanceReport;
 
   for (const category of categories) {
     let selected = null;
@@ -369,6 +385,7 @@ async function planDailyQueue({
           referenceDate: date,
           candidateIndex,
           uncertainHydrationLimit: UNCERTAIN_HYDRATION_LIMIT,
+          performanceReport: resolvedPerformanceReport,
         });
         if (evaluation.classificationTrace) {
           record.classificationTrace = evaluation.classificationTrace;

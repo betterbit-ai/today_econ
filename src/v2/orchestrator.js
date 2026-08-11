@@ -320,6 +320,14 @@ function candidateFailure(publication, error, now = new Date()) {
     title: publication?.candidate?.title || null,
     url: publication?.candidate?.url || null,
     error: error.message,
+    modelAttempts: Array.isArray(error.attempts)
+      ? error.attempts.map(attempt => ({
+        model: attempt.model || null,
+        stage: attempt.stage || 'editorial',
+        status: attempt.status || 'failed',
+        error: attempt.error || null,
+      }))
+      : [],
     reason,
     stage: ['image_identity_unverified', 'quality_gate_failed'].includes(reason)
       ? 'quality_gate'

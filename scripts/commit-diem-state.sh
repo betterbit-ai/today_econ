@@ -5,7 +5,7 @@ intent="${1:-Preserve DIEM durable publication state}"
 
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-git add -A -- data/publications data/editorial-history.json data/reports
+git add -A -- data/publications data/editorial-history.json data/analytics-state.json data/reports
 
 if git diff --cached --quiet; then
   echo "No durable DIEM state changed."

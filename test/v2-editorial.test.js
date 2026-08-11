@@ -172,6 +172,101 @@ test('uses the fallback model after an invalid primary response', async () => {
   assert.equal(result.generation.attempts[1].status, 'succeeded');
 });
 
+test('repairs only an overlong title while preserving a valid apartment-news caption', async () => {
+  const article = {
+    category: CATEGORIES.ECONOMY,
+    title: '수도권 15억~20억 아파트, 거래 절반 이상이 신고가',
+    summary: '수도권의 15억~20억원 아파트 거래 가운데 절반 이상이 신고가로 집계됐습니다.',
+    fullText: '수도권의 15억~20억원 아파트 거래 가운데 절반 이상이 신고가로 집계됐습니다. 서울 주요 지역의 매매 가격이 오르며 실수요자의 부담이 커졌습니다. 전문가들은 공급과 금리 흐름을 함께 살펴야 한다고 설명했습니다.',
+    target: '수도권 아파트',
+    event: '신고가 거래',
+    verifiedFacts: [
+      '수도권의 15억~20억원 아파트 거래 가운데 절반 이상이 신고가로 집계됐습니다.',
+      '서울 주요 지역의 매매 가격이 올랐습니다.',
+      '공급과 금리 흐름을 함께 살펴야 한다는 분석이 나왔습니다.',
+    ],
+  };
+  const sentences = [...article.verifiedFacts];
+  const calls = [];
+  const result = await generateEditorial(article, {
+    callModel: async request => {
+      calls.push(request);
+      if (/표지 제목 교정기/u.test(request.systemPrompt)) {
+        return { titleCandidates: [{ title: '수도권 아파트\n신고가 절반' }] };
+      }
+      return {
+        titleCandidates: [{ title: '수도권 15억~20억 아파트\n거래 절반 이상이 신고가' }],
+        sentences,
+        emojis: { first: '🏠', third: '📊' },
+        topicTags: ['수도권아파트', '신고가', '부동산', '주택시장'],
+      };
+    },
+  });
+
+  assert.equal(calls.length, 2);
+  assert.equal(result.title.text, '수도권 아파트\n신고가 절반');
+  assert.deepEqual(
+    result.caption.sentences.map(sentence => sentence.replace(/[🏠📊]$/u, '')),
+    sentences
+  );
+  assert.ok(result.generation.attempts.some(attempt => attempt.stage === 'title_repair' && attempt.status === 'succeeded'));
+});
+
+test('does not spend a title repair on a caption that copied raw source wording', async () => {
+  const article = autoInsuranceBroadcastArticle();
+  const requests = [];
+  const result = await generateEditorial(article, {
+    callModel: async request => {
+      requests.push(request);
+      if (request.model === DEFAULT_MODELS.primary) {
+        return {
+          titleCandidates: [{ title: '지나치게 긴 자동차보험 제목\n적자 전환 설명' }],
+          sentences: [
+            '국내 자동차보험이 6년 만에 적자로 돌아섰습니다.',
+            '보험업계는 한방병원 과잉진료와 일부 정비업체의 과잉수리가 손해율을 끌어올렸다고 설명했습니다.',
+            '손해율 부담이 커지면서 자동차보험료 조정 논의에도 관심이 쏠리고 있습니다.',
+          ],
+        };
+      }
+      return {
+        titleCandidates: [{ title: '자동차보험\n적자 전환' }],
+        sentences: [
+          '자동차보험이 올해 상반기 6년 만에 영업적자로 돌아섰습니다.',
+          '업계는 한방병원 진료비와 정비업체 수리비 누수가 손해율 상승을 키웠다고 봤습니다.',
+          '손해율 압박이 이어지면 보험료 조정 논의에도 영향을 줄 수 있습니다.',
+        ],
+        topicTags: ['자동차보험', '손해율', '보험료', '한방병원'],
+      };
+    },
+  });
+
+  assert.equal(requests.some(request => /표지 제목 교정기/u.test(request.systemPrompt)), false);
+  assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
+});
+
+test('exposes model and title-repair failures when every safe title attempt fails', async () => {
+  const article = economyArticle();
+  let captured;
+  try {
+    await generateEditorial(article, {
+      callModel: async request => (/표지 제목 교정기/u.test(request.systemPrompt)
+        ? { titleCandidates: [{ title: '지나치게 긴 제목을\n다시 그대로 반환합니다' }] }
+        : {
+          titleCandidates: [{ title: '지나치게 긴 기준금리 제목\n핵심 사건도 길게 씁니다' }],
+          sentences: article.verifiedFacts.concat(article.context),
+        }),
+    });
+  } catch (error) {
+    captured = error;
+  }
+
+  assert.ok(captured);
+  assert.match(captured.message, /title repair failed/u);
+  assert.equal(Array.isArray(captured.attempts), true);
+  assert.equal(captured.attempts.filter(attempt => attempt.stage === 'title_repair').length, 2);
+  assert.ok(captured.attempts.every(attempt => attempt.model));
+});
+
 test('rejects official-denial titles that invert the article state instead of auto-fallback publishing', async () => {
   const article = officialDenialArticle();
   await assert.rejects(

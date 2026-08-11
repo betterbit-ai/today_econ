@@ -578,6 +578,63 @@ function modelPrompt(article) {
   };
 }
 
+function validateModelBody(parsed = {}, article = {}, frame = {}) {
+  if (!Array.isArray(parsed.sentences) || parsed.sentences.length !== 3) {
+    throw new Error('model returned invalid sentence structure');
+  }
+  const copiedRawSource = copiedRawSourceViolations(parsed.sentences, article);
+  if (copiedRawSource.length > 0) {
+    const sentenceNumbers = copiedRawSource.map(({ index }) => index + 1).join(', ');
+    throw new Error(`model copied raw source wording in caption sentence ${sentenceNumbers}`);
+  }
+  if (!numericClaimsAreGrounded(parsed.sentences, article)) {
+    const ungrounded = ungroundedNumericClaims(parsed.sentences, article)
+      .map(item => `${item.number} in "${item.sentence}"`)
+      .slice(0, 3)
+      .join('; ');
+    throw new Error(`model returned an ungrounded numeric claim: ${ungrounded}`);
+  }
+  const contextViolations = numericContextViolations(parsed.sentences, article);
+  if (contextViolations.length > 0) {
+    throw new Error(`model returned a comparison basis that conflicts with article evidence: ${JSON.stringify(contextViolations.slice(0, 3))}`);
+  }
+  const alignmentViolations = frameAlignmentViolations(parsed.sentences, frame);
+  if (alignmentViolations.length > 0) {
+    throw new Error(`model returned content outside the primary news frame: ${alignmentViolations.join('; ')}`);
+  }
+}
+
+function titleRepairPrompt(article = {}, parsed = {}) {
+  const frame = articleFrame(article);
+  return {
+    systemPrompt: [
+      '당신은 DIEM 표지 제목 교정기입니다. 본문이나 사실을 다시 쓰지 말고 제목 후보만 교정하세요.',
+      '각 후보는 줄바꿈 1개가 있는 정확히 2줄이며, 두 줄 합계 공백 포함 최대 14자입니다.',
+      '짧게 만들더라도 핵심 주체와 실제 사건, 확정·예정·부인 같은 기사 상태를 반드시 보존하세요.',
+      '숫자를 쓰면 기사 근거에 있는 숫자만 사용하세요. 과장, 날짜만 있는 제목, 약어만 있는 제목은 금지합니다.',
+      '오직 {"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}]} JSON만 출력하세요.',
+    ].join('\n'),
+    userPrompt: JSON.stringify({
+      sourceTitle: article.title,
+      newsFrame: frame,
+      verifiedFacts: article.verifiedFacts || article.facts || [],
+      acceptedCaptionSentences: parsed.sentences,
+      rejectedTitleCandidates: parsed.titleCandidates || [],
+    }).normalize('NFC'),
+  };
+}
+
+function detailedEditorialError(attempts = [], suffix = 'try the next candidate') {
+  const summary = attempts
+    .filter(attempt => attempt.status === 'failed')
+    .map(attempt => `${attempt.model}${attempt.stage ? `/${attempt.stage}` : ''}: ${attempt.error}`)
+    .slice(-6)
+    .join(' | ');
+  const error = new Error(`[DIEM Editorial] Model attempts failed; ${suffix}${summary ? ` (${summary})` : ''}`);
+  error.attempts = attempts;
+  return error;
+}
+
 async function generateEditorial(article = {}, {
   callModel,
   primaryModel = DEFAULT_MODELS.primary,
@@ -597,9 +654,25 @@ async function generateEditorial(article = {}, {
     try {
       const raw = await callModel({ model, ...prompt });
       const parsed = parseModelResult(raw);
-      const candidates = normalizeModelCandidates(parsed.titleCandidates, frame).filter(c => c.valid);
+      validateModelBody(parsed, article, frame);
+      let candidates = normalizeModelCandidates(parsed.titleCandidates, frame).filter(c => c.valid);
       if (candidates.length < 1) {
-        throw new Error('model returned no valid title candidates for article frame');
+        attempts.push({
+          model,
+          stage: 'title_generation',
+          status: 'failed',
+          error: 'model returned no valid title candidates for article frame',
+        });
+        try {
+          const repairedRaw = await callModel({ model, ...titleRepairPrompt(article, parsed) });
+          const repaired = parseModelResult(repairedRaw);
+          candidates = normalizeModelCandidates(repaired.titleCandidates, frame).filter(candidate => candidate.valid);
+          if (candidates.length < 1) throw new Error('title repair returned no valid title candidates for article frame');
+          attempts.push({ model, stage: 'title_repair', status: 'succeeded' });
+        } catch (repairError) {
+          attempts.push({ model, stage: 'title_repair', status: 'failed', error: repairError.message });
+          throw new Error(`title repair failed: ${repairError.message}`);
+        }
       }
       if (!numericClaimsAreGrounded(candidates.map(candidate => candidate.title), article)) {
         const ungrounded = ungroundedNumericClaims(candidates.map(candidate => candidate.title), article)
@@ -608,26 +681,8 @@ async function generateEditorial(article = {}, {
           .join(', ');
         throw new Error(`model returned an ungrounded numeric title: ${ungrounded}`);
       }
-      if (!Array.isArray(parsed.sentences) || parsed.sentences.length !== 3) {
-        throw new Error('model returned invalid sentence structure');
-      }
       const augmentedArticle = { ...article, topicTags: parsed.topicTags || article.topicTags };
-      if (!numericClaimsAreGrounded(parsed.sentences, article)) {
-        const ungrounded = ungroundedNumericClaims(parsed.sentences, article)
-          .map(item => `${item.number} in "${item.sentence}"`)
-          .slice(0, 3)
-          .join('; ');
-        throw new Error(`model returned an ungrounded numeric claim: ${ungrounded}`);
-      }
-      const contextViolations = numericContextViolations(parsed.sentences, article);
-      if (contextViolations.length > 0) {
-        throw new Error(`model returned a comparison basis that conflicts with article evidence: ${JSON.stringify(contextViolations.slice(0, 3))}`);
-      }
-      const alignmentViolations = frameAlignmentViolations(parsed.sentences, frame);
-      if (alignmentViolations.length > 0) {
-        throw new Error(`model returned content outside the primary news frame: ${alignmentViolations.join('; ')}`);
-      }
-      attempts.push({ model, status: 'succeeded' });
+      attempts.push({ model, stage: 'editorial', status: 'succeeded' });
       return assembleEditorial({
         article: augmentedArticle,
         titleCandidates: candidates,
@@ -638,7 +693,13 @@ async function generateEditorial(article = {}, {
         generation: { method: 'model', model, attempts },
       });
     } catch (error) {
-      attempts.push({ model, status: 'failed', error: error.message });
+      if (!attempts.some(attempt => (
+        attempt.model === model
+        && attempt.status === 'failed'
+        && attempt.error === error.message
+      ))) {
+        attempts.push({ model, stage: 'editorial', status: 'failed', error: error.message });
+      }
     }
   }
   if (allowDeterministicFallback) {
@@ -647,10 +708,10 @@ async function generateEditorial(article = {}, {
       fallback.generation.attempts = attempts;
       return fallback;
     } catch (error) {
-      throw new Error(`[DIEM Editorial] Model attempts failed and deterministic fallback rejected: ${error.message}`);
+      throw detailedEditorialError(attempts, `deterministic fallback rejected: ${error.message}`);
     }
   }
-  throw new Error('[DIEM Editorial] Model attempts failed and deterministic fallback is disabled; try the next candidate');
+  throw detailedEditorialError(attempts, 'deterministic fallback is disabled; try the next candidate');
 }
 
 function validateEditorial(editorial, { article = {}, handle } = {}) {
@@ -716,6 +777,7 @@ module.exports = {
   buildDeterministicTitleCandidates,
   generateEditorial,
   modelPrompt,
+  titleRepairPrompt,
   parseModelResult,
   selectEmojis,
   articleFrame,

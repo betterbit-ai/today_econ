@@ -15,6 +15,7 @@ const {
   extractPrimaryPersonIdentity,
   imageReuseKeys,
   scoreImageCandidate,
+  searchOpenverse,
   selectLicensedImage,
 } = require('../src/v2/image-selector');
 const {
@@ -167,6 +168,59 @@ test('scores licensed portrait imagery and falls back to typography', async () =
   assert.equal(selection.kind, 'typographic');
   assert.equal(selection.source, 'diem-original');
   assert.ok(selection.attempts.length > 0);
+});
+
+test('accepts only commercial and modifiable Openverse licenses', async () => {
+  const images = await searchOpenverse('apartment sale contract', {
+    fetchImpl: async () => ({
+      ok: true,
+      json: async () => ({
+        results: [
+          {
+            id: 'allowed-by',
+            title: 'Apartment sale contract house keys',
+            url: 'https://images.example/allowed.jpg',
+            foreign_landing_url: 'https://example.org/allowed',
+            creator: 'Creator',
+            license: 'by',
+            license_url: 'https://creativecommons.org/licenses/by/4.0/',
+            width: 1600,
+            height: 2400,
+            tags: [{ name: 'apartment' }, { name: 'contract' }],
+          },
+          {
+            id: 'blocked-nc',
+            title: 'Apartment contract',
+            url: 'https://images.example/blocked.jpg',
+            license: 'by-nc',
+            width: 1600,
+            height: 2400,
+          },
+        ],
+      }),
+    }),
+  });
+
+  assert.equal(images.length, 1);
+  assert.equal(images[0].id, 'openverse:allowed-by');
+  assert.equal(images[0].source, 'openverse');
+  assert.match(images[0].description, /apartment.*contract/iu);
+});
+
+test('prioritizes concrete housing and cash-support image queries', () => {
+  const housing = buildImageQueries({
+    title: '수도권 15억~20억 아파트 거래 절반이 신고가',
+    summary: '서울 아파트 매매 거래와 실거주 부담을 다룬 기사입니다.',
+    category: 'economy',
+  });
+  const benefit = buildImageQueries({
+    title: '민생지원금 50만원 지급 시작',
+    summary: '지역화폐와 소비쿠폰으로 현금성 지원을 지급합니다.',
+    category: 'economy',
+  });
+
+  assert.match(housing[0], /South Korea apartment buildings/u);
+  assert.match(benefit[0], /cash assistance voucher/u);
 });
 
 test('skips licensed images used in the recent seven-day image history', async () => {

@@ -10,6 +10,7 @@ const {
   retryBasicPublication,
 } = require('./basic');
 const { recordModeration, saveExperimentReport } = require('./experiment-report');
+const { savePerformanceReport } = require('./performance-loop');
 const {
   rebuildEditorialHistory,
   saveLedger,
@@ -50,6 +51,7 @@ function helpText() {
     '  node src/v2/index.js basic-reject --publication-key KEY --reason REASON',
     '  node src/v2/index.js basic-retry --publication-key KEY --publish',
     '  node src/v2/index.js basic-report',
+    '  node src/v2/index.js performance-report',
     '  node src/v2/index.js moderate --publication-key KEY --action deleted|corrected --reason REASON',
     '',
     'Publishing requires PUBLISH_INSTAGRAM=true or --publish.',
@@ -64,6 +66,11 @@ function nextDate(date) {
 
 async function runCommand({ command, options }) {
   const date = options.date || kstDate();
+  if (command === 'performance-report') {
+    const report = savePerformanceReport();
+    console.log(`[DIEM] performance report: ${report.status} (${report.publishedCount} published ledgers)`);
+    return report;
+  }
   if (command === 'basic-report') {
     const report = await saveExperimentReport();
     console.log(`[DIEM Basic] experiment report: ${report.status} (${report.completion.approvedBasicPublished}/4 published, ${report.completion.basicSevenDayObserved}/4 observed)`);
