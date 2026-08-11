@@ -89,6 +89,44 @@ async function sendSlackStatus({
   });
 }
 
+async function sendBasicDraftPreview({
+  publication,
+  channelId,
+  client,
+  actionsUrl,
+} = {}) {
+  if (!client?.chat?.postMessage) throw new Error('[DIEM Notifications] Slack client is not configured.');
+  if (!channelId) throw new Error('[DIEM Notifications] Slack channel ID is required.');
+  if (!publication?.publicationKey) throw new Error('[DIEM Notifications] DIEM Basic publication is required.');
+  const title = normalizeNfc(publication.editorial?.title?.text || '제목 미정').replace(/\n/gu, ' / ');
+  const caption = normalizeNfc(publication.editorial?.caption?.text || '').trim();
+  const source = publication.source || {};
+  const imageUrl = publication.release?.imageUrls?.[0] || '';
+  const quality = publication.quality?.ok === true ? '통과' : '확인 필요';
+  const text = [
+    '📝 DIEM 기초 주간 초안 준비 완료',
+    title,
+    '',
+    caption,
+    '',
+    `출처: ${source.title || '제목 미상'}${source.url ? `\n${source.url}` : ''}`,
+    `기준일: ${source.checkedAt || publication.preparedAt || '미상'}`,
+    `품질 체크: ${quality} · ${(publication.quality?.checks || []).join(', ')}`,
+    `publication_key: ${publication.publicationKey}`,
+    actionsUrl ? `검토 후 DIEM Economy Action에서 publish_basic으로 승인: ${actionsUrl}` : '',
+  ].filter(value => value !== '').join('\n').normalize('NFC');
+  return client.chat.postMessage({
+    channel: channelId,
+    text,
+    ...(imageUrl ? { blocks: [
+      { type: 'section', text: { type: 'mrkdwn', text } },
+      { type: 'image', image_url: imageUrl, alt_text: `DIEM 기초 미리보기: ${title}` },
+    ] } : {}),
+    unfurl_links: false,
+    unfurl_media: false,
+  });
+}
+
 function parseRepository(repository) {
   const [owner, repo] = String(repository || '').split('/');
   if (!owner || !repo) throw new Error('[DIEM Notifications] GitHub repository must be owner/repo.');
@@ -251,6 +289,7 @@ module.exports = {
   notificationKey,
   parseRepository,
   recordNotification,
+  sendBasicDraftPreview,
   sendSlackStatus,
   shouldNotify,
   upsertGitHubIssue,

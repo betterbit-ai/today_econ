@@ -26,6 +26,8 @@ function rejectionLabel(reason = '') {
   if (reason === 'not_hot:article_too_old') return '기사 신선도 초과';
   if (/popularity/u.test(reason)) return '인기 기준 미달';
   if (/editorial_value/u.test(reason)) return '편집 가치 미달';
+  if (/quality_gate_failed/u.test(reason)) return '최종 제목·본문·이미지 품질 미달';
+  if (/editorial_generation_failed/u.test(reason)) return '안전한 편집 원고 생성 실패';
   if (reason === 'recent_duplicate') return '최근 7일 중복';
   if (reason === 'primary_article_inaccessible') return '원문 접근 실패';
   if (reason === 'extraordinary_claim_unverified') return '고위험 주장 검증 실패';

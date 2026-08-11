@@ -29,4 +29,13 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
     assert.doesNotMatch(content, /retry-all|inputs:\s*\n\s+phase:/u);
     assert.doesNotMatch(content, /DIEM_PIPELINE_ENABLED/u);
   }
+
+  const economy = fs.readFileSync(path.join(workflowRoot, 'diem_economy.yml'), 'utf8');
+  assert.match(economy, /operation:[\s\S]*prepare_basic[\s\S]*publish_basic[\s\S]*retry_basic[\s\S]*reject_basic/u);
+  assert.match(economy, /cron:\s*['"]30 0 \* \* 0['"]/u);
+  assert.match(economy, /basic-prepare/u);
+  assert.match(economy, /basic-publish --publication-key "\$BASIC_PUBLICATION_KEY" --publish/u);
+  assert.match(economy, /github\.event_name == 'workflow_dispatch' && inputs\.operation == 'publish_basic'/u);
+  assert.doesNotMatch(economy, /github\.event_name == 'schedule' && inputs\.operation == 'publish_basic'/u);
+  assert.match(economy, /git add data\/publications data\/analytics-state\.json data\/reports/u);
 });

@@ -6,7 +6,41 @@ on:
     - cron: '0 4,10,16,22 * * *'
     # Weekly encrypted Instagram token rotation (Monday 05:30 KST)
     - cron: '30 20 * * 0'
+    # Weekly DIEM Basic draft preparation (Sunday 09:30 KST)
+    - cron: '30 0 * * 0'
   workflow_dispatch:
+    inputs:
+      operation:
+        description: '실행할 경제 매거진 작업'
+        required: true
+        default: hot_news
+        type: choice
+        options:
+          - hot_news
+          - prepare_basic
+          - publish_basic
+          - retry_basic
+          - reject_basic
+          - record_moderation
+      publication_key:
+        description: 'publish_basic 또는 reject_basic 대상 publication_key'
+        required: false
+        type: string
+      rejection_reason:
+        description: 'reject_basic 반려 사유'
+        required: false
+        type: string
+      moderation_action:
+        description: 'record_moderation 조치'
+        required: false
+        type: choice
+        options:
+          - deleted
+          - corrected
+      moderation_reason:
+        description: '삭제 또는 정정 사유'
+        required: false
+        type: string
 
 concurrency:
   group: diem-v2-durable-writes
@@ -43,7 +77,9 @@ env:
 
 jobs:
   publish-economy:
-    if: github.event_name == 'workflow_dispatch' || github.event.schedule != '30 20 * * 0'
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.operation == 'hot_news') ||
+      (github.event_name == 'schedule' && github.event.schedule == '0 4,10,16,22 * * *')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -112,13 +148,14 @@ jobs:
         run: |
           node src/cleanup-assets.js
           node src/collect-insights.js
+          node src/v2/index.js basic-report
 
       - name: Commit measurement snapshots
         continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/posts.json data/analytics-state.json
+          git add data/publications data/analytics-state.json data/reports
           if ! git diff --cached --quiet; then
             git commit -m "Retain Instagram growth evidence for editorial decisions" -m "Store due measurement snapshots after the economy polling run.
 
@@ -130,6 +167,189 @@ jobs:
             git pull --rebase origin "${GITHUB_REF_NAME:-main}"
             git push origin "HEAD:${GITHUB_REF_NAME:-main}"
           fi
+
+  prepare-diem-basic:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.operation == 'prepare_basic') ||
+      (github.event_name == 'schedule' && github.event.schedule == '30 0 * * 0')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install DIEM Basic preview dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Prepare reviewed DIEM Basic draft only
+        run: node src/v2/index.js basic-prepare
+
+      - name: Commit DIEM Basic draft ledger
+        run: bash scripts/commit-diem-state.sh "Prepare a DIEM Basic draft for operator review"
+
+  publish-diem-basic:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'publish_basic'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require an exact publication key
+        env:
+          BASIC_PUBLICATION_KEY: ${{ inputs.publication_key }}
+        run: |
+          if [ -z "$BASIC_PUBLICATION_KEY" ]; then
+            echo "publication_key is required for publish_basic" >&2
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install publishing dependencies
+        run: npm ci
+
+      - name: Publish exactly the approved DIEM Basic draft
+        env:
+          BASIC_PUBLICATION_KEY: ${{ inputs.publication_key }}
+        run: node src/v2/index.js basic-publish --publication-key "$BASIC_PUBLICATION_KEY" --publish
+
+      - name: Commit DIEM Basic publication result
+        if: always()
+        run: bash scripts/commit-diem-state.sh "Record the reviewed DIEM Basic publication outcome"
+
+  reject-diem-basic:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'reject_basic'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require publication key and rejection reason
+        env:
+          BASIC_PUBLICATION_KEY: ${{ inputs.publication_key }}
+          BASIC_REJECTION_REASON: ${{ inputs.rejection_reason }}
+        run: |
+          if [ -z "$BASIC_PUBLICATION_KEY" ] || [ -z "$BASIC_REJECTION_REASON" ]; then
+            echo "publication_key and rejection_reason are required for reject_basic" >&2
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Record operator rejection
+        env:
+          BASIC_PUBLICATION_KEY: ${{ inputs.publication_key }}
+          BASIC_REJECTION_REASON: ${{ inputs.rejection_reason }}
+        run: node src/v2/index.js basic-reject --publication-key "$BASIC_PUBLICATION_KEY" --reason "$BASIC_REJECTION_REASON"
+
+      - name: Commit rejected DIEM Basic draft
+        run: bash scripts/commit-diem-state.sh "Record why a DIEM Basic draft needs one revision"
+
+  retry-diem-basic:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'retry_basic'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require an exact publication key
+        env:
+          BASIC_PUBLICATION_KEY: ${{ inputs.publication_key }}
+        run: |
+          if [ -z "$BASIC_PUBLICATION_KEY" ]; then
+            echo "publication_key is required for retry_basic" >&2
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Retry only independent Story and comment steps
+        env:
+          BASIC_PUBLICATION_KEY: ${{ inputs.publication_key }}
+        run: node src/v2/index.js basic-retry --publication-key "$BASIC_PUBLICATION_KEY" --publish
+
+      - name: Commit DIEM Basic recovery result
+        if: always()
+        run: bash scripts/commit-diem-state.sh "Recover independent DIEM Basic publishing steps"
+
+  record-moderation:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'record_moderation'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require moderation metadata
+        env:
+          MODERATION_PUBLICATION_KEY: ${{ inputs.publication_key }}
+          MODERATION_ACTION: ${{ inputs.moderation_action }}
+          MODERATION_REASON: ${{ inputs.moderation_reason }}
+        run: |
+          if [ -z "$MODERATION_PUBLICATION_KEY" ] || [ -z "$MODERATION_ACTION" ] || [ -z "$MODERATION_REASON" ]; then
+            echo "publication_key, moderation_action and moderation_reason are required" >&2
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Record deletion or correction
+        env:
+          MODERATION_PUBLICATION_KEY: ${{ inputs.publication_key }}
+          MODERATION_ACTION: ${{ inputs.moderation_action }}
+          MODERATION_REASON: ${{ inputs.moderation_reason }}
+        run: node src/v2/index.js moderate --publication-key "$MODERATION_PUBLICATION_KEY" --action "$MODERATION_ACTION" --reason "$MODERATION_REASON"
+
+      - name: Commit moderation and report state
+        run: bash scripts/commit-diem-state.sh "Preserve an operator deletion or correction reason"
 
   refresh-token:
     if: github.event_name == 'schedule' && github.event.schedule == '30 20 * * 0'

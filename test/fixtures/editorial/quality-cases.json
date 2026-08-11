@@ -1,0 +1,61 @@
+[
+  {
+    "name": "정부 반박을 확정으로 뒤집은 제목",
+    "kind": "title",
+    "frame": { "claimState": "official_denial" },
+    "value": "보건복지부\n0.01% 확정",
+    "expected": false
+  },
+  {
+    "name": "상장 사건을 생략한 약어와 날짜",
+    "kind": "title",
+    "frame": { "eventKind": "ipo" },
+    "value": "CXMT 내일\n27일",
+    "expected": false
+  },
+  {
+    "name": "기사 사진설명을 복사한 본문",
+    "kind": "caption",
+    "value": "피지컬AI 특례법 프레스 컨퍼런스에서 제품이 공개됐습니다.📰\n\nⓒ연합뉴스 개인정보 원본을 수집하는 법안입니다.\n\n시민사회의 우려가 커지고 있습니다.🔎",
+    "expected": false
+  },
+  {
+    "name": "상관없는 스톡 인물 사진",
+    "kind": "image",
+    "image": {
+      "kind": "web",
+      "source": "pexels",
+      "license": { "name": "Pexels License" },
+      "visualRole": "context",
+      "suitability": { "ok": true, "personScreening": { "safe": false } }
+    },
+    "expected": false
+  },
+  {
+    "name": "기사 맥락과 인물 안전성이 검증된 배경",
+    "kind": "image",
+    "image": {
+      "kind": "web",
+      "source": "pexels",
+      "license": { "name": "Pexels License" },
+      "visualRole": "context",
+      "suitability": { "ok": true, "personScreening": { "safe": true } },
+      "reuseGuard": { "allowed": true }
+    },
+    "expected": true
+  },
+  {
+    "name": "공식 신원이 확인된 마지막 단계 인물 사진",
+    "kind": "image",
+    "image": {
+      "kind": "web",
+      "source": "wikimedia",
+      "license": { "name": "CC BY-SA 4.0" },
+      "visualRole": "portrait",
+      "identity": { "verified": true, "depicted": true },
+      "suitability": { "ok": true, "personScreening": { "safe": false } },
+      "reuseGuard": { "allowed": true }
+    },
+    "expected": true
+  }
+]

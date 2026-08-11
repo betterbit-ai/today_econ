@@ -1,4 +1,14 @@
-const DEFAULT_METRICS = ['views', 'reach', 'likes', 'comments', 'saved', 'shares', 'total_interactions'];
+const DEFAULT_METRICS = [
+  'views',
+  'reach',
+  'likes',
+  'comments',
+  'saved',
+  'shares',
+  'total_interactions',
+  'ig_reels_avg_watch_time',
+  'ig_reels_video_view_total_time',
+];
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -214,7 +224,7 @@ async function publishStory({ imageUrl, videoUrl, userId, token, version = 'v23.
 }
 
 function insightValue(item) {
-  const first = Array.isArray(item.values) ? item.values[0]?.value : item.value;
+  const first = item?.total_value?.value ?? (Array.isArray(item.values) ? item.values[0]?.value : item.value);
   const value = typeof first === 'number' ? first : Number(first);
   return Number.isFinite(value)
     ? { value, status: 'ok' }
@@ -264,17 +274,52 @@ async function getAccountInsights({ userId, token, version = 'v23.0', metrics = 
     reason: 'account-level metric requires a separate Instagram permission/endpoint',
   }]));
   if (!userId || metrics.length === 0) return unavailable;
+  const toObject = (data, requested = metrics) => Object.assign(
+    Object.fromEntries(requested.map(metric => [metric, unavailable[metric]])),
+    Object.fromEntries((data || []).map(item => [item.name, insightValue(item)])),
+  );
+  const collected = { ...unavailable };
+  const insightMetrics = metrics.filter(metric => metric !== 'follower_count');
+  if (metrics.includes('follower_count')) {
+    try {
+      const profile = await instagramRequest({
+        path: userId,
+        token,
+        version,
+        params: { fields: 'follower_count' },
+        fetchImpl,
+      });
+      collected.follower_count = insightValue({ value: profile.follower_count });
+    } catch (error) {
+      collected.follower_count = { ...unavailable.follower_count, reason: error.message };
+    }
+  }
+  if (insightMetrics.length === 0) return collected;
   try {
     const response = await instagramRequest({
       path: `${userId}/insights`,
       token,
       version,
-      params: { metric: metrics.join(',') },
+      params: { metric: insightMetrics.join(','), period: 'day', metric_type: 'total_value' },
       fetchImpl,
     });
-    return Object.assign(unavailable, Object.fromEntries((response.data || []).map(item => [item.name, insightValue(item)])));
-  } catch (error) {
-    return Object.fromEntries(metrics.map(metric => [metric, { ...unavailable[metric], reason: error.message }]));
+    return { ...collected, ...toObject(response.data, insightMetrics) };
+  } catch (bulkError) {
+    for (const metric of insightMetrics) {
+      try {
+        const response = await instagramRequest({
+          path: `${userId}/insights`,
+          token,
+          version,
+          params: { metric, period: 'day', metric_type: 'total_value' },
+          fetchImpl,
+        });
+        Object.assign(collected, toObject(response.data, [metric]));
+      } catch (error) {
+        collected[metric] = { ...unavailable[metric], reason: error.message };
+      }
+    }
+    return collected;
   }
 }
 

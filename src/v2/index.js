@@ -1,6 +1,15 @@
 #!/usr/bin/env node
 
 const config = require('../../config');
+const { sendAnalyticsReport } = require('../slack');
+const {
+  findBasicPublication,
+  prepareBasicDraft,
+  publishBasicDraft,
+  rejectBasicDraft,
+  retryBasicPublication,
+} = require('./basic');
+const { recordModeration, saveExperimentReport } = require('./experiment-report');
 const {
   rebuildEditorialHistory,
   saveLedger,
@@ -19,6 +28,9 @@ function parseArgs(argv = process.argv.slice(2)) {
     else if (token === '--date') options.date = rest[++index];
     else if (token === '--category') options.category = rest[++index];
     else if (token === '--slot') options.slot = rest[++index];
+    else if (token === '--publication-key') options.publicationKey = rest[++index];
+    else if (token === '--reason') options.reason = rest[++index];
+    else if (token === '--action') options.action = rest[++index];
     else throw new Error(`[DIEM] Unknown option: ${token}`);
   }
   return { command, options };
@@ -33,6 +45,12 @@ function helpText() {
     '  node src/v2/index.js prepare [--date YYYY-MM-DD] [--category economy|issue]',
     '  node src/v2/index.js publish [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
     '  node src/v2/index.js retry [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
+    '  node src/v2/index.js basic-prepare [--date YYYY-MM-DD]',
+    '  node src/v2/index.js basic-publish --publication-key KEY --publish',
+    '  node src/v2/index.js basic-reject --publication-key KEY --reason REASON',
+    '  node src/v2/index.js basic-retry --publication-key KEY --publish',
+    '  node src/v2/index.js basic-report',
+    '  node src/v2/index.js moderate --publication-key KEY --action deleted|corrected --reason REASON',
     '',
     'Publishing requires PUBLISH_INSTAGRAM=true or --publish.',
   ].join('\n');
@@ -46,6 +64,57 @@ function nextDate(date) {
 
 async function runCommand({ command, options }) {
   const date = options.date || kstDate();
+  if (command === 'basic-report') {
+    const report = await saveExperimentReport();
+    console.log(`[DIEM Basic] experiment report: ${report.status} (${report.completion.approvedBasicPublished}/4 published, ${report.completion.basicSevenDayObserved}/4 observed)`);
+    return report;
+  }
+  if (command === 'moderate') {
+    const ledger = recordModeration({
+      publicationKey: options.publicationKey,
+      action: options.action,
+      reason: options.reason,
+    });
+    await saveExperimentReport();
+    console.log(`[DIEM] moderation recorded: ${options.publicationKey} (${options.action})`);
+    return ledger;
+  }
+  if (command === 'basic-prepare') {
+    const ledger = await prepareBasicDraft({ date });
+    const publication = (ledger.publicationHistory || []).find(item => (
+      item.contentType === 'diem_basic' && item.experiment?.weekKey
+    ));
+    console.log(`[DIEM Basic] draft ready: ${publication?.publicationKey || 'existing weekly draft'}`);
+    return ledger;
+  }
+  if (command === 'basic-publish') {
+    if (!options.publicationKey) throw new Error('[DIEM Basic] basic-publish requires --publication-key.');
+    if (!(options.publish || config.publishInstagram)) {
+      throw new Error('[DIEM Basic] Publishing requires PUBLISH_INSTAGRAM=true or --publish.');
+    }
+    const ledger = await publishBasicDraft({ publicationKey: options.publicationKey });
+    console.log(`[DIEM Basic] approved publication processed: ${options.publicationKey}`);
+    return ledger;
+  }
+  if (command === 'basic-retry') {
+    if (!options.publicationKey) throw new Error('[DIEM Basic] basic-retry requires --publication-key.');
+    if (!(options.publish || config.publishInstagram)) {
+      throw new Error('[DIEM Basic] Publishing requires PUBLISH_INSTAGRAM=true or --publish.');
+    }
+    const ledger = await retryBasicPublication({ publicationKey: options.publicationKey });
+    console.log(`[DIEM Basic] independent steps retried: ${options.publicationKey}`);
+    return ledger;
+  }
+  if (command === 'basic-reject') {
+    if (!options.publicationKey) throw new Error('[DIEM Basic] basic-reject requires --publication-key.');
+    if (!options.reason) throw new Error('[DIEM Basic] basic-reject requires --reason.');
+    const ledgers = require('./ledger').listLedgers();
+    const found = findBasicPublication(ledgers, options.publicationKey);
+    if (!found) throw new Error(`[DIEM Basic] Draft not found: ${options.publicationKey}`);
+    const ledger = saveLedger(rejectBasicDraft(found.ledger, options.publicationKey, options.reason));
+    console.log(`[DIEM Basic] draft rejected: ${options.publicationKey}`);
+    return ledger;
+  }
   if (command === 'select') {
     if (!options.category) throw new Error('[DIEM] select requires --category economy|issue.');
     const result = await planCategoryPhase({
@@ -117,7 +186,11 @@ async function runCommand({ command, options }) {
 }
 
 if (require.main === module) {
-  runCommand(parseArgs()).catch(error => {
+  const request = parseArgs();
+  runCommand(request).catch(async error => {
+    if (request.command.startsWith('basic-')) {
+      await sendAnalyticsReport(`🚨 *DIEM 기초 작업 실패*\n작업: ${request.command}\n사유: ${String(error.message || error).replace(/\s+/gu, ' ').slice(0, 1000)}`).catch(() => null);
+    }
     console.error(error.stack || error.message);
     process.exitCode = 1;
   });

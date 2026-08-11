@@ -19,6 +19,9 @@ const CATEGORIES = Object.freeze({
 
 const PUBLICATION_STATES = Object.freeze([
   'planned',
+  'draft',
+  'approved',
+  'rejected',
   'generating',
   'ready',
   'publishing',

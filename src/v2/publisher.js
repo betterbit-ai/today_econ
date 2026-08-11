@@ -13,6 +13,7 @@ const {
   imageReuseKeys,
   selectLicensedImage,
 } = require('./image-selector');
+const { assertPreparedQuality } = require('./quality-gate');
 const {
   applyIndependentStepOutcome,
   createTopLevelComment,
@@ -86,6 +87,7 @@ function recentImagesForSelection(ledger, publication, history = []) {
 
 async function preparePublication(ledger, category, {
   callModel,
+  generateEditorialImpl = generateEditorial,
   selectImageImpl = selectLicensedImage,
   downloadImageImpl = downloadSelectedImage,
   renderCoverImpl = renderDiemCover,
@@ -102,7 +104,7 @@ async function preparePublication(ledger, category, {
   fs.mkdirSync(outputDir, { recursive: true });
 
   const modelCaller = callModel || (config.groqApiKey ? createGroqCaller({ apiKey: config.groqApiKey }) : undefined);
-  const editorial = await generateEditorial(article, {
+  const editorial = await generateEditorialImpl(article, {
     callModel: modelCaller,
     primaryModel: config.groqPrimaryModel,
     fallbackModel: config.groqFallbackModel,
@@ -165,6 +167,12 @@ async function preparePublication(ledger, category, {
     && !(imageSelection.kind === 'web' && imageSelection.identity?.verified)) {
     throw new Error(`[DIEM Image] named-person identity could not be verified: ${personIdentity.name}`);
   }
+  assertPreparedQuality({
+    article,
+    editorial,
+    image: imageSelection,
+    handle: config.instagramUsername,
+  });
 
   const coverPath = path.join(outputDir, `${category}-cover.png`);
   await renderCoverImpl({
@@ -466,7 +474,9 @@ async function publishPreparedPublication(ledger, category, token, {
   const reelPath = resolveArtifact(publication.artifacts?.reelPath);
   if (publication.reel.status !== 'published') {
     if (publication.status !== 'ready') throw new Error(`[DIEM Publisher] ${category} is not ready.`);
-    if (!fs.existsSync(reelPath)) throw new Error(`[DIEM Publisher] Prepared Reel is missing: ${reelPath}`);
+    if (!fs.existsSync(reelPath) && !storedReleaseVideoUrl(publication)) {
+      throw new Error(`[DIEM Publisher] Prepared Reel is missing and no recorded Release asset is available: ${reelPath}`);
+    }
 
     const reconciliation = await reconcileReelImpl({
       userId: config.instagramUserId,
@@ -490,6 +500,7 @@ async function publishPreparedPublication(ledger, category, token, {
         status: 'published',
         externalId: String(reconciliation.match.id),
         permalink: reconciliation.match.permalink || null,
+        publishedAt: reconciliation.match.timestamp || reconciliation.match.publishedAt || new Date().toISOString(),
         reconciled: true,
         error: null,
         updatedAt: new Date().toISOString(),
@@ -516,6 +527,7 @@ async function publishPreparedPublication(ledger, category, token, {
           externalId: String(result.id),
           containerId: result.containerId || null,
           permalink: result.permalink || null,
+          publishedAt: result.timestamp || new Date().toISOString(),
           error: null,
           updatedAt: new Date().toISOString(),
         };

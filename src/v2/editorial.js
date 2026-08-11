@@ -584,13 +584,14 @@ async function generateEditorial(article = {}, {
   fallbackModel = DEFAULT_MODELS.fallback,
   handle,
   allowDeterministicFallback = false,
+  promptBuilder = modelPrompt,
 } = {}) {
   if (typeof callModel !== 'function') {
     if (allowDeterministicFallback) return buildDeterministicEditorial(article, { handle });
     throw new Error('[DIEM Editorial] LLM generation is required; deterministic fallback is disabled for automatic publishing');
   }
   const attempts = [];
-  const prompt = modelPrompt(article);
+  const prompt = promptBuilder(article);
   const frame = articleFrame(article);
   for (const model of [primaryModel, fallbackModel]) {
     try {

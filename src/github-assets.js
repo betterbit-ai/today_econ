@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const RELEASE_TAG_PREFIX = 'instagram-assets-';
+const BASIC_RELEASE_TAG_PREFIX = 'diem-basic-draft-';
 
 function parseRepository(repository) {
   const [owner, repo] = String(repository || '').split('/');
@@ -36,6 +37,9 @@ async function createTemporaryRelease({
   repository,
   runId = Date.now().toString(),
   targetCommitish,
+  tagPrefix = RELEASE_TAG_PREFIX,
+  releaseName,
+  releaseBody,
   fetchImpl = fetch,
 }) {
   if (!token) throw new Error('[GitHub Assets] Missing GITHUB_TOKEN.');
@@ -44,7 +48,7 @@ async function createTemporaryRelease({
     : (Array.isArray(imagePaths) ? imagePaths.map((filePath, index) => ({ path: filePath, filename: `slide_${index + 1}.png`, contentType: 'image/png' })) : []);
   if (assetsToUpload.length < 1) throw new Error('[GitHub Assets] At least one public asset is required.');
   const { owner, repo } = parseRepository(repository);
-  const tag = `${RELEASE_TAG_PREFIX}${runId}-${Date.now()}`;
+  const tag = `${tagPrefix}${runId}-${Date.now()}`;
   const apiBase = `https://api.github.com/repos/${owner}/${repo}`;
   const release = await githubRequest(`${apiBase}/releases`, {
     method: 'POST',
@@ -52,8 +56,8 @@ async function createTemporaryRelease({
     body: JSON.stringify({
       tag_name: tag,
       target_commitish: targetCommitish || undefined,
-      name: `Temporary Instagram assets ${runId}`,
-      body: 'Temporary public image assets for Instagram ingestion. Automatically deleted after 72 hours.',
+      name: releaseName || `Temporary Instagram assets ${runId}`,
+      body: releaseBody || 'Temporary public image assets for Instagram ingestion. Automatically deleted after 72 hours.',
       draft: false,
       prerelease: true,
     }),
@@ -134,6 +138,7 @@ async function cleanupExpiredReleases({ token, repository, maxAgeHours = 72, now
 }
 
 module.exports = {
+  BASIC_RELEASE_TAG_PREFIX,
   RELEASE_TAG_PREFIX,
   cleanupExpiredReleases,
   createTemporaryRelease,

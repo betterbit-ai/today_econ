@@ -138,3 +138,21 @@ test('keeps account-level metrics explicit when Instagram does not return them',
   assert.equal(metrics.profile_views.status, 'unavailable');
   assert.match(metrics.reach.reason, /permission denied/);
 });
+
+test('reads follower_count from the profile while collecting the remaining account insight metrics', async () => {
+  const calls = [];
+  const metrics = await getAccountInsights({
+    userId: '1784',
+    token: 'secret',
+    metrics: ['follower_count', 'profile_views'],
+    fetchImpl: async url => {
+      const parsed = new URL(url);
+      calls.push(parsed);
+      if (parsed.searchParams.get('fields') === 'follower_count') return jsonResponse({ follower_count: 321 });
+      return jsonResponse({ data: [{ name: 'profile_views', total_value: { value: 17 } }] });
+    },
+  });
+  assert.equal(metrics.follower_count.value, 321);
+  assert.equal(metrics.profile_views.value, 17);
+  assert.equal(calls.length, 2);
+});

@@ -50,6 +50,7 @@ test('publishes only one Reel and records its external identity', async () => {
   assert.equal(reelCalls, 1);
   assert.equal(result.publications.economy.reel.status, 'published');
   assert.equal(result.publications.economy.reel.externalId, 'ig-reel');
+  assert.match(result.publications.economy.reel.publishedAt, /^\d{4}-\d{2}-\d{2}T/);
   assert.equal(result.publications.economy.status, 'published');
   assert.equal(result.publications.economy.carousel, undefined);
   assert.equal(result.publications.economy.story.status, 'published');
@@ -121,6 +122,8 @@ test('passes recent historical and same-day ledger images into image selection',
         originalUrl: 'https://www.pexels.com/photo/fresh/',
         downloadUrl: 'https://images.pexels.com/photos/fresh/photo.jpeg',
         license: { name: 'Pexels License', url: 'https://www.pexels.com/license/' },
+        visualRole: 'context',
+        suitability: { ok: true, personScreening: { safe: true } },
       };
     },
     downloadImageImpl: async selection => ({ ...selection, localPath: null, sha256: 'fresh-image-sha' }),
@@ -150,8 +153,8 @@ test('reselects an image when its downloaded hash matches the recent seven-day h
     duplicateCheck: { signature: { target: '기준금리', event: '동결', entities: ['한국은행'] } },
   });
   const selections = [
-    { kind: 'web', id: 'pexels:duplicate-alias', source: 'pexels', downloadUrl: 'https://images.example/duplicate.jpg' },
-    { kind: 'web', id: 'pexels:fresh-after-hash', source: 'pexels', downloadUrl: 'https://images.example/fresh.jpg' },
+    { kind: 'web', id: 'pexels:duplicate-alias', source: 'pexels', downloadUrl: 'https://images.example/duplicate.jpg', license: { name: 'Pexels License' }, visualRole: 'context', suitability: { ok: true, personScreening: { safe: true } } },
+    { kind: 'web', id: 'pexels:fresh-after-hash', source: 'pexels', downloadUrl: 'https://images.example/fresh.jpg', license: { name: 'Pexels License' }, visualRole: 'context', suitability: { ok: true, personScreening: { safe: true } } },
   ];
   let selectionCalls = 0;
   const result = await preparePublication(ledger, 'economy', {
@@ -279,6 +282,7 @@ test('allows person-free typography when a named-person story has no safe photo'
       fallbackTheme: 'markets',
       fallbackVariant: 3,
       visualFingerprint: 'diem-art:markets:v3',
+      license: { name: 'Project-owned original', url: null },
       identity: { required: false, name: '유연석', depicted: false, verified: null },
       reuseGuard: { allowed: true },
     }),

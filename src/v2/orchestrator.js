@@ -232,6 +232,7 @@ function isEditorialGenerationError(error = {}) {
 function candidatePreparationReason(error = {}) {
   const message = String(error.message || '');
   if (isEditorialGenerationError(error)) return 'editorial_generation_failed';
+  if (/^\[DIEM Quality\]/u.test(message)) return 'quality_gate_failed';
   if (/^\[DIEM Image\].*named-person identity could not be verified/iu.test(message)) {
     return 'image_identity_unverified';
   }
@@ -314,12 +315,15 @@ function failedNoPublishAfterCandidateExhaustion(publication, candidateFailures 
 }
 
 function candidateFailure(publication, error, now = new Date()) {
+  const reason = candidatePreparationReason(error) || 'generation_failed';
   return {
     title: publication?.candidate?.title || null,
     url: publication?.candidate?.url || null,
     error: error.message,
-    reason: candidatePreparationReason(error) || 'generation_failed',
-    stage: candidatePreparationReason(error) === 'image_identity_unverified' ? 'image_selection' : 'editorial_generation',
+    reason,
+    stage: ['image_identity_unverified', 'quality_gate_failed'].includes(reason)
+      ? 'quality_gate'
+      : 'editorial_generation',
     rejectedAt: now.toISOString(),
   };
 }
