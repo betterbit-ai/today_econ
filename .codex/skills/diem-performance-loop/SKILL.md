@@ -20,6 +20,9 @@ loosening DIEM's accuracy, rights, duplicate, person-safety, or editorial gates.
    referenced publication ledgers for the actual title, caption, image, audio,
    time, failures, and moderation state.
 6. Compare `24h`, `72h`, and `7d` separately. Never mix observation windows.
+   Exclude `late_backfill` snapshots from winner, underperformer, and publishing
+   prior calculations; report their count instead of pretending they were
+   collected at the target age.
 7. Separate the funnel:
    - views/reach: discovery;
    - average watch time: retention;
@@ -46,6 +49,8 @@ loosening DIEM's accuracy, rights, duplicate, person-safety, or editorial gates.
 - Do not blacklist a topic from one poor post or clone a viral title mechanically.
 - Do not interpret account follower growth as a single Reel's exact contribution.
 - Missing metrics stay unavailable; do not coerce them to zero.
+- A cumulative snapshot collected days late is operational history, not a valid
+  24h, 72h, or 7d comparison sample.
 - Add music only after concentration exceeds the documented threshold or repeated
   evidence shows fatigue. Music is not assumed to cause reach.
 

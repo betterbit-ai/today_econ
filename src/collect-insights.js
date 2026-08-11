@@ -16,6 +16,7 @@ const ACCOUNT_METRICS = Object.freeze(['follower_count', 'profile_views', 'follo
 const STATE_FILE = path.join(__dirname, '..', 'data', 'analytics-state.json');
 const MAX_WINDOW_ATTEMPTS = 3;
 const RETRY_DELAY_HOURS = 6;
+const MAX_WINDOW_LATENESS_HOURS = Object.freeze({ '24h': 12, '72h': 12, '7d': 24 });
 
 function loadState(filePath = STATE_FILE) {
   if (!fs.existsSync(filePath)) return { weeklyReports: [] };
@@ -48,6 +49,21 @@ function dueWindows(post, now = new Date()) {
     ageHours >= window.hours
     && windowNeedsCollection(post.metrics?.[window.label], now)
   ));
+}
+
+function measurementTiming(post, window, now = new Date()) {
+  const publishedAt = new Date(post.publishedAt);
+  if (!Number.isFinite(publishedAt.getTime())) {
+    return { timingStatus: 'unknown', scheduledFor: null, latenessHours: null };
+  }
+  const scheduledFor = new Date(publishedAt.getTime() + window.hours * 3600000);
+  const latenessHours = Math.max(0, (now.getTime() - scheduledFor.getTime()) / 3600000);
+  const maximum = MAX_WINDOW_LATENESS_HOURS[window.label] ?? 12;
+  return {
+    timingStatus: latenessHours > maximum ? 'late_backfill' : 'on_time',
+    scheduledFor: scheduledFor.toISOString(),
+    latenessHours: Number(latenessHours.toFixed(2)),
+  };
 }
 
 function latestMetrics(post) {
@@ -264,6 +280,7 @@ async function collectInsights({
       changedLedgers.add(post.ledger);
     }
     for (const window of dueWindows(post, now)) {
+      const timing = measurementTiming(post, window, now);
       let media;
       try {
         media = await getMediaInsightsImpl({
@@ -292,6 +309,7 @@ async function collectInsights({
         status,
         attempts,
         collectedAt: now.toISOString(),
+        ...timing,
         ...(status === 'retry_pending' ? { nextRetryAt: nextRetryAt(now) } : { nextRetryAt: null }),
       };
       publication.insights.windows[window.label] = record;
@@ -337,6 +355,7 @@ if (require.main === module) {
 
 module.exports = {
   ACCOUNT_METRICS,
+  MAX_WINDOW_LATENESS_HOURS,
   WINDOWS,
   buildWeeklyReport,
   collectInsights,
@@ -344,6 +363,7 @@ module.exports = {
   followerDeltaEstimate,
   kstWeekKey,
   latestMetrics,
+  measurementTiming,
   measurementTargetsFromLedgers,
   runCli,
 };

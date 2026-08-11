@@ -11,6 +11,8 @@ error.
 ## Decision
 
 - Build a ledger-native report that keeps 24h, 72h, and 7d windows separate.
+- Preserve late cumulative backfills but exclude them from observation-window
+  comparisons and the publishing prior.
 - Require five category samples and three feature samples before learning a signal.
 - Apply any learned performance prior only after hard editorial gates pass and cap
   it between -6 and +8 points.

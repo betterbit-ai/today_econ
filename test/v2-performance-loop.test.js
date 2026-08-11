@@ -5,6 +5,7 @@ const {
   PRIOR_MAX,
   buildPerformanceReport,
   performancePrior,
+  windowTimingStatus,
 } = require('../src/v2/performance-loop');
 
 function metric(value) {
@@ -62,6 +63,32 @@ test('keeps observation windows separate and withholds learning below five sampl
   assert.equal(report.windows['7d'].categories.economy.status, 'insufficient_data');
   assert.equal(report.windows['24h'].categories.economy.samples, 0);
   assert.equal(performancePrior({ category: 'economy', title: '서울 아파트 신고가' }, report).adjustment, 0);
+});
+
+test('keeps late historical backfills visible but out of comparable performance samples', () => {
+  const onTime = publication(0, { exposure: 500 });
+  onTime.reel.updatedAt = '2026-08-01T00:00:00Z';
+  onTime.insights.windows = {
+    '24h': {
+      ...onTime.insights.windows['7d'],
+      collectedAt: '2026-08-02T03:00:00Z',
+    },
+  };
+  const late = publication(1, { exposure: 5000 });
+  late.reel.updatedAt = '2026-08-01T00:00:00Z';
+  late.insights.windows = {
+    '24h': {
+      ...late.insights.windows['7d'],
+      collectedAt: '2026-08-08T00:00:00Z',
+    },
+  };
+  const report = buildPerformanceReport([{ publicationHistory: [onTime, late], publications: {} }]);
+
+  assert.equal(windowTimingStatus(onTime, '24h', onTime.insights.windows['24h']), 'on_time');
+  assert.equal(windowTimingStatus(late, '24h', late.insights.windows['24h']), 'late_backfill');
+  assert.equal(report.windows['24h'].sampleCount, 1);
+  assert.equal(report.windows['24h'].excludedLateBackfills, 1);
+  assert.equal(report.windows['24h'].categories.economy.metrics.exposureMedian, 500);
 });
 
 test('learns repeated feature lift only after the category sample floor and caps its prior', () => {

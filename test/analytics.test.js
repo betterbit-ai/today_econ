@@ -5,6 +5,7 @@ const {
   buildWeeklyReport,
   collectInsights,
   dueWindows,
+  measurementTiming,
   measurementTargetsFromLedgers,
 } = require('../src/collect-insights');
 
@@ -12,6 +13,17 @@ test('collects each measurement window once', () => {
   const post = { publishedAt: '2026-07-10T00:00:00Z', metrics: { '24h': {} } };
   const due = dueWindows(post, new Date('2026-07-13T01:00:00Z'));
   assert.deepEqual(due.map(item => item.label), ['72h']);
+});
+
+test('marks delayed catch-up snapshots separately from on-time observation windows', () => {
+  const post = { publishedAt: '2026-08-01T00:00:00Z' };
+  assert.equal(
+    measurementTiming(post, { label: '24h', hours: 24 }, new Date('2026-08-02T03:00:00Z')).timingStatus,
+    'on_time'
+  );
+  const late = measurementTiming(post, { label: '24h', hours: 24 }, new Date('2026-08-04T00:00:00Z'));
+  assert.equal(late.timingStatus, 'late_backfill');
+  assert.equal(late.latenessHours, 48);
 });
 
 test('weekly report ranks by engagement rate', () => {

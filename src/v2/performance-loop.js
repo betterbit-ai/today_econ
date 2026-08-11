@@ -11,6 +11,8 @@ const MIN_CATEGORY_SAMPLES = 5;
 const MIN_FEATURE_SAMPLES = 3;
 const PRIOR_MIN = -6;
 const PRIOR_MAX = 8;
+const WINDOW_HOURS = Object.freeze({ '24h': 24, '72h': 72, '7d': 168 });
+const MAX_WINDOW_LATENESS_HOURS = Object.freeze({ '24h': 12, '72h': 12, '7d': 24 });
 
 function median(values = []) {
   const sorted = values.filter(Number.isFinite).sort((left, right) => left - right);
@@ -48,10 +50,32 @@ function featureSet(input = {}) {
   return [...features].sort();
 }
 
+function windowTimingStatus(publication = {}, windowLabel, window = {}) {
+  if (window.timingStatus) return window.timingStatus;
+  const publishedAt = new Date(
+    publication.reel?.publishedAt
+    || publication.reel?.updatedAt
+    || publication.publishedAt
+  );
+  const collectedAt = new Date(window.collectedAt);
+  if (!Number.isFinite(publishedAt.getTime()) || !Number.isFinite(collectedAt.getTime())) return 'unknown';
+  const targetHours = WINDOW_HOURS[windowLabel];
+  if (!targetHours) return 'unknown';
+  const latenessHours = (
+    collectedAt.getTime()
+    - publishedAt.getTime()
+    - targetHours * 3600000
+  ) / 3600000;
+  return latenessHours > (MAX_WINDOW_LATENESS_HOURS[windowLabel] ?? 12)
+    ? 'late_backfill'
+    : 'on_time';
+}
+
 function sampleFor(publication = {}, windowLabel) {
   if (publication.reel?.status !== 'published') return null;
   const window = publication.insights?.windows?.[windowLabel];
   if (!window || !['ok', 'unavailable'].includes(window.status)) return null;
+  if (windowTimingStatus(publication, windowLabel, window) === 'late_backfill') return null;
   const media = window.media || window;
   const views = metricNumber(media.views);
   const reach = metricNumber(media.reach);
@@ -179,8 +203,13 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
   });
   const windows = Object.fromEntries(OBSERVATION_WINDOWS.map(windowLabel => {
     const samples = publications.map(publication => sampleFor(publication, windowLabel)).filter(Boolean);
+    const excludedLateBackfills = publications.filter(publication => {
+      const window = publication.insights?.windows?.[windowLabel];
+      return window && windowTimingStatus(publication, windowLabel, window) === 'late_backfill';
+    }).length;
     return [windowLabel, {
       sampleCount: samples.length,
+      excludedLateBackfills,
       categories: {
         economy: summarizeCategory(samples.filter(sample => sample.category === 'economy')),
         issue: summarizeCategory(samples.filter(sample => sample.category === 'issue')),
@@ -281,6 +310,9 @@ function performanceMarkdown(report) {
       const signals = summary.featureSignals.filter(signal => signal.signal !== 'neutral').slice(0, 8);
       if (signals.length) lines.push(`  - 특성 신호: ${signals.map(signal => `${signal.feature} ${signal.signal}×${display(signal.lift)}`).join(', ')}`);
     }
+    if (report.windows[windowLabel].excludedLateBackfills) {
+      lines.push(`- 정시 비교에서 제외한 늦은 백필: ${report.windows[windowLabel].excludedLateBackfills}편`);
+    }
     lines.push('');
   }
   lines.push('## 이미지·음악 운영');
@@ -336,4 +368,5 @@ module.exports = {
   performanceMarkdown,
   performancePrior,
   savePerformanceReport,
+  windowTimingStatus,
 };
