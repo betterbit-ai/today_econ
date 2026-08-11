@@ -156,3 +156,26 @@ test('reads follower_count from the profile while collecting the remaining accou
   assert.equal(metrics.profile_views.value, 17);
   assert.equal(calls.length, 2);
 });
+
+test('falls back to followers_count when the Instagram profile rejects follower_count', async () => {
+  const fields = [];
+  const metrics = await getAccountInsights({
+    userId: '1784',
+    token: 'secret',
+    metrics: ['follower_count', 'profile_views'],
+    fetchImpl: async url => {
+      const parsed = new URL(url);
+      const field = parsed.searchParams.get('fields');
+      if (field) fields.push(field);
+      if (field === 'follower_count') {
+        return jsonResponse({ error: { message: 'nonexisting field follower_count' } }, 400);
+      }
+      if (field === 'followers_count') return jsonResponse({ followers_count: 321 });
+      return jsonResponse({ data: [{ name: 'profile_views', total_value: { value: 17 } }] });
+    },
+  });
+
+  assert.deepEqual(fields, ['follower_count', 'followers_count']);
+  assert.equal(metrics.follower_count.value, 321);
+  assert.equal(metrics.profile_views.value, 17);
+});

@@ -281,17 +281,30 @@ async function getAccountInsights({ userId, token, version = 'v23.0', metrics = 
   const collected = { ...unavailable };
   const insightMetrics = metrics.filter(metric => metric !== 'follower_count');
   if (metrics.includes('follower_count')) {
-    try {
-      const profile = await instagramRequest({
-        path: userId,
-        token,
-        version,
-        params: { fields: 'follower_count' },
-        fetchImpl,
-      });
-      collected.follower_count = insightValue({ value: profile.follower_count });
-    } catch (error) {
-      collected.follower_count = { ...unavailable.follower_count, reason: error.message };
+    const followerFields = ['follower_count', 'followers_count'];
+    let lastError;
+    for (const field of followerFields) {
+      try {
+        const profile = await instagramRequest({
+          path: userId,
+          token,
+          version,
+          params: { fields: field },
+          fetchImpl,
+        });
+        const value = profile[field];
+        if (Number.isFinite(Number(value))) {
+          collected.follower_count = insightValue({ value: Number(value) });
+          lastError = null;
+          break;
+        }
+        lastError = new Error(`${field} returned no numeric value`);
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    if (lastError) {
+      collected.follower_count = { ...unavailable.follower_count, reason: lastError.message };
     }
   }
   if (insightMetrics.length === 0) return collected;
