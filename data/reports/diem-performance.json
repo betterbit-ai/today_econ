@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-11T16:58:15.773Z",
-  "status": "insufficient_data",
+  "generatedAt": "2026-08-11T22:43:25.657Z",
+  "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
-  "publishedCount": 77,
+  "publishedCount": 79,
   "operations": {
-    "totalRuns": 142,
+    "totalRuns": 143,
     "noPublishReasons": {
       "no_candidate_passed_hotness_gate": {
         "count": 33,
@@ -27,19 +27,19 @@
     "candidateFailureReasons": {
       "unknown": {
         "count": 44,
-        "share": 67.69
+        "share": 66.67
       },
       "editorial_generation_failed": {
-        "count": 21,
-        "share": 32.31
+        "count": 22,
+        "share": 33.33
       }
     },
     "titleRepairFailures": 0
   },
   "windows": {
     "24h": {
-      "sampleCount": 3,
-      "excludedLateBackfills": 69,
+      "sampleCount": 4,
+      "excludedLateBackfills": 70,
       "categories": {
         "economy": {
           "status": "insufficient_data",
@@ -62,16 +62,16 @@
         },
         "issue": {
           "status": "insufficient_data",
-          "samples": 1,
+          "samples": 2,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1504,
-            "viewsMedian": 1504,
-            "reachMedian": 1124,
-            "savedRateMedian": 0.089,
-            "shareRateMedian": 0.089,
-            "engagementRateMedian": 0.98,
-            "averageWatchTimeMedian": 4139,
+            "exposureMedian": 2345.5,
+            "viewsMedian": 2345.5,
+            "reachMedian": 1671.5,
+            "savedRateMedian": 0.0445,
+            "shareRateMedian": 0.33749999999999997,
+            "engagementRateMedian": 1.19,
+            "averageWatchTimeMedian": 4375.5,
             "followerDeltaEstimateMedian": null
           },
           "winners": [],
@@ -82,7 +82,7 @@
       }
     },
     "72h": {
-      "sampleCount": 4,
+      "sampleCount": 5,
       "excludedLateBackfills": 58,
       "categories": {
         "economy": {
@@ -106,16 +106,16 @@
         },
         "issue": {
           "status": "insufficient_data",
-          "samples": 2,
+          "samples": 3,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1724.5,
-            "viewsMedian": 1724.5,
-            "reachMedian": 1299,
-            "savedRateMedian": 0.038,
-            "shareRateMedian": 0.11599999999999999,
-            "engagementRateMedian": 1.275,
-            "averageWatchTimeMedian": 4214.5,
+            "exposureMedian": 1562,
+            "viewsMedian": 1562,
+            "reachMedian": 1286,
+            "savedRateMedian": 0,
+            "shareRateMedian": 0.093,
+            "engagementRateMedian": 1.48,
+            "averageWatchTimeMedian": 3417,
             "followerDeltaEstimateMedian": null
           },
           "winners": [],
@@ -126,40 +126,149 @@
       }
     },
     "7d": {
-      "sampleCount": 7,
+      "sampleCount": 10,
       "excludedLateBackfills": 28,
       "categories": {
         "economy": {
-          "status": "insufficient_data",
-          "samples": 4,
+          "status": "ready",
+          "samples": 6,
           "minimumSamples": 5,
           "metrics": {
             "exposureMedian": 1482,
             "viewsMedian": 1482,
             "reachMedian": 1129.5,
-            "savedRateMedian": 0.0895,
+            "savedRateMedian": 0.08549999999999999,
             "shareRateMedian": 0.172,
             "engagementRateMedian": 1.135,
             "averageWatchTimeMedian": 3723,
             "followerDeltaEstimateMedian": null
           },
-          "winners": [],
-          "underperformers": [],
-          "featureSignals": [],
+          "winners": [
+            {
+              "publicationKey": "diem:2026-08-05:economy:30951805154",
+              "category": "economy",
+              "title": "이재명 대통령 / 휴가 권고",
+              "permalink": "https://www.instagram.com/reel/DbohR1Ikuvo/",
+              "exposure": 126102,
+              "views": 126102,
+              "reach": 66348,
+              "savedRate": 0.041,
+              "shareRate": 0.506,
+              "engagementRate": 1.31,
+              "averageWatchTime": 9510,
+              "followerDeltaEstimate": null,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision",
+                "work_life"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "serious3",
+                "mood": "serious"
+              }
+            }
+          ],
+          "underperformers": [
+            {
+              "publicationKey": "diem:2026-08-05:economy:30936187410",
+              "category": "economy",
+              "title": "생산적 ISA / 정책 개편",
+              "permalink": "https://www.instagram.com/reel/DboKC0Ljowk/",
+              "exposure": 395,
+              "views": 395,
+              "reach": 339,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 0.88,
+              "averageWatchTime": 2655,
+              "followerDeltaEstimate": null,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "serious1",
+                "mood": "serious"
+              }
+            }
+          ],
+          "featureSignals": [
+            {
+              "feature": "event:housing_policy",
+              "samples": 3,
+              "exposureMedian": 1519,
+              "lift": 1.025,
+              "signal": "neutral"
+            },
+            {
+              "feature": "housing_money",
+              "samples": 3,
+              "exposureMedian": 1519,
+              "lift": 1.025,
+              "signal": "neutral"
+            },
+            {
+              "feature": "household_money",
+              "samples": 2,
+              "exposureMedian": 1497,
+              "lift": 1.01,
+              "signal": "insufficient_data"
+            },
+            {
+              "feature": "concrete_number",
+              "samples": 6,
+              "exposureMedian": 1482,
+              "lift": 1,
+              "signal": "neutral"
+            },
+            {
+              "feature": "public_decision",
+              "samples": 6,
+              "exposureMedian": 1482,
+              "lift": 1,
+              "signal": "neutral"
+            },
+            {
+              "feature": "work_life",
+              "samples": 3,
+              "exposureMedian": 1445,
+              "lift": 0.975,
+              "signal": "neutral"
+            },
+            {
+              "feature": "event:general",
+              "samples": 3,
+              "exposureMedian": 1445,
+              "lift": 0.975,
+              "signal": "neutral"
+            }
+          ],
           "caveat": "같은 관찰 구간의 표본만 비교하며 계정 팔로워 증분은 단일 Reel 확정 기여가 아닙니다."
         },
         "issue": {
           "status": "insufficient_data",
-          "samples": 3,
+          "samples": 4,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 11389,
-            "viewsMedian": 11389,
-            "reachMedian": 7294,
-            "savedRateMedian": 0.055,
-            "shareRateMedian": 0.666,
-            "engagementRateMedian": 1.23,
-            "averageWatchTimeMedian": 5244,
+            "exposureMedian": 6509.5,
+            "viewsMedian": 6509.5,
+            "reachMedian": 4248,
+            "savedRateMedian": 0.047,
+            "shareRateMedian": 0.3945,
+            "engagementRateMedian": 1.49,
+            "averageWatchTimeMedian": 4954,
             "followerDeltaEstimateMedian": null
           },
           "winners": [],
@@ -171,115 +280,115 @@
     }
   },
   "learningWindows": {
-    "economy": null,
+    "economy": "7d",
     "issue": null
   },
   "image": {
     "kindDistribution": {
       "web": {
-        "count": 57,
-        "share": 74.03
+        "count": 58,
+        "share": 73.42
       },
       "typographic": {
-        "count": 20,
-        "share": 25.97
+        "count": 21,
+        "share": 26.58
       }
     },
     "sourceDistribution": {
       "pexels": {
-        "count": 50,
-        "share": 64.94
+        "count": 51,
+        "share": 64.56
       },
       "diem-original": {
-        "count": 20,
-        "share": 25.97
+        "count": 21,
+        "share": 26.58
       },
       "unsplash": {
         "count": 4,
-        "share": 5.19
+        "share": 5.06
       },
       "wikimedia": {
         "count": 3,
-        "share": 3.9
+        "share": 3.8
       }
     },
-    "typographyFallbackRate": 25.97
+    "typographyFallbackRate": 26.58
   },
   "music": {
     "trackDistribution": {
       "bright1": {
         "count": 8,
-        "share": 11.27
+        "share": 10.96
       },
       "bright2": {
-        "count": 7,
-        "share": 9.86
+        "count": 8,
+        "share": 10.96
       },
       "mixkit-tech-house-vibes-130": {
         "count": 7,
-        "share": 9.86
+        "share": 9.59
       },
       "bright3": {
         "count": 6,
-        "share": 8.45
+        "share": 8.22
       },
       "pixabay-magpiemusic-action-trailer-promo-rock-513687": {
         "count": 6,
-        "share": 8.45
+        "share": 8.22
       },
       "serious1": {
         "count": 5,
-        "share": 7.04
+        "share": 6.85
       },
       "pixabay-bransboynd-night-summer-lounge-473222": {
         "count": 5,
-        "share": 7.04
+        "share": 6.85
       },
       "pixabay-alexguz-funk-amp-breakbeat-541097": {
         "count": 5,
-        "share": 7.04
+        "share": 6.85
       },
       "serious2": {
         "count": 5,
-        "share": 7.04
+        "share": 6.85
       },
       "mixkit-dirty-thinkin-989": {
         "count": 4,
-        "share": 5.63
+        "share": 5.48
       },
       "mixkit-serene-view-443": {
         "count": 3,
-        "share": 4.23
+        "share": 4.11
       },
       "serious3": {
         "count": 3,
-        "share": 4.23
+        "share": 4.11
       },
       "mixkit-driving-ambition-32": {
         "count": 3,
-        "share": 4.23
+        "share": 4.11
       },
       "mixkit-fright-night-871": {
         "count": 3,
-        "share": 4.23
+        "share": 4.11
       },
       "serious4": {
-        "count": 1,
-        "share": 1.41
+        "count": 2,
+        "share": 2.74
       }
     },
     "moodDistribution": {
       "bright": {
-        "count": 46,
-        "share": 59.74
+        "count": 47,
+        "share": 59.49
       },
       "serious": {
-        "count": 25,
-        "share": 32.47
+        "count": 26,
+        "share": 32.91
       },
       "unknown": {
         "count": 6,
-        "share": 7.79
+        "share": 7.59
       }
     },
     "diversityWarning": null,
