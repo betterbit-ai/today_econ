@@ -4,7 +4,7 @@
   "date": "2026-08-12",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-11T16:57:22.099Z",
-  "updatedAt": "2026-08-11T22:40:59.080Z",
+  "updatedAt": "2026-08-11T22:41:36.438Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -187,7 +187,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "이 대통령, 구윤철 향해 \"무조건 기어서 다니시라\"",
@@ -225,7 +227,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:official_denial_without_confirmed_change"
+      ]
     },
     {
       "title": "일본 관통하는 태풍 '찬홈'…한국 가뭄에 단비될까",
@@ -261,7 +265,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "중앙선 넘어 정면충돌…대학생 3명 전원 사망",
@@ -299,7 +305,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "순식간에 아수라장…\"21세기 중 최악\" 164명 사망",
@@ -337,7 +345,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "기밀 빼내고 교신 도청까지…잡고보니 \"퇴역 중국군들\"",
@@ -375,7 +385,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "새벽부터 \"제발 대출 좀\"…주담대 받으려 '오픈런'",
@@ -411,7 +423,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:recent_duplicate"
+      ]
     },
     {
       "title": "“전기 1 넣어 에너지 5 얻는다”… 삼성 히트펌프, 국내 출시 준비",
@@ -449,7 +463,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "‘우리 양도차익 줄여볼래요?’… 고가 주택자들 ‘교환 매매’ 부상",
@@ -6079,24 +6095,24 @@
     "economy": {
       "publicationKey": "diem:2026-08-12:economy:31543257920",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "가뭄에 말라붙는 호남 반도체 클러스터…물 부족 우려 해법은?",
-        "url": "https://n.news.naver.com/article/057/0001963199?ntype=RANKING",
+        "title": "‘우리 양도차익 줄여볼래요?’… 고가 주택자들 ‘교환 매매’ 부상",
+        "url": "https://n.news.naver.com/article/005/0001866364?ntype=RANKING",
         "publishedDate": "2026-08-12",
-        "publishedAt": "2026-08-11 20:09:07",
+        "publishedAt": "2026-08-12 05:57:07",
         "observedAt": "2026-08-11T22:40:48.334Z",
-        "popularityScore": 93.9388,
+        "popularityScore": 77.7755,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 83.17,
-          "popularityScore": 93.9388,
-          "freshnessScore": 70,
-          "editorialValueScore": 70,
-          "ageHours": 11.53,
-          "publishedAt": "2026-08-11 20:09:07",
+          "score": 87.03,
+          "popularityScore": 77.7755,
+          "freshnessScore": 100,
+          "editorialValueScore": 95,
+          "ageHours": 1.74,
+          "publishedAt": "2026-08-12 05:57:07",
           "observedAt": "2026-08-11T22:40:48.334Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -6115,39 +6131,38 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 4,
-            "normalizedScore": 93.9388,
-            "title": "가뭄에 말라붙는 호남 반도체 클러스터…물 부족 우려 해법은?",
-            "url": "https://n.news.naver.com/article/057/0001963199?ntype=RANKING"
+            "rank": 12,
+            "normalizedScore": 77.7755,
+            "title": "‘우리 양도차익 줄여볼래요?’… 고가 주택자들 ‘교환 매매’ 부상",
+            "url": "https://n.news.naver.com/article/005/0001866364?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "【 앵커멘트 】 폭염과 가뭄이 이어지면서 호남 지역의 저수율이 40%대까지 떨어졌습니다. 앞으로 호남 반도체 클러스터가 들어서면 하루 65만 톤의 공업용수가 더 필요할 것으로 보고 있는데, 안정적인 물 공급에 문제는 없는 걸까요? 이승민 기자가 현장 다녀왔습니다.【 기자 】 광주 시민 약 140만 명의 주요 식수원, 동복댐입니다. 가뭄이 계속되면서 물이 빠져, 저수지 가장자리 바닥이 드러났습니다.▶ 스탠딩 : 이승민 / 기자- \"이곳 동복댐의 저수율은 1년 전의 절반 수준인 40%대로 떨어졌습니다. 제 뒤로 보이는 취수탑도 바닥을 드러내고 있습니다.\" 광주시가 하루에 쓰는 물의 양은 53만 톤 수준. 여기에 반도체 클러스터가 건설되면, 하루 65만 톤의 물이 더 필요할 걸로 추산됩니다. 주민들은 걱정입니다.▶ 인터뷰 : 김동규 / 전남광주 화순- \"반도체가 들어와서 호남 지방이나 전국적으로 좋은 현상인데. 한편으로는 물 때문에 걱정이 되죠.\" 정부는 동복댐의 높이를 높여 30만 톤을 확보하고, 장흥댐과 주암댐, 보성강 댐에서도 추가 용수를 확보한다는 계획을 밝혔습니다. 하지만, 전문가들은 통제할 수 없는 기후 변수를 고려해야 한다고 지적합니다. 실제 2022년엔 극심한 가뭄으로 동복댐의 저수율은 18%까지 하락했습니다. ▶ 인터뷰(☎) : 유철상 / 고려대 건축사회환경공학부 교수- \"올해처럼 또는 2022년, 2023년처럼 가뭄이 들게 되면 그런 상황에서 어떻게 대응할 것이냐가 이제 큰 문제거든요.\" 대안으로는 생활하수나 반도체 공장폐수를 다시 다시 사용할 수 있는 시설을 갖추는 방안이 제시됩니다. 하지만, 관련 비용이 높아서 클러스터 조성에 걸림돌이 될 수 있다는 전망도 나옵니다. MBN뉴스 이승민입니다. 영상취재 : 최양규 기자 영상편집 : 이우주 그 래 픽 : 김수빈",
-        "summary": "【 앵커멘트 】 폭염과 가뭄이 이어지면서 호남 지역의 저수율이 40%대까지 떨어졌습니다. 앞으로 호남 반도체 클러스터가 들어서면 하루 65만 톤의 공업용수가 더 필요할 것으로 보고 있는데, 안정적인 물 공급에 문제는 없는 걸까요? 이승민 기자가 현장 다녀왔습니다.【 기자 】 광주 시민 약 140만 명의 주요 식수원, 동복댐입니다. 가뭄이 계속되면서 물이 빠져, 저수지 가장자리 바닥이 드러났습니다.▶ 스탠딩 : 이승민 / 기자- \"이곳 동복댐의 저수율은 1년 전의 절반 수준인 40%대로 떨어졌습니다. 제 뒤로 보이는 취수탑도 바닥을 ",
+        "fullText": "취득가액 현 시세로 높여 양도소득세 절세 효과 노려정부가 고가 주택의 보유세와 거래세 부담을 높이는 부동산 세제 개편안을 발표하자 서울 강남권 고가 아파트를 중심으로 절세 목적의 ‘교환 매매’가 떠오르고 있다. 취득가액을 현재 시세로 높이면 아파트값이 추가로 상승해도 양도차익이 줄어드는 효과를 거둘 수 있기 때문이다. 서울 남산에서 바라본 아파트 단지의 모습. 최현규 기자 12일 정부 세제 개편안에 따르면, 거주 요건을 채운 1주택자일지라도 고가 주택일 경우 내후년부터 세 부담이 늘어나게 된다. 장기보유특별공제(장특공)이 거주 공제로 바뀌고, 공제 한도가 2028년에는 20억원, 2029년에는 10억원으로 설정돼서다. 우병탁 신한프리미어패스파인더 전문위원의 계산에 따르면 10년 전 서울 서초구 반포동 래미안퍼스티지 전용면적 84㎡를 16억원에 사들여 올해 56억원에 매도한다고 가정하면 취득세와 중개수수료 등 경비를 제외하고 2억4185만원의 양도세가 부과된다. 하지만 같은 금액의 차익을 남기고 2028년과 2029년에 집을 팔 경우 세 부담은 각각 4억4985만원, 9억4485만원으로 늘어난다. 종합부동산세(종부세) 역시 2028년까지 단계적으로 가액 기준으로 일원화되면서 과세표준 공시가격 6억원 이상 주택부터 종부세가 1.3%에서 최대 5.0%까지 높아지게 된다. 더욱이 공정시장가액비율이 70%로 인상되는데다가 세액공제 한도 역시 2028년부터 600만원으로 설정되면서 고가 주택일수록 보유 부담이 커지게 된다. 이에 따라 주택 처분 대신 보유하는 쪽을 선택할 경우 ‘교환 매매’로 양도세 절세 효과를 노리게 된다는 게 업계의 설명이다. 김제경 투미부동산컨설팅 소장은 “종부세 개편으로 장기 거주나 고령자에 상관없이 600만원으로 공제 한도가 제한되면서 강남권 고가 주택의 경우 보유세를 감당하기 어렵다”며 “이대로는 버틴다해도 양도세 공제한도로 인해 차익을 보기 힘드니 취득세를 내더라도 양도차익을 보전하려는 게 교환 매매의 핵심”이라고 설명했다. 예컨대 10년 전 10억원에 매입해 거주한 집의 현재 세시가 40억원일 경우 2029년 이후 매도하면 양도차익 30억원 중 10억원만 공제받아 양도세 부담이 크다. 하지만 공제한도 변경에 앞서 현재 주택을 처분하고 같은 가격대의 다른 주택을 맞교환하는 방식으로 취득해 취득가액을 현재 시세 수준으로 높여 놓으면, 이후 해당 주택의 가격이 추가로 상승하더라도 새로 발생한 양도차익을 기준으로 세 부담을 줄일 여지가 있다는 것이다. 다만 이 경우 같은 단지의 면적대 내에서도 층수나 거주 환경 등에 따라 시세 차이가 나타날 수 있어 정확한 감정평가를 받고 부담해야할 거래세(양도·취득세)도 따져봐야 한다는 게 전문가들의 조언이다. 교환 매매 외에도 기존 주택을 매도한 뒤 종부세 부담이 상대적으로 덜 늘어난 과세표준 6~12억원(시세 32~45억원) 구간을 하회하는 이른바 ‘덜 똘똘한 한 채’로의 갈아타기가 나타날 수도 있다. 종부세와 양도세가 개편되더라도 시가 30억원 이하 또는 양도차익 20억원 이하 수준의 실거주 1주택자는 세 부담 변화가 없거나 오히려 줄어들 가능성이 크다. 반면 이를 웃도는 초고가 주택이나 비거주 1주택자는 보유·매도 전 단계에서 세금이 늘어난다. 한 예로 마포구 마포래미안푸르지오 전용 84㎡는 공시가격이 동결될 경우 보유세가 416만원에서 411만원으로 소폭 줄어들고, 영등포구 당산동 래미안4차와 강동구 고덕동 래미안힐스테이트고덕 전용 84㎡도 종부세 대상에서 제외되며 보유세가 11~12% 감소할 것으로 예상된다. 김 소장은 “교환 매매의 경우 보유세와 거래세 부담을 모두 높이던 이전 정부 때도 고가 주택 시장에서 나타났던 방식”이라며 “교환하는 양측이 주택 감정평가를 통해 받은 평가액을 토대로 적법하게 거래할 경우 세무당국이 개입하기는 어렵다”고 전했다.",
+        "summary": "취득가액 현 시세로 높여 양도소득세 절세 효과 노려정부가 고가 주택의 보유세와 거래세 부담을 높이는 부동산 세제 개편안을 발표하자 서울 강남권 고가 아파트를 중심으로 절세 목적의 ‘교환 매매’가 떠오르고 있다. 취득가액을 현재 시세로 높이면 아파트값이 추가로 상승해도 양도차익이 줄어드는 효과를 거둘 수 있기 때문이다. 서울 남산에서 바라본 아파트 단지의 모습. 최현규 기자 12일 정부 세제 개편안에 따르면, 거주 요건을 채운 1주택자일지라도 고가 주택일 경우 내후년부터 세 부담이 늘어나게 된다. 장기보유특별공제(장특공)이 거주 공제",
         "topicSignature": {
           "category": "economy",
-          "target": "반도체",
-          "event": "하락",
-          "entities": [
-            "해법은"
-          ],
+          "target": "주거 정책",
+          "event": "개편",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 반도체 | 하락 | 해법은"
+          "text": "economy | 주거 정책 | 개편"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "반도체",
+          "subject": "주거 정책",
           "subjectTerms": [
-            "반도체"
+            "주거",
+            "정책"
           ],
-          "eventKind": "semiconductor",
-          "eventLabel": "하락",
+          "eventKind": "housing_policy",
+          "eventLabel": "개편",
           "eventTerms": [
-            "하락"
+            "개편"
           ],
           "eventKey": null,
-          "claimState": "tentative",
-          "date": "",
+          "claimState": "decided",
+          "date": "12일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -6156,9 +6171,10 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 70,
+          "score": 95,
           "signals": [
             "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
@@ -6166,25 +6182,26 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "반도체",
+            "subject": "주거 정책",
             "subjectTerms": [
-              "반도체"
+              "주거",
+              "정책"
             ],
-            "eventKind": "semiconductor",
-            "eventLabel": "하락",
+            "eventKind": "housing_policy",
+            "eventLabel": "개편",
             "eventTerms": [
-              "하락"
+              "개편"
             ],
             "eventKey": null,
-            "claimState": "tentative",
-            "date": "",
+            "claimState": "decided",
+            "date": "12일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": []
           },
-          "baseScore": 70,
+          "baseScore": 95,
           "performancePrior": {
             "adjustment": 0,
             "window": null,
@@ -6220,31 +6237,524 @@
       "corroboration": null,
       "duplicateCheck": {
         "duplicate": false,
-        "repeatOverride": false,
-        "score": 0.7717,
+        "repeatOverride": true,
+        "score": 0.9831,
         "method": "embedding",
-        "reason": "gray_distinct_event",
-        "matchedPublicationKey": "diem:2026-08-10:economy:31381969924",
+        "reason": "material_follow_up",
+        "matchedPublicationKey": "diem:2026-08-09:economy:31295799389",
         "signature": {
           "category": "economy",
-          "target": "반도체",
-          "event": "하락",
-          "entities": [
-            "해법은"
-          ],
+          "target": "주거 정책",
+          "event": "개편",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 반도체 | 하락 | 해법은"
+          "text": "economy | 주거 정책 | 개편"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "고가 주택\n교환 매매 부상",
+            "lines": [
+              "고가 주택",
+              "교환 매매 부상"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "고가 주택\n교환 매매 부상",
+          "lines": [
+            "고가 주택",
+            "교환 매매 부상"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "정부가 고가 주택에 대한 보유·거래세를 대폭 인상하는 세제 개편을 확정하면서, 강남 고가 아파트 소유자들이 양도소득세 절세를 위해 ‘교환 매매’를 모색하고 있다.📰",
+            "새로운 장기보유특별공제 한도는 2028년 20억 원, 2029년 10억 원으로 축소되고, 종부세는 6억 원 이상 주택에 1.3%에서 최고 5.0%까지 인상된다.",
+            "전문가들은 취득가액을 현 시세 수준으로 높인 뒤 맞교환하면 향후 가격 상승분에 대한 양도소득세 부담을 줄일 수 있지만, 감정평가와 거래세 등 추가 비용을 고려해야 한다고 조언한다.📰"
+          ],
+          "text": "정부가 고가 주택에 대한 보유·거래세를 대폭 인상하는 세제 개편을 확정하면서, 강남 고가 아파트 소유자들이 양도소득세 절세를 위해 ‘교환 매매’를 모색하고 있다.📰\n\n새로운 장기보유특별공제 한도는 2028년 20억 원, 2029년 10억 원으로 축소되고, 종부세는 6억 원 이상 주택에 1.3%에서 최고 5.0%까지 인상된다.\n\n전문가들은 취득가액을 현 시세 수준으로 높인 뒤 맞교환하면 향후 가격 상승분에 대한 양도소득세 부담을 줄일 수 있지만, 감정평가와 거래세 등 추가 비용을 고려해야 한다고 조언한다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #고가주택 #교환매매 #세제개편 #양도소득세 #종부세 #주거",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#고가주택",
+            "#교환매매",
+            "#세제개편",
+            "#양도소득세",
+            "#종부세",
+            "#주거"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#고가주택",
+              "#교환매매",
+              "#세제개편",
+              "#양도소득세",
+              "#종부세",
+              "#주거"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-08-11T22:41:28.345Z",
+        "id": "pexels:3142005",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/aerial-view-of-city-buildings-during-night-time-3142005/",
+        "downloadUrl": "https://images.pexels.com/photos/3142005/pexels-photo-3142005.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Ethan Brooke",
+        "creatorUrl": "https://www.pexels.com/@ethan-brooke-1123775",
+        "width": 3072,
+        "height": 3840,
+        "description": "Breathtaking view of Seoul's skyline at twilight showcasing vibrant city lights and towering skyscrapers.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "South Korea apartment buildings city skyline",
+        "score": 0.5667,
+        "components": {
+          "semanticMetadata": 0.3333,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "south",
+            "korea",
+            "apartment",
+            "buildings",
+            "city",
+            "skyline"
+          ],
+          "matchedConcreteTokens": [
+            "city",
+            "skyline"
+          ],
+          "matchRatio": 0.3333,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "identity": {
+            "required": false,
+            "name": null,
+            "role": null,
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 2,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea apartment buildings city skyline",
+            "count": 20,
+            "suitableCount": 12,
+            "suitabilityRejected": 8,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:14949111",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37323647",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [
+                  "buildings"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:34356905",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [
+                  "buildings"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37947054",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [
+                  "buildings"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:19763828",
+                "rankWithinQuery": 17,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:14452237",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36965350",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:16145852",
+                "rankWithinQuery": 20,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "apartment",
+                  "buildings",
+                  "city",
+                  "skyline"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 12,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.5667
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 33,
+          "recentKeyCount": 112,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "pexels:3142005",
+            "https://www.pexels.com/photo/aerial-view-of-city-buildings-during-night-time-3142005/",
+            "https://images.pexels.com/photos/3142005/pexels-photo-3142005.jpeg"
+          ]
+        },
+        "selectionReason": "selected concrete-subject-matched unused rank #2 from pexels results above 0.42; 8 unsuitable and 0 recent images blocked",
+        "localSha256": "39b1a691f0fb3037dc47e4cbd9ef5e7d818930f5ca0985448b90830b75a64d17"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "bright2",
+        "mood": "bright",
+        "sha256": "996a059c34c09b4a81f5e39826112a60232eb50e385bea2537e11af95f59bcc2",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-11T22:41:36.426Z"
       },
       "story": {
         "status": "planned",
@@ -6313,6 +6823,42 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-12/economy/economy-cover.png",
+        "coverSha256": "84f62ea8b766554e24fb77cc114e7e3cb6843a6f8bedb12d3baf1624a4a319a0",
+        "reelPath": ".diem-cache/2026-08-12/economy/economy-reel.mp4",
+        "reelSha256": "b3cadf2a351f6a65ca5e6fb88d9f16c2f27e2eb1cbe11952aa3be85ef8bd45f1",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "가뭄에 말라붙는 호남 반도체 클러스터…물 부족 우려 해법은?",
+            "url": "https://n.news.naver.com/article/057/0001963199?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-11T22:41:07.788Z"
+          }
+        ],
+        "updatedAt": "2026-08-11T22:41:24.316Z"
       }
     },
     "issue": {
