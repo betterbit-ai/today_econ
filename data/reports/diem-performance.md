@@ -1,18 +1,18 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 90편
-- 생성 시각: 2026-08-13T16:58:54.614Z
+- 발행 원장 Reel: 91편
+- 생성 시각: 2026-08-13T22:42:12.008Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
 - economy: 표본 5편 · 노출 중앙값 702 · 공유율 0.17% · 저장률 0%
   - 반복 후보: 고가 주택 / 교환 매매 부상(1,526)
   - 특성 신호: household_money insufficient_data×2.17, event:housing_policy insufficient_data×1.59, housing_money insufficient_data×1.59, company_event insufficient_data×1.11, event:ipo insufficient_data×1.11, event:general insufficient_data×0.66
-- issue: 표본 5편 · 노출 중앙값 3,867 · 공유율 0.15% · 저장률 0.04%
+- issue: 표본 6편 · 노출 중앙값 3,527 · 공유율 0.12% · 저장률 0.02%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617)
-  - 부진 후보: 강남산부인과원장 / 프로포몰투약(1,504)
-  - 특성 신호: public_decision winner×1.97, event:general winner×1.4, event:housing_policy insufficient_data×1
+  - 부진 후보: 강남산부인과원장 / 프로포몰투약(1,504), 가양동 화재 / 원인 미확정(1,638)
+  - 특성 신호: public_decision winner×2.16, event:housing_policy insufficient_data×1.1, housing_money insufficient_data×0.46
 - 정시 비교에서 제외한 늦은 백필: 71편
 
 ## 72h
@@ -20,9 +20,9 @@
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 보유세 개편 / 결정(2,297)
   - 부진 후보: 이만희 재판 / 합의부 재배당(573)
   - 특성 신호: event:housing_policy insufficient_data×1.73, household_money insufficient_data×1.73, housing_money insufficient_data×1.73, public_decision winner×1.73, company_event insufficient_data×0.6, event:ipo insufficient_data×0.6
-- issue: 표본 8편 · 노출 중앙값 1,589 · 공유율 0.09% · 저장률 0%
-  - 반복 후보: 바이든 암 / 전이 확인(21,336)
-  - 특성 신호: public_decision insufficient_data×13.43, housing_money insufficient_data×1.19
+- issue: 표본 9편 · 노출 중앙값 1,616 · 공유율 0.09% · 저장률 0%
+  - 반복 후보: 바이든 암 / 전이 확인(21,336), 새벽 19도 / 13·15호(3,267)
+  - 특성 신호: public_decision insufficient_data×13.2, housing_money insufficient_data×1.17
 - 정시 비교에서 제외한 늦은 백필: 60편
 
 ## 7d
@@ -37,11 +37,11 @@
 - 정시 비교에서 제외한 늦은 백필: 29편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 25.56%
-- 이미지 공급원: pexels 60편, diem-original 23편, unsplash 4편, wikimedia 3편
+- 타이포그래피 폴백률: 25.27%
+- 이미지 공급원: pexels 61편, diem-original 23편, unsplash 4편, wikimedia 3편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: unknown 44건, editorial_generation_failed 25건
+- 편집 후보 실패: unknown 44건, editorial_generation_failed 26건
 - 제목 재정제 실패: 0건
 
 ## 해석 주의
