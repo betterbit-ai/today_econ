@@ -3,14 +3,14 @@
 - 상태: collecting
 - DIEM 기초 발행: 0/4
 - DIEM 기초 7일 관측: 0/4
-- 생성 시각: 2026-08-13T05:43:02.596Z
+- 생성 시각: 2026-08-13T11:03:16.797Z
 
 ## 핫뉴스
-- 발행 86편 · 7일 표본 48개 · 품질 실패 0건 · 반려 0건
+- 발행 88편 · 7일 표본 51개 · 품질 실패 0건 · 반려 0건
 - 7일 도달 중앙값 942 · 저장률 0% · 공유율 0.17%
-- 참여율 1.55% · 평균 시청 시간 3,678ms
+- 참여율 1.57% · 평균 시청 시간 3,761ms
 - 프로필 방문 중앙값 116 · 팔로워 증분 추정 중앙값 집계 불가
-- 누락 지표: reach 11, saved 11, shares 11, averageWatchTime 11, profileViews 0, followerEstimate 48
+- 누락 지표: reach 12, saved 12, shares 12, averageWatchTime 12, profileViews 0, followerEstimate 51
 - 삭제·정정: 0건
 - 주의: 계정 단위 관측 구간의 증분 추정치이며 단일 Reel 확정 기여가 아닙니다.
 
