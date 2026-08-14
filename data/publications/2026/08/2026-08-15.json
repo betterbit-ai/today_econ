@@ -4,7 +4,7 @@
   "date": "2026-08-15",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-14T16:50:42.630Z",
-  "updatedAt": "2026-08-14T22:22:49.709Z",
+  "updatedAt": "2026-08-14T22:24:02.179Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -457,7 +457,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "개헌에 필요한 국힘 의원은 10명…李대통령 골프 회동 배경 관심",
@@ -495,7 +497,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}} | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "“대출 숨통 트였다는데”…지금 집 사면 웃을까, 울까[주형연의 에구MONEY]",
@@ -5765,24 +5769,24 @@
     "economy": {
       "publicationKey": "diem:2026-08-15:economy:31846159748",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "상가까지 탈탈 털어 ‘3만호 영끌’…베드타운 가속화 우려",
-        "url": "https://n.news.naver.com/article/029/0003042483?ntype=RANKING",
+        "title": "“대출 숨통 트였다는데”…지금 집 사면 웃을까, 울까[주형연의 에구MONEY]",
+        "url": "https://n.news.naver.com/article/029/0003042476?ntype=RANKING",
         "publishedDate": "2026-08-15",
-        "publishedAt": "2026-08-15 06:08:00",
+        "publishedAt": "2026-08-15 05:25:00",
         "observedAt": "2026-08-14T22:22:37.254Z",
-        "popularityScore": 79.7959,
+        "popularityScore": 73.7347,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 88.74,
-          "popularityScore": 79.7959,
+          "score": 84.8,
+          "popularityScore": 73.7347,
           "freshnessScore": 100,
-          "editorialValueScore": 99,
-          "ageHours": 1.24,
-          "publishedAt": "2026-08-15 06:08:00",
+          "editorialValueScore": 95,
+          "ageHours": 1.97,
+          "publishedAt": "2026-08-15 05:25:00",
           "observedAt": "2026-08-14T22:22:37.254Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -5801,41 +5805,40 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 11,
-            "normalizedScore": 79.7959,
-            "title": "상가까지 탈탈 털어 ‘3만호 영끌’…베드타운 가속화 우려",
-            "url": "https://n.news.naver.com/article/029/0003042483?ntype=RANKING"
+            "rank": 14,
+            "normalizedScore": 73.7347,
+            "title": "“대출 숨통 트였다는데”…지금 집 사면 웃을까, 울까[주형연의 에구MONEY]",
+            "url": "https://n.news.naver.com/article/029/0003042476?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "정부가 노후청사를 활용한 복합개발 대상지로 선정한 서울 강남구 한국토지주택공사(LH) 서울지역본부 부지 모습. 정부가 상가와 업무시설 자리까지 탈탈 털어 주택 공급에 끌어들였다. 땅과 시간이 부족한 입장에선 가장 현실적인 지름길을 택한 셈이다.하지만 쇼핑몰과 회사가 들어설 자리에 아파트를 우겨넣는 이 속도전의 끝은 어디일까. 전문가들은 단기적인 공급 물량 뻥튀기엔 성공할지 몰라도, 뼈대 잃은 신도시의 삶의 질 추락은 피할 수 없을 것이라고 지적한다.정부는 지난 13일 발표한 주택 신속공급 방안에서 기존 공공택지의 상업·업무시설 등 비주택용지를 주택용지로 전환해 2030년까지 약 3만가구를 착공하기로 했다.신규 택지를 발굴해 지구 지정과 토지 보상, 기반시설 조성 등을 처음부터 밟는 것보다 이미 개발 중인 택지를 활용하는 것이 공급 시기를 앞당기는 데 유리하다고 판단한 것으로 보인다. 신규 택지를 확보하는 데 따르는 주민 반발과 보상 문제 등도 상대적으로 줄일 수 있다.장기간 팔리지 않거나 당초 예상보다 수요가 부족한 상업·업무용지는 주택용지 전환의 우선 대상이 될 가능성이 크다.이미 도로와 교통 등 기반시설 조성이 진행되고 있는 공공택지는 신규 택지와 비교해 사업 속도를 높이기 쉽다는 장점이 있다.정부 입장에서는 새로운 땅을 확보하기 어려운 상황에서 공급 물량과 속도를 동시에 끌어올릴 수 있는 현실적인 공급 방안이라고 판단한 것으로 보인다.그러나 문제는 공공택지에서 비주택용지가 단순히 ‘남는 땅’이 아니라는 점이다.상업·업무용지는 입주민에게 쇼핑과 의료 등 생활 서비스를 제공하고, 기업과 일자리를 유치해 주민들이 멀리 이동하지 않고도 생활하고 일할 수 있도록 하는 공간이다.이를 대규모로 주택으로 바꾸면 공급 가구 수는 늘지만 장기적으로 도시의 자족기능이 떨어질 가능성이 있다.자족기능이 약해지면 주거 인구는 늘어나는 반면 택지 내부의 일자리와 생활 서비스는 부족해져 교통 부담이 커질 수 있다.주택을 더 넣으면서 늘어난 인구에 맞춰 도로와 철도, 학교 등 기반시설 계획까지 다시 짜야 하는 문제도 발생한다.당초 계획보다 주거 인구가 크게 늘어날 경우 교통·교육시설 등의 수용 능력이 부족해져 추가적인 기반시설 확충 비용과 사업 지연으로 이어질 가능성도 배제하기 어렵다.신보연 세종대 부동산AI융합학과 교수는 “공실 상가와 지식산업센터를 주택으로 바꾸면 단기간에 주택을 늘리고 빈 건물을 활용할 수 있다는 장점이 있다”면서도 “애초 주거용으로 지어진 건물이 아닌 만큼 채광과 환기, 소음, 배관 등 주거환경을 개선하는 데 한계가 있고, 주차와 소방·피난시설도 주택 기준에 맞추려면 추가 공사가 필요하다”고 말했다.신 교수는 “기존 상가나 지식산업센터를 주택으로 바꾸는 것은 공실을 활용해 단기적으로 공급을 늘리는 보완책으로 활용해야 한다”며 “중장기적으로는 처음부터 주거와 상업·업무 기능을 함께 고려해 건물을 설계함으로써 주택 공급을 늘리면서도 주거 품질을 확보하는 방향으로 가야 한다”고 설명했다.",
-        "summary": "정부가 노후청사를 활용한 복합개발 대상지로 선정한 서울 강남구 한국토지주택공사(LH) 서울지역본부 부지 모습. 정부가 상가와 업무시설 자리까지 탈탈 털어 주택 공급에 끌어들였다. 땅과 시간이 부족한 입장에선 가장 현실적인 지름길을 택한 셈이다.하지만 쇼핑몰과 회사가 들어설 자리에 아파트를 우겨넣는 이 속도전의 끝은 어디일까. 전문가들은 단기적인 공급 물량 뻥튀기엔 성공할지 몰라도, 뼈대 잃은 신도시의 삶의 질 추락은 피할 수 없을 것이라고 지적한다.정부는 지난 13일 발표한 주택 신속공급 방안에서 기존 공공택지의 상업·업무시설 등 ",
+        "fullText": "제미나이가 그린 일러스트.<글쓴이주> ‘돈’은 우리 삶과 깊은 연관성을 지니고 있습니다. 편리한 도구, 거래 수단일 뿐이지만 돈에 울고 웃는 사람들이 많습니다. 마냥 어렵다고 느낄 수 있는 ‘돈’에 대한 허물이 벗겨지는 순간 경제에 대한 흥미로움을 느낄 수 있습니다. 돈과 관련된 다양한 사례들이 쏟아지는 사회, 돈에 얽힌 각종 이야기와 함께 경제 이슈를 짚어보는 시간을 가져봤습니다.서울에 사는 직장인 김모(45)씨는 올해 말 새 아파트 입주를 앞두고 은행 대출 창구를 유심히 들여다보고 있습니다. 계약 당시만 해도 잔금대출을 받는 데 큰 문제가 없을 것이라 생각했지만, 최근 은행들의 대출 한도가 빠듯해지면서 혹시나 잔금을 마련하지 못할까 마음을 졸였어요. 김씨는 “대출 총량이 늘어난다는 소식에 일단 한숨 돌렸습니다. 그런데 대출이 다시 풀리면서 집값까지 뛰면 결국 지금 집을 사려는 사람에게 돌아오는 부담이 더 커지는 것 아니냐는 걱정도 있어요”라고 토로했습니다.정부의 ‘8·13 부동산 대책’이 발표되면서 부동산 대출 시장에 오랜만에 숨통이 트일지 주목됩니다. 정부가 올해 가계대출 총량 목표를 기존 1.5%에서 3%로 높이면서 신축 아파트 잔금대출과 중도금 대출 등 실수요자 대출 여력이 크게 늘어날 전망이기 때문이죠. 재건축·재개발 이주비 대출 한도도 평균 30%가량 되고 부동산 프로젝트파이낸싱(PF)에 대한 금융 지원 역시 47조8000억원 수준으로 대폭 늘어납니다.대출 문턱에 막혀 입주를 앞두고도 자금 마련에 애를 먹던 실수요자나 정비 사업 조합에는 가뭄에 단비 같은 소식입니다. 금융사 입장에서도 연말까지 이어질 수 있었던 ‘대출 오픈런’ 부담이 한층 줄어들게 됐어요.하지만 소비자 입장에서 이번 대책을 마냥 대출 규제 완화로 받아들이기는 어렵다는 반응도 있습니다. 투자자에게도 마찬가지입니다.가장 큰 변화는 실수요와 투기수요의 경계를 금융 규제로 선명하게 나눴다는 점입니다. 잔금·중도금·이주비 등 주택 공급과 직접 연결되는 자금에는 숨통을 터주는 반면, 주택을 보유하면서 한 번도 실거주하지 않은 ‘비거주 1주택자’의 전세 대출은 신규 취급과 만기 연장을 원칙적으로 막기 때문이죠. 1주택자의 전세 대출 보증 비율도 내년부터 낮아집니다.소비자 입장에서 가장 먼저 체감할 부분은 역시 잔금대출이에요. 그동안 은행들이 연간 가계대출 총량을 맞추기 위해 대출을 조이는 과정에서 입주 예정자들이 창구를 찾아 발품을 파는 사례가 적지 않았습니다. 총량 자체가 2배로 늘어난다면 적어도 지난해와 같은 극심한 ‘대출 절벽’ 사태는 피할 수 있어요. 계약 후 잔금이 막혀 발을 동동 구르던 실수요자에게는 확실한 심리적 안정 효과를 줍니다.재건축·재개발 조합원도 수혜 대상입니다. 종전자산평가액이 아닌 종후 자산과 종전자산 중 큰 금액을 담보가치로 인정하면서 이주비 대출 한도가 평균 30%가량 늘어납니다. 이주비 부족으로 정비 사업이 지연되는 리스크를 줄일 수 있어 공급 측면에서도 긍정적이죠. 정부가 이번 대책을 단순한 가계대출 완화가 아닌 ‘주택 공급을 위한 금융 정상화’로 접근하고 있음을 알 수 있습니다.문제는 서울과 수도권을 중심으로 집값 상승 기대가 살아 있는 상황에서 대출 여력이 한꺼번에 늘어나면, 실수요자에게 돌아가야 할 자금이 다시 매수세를 자극할 가능성을 배제하기 어렵습니다.결국 이번 대책의 성패는 얼마나 풀리느냐보다 ‘누구에게 흘러가느냐’에 달렸다는 분석이 지배적입니다.투자자 입장에서는 PF 지원 도 양면성이 있어요. 정상 사업장에 자금이 공급되면 주택 공급이 재개되고 부실 위험이 줄지만 사업성이 떨어지는 PF 사업장까지 지원을 기대한다면 부실 폭탄을 뒤로 미루는 꼴이 되기 때문이죠.새롭게 도입된 전세 대출 규제 역시 핵심 변수입니다. 비거주 1주택자의 전세 대출을 제한하는 것은 노골적으로 ‘갭투자 수요’를 겨냥한 조치입니다. 실거주 목적이 아닌 투자 수단으로 주택을 활용하는 것을 차단하겠다는 정부의 강력한 의지에요. 다만 실제 거주 여부 판단 기준과 예외 사유 인정 범위를 두고 시장의 혼란이 예상되며 전입신고 등 형식적 요건을 악용한 우회로가 나타날 우려도 있습니다.전문가들은 대출이 풀린다는 분위기에 휩쓸려 무리하게 빚을 늘리는 것을 경계해야 한다고 조언하고 있습니다. 대출 문턱이 낮아지는 것과 내 상환 부담이 줄어드는 것은 완전히 다른 문제이기 때문이죠.이번 조치가 부동산 시장의 연착륙을 돕는 ‘정교한 핀셋 금융’으로 남을지, 다시 집값의 불쏘시개가 된 ‘대출 완화’로 기억될지는 앞으로 몇 달간 풀린 자금이 어디로 흘러가는지에 달려 있는 것 같습니다.",
+        "summary": "제미나이가 그린 일러스트.<글쓴이주> ‘돈’은 우리 삶과 깊은 연관성을 지니고 있습니다. 편리한 도구, 거래 수단일 뿐이지만 돈에 울고 웃는 사람들이 많습니다. 마냥 어렵다고 느낄 수 있는 ‘돈’에 대한 허물이 벗겨지는 순간 경제에 대한 흥미로움을 느낄 수 있습니다. 돈과 관련된 다양한 사례들이 쏟아지는 사회, 돈에 얽힌 각종 이야기와 함께 경제 이슈를 짚어보는 시간을 가져봤습니다.서울에 사는 직장인 김모(45)씨는 올해 말 새 아파트 입주를 앞두고 은행 대출 창구를 유심히 들여다보고 있습니다. 계약 당시만 해도 잔금대출을 받는 데",
         "topicSignature": {
           "category": "economy",
-          "target": "주거 정책",
-          "event": "실적",
+          "target": "대출 숨통",
+          "event": "지원",
           "entities": [
-            "3만호",
-            "정부가"
+            "에구MONEY"
           ],
           "eventKey": null,
-          "text": "economy | 주거 정책 | 실적 | 3만호 정부가"
+          "text": "economy | 대출 숨통 | 지원 | 에구MONEY"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "주거 정책",
+          "subject": "대출 숨통",
           "subjectTerms": [
-            "주거",
-            "정책"
+            "대출",
+            "숨통"
           ],
-          "eventKind": "earnings",
-          "eventLabel": "실적",
+          "eventKind": "general",
+          "eventLabel": "지원",
           "eventTerms": [
-            "실적"
+            "지원"
           ],
           "eventKey": null,
           "claimState": "decided",
-          "date": "13일",
+          "date": "",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -5844,7 +5847,7 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 99,
+          "score": 95,
           "signals": [
             "reader_money_work_life_impact",
             "concrete_event_or_decision",
@@ -5855,19 +5858,19 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "주거 정책",
+            "subject": "대출 숨통",
             "subjectTerms": [
-              "주거",
-              "정책"
+              "대출",
+              "숨통"
             ],
-            "eventKind": "earnings",
-            "eventLabel": "실적",
+            "eventKind": "general",
+            "eventLabel": "지원",
             "eventTerms": [
-              "실적"
+              "지원"
             ],
             "eventKey": null,
             "claimState": "decided",
-            "date": "13일",
+            "date": "",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -5876,46 +5879,28 @@
           },
           "baseScore": 95,
           "performancePrior": {
-            "adjustment": 4,
-            "window": "7d",
-            "matched": [
-              {
-                "feature": "work_life",
-                "samples": 4,
-                "exposureMedian": 2365,
-                "lift": 1.637,
-                "signal": "winner"
-              }
-            ],
-            "reason": "bounded_evidence_prior"
+            "adjustment": 0,
+            "window": null,
+            "matched": [],
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
-          "adjustment": 4,
-          "window": "7d",
-          "matched": [
-            {
-              "feature": "work_life",
-              "samples": 4,
-              "exposureMedian": 2365,
-              "lift": 1.637,
-              "signal": "winner"
-            }
-          ],
-          "reason": "bounded_evidence_prior"
+          "adjustment": 0,
+          "window": null,
+          "matched": [],
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "uncertain",
-            "category": null,
-            "excluded": [
-              "category_not_allowed"
-            ],
+            "status": "classified",
+            "category": "economy",
+            "excluded": [],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "uncertain_initial_classification"
+            "reason": "verify_primary_article"
           },
           "final": {
             "status": "classified",
@@ -5929,31 +5914,273 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.6067,
+        "score": 0.7621,
         "method": "embedding",
-        "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-14:economy:31794164974",
+        "reason": "gray_distinct_event",
+        "matchedPublicationKey": "diem:2026-08-10:economy:31323967660",
         "signature": {
           "category": "economy",
-          "target": "주거 정책",
-          "event": "실적",
+          "target": "대출 숨통",
+          "event": "지원",
           "entities": [
-            "3만호",
-            "정부가"
+            "에구MONEY"
           ],
           "eventKey": null,
-          "text": "economy | 주거 정책 | 실적 | 3만호 정부가"
+          "text": "economy | 대출 숨통 | 지원 | 에구MONEY"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "정부 대출\n숨통 확대",
+            "lines": [
+              "정부 대출",
+              "숨통 확대"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "정부 대출\n숨통 확대",
+          "lines": [
+            "정부 대출",
+            "숨통 확대"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "정부가 8·13 부동산 대책으로 가계대출 목표를 연 1.5%에서 3%로 확대해 주택 잔금·중도금 대출 여력을 크게 늘린다고 발표했습니다.📰",
+            "신축 아파트 잔금·중도금 대출과 재건축·재개발 이주비 대출 한도가 평균 30% 상승하고, 부동산 프로젝트파이낸싱 지원 규모는 47조8000억원으로 확대됩니다.",
+            "동시에 비거주 1주택자의 전세 대출 신규 취급과 연장 제한 등 투기 수요 억제 조치를 도입해, 대출 확대가 실수요자에게만 흐를지 여부가 향후 시장 흐름을 좌우할 전망입니다.📰"
+          ],
+          "text": "정부가 8·13 부동산 대책으로 가계대출 목표를 연 1.5%에서 3%로 확대해 주택 잔금·중도금 대출 여력을 크게 늘린다고 발표했습니다.📰\n\n신축 아파트 잔금·중도금 대출과 재건축·재개발 이주비 대출 한도가 평균 30% 상승하고, 부동산 프로젝트파이낸싱 지원 규모는 47조8000억원으로 확대됩니다.\n\n동시에 비거주 1주택자의 전세 대출 신규 취급과 연장 제한 등 투기 수요 억제 조치를 도입해, 대출 확대가 실수요자에게만 흐를지 여부가 향후 시장 흐름을 좌우할 전망입니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #대출 #부동산 #주택금융 #전세제한 #에구MONEY #숨통",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#대출",
+            "#부동산",
+            "#주택금융",
+            "#전세제한",
+            "#에구MONEY",
+            "#숨통"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#대출",
+              "#부동산",
+              "#주택금융",
+              "#전세제한",
+              "#에구MONEY",
+              "#숨통"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-08-14T22:23:55.883Z",
+        "id": "pexels:11666982",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/close-up-view-of-apartment-building-with-wooden-walls-11666982/",
+        "downloadUrl": "https://images.pexels.com/photos/11666982/pexels-photo-11666982.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Mathias Reding",
+        "creatorUrl": "https://www.pexels.com/@matreding",
+        "width": 3999,
+        "height": 5996,
+        "description": "Close-up of a modern apartment building featuring wooden textures and contemporary design.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "real estate modern apartment building",
+        "score": 0.74,
+        "components": {
+          "semanticMetadata": 0.6,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "real",
+            "estate",
+            "modern",
+            "apartment",
+            "building"
+          ],
+          "matchedConcreteTokens": [
+            "modern",
+            "apartment",
+            "building"
+          ],
+          "matchRatio": 0.6,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "identity": {
+            "required": false,
+            "name": null,
+            "role": null,
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 4,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "real estate modern apartment building",
+            "count": 19,
+            "suitableCount": 18,
+            "suitabilityRejected": 1,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:27307400",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 18,
+            "recentReuseBlocked": 3,
+            "bestScore": 0.74
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 36,
+          "recentKeyCount": 122,
+          "blockedCandidateCount": 3,
+          "selectedImageKeys": [
+            "pexels:11666982",
+            "https://www.pexels.com/photo/close-up-view-of-apartment-building-with-wooden-walls-11666982/",
+            "https://images.pexels.com/photos/11666982/pexels-photo-11666982.jpeg"
+          ]
+        },
+        "selectionReason": "selected concrete-subject-matched unused rank #4 from pexels results above 0.42; 1 unsuitable and 3 recent images blocked",
+        "localSha256": "3bc51db47878bd3efefc18b1375b4ec56c83c0a4490d4cf5908bf5cf04d65149"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-driving-ambition-32",
+        "mood": "bright",
+        "title": "Driving Ambition",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-driving-ambition-32.mp3",
+        "sha256": "b7324d6677ec17155282f09f429e802c49a74f5f1b7d167e7fa7c0b95e982e8d",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-14T22:24:02.168Z"
       },
       "story": {
         "status": "planned",
@@ -6025,6 +6252,64 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-15/economy/economy-cover.png",
+        "coverSha256": "49a2eb6d35adec63940f1e0c379360da895ee0d6207532a2c88e68a29538cfaa",
+        "reelPath": ".diem-cache/2026-08-15/economy/economy-reel.mp4",
+        "reelSha256": "9194943baf60522c7431a8f033849706134102b457d0f9f7b433e13a7ae657cc",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 2,
+        "candidateFailures": [
+          {
+            "title": "상가까지 탈탈 털어 ‘3만호 영끌’…베드타운 가속화 우려",
+            "url": "https://n.news.naver.com/article/029/0003042483?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-14T22:22:58.007Z"
+          },
+          {
+            "title": "개헌에 필요한 국힘 의원은 10명…李대통령 골프 회동 배경 관심",
+            "url": "https://n.news.naver.com/article/029/0003042482?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}} | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-14T22:23:24.385Z"
+          }
+        ],
+        "updatedAt": "2026-08-14T22:23:32.327Z"
       }
     },
     "issue": {
