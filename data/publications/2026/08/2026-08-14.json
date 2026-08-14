@@ -4,7 +4,7 @@
   "date": "2026-08-14",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-13T16:56:28.425Z",
-  "updatedAt": "2026-08-14T14:09:27.628Z",
+  "updatedAt": "2026-08-14T14:09:56.540Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -142,7 +142,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "정성호 법무장관, ‘이화영 재판 집단 퇴정’ 수원지검 검사 2명 징계 청구",
@@ -180,7 +182,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "전 연인 둔기로 폭행하고 달아난 30대 검거···경찰, 살인미수 적용",
@@ -218,7 +222,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[속보] 李대통령 “4년중임 또는 4년연임 개헌…2022년 공약과 변함없어”",
@@ -26234,24 +26240,24 @@
     "issue": {
       "publicationKey": "diem:2026-08-14:issue:31807937421",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "논산훈련소 입소한 천하람 “국군 장병 노고 대단···병력자원 감소 위기감도”",
-        "url": "https://n.news.naver.com/article/032/0003464307?ntype=RANKING",
+        "title": "[속보] 李대통령 “4년중임 또는 4년연임 개헌…2022년 공약과 변함없어”",
+        "url": "https://n.news.naver.com/article/009/0005721382?ntype=RANKING",
         "publishedDate": "2026-08-14",
-        "publishedAt": "2026-08-14 16:48:00",
+        "publishedAt": "2026-08-14 19:30:11",
         "observedAt": "2026-08-14T14:09:17.162Z",
-        "popularityScore": 95.9592,
+        "popularityScore": 89.898,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 87.58,
-          "popularityScore": 95.9592,
-          "freshnessScore": 70,
-          "editorialValueScore": 92,
-          "ageHours": 6.35,
-          "publishedAt": "2026-08-14 16:48:00",
+          "score": 86.94,
+          "popularityScore": 89.898,
+          "freshnessScore": 90,
+          "editorialValueScore": 70,
+          "ageHours": 3.66,
+          "publishedAt": "2026-08-14 19:30:11",
           "observedAt": "2026-08-14T14:09:17.162Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -26270,37 +26276,40 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 3,
-            "normalizedScore": 95.9592,
-            "title": "논산훈련소 입소한 천하람 “국군 장병 노고 대단···병력자원 감소 위기감도”",
-            "url": "https://n.news.naver.com/article/032/0003464307?ntype=RANKING"
+            "rank": 6,
+            "normalizedScore": 89.898,
+            "title": "[속보] 李대통령 “4년중임 또는 4년연임 개헌…2022년 공약과 변함없어”",
+            "url": "https://n.news.naver.com/article/009/0005721382?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "천하람 개혁신당 원내대표가 논산 육군훈련소에서 훈련을 받고 있다. 천하람 의원실 제공논산 육군훈련소에 입소해 사흘간의 신병 교육을 마친 천하람 개혁신당 원내대표가 14일 “저야 잠깐이고 나라를 지키는 우리 국군 장병의 노고가 정말 대단하다”고 했다.천 원내대표는 이날 페이스북에서 “훈련도 힘들었지만 이 더위에 군복 입고 단체 생활을 하는 것 자체가 장난이 아니다. 모든 장병 여러분이 존경스럽다”며 이같이 적었다.앞서 천 원내대표는 지난 12일 충남 논산 육군 27신병교육연대에 입소했다. 22대 하반기 국회에서 국방위원회에 배치된 만큼 현재 군인들의 군 생활을 직접 경험해보겠다는 취지다. 현역 국회의원이 훈련병 신분으로 신병 교육을 받는 것은 이번이 처음이다.천 원내대표는 “여러 가지로 많이 놀랐는데, 요즘 훈련소에서는 스마트워치가 활용되고 있는 것 혹시 아셨나”라며 “아직 스마트워치 도입이 안 된 교육연대도 일부 있는데 곧 도입 예정이다. 예산이 무사히 나오는지 저도 챙기겠다”고 했다.그는 “훈련소 식당도 취사병이 아닌 전문 업체가 위탁 운영을 한다”며 “어떤 면에서는 우리 병력자원 감소가 이미 심각한 현실이라는 위기감도 느낄 수 있었다”고 했다.천 원내대표는 “무엇보다 훈련소 현장에서 직접 확인한 요즘 20대 청년들의 모습은 감동 그 자체였다”며 “최근 20대를, 때로는 20대 남성을 폄하하거나 가르치려 드는 정치권의 언사들이 있었지만 20대 젊은 세대는 누구보다 착실하고 충실하게 맡겨진 역할을 잘 수행하고 있다는 것을 다시 느꼈다”고 했다.그는 “어떤 경우에도 특정 세대를 싸잡아 비난하는 일은 정치적으로도, 사회문화적으로도 없어야 한다”며 “체력 떨어지는 아저씨 열심히 도와주고 야간 행군할 때 자유시간 같은 먹을 것 많이 나눠준 육군훈련소 27연대 3교육대 11중대 1소대 3분대 전우들 정말 고맙다”고 했다. 천하람 개혁신당 원내대표가 논산 육군훈련소에서 훈련을 받고 있다. 천하람 의원실 제공",
-        "summary": "천하람 개혁신당 원내대표가 논산 육군훈련소에서 훈련을 받고 있다. 천하람 의원실 제공논산 육군훈련소에 입소해 사흘간의 신병 교육을 마친 천하람 개혁신당 원내대표가 14일 “저야 잠깐이고 나라를 지키는 우리 국군 장병의 노고가 정말 대단하다”고 했다.천 원내대표는 이날 페이스북에서 “훈련도 힘들었지만 이 더위에 군복 입고 단체 생활을 하는 것 자체가 장난이 아니다. 모든 장병 여러분이 존경스럽다”며 이같이 적었다.앞서 천 원내대표는 지난 12일 충남 논산 육군 27신병교육연대에 입소했다. 22대 하반기 국회에서 국방위원회에 배치된 만",
+        "fullText": "이재명 대통령이 14일 청와대에서 열린 청년정책 전문가 간담회에서 발언하고 있다. 이재명 대통령은 14일 “대통령 임기는 4년중임 또는 4년연임제로 변경하여 중간평가를 통한 책임정치가 가능하도록 하며, 지방자치와 국민의 기본권을 강화하는 내용으로 개헌하자는 것이 저의 공약이자 지금까지 일관된 저의 입장”이라고 밝혔다.이 대통령은 이날 X(옛 트위터)에 “개헌을 위해 대통령 임기 단축이 필요하다면 이를 수용할 수 있다는 것이 2022년 대선 당시 저의 공식입장이었고, 그 생각은 지금도 변함이 없다”며 이같이 적었다.이 대통령은 “40년이 지난 우리 헌법은 우리시대에 맞지않아 개헌해야 한다는 것은 국민 대다수가 동의하는 바이고, 실제 개헌한다면 그 구체적 내용은 여야합의로 국회에서 정하는 것이 바람직하다”고 했다.이어 개헌 사항으로 △5.18 정신과 부마항쟁을 헌법 전문에 명기하고 △제왕적이라고까지 평가되는 대통령 권한중 일부, 즉 감사원 관할권이나 총리추천권, 인사권 일부 등을 국회에 넘기는 등으로 대통령 권한과 의회 권한을 조정하는 내용도 덧붙였다.이 대통령은 “이원집정제나 내각제는 바람직하지도 않고 국민여론에 비추어 가능하지도 않다”면서 “대통령권한을 국회 등으로 일부 분산하자는 것이 분권형 대통령제나 내각제라는 것은 잘못된 이해“라고 설명했다.이날 정치권에서 ‘내각제 개헌을 추진’ 등의 주장이 나오면서 논란이 일자 이 대통령이 직접 글을 올린 것으로 보인다.앞서 청와대 관계자는 이날 오전 취재진과 만나 이 대통령이 추구하는 권력구조 개헌의 방향성과 관련해 “국회의 권한이 강화된 4년 중임 대통령제가 국민적 수용성이 가장 높다고 생각하고 있다”며 “제왕적 대통령 중심제가 가진 문제성에 공감하고 있다”고 말했다.이어 “제왕적 대통령제의 한계를 중임제 대통령제로 보완하겠다는 것이므로, 내각제는 아니다”며 “분권형 대통령제 등을 특정하거나 지칭하는 것도 아니다”고 덧붙였다.",
+        "summary": "이재명 대통령이 14일 청와대에서 열린 청년정책 전문가 간담회에서 발언하고 있다. 이재명 대통령은 14일 “대통령 임기는 4년중임 또는 4년연임제로 변경하여 중간평가를 통한 책임정치가 가능하도록 하며, 지방자치와 국민의 기본권을 강화하는 내용으로 개헌하자는 것이 저의 공약이자 지금까지 일관된 저의 입장”이라고 밝혔다.이 대통령은 이날 X(옛 트위터)에 “개헌을 위해 대통령 임기 단축이 필요하다면 이를 수용할 수 있다는 것이 2022년 대선 당시 저의 공식입장이었고, 그 생각은 지금도 변함이 없다”며 이같이 적었다.이 대통령은 “40",
         "topicSignature": {
           "category": "issue",
-          "target": "논산훈련소 입소한",
-          "event": "감소",
-          "entities": [],
+          "target": "속보 대통령",
+          "event": "합의",
+          "entities": [
+            "4년중임",
+            "4년연임"
+          ],
           "eventKey": null,
-          "text": "issue | 논산훈련소 입소한 | 감소"
+          "text": "issue | 속보 대통령 | 합의 | 4년중임 4년연임"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "논산훈련소 입소한",
+          "subject": "속보 대통령",
           "subjectTerms": [
-            "논산훈련소",
-            "입소한"
+            "속보",
+            "대통령"
           ],
           "eventKind": "general",
-          "eventLabel": "감소",
+          "eventLabel": "합의",
           "eventTerms": [
-            "감소"
+            "합의"
           ],
           "eventKey": null,
-          "claimState": "decided",
+          "claimState": "tentative",
           "date": "14일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
@@ -26310,10 +26319,9 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 92,
+          "score": 70,
           "signals": [
             "reader_money_work_life_impact",
-            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "issue_core_topic"
           ],
@@ -26321,18 +26329,18 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "논산훈련소 입소한",
+            "subject": "속보 대통령",
             "subjectTerms": [
-              "논산훈련소",
-              "입소한"
+              "속보",
+              "대통령"
             ],
             "eventKind": "general",
-            "eventLabel": "감소",
+            "eventLabel": "합의",
             "eventTerms": [
-              "감소"
+              "합의"
             ],
             "eventKey": null,
-            "claimState": "decided",
+            "claimState": "tentative",
             "date": "14일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
@@ -26340,35 +26348,19 @@
             "competitiveLeader": null,
             "competitiveSectors": []
           },
-          "baseScore": 95,
+          "baseScore": 70,
           "performancePrior": {
-            "adjustment": -3,
-            "window": "7d",
-            "matched": [
-              {
-                "feature": "public_decision",
-                "samples": 5,
-                "exposureMedian": 514,
-                "lift": 0.351,
-                "signal": "underperformer"
-              }
-            ],
-            "reason": "bounded_evidence_prior"
+            "adjustment": 0,
+            "window": null,
+            "matched": [],
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
-          "adjustment": -3,
-          "window": "7d",
-          "matched": [
-            {
-              "feature": "public_decision",
-              "samples": 5,
-              "exposureMedian": 514,
-              "lift": 0.351,
-              "signal": "underperformer"
-            }
-          ],
-          "reason": "bounded_evidence_prior"
+          "adjustment": 0,
+          "window": null,
+          "matched": [],
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -26395,28 +26387,457 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.4906,
+        "score": 0.6065,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-12:issue:31605450490",
+        "matchedPublicationKey": "diem:2026-08-13:issue:31663657661",
         "signature": {
           "category": "issue",
-          "target": "논산훈련소 입소한",
-          "event": "감소",
-          "entities": [],
+          "target": "속보 대통령",
+          "event": "합의",
+          "entities": [
+            "4년중임",
+            "4년연임"
+          ],
           "eventKey": null,
-          "text": "issue | 논산훈련소 입소한 | 감소"
+          "text": "issue | 속보 대통령 | 합의 | 4년중임 4년연임"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "대통령 발언\n임기 개헌",
+            "lines": [
+              "대통령 발언",
+              "임기 개헌"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "대통령 발언\n임기 개헌",
+          "lines": [
+            "대통령 발언",
+            "임기 개헌"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "이재명 대통령은 4년 중임 또는 4년 연임제로 바꾸는 개헌을 추진하겠다고 밝히며, 2022년 선거 공약과 일치한다고 강조했습니다.📰",
+            "14일 청와대 청년정책 전문가 간담회에서 발표한 뒤 X에 ‘임기 단축이 필요하면 수용한다’는 입장을 재차 확인했으며, 이는 기존 공약을 재확인한 것입니다.",
+            "개헌 내용은 국회와 여야 합의를 통해 구체화될 것이며, 대통령 권한을 일부 국회에 이양하는 방안도 포함될 예정이라고 설명했습니다.📰"
+          ],
+          "text": "이재명 대통령은 4년 중임 또는 4년 연임제로 바꾸는 개헌을 추진하겠다고 밝히며, 2022년 선거 공약과 일치한다고 강조했습니다.📰\n\n14일 청와대 청년정책 전문가 간담회에서 발표한 뒤 X에 ‘임기 단축이 필요하면 수용한다’는 입장을 재차 확인했으며, 이는 기존 공약을 재확인한 것입니다.\n\n개헌 내용은 국회와 여야 합의를 통해 구체화될 것이며, 대통령 권한을 일부 국회에 이양하는 방안도 포함될 예정이라고 설명했습니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #대통령 #개헌 #임기 #정치 #4년중임 #4년연임",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#대통령",
+            "#개헌",
+            "#임기",
+            "#정치",
+            "#4년중임",
+            "#4년연임"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#대통령",
+              "#개헌",
+              "#임기",
+              "#정치",
+              "#4년중임",
+              "#4년연임"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-08-14T14:09:50.894Z",
+        "id": "pexels:18910447",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/wall-of-building-in-city-18910447/",
+        "downloadUrl": "https://images.pexels.com/photos/18910447/pexels-photo-18910447.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Junsu Park",
+        "creatorUrl": "https://www.pexels.com/@junsu",
+        "width": 3949,
+        "height": 5762,
+        "description": "A modern building in Seoul reflects the warm glow of the sunset, capturing urban elegance.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "South Korea presidential office building Seoul",
+        "score": 0.5667,
+        "components": {
+          "semanticMetadata": 0.3333,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "south",
+            "korea",
+            "presidential",
+            "office",
+            "building",
+            "seoul"
+          ],
+          "matchedConcreteTokens": [
+            "building",
+            "seoul"
+          ],
+          "matchRatio": 0.3333,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": "south_korea",
+          "matchedGeography": true,
+          "missingGeography": null,
+          "identity": {
+            "required": false,
+            "name": "임기는",
+            "role": "대통령",
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 6,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": "임기는",
+          "role": "대통령",
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 20,
+            "suitableCount": 14,
+            "suitabilityRejected": 6,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:22682007",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "임기는",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38279173",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "임기는",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:25587793",
+                "rankWithinQuery": 17,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "임기는",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:23499392",
+                "rankWithinQuery": 18,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "임기는",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20837361",
+                "rankWithinQuery": 19,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "임기는",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:35396694",
+                "rankWithinQuery": 20,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "임기는",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 14,
+            "recentReuseBlocked": 4,
+            "bestScore": 0.7833
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 43,
+          "recentKeyCount": 132,
+          "blockedCandidateCount": 4,
+          "selectedImageKeys": [
+            "pexels:18910447",
+            "https://www.pexels.com/photo/wall-of-building-in-city-18910447/",
+            "https://images.pexels.com/photos/18910447/pexels-photo-18910447.jpeg"
+          ]
+        },
+        "selectionReason": "selected concrete-subject-matched unused rank #6 from pexels results above 0.42; 6 unsuitable and 4 recent images blocked",
+        "localSha256": "1d6909b78abbb0ae269f0fdc2ccfe4afcc7c70aa84463192b430f888f9ef3bbd"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-magpiemusic-action-trailer-promo-rock-513687",
+        "mood": "bright",
+        "title": "Action Trailer Promo Rock",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/rock-action-trailer-promo-rock-513687/",
+        "sha256": "250b00f625931e22732a4d62beb328e849b67283234b5edf5309e25ba1cbeb1d",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-14T14:09:56.514Z"
       },
       "story": {
         "status": "planned",
@@ -26484,6 +26905,42 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-14/issue/issue-cover.png",
+        "coverSha256": "124ddb80e48b8377cf54b395078a2481129a0671076df2c341a8d440215eb5ca",
+        "reelPath": ".diem-cache/2026-08-14/issue/issue-reel.mp4",
+        "reelSha256": "7450b9c7555791cd511004884ffb40c3723c938a4905f781c69292b008cb0c5a",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "논산훈련소 입소한 천하람 “국군 장병 노고 대단···병력자원 감소 위기감도”",
+            "url": "https://n.news.naver.com/article/032/0003464307?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-14T14:09:37.943Z"
+          }
+        ],
+        "updatedAt": "2026-08-14T14:09:45.859Z"
       }
     }
   },
