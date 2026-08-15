@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 2,
+  "id": "credit-score-rate",
+  "sequence": 4,
+  "status": "ready",
+  "series": "DIEM Basic",
+  "category": "economy",
+  "curriculum": {
+    "question": "신용점수는 대출금리에 어떻게 반영되는가",
+    "learningObjective": "신용점수가 가산금리 판단 자료 중 하나이며 실제 금리는 여러 조건을 함께 반영한다는 점을 이해한다.",
+    "difficulty": "beginner",
+    "keywords": [
+      "신용점수",
+      "대출금리",
+      "가산금리",
+      "우대금리"
+    ]
+  },
+  "editorial": {
+    "title": {
+      "text": "신용점수\n금리 영향",
+      "lines": [
+        "신용점수",
+        "금리 영향"
+      ]
+    },
+    "caption": {
+      "sentences": [
+        "신용점수는 금융회사가 상환 위험과 가산금리를 판단할 때 보는 자료 중 하나예요.💳",
+        "실제 금리는 기준금리에 가산금리를 더하고 우대금리를 빼며, 소득·부채·담보·거래조건도 함께 봐요.",
+        "같은 점수라도 은행과 상품의 심사·우대조건에 따라 금리가 달라질 수 있어요.🔎"
+      ],
+      "text": "신용점수는 금융회사가 상환 위험과 가산금리를 판단할 때 보는 자료 중 하나예요.💳\n\n실제 금리는 기준금리에 가산금리를 더하고 우대금리를 빼며, 소득·부채·담보·거래조건도 함께 봐요.\n\n같은 점수라도 은행과 상품의 심사·우대조건에 따라 금리가 달라질 수 있어요.🔎"
+    },
+    "emojis": {
+      "first": "💳",
+      "third": "🔎"
+    },
+    "comments": {
+      "first": "💳",
+      "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #경제공부 #금융상식 #diem #diemmagazine #데일리이슈앤이코노미 #신용점수 #대출금리 #가산금리 #신용관리 #대출상식 #금융생활",
+      "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+      "hashtags": [
+        "#경제",
+        "#금융",
+        "#경제뉴스",
+        "#재테크초보",
+        "#경제공부",
+        "#금융상식",
+        "#diem",
+        "#diemmagazine",
+        "#데일리이슈앤이코노미",
+        "#신용점수",
+        "#대출금리",
+        "#가산금리",
+        "#신용관리",
+        "#대출상식",
+        "#금융생활"
+      ]
+    }
+  },
+  "lesson": {
+    "totalDurationSeconds": 19,
+    "scenes": [
+      {
+        "role": "cover",
+        "durationSeconds": 3,
+        "label": "오늘의 질문",
+        "title": "신용점수는\n금리를 정할까?",
+        "body": "신용점수 하나만으로 대출금리가 정해지는 건 아니에요.",
+        "claimIds": []
+      },
+      {
+        "role": "definition",
+        "durationSeconds": 4,
+        "label": "쉬운 정의",
+        "title": "신용점수는\n심사 자료 중 하나",
+        "body": "은행이 ‘이 사람이 돈을 잘 갚을까?’를 판단할 때 보는 자료 중 하나예요.",
+        "claimIds": [
+          "score-input"
+        ],
+        "visual": {
+          "type": "flow",
+          "items": [
+            "신용점수",
+            "상환 위험",
+            "대출 심사"
+          ]
+        }
+      },
+      {
+        "role": "mechanism",
+        "durationSeconds": 5,
+        "label": "금리의 구성",
+        "title": "기준에 더하고\n우대를 빼요",
+        "body": "대출금리는 기준금리에 가산금리를 더하고 우대금리를 빼서 정해져요.",
+        "claimIds": [
+          "rate-components"
+        ],
+        "visual": {
+          "type": "formula",
+          "items": [
+            "기준금리",
+            "가산금리",
+            "우대금리",
+            "실제 금리"
+          ],
+          "operators": [
+            "+",
+            "−",
+            "="
+          ]
+        }
+      },
+      {
+        "role": "caution",
+        "durationSeconds": 4,
+        "label": "같은 점수라도",
+        "title": "금리는 서로\n다를 수 있어요",
+        "body": "점수가 같아도 금리는 달라질 수 있어요. 소득·부채·담보와 은행별 심사 조건도 함께 보거든요.",
+        "claimIds": [
+          "rate-components",
+          "different-results"
+        ],
+        "visual": {
+          "type": "checklist",
+          "items": [
+            "소득·부채",
+            "담보·거래조건",
+            "은행·상품 심사"
+          ]
+        }
+      },
+      {
+        "role": "summary",
+        "durationSeconds": 3,
+        "label": "오늘의 한 줄",
+        "title": "신용점수는\n금리의 전부가 아니다",
+        "body": "신용점수는 중요한 기준이지만, 실제 금리는 다른 조건도 함께 보고 정해요.",
+        "claimIds": [
+          "score-input",
+          "rate-components",
+          "different-results"
+        ],
+        "visual": {
+          "type": "flow",
+          "items": [
+            "점수",
+            "여러 조건",
+            "최종 금리"
+          ]
+        }
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "score-input",
+      "text": "개인신용평점은 금융회사가 차주의 상환 위험을 평가해 대출 가능 여부와 가산금리를 판단할 때 쓰는 자료 중 하나다.",
+      "sourceIds": [
+        "fsc-credit",
+        "bok-credit"
+      ]
+    },
+    {
+      "id": "rate-components",
+      "text": "대출금리는 기준금리와 가산금리, 우대금리로 구성되며 소득·부채·담보와 거래조건도 함께 반영된다.",
+      "sourceIds": [
+        "fsc-rate-components",
+        "fsc-credit"
+      ]
+    },
+    {
+      "id": "different-results",
+      "text": "신용점수 하나만으로 대출금리가 확정되는 것은 아니며 금융회사와 상품의 심사·우대 조건에 따라 결과가 달라질 수 있다.",
+      "sourceIds": [
+        "fsc-credit",
+        "fsc-rate-components"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "fsc-credit",
+      "organization": "금융위원회",
+      "title": "개인신용평가와 대출 심사 안내",
+      "url": "https://www.fsc.go.kr/no010101/73473",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-14"
+    },
+    {
+      "id": "fsc-rate-components",
+      "organization": "금융위원회",
+      "title": "은행 대출금리 구성체계 안내",
+      "url": "https://www.fsc.go.kr/no010101/87204",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-14"
+    },
+    {
+      "id": "bok-credit",
+      "organization": "한국은행",
+      "title": "개인의 신용등급은 어떻게 결정되는가",
+      "url": "https://www.bok.or.kr/portal/bbs/B0000218/view.do?menuNo=200&nttId=10017545&pageIndex=12&searchOptn2=",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-14"
+    }
+  ],
+  "visual": {
+    "kind": "typographic",
+    "theme": "credit-score",
+    "variant": 27,
+    "motif": "score-gauge-and-rate-steps",
+    "visualFingerprint": "diem-basic:credit-score-rate:v1",
+    "peoplePolicy": "prohibited",
+    "direction": "신용 점수 게이지와 금리 구성 계단을 연결한 구조 다이어그램"
+  },
+  "audio": {
+    "trackId": "pixabay-bransboynd-night-summer-lounge-473222",
+    "title": "Night Summer Lounge",
+    "mood": "serious",
+    "license": "Pixabay Content License",
+    "source": "https://pixabay.com/music/trap-night-summer-lounge-473222/",
+    "sha256": "39049003ed0e5a76f148558186bf6c6b8510f874457755b50390b7923f0a16f8"
+  },
+  "review": {
+    "status": "approved",
+    "checkedAt": "2026-08-14",
+    "expiresAt": "2027-08-14",
+    "reviewedBy": "DIEM official-source review",
+    "recheckItems": [
+      "개인신용평가 제도",
+      "은행 대출금리 구성체계",
+      "신용평가 반영요소"
+    ]
+  },
+  "artifacts": {
+    "coverPath": "cover.png",
+    "coverSha256": "6f5a8a8588c0046cc9ebcbe582ae669c2d216a4b526cac0407ea575c4d5ee152",
+    "reelPath": "reel.mp4",
+    "reelSha256": "8f6c66cfc994bb3312bf8ef9057b1349a3474fbbf6a71de26358d9f869ff549d",
+    "cards": [
+      {
+        "path": "cards/card-01.png",
+        "role": "cover",
+        "durationSeconds": 3,
+        "sha256": "6f5a8a8588c0046cc9ebcbe582ae669c2d216a4b526cac0407ea575c4d5ee152"
+      },
+      {
+        "path": "cards/card-02.png",
+        "role": "definition",
+        "durationSeconds": 4,
+        "sha256": "f57fe731f7331d17fdb12eb1a7d68395b2c2fe09cdcaf2d6eac83b346861c279"
+      },
+      {
+        "path": "cards/card-03.png",
+        "role": "mechanism",
+        "durationSeconds": 5,
+        "sha256": "42b400448402bef2a188c2938cc7e70a0f7ee4b06a31e1af28462d9394db5a47"
+      },
+      {
+        "path": "cards/card-04.png",
+        "role": "caution",
+        "durationSeconds": 4,
+        "sha256": "c8df9173950649e24d6e6ab437cf43bb11b7b93de7a18bfcc4f64a5e163127fc"
+      },
+      {
+        "path": "cards/card-05.png",
+        "role": "summary",
+        "durationSeconds": 3,
+        "sha256": "ccd6fed4434e59f00344dbe7fd21cb06d0ea41dabc5f30c9dc721c930eed1dac"
+      }
+    ]
+  },
+  "integrity": {
+    "contentSha256": "48ac4e899e3a2a6fff0a5c3f8b3cf6b610e66941178efea8ef755a84dd9b3c6b"
+  }
+}

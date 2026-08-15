@@ -1,0 +1,264 @@
+{
+  "schemaVersion": 2,
+  "id": "isa-tax",
+  "sequence": 1,
+  "status": "ready",
+  "series": "DIEM Basic",
+  "category": "economy",
+  "curriculum": {
+    "question": "ISA는 어떤 세금을 줄여주는 계좌인가",
+    "learningObjective": "ISA의 손익통산, 비과세 한도와 초과분 분리과세를 구분한다.",
+    "difficulty": "beginner",
+    "keywords": [
+      "ISA",
+      "손익통산",
+      "비과세",
+      "분리과세"
+    ]
+  },
+  "editorial": {
+    "title": {
+      "text": "ISA 세금\n줄이는 방식",
+      "lines": [
+        "ISA 세금",
+        "줄이는 방식"
+      ]
+    },
+    "caption": {
+      "sentences": [
+        "ISA는 계좌 안에서 난 이익과 손실을 합친 순이익에 세금 혜택을 주는 계좌예요.🧾",
+        "2026년 8월 기준 비과세 한도는 일반형 200만원, 서민·농어민형 400만원이고, 넘긴 순이익은 9.9%로 분리과세돼요.",
+        "세법은 바뀔 수 있으니 가입 전에는 최신 한도와 의무가입기간을 확인해 주세요.🔎"
+      ],
+      "text": "ISA는 계좌 안에서 난 이익과 손실을 합친 순이익에 세금 혜택을 주는 계좌예요.🧾\n\n2026년 8월 기준 비과세 한도는 일반형 200만원, 서민·농어민형 400만원이고, 넘긴 순이익은 9.9%로 분리과세돼요.\n\n세법은 바뀔 수 있으니 가입 전에는 최신 한도와 의무가입기간을 확인해 주세요.🔎"
+    },
+    "emojis": {
+      "first": "🧾",
+      "third": "🔎"
+    },
+    "comments": {
+      "first": "🧾",
+      "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #경제공부 #금융상식 #diem #diemmagazine #데일리이슈앤이코노미 #ISA #개인종합자산관리계좌 #비과세 #분리과세 #절세 #세금공부",
+      "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+      "hashtags": [
+        "#경제",
+        "#금융",
+        "#경제뉴스",
+        "#재테크초보",
+        "#경제공부",
+        "#금융상식",
+        "#diem",
+        "#diemmagazine",
+        "#데일리이슈앤이코노미",
+        "#ISA",
+        "#개인종합자산관리계좌",
+        "#비과세",
+        "#분리과세",
+        "#절세",
+        "#세금공부"
+      ]
+    }
+  },
+  "lesson": {
+    "totalDurationSeconds": 19,
+    "scenes": [
+      {
+        "role": "cover",
+        "durationSeconds": 3,
+        "label": "오늘의 질문",
+        "title": "ISA는\n어떤 세금을 줄일까?",
+        "body": "절세 계좌라는데, 어떤 세금을 줄여준다는 걸까요?",
+        "claimIds": []
+      },
+      {
+        "role": "definition",
+        "durationSeconds": 4,
+        "label": "쉬운 정의",
+        "title": "세금은\n순이익부터 계산",
+        "body": "계좌에서 난 이익과 손실을 먼저 합쳐요. 세금 혜택은 남은 순이익에 적용돼요.",
+        "claimIds": [
+          "isa-netting"
+        ],
+        "visual": {
+          "type": "flow",
+          "items": [
+            "이익",
+            "손실",
+            "순이익|혜택 기준"
+          ]
+        }
+      },
+      {
+        "role": "mechanism",
+        "durationSeconds": 5,
+        "label": "숫자로 보기",
+        "title": "비과세 한도는\n유형마다 달라요",
+        "body": "2026년 8월 기준 비과세 한도는 일반형 200만원, 서민·농어민형 400만원이에요.",
+        "claimIds": [
+          "isa-limits"
+        ],
+        "visual": {
+          "type": "comparison",
+          "items": [
+            "일반형|200만원",
+            "서민·농어민형|400만원"
+          ]
+        }
+      },
+      {
+        "role": "caution",
+        "durationSeconds": 4,
+        "label": "헷갈리지 않기",
+        "title": "한도를 넘으면\n전부 과세될까?",
+        "body": "전부는 아니에요. 한도를 넘긴 순이익에만 지방소득세를 포함해 9.9%로 분리과세돼요.",
+        "claimIds": [
+          "isa-limits"
+        ],
+        "visual": {
+          "type": "formula",
+          "items": [
+            "초과 순이익",
+            "분리과세|9.9%"
+          ],
+          "operators": [
+            "×"
+          ]
+        }
+      },
+      {
+        "role": "summary",
+        "durationSeconds": 3,
+        "label": "오늘의 한 줄",
+        "title": "이익·손실 합친 뒤\n세금 계산",
+        "body": "세법은 바뀔 수 있어요. 가입 전에는 최신 법령을 꼭 확인해 주세요.",
+        "claimIds": [
+          "isa-netting",
+          "isa-freshness"
+        ],
+        "visual": {
+          "type": "timeline",
+          "items": [
+            "손익 합산",
+            "비과세 적용",
+            "초과분 분리과세"
+          ]
+        }
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "isa-netting",
+      "text": "ISA는 계좌 내 손익을 통산한 순이익에 세제 혜택을 적용한다.",
+      "sourceIds": [
+        "isa-law",
+        "isa-fsc"
+      ]
+    },
+    {
+      "id": "isa-limits",
+      "text": "2026년 8월 기준 일반형 비과세 한도는 200만원, 서민·농어민형은 400만원이며 초과분은 지방소득세를 포함해 9.9% 분리과세한다.",
+      "sourceIds": [
+        "isa-law"
+      ]
+    },
+    {
+      "id": "isa-freshness",
+      "text": "ISA 세제 조건은 법령 개정에 따라 바뀔 수 있어 가입 전 현행 법령을 재확인해야 한다.",
+      "sourceIds": [
+        "isa-law",
+        "isa-fsc"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "isa-law",
+      "organization": "국가법령정보센터",
+      "title": "조세특례제한법 제91조의18 개인종합자산관리계좌에 대한 과세특례",
+      "url": "https://law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1018255825",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-15"
+    },
+    {
+      "id": "isa-fsc",
+      "organization": "금융위원회",
+      "title": "개인종합자산관리계좌 제도 개선 안내",
+      "url": "https://www.fsc.go.kr/no010101/76304",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-15"
+    }
+  ],
+  "visual": {
+    "kind": "typographic",
+    "theme": "tax-account",
+    "variant": 1,
+    "motif": "account-ledger-tax-shield",
+    "visualFingerprint": "diem-basic:isa-tax:v1",
+    "peoplePolicy": "prohibited",
+    "direction": "계좌 원장과 세금 방패를 결합한 선형 다이어그램"
+  },
+  "audio": {
+    "trackId": "mixkit-serene-view-443",
+    "title": "Serene View",
+    "mood": "serious",
+    "license": "Mixkit Stock Music Free License",
+    "source": "https://assets.mixkit.co/music/download/mixkit-serene-view-443.mp3",
+    "sha256": "93baae1bea4748b0a36d8a8b2d2af1c9391d3abb5e18f2bff270ea91d9a0fd31"
+  },
+  "review": {
+    "status": "approved",
+    "checkedAt": "2026-08-15",
+    "expiresAt": "2026-09-30",
+    "reviewedBy": "DIEM official-source review",
+    "recheckItems": [
+      "비과세 한도",
+      "분리과세율",
+      "의무가입기간",
+      "법 개정 시행일"
+    ]
+  },
+  "artifacts": {
+    "coverPath": "cover.png",
+    "coverSha256": "418f1d6de9405b9fdfea26c5190477ef0df5d618f7427a1b04e12b929f58b11d",
+    "reelPath": "reel.mp4",
+    "reelSha256": "afd367f004d92d1ff85e013f94144cef4ba9f7352e72ba7517bd50ed09ba110d",
+    "cards": [
+      {
+        "path": "cards/card-01.png",
+        "role": "cover",
+        "durationSeconds": 3,
+        "sha256": "418f1d6de9405b9fdfea26c5190477ef0df5d618f7427a1b04e12b929f58b11d"
+      },
+      {
+        "path": "cards/card-02.png",
+        "role": "definition",
+        "durationSeconds": 4,
+        "sha256": "2df813358304615c7c500d6505b1c264320a4866e1d4333748d6daedf73b3c18"
+      },
+      {
+        "path": "cards/card-03.png",
+        "role": "mechanism",
+        "durationSeconds": 5,
+        "sha256": "3ea38cc6b02c3ff8749835ba622396b4776c7225311e7493e934cb687b887884"
+      },
+      {
+        "path": "cards/card-04.png",
+        "role": "caution",
+        "durationSeconds": 4,
+        "sha256": "cc4df1ad1aedf6bf82a075d9a4ab73c659d61ee3ae4a5bca8f7f5d826379a023"
+      },
+      {
+        "path": "cards/card-05.png",
+        "role": "summary",
+        "durationSeconds": 3,
+        "sha256": "32566967926077bae52caf155c578ce26e56f82d6bd508f7512ffe3b8d328217"
+      }
+    ]
+  },
+  "integrity": {
+    "contentSha256": "cf0eda5d916c48bac229fab6661b17cdcf2e902c09164e5397595c284f572780"
+  }
+}

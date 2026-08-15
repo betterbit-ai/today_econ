@@ -31,14 +31,21 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
   }
 
   const economy = fs.readFileSync(path.join(workflowRoot, 'diem_economy.yml'), 'utf8');
-  assert.match(economy, /operation:[\s\S]*prepare_basic[\s\S]*publish_basic[\s\S]*retry_basic[\s\S]*reject_basic/u);
+  assert.match(economy, /operation:[\s\S]*publish_basic[\s\S]*retry_basic/u);
+  assert.doesNotMatch(economy, /- prepare_basic|- reject_basic/u);
   assert.match(economy, /collect_insights/u);
   assert.match(economy, /inputs\.operation == 'collect_insights'/u);
   assert.match(economy, /node src\/v2\/index\.js performance-report/u);
   assert.match(economy, /cron:\s*['"]30 0 \* \* 0['"]/u);
-  assert.match(economy, /basic-prepare/u);
-  assert.match(economy, /basic-publish --publication-key "\$BASIC_PUBLICATION_KEY" --publish/u);
+  assert.doesNotMatch(economy, /basic-prepare/u);
+  assert.match(economy, /basic-publish-stored --content-id "\$BASIC_CONTENT_ID" --publish/u);
+  assert.match(economy, /basic-publish-stored --publish/u);
   assert.match(economy, /github\.event_name == 'workflow_dispatch' && inputs\.operation == 'publish_basic'/u);
-  assert.doesNotMatch(economy, /github\.event_name == 'schedule' && inputs\.operation == 'publish_basic'/u);
+  assert.match(economy, /github\.event_name == 'schedule' && github\.event\.schedule == '30 0 \* \* 0'/u);
+  const basicJob = economy.slice(
+    economy.indexOf('  publish-stored-diem-basic:'),
+    economy.indexOf('  retry-diem-basic:'),
+  );
+  assert.doesNotMatch(basicJob, /GROQ|basic-prepare|select --category|playwright|ffmpeg|PEXELS|UNSPLASH/u);
   assert.match(economy, /git add data\/publications data\/analytics-state\.json data\/reports/u);
 });

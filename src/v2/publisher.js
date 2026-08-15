@@ -179,6 +179,7 @@ async function preparePublication(ledger, category, {
     editorial,
     date: ledger.date,
     category,
+    contentType: editorial.contentType || article.contentType || publication.contentType || 'hot_news',
     imagePath: downloaded.localPath,
     fallbackTheme: imageSelection.fallbackTheme,
     fallbackVariant: imageSelection.fallbackVariant,

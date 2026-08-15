@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 2,
+  "id": "fixed-variable-rate",
+  "sequence": 3,
+  "status": "ready",
+  "series": "DIEM Basic",
+  "category": "economy",
+  "curriculum": {
+    "question": "고정금리와 변동금리는 언제 달라지는가",
+    "learningObjective": "금리 고정 기간, 변동 주기와 재산정일을 구분하고 기준금리 뉴스와 내 대출금리의 시차를 이해한다.",
+    "difficulty": "beginner",
+    "keywords": [
+      "고정금리",
+      "변동금리",
+      "COFIX",
+      "재산정일"
+    ]
+  },
+  "editorial": {
+    "title": {
+      "text": "고정·변동\n금리 차이",
+      "lines": [
+        "고정·변동",
+        "금리 차이"
+      ]
+    },
+    "caption": {
+      "sentences": [
+        "고정금리는 약속한 기간 동안 그대로이고, 변동금리는 정해진 때마다 다시 계산돼요.🏦",
+        "변동금리는 COFIX·금융채 같은 기준에 가산금리를 더하고 우대금리를 빼서 정해져요.",
+        "기준금리가 바뀌어도 내 대출금리가 같은 날 같은 폭으로 움직이는 건 아니에요.🔎"
+      ],
+      "text": "고정금리는 약속한 기간 동안 그대로이고, 변동금리는 정해진 때마다 다시 계산돼요.🏦\n\n변동금리는 COFIX·금융채 같은 기준에 가산금리를 더하고 우대금리를 빼서 정해져요.\n\n기준금리가 바뀌어도 내 대출금리가 같은 날 같은 폭으로 움직이는 건 아니에요.🔎"
+    },
+    "emojis": {
+      "first": "🏦",
+      "third": "🔎"
+    },
+    "comments": {
+      "first": "🏦",
+      "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #경제공부 #금융상식 #diem #diemmagazine #데일리이슈앤이코노미 #고정금리 #변동금리 #COFIX #대출금리 #금리공부 #대출상식",
+      "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+      "hashtags": [
+        "#경제",
+        "#금융",
+        "#경제뉴스",
+        "#재테크초보",
+        "#경제공부",
+        "#금융상식",
+        "#diem",
+        "#diemmagazine",
+        "#데일리이슈앤이코노미",
+        "#고정금리",
+        "#변동금리",
+        "#COFIX",
+        "#대출금리",
+        "#금리공부",
+        "#대출상식"
+      ]
+    }
+  },
+  "lesson": {
+    "totalDurationSeconds": 19,
+    "scenes": [
+      {
+        "role": "cover",
+        "durationSeconds": 3,
+        "label": "오늘의 질문",
+        "title": "고정·변동금리\n언제 달라질까?",
+        "body": "기준금리가 바뀌면 내 대출금리도 바로 따라 움직일까요?",
+        "claimIds": []
+      },
+      {
+        "role": "definition",
+        "durationSeconds": 4,
+        "label": "쉬운 정의",
+        "title": "고정은 그대로\n변동은 다시 계산",
+        "body": "고정금리는 약속한 기간 동안 그대로예요. 변동금리는 정해진 주기마다 다시 계산돼요.",
+        "claimIds": [
+          "rate-definition"
+        ],
+        "visual": {
+          "type": "comparison",
+          "items": [
+            "고정금리|약정 기간 유지",
+            "변동금리|주기마다 재산정"
+          ]
+        }
+      },
+      {
+        "role": "mechanism",
+        "durationSeconds": 5,
+        "label": "금리의 구성",
+        "title": "기준에 더하고\n우대를 빼요",
+        "body": "변동금리는 COFIX·금융채 같은 기준에 가산금리를 더하고 우대금리를 빼서 정해져요.",
+        "claimIds": [
+          "cofix-reference"
+        ],
+        "visual": {
+          "type": "formula",
+          "items": [
+            "기준금리|COFIX 등",
+            "가산금리",
+            "우대금리",
+            "대출금리"
+          ],
+          "operators": [
+            "+",
+            "−",
+            "="
+          ]
+        }
+      },
+      {
+        "role": "caution",
+        "durationSeconds": 4,
+        "label": "헷갈리지 않기",
+        "title": "기준금리 인하가\n바로 반영될까?",
+        "body": "바로 바뀌는 건 아니에요. 상품마다 금리를 다시 계산하는 날짜가 다르거든요.",
+        "claimIds": [
+          "transmission-lag"
+        ],
+        "visual": {
+          "type": "timeline",
+          "items": [
+            "기준금리 변화",
+            "기준지표 반영",
+            "내 재산정일"
+          ]
+        }
+      },
+      {
+        "role": "summary",
+        "durationSeconds": 3,
+        "label": "오늘의 한 줄",
+        "title": "금리 이름보다\n계약 조건부터",
+        "body": "계약서에서는 고정 기간, 변동 주기, 기준금리와 재산정일을 같이 보면 돼요.",
+        "claimIds": [
+          "rate-definition",
+          "cofix-reference",
+          "transmission-lag"
+        ],
+        "visual": {
+          "type": "checklist",
+          "items": [
+            "고정 기간",
+            "변동 주기",
+            "기준·재산정일"
+          ]
+        }
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "rate-definition",
+      "text": "고정금리는 약정한 기간 동안 금리가 유지되고 변동금리는 약정한 주기마다 다시 산정된다.",
+      "sourceIds": [
+        "bok-rate-definition"
+      ]
+    },
+    {
+      "id": "cofix-reference",
+      "text": "COFIX는 은행권 주택담보대출 등의 기준으로 활용되며 실제 대출금리는 상품별 기준과 가산·우대 조건을 함께 반영한다.",
+      "sourceIds": [
+        "kfb-cofix"
+      ]
+    },
+    {
+      "id": "transmission-lag",
+      "text": "한국은행 기준금리 변화가 개별 대출금리에 반영되는 시점과 폭은 상품의 기준금리와 재산정 주기에 따라 다르다.",
+      "sourceIds": [
+        "bok-transmission",
+        "kfb-cofix"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "bok-rate-definition",
+      "organization": "한국은행",
+      "title": "고정금리와 변동금리의 의미",
+      "url": "https://www.bok.or.kr/portal/bbs/B0000217/view.do?listType=G&menuNo=200144&nttId=233448&pageIndex=6",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-14"
+    },
+    {
+      "id": "bok-transmission",
+      "organization": "한국은행",
+      "title": "통화정책의 금리 파급경로",
+      "url": "https://www.bok.or.kr/portal/bbs/B0000347/view.do?menuNo=201106&nttId=10072268&pageIndex=1",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-14"
+    },
+    {
+      "id": "kfb-cofix",
+      "organization": "은행연합회",
+      "title": "COFIX 공시와 산출 체계",
+      "url": "https://portal.kfb.or.kr/fingoods/cofix.php",
+      "official": true,
+      "primary": true,
+      "checkedAt": "2026-08-14"
+    }
+  ],
+  "visual": {
+    "kind": "typographic",
+    "theme": "rate-reset",
+    "variant": 18,
+    "motif": "fixed-lock-and-reset-dial",
+    "visualFingerprint": "diem-basic:fixed-variable-rate:v1",
+    "peoplePolicy": "prohibited",
+    "direction": "고정 자물쇠와 주기적으로 돌아가는 금리 다이얼을 대비"
+  },
+  "audio": {
+    "trackId": "mixkit-driving-ambition-32",
+    "title": "Driving Ambition",
+    "mood": "bright",
+    "license": "Mixkit Stock Music Free License",
+    "source": "https://assets.mixkit.co/music/download/mixkit-driving-ambition-32.mp3",
+    "sha256": "b7324d6677ec17155282f09f429e802c49a74f5f1b7d167e7fa7c0b95e982e8d"
+  },
+  "review": {
+    "status": "approved",
+    "checkedAt": "2026-08-14",
+    "expiresAt": "2027-08-14",
+    "reviewedBy": "DIEM official-source review",
+    "recheckItems": [
+      "COFIX 산출·공시 체계",
+      "대출금리 산정체계"
+    ]
+  },
+  "artifacts": {
+    "coverPath": "cover.png",
+    "coverSha256": "721329ac56679f00854ac66424be43e64797876d34f6c993b51342fc4d2ae0f2",
+    "reelPath": "reel.mp4",
+    "reelSha256": "8071b4e647beccf86bb4c2627a44a49d71dc44853e82969dbf2bb335e0babf31",
+    "cards": [
+      {
+        "path": "cards/card-01.png",
+        "role": "cover",
+        "durationSeconds": 3,
+        "sha256": "721329ac56679f00854ac66424be43e64797876d34f6c993b51342fc4d2ae0f2"
+      },
+      {
+        "path": "cards/card-02.png",
+        "role": "definition",
+        "durationSeconds": 4,
+        "sha256": "2b1f82f8d2e21115946a5dcfb4294f1a4e52bc8b72079469d801df6d4e3703bb"
+      },
+      {
+        "path": "cards/card-03.png",
+        "role": "mechanism",
+        "durationSeconds": 5,
+        "sha256": "847ee1b93856fa354dc78f1a68be5132ce0e1cbfb4c99275442d56e532ad6f28"
+      },
+      {
+        "path": "cards/card-04.png",
+        "role": "caution",
+        "durationSeconds": 4,
+        "sha256": "451a5f6608d49de8fe644614e3d65f755af89a6c8d16da6f02c182dac7eeaf9d"
+      },
+      {
+        "path": "cards/card-05.png",
+        "role": "summary",
+        "durationSeconds": 3,
+        "sha256": "08b81185eb6ec16b6cae853668092813b62a3a9b0bd24b314e84f9f85861f9db"
+      }
+    ]
+  },
+  "integrity": {
+    "contentSha256": "375452c286eed6f89c3dfdc68be2811d3b78e2eb46ee45d55811836db75150d6"
+  }
+}

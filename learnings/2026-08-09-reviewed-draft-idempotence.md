@@ -1,28 +1,30 @@
 ---
 date: 2026-08-09
-category: architecture
+category: pattern
 source: manual
 ---
 
-# Human approval must bind to immutable draft content
+# 교육 콘텐츠 승인은 최종 미디어까지 불변 패키지에 묶어야 한다
 
 ## Situation
 
-DIEM needed a weekly educational series that could be generated automatically
-but must never reach Instagram without operator review. Adding a third service,
-database, or Slack inbound approval server would violate the operating model.
+DIEM은 주간 교육 시리즈를 실시간 뉴스에서 자동 생성한 뒤 Slack에서 승인하는
+방식을 먼저 시도했다. 정확한 키와 콘텐츠 해시를 사용해 중복 발행은 막을 수
+있었지만, 교육에 맞지 않는 뉴스가 출발점이 되면 검수·반려를 반복해도 좋은
+커리큘럼이 되지 않았다.
 
 ## What we learned
 
-A GitHub Action dispatch is sufficient approval only when it names one exact
-publication key and the approved durable content hash still matches. Preview
-media can live in a public GitHub prerelease while the ledger stores rights,
-source, artifact hashes, review state, and external publication results. Reel
-success and Story or comment failures must remain independently recoverable.
+승인 해시는 필요한 안전장치지만 주제와 자료 조사 순서를 대신하지 못한다.
+교육 콘텐츠는 먼저 반복 학습 가치가 있는 질문을 고르고, 서로 다른 기관의 공식
+1차 출처로 주장을 매핑한 뒤 원고·표지·음원을 함께 검수해야 한다. 예약 실행에서
+다시 렌더링하면 승인한 결과와 실제 발행물이 달라질 수 있으므로 최종 PNG와
+MP4까지 Git에 저장하고 해시로 묶어야 한다. Reel 성공과 Story·댓글 실패는
+여전히 독립적으로 복구한다.
 
 ## Next time
 
-Fail closed on a wrong key, changed content, unreviewable state, or an already
-published Reel. Keep initial approval separate from operational recovery, and
-reconcile exact Instagram content before any retry that might otherwise create
-a duplicate.
+실시간 뉴스 기반 생성과 교육 커리큘럼 제작을 같은 파이프라인에 넣지 않는다.
+주제 → 공식 출처 → 주장 매핑 → 원고 → 사람 없는 원본 시각물 → 최종 미디어
+순서로 패키지를 만든다. 잘못된 ID, 변경된 해시, 만료된 검토, 이미 발행한 ID는
+실패-폐쇄하고 운영 복구만 별도 재시도한다.

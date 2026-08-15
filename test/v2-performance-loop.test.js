@@ -135,3 +135,20 @@ test('reports image fallback and music concentration without changing assets', (
   assert.match(report.music.diversityWarning, /100%/u);
   assert.equal(report.music.trackDistribution['same-track'].count, 5);
 });
+
+test('keeps operator-deleted publications out of performance learning while preserving the audit count', () => {
+  const kept = publication(0, { exposure: 300 });
+  const deleted = publication(1, { exposure: 100000 });
+  deleted.moderation = {
+    action: 'deleted',
+    reason: '제목과 기사 상태 불일치',
+    deletedAt: '2026-08-14T12:00:00.000Z',
+  };
+
+  const report = buildPerformanceReport([{ publicationHistory: [kept, deleted], publications: {} }]);
+
+  assert.equal(report.publishedCount, 1);
+  assert.equal(report.windows['7d'].sampleCount, 1);
+  assert.equal(report.windows['7d'].categories.economy.metrics.exposureMedian, 300);
+  assert.equal(report.operations.moderatedPublications, 1);
+});

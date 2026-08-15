@@ -13,7 +13,9 @@ const {
   verifyTrackAsset,
 } = require('../src/v2/music');
 const {
+  DIEM_BASIC_REEL,
   DIEM_REEL,
+  buildDiemBasicReelArgs,
   buildDiemReelArgs,
   buildDiemVideoFilter,
   createDiemReelVideo,
@@ -99,6 +101,28 @@ test('builds a single-image seven-second loop-safe H.264/AAC command', () => {
     outputPath: '/tmp/silent.mp4',
   });
   assert.ok(silentArgs.includes('anullsrc=channel_layout=stereo:sample_rate=48000'));
+});
+
+test('builds a five-card nineteen-second educational Reel with only static fades', () => {
+  const args = buildDiemBasicReelArgs({
+    cardPaths: ['/tmp/01.png', '/tmp/02.png', '/tmp/03.png', '/tmp/04.png', '/tmp/05.png'],
+    audioPath: '/tmp/music.wav',
+    outputPath: '/tmp/basic.mp4',
+  });
+  const filter = args[args.indexOf('-filter_complex') + 1];
+  assert.equal(args.filter(value => value === '-i').length, 6);
+  assert.equal(DIEM_BASIC_REEL.durationSeconds, 19);
+  assert.deepEqual(DIEM_BASIC_REEL.sceneDurations, [3, 4, 5, 4, 3]);
+  assert.equal((filter.match(/xfade=transition=fade/g) || []).length, 4);
+  assert.match(filter, /offset=3(?:\.0+)?/u);
+  assert.match(filter, /offset=7(?:\.0+)?/u);
+  assert.match(filter, /offset=12(?:\.0+)?/u);
+  assert.match(filter, /offset=16(?:\.0+)?/u);
+  assert.doesNotMatch(filter, /zoompan|rotate|crop=.*sin/u);
+  assert.ok(args.includes('570'));
+  assert.ok(args.includes('aac'));
+  assert.ok(args.includes('48000'));
+  assert.equal(args.at(-1), '/tmp/basic.mp4');
 });
 
 test('tries one alternate track and then creates an AAC-silent Reel', async () => {

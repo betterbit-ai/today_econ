@@ -9,6 +9,7 @@ const {
   rejectBasicDraft,
   retryBasicPublication,
 } = require('./basic');
+const { publishBasicPackage } = require('./basic-content');
 const { recordModeration, saveExperimentReport } = require('./experiment-report');
 const { savePerformanceReport } = require('./performance-loop');
 const {
@@ -30,6 +31,7 @@ function parseArgs(argv = process.argv.slice(2)) {
     else if (token === '--category') options.category = rest[++index];
     else if (token === '--slot') options.slot = rest[++index];
     else if (token === '--publication-key') options.publicationKey = rest[++index];
+    else if (token === '--content-id') options.contentId = rest[++index];
     else if (token === '--reason') options.reason = rest[++index];
     else if (token === '--action') options.action = rest[++index];
     else throw new Error(`[DIEM] Unknown option: ${token}`);
@@ -47,6 +49,7 @@ function helpText() {
     '  node src/v2/index.js publish [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
     '  node src/v2/index.js retry [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
     '  node src/v2/index.js basic-prepare [--date YYYY-MM-DD]',
+    '  node src/v2/index.js basic-publish-stored [--content-id ID] --publish',
     '  node src/v2/index.js basic-publish --publication-key KEY --publish',
     '  node src/v2/index.js basic-reject --publication-key KEY --reason REASON',
     '  node src/v2/index.js basic-retry --publication-key KEY --publish',
@@ -92,6 +95,14 @@ async function runCommand({ command, options }) {
       item.contentType === 'diem_basic' && item.experiment?.weekKey
     ));
     console.log(`[DIEM Basic] draft ready: ${publication?.publicationKey || 'existing weekly draft'}`);
+    return ledger;
+  }
+  if (command === 'basic-publish-stored') {
+    if (!(options.publish || config.publishInstagram)) {
+      throw new Error('[DIEM Basic] Publishing requires PUBLISH_INSTAGRAM=true or --publish.');
+    }
+    const ledger = await publishBasicPackage({ contentId: options.contentId });
+    console.log(`[DIEM Basic] stored package processed: ${options.contentId || 'next ready package'}`);
     return ledger;
   }
   if (command === 'basic-publish') {

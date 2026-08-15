@@ -16,7 +16,7 @@ function escapeHtml(value = '') {
     .replace(/'/g, '&#39;');
 }
 
-function coverMeta(date, category) {
+function coverMeta(date, category, contentType = 'hot_news', seriesNumber) {
   const normalizedDate = String(date || '').replaceAll('-', '.');
   if (!/^\d{4}\.\d{2}\.\d{2}$/.test(normalizedDate)) {
     throw new Error('[DIEM Cover] date must be YYYY-MM-DD or YYYY.MM.DD');
@@ -24,7 +24,14 @@ function coverMeta(date, category) {
   if (!Object.values(CATEGORIES).includes(category)) {
     throw new Error('[DIEM Cover] category must be economy or issue');
   }
-  return `${normalizedDate} | ${category === CATEGORIES.ECONOMY ? 'Economy' : 'Issue'}`;
+  if (contentType === 'diem_basic') {
+    const sequence = Number.isInteger(seriesNumber) && seriesNumber > 0
+      ? ` | ${String(seriesNumber).padStart(2, '0')}`
+      : '';
+    return `DIEM Basic${sequence}`;
+  }
+  const label = category === CATEGORIES.ECONOMY ? 'Economy' : 'Issue';
+  return `${normalizedDate} | ${label}`;
 }
 
 function imageMime(filePath) {
@@ -48,12 +55,16 @@ function resolveImageData({ imagePath, imageDataUri } = {}) {
 
 const TYPOGRAPHY_THEMES = new Set([
   'climate',
+  'credit-score',
+  'fund-note',
   'health',
   'housing',
   'legislation',
   'markets',
   'occupational-heat',
   'public-interest',
+  'rate-reset',
+  'tax-account',
   'technology',
   'work',
 ]);
@@ -81,6 +92,29 @@ function typographyMotif(theme) {
       id: 'market-candles',
       body: `<path d="M120 760L300 615L448 680L615 430L760 520L950 260"/>
         <path d="M220 290V640M190 380H250V535H190ZM420 265V610M390 340H450V485H390ZM700 195V500M670 260H730V410H670ZM870 120V390M840 180H900V310H840Z"/>`,
+    },
+    'tax-account': {
+      id: 'account-ledger-tax-shield',
+      body: `<rect x="140" y="190" width="520" height="570" rx="42"/><path d="M220 310H575M220 405H575M220 500H440"/>
+        <path d="M760 265L925 325V500C925 620 855 700 760 745C665 700 595 620 595 500V325Z"/>
+        <path d="M700 485H820M760 425V545"/>`,
+    },
+    'fund-note': {
+      id: 'fund-basket-versus-note',
+      body: `<path d="M120 360H505L455 720H180Z"/><path d="M195 360L265 235M430 360L360 235"/>
+        <circle cx="250" cy="500" r="62"/><rect x="335" y="440" width="95" height="120" rx="20"/>
+        <rect x="620" y="205" width="340" height="535" rx="34"/><path d="M690 330H885M690 430H885M690 530H835M690 635H790"/>`,
+    },
+    'rate-reset': {
+      id: 'fixed-lock-and-reset-dial',
+      body: `<rect x="130" y="420" width="330" height="300" rx="38"/><path d="M205 420V330C205 210 385 210 385 330V420"/>
+        <circle cx="760" cy="470" r="235"/><path d="M760 235V305M760 635V705M525 470H595M925 470H995"/>
+        <path d="M760 470L875 355M895 265L905 365L805 355"/>`,
+    },
+    'credit-score': {
+      id: 'score-gauge-and-rate-steps',
+      body: `<path d="M135 555A300 300 0 0 1 735 555"/><path d="M435 555L625 345"/><circle cx="435" cy="555" r="38"/>
+        <path d="M650 760H945V650H855V540H765V430H675"/><path d="M170 705H430M170 790H525"/>`,
     },
     technology: {
       id: 'circuit-chip',
@@ -161,6 +195,8 @@ function buildCoverHtml({
   title,
   date,
   category,
+  contentType = 'hot_news',
+  seriesNumber,
   imageDataUri = '',
   fallbackTheme,
   fallbackVariant = 0,
@@ -169,7 +205,7 @@ function buildCoverHtml({
   const titleText = Array.isArray(title) ? title.join('\n') : String(title || '');
   const validation = validateTitle(titleText);
   if (!validation.ok) throw new Error(`[DIEM Cover] ${validation.errors.join('; ')}`);
-  const meta = coverMeta(date, category);
+  const meta = coverMeta(date, category, contentType, seriesNumber);
   const hasPhoto = /^data:image\//i.test(imageDataUri);
   const background = hasPhoto
     ? `<img class="background-photo" alt="" src="${escapeHtml(imageDataUri)}">`
@@ -249,6 +285,8 @@ async function renderDiemCover({
   title,
   date,
   category,
+  contentType,
+  seriesNumber,
   imagePath,
   imageDataUri,
   fallbackTheme,
@@ -263,6 +301,8 @@ async function renderDiemCover({
     title: titleValue,
     date,
     category: category || editorial?.category,
+    contentType: contentType || editorial?.contentType || 'hot_news',
+    seriesNumber,
     imageDataUri: resolvedImage,
     fallbackTheme,
     fallbackVariant,

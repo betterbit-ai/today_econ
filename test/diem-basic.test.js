@@ -1,231 +1,267 @@
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { spawnSync } = require('node:child_process');
 const test = require('node:test');
 
 const { createDailyLedger, updatePublication } = require('../src/v2/ledger');
 const {
+  BASIC_CONTENT_TYPE,
   basicContentHash,
-  prepareBasicDraft,
-  publishBasicDraft,
-  rejectBasicDraft,
   retryBasicPublication,
-  validateBasicEditorial,
 } = require('../src/v2/basic');
+const {
+  loadBasicCatalog,
+  nextReadyBasicPackage,
+  publishBasicPackage,
+  stageBasicPackage,
+  validateBasicPackage,
+} = require('../src/v2/basic-content');
 
-function sourceLedger() {
-  let ledger = createDailyLedger('2026-08-08');
-  ledger = updatePublication(ledger, 'economy', {
-    status: 'published',
-    contentType: 'hot_news',
-    candidate: {
-      title: '기준금리 동결, 대출금리 흐름은',
-      url: 'https://news.example.com/rates',
-      publishedAt: '2026-08-08T01:00:00.000Z',
-      fullText: '한국은행은 기준금리를 동결했습니다. 예금과 대출금리는 시장금리와 은행별 가산금리에 따라 다르게 움직일 수 있습니다.',
-      category: 'economy',
-    },
-    reel: { status: 'published', attempts: 1, externalId: 'ig-hot-news', publishedAt: '2026-08-08T02:00:00.000Z' },
+const CONTENT_ROOT = path.join(__dirname, '..', 'content', 'diem-basic');
+
+test('the committed DIEM Basic curriculum contains four fully verified ready packages', () => {
+  const catalog = loadBasicCatalog({ contentRoot: CONTENT_ROOT });
+  assert.deepEqual(catalog.packages.map(item => item.id), [
+    'isa-tax',
+    'etf-etn',
+    'fixed-variable-rate',
+    'credit-score-rate',
+  ]);
+  for (const item of catalog.packages) {
+    const validation = validateBasicPackage(item, {
+      contentRoot: CONTENT_ROOT,
+      now: new Date('2026-08-14T00:00:00.000Z'),
+      verifyArtifacts: false,
+    });
+    assert.equal(validation.ok, true, `${item.id}: ${validation.errors.join('; ')}`);
+    assert.equal(item.editorial.caption.sentences.length, 3);
+    assert.equal(item.editorial.comments.hashtags.length, 15);
+    assert.equal(new Set(item.sources.map(source => source.organization)).size >= 2, true);
+    assert.equal(item.sources.every(source => source.official && source.primary), true);
+    assert.equal(item.visual.kind, 'typographic');
+    assert.equal(item.visual.peoplePolicy, 'prohibited');
+    assert.equal(item.lesson.scenes.length, 5);
+    assert.deepEqual(item.lesson.scenes.map(scene => scene.role), [
+      'cover',
+      'definition',
+      'mechanism',
+      'caution',
+      'summary',
+    ]);
+    assert.deepEqual(item.lesson.scenes.map(scene => scene.durationSeconds), [3, 4, 5, 4, 3]);
+    assert.equal(item.lesson.totalDurationSeconds, 19);
+    assert.equal(item.lesson.scenes.every(scene => /요[.!?]?$/u.test(scene.body)), true);
+    assert.equal(item.editorial.caption.sentences.every(sentence => /요[.!?]?(?:[\p{Extended_Pictographic}\uFE0F\u200D]+)?$/u.test(sentence)), true);
+    assert.equal(item.artifacts.cards.length, 5);
+    assert.equal(item.artifacts.cards.every(card => /^[a-f0-9]{64}$/u.test(card.sha256)), true);
+  }
+});
+
+test('package validation fails closed for weak sourcing, unmapped claims, expiry, and artifact drift', () => {
+  const item = loadBasicCatalog({ contentRoot: CONTENT_ROOT, verifyArtifacts: false }).packages[0];
+
+  const weak = structuredClone(item);
+  weak.sources = weak.sources.slice(0, 1);
+  weak.claims[0].sourceIds = ['missing-source'];
+  let result = validateBasicPackage(weak, {
+    contentRoot: CONTENT_ROOT,
+    now: new Date('2026-08-14T00:00:00.000Z'),
+    verifyArtifacts: false,
   });
-  return ledger;
-}
-
-function preparedBasicLedger(ledger) {
-  const publication = ledger.publications.economy;
-  return updatePublication(ledger, 'economy', {
-    ...publication,
-    status: 'ready',
-    editorial: {
-      title: { text: '기준금리와\n대출금리 차이' },
-      caption: {
-        sentences: ['기준금리는 중앙은행이 정하는 기준입니다.🏦', '대출금리는 기준금리에 조달비용과 가산금리 등이 더해집니다.', '동결 소식만으로 내 대출금리가 같다고 단정하면 안 됩니다.🔎'],
-        text: '기준금리는 중앙은행이 정하는 기준입니다.🏦\n\n대출금리는 기준금리에 조달비용과 가산금리 등이 더해집니다.\n\n동결 소식만으로 내 대출금리가 같다고 단정하면 안 됩니다.🔎',
-      },
-      comments: { first: '🏦', reply: '@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #기준금리 #대출금리 #금리공부' },
-      quality: { ok: true, checks: ['definition', 'example', 'caution', 'source'] },
-    },
-    image: {
-      kind: 'typographic',
-      source: 'diem-original',
-      license: { name: 'Project-owned original', url: null },
-      fallbackTheme: 'markets',
-      visualFingerprint: 'diem-art:markets:v1',
-      reuseGuard: { allowed: true },
-    },
-    artifacts: {
-      coverPath: '.diem-cache/basic-cover.png',
-      coverSha256: 'cover-hash',
-      reelPath: '.diem-cache/basic-reel.mp4',
-      reelSha256: 'reel-hash',
-    },
-    reel: { status: 'ready', attempts: 0, externalId: null },
-  });
-}
-
-test('DIEM Basic educational quality rejects investment advice and missing caution', () => {
-  const result = validateBasicEditorial({
-    caption: { sentences: [
-      '기준금리는 중앙은행이 정하는 금리 기준입니다.',
-      '이 상품을 지금 매수하면 됩니다.',
-      '대출금리가 내려갑니다.',
-    ] },
-  }, { url: 'https://example.com/source' });
   assert.equal(result.ok, false);
-  assert.match(result.errors.join(' '), /recommendation/u);
-  assert.match(result.errors.join(' '), /caution/u);
+  assert.match(result.errors.join(' '), /two distinct official primary sources/u);
+  assert.match(result.errors.join(' '), /unknown source/u);
+
+  result = validateBasicPackage(item, {
+    contentRoot: CONTENT_ROOT,
+    now: new Date('2030-01-01T00:00:00.000Z'),
+    verifyArtifacts: false,
+  });
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join(' '), /needs_refresh/u);
+
+  const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-basic-artifacts-'));
+  const drift = structuredClone(item);
+  drift._directory = tempRoot;
+  drift.artifacts.coverPath = 'cover.png';
+  drift.artifacts.reelPath = 'reel.mp4';
+  drift.artifacts.cards = item.artifacts.cards.map((card, index) => ({
+    ...card,
+    path: `cards/card-${String(index + 1).padStart(2, '0')}.png`,
+  }));
+  fs.writeFileSync(path.join(tempRoot, 'cover.png'), 'changed-cover');
+  fs.writeFileSync(path.join(tempRoot, 'reel.mp4'), 'changed-reel');
+  fs.mkdirSync(path.join(tempRoot, 'cards'));
+  drift.artifacts.cards.forEach(card => fs.writeFileSync(path.join(tempRoot, card.path), 'changed-card'));
+  result = validateBasicPackage(drift, {
+    contentRoot: tempRoot,
+    now: new Date('2026-08-14T00:00:00.000Z'),
+    verifyArtifacts: true,
+  });
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join(' '), /artifact hash mismatch/u);
 });
 
-test('weekly DIEM Basic preparation records a draft and preview without calling Instagram', async () => {
-  const ledgers = [sourceLedger()];
-  const current = createDailyLedger('2026-08-09');
-  let releaseAssets = null;
-  let preview = null;
-  let publishCalls = 0;
-  const saved = await prepareBasicDraft({
-    date: '2026-08-09',
-    ledgers,
-    ledger: current,
-    preparePublicationImpl: async ledger => preparedBasicLedger(ledger),
-    createReleaseImpl: async ({ assetPaths }) => {
-      releaseAssets = assetPaths;
-      return {
-        releaseId: 41,
-        tag: 'diem-basic-draft-2026-w32',
-        createdAt: '2026-08-09T00:00:00.000Z',
-        htmlUrl: 'https://github.com/example/releases/basic',
-        imageUrls: ['https://github.com/example/basic-cover.png'],
-        videoUrl: 'https://github.com/example/basic-reel.mp4',
-        assets: [],
-      };
-    },
-    sendPreviewImpl: async input => { preview = input.publication; },
-    saveLedgerImpl: value => value,
-    publishPreparedPublicationImpl: async () => { publishCalls += 1; },
-  });
+const hasFfprobe = spawnSync('ffprobe', ['-version'], { stdio: 'ignore' }).status === 0;
 
-  const draft = saved.publicationHistory.find(item => item.contentType === 'diem_basic');
-  assert.equal(draft.status, 'draft');
-  assert.equal(draft.source.url, 'https://news.example.com/rates');
-  assert.equal(draft.approval.contentHash, basicContentHash(draft));
-  assert.equal(releaseAssets.length, 2);
-  assert.equal(preview.publicationKey, draft.publicationKey);
-  assert.equal(publishCalls, 0);
+test('committed lesson media contains five 1080x1920 cards and a nineteen-second H.264/AAC Reel', {
+  skip: !hasFfprobe,
+}, () => {
+  const { packages } = loadBasicCatalog({ contentRoot: CONTENT_ROOT });
+  for (const item of packages) {
+    for (const card of item.artifacts.cards) {
+      const png = fs.readFileSync(path.join(item._directory, card.path));
+      assert.equal(png.subarray(1, 4).toString('ascii'), 'PNG');
+      assert.equal(png.readUInt32BE(16), 1080);
+      assert.equal(png.readUInt32BE(20), 1920);
+    }
+    const probe = spawnSync('ffprobe', [
+      '-v', 'error',
+      '-show_entries', 'format=duration:stream=codec_type,codec_name,width,height,avg_frame_rate,pix_fmt,sample_rate,channels',
+      '-of', 'json',
+      path.join(item._directory, item.artifacts.reelPath),
+    ], { encoding: 'utf8' });
+    assert.equal(probe.status, 0, `${item.id}: ${probe.stderr}`);
+    const media = JSON.parse(probe.stdout);
+    const video = media.streams.find(stream => stream.codec_type === 'video');
+    const audio = media.streams.find(stream => stream.codec_type === 'audio');
+    assert.equal(video.codec_name, 'h264');
+    assert.equal(video.width, 1080);
+    assert.equal(video.height, 1920);
+    assert.equal(video.avg_frame_rate, '30/1');
+    assert.equal(video.pix_fmt, 'yuv420p');
+    assert.equal(audio.codec_name, 'aac');
+    assert.equal(audio.sample_rate, '48000');
+    assert.equal(audio.channels, 2);
+    assert.ok(Math.abs(Number(media.format.duration) - 19) < 0.08, `${item.id}: ${media.format.duration}`);
+  }
 });
 
-test('DIEM Basic approval fails closed for wrong key, changed hash, and duplicate publication', async () => {
-  const base = await prepareBasicDraft({
-    date: '2026-08-09',
-    ledgers: [sourceLedger()],
-    ledger: createDailyLedger('2026-08-09'),
-    preparePublicationImpl: async ledger => preparedBasicLedger(ledger),
-    createReleaseImpl: async () => ({ releaseId: 1, tag: 'basic', createdAt: new Date().toISOString(), imageUrls: ['https://example/cover.png'], videoUrl: 'https://example/reel.mp4', assets: [] }),
-    sendPreviewImpl: async () => {},
-    saveLedgerImpl: value => value,
+test('the queue keeps curriculum order and never selects an already published content ID', () => {
+  const catalog = loadBasicCatalog({ contentRoot: CONTENT_ROOT, verifyArtifacts: false });
+  const first = nextReadyBasicPackage(catalog.packages, [], {
+    now: new Date('2026-08-14T00:00:00.000Z'),
+    contentRoot: CONTENT_ROOT,
+    verifyArtifacts: false,
   });
-  const draft = base.publicationHistory.find(item => item.contentType === 'diem_basic');
-  const common = { ledgers: [base], token: 'token', saveLedgerImpl: value => value };
+  assert.equal(first.id, 'isa-tax');
 
-  await assert.rejects(() => publishBasicDraft({ ...common, publicationKey: 'wrong-key' }), /not found/);
-  const changed = structuredClone(base);
-  changed.publicationHistory.find(item => item.publicationKey === draft.publicationKey).editorial.caption.text += ' 변경';
-  await assert.rejects(() => publishBasicDraft({ ...common, ledgers: [changed], publicationKey: draft.publicationKey }), /content hash mismatch/);
-  const already = structuredClone(base);
-  const alreadyDraft = already.publicationHistory.find(item => item.publicationKey === draft.publicationKey);
-  alreadyDraft.status = 'published';
-  alreadyDraft.reel.externalId = 'ig-basic';
-  await assert.rejects(() => publishBasicDraft({ ...common, ledgers: [already], publicationKey: draft.publicationKey }), /already published/);
+  const ledger = createDailyLedger('2026-08-17');
+  ledger.publicationHistory.push({
+    publicationKey: 'diem:2026-08-17:economy:basic-isa-tax',
+    category: 'economy',
+    contentType: BASIC_CONTENT_TYPE,
+    basicContentId: 'isa-tax',
+    status: 'published',
+    reel: { status: 'published', externalId: 'ig-isa' },
+  });
+  const second = nextReadyBasicPackage(catalog.packages, [ledger], {
+    now: new Date('2026-08-18T00:00:00.000Z'),
+    contentRoot: CONTENT_ROOT,
+    verifyArtifacts: false,
+  });
+  assert.equal(second.id, 'etf-etn');
 });
 
-test('exact DIEM Basic approval publishes once and replaces only its archived record', async () => {
-  const base = await prepareBasicDraft({
-    date: '2026-08-09',
-    ledgers: [sourceLedger()],
-    ledger: createDailyLedger('2026-08-09'),
-    preparePublicationImpl: async ledger => preparedBasicLedger(ledger),
-    createReleaseImpl: async () => ({ releaseId: 1, tag: 'basic', createdAt: new Date().toISOString(), imageUrls: ['https://example/cover.png'], videoUrl: 'https://example/reel.mp4', assets: [] }),
-    sendPreviewImpl: async () => {},
-    saveLedgerImpl: value => value,
+test('staging a stored package creates a ready publication without generating copy or searching images', () => {
+  const item = loadBasicCatalog({ contentRoot: CONTENT_ROOT, verifyArtifacts: false }).packages[0];
+  const publication = stageBasicPackage(item, {
+    date: '2026-08-17',
+    now: new Date('2026-08-17T00:30:00.000Z'),
   });
-  const draft = base.publicationHistory.find(item => item.contentType === 'diem_basic');
-  const currentEconomyKey = base.publications.economy.publicationKey;
+  assert.equal(publication.status, 'ready');
+  assert.equal(publication.contentType, BASIC_CONTENT_TYPE);
+  assert.equal(publication.basicContentId, 'isa-tax');
+  assert.equal(publication.candidate.sourceMode, 'preauthored_official_sources');
+  assert.equal(publication.image.kind, 'typographic');
+  assert.equal(publication.artifacts.temporary, false);
+  assert.equal(publication.approval.contentHash, basicContentHash(publication));
+});
+
+test('publishing selects one stored package, preserves the hot-news slot, and records the archived result', async () => {
+  const current = createDailyLedger('2026-08-17');
+  current.publications.economy = updatePublication(current, 'economy', {
+    ...current.publications.economy,
+    status: 'planned',
+    candidate: { title: '다음 경제 뉴스', fullText: '보존해야 하는 현재 슬롯' },
+  }).publications.economy;
+  const currentKey = current.publications.economy.publicationKey;
+  const saved = [];
   let calls = 0;
-  const result = await publishBasicDraft({
-    ledgers: [base],
-    publicationKey: draft.publicationKey,
+
+  const result = await publishBasicPackage({
+    date: '2026-08-17',
+    contentId: 'isa-tax',
+    contentRoot: CONTENT_ROOT,
+    ledgers: [current],
+    ledger: current,
     token: 'token',
-    saveLedgerImpl: value => value,
-    publishPreparedPublicationImpl: async ledger => {
+    verifyArtifacts: false,
+    saveLedgerImpl: value => {
+      saved.push(structuredClone(value));
+      return value;
+    },
+    publishPreparedPublicationImpl: async sandbox => {
       calls += 1;
-      return updatePublication(ledger, 'economy', {
-        ...ledger.publications.economy,
+      return updatePublication(sandbox, 'economy', {
+        ...sandbox.publications.economy,
         status: 'published',
-        reel: { ...ledger.publications.economy.reel, status: 'published', externalId: 'ig-basic', permalink: 'https://instagram.com/reel/basic', publishedAt: '2026-08-09T02:00:00.000Z' },
-        story: { status: 'published', attempts: 1, externalId: 'ig-story' },
+        reel: {
+          ...sandbox.publications.economy.reel,
+          status: 'published',
+          externalId: 'ig-basic-isa',
+          publishedAt: '2026-08-17T01:00:00.000Z',
+        },
+        story: { status: 'published', attempts: 1, externalId: 'story-basic-isa' },
       });
     },
   });
 
-  const published = result.publicationHistory.find(item => item.publicationKey === draft.publicationKey);
+  const publication = result.publicationHistory.find(item => item.basicContentId === 'isa-tax');
   assert.equal(calls, 1);
-  assert.equal(published.status, 'published');
-  assert.equal(published.reel.externalId, 'ig-basic');
-  assert.equal(result.publications.economy.publicationKey, currentEconomyKey);
+  assert.equal(saved.length, 2, 'ready state must be saved before external publishing and result afterwards');
+  assert.equal(publication.status, 'published');
+  assert.equal(publication.reel.externalId, 'ig-basic-isa');
+  assert.equal(result.publications.economy.publicationKey, currentKey);
+
+  await assert.rejects(() => publishBasicPackage({
+    date: '2026-08-18',
+    contentId: 'isa-tax',
+    contentRoot: CONTENT_ROOT,
+    ledgers: [result],
+    ledger: createDailyLedger('2026-08-18'),
+    token: 'token',
+    verifyArtifacts: false,
+    saveLedgerImpl: value => value,
+  }), /already published/u);
 });
 
-test('a rejected DIEM Basic draft records a reason and permits only one regeneration', () => {
-  const ledger = createDailyLedger('2026-08-09');
-  ledger.publicationHistory.push({
-    publicationKey: 'diem:2026-08-09:economy:basic-2026-w32',
-    category: 'economy',
-    contentType: 'diem_basic',
-    status: 'draft',
-    experiment: { weekKey: '2026-W32', regeneration: 0 },
-    reel: { status: 'ready' },
-  });
-  const rejected = rejectBasicDraft(ledger, ledger.publicationHistory[0].publicationKey, '설명이 어렵습니다.');
-  assert.equal(rejected.publicationHistory[0].status, 'rejected');
-  assert.equal(rejected.publicationHistory[0].review.reason, '설명이 어렵습니다.');
-  assert.equal(rejected.publicationHistory[0].experiment.regeneration, 1);
-  assert.throws(() => rejectBasicDraft(rejected, rejected.publicationHistory[0].publicationKey, '다시 반려'), /already rejected/);
-});
-
-test('an already published DIEM Basic Reel can recover only its independent steps', async () => {
-  const ledger = createDailyLedger('2026-08-09');
-  const publication = {
-    publicationKey: 'diem:2026-08-09:economy:basic-2026-w32',
-    category: 'economy',
-    contentType: 'diem_basic',
-    schemaVersion: 1,
-    status: 'published',
-    candidate: { title: '기준금리', url: 'https://example.com', publishedAt: '2026-08-08' },
-    editorial: { caption: { text: '본문' } },
-    image: { kind: 'typographic', source: 'diem-original', license: { name: 'Project-owned original' }, visualFingerprint: 'diem-art:markets:v1' },
-    artifacts: { coverSha256: 'cover', reelSha256: 'reel' },
-    source: { url: 'https://example.com' },
-    quality: { ok: true },
-    reel: { status: 'published', externalId: 'ig-basic' },
-    story: { status: 'retry_pending' },
-    comment: { status: 'published', externalId: 'comment' },
-    reply: { status: 'retry_pending' },
-  };
-  publication.approval = { contentHash: basicContentHash(publication) };
+test('a published stored Reel can recover only Story and comment-chain steps', async () => {
+  const ledger = createDailyLedger('2026-08-17');
+  const item = loadBasicCatalog({ contentRoot: CONTENT_ROOT, verifyArtifacts: false }).packages[0];
+  const publication = stageBasicPackage(item, { date: '2026-08-17' });
+  publication.status = 'published';
+  publication.reel = { ...publication.reel, status: 'published', externalId: 'ig-basic' };
+  publication.story = { status: 'retry_pending', attempts: 1 };
+  publication.comment = { status: 'published', externalId: 'comment' };
+  publication.reply = { status: 'retry_pending', attempts: 1 };
+  publication.approval.contentHash = basicContentHash(publication);
   ledger.publicationHistory.push(publication);
-  let calls = 0;
+
   const result = await retryBasicPublication({
     publicationKey: publication.publicationKey,
     ledgers: [ledger],
     token: 'token',
     saveLedgerImpl: value => value,
-    publishPreparedPublicationImpl: async sandbox => {
-      calls += 1;
-      return updatePublication(sandbox, 'economy', {
-        ...sandbox.publications.economy,
-        story: { status: 'published', externalId: 'story' },
-        reply: { status: 'published', externalId: 'reply' },
-      });
-    },
+    publishPreparedPublicationImpl: async sandbox => updatePublication(sandbox, 'economy', {
+      ...sandbox.publications.economy,
+      story: { status: 'published', externalId: 'story' },
+      reply: { status: 'published', externalId: 'reply' },
+    }),
   });
   const recovered = result.publicationHistory.find(item => item.publicationKey === publication.publicationKey);
-  assert.equal(calls, 1);
-  assert.equal(recovered.reel.externalId, 'ig-basic');
   assert.equal(recovered.story.status, 'published');
   assert.equal(recovered.reply.status, 'published');
 });

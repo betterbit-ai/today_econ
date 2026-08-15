@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "id": "stable-content-id",
+  "sequence": 5,
+  "status": "ready",
+  "series": "DIEM Basic",
+  "category": "economy",
+  "curriculum": {
+    "question": "초보자가 실제로 묻는 한 가지 질문",
+    "learningObjective": "이 콘텐츠를 본 뒤 구분하거나 확인할 수 있는 것",
+    "difficulty": "beginner",
+    "keywords": ["핵심어"]
+  },
+  "editorial": {
+    "title": { "text": "첫째 줄\n둘째 줄", "lines": ["첫째 줄", "둘째 줄"] },
+    "caption": {
+      "sentences": ["독자가 궁금해하는 뜻을 쉬운 말로 설명해요.📘", "어떻게 작동하는지 검증한 예시로 보여줘요.", "조건이나 예외가 있다면 정확히 짚어줘요.🔎"],
+      "text": "독자가 궁금해하는 뜻을 쉬운 말로 설명해요.📘\n\n어떻게 작동하는지 검증한 예시로 보여줘요.\n\n조건이나 예외가 있다면 정확히 짚어줘요.🔎"
+    },
+    "emojis": { "first": "📘", "third": "🔎" },
+    "comments": {
+      "first": "📘",
+      "reply": "@diem.magazine #해시태그15개",
+      "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+      "hashtags": []
+    }
+  },
+  "lesson": {
+    "totalDurationSeconds": 19,
+    "scenes": [
+      { "role": "cover", "durationSeconds": 3, "label": "오늘의 질문", "title": "질문 첫 줄\n질문 둘째 줄", "body": "독자가 실제로 궁금해할 질문을 적어요.", "claimIds": [] },
+      { "role": "definition", "durationSeconds": 4, "label": "쉬운 정의", "title": "정의 첫 줄\n정의 둘째 줄", "body": "검증한 정의를 쉬운 말로 설명해요.", "claimIds": ["claim-1"], "visual": { "type": "flow", "items": ["시작", "과정", "결과"] } },
+      { "role": "mechanism", "durationSeconds": 5, "label": "핵심 비교", "title": "작동 첫 줄\n작동 둘째 줄", "body": "검증한 비교나 예시를 구체적으로 보여줘요.", "claimIds": ["claim-1"], "visual": { "type": "comparison", "items": ["A|설명", "B|설명"] } },
+      { "role": "caution", "durationSeconds": 4, "label": "헷갈리지 않기", "title": "주의 첫 줄\n주의 둘째 줄", "body": "헷갈리기 쉬운 조건과 예외를 알려줘요.", "claimIds": ["claim-1"], "visual": { "type": "checklist", "items": ["확인 1", "확인 2"] } },
+      { "role": "summary", "durationSeconds": 3, "label": "오늘의 한 줄", "title": "요약 첫 줄\n요약 둘째 줄", "body": "앞 장에서 확인한 사실을 한 문장으로 묶어요.", "claimIds": ["claim-1"] }
+    ]
+  },
+  "claims": [{ "id": "claim-1", "text": "검증한 정확한 주장", "sourceIds": ["source-1", "source-2"] }],
+  "sources": [
+    {
+      "id": "source-1",
+      "organization": "공식 기관 A",
+      "title": "공식 문서 제목",
+      "url": "https://example.go.kr/official",
+      "official": true,
+      "primary": true,
+      "checkedAt": "YYYY-MM-DD"
+    },
+    {
+      "id": "source-2",
+      "organization": "공식 기관 B",
+      "title": "교차 검증 문서 제목",
+      "url": "https://example.or.kr/official",
+      "official": true,
+      "primary": true,
+      "checkedAt": "YYYY-MM-DD"
+    }
+  ],
+  "visual": {
+    "kind": "typographic",
+    "theme": "curriculum-theme",
+    "variant": 1,
+    "motif": "project-owned-diagram",
+    "visualFingerprint": "diem-basic:stable-content-id:v1",
+    "peoplePolicy": "prohibited",
+    "direction": "사람 얼굴 없이 개념을 설명하는 사물·구조 모티프"
+  },
+  "audio": {
+    "trackId": "verified-track-id",
+    "title": "Track title",
+    "mood": "serious",
+    "license": "Recorded license",
+    "source": "https://provider.example/track",
+    "sha256": ""
+  },
+  "review": {
+    "status": "approved",
+    "checkedAt": "YYYY-MM-DD",
+    "expiresAt": "YYYY-MM-DD",
+    "reviewedBy": "DIEM editorial review",
+    "recheckItems": ["변경 가능성이 있는 항목"]
+  },
+  "artifacts": {
+    "coverPath": "cover.png",
+    "coverSha256": "",
+    "reelPath": "reel.mp4",
+    "reelSha256": "",
+    "cards": [
+      { "path": "cards/card-01.png", "role": "cover", "durationSeconds": 3, "sha256": "" },
+      { "path": "cards/card-02.png", "role": "definition", "durationSeconds": 4, "sha256": "" },
+      { "path": "cards/card-03.png", "role": "mechanism", "durationSeconds": 5, "sha256": "" },
+      { "path": "cards/card-04.png", "role": "caution", "durationSeconds": 4, "sha256": "" },
+      { "path": "cards/card-05.png", "role": "summary", "durationSeconds": 3, "sha256": "" }
+    ]
+  },
+  "integrity": { "contentSha256": "" }
+}

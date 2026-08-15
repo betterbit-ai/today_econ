@@ -400,7 +400,7 @@ function frameAlignmentViolations(sentences = [], frame = {}) {
   if (officialDenial && !denialLanguage.test(first)) {
     violations.push('caption first sentence must preserve the official denial');
   }
-  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings'].includes(frame.eventKind)) {
+  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory'].includes(frame.eventKind)) {
     const firstLower = first.toLowerCase();
     if (!(frame.subjectTerms || []).some(term => firstLower.includes(String(term).toLowerCase()))) {
       violations.push('caption first sentence omits the primary subject');
@@ -534,6 +534,8 @@ function modelPrompt(article) {
       '- 단순 단어/키워드 나열(예: "빅테크 AI / 1400")은 절대 금지합니다.',
       '- 반드시 [핵심 주체 + 사건 + 기사 상태]가 드러나는 직관적인 훅(Hook) 형태로 작성하세요.',
       '- 기사 상태가 "부인/반박/해명/미확정"이면 제목에도 반드시 그 상태를 드러내고, 확정·결정·시행처럼 뒤집어 쓰지 마세요.',
+      '- "미확정"은 공식 부인·반박 기사에서만 사용하세요. 검토·추진·예정 기사는 실제 상태어를 쓰고, 확정된 경고·권고를 미확정으로 바꾸지 마세요.',
+      '- 의약품 안전 기사는 당국의 경고·권고가 발표된 사실과 의학적 인과 근거의 불확실성을 분리하세요. 제목은 실제 경고나 행동 지침을 쓰고, 근거 부족을 사건 전체의 미확정으로 표현하지 마세요.',
       '- IPO/상장 기사라면 제목에 반드시 IPO, 기업공개, 상장, 첫 거래, 증시 데뷔 중 하나를 넣으세요.',
       '- 알파벳 약어만 쓰지 말고 사건어 또는 쉬운 설명어를 함께 넣으세요. 날짜만 반복하는 제목은 금지합니다.',
       '- 선두·추격·우위가 핵심이면 누가 현재 앞서는지 명시하고, 이미 선두인 주체를 추격한다고 뒤집거나 추격 주체를 모호하게 쓰지 마세요.',
@@ -611,6 +613,7 @@ function titleRepairPrompt(article = {}, parsed = {}) {
       '당신은 DIEM 표지 제목 교정기입니다. 본문이나 사실을 다시 쓰지 말고 제목 후보만 교정하세요.',
       '각 후보는 줄바꿈 1개가 있는 정확히 2줄이며, 두 줄 합계 공백 포함 최대 14자입니다.',
       '짧게 만들더라도 핵심 주체와 실제 사건, 확정·예정·부인 같은 기사 상태를 반드시 보존하세요.',
+      '"미확정"은 공식 부인·반박 프레임에만 허용합니다. 확정된 경고·권고와 제한적인 의학 근거를 혼동하지 마세요.',
       '숫자를 쓰면 기사 근거에 있는 숫자만 사용하세요. 과장, 날짜만 있는 제목, 약어만 있는 제목은 금지합니다.',
       '오직 {"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}]} JSON만 출력하세요.',
     ].join('\n'),

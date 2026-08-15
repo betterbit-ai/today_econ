@@ -7,8 +7,8 @@
 - 두 액션은 6시간 간격으로 교차 실행됩니다. Economy는 KST 01:00, 07:00,
   13:00, 19:00이고 Issue는 KST 04:00, 10:00, 16:00, 22:00입니다.
 - Issue를 수동 실행하면 시사 핫뉴스를 실제 Instagram 발행까지 처리합니다.
-- Economy 수동 실행에서는 `hot_news`, `prepare_basic`, `publish_basic`,
-  `retry_basic`, `reject_basic`, `record_moderation` 중 하나를 고릅니다. 기본값 `hot_news`는 경제 핫뉴스를
+- Economy 수동 실행에서는 `hot_news`, `publish_basic`, `retry_basic`,
+  `record_moderation`, `collect_insights` 중 하나를 고릅니다. 기본값 `hot_news`는 경제 핫뉴스를
   실제 발행까지 처리합니다.
 - 적합한 핫뉴스가 없으면 `no_publish` 관측만 원장에 남기고 정상 종료합니다.
 - 네이버 인기 목록을 읽지 못한 경우 RSS 후보는 장애 진단용으로만 기록하고,
@@ -56,23 +56,29 @@ Variables:
 뒤 새 핫뉴스를 평가합니다. 토큰 주간 갱신과 인사이트 수집은 Economy
 워크플로 안의 보조 작업으로 유지됩니다.
 
-## DIEM 기초 주간 검수
+## DIEM Basic 사전 제작 큐
 
-매주 일요일 KST 09:30에 Economy Action이 최근 발행된 경제 뉴스 한 건을
-근거로 초보자용 경제 개념 초안을 준비합니다. 이 실행은 표지와 Reel
-미리보기를 GitHub prerelease에 올리고 원장을 `draft`로 기록한 뒤 Slack에
-완전한 검수 메시지를 보낼 뿐, Instagram에는 발행하지 않습니다.
+DIEM Basic은 실시간 뉴스 파이프라인과 분리합니다. 주제·원고·공식 출처·5장
+교육 카드·음원·최종 19초 Reel을 먼저 검수해 `content/diem-basic/`에 저장하고, 매주 일요일
+KST 09:30에 Economy Action이 다음 `ready` 패키지를 한 편 발행합니다.
 
-검수 후에는 Actions > `DIEM Economy` > Run workflow에서 다음처럼 처리합니다.
+예약 Action은 패키지의 검토 기한, 콘텐츠 해시, 카드 5장·표지·Reel SHA-256을 확인하고
+업로드만 합니다. Groq 호출, 뉴스 선정, 웹 이미지 검색, Playwright 렌더링,
+ffmpeg 음원 합성이나 원고 변경은 하지 않습니다. 패키지가 만료됐거나 파일이
+달라졌거나 남은 `ready` 패키지가 없으면 발행을 닫고 정확한 사유와 Action
+링크를 Slack으로 보냅니다.
 
-1. 발행: `operation=publish_basic`, Slack에 표시된 `publication_key`를 그대로
-   입력합니다. 원장의 콘텐츠 해시가 준비 당시와 다르거나 이미 발행한 키면
-   실패-폐쇄됩니다.
-2. 반려: `operation=reject_basic`, 같은 키와 구체적인 반려 사유를 입력합니다.
-   같은 주에는 한 번만 새 초안을 준비할 수 있습니다.
-3. 재준비: 반려 기록이 커밋된 뒤 `operation=prepare_basic`을 실행합니다.
-4. 복구: Reel은 발행됐지만 Story·댓글·대댓글만 실패했다면
-   `operation=retry_basic`과 같은 키로 해당 독립 단계만 다시 시도합니다.
+수동 실행은 Actions > `DIEM Economy` > Run workflow에서 처리합니다.
+
+1. 다음 편 발행: `operation=publish_basic`, `content_id`는 비웁니다.
+2. 특정 편 발행: `operation=publish_basic`, manifest에 있는 `content_id`를
+   입력합니다. 이미 발행된 ID는 거부됩니다.
+3. 독립 단계 복구: Reel은 발행됐지만 Story·댓글·대댓글만 실패했다면
+   `operation=retry_basic`과 원장의 `publication_key`를 입력합니다.
+
+새 편 제작과 갱신은 `.codex/skills/diem-basic-production/SKILL.md`를 따릅니다.
+`npm run diem:basic:build -- --id <content-id>`로 카드 5장·표지·Reel과 해시를 다시
+만든 후 테스트를 통과시켜야 `ready`로 유지할 수 있습니다.
 
 운영자가 Instagram에서 게시물을 삭제하거나 정정했다면
 `operation=record_moderation`에 해당 `publication_key`, 조치와 사유를 입력해
@@ -107,8 +113,8 @@ Slack 상태 알림과 같은 발행 키의 GitHub Issue에서 수동 조치합�
 - Reel·댓글·대댓글 상태, 시도 횟수, 외부 ID와 오류
 
 핫뉴스 대용량 이미지와 MP4는 `.diem-cache/`와 최대 72시간의 임시 GitHub
-Release에만 존재합니다. DIEM 기초 검수용 Release는 승인할 때까지 유지하며,
-Git에는 텍스트 메타데이터·권리 근거와 콘텐츠 해시만 남습니다.
+Release에만 존재합니다. DIEM Basic은 예외로 검수 완료된 `cover.png`와
+`reel.mp4`까지 Git에 저장해 예약 Action의 결과가 바뀌지 않게 합니다.
 
 ## 알림 정책
 
@@ -123,8 +129,8 @@ Git에는 텍스트 메타데이터·권리 근거와 콘텐츠 해시만 남습
 `manual_action_required`와 비정상 실패는 안정적인 키로 GitHub Issue를
 생성하거나 기존 Issue에 누적하고, 복구되면 닫습니다. 정기 감시에서
 핫뉴스가 없었던 정상 `no_publish`는 알림과 Issue를 만들지 않습니다.
-DIEM 기초는 예외로 제목, 세 문장, 표지, 출처, 품질 체크와 승인 키를 한
-메시지로 보내 운영자가 발행 전에 전체 결과를 검수할 수 있게 합니다.
+DIEM Basic 예약 발행이 실패하면 만료, 해시 불일치, 큐 고갈, Instagram 단계
+오류를 구분해 Slack에 보냅니다.
 
 ## 수동 검수 체크리스트
 

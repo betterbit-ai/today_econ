@@ -201,6 +201,23 @@ test('builds claim-state frames that prevent misleading denial and acronym-date 
   assert.equal(validateTitleAgainstFrame('시타델 인수\n반도체 IPO', saleFrame).ok, false);
 });
 
+test('separates a confirmed medical safety advisory from limited causal evidence', () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '요즘 마운자로 맞는 사람들 많은데…살 빼려다가 임신했다 무슨 일',
+    summary: '마운자로 사용 중 예상하지 못한 임신 경험담이 공유돼 주의가 요구된다. 영국 의약품·의료제품규제청(MHRA)은 복용 기간에는 임신을 피하고 임신을 계획하면 최소 1개월 전 투약을 중단해야 한다고 명시했다.',
+    fullText: '당국은 임신 중 GLP-1 치료제 사용에 대한 안전성 자료가 충분하지 않아 예방적 조치가 필요하다고 설명했다.',
+  };
+
+  const frame = buildNewsFrame(article, CATEGORIES.ISSUE);
+  assert.equal(frame.subject, '마운자로');
+  assert.equal(frame.eventKind, 'medical_safety_advisory');
+  assert.equal(frame.claimState, 'decided');
+  assert.equal(frame.evidenceState, 'limited');
+  assert.equal(validateTitleAgainstFrame('마운자로 임신 위험\n미확정', frame).ok, false);
+  assert.equal(validateTitleAgainstFrame('마운자로 복용\n임신 피해야', frame).ok, true);
+});
+
 test('canonicalizes related criminal-procedure coverage as the same event even when headlines change angle', () => {
   const first = buildTopicSignature({
     title: "'보완수사권 폐지' 국회 본회의 통과",

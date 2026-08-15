@@ -188,6 +188,14 @@ function chooseLearningWindow(windows = {}, category) {
   )) || null;
 }
 
+function excludedByModeration(publication = {}) {
+  return Boolean(
+    publication.moderation?.deletedAt
+    || publication.moderation?.correction
+    || ['deleted', 'corrected'].includes(publication.moderation?.action)
+  );
+}
+
 function buildPerformanceReport(ledgers = [], now = new Date()) {
   const seenRecords = new Set();
   const records = ledgers.flatMap(allLedgerPublications).filter(publication => {
@@ -199,7 +207,7 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
   const publications = records.filter(publication => {
     if (!publication.publicationKey || seen.has(publication.publicationKey)) return false;
     seen.add(publication.publicationKey);
-    return publication.reel?.status === 'published';
+    return publication.reel?.status === 'published' && !excludedByModeration(publication);
   });
   const windows = Object.fromEntries(OBSERVATION_WINDOWS.map(windowLabel => {
     const samples = publications.map(publication => sampleFor(publication, windowLabel)).filter(Boolean);
@@ -242,6 +250,7 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
         publication.generation?.candidateFailures || []
       )).flatMap(failure => failure.modelAttempts || [])
         .filter(attempt => attempt.stage === 'title_repair' && attempt.status === 'failed').length,
+      moderatedPublications: records.filter(excludedByModeration).length,
     },
     windows,
     learningWindows,

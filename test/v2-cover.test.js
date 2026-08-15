@@ -78,8 +78,34 @@ test('renders distinct article-grounded fallback art instead of one category-wid
 test('uses the exact category labels and rejects invalid date or category values', () => {
   assert.equal(coverMeta('2026.07.25', CATEGORIES.ECONOMY), '2026.07.25 | Economy');
   assert.equal(coverMeta('2026-07-25', CATEGORIES.ISSUE), '2026.07.25 | Issue');
+  assert.equal(coverMeta('2026-07-25', CATEGORIES.ECONOMY, 'diem_basic'), 'DIEM Basic');
+  assert.equal(coverMeta('2026-07-25', CATEGORIES.ECONOMY, 'diem_basic', 3), 'DIEM Basic | 03');
   assert.throws(() => coverMeta('2026.7.25', CATEGORIES.ECONOMY), /date/u);
   assert.throws(() => coverMeta('2026-07-25', 'sports'), /category/u);
+});
+
+test('DIEM Basic covers use four curriculum-specific project-owned motifs', () => {
+  const cases = [
+    ['tax-account', 'account-ledger-tax-shield'],
+    ['fund-note', 'fund-basket-versus-note'],
+    ['rate-reset', 'fixed-lock-and-reset-dial'],
+    ['credit-score', 'score-gauge-and-rate-steps'],
+  ];
+  for (const [theme, motif] of cases) {
+    const html = buildCoverHtml({
+      title: '경제 개념\n핵심 차이',
+      date: '2026-08-14',
+      category: CATEGORIES.ECONOMY,
+      contentType: 'diem_basic',
+      seriesNumber: 1,
+      fallbackTheme: theme,
+      visualFingerprint: `diem-basic:${theme}:v1`,
+    });
+    assert.match(html, /DIEM Basic \| 01/u);
+    assert.match(html, new RegExp(`data-typographic-art="${theme}"`, 'u'));
+    assert.match(html, new RegExp(`data-art-motif="${motif}"`, 'u'));
+    assert.doesNotMatch(html, /<img class="background-photo"/u);
+  }
 });
 
 test('escapes all externally supplied title content before placing it in HTML', () => {

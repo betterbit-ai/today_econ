@@ -114,6 +114,9 @@ function validateTitleAgainstFrame(title, frame = {}) {
       errors.push('official-denial title cannot present the denied claim as confirmed');
     }
   }
+  if (frame.claimState !== 'official_denial' && DENIAL_TITLE_TOKEN.test(normalized)) {
+    errors.push('title cannot label a reported, scheduled, or confirmed event as unconfirmed or denied');
+  }
 
   if (frame.eventKind === 'ipo' && !/(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔)/iu.test(normalized)) {
     errors.push('IPO title must name the IPO, listing, first-trade, or market-debut event');
@@ -127,7 +130,7 @@ function validateTitleAgainstFrame(title, frame = {}) {
     errors.push(`title contains a tangential or contradicted event: ${forbiddenTerms.join(', ')}`);
   }
 
-  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings'].includes(frame.eventKind)) {
+  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory'].includes(frame.eventKind)) {
     const lower = normalized.toLowerCase();
     const hasSubject = (frame.subjectTerms || []).some(term => lower.includes(String(term).toLowerCase()));
     const hasEvent = (frame.eventTerms || []).some(term => lower.includes(String(term).toLowerCase()));

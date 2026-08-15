@@ -19,6 +19,16 @@ const { kstDate } = require('./time');
 
 const BASIC_CONTENT_TYPE = 'diem_basic';
 const BASIC_EXPERIMENT_LIMIT = 4;
+const BASIC_CONCEPT_SIGNALS = [
+  /(기준금리|대출금리|예금금리|가산금리|고정금리|변동금리)/u,
+  /(ETF|ETN|ISA|IPO|공모가|시초가|상장일|배당|주가지수)/iu,
+  /(DSR|LTV|전세|월세|보증금|담보대출|주택담보대출)/iu,
+  /(소득공제|세액공제|양도소득세|종합소득세|비과세|분리과세|세금)/u,
+  /(국민연금|퇴직연금|퇴직금|실업급여|건강보험|자동차보험|보험료)/u,
+  /(환율|관세|물가|소비자물가|국내총생산|GDP|경제성장률)/iu,
+  /(신용점수|신용대출|원금|복리|단리|예적금|채권)/u,
+];
+const BASIC_ONE_OFF_STORY = /(사비|미담|누리꾼|SNS에서\s*화제|온라인\s*화제|지역\s*농산물\s*광고|깜짝\s*이벤트|연예인)/iu;
 
 function isoWeekKey(date) {
   const value = new Date(`${date}T12:00:00+09:00`);
@@ -34,17 +44,36 @@ function basicPublications(ledgers = []) {
     .filter(({ publication }) => publication.contentType === BASIC_CONTENT_TYPE);
 }
 
+function basicSourceScore({ publication } = {}) {
+  const title = String(publication?.candidate?.title || '').normalize('NFC');
+  const body = String(publication?.candidate?.fullText || publication?.candidate?.summary || '').normalize('NFC').slice(0, 5000);
+  const combined = `${title}\n${body}`;
+  let score = 0;
+  for (const signal of BASIC_CONCEPT_SIGNALS) {
+    if (signal.test(title)) score += 30;
+    else if (signal.test(body)) score += 12;
+  }
+  if (/(차이|의미|기준|방식|비율|적용|연계|영향|조건)/u.test(combined)) score += 8;
+  if (Array.isArray(publication?.candidate?.verifiedFacts) && publication.candidate.verifiedFacts.length >= 2) score += 4;
+  if (BASIC_ONE_OFF_STORY.test(combined)) score -= 100;
+  return score;
+}
+
 function selectBasicSource(ledgers = []) {
   const usedSourceKeys = new Set(basicPublications(ledgers).map(({ publication }) => publication.source?.publicationKey).filter(Boolean));
   const candidates = ledgers.flatMap(ledger => allLedgerPublications(ledger).map(publication => ({ ledger, publication })))
     .filter(({ publication }) => publication.category === 'economy')
     .filter(({ publication }) => publication.contentType !== BASIC_CONTENT_TYPE)
     .filter(({ publication }) => publication.status === 'published' || publication.reel?.status === 'published')
+    .filter(({ publication }) => !publication.moderation?.deletedAt && !publication.moderation?.correction)
     .filter(({ publication }) => publication.candidate?.url && publication.candidate?.fullText)
     .filter(({ publication }) => !usedSourceKeys.has(publication.publicationKey))
-    .sort((left, right) => String(right.publication.reel?.publishedAt || right.ledger.date)
-      .localeCompare(String(left.publication.reel?.publishedAt || left.ledger.date)));
-  if (!candidates.length) throw new Error('[DIEM Basic] No unused published economy source is available.');
+    .map(candidate => ({ ...candidate, basicScore: basicSourceScore(candidate) }))
+    .filter(candidate => candidate.basicScore > 0)
+    .sort((left, right) => right.basicScore - left.basicScore
+      || String(right.publication.reel?.publishedAt || right.ledger.date)
+        .localeCompare(String(left.publication.reel?.publishedAt || left.ledger.date)));
+  if (!candidates.length) throw new Error('[DIEM Basic] No reusable beginner concept is available in unused published economy sources.');
   return candidates[0];
 }
 
@@ -94,10 +123,10 @@ function validateBasicEditorial(editorial = {}, article = {}) {
   if (!/(뜻|의미|기준|정하|가리키|개념|비율|금리|가격|제도|방식)/u.test(sentences[0] || '')) {
     errors.push('first sentence must contain a plain-language definition');
   }
-  if (!/(주의|확인|다를|달라|단정|바뀔|변동|재검증|아닙니다|수s*있)/u.test(sentences[2] || '')) {
+  if (!/(주의|확인|다를|달라|단정|바뀔|변동|재검증|아닙니다|수\s*있)/u.test(sentences[2] || '')) {
     errors.push('third sentence must state a misconception, caution, or recheck condition');
   }
-  if (/(매수|매도|사세요|투자해야|수익s*(?:보장|약속)|원금s*보장|무조건s*오른)/u.test(text)) {
+  if (/(매수|매도|사세요|투자해야|수익\s*(?:보장|약속)|원금\s*보장|무조건\s*오른)/u.test(text)) {
     errors.push('investment recommendation or return promise is prohibited');
   }
   if (!article.url) errors.push('source URL is required');
@@ -164,6 +193,33 @@ function actionUrl(repository = config.githubRepository) {
   return repository ? `https://github.com/${repository}/actions/workflows/diem_economy.yml` : '';
 }
 
+async function deliverBasicPreview({
+  ledger,
+  draft,
+  sendPreviewImpl,
+  saveLedgerImpl,
+  slackClient,
+  now = new Date(),
+} = {}) {
+  if (!sendPreviewImpl) return ledger;
+  const client = slackClient || (config.slackBotToken ? new WebClient(config.slackBotToken) : null);
+  try {
+    const receipt = await sendPreviewImpl({ publication: draft, client, channelId: config.slackChannelId, actionsUrl: actionUrl() });
+    const sent = {
+      ...draft,
+      preview: { status: 'sent', slackTs: receipt?.ts || null, sentAt: now.toISOString(), error: null },
+    };
+    return saveLedgerImpl(replaceHistoryPublication(ledger, sent));
+  } catch (error) {
+    const failed = {
+      ...draft,
+      preview: { status: 'failed', slackTs: null, sentAt: now.toISOString(), error: String(error.message || error) },
+    };
+    saveLedgerImpl(replaceHistoryPublication(ledger, failed));
+    throw new Error(`[DIEM Basic] Slack approval preview failed after the draft was saved: ${String(error.message || error)}`);
+  }
+}
+
 async function prepareBasicDraft({
   date = kstDate(),
   ledgers = listLedgers(),
@@ -178,19 +234,27 @@ async function prepareBasicDraft({
 } = {}) {
   const allLedgers = ledgers.some(item => item.date === ledger.date) ? ledgers : [...ledgers, ledger];
   const basics = basicPublications(allLedgers);
+  const weekKey = isoWeekKey(date);
+  const sameWeek = basics
+    .filter(({ publication }) => publication.experiment?.weekKey === weekKey)
+    .sort((left, right) => Number(right.publication.experiment?.regeneration || 0) - Number(left.publication.experiment?.regeneration || 0));
+  const active = sameWeek.find(({ publication }) => publication.status !== 'rejected');
+  if (active) {
+    if (active.publication.preview?.status === 'sent') return active.ledger;
+    return deliverBasicPreview({
+      ledger: active.ledger,
+      draft: structuredClone(active.publication),
+      sendPreviewImpl,
+      saveLedgerImpl,
+      slackClient,
+      now,
+    });
+  }
   const completedOrActive = basics.filter(({ publication }) => publication.status !== 'rejected');
   if (completedOrActive.length >= BASIC_EXPERIMENT_LIMIT) {
     throw new Error('[DIEM Basic] Four-draft experiment limit reached.');
   }
-
-  const weekKey = isoWeekKey(date);
-  const sameWeek = basics
-    .map(({ publication }) => publication)
-    .filter(publication => publication.experiment?.weekKey === weekKey)
-    .sort((left, right) => Number(right.experiment?.regeneration || 0) - Number(left.experiment?.regeneration || 0));
-  const active = sameWeek.find(publication => publication.status !== 'rejected');
-  if (active) return ledger;
-  const regeneration = sameWeek.length ? Math.max(...sameWeek.map(item => Number(item.experiment?.regeneration || 0))) : 0;
+  const regeneration = sameWeek.length ? Math.max(...sameWeek.map(item => Number(item.publication.experiment?.regeneration || 0))) : 0;
   if (sameWeek.length && regeneration > 1) throw new Error('[DIEM Basic] Weekly regeneration limit reached.');
 
   const { publication: sourcePublication, ledger: sourceLedger } = selectBasicSource(allLedgers);
@@ -244,7 +308,7 @@ async function prepareBasicDraft({
     },
     quality: {
       ok: true,
-      checks: ['쉬운 정의', '근거 기반 사례', '오해·주의점', '출처·기준일', '제7일 이미지 중복 방지'],
+      checks: ['쉬운 정의', '근거 기반 사례', '오해·주의점', '출처·기준일', '최근 7일 이미지 중복 방지'],
     },
     experiment: { weekKey, regeneration: sameWeek.length ? 1 : 0, sequence: completedOrActive.length + 1 },
     review: { status: 'pending', reason: null, reviewedAt: null },
@@ -261,17 +325,14 @@ async function prepareBasicDraft({
   };
   draft.approval = { contentHash: basicContentHash(draft), approvedAt: null, approvedBy: null };
   let saved = saveLedgerImpl(replaceHistoryPublication(ledger, draft));
-  const client = slackClient || (config.slackBotToken ? new WebClient(config.slackBotToken) : null);
-  if (sendPreviewImpl) {
-    try {
-      const receipt = await sendPreviewImpl({ publication: draft, client, channelId: config.slackChannelId, actionsUrl: actionUrl() });
-      draft.preview = { status: 'sent', slackTs: receipt?.ts || null, sentAt: new Date().toISOString(), error: null };
-    } catch (error) {
-      draft.preview = { status: 'failed', slackTs: null, sentAt: new Date().toISOString(), error: error.message };
-    }
-    saved = saveLedgerImpl(replaceHistoryPublication(saved, draft));
-  }
-  return saved;
+  return deliverBasicPreview({
+    ledger: saved,
+    draft,
+    sendPreviewImpl,
+    saveLedgerImpl,
+    slackClient,
+    now,
+  });
 }
 
 async function publishBasicDraft({
@@ -366,6 +427,7 @@ function rejectBasicDraft(ledger, publicationKey, reason, now = new Date()) {
 module.exports = {
   BASIC_CONTENT_TYPE,
   BASIC_EXPERIMENT_LIMIT,
+  basicSourceScore,
   basicContentHash,
   basicPrompt,
   findBasicPublication,

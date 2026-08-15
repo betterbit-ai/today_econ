@@ -14,6 +14,11 @@ const FOLLOW_UP = /(확정|최종|결정|판결|선고|시행|의결|기준금�
 const OFFICIAL_DENIAL = /(확정된?\s*바\s*없|확정되지\s*않|사실이\s*아니|사실\s*무근|부인했|반박했|해명자료|설명자료|오보|허위|잘못된\s*보도)/u;
 const TENTATIVE = /(검토|논의|추진|계획|예정|가능성|전망|유력|가닥|방침|초안|보도했다|보도했)/u;
 const DECIDED = /(확정|결정|의결|통과|시행|발표|인상|인하|선고|판결|도입|개편|확대|축소|폐지)/u;
+const MEDICAL_SAFETY_SUBJECT = /(마운자로|위고비|GLP-?1|비만치료제|의약품|치료제|약물)/iu;
+const MEDICAL_SAFETY_CONTEXT = /(임신|피임|모유\s*수유|복용|투약)/u;
+const MEDICAL_AUTHORITY = /(의약품·?의료제품규제청|MHRA|식품의약품안전처|식약처|FDA|EMA|질병관리청|보건당국)/iu;
+const MEDICAL_GUIDANCE_ACTION = /(경고|권고|안내|명시|주의가?\s*요구|피해야|사용하면\s*안|중단해야|투약을?\s*중단|복용을?\s*중단)/u;
+const LIMITED_EVIDENCE = /(안전성\s*자료.{0,24}(?:충분하지|부족)|근거.{0,16}(?:충분하지|부족)|인과관계.{0,20}(?:확인되지|불분명)|영향을?\s*미칠\s*가능성)/u;
 const IPO_EVENT = /(\bIPO\b|기업공개|상장|첫\s*거래|증시\s*데뷔|공모가|공모주)/iu;
 const PRIMARY_IPO_EVENT = /(\bIPO\b|기업공개|공모가|공모주|증시\s*데뷔|첫\s*거래|신규\s*상장|상장\s*(?:예정|추진|확정|승인|신청|첫날|앞둠|나선다|한다|했다))/iu;
 const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험|보험료|자동차보험|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금|KTX|SRT|고속철도|철도|대중교통|교통비|운임|폭염|한파|태풍|산불|홍수|집중호우|재난|재해)/iu;
@@ -76,6 +81,9 @@ function canonicalEventKey(text = '') {
 
 function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   const normalized = normalizeTopicAliases(text);
+  if (/마운자로/u.test(normalized)) return '마운자로';
+  if (/위고비/u.test(normalized)) return '위고비';
+  if (/GLP-?1/iu.test(normalized)) return 'GLP-1 비만약';
   if (/(형사소송법|보완수사권|공소기각|공소권\s*남용)/u.test(normalized)) return '형사소송법';
   if (/(국내총생산|\bGDP\b|성장률)/iu.test(normalized)) return /미국|미\s*상무부/u.test(normalized) ? '미국 성장률' : '경제성장률';
   if (/(코스피|코스닥)/u.test(normalized)) return normalized.match(/(코스피|코스닥)/u)?.[0] || '한국 증시';
@@ -118,6 +126,7 @@ function isOfficialDenialCandidate(candidate = {}, text = candidateText(candidat
 function claimState(candidate = {}, text = primaryCandidateText(candidate), kind = eventKind(candidate, text)) {
   if (isOfficialDenialCandidate(candidate, text)) return 'official_denial';
   if (kind === 'ipo') return 'scheduled';
+  if (kind === 'medical_safety_advisory') return 'decided';
   if (kind === 'asset_sale' && /(매각|인수|넘겼|넘긴|넘기며|매수자로\s*선정)/u.test(text)) return 'decided';
   if (DECIDED.test(text)) return 'decided';
   if (TENTATIVE.test(text)) return 'tentative';
@@ -126,6 +135,10 @@ function claimState(candidate = {}, text = primaryCandidateText(candidate), kind
 
 function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
   const title = normalizeNfc(candidate.title || '');
+  if (MEDICAL_SAFETY_SUBJECT.test(text)
+    && MEDICAL_SAFETY_CONTEXT.test(text)
+    && MEDICAL_AUTHORITY.test(text)
+    && MEDICAL_GUIDANCE_ACTION.test(text)) return 'medical_safety_advisory';
   if (/(시타델|헤지펀드|포트폴리오|\bSA\b)/iu.test(text) && /(매각|인수|보유\s*주식|넘기)/u.test(text)) return 'asset_sale';
   if (PRIMARY_IPO_EVENT.test(title) || PRIMARY_IPO_EVENT.test(text)) return 'ipo';
   if (/(국내총생산|\bGDP\b|성장률)/iu.test(text)) return 'gdp';
@@ -141,6 +154,7 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
 }
 
 function frameEventLabel(text = '', kind = 'general') {
+  if (kind === 'medical_safety_advisory') return /임신|피임/u.test(text) ? '임신 주의' : '복용 주의';
   if (kind === 'asset_sale') return /(매각|넘기)/u.test(text) ? '주식 매각' : '주식 인수';
   if (kind === 'ipo') return 'IPO 상장';
   if (kind === 'gdp') return /(둔화|하락|감소)/u.test(text) ? '성장률 둔화' : '성장률 변화';
@@ -171,6 +185,9 @@ function frameTerms(subject, eventLabel, kind, text) {
     eventTerms.push(...['통과', '개정', '폐지']);
   } else if (kind === 'market_move') {
     subjectTerms.push(...['코스피', '코스닥', '증시']);
+  } else if (kind === 'medical_safety_advisory') {
+    subjectTerms.push(...['마운자로', '위고비', 'GLP-1'].filter(term => normalizeNfc(text).includes(term)));
+    eventTerms.splice(0, eventTerms.length, '피해야', '피하', '피해', '중단', '주의', '경고', '권고', '안내');
   }
   return {
     subjectTerms: [...new Set(subjectTerms.filter(term => normalizeNfc(text).includes(term) || term.length >= 2))],
@@ -180,6 +197,7 @@ function frameTerms(subject, eventLabel, kind, text) {
 
 function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).category) {
   const text = primaryCandidateText(candidate);
+  const evidenceText = normalizeTopicAliases(`${candidate.summary || ''} ${String(candidate.fullText || '').slice(0, 5000)}`);
   const kind = eventKind(candidate, text);
   const state = claimState(candidate, text, kind);
   const subject = compactSubject(text, category);
@@ -210,6 +228,7 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
     eventTerms,
     eventKey: canonicalEventKey(text),
     claimState: state,
+    evidenceState: LIMITED_EVIDENCE.test(evidenceText) ? 'limited' : 'established_or_not_stated',
     date,
     requiredTitleTerms,
     forbiddenTitleTerms,
