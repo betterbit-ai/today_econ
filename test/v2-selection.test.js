@@ -223,6 +223,116 @@ test('prioritizes concrete housing and cash-support image queries', () => {
   assert.match(benefit[0], /cash assistance voucher/u);
 });
 
+test('builds concrete event-first queries for recent production image failures', () => {
+  const politicalPrimary = buildImageQueries({
+    title: '김민석, 호남 순회경선에서 압승…누적 과반 1위',
+    summary: '민주당 당대표 후보 경선에서 김민석 후보가 과반을 기록했다. 기사 후반에는 호남 반도체 산업 기대도 언급됐다.',
+    category: 'issue',
+    newsFrame: { eventKind: 'semiconductor', subject: '반도체' },
+  });
+  const historicalRemarks = buildImageQueries({
+    title: '이병태 "국민이 왜 5·18에 죄의식 갖나" 작심 발언',
+    summary: '이병태 전 대통령직속 규제합리화위원회 부위원장이 5·18 민주화운동 관련 글을 올려 논란이 됐다.',
+    category: 'issue',
+  });
+  const deliveryEntry = buildImageQueries({
+    title: '한밤중 집 안으로 들어온 배달기사',
+    summary: '주문이 없었는데 배달기사가 열린 현관문 안으로 들어온 사건이다.',
+    category: 'issue',
+  });
+  const weather = buildImageQueries({
+    title: '시간당 65㎜ 폭우 쏟아진 해남, 호우위기경보 상향',
+    summary: '집중호우로 도로와 주택 침수 신고가 이어졌다.',
+    category: 'issue',
+  });
+  const billboard = buildImageQueries({
+    title: "사비로 뉴욕에 '봉화사과' 광고 띄운 공무원",
+    summary: '뉴욕 타임스스퀘어 전광판에 봉화사과 한글 광고를 게시했다.',
+    category: 'issue',
+  });
+
+  assert.match(politicalPrimary[0], /election|ballot|convention|political party/i);
+  assert.doesNotMatch(politicalPrimary.join(' '), /semiconductor|microchip|processor/i);
+  assert.match(historicalRemarks[0], /Gwangju|May 18|democracy memorial/i);
+  assert.ok(historicalRemarks.some(query => /National Cemetery|Uprising memorial/i.test(query)));
+  assert.doesNotMatch(historicalRemarks.join(' '), /presidential office/i);
+  assert.match(deliveryEntry[0], /front door|hallway|delivery package/i);
+  assert.ok(deliveryEntry.some(query => /apartment front door/i.test(query)));
+  assert.match(weather[0], /heavy rain|flooded|rainstorm/i);
+  assert.match(billboard[0], /Times Square|billboard/i);
+  assert.ok(billboard.some(query => /^Times Square billboard$/i.test(query)));
+});
+
+test('accepts person-free event objects for memorial, billboard, and home-access stories', () => {
+  const cases = [
+    [{ description: 'Graves of May 18th National Cemetery Gwangju South Korea' }, 'May 18 National Cemetery Gwangju', {
+      title: '이병태 5·18 발언 논란',
+      summary: '5·18 민주화운동 관련 발언이 논란이 됐다.',
+      category: 'issue',
+    }],
+    [{ description: 'Times Square billboard at night in New York City' }, 'Times Square billboard', {
+      title: '공무원 타임스스퀘어 광고',
+      summary: '뉴욕 전광판에 지역 사과 광고를 게시했다.',
+      category: 'issue',
+    }],
+    [{ description: 'Apartment building front door and entrance' }, 'apartment front door', {
+      title: '배달기사 집 침입 사건',
+      summary: '열린 현관문 안으로 배달기사가 들어왔다.',
+      category: 'issue',
+    }],
+  ];
+
+  for (const [image, query, candidate] of cases) {
+    const result = assessImageSuitability(image, query, candidate, { requirePersonFreeEvidence: true });
+    assert.equal(result.ok, true, `${query}: ${result.reason}`);
+  }
+});
+
+test('does not mistake adult ages or presidential-affiliated posts for a minor or former president', () => {
+  const adult = assessImageSuitability({
+    description: 'Times Square digital billboard advertising screen at night',
+  }, 'Times Square digital billboard advertising screen', {
+    title: "사비로 뉴욕 광고 띄운 27세 공무원",
+    summary: '27세 공무원이 타임스스퀘어 전광판에 광고를 냈다.',
+  });
+  const affiliated = extractPrimaryPersonIdentity({
+    title: '이병태 5·18 발언 논란',
+    summary: '이병태 전 대통령직속 규제합리화위원회 부위원장의 발언이 논란이 됐다.',
+    editorialTitle: '이병태\n5·18 발언 논란',
+  });
+
+  assert.deepEqual(adult.requiredVisualRoles, []);
+  assert.equal(adult.ok, true);
+  assert.equal(affiliated, null);
+});
+
+test('rejects a generic Seoul tower when only geography overlaps a specific civic-event query', () => {
+  const suitability = assessImageSuitability({
+    description: 'Cityscape of Seoul showcasing modern office towers and a road intersection in South Korea',
+  }, 'Gwangju May 18 democracy memorial South Korea', {
+    title: '이병태 5·18 발언 논란',
+    summary: '5·18 민주화운동에 관한 발언이 논란이 됐다.',
+    category: 'issue',
+  });
+
+  assert.equal(suitability.ok, false);
+  assert.equal(suitability.reason, 'primary_visual_anchor_missing');
+});
+
+test('uses event-specific fallback art when no licensed photo is safe', () => {
+  const cases = [
+    [{ title: '해남 폭우 위기경보 상향', summary: '집중호우와 침수 피해가 이어졌다.', category: 'issue' }, 'weather-emergency'],
+    [{ title: '배달기사 집 침입 사건', summary: '열린 현관문 안으로 배달기사가 들어왔다.', category: 'issue' }, 'home-security'],
+    [{ title: '공무원 타임스스퀘어 광고', summary: '뉴욕 전광판에 지역 사과 광고를 냈다.', category: 'issue' }, 'civic-advertising'],
+    [{ title: '김민석 당대표 경선 압승', summary: '정당 대표 경선에서 과반을 기록했다.', category: 'issue' }, 'political-election'],
+    [{ title: '이병태 5·18 발언 논란', summary: '5·18 민주화운동 관련 발언이 논란이 됐다.', category: 'issue' }, 'democratic-history'],
+  ];
+
+  for (const [candidate, expectedTheme] of cases) {
+    assert.equal(createTypographyFallback(candidate).fallbackTheme, expectedTheme);
+  }
+});
+
 test('skips licensed images used in the recent seven-day image history', async () => {
   const photos = [
     {

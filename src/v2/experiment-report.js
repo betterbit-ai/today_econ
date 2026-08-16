@@ -26,8 +26,13 @@ function rate(media, key) {
   return reach && value !== null ? Number(((value / reach) * 100).toFixed(2)) : null;
 }
 
+function isActivePublished(publication = {}) {
+  const deleted = publication.moderation?.action === 'deleted' || Boolean(publication.moderation?.deletedAt);
+  return publication.reel?.status === 'published' && !deleted;
+}
+
 function groupSummary(publications = [], allPublications = []) {
-  const published = publications.filter(publication => publication.reel?.status === 'published');
+  const published = publications.filter(isActivePublished);
   const samples = published.map(publication => ({ publication, metrics: windowMetrics(publication) })).filter(item => item.metrics);
   const missing = {
     reach: samples.filter(item => metricNumber(item.metrics.media.reach) === null).length,
@@ -71,7 +76,7 @@ function buildExperimentReport(ledgers = [], now = new Date()) {
   const all = ledgers.flatMap(ledger => allLedgerPublications(ledger));
   const hot = all.filter(publication => (publication.contentType || 'hot_news') === 'hot_news');
   const basics = all.filter(publication => publication.contentType === 'diem_basic');
-  const publishedBasics = basics.filter(publication => publication.reel?.status === 'published');
+  const publishedBasics = basics.filter(isActivePublished);
   const basicsObserved = publishedBasics.filter(publication => {
     const status = publication.insights?.windows?.['7d']?.status;
     return ['ok', 'unavailable'].includes(status);

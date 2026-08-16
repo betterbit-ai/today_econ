@@ -15,6 +15,7 @@ const {
   loadBasicCatalog,
   nextReadyBasicPackage,
   publishBasicPackage,
+  publishedBasicIds,
   stageBasicPackage,
   validateBasicPackage,
 } = require('../src/v2/basic-content');
@@ -42,6 +43,7 @@ test('the committed DIEM Basic curriculum contains four fully verified ready pac
     assert.equal(item.sources.every(source => source.official && source.primary), true);
     assert.equal(item.visual.kind, 'typographic');
     assert.equal(item.visual.peoplePolicy, 'prohibited');
+    assert.equal(item.audio.mood, 'bright');
     assert.equal(item.lesson.scenes.length, 5);
     assert.deepEqual(item.lesson.scenes.map(scene => scene.role), [
       'cover',
@@ -102,6 +104,20 @@ test('package validation fails closed for weak sourcing, unmapped claims, expiry
   });
   assert.equal(result.ok, false);
   assert.match(result.errors.join(' '), /artifact hash mismatch/u);
+});
+
+test('package validation rejects a serious or dramatic DIEM Basic soundtrack', () => {
+  const item = structuredClone(loadBasicCatalog({ contentRoot: CONTENT_ROOT, verifyArtifacts: false }).packages[0]);
+  item.audio.mood = 'serious';
+  item.integrity.contentSha256 = require('../src/v2/basic-content').packageContentHash(item);
+
+  const result = validateBasicPackage(item, {
+    now: new Date('2026-08-16T00:00:00.000Z'),
+    verifyArtifacts: false,
+  });
+
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join(' '), /light educational soundtrack|bright/u);
 });
 
 const hasFfprobe = spawnSync('ffprobe', ['-version'], { stdio: 'ignore' }).status === 0;
@@ -232,6 +248,69 @@ test('publishing selects one stored package, preserves the hot-news slot, and re
     contentRoot: CONTENT_ROOT,
     ledgers: [result],
     ledger: createDailyLedger('2026-08-18'),
+    token: 'token',
+    verifyArtifacts: false,
+    saveLedgerImpl: value => value,
+  }), /already published/u);
+});
+
+test('an operator-deleted DIEM Basic Reel can be reissued without overwriting its audit record', async () => {
+  const ledger = createDailyLedger('2026-08-16');
+  const item = loadBasicCatalog({ contentRoot: CONTENT_ROOT, verifyArtifacts: false }).packages[0];
+  const deleted = stageBasicPackage(item, { date: '2026-08-16' });
+  deleted.status = 'published';
+  deleted.reel = { ...deleted.reel, status: 'published', externalId: 'ig-deleted-basic' };
+  deleted.moderation = {
+    action: 'deleted',
+    reason: '교육 내용과 어울리지 않는 심각한 BGM',
+    deletedAt: '2026-08-16T04:00:00.000Z',
+  };
+  ledger.publicationHistory.push(deleted);
+
+  const result = await publishBasicPackage({
+    date: '2026-08-16',
+    contentId: 'isa-tax',
+    contentRoot: CONTENT_ROOT,
+    ledgers: [ledger],
+    ledger,
+    token: 'token',
+    verifyArtifacts: false,
+    saveLedgerImpl: value => value,
+    publishPreparedPublicationImpl: async sandbox => updatePublication(sandbox, 'economy', {
+      ...sandbox.publications.economy,
+      status: 'published',
+      reel: { ...sandbox.publications.economy.reel, status: 'published', externalId: 'ig-reissued-basic' },
+    }),
+  });
+
+  const versions = result.publicationHistory.filter(publication => publication.basicContentId === 'isa-tax');
+  assert.equal(versions.length, 2);
+  assert.notEqual(versions[0].publicationKey, versions[1].publicationKey);
+  assert.equal(versions[0].moderation.action, 'deleted');
+  assert.equal(versions[1].reel.externalId, 'ig-reissued-basic');
+});
+
+test('a corrected live DIEM Basic Reel remains published and cannot be reissued', async () => {
+  const ledger = createDailyLedger('2026-08-16');
+  const item = loadBasicCatalog({ contentRoot: CONTENT_ROOT, verifyArtifacts: false }).packages[0];
+  const corrected = stageBasicPackage(item, { date: '2026-08-16' });
+  corrected.status = 'published';
+  corrected.reel = { ...corrected.reel, status: 'published', externalId: 'ig-corrected-basic' };
+  corrected.moderation = {
+    action: 'corrected',
+    reason: '캡션 표현 정정',
+    correction: '캡션 표현 정정',
+    recordedAt: '2026-08-16T04:00:00.000Z',
+  };
+  ledger.publicationHistory.push(corrected);
+
+  assert.equal(publishedBasicIds([ledger]).has('isa-tax'), true);
+  await assert.rejects(() => publishBasicPackage({
+    date: '2026-08-16',
+    contentId: 'isa-tax',
+    contentRoot: CONTENT_ROOT,
+    ledgers: [ledger],
+    ledger,
     token: 'token',
     verifyArtifacts: false,
     saveLedgerImpl: value => value,

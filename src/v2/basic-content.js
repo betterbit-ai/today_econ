@@ -139,6 +139,9 @@ function validateBasicPackage(item = {}, {
   }
   if (!item.visual?.theme || !item.visual?.visualFingerprint) errors.push('visual theme and fingerprint are required');
   if (!item.audio?.trackId || !item.audio?.sha256 || !item.audio?.license) errors.push('verified audio metadata is required');
+  if (item.audio?.mood !== 'bright') {
+    errors.push('DIEM Basic requires a bright, light educational soundtrack');
+  }
   if (item.review?.status !== 'approved') errors.push('review status must be approved');
   if (!/^\d{4}-\d{2}-\d{2}$/u.test(item.review?.checkedAt || '')) errors.push('review checkedAt is required');
   if (!/^\d{4}-\d{2}-\d{2}$/u.test(item.review?.expiresAt || '')) {
@@ -195,8 +198,13 @@ function basicPublications(ledgers = []) {
     .filter(({ publication }) => publication.contentType === BASIC_CONTENT_TYPE);
 }
 
+function isDeletedBasicPublication(publication = {}) {
+  return publication.moderation?.action === 'deleted' || Boolean(publication.moderation?.deletedAt);
+}
+
 function publishedBasicIds(ledgers = []) {
   return new Set(basicPublications(ledgers)
+    .filter(({ publication }) => !isDeletedBasicPublication(publication))
     .filter(({ publication }) => publication.status === 'published' || publication.reel?.externalId)
     .map(({ publication }) => publication.basicContentId)
     .filter(Boolean));
@@ -369,17 +377,24 @@ async function publishBasicPackage({
   }
 
   const existing = findBasicContentPublication(allLedgers, item.id);
-  if (existing && (existing.publication.status === 'published' || existing.publication.reel?.externalId)) {
+  const deletedExisting = Boolean(existing && isDeletedBasicPublication(existing.publication));
+  if (existing && !deletedExisting
+    && (existing.publication.status === 'published' || existing.publication.reel?.externalId)) {
     throw new Error(`[DIEM Basic] ${item.id} is already published.`);
   }
   const targetLedger = existing?.ledger || ledger;
   const originalCurrent = structuredClone(targetLedger.publications.economy);
+  const reissueNumber = basicPublications(allLedgers)
+    .filter(({ publication }) => publication.basicContentId === item.id).length + 1;
+  const reissuePublicationKey = deletedExisting
+    ? `diem:${targetLedger.date}:economy:basic-${item.id}:reissue-${reissueNumber}`
+    : existing?.publication.publicationKey;
   let staged = stageBasicPackage(item, {
     date: targetLedger.date,
     now,
-    publicationKey: existing?.publication.publicationKey,
+    publicationKey: reissuePublicationKey,
   });
-  if (existing) {
+  if (existing && !deletedExisting) {
     staged = {
       ...staged,
       release: existing.publication.release || null,

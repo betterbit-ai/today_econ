@@ -75,6 +75,27 @@ test('renders distinct article-grounded fallback art instead of one category-wid
   assert.doesNotMatch(adjacentHeatVariant, /scale\(-1 1\)/u);
 });
 
+test('renders distinct production-incident motifs for weather, access, advertising, elections, and history', () => {
+  const cases = [
+    ['weather-emergency', 'storm-rain-flood'],
+    ['home-security', 'front-door-delivery'],
+    ['civic-advertising', 'city-billboard'],
+    ['political-election', 'ballot-podium'],
+    ['democratic-history', 'memorial-flower'],
+  ];
+  for (const [theme, motif] of cases) {
+    const html = buildCoverHtml({
+      title: '사건 맥락\n안전한 표지',
+      date: '2026-08-16',
+      category: CATEGORIES.ISSUE,
+      fallbackTheme: theme,
+      visualFingerprint: `diem-art:${theme}:v1`,
+    });
+    assert.match(html, new RegExp(`data-typographic-art="${theme}"`, 'u'));
+    assert.match(html, new RegExp(`data-art-motif="${motif}"`, 'u'));
+  }
+});
+
 test('uses the exact category labels and rejects invalid date or category values', () => {
   assert.equal(coverMeta('2026.07.25', CATEGORIES.ECONOMY), '2026.07.25 | Economy');
   assert.equal(coverMeta('2026-07-25', CATEGORIES.ISSUE), '2026.07.25 | Issue');

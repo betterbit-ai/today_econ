@@ -14,6 +14,10 @@ GitHub Actions는 여기서 다음 `ready` 패키지의 완성된 `reel.mp4`를 
 - `cover.png`: 첫 번째 질문 카드와 바이트가 같은 Instagram 표지
 - `reel.mp4`: 5장의 정적 페이드와 검증된 음원을 합친 19초 업로드 파일
 
+DIEM Basic 음원은 `assets/music/manifest.json`에서 `mood: bright`로 검증된 곡만
+사용합니다. 교육 시리즈에는 심각하거나 긴장감을 조성하는 뉴스형 BGM을 쓰지
+않으며, 빌드와 패키지 검증이 이 규칙을 위반한 파일을 차단합니다.
+
 ## 제작·수정 순서
 
 1. `.codex/skills/diem-basic-production/SKILL.md`의 절차로 주제와 공식 자료를
@@ -22,8 +26,9 @@ GitHub Actions는 여기서 다음 `ready` 패키지의 완성된 `reel.mp4`를 
    작성합니다.
 3. `node scripts/build-diem-basic-packages.js --id <content-id>`로 카드 5장,
    표지, 19초 Reel과 모든 SHA-256을 다시 만듭니다.
-4. `npm test`와 `node .codex-harness/scripts/verify-project.mjs`를 통과시킵니다.
-5. 발행 전 `review.expiresAt`과 원문 링크를 다시 확인합니다.
+4. 완성된 Reel을 소리와 함께 재생해 밝고 산뜻한 교육 톤인지 확인합니다.
+5. `npm test`와 `node .codex-harness/scripts/verify-project.mjs`를 통과시킵니다.
+6. 발행 전 `review.expiresAt`과 원문 링크를 다시 확인합니다.
 
 완성 파일을 수동 편집하면 해시가 달라져 발행이 차단됩니다. 원고나 디자인을
 고쳤다면 반드시 빌드 스크립트로 표지·Reel·해시를 함께 갱신합니다.

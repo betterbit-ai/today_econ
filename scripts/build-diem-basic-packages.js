@@ -39,6 +39,9 @@ async function buildPackage(entry) {
   const manifest = loadMusicManifest();
   const track = manifest.tracks.find(candidate => candidate.id === item.audio.trackId);
   if (!track) throw new Error(`[DIEM Basic Build] Unknown audio track: ${item.audio.trackId}`);
+  if (track.mood !== 'bright' || item.audio.mood !== track.mood) {
+    throw new Error(`[DIEM Basic Build] ${item.id} must use a manifest-verified bright soundtrack.`);
+  }
   const verified = verifyTrackAsset(track);
   if (!verified.ok || verified.actualSha256 !== item.audio.sha256) {
     throw new Error(`[DIEM Basic Build] Audio verification failed for ${item.id}: ${verified.reason || 'package hash mismatch'}`);

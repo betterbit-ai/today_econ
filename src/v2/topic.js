@@ -6,7 +6,8 @@ const AI_ECONOMY_CONTEXT = /((인공지능|\bAI\b).{0,45}(투자|협력|실적|�
 const PUBLIC_TRANSPORT_ECONOMY_CONTEXT = /((KTX|SRT|고속철도|철도|대중교통).{0,45}(요금|운임|할인|인하|인상|교통비)|(요금|운임|할인|인하|인상|교통비).{0,45}(KTX|SRT|고속철도|철도|대중교통))/iu;
 const PRIVACY_RIGHTS_POLICY = /(개인정보|정보인권|프라이버시|기본권|동의\s*없이|원본\s*데이터|생체정보|얼굴|목소리|노동계|시민사회|특별법|법안|규제\s*특례)/u;
 const ECONOMY_INCLUDE = ECONOMY_CORE_TOPIC;
-const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|특별법|판결|기후|의료|보건|정부|국회|개인정보|정보인권|프라이버시|기본권|생체정보|KTX|SRT|고속철도|철도|대중교통|폭염|한파|태풍|산불|홍수|집중호우|재난|재해|중앙재난안전대책본부)/iu;
+const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|특별법|판결|기후|의료|보건|정부|국회|정당|당대표|선거|경선|전당대회|민주화운동|개인정보|정보인권|프라이버시|기본권|생체정보|KTX|SRT|고속철도|철도|대중교통|폭염|한파|태풍|산불|홍수|집중호우|재난|재해|중앙재난안전대책본부)/iu;
+const PRIMARY_POLITICAL_EVENT = /(정당|더불어민주당|국민의힘|조국혁신당|당대표|전당대회|순회\s*경선|대표\s*경선|최고위원\s*경선|공직\s*선거|5[·.]?18\s*민주화운동)/u;
 const ECONOMY_EXCLUDE = /(종목\s*추천|매수\s*추천|급등주|인사|선임|취임|업무협약|\bMOU\b|신제품\s*홍보|이벤트)/iu;
 const ISSUE_EXCLUDE = /(정쟁|공방|막말|연예|스포츠|가십|화보|단독\s*사진)/u;
 const SENSITIVE = /(사망|참사|재난|희생|피해자|전쟁|테러|폭발|화재|산불|침수|붕괴|실종|학대)/u;
@@ -318,7 +319,8 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
 }
 
 function classifyCandidate(candidate = {}) {
-  const text = candidateText(candidate);
+  const text = primaryCandidateText(candidate);
+  const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 420)}`);
   const excluded = [];
   if (ECONOMY_EXCLUDE.test(text)) excluded.push('economy_low_value');
   if (ISSUE_EXCLUDE.test(text)) excluded.push('issue_low_value');
@@ -327,6 +329,9 @@ function classifyCandidate(candidate = {}) {
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text))
     && !ECONOMY_EXCLUDE.test(text);
   const issue = ISSUE_INCLUDE.test(text) && !ISSUE_EXCLUDE.test(text);
+  if (PRIMARY_POLITICAL_EVENT.test(primaryLead) && !ISSUE_EXCLUDE.test(primaryLead)) {
+    return { category: CATEGORIES.ISSUE, excluded: [], primaryEvent: 'political' };
+  }
   if (!economy && !issue) return { category: null, excluded: excluded.length ? excluded : ['category_not_allowed'] };
   if (economy && !issue) return { category: CATEGORIES.ECONOMY, excluded: [] };
   if (issue && !economy) return { category: CATEGORIES.ISSUE, excluded: [] };

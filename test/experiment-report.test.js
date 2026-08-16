@@ -71,3 +71,21 @@ test('operator deletion or correction reasons remain part of the experiment evid
   assert.equal(report.groups.hot_news.deletedOrCorrected, 1);
   assert.match(report.groups.hot_news.moderationReasons[0].reason, /배경 이미지/u);
 });
+
+test('a deleted DIEM Basic Reel remains audit evidence but does not advance the four-week completion count', () => {
+  const ledger = createDailyLedger('2026-08-31');
+  const deleted = publication({ key: 'diem:2026-08-31:economy:basic-isa-tax', type: 'diem_basic', reach: 800, saved: 80, shares: 24, watchTime: 12 });
+  deleted.moderation = {
+    action: 'deleted',
+    reason: '교육 콘텐츠에 맞지 않는 심각한 BGM',
+    deletedAt: '2026-08-31T03:00:00.000Z',
+  };
+  ledger.publicationHistory = [deleted];
+
+  const report = buildExperimentReport([ledger], new Date('2026-09-08T00:00:00.000Z'));
+
+  assert.equal(report.completion.approvedBasicPublished, 0);
+  assert.equal(report.completion.basicSevenDayObserved, 0);
+  assert.equal(report.groups.diem_basic.published, 0);
+  assert.equal(report.groups.diem_basic.deletedOrCorrected, 1);
+});

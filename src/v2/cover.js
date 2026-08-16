@@ -56,16 +56,21 @@ function resolveImageData({ imagePath, imageDataUri } = {}) {
 const TYPOGRAPHY_THEMES = new Set([
   'climate',
   'credit-score',
+  'civic-advertising',
+  'democratic-history',
   'fund-note',
   'health',
+  'home-security',
   'housing',
   'legislation',
   'markets',
   'occupational-heat',
+  'political-election',
   'public-interest',
   'rate-reset',
   'tax-account',
   'technology',
+  'weather-emergency',
   'work',
 ]);
 
@@ -146,6 +151,35 @@ function typographyMotif(theme) {
       id: 'public-signal',
       body: `<circle cx="540" cy="410" r="225"/><circle cx="540" cy="410" r="130"/><circle cx="540" cy="410" r="34"/>
         <path d="M140 760H650M140 830H850M140 900H560"/>`,
+    },
+    'weather-emergency': {
+      id: 'storm-rain-flood',
+      body: `<path d="M210 385C240 260 395 220 480 315C545 205 740 225 775 370C890 375 940 455 910 555H175C120 465 145 395 210 385Z"/>
+        <path d="M270 615L215 740M445 615L390 740M620 615L565 740M795 615L740 740"/>
+        <path d="M115 835C250 770 365 770 500 835S750 900 965 835"/>`,
+    },
+    'home-security': {
+      id: 'front-door-delivery',
+      body: `<rect x="210" y="145" width="515" height="650" rx="24"/><path d="M285 795V245H650V795M575 500H615"/>
+        <rect x="700" y="595" width="245" height="200" rx="20"/><path d="M700 660H945M822 595V795"/>
+        <path d="M125 850H970"/>`,
+    },
+    'civic-advertising': {
+      id: 'city-billboard',
+      body: `<rect x="145" y="170" width="790" height="430" rx="34"/><path d="M205 245H875M205 500H650"/>
+        <path d="M415 600V775M665 600V775M300 775H780"/>
+        <path d="M215 860H865M290 810V910M790 810V910"/>`,
+    },
+    'political-election': {
+      id: 'ballot-podium',
+      body: `<rect x="175" y="505" width="730" height="315" rx="34"/><path d="M280 505L335 300H745L800 505"/>
+        <rect x="380" y="160" width="320" height="235" rx="22"/><path d="M430 225H650M430 295H595"/>
+        <path d="M330 650H750M410 730H670"/>`,
+    },
+    'democratic-history': {
+      id: 'memorial-flower',
+      body: `<path d="M540 755V325M540 420C430 360 355 285 370 175C480 175 540 245 540 355M540 500C650 440 725 365 710 255C600 255 540 325 540 435"/>
+        <path d="M180 805H900M255 885H825"/><circle cx="540" cy="205" r="72"/>`,
     },
   };
   return motifs[theme] || motifs['public-interest'];

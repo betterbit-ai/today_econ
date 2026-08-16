@@ -51,13 +51,26 @@ const GENERIC_VISUAL_TOKENS = new Set([
   'parliament',
   'law',
 ]);
+const LOW_INFORMATION_VISUAL_TOKENS = new Set([
+  'south',
+  'korea',
+  'korean',
+  'seoul',
+  'city',
+  'cityscape',
+  'road',
+  'street',
+  'intersection',
+  'building',
+  'office',
+]);
 const TYPOGRAPHY_VARIANT_COUNT = 64;
-const PERSON_ROLE_PATTERN = '대통령|전\\s*대통령|총리|부총리|장관|의원|대표|회장|총재|배우|가수|목사|교수|감독|선수|변호사|검사|판사|작가|방송인|후보';
+const PERSON_ROLE_PATTERN = '전\\s*대통령(?!직속)|대통령(?!직속)|총리|부총리|장관|의원|대표|회장|총재|배우|가수|목사|교수|감독|선수|변호사|검사|판사|작가|방송인|후보';
 const NON_PERSON_NAMES = new Set([
-  '국내', '국민', '국회', '당국', '대표', '미국', '법원', '서울', '정부', '전직', '현직', '한국', '회사',
+  '국내', '국민', '국회', '당국', '대표', '미국', '법원', '서울', '정부', '전직', '현직', '한국', '회사', '후보가',
 ]);
 const PERSON_METADATA_PATTERN = /\b(?:person|people|portraits?|models?|man|men|woman|women|boys?|girls?|students?|workers?|doctors?|nurses?|teachers?|actors?|actresses|singers?|couples?|parents?|children?|famil(?:y|ies)|crowds?)\b|(?:사람|인물|남성|여성|학생|노동자|근로자|의사|간호사|교사|배우|가수|아동|자녀|부부|부모|가족|군중)/iu;
-const PERSON_FREE_CONTEXT_PATTERN = /\b(?:building|exterior|interior|architecture|office|institution|document|paper|contract|legislation|law|gavel|courtroom|cityscape|skyline|flag|chart|screen|computer|phone|factory|microchip|chip|vehicle|car|apartment|house|hospital|classroom|landscape|weather|storm|heatwave|thermometer|equipment|machinery|road|street|roof|rooftop|construction\s+site)\b|(?:건물|외관|내부|건축|기관|문서|서류|계약서|법안|법률|의사봉|법정|도시|전경|국기|차트|화면|컴퓨터|공장|반도체|차량|자동차|아파트|주택|병원|교실|풍경|날씨|폭염|온도계|장비|기자재|도로|거리|지붕|옥상|건설현장)/iu;
+const PERSON_FREE_CONTEXT_PATTERN = /\b(?:building|exterior|interior|architecture|office|institution|document|paper|contract|legislation|law|gavel|courtroom|cityscape|skyline|flag|chart|screen|billboard|computer|phone|factory|microchip|chip|vehicle|car|apartment|house|door|doorway|entrance|package|parcel|ballot\s+box|podium|memorial|monument|cemetery|graves?|hospital|classroom|landscape|weather|storm|rain|flood|heatwave|thermometer|equipment|machinery|road|street|roof|rooftop|construction\s+site)\b|(?:건물|외관|내부|건축|기관|문서|서류|계약서|법안|법률|의사봉|법정|도시|전경|국기|차트|화면|전광판|컴퓨터|공장|반도체|차량|자동차|아파트|주택|현관|문|택배|소포|투표함|연단|기념관|기념비|묘역|묘지|병원|교실|풍경|날씨|폭우|침수|폭염|온도계|장비|기자재|도로|거리|지붕|옥상|건설현장)/iu;
 
 function extractPrimaryPersonIdentity(candidate = {}) {
   const patterns = [
@@ -82,20 +95,9 @@ function extractPrimaryPersonIdentity(candidate = {}) {
 }
 
 function articleSourceText(candidate = {}) {
-  const frame = candidate.newsFrame || {};
-  const primary = normalizeNfc([
-    candidate.target,
-    candidate.event,
-    candidate.title,
-    candidate.summary,
-    frame.subject,
-    frame.target,
-    frame.event,
-    frame.action,
-    frame.state,
-  ].filter(Boolean).join(' '));
-  if (primary.length >= 24) return primary;
-  return normalizeNfc(`${primary} ${String(candidate.fullText || '').slice(0, 500)}`).trim();
+  const title = normalizeNfc(candidate.title || '');
+  const lead = normalizeNfc(String(candidate.summary || candidate.fullText || '').slice(0, 900));
+  return `${title} ${lead}`.trim();
 }
 
 function isOccupationalHeatStory(text = '') {
@@ -107,11 +109,26 @@ function isOccupationalHeatStory(text = '') {
 
 function eventVisualQueries(sourceText = '') {
   const queries = [];
+  if (/(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율)/u.test(sourceText)) {
+    return ['South Korea election ballot box', 'political party leadership election ballot podium', 'ballot box election'];
+  }
+  if (/5[·.]18|광주\s*민주화운동/u.test(sourceText)) {
+    return ['May 18 National Cemetery Gwangju', 'Gwangju Uprising memorial', 'Gwangju May 18 democracy memorial South Korea'];
+  }
+  if (/(배달기사|배달원).{0,40}(집|주택|아파트|현관|문|침입|무단출입)|(집|현관|문).{0,40}(배달기사|배달원)/u.test(sourceText)) {
+    return ['food delivery package front door', 'apartment front door', 'apartment front door delivery package hallway'];
+  }
+  if (/(폭우|집중호우|호우|침수|물폭탄|홍수)/u.test(sourceText)) {
+    return ['heavy rain flooded street storm', 'flooded road rainstorm weather'];
+  }
+  if (/(타임스스퀘어|전광판|옥외\s*광고|뉴욕.{0,30}광고|광고.{0,30}뉴욕)/u.test(sourceText)) {
+    return ['Times Square billboard', 'Times Square digital billboard advertising screen', 'digital billboard'];
+  }
   if (isOccupationalHeatStory(sourceText)) {
     queries.push('construction workers rooftop extreme heat', 'outdoor workers heatwave safety');
     return queries;
   }
-  if (/(대통령|청와대|대통령실)/u.test(sourceText)) {
+  if (/(?:^|[^전])대통령(?!직속)|청와대|대통령실/u.test(sourceText)) {
     queries.push('South Korea presidential office building Seoul');
   }
   if (/(아파트|주택|부동산).{0,30}(신고가|거래|매매|실거주|세입자)/u.test(sourceText)) {
@@ -138,6 +155,11 @@ function eventVisualQueries(sourceText = '') {
 
 function inferFallbackTheme(candidate = {}) {
   const sourceText = articleSourceText(candidate);
+  if (/(폭우|집중호우|호우|침수|물폭탄|홍수)/u.test(sourceText)) return 'weather-emergency';
+  if (/(배달기사|배달원).{0,40}(집|주택|아파트|현관|문|침입|무단출입)|(집|현관|문).{0,40}(배달기사|배달원)/u.test(sourceText)) return 'home-security';
+  if (/(타임스스퀘어|전광판|옥외\s*광고|뉴욕.{0,30}광고|광고.{0,30}뉴욕)/u.test(sourceText)) return 'civic-advertising';
+  if (/(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율)/u.test(sourceText)) return 'political-election';
+  if (/5[·.]18|광주\s*민주화운동/u.test(sourceText)) return 'democratic-history';
   if (isOccupationalHeatStory(sourceText)) return 'occupational-heat';
   if (/(보완수사권|형사소송법|법안|개정안|본회의|국회|청와대|대통령실|정치|선거)/u.test(sourceText)) return 'legislation';
   if (/(주식|증시|코스피|코스닥|나스닥|주가|투자|금리|환율|GDP|성장률|물가|대출)/iu.test(sourceText)) return 'markets';
@@ -209,12 +231,13 @@ function personPresenceAssessment(image = {}, { requirePersonFreeEvidence = fals
 const ARTICLE_VISUAL_ROLES = Object.freeze([
   {
     id: 'minor_student',
-    article: /(\d{1,2}세|미성년|여학생|남학생|고등학생|중학생|초등학생|청소년)/u,
+    article: text => /(미성년|여학생|남학생|고등학생|중학생|초등학생|청소년)/u.test(text)
+      || [...text.matchAll(/(\d{1,2})세/gu)].some(match => Number(match[1]) <= 19),
     metadata: /(teen|teenage|student|schoolgirl|schoolboy|youth|child|adolescent)/iu,
   },
   {
     id: 'patient',
-    article: /(환자|복통|응급\s*이송|긴급\s*이송|병원으로\s*(?:이송|옮겨)|치료를?\s*받)/u,
+    article: text => /(환자|복통|응급\s*이송|긴급\s*이송|병원으로\s*(?:이송|옮겨)|치료를?\s*받)/u.test(text),
     metadata: /(patient|receiving\s*(?:care|treatment)|emergency\s*(?:room|patient)|ambulance|hospital\s*bed|sick|injured)/iu,
   },
 ]);
@@ -223,7 +246,7 @@ function visualRoleAssessment(image = {}, candidate = {}) {
   const articleText = normalizeNfc(`${candidate.title || ''} ${String(candidate.summary || '').slice(0, 900)}`);
   const metadata = imageMetadata(image);
   const requiredVisualRoles = ARTICLE_VISUAL_ROLES
-    .filter(role => role.article.test(articleText))
+    .filter(role => role.article(articleText))
     .map(role => role.id);
   const matchedVisualRoles = ARTICLE_VISUAL_ROLES
     .filter(role => requiredVisualRoles.includes(role.id) && role.metadata.test(metadata))
@@ -267,16 +290,19 @@ function assessImageSuitability(image = {}, query = '', candidate = {}, {
     extractSignatureTokens(imageMetadata(image)).map(token => token.toLowerCase())
   );
   const matchedConcreteTokens = concreteQueryTokens.filter(token => metadataTokens.has(token));
+  const primaryVisualAnchors = concreteQueryTokens.filter(token => !LOW_INFORMATION_VISUAL_TOKENS.has(token));
+  const matchedPrimaryVisualAnchors = primaryVisualAnchors.filter(token => metadataTokens.has(token));
   const roles = visualRoleAssessment(image, candidate);
   const geography = geographicAssessment(image, candidate, query);
   const identity = identityAssessment(image, candidate, { selectionRole });
   const personScreening = personPresenceAssessment(image, { requirePersonFreeEvidence });
   const subjectMatched = concreteQueryTokens.length > 0 && matchedConcreteTokens.length > 0;
+  const primaryVisualAnchorMatched = primaryVisualAnchors.length > 0 && matchedPrimaryVisualAnchors.length > 0;
   const roleMatched = roles.missingVisualRoles.length === 0;
   const geographyMatched = geography.missingGeography === null;
   const identityMatched = !identity.required || identity.verified;
   const personSafe = selectionRole === 'portrait' || personScreening.safe;
-  const ok = subjectMatched && roleMatched && geographyMatched && identityMatched && personSafe;
+  const ok = subjectMatched && primaryVisualAnchorMatched && roleMatched && geographyMatched && identityMatched && personSafe;
 
   return {
     ok,
@@ -292,6 +318,8 @@ function assessImageSuitability(image = {}, query = '', candidate = {}, {
         ? 'geographic_context_mismatch'
       : !subjectMatched
         ? 'concrete_subject_missing'
+      : !primaryVisualAnchorMatched
+        ? 'primary_visual_anchor_missing'
         : !roleMatched
           ? 'article_subject_role_mismatch'
           : ok
@@ -299,6 +327,9 @@ function assessImageSuitability(image = {}, query = '', candidate = {}, {
         : 'concrete_subject_missing',
     concreteQueryTokens,
     matchedConcreteTokens,
+    primaryVisualAnchors,
+    matchedPrimaryVisualAnchors,
+    primaryVisualAnchorMatched,
     matchRatio: Number((matchedConcreteTokens.length / Math.max(1, concreteQueryTokens.length)).toFixed(4)),
     ...roles,
     ...geography,
@@ -313,6 +344,8 @@ function buildImageQueries(candidate = {}) {
   const frame = candidate.newsFrame || {};
   const directArticleIsAboutParliament = /국회(?:의사당|본회의|상임위|청문회)|국회.{0,12}(?:발표|법안|표결|회의)|의회\s*(?:내부|본회의)|국회의사당/u.test(sourceText);
   const eventQueries = eventVisualQueries(sourceText);
+  const exclusiveEventQuery = /(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율|5[·.]18|광주\s*민주화운동|배달기사|배달원|폭우|집중호우|호우|침수|물폭탄|홍수|타임스스퀘어|전광판|옥외\s*광고)/u.test(sourceText);
+  if (exclusiveEventQuery && eventQueries.length > 0) return eventQueries.slice(0, 5);
   const frameQueries = [];
   if (frame.eventKind === 'gdp') {
     frameQueries.push(/미국|미\s*상무부/u.test(sourceText)

@@ -133,6 +133,17 @@ test('classifies real-world finance, public transport, and disaster shorthand', 
   }).category, CATEGORIES.ISSUE);
 });
 
+test('classifies a party leadership election from its primary event instead of an incidental industry mention', () => {
+  assert.equal(classifyCandidate({
+    title: '김민석, 민주당 대표 경선 압승',
+    summary: [
+      '김민석 후보가 더불어민주당 대표 경선에서 과반 득표로 당선됐다.',
+      '그는 당 운영 방향과 민생 정책을 설명했다.',
+      '기사 후반에는 지역 반도체 산업 육성에 대한 기대도 짧게 언급됐다.',
+    ].join(' '),
+  }).category, CATEGORIES.ISSUE);
+});
+
 test('builds claim-state frames that prevent misleading denial and acronym-date titles', () => {
   const denialArticle = {
     category: CATEGORIES.ISSUE,

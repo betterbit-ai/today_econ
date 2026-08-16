@@ -80,9 +80,12 @@ scheduled job only verifies and publishes immutable packages.
 
 1. Copy `content/diem-basic/_template/content.template.json` into a numbered directory.
 2. Fill `content.json` and a human-readable `brief.md`.
-3. Add the ID and file to `content/diem-basic/manifest.json` in curriculum order.
-4. Run `npm run diem:basic:build -- --id <content-id>`.
-5. Confirm the build wrote five `cards/card-NN.png` files, byte-identical `cover.png`,
+3. Choose only a manifest-verified `bright` soundtrack. DIEM Basic is a friendly learning
+   series, so serious, dramatic, tense, ominous, or breaking-news music is prohibited even
+   when the lesson mentions taxes, loans, or credit.
+4. Add the ID and file to `content/diem-basic/manifest.json` in curriculum order.
+5. Run `npm run diem:basic:build -- --id <content-id>`.
+6. Confirm the build wrote five `cards/card-NN.png` files, byte-identical `cover.png`,
    `reel.mp4`, every artifact hash, and the content hash.
 
 Never hand-edit hashes. Rebuild after any source, copy, visual, audio, or review change.
@@ -95,6 +98,8 @@ Never hand-edit hashes. Rebuild after any source, copy, visual, audio, or review
   persist the verdict under `.omx/state/diem-basic-visual/ralph-progress.json`.
 - Use `ffprobe` to confirm 1080×1920 H.264 video, 30fps, AAC stereo, 48kHz, and exactly
   19 seconds.
+- Preview the rendered Reel with audio. Confirm that its rhythm feels light, friendly, and
+  educational; metadata saying `bright` is not a substitute for listening to the mix.
 - Run `npm test` and `node .codex-harness/scripts/verify-project.mjs`.
 - Reopen every official URL immediately before the first scheduled publication if the
   package contains mutable figures.
