@@ -67,10 +67,12 @@ const LOW_INFORMATION_VISUAL_TOKENS = new Set([
 const TYPOGRAPHY_VARIANT_COUNT = 64;
 const PERSON_ROLE_PATTERN = '전\\s*대통령(?!직속)|대통령(?!직속)|총리|부총리|장관|의원|대표|회장|총재|배우|가수|목사|교수|감독|선수|변호사|검사|판사|작가|방송인|후보';
 const NON_PERSON_NAMES = new Set([
-  '국내', '국민', '국회', '당국', '대표', '미국', '법원', '서울', '정부', '전직', '현직', '한국', '회사', '후보가',
+  '국내', '국민', '국회', '당국', '당대표', '대선', '대표', '미국', '법원', '서울', '정부', '전직', '차세대', '현직', '한국', '회사',
+  '후보가', '후보는', '후보로', '후보를', '후보의',
 ]);
 const PERSON_METADATA_PATTERN = /\b(?:person|people|portraits?|models?|man|men|woman|women|boys?|girls?|students?|workers?|doctors?|nurses?|teachers?|actors?|actresses|singers?|couples?|parents?|children?|famil(?:y|ies)|crowds?)\b|(?:사람|인물|남성|여성|학생|노동자|근로자|의사|간호사|교사|배우|가수|아동|자녀|부부|부모|가족|군중)/iu;
 const PERSON_FREE_CONTEXT_PATTERN = /\b(?:building|exterior|interior|architecture|office|institution|document|paper|contract|legislation|law|gavel|courtroom|cityscape|skyline|flag|chart|screen|billboard|computer|phone|factory|microchip|chip|vehicle|car|apartment|house|door|doorway|entrance|package|parcel|ballot\s+box|podium|memorial|monument|cemetery|graves?|hospital|classroom|landscape|weather|storm|rain|flood|heatwave|thermometer|equipment|machinery|road|street|roof|rooftop|construction\s+site)\b|(?:건물|외관|내부|건축|기관|문서|서류|계약서|법안|법률|의사봉|법정|도시|전경|국기|차트|화면|전광판|컴퓨터|공장|반도체|차량|자동차|아파트|주택|현관|문|택배|소포|투표함|연단|기념관|기념비|묘역|묘지|병원|교실|풍경|날씨|폭우|침수|폭염|온도계|장비|기자재|도로|거리|지붕|옥상|건설현장)/iu;
+const LEGAL_JUDGMENT_CONTEXT = /(지방법원|지법|고등법원|고법|대법원|헌법재판소|재판부|법정|판결|선고|실형|징역|유죄|무죄|구속영장|판사)/u;
 
 function extractPrimaryPersonIdentity(candidate = {}) {
   const patterns = [
@@ -110,7 +112,11 @@ function isOccupationalHeatStory(text = '') {
 function eventVisualQueries(sourceText = '') {
   const queries = [];
   if (/(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율)/u.test(sourceText)) {
-    return ['South Korea election ballot box', 'political party leadership election ballot podium', 'ballot box election'];
+    return [
+      'South Korea political party convention podium',
+      'South Korea party leadership election stage',
+      'South Korea election ballot paper',
+    ];
   }
   if (/5[·.]18|광주\s*민주화운동/u.test(sourceText)) {
     return ['May 18 National Cemetery Gwangju', 'Gwangju Uprising memorial', 'Gwangju May 18 democracy memorial South Korea'];
@@ -141,7 +147,7 @@ function eventVisualQueries(sourceText = '') {
   if (/(퇴직|퇴사|실업|구직|고용).{0,30}(지원|수당|정책|급여)/u.test(sourceText)) {
     queries.push('employment benefit application document desk');
   }
-  if (/(법원|고법|대법원|판결|조세심판원|심판청구|재판)/u.test(sourceText)) {
+  if (/(법원|조세심판원|심판청구|재판)/u.test(sourceText) || LEGAL_JUDGMENT_CONTEXT.test(sourceText)) {
     queries.push('legal court document gavel');
   }
   if (/(보완수사권|형사소송법|법안|개정안|본회의|국회|청와대|대통령실)/u.test(sourceText)) {
@@ -161,6 +167,7 @@ function inferFallbackTheme(candidate = {}) {
   if (/(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율)/u.test(sourceText)) return 'political-election';
   if (/5[·.]18|광주\s*민주화운동/u.test(sourceText)) return 'democratic-history';
   if (isOccupationalHeatStory(sourceText)) return 'occupational-heat';
+  if (LEGAL_JUDGMENT_CONTEXT.test(sourceText)) return 'legislation';
   if (/(보완수사권|형사소송법|법안|개정안|본회의|국회|청와대|대통령실|정치|선거)/u.test(sourceText)) return 'legislation';
   if (/(주식|증시|코스피|코스닥|나스닥|주가|투자|금리|환율|GDP|성장률|물가|대출)/iu.test(sourceText)) return 'markets';
   if (/(반도체|칩|웨이퍼|AI|인공지능|데이터센터|배터리|전기차)/iu.test(sourceText)) return 'technology';
@@ -263,17 +270,27 @@ function geographicAssessment(image = {}, candidate = {}, query = '') {
   const articleText = normalizeNfc(`${titleText} ${String(candidate.summary || '').slice(0, 900)}`);
   const metadata = imageMetadata(image);
   const koreanInstitution = /(국회|국회의사당|본회의|청와대|대통령실)/u.test(articleText);
-  const queryRequestsKoreanPlace = /(korean|south\s*korea|seoul|yeouido).*(assembly|parliament|government|building|chamber)|(assembly|parliament|government|building|chamber).*(korean|south\s*korea|seoul|yeouido)/iu.test(query);
+  const koreanPoliticalEvent = /(더불어민주당|국민의힘|조국혁신당|당대표|전당대회|순회\s*경선|대표\s*경선|대선\s*후보)/u.test(articleText);
+  const politicalVisual = /(election|ballot|vote|political|party|flag|투표|선거|정당|국기)/iu;
+  const placeVisual = /(assembly|parliament|government|building|chamber|election|ballot|vote|political|party)/iu;
+  const koreanPlace = /(korean|south\s*korea|seoul|yeouido|대한민국|한국|서울|여의도)/iu;
+  const queryRequestsKoreanPlace = koreanPlace.test(query) && placeVisual.test(query);
   const imageClaimsInstitution = /(parliament|assembly|government\s*building|chamber|국회|의사당|청와대)/iu.test(metadata);
-  const requiredGeography = koreanInstitution && (queryRequestsKoreanPlace || imageClaimsInstitution)
+  const imageClaimsPoliticalContext = politicalVisual.test(metadata);
+  const foreignPoliticalSymbolMismatch = (koreanInstitution || koreanPoliticalEvent || queryRequestsKoreanPlace)
+    && /(usa|u\.?s\.?a?\.?|united\s*states|american|stars\s*and\s*stripes|union\s*jack|british|england).{0,20}(?:flag|ballot|vote|election)|(?:flag|ballot|vote|election).{0,20}(?:usa|u\.?s\.?a?\.?|united\s*states|american|stars\s*and\s*stripes|union\s*jack|british|england)/iu.test(metadata);
+  const requiredGeography = (koreanInstitution || koreanPoliticalEvent || queryRequestsKoreanPlace)
+    && (queryRequestsKoreanPlace || imageClaimsInstitution || imageClaimsPoliticalContext)
     ? 'south_korea'
     : null;
   const matchedGeography = requiredGeography === 'south_korea'
-    && /(south\s*korea|korean|korea|seoul|yeouido|대한민국|한국|서울|여의도)/iu.test(metadata);
+    && koreanPlace.test(metadata)
+    && !foreignPoliticalSymbolMismatch;
   return {
     requiredGeography,
     matchedGeography: requiredGeography ? matchedGeography : true,
     missingGeography: requiredGeography && !matchedGeography ? requiredGeography : null,
+    foreignPoliticalSymbolMismatch,
   };
 }
 
@@ -310,6 +327,8 @@ function assessImageSuitability(image = {}, query = '', candidate = {}, {
       ? 'unverified_stock_person'
       : selectionRole !== 'portrait' && requirePersonFreeEvidence && !personScreening.personFreeEvidence
         ? 'person_free_context_unverified'
+      : geography.foreignPoliticalSymbolMismatch
+        ? 'foreign_political_symbol_mismatch'
       : !identityMatched
       ? 'named_person_identity_unverified'
       : concreteQueryTokens.length === 0

@@ -590,6 +590,33 @@ test('rejects a foreign parliament photo for a Korean National Assembly story', 
   assert.equal(korean.ok, true);
 });
 
+test('rejects a United States ballot box for a Korean party-election story', () => {
+  const candidate = {
+    title: '김민석 “경기도서 제2, 3 이재명 나올 것”',
+    summary: '더불어민주당 당대표 순회경선에서 김민석 후보가 경기 당원들에게 지지를 호소했습니다.',
+    category: 'issue',
+    newsFrame: {
+      eventKind: 'political_statement',
+      subject: '김민석',
+      primaryActor: '김민석',
+    },
+  };
+  const result = assessImageSuitability({
+    description: "Close-up of a hand placing a ballot into a voting box marked 'Vote' with a USA flag.",
+  }, 'South Korea election ballot box', candidate);
+
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'foreign_political_symbol_mismatch');
+  assert.equal(result.requiredGeography, 'south_korea');
+});
+
+test('does not parse Korean candidate grammar as a named person', () => {
+  assert.equal(extractPrimaryPersonIdentity({
+    title: '경기에서 차세대 대선 후보로 주목받는 인물',
+    summary: '당대표 후보가 비전을 발표했습니다.',
+  }), null);
+});
+
 test('prioritizes GDP imagery over incidental AI infrastructure in a macroeconomic article', () => {
   const queries = buildImageQueries({
     title: '미국 2분기 GDP 성장률 1.5% 둔화',
@@ -674,6 +701,21 @@ test('keeps a named cover subject identity-critical but searches event context b
   assert.deepEqual(extractPrimaryPersonIdentity(candidate), { name: '박형규', role: '목사', critical: true });
   assert.match(buildImageQueries(candidate)[0], /legal|court|gavel|document/i);
   assert.doesNotMatch(buildImageQueries(candidate).join(' '), /박형규/u);
+});
+
+test('builds legal image queries and a legal fallback for district-court sentencing language', () => {
+  const candidate = {
+    title: '의정부지법, 계모임 사기 피고인 징역 10개월 선고',
+    summary: '재판부는 피해금을 편취한 혐의를 유죄로 판단하고 실형을 선고했다.',
+    category: 'issue',
+  };
+
+  const queries = buildImageQueries(candidate);
+  assert.ok(queries.length > 0);
+  assert.match(queries[0], /legal|court|gavel|document/i);
+
+  const fallback = createTypographyFallback(candidate, { recentImages: [] });
+  assert.equal(fallback.fallbackTheme, 'legislation');
 });
 
 test('rejects unrelated stock people and accepts only exact-page verified portrait imagery', () => {

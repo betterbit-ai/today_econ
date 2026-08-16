@@ -81,6 +81,21 @@ function autoInsuranceBroadcastArticle() {
   };
 }
 
+function politicalQuoteArticle() {
+  return {
+    category: CATEGORIES.ISSUE,
+    title: '김민석 “경기도서 제2, 3 이재명 나올 것”… 정청래·송영길도 지지 호소',
+    summary: '더불어민주당 전국 순회경선 마지막 날 김민석 후보가 경기에서 제2, 제3의 이재명이 나올 것이라고 말했습니다.',
+    fullText: '김민석 후보는 경기 당원들이 다양한 세대의 새 리더를 배출할 것이라고 강조했습니다. 정청래 후보와 송영길 후보도 각자의 정책을 알리며 지지를 호소했습니다. 기사 후반에는 경기 반도체 산업 육성 목표도 언급됐습니다.',
+    verifiedFacts: [
+      '김민석 후보가 경기에서 제2, 제3의 이재명이 나올 것이라고 말했습니다.',
+      '정청래 후보와 송영길 후보도 각자의 정책을 알리며 지지를 호소했습니다.',
+      '세 후보는 더불어민주당 전국 순회경선 마지막 날 경기 당원들을 만났습니다.',
+    ],
+    entities: ['김민석', '정청래', '송영길'],
+  };
+}
+
 test('deterministic fallback produces five short titles and the exact DIEM caption contract', () => {
   const editorial = buildDeterministicEditorial(economyArticle());
 
@@ -170,6 +185,34 @@ test('uses the fallback model after an invalid primary response', async () => {
   assert.equal(result.title.selectedIndex, 1);
   assert.equal(result.generation.attempts[0].status, 'failed');
   assert.equal(result.generation.attempts[1].status, 'succeeded');
+});
+
+test('does not widen one politician quote into a shared claim by several candidates', async () => {
+  const article = politicalQuoteArticle();
+  const result = await generateEditorial(article, {
+    callModel: async ({ model }) => model === DEFAULT_MODELS.primary
+      ? {
+        titleCandidates: [{ title: '김민석\n제2 이재명 언급' }],
+        sentences: [
+          '김민석·정청래·송영길 후보가 경기에서 제2, 제3의 이재명이 나올 것이라고 주장했습니다.',
+          '세 후보는 더불어민주당 전국 순회경선 마지막 날 경기 당원들을 만났습니다.',
+          '정청래 후보와 송영길 후보도 각자의 정책을 알리며 지지를 호소했습니다.',
+        ],
+        topicTags: ['김민석', '민주당', '당대표경선', '경기도'],
+      }
+      : {
+        titleCandidates: [{ title: '김민석\n제2 이재명 언급' }],
+        sentences: [
+          '김민석 후보가 경기에서 제2, 제3의 이재명이 나올 것이라고 언급했습니다.',
+          '세 후보는 더불어민주당 전국 순회경선 마지막 날 경기 당원들을 만났습니다.',
+          '정청래 후보와 송영길 후보는 각자의 정책을 알리며 지지를 호소했습니다.',
+        ],
+        topicTags: ['김민석', '민주당', '당대표경선', '경기도'],
+      },
+  });
+
+  assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
+  assert.match(result.caption.sentences[0], /^김민석 후보가/u);
 });
 
 test('repairs only an overlong title while preserving a valid apartment-news caption', async () => {

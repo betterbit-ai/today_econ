@@ -171,6 +171,44 @@ test('skips a sensational foreign personal anecdote before selecting a public-in
   )));
 });
 
+test('skips a private crime anecdote misread as economy and advances to the next finance candidate', async () => {
+  const candidates = [
+    {
+      title: "월 1000만원 벌어도 빚더미…'곗돈 1.5억 먹튀' 66세 여성 실형",
+      url: 'https://n.news.naver.com/article/001/private-crime',
+      popularityScore: 100,
+      sources: [{
+        portal: 'naver',
+        title: "월 1000만원 벌어도 빚더미…'곗돈 1.5억 먹튀' 66세 여성 실형",
+        url: 'https://n.news.naver.com/article/001/private-crime',
+      }],
+    },
+    {
+      title: '한국은행 기준금리 2.50% 동결 확정…전국 가계대출 영향',
+      url: 'https://n.news.naver.com/article/001/rate-after-crime',
+      popularityScore: 90,
+      sources: [{
+        portal: 'naver',
+        title: '한국은행 기준금리 2.50% 동결 확정',
+        url: 'https://n.news.naver.com/article/001/rate-after-crime',
+      }],
+    },
+  ];
+  const result = await planDailyQueue({
+    date: '2026-08-16',
+    categories: ['economy'],
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => (url.endsWith('private-crime')
+      ? '의정부지법은 66세 여성 A씨에게 계모임 사기 혐의로 징역 10개월을 선고했다. A씨는 월 1000만원 수입에도 채무가 많았고 곗돈 1억5천만원을 편취했다.'
+      : articleBody('금리')),
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.economy.ok, true);
+  assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/rate-after-crime');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('narrow_private_crime_story')));
+});
+
 test('reclassifies hydrated article text before accepting an economy candidate', async () => {
   const candidates = [
     {

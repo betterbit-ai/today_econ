@@ -1,13 +1,15 @@
 const { CATEGORIES } = require('./constants');
 const { normalizeNfc } = require('./text');
 
-const ECONOMY_CORE_TOPIC = /(금리|물가|환율|세금|부동산|주택|대출|예금|적금|금융|보험|자동차보험|손해보험|손해율|증시|고용|소득|임금|반도체|D램|HBM|자동차|유통|수출|수입|관세|연금|IPO|기업공개|상장|공모주|공모가|주가|코스피|코스닥)/iu;
+const ECONOMY_CORE_TOPIC = /(금리|물가|환율|세금|부동산|주택|대출|예금|적금|금융|보험|자동차보험|손해보험|손해율|증시|고용|소득|임금|반도체|D램|HBM|자동차|유통|수출|관세|연금|IPO|기업공개|상장|공모주|공모가|주가|코스피|코스닥)/iu;
+const TRADE_ECONOMY_CONTEXT = /(?:수입(?:액|품|업체|기업|시장|물가|가격|관세|규제|통관|증가|감소|급증|급감)|수출.{0,45}수입|수입.{0,45}(?:수출|무역|통관|관세|무역수지))/u;
 const AI_ECONOMY_CONTEXT = /((인공지능|\bAI\b).{0,45}(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가)|(투자|협력|실적|매출|상장|IPO|기업공개|증시|반도체|D램|HBM|데이터센터|수출|공장|생산|공급망|기업|산업|시장|주가).{0,45}(인공지능|\bAI\b))/iu;
 const PUBLIC_TRANSPORT_ECONOMY_CONTEXT = /((KTX|SRT|고속철도|철도|대중교통).{0,45}(요금|운임|할인|인하|인상|교통비)|(요금|운임|할인|인하|인상|교통비).{0,45}(KTX|SRT|고속철도|철도|대중교통))/iu;
 const PRIVACY_RIGHTS_POLICY = /(개인정보|정보인권|프라이버시|기본권|동의\s*없이|원본\s*데이터|생체정보|얼굴|목소리|노동계|시민사회|특별법|법안|규제\s*특례)/u;
 const ECONOMY_INCLUDE = ECONOMY_CORE_TOPIC;
-const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|특별법|판결|기후|의료|보건|정부|국회|정당|당대표|선거|경선|전당대회|민주화운동|개인정보|정보인권|프라이버시|기본권|생체정보|KTX|SRT|고속철도|철도|대중교통|폭염|한파|태풍|산불|홍수|집중호우|재난|재해|중앙재난안전대책본부)/iu;
+const ISSUE_INCLUDE = /(정책|노동|고용|주거|교육|인구|복지|사회|외교|국제|전쟁|규제|법안|특별법|판결|기후|의료|보건|(?<!의)정부|국회|정당|당대표|선거|경선|전당대회|민주화운동|개인정보|정보인권|프라이버시|기본권|생체정보|KTX|SRT|고속철도|철도|대중교통|폭염|한파|태풍|산불|홍수|집중호우|재난|재해|중앙재난안전대책본부)/iu;
 const PRIMARY_POLITICAL_EVENT = /(정당|더불어민주당|국민의힘|조국혁신당|당대표|전당대회|순회\s*경선|대표\s*경선|최고위원\s*경선|공직\s*선거|5[·.]?18\s*민주화운동)/u;
+const POLITICAL_STATEMENT_ACTION = /(주장했|말했|밝혔|언급했|강조했|호소했|예고했|내세웠|약속했|“[^”]+”|‘[^’]+’)/u;
 const ECONOMY_EXCLUDE = /(종목\s*추천|매수\s*추천|급등주|인사|선임|취임|업무협약|\bMOU\b|신제품\s*홍보|이벤트)/iu;
 const ISSUE_EXCLUDE = /(정쟁|공방|막말|연예|스포츠|가십|화보|단독\s*사진)/u;
 const SENSITIVE = /(사망|참사|재난|희생|피해자|전쟁|테러|폭발|화재|산불|침수|붕괴|실종|학대)/u;
@@ -29,6 +31,10 @@ const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|�
 const SENSATIONAL_ANECDOTE = /(귀신|분장|경악|황당|기이한|엽기|반전|정체|진풍경|SNS|온라인\s*화제|누리꾼|사진이?\s*퍼|응급\s*이송|긴급\s*이송|복통을?\s*호소|구조대가?\s*(?:출동|이송))/iu;
 const SINGLE_PERSON_INCIDENT = /(\d{1,2}세|여학생|남학생|고등학생|중학생|초등학생|미성년|한\s*(?:남성|여성|학생|환자)|개인\s*(?:사연|사건))/u;
 const PUBLIC_INTEREST_ANCHOR = /(법안|법률|정책|제도|규제|판결|정부.{0,24}(?:발표|결정|시행|확대|축소|지원)|국회|전국|국민|다수|집단|공중보건|감염병|유행|안전\s*(?:기준|대책|규정)|권리|차별|복지\s*(?:정책|제도)|교육\s*(?:정책|제도|과정)|한국\s*(?:사회|정부|국민)|중앙재난안전대책본부|재난\s*(?:대응|대책|경보)|대중교통|철도)/u;
+const PRIVATE_PERSON_MARKER = /(?:\d{1,3}세\s*(?:여성|남성)|(?:여성|남성)\s*[A-Z]|[A-Z]\s*씨|피고인\s*[A-Z]?)/u;
+const PRIVATE_CRIME_EVENT = /(계모임|곗돈|먹튀|사기|편취|횡령|절도|폭행|협박|성범죄|징역|실형|구속|범행|혐의)/u;
+const PRIVATE_CRIME_OUTCOME = /(지방법원|지법|고등법원|고법|재판부|법정|판결|선고|징역|실형|유죄|무죄|구속)/u;
+const SYSTEMIC_CRIME_ANCHOR = /((?<!의)정부|국회|법안|법률\s*개정|정책|제도|규제|대법원|헌법재판소|전원합의체|공직자|대통령|장관|국회의원|대규모|전국|다수\s*피해자|피해자\s*\d{2,}\s*명|집단\s*피해)/u;
 const OFFICIAL_ACTOR = /(정부|부처|복지부|보건복지부|기획재정부|금융위원회|금융감독원|국토교통부|고용노동부|교육부|대통령실|국회|공단|공사|위원회|당국|관계자)/u;
 const OFFICIAL_RESPONSE = /(설명자료|해명자료|보도\s*설명|보도\s*해명|반박|부인|해명|오보|허위|사실\s*무근|보도와\s*관련|기사에서\s*언급된\s*내용)/u;
 const TOPIC_ALIASES = Object.freeze([
@@ -65,6 +71,22 @@ function candidateText(candidate = {}) {
 
 function primaryCandidateText(candidate = {}) {
   return normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 900)}`);
+}
+
+function isNarrowPrivateCrimeStory(candidate = {}) {
+  const text = primaryCandidateText(candidate);
+  return PRIVATE_PERSON_MARKER.test(text)
+    && PRIVATE_CRIME_EVENT.test(text)
+    && PRIVATE_CRIME_OUTCOME.test(text)
+    && !SYSTEMIC_CRIME_ANCHOR.test(text);
+}
+
+function primaryPoliticalSpeaker(candidate = {}) {
+  const title = normalizeNfc(candidate.title || '').trim();
+  const headlineSpeaker = title.match(/^["'“‘]?([가-힣]{2,4})\s*(?=["'“‘,，])/u)?.[1];
+  if (headlineSpeaker) return headlineSpeaker;
+  const lead = normalizeNfc(String(candidate.summary || '').slice(0, 500));
+  return lead.match(/([가-힣]{2,4})\s*후보가.{0,80}(?:주장|말|밝|언급|강조|호소|예고)/u)?.[1] || null;
 }
 
 function canonicalEventKey(text = '') {
@@ -136,12 +158,14 @@ function claimState(candidate = {}, text = primaryCandidateText(candidate), kind
 
 function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
   const title = normalizeNfc(candidate.title || '');
+  const politicalSpeaker = primaryPoliticalSpeaker(candidate);
   if (MEDICAL_SAFETY_SUBJECT.test(text)
     && MEDICAL_SAFETY_CONTEXT.test(text)
     && MEDICAL_AUTHORITY.test(text)
     && MEDICAL_GUIDANCE_ACTION.test(text)) return 'medical_safety_advisory';
   if (/(시타델|헤지펀드|포트폴리오|\bSA\b)/iu.test(text) && /(매각|인수|보유\s*주식|넘기)/u.test(text)) return 'asset_sale';
   if (PRIMARY_IPO_EVENT.test(title) || PRIMARY_IPO_EVENT.test(text)) return 'ipo';
+  if (politicalSpeaker && PRIMARY_POLITICAL_EVENT.test(text) && POLITICAL_STATEMENT_ACTION.test(text)) return 'political_statement';
   if (/(국내총생산|\bGDP\b|성장률)/iu.test(text)) return 'gdp';
   if (/(코스피|코스닥|증시|주가)/u.test(text) && /(급등|급락|폭등|폭락|상승|하락|반등|반전)/u.test(text)) return 'market_move';
   if (/(형사소송법|형소법|보완수사권|법안|개정안)/u.test(text) && /(통과|개정|폐지|의결)/u.test(text)) return 'legislation';
@@ -156,6 +180,11 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
 
 function frameEventLabel(text = '', kind = 'general') {
   if (kind === 'medical_safety_advisory') return /임신|피임/u.test(text) ? '임신 주의' : '복용 주의';
+  if (kind === 'political_statement') {
+    return /(제\s*2|제2|제\s*3|제3|차세대).{0,10}이재명|이재명.{0,10}(제\s*2|제2|제\s*3|제3|차세대)/u.test(text)
+      ? '제2 이재명 언급'
+      : '정치 발언';
+  }
   if (kind === 'asset_sale') return /(매각|넘기)/u.test(text) ? '주식 매각' : '주식 인수';
   if (kind === 'ipo') return 'IPO 상장';
   if (kind === 'gdp') return /(둔화|하락|감소)/u.test(text) ? '성장률 둔화' : '성장률 변화';
@@ -189,6 +218,8 @@ function frameTerms(subject, eventLabel, kind, text) {
   } else if (kind === 'medical_safety_advisory') {
     subjectTerms.push(...['마운자로', '위고비', 'GLP-1'].filter(term => normalizeNfc(text).includes(term)));
     eventTerms.splice(0, eventTerms.length, '피해야', '피하', '피해', '중단', '주의', '경고', '권고', '안내');
+  } else if (kind === 'political_statement') {
+    eventTerms.splice(0, eventTerms.length, '언급', '발언', '주장', '말해', '호소', '강조');
   }
   return {
     subjectTerms: [...new Set(subjectTerms.filter(term => normalizeNfc(text).includes(term) || term.length >= 2))],
@@ -201,7 +232,8 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
   const evidenceText = normalizeTopicAliases(`${candidate.summary || ''} ${String(candidate.fullText || '').slice(0, 5000)}`);
   const kind = eventKind(candidate, text);
   const state = claimState(candidate, text, kind);
-  const subject = compactSubject(text, category);
+  const primaryActor = kind === 'political_statement' ? primaryPoliticalSpeaker(candidate) : null;
+  const subject = primaryActor || compactSubject(text, category);
   const eventLabel = frameEventLabel(text, kind);
   const { subjectTerms, eventTerms } = frameTerms(subject, eventLabel, kind, text);
   const date = dateLabel(text);
@@ -223,6 +255,8 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
   return {
     category,
     subject,
+    primaryActor,
+    attributionMode: primaryActor ? 'single_speaker_quote' : null,
     subjectTerms,
     eventKind: kind,
     eventLabel,
@@ -244,6 +278,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   const signals = [];
   const penalties = [];
   const hasEconomyCore = ECONOMY_CORE_TOPIC.test(text)
+    || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);
   let score = 0;
@@ -270,6 +305,11 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   }
 
   let hardReject = '';
+  if (isNarrowPrivateCrimeStory(candidate)) {
+    score -= 70;
+    penalties.push('narrow_private_crime_story');
+    hardReject = 'narrow_private_crime_story';
+  }
   if (frame.claimState === 'official_denial') {
     score -= 50;
     penalties.push('official_denial_without_confirmed_change');
@@ -321,10 +361,14 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
 function classifyCandidate(candidate = {}) {
   const text = primaryCandidateText(candidate);
   const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 420)}`);
+  if (isNarrowPrivateCrimeStory(candidate)) {
+    return { category: null, excluded: ['narrow_private_crime_story'] };
+  }
   const excluded = [];
   if (ECONOMY_EXCLUDE.test(text)) excluded.push('economy_low_value');
   if (ISSUE_EXCLUDE.test(text)) excluded.push('issue_low_value');
   const economy = (ECONOMY_INCLUDE.test(text)
+    || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text))
     && !ECONOMY_EXCLUDE.test(text);
@@ -341,6 +385,7 @@ function classifyCandidate(candidate = {}) {
   }
 
   const directEconomy = ECONOMY_CORE_TOPIC.test(text)
+    || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);
   return { category: directEconomy ? CATEGORIES.ECONOMY : CATEGORIES.ISSUE, excluded: [], ambiguous: true };

@@ -133,6 +133,32 @@ test('classifies real-world finance, public transport, and disaster shorthand', 
   }).category, CATEGORIES.ISSUE);
 });
 
+test('does not confuse personal income with trade imports or publish a private crime anecdote', () => {
+  const privateCrime = {
+    title: "월 1000만원 벌어도 빚더미…'곗돈 1.5억 먹튀' 66세 여성 실형",
+    summary: [
+      '의정부지법은 66세 여성 A씨에게 계모임 사기 혐의로 징역 10개월을 선고했다.',
+      'A씨는 월 1000만원 수입에도 채무가 많았고 약속한 계불입금을 지급하지 않았다.',
+      '재판부는 피해자 한 명에게 1억5천만원을 편취한 혐의를 유죄로 판단했다.',
+    ].join(' '),
+  };
+
+  const classification = classifyCandidate(privateCrime);
+  assert.equal(classification.category, null);
+  assert.ok(classification.excluded.includes('narrow_private_crime_story'));
+  assert.equal(classifyCandidate({ title: '의정부 카페 새로 문 열어' }).category, null);
+
+  const editorialValue = assessDiemEditorialValue(privateCrime, CATEGORIES.ISSUE);
+  assert.equal(editorialValue.ok, false);
+  assert.equal(editorialValue.reason, 'narrow_private_crime_story');
+});
+
+test('still recognizes import news when the word is used in a trade context', () => {
+  assert.equal(classifyCandidate({
+    title: '원유 수입액 20% 증가…무역수지 다시 적자',
+  }).category, CATEGORIES.ECONOMY);
+});
+
 test('classifies a party leadership election from its primary event instead of an incidental industry mention', () => {
   assert.equal(classifyCandidate({
     title: '김민석, 민주당 대표 경선 압승',
@@ -142,6 +168,27 @@ test('classifies a party leadership election from its primary event instead of a
       '기사 후반에는 지역 반도체 산업 육성에 대한 기대도 짧게 언급됐다.',
     ].join(' '),
   }).category, CATEGORIES.ISSUE);
+});
+
+test('frames a named party-election quote around its speaker instead of a later industry mention', () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '김민석 “경기도서 제2, 3 이재명 나올 것”… 정청래·송영길도 지지 호소',
+    summary: [
+      '더불어민주당 전국 순회경선 마지막 날 김민석 후보가 경기도에서 제2, 제3의 이재명이 나올 것이라고 말했다.',
+      '정청래 후보와 송영길 후보도 각각 지지를 호소했다.',
+      '기사 후반에는 경기 반도체 산업 육성 목표가 언급됐다.',
+    ].join(' '),
+  };
+
+  const frame = buildNewsFrame(article, CATEGORIES.ISSUE);
+
+  assert.equal(frame.eventKind, 'political_statement');
+  assert.equal(frame.subject, '김민석');
+  assert.equal(frame.primaryActor, '김민석');
+  assert.match(frame.eventLabel, /제2\s*이재명|차세대/u);
+  assert.equal(validateTitleAgainstFrame('경기·이재명 차세대\n예고', frame).ok, false);
+  assert.equal(validateTitleAgainstFrame('김민석\n제2 이재명 언급', frame).ok, true);
 });
 
 test('builds claim-state frames that prevent misleading denial and acronym-date titles', () => {

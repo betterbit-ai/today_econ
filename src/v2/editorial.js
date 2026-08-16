@@ -400,13 +400,19 @@ function frameAlignmentViolations(sentences = [], frame = {}) {
   if (officialDenial && !denialLanguage.test(first)) {
     violations.push('caption first sentence must preserve the official denial');
   }
-  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory'].includes(frame.eventKind)) {
+  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory', 'political_statement'].includes(frame.eventKind)) {
     const firstLower = first.toLowerCase();
     if (!(frame.subjectTerms || []).some(term => firstLower.includes(String(term).toLowerCase()))) {
       violations.push('caption first sentence omits the primary subject');
     }
     if (!(frame.eventTerms || []).some(term => firstLower.includes(String(term).toLowerCase()))) {
       violations.push('caption first sentence omits the primary event');
+    }
+  }
+  if (frame.attributionMode === 'single_speaker_quote' && frame.primaryActor) {
+    const joinedActorPattern = new RegExp(`${frame.primaryActor}\\s*[·]`, 'u');
+    if (joinedActorPattern.test(first)) {
+      violations.push('caption cannot attribute a single-speaker quote to a joined list of politicians');
     }
   }
   const tangential = officialDenial
@@ -533,6 +539,8 @@ function modelPrompt(article) {
       '[2. 제목(title) 작성 규칙]',
       '- 단순 단어/키워드 나열(예: "빅테크 AI / 1400")은 절대 금지합니다.',
       '- 반드시 [핵심 주체 + 사건 + 기사 상태]가 드러나는 직관적인 훅(Hook) 형태로 작성하세요.',
+      '- 표지만 읽어도 누구의 어떤 발언·결정·사건인지 이해돼야 합니다. "경기·이재명 차세대 / 예고"처럼 본문을 읽어야 뜻이 풀리는 압축 명사구는 금지합니다.',
+      '- 한 사람의 발언을 여러 참석자의 공동 발언으로 넓히지 말고, 원문이 밝힌 발언 주체를 그대로 적으세요.',
       '- 기사 상태가 "부인/반박/해명/미확정"이면 제목에도 반드시 그 상태를 드러내고, 확정·결정·시행처럼 뒤집어 쓰지 마세요.',
       '- "미확정"은 공식 부인·반박 기사에서만 사용하세요. 검토·추진·예정 기사는 실제 상태어를 쓰고, 확정된 경고·권고를 미확정으로 바꾸지 마세요.',
       '- 의약품 안전 기사는 당국의 경고·권고가 발표된 사실과 의학적 인과 근거의 불확실성을 분리하세요. 제목은 실제 경고나 행동 지침을 쓰고, 근거 부족을 사건 전체의 미확정으로 표현하지 마세요.',
@@ -613,6 +621,7 @@ function titleRepairPrompt(article = {}, parsed = {}) {
       '당신은 DIEM 표지 제목 교정기입니다. 본문이나 사실을 다시 쓰지 말고 제목 후보만 교정하세요.',
       '각 후보는 줄바꿈 1개가 있는 정확히 2줄이며, 두 줄 합계 공백 포함 최대 14자입니다.',
       '짧게 만들더라도 핵심 주체와 실제 사건, 확정·예정·부인 같은 기사 상태를 반드시 보존하세요.',
+      '표지만 읽고도 누구의 어떤 발언·결정·사건인지 이해돼야 하며, 해석이 필요한 압축 명사구는 다시 쓰세요.',
       '"미확정"은 공식 부인·반박 프레임에만 허용합니다. 확정된 경고·권고와 제한적인 의학 근거를 혼동하지 마세요.',
       '숫자를 쓰면 기사 근거에 있는 숫자만 사용하세요. 과장, 날짜만 있는 제목, 약어만 있는 제목은 금지합니다.',
       '오직 {"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}]} JSON만 출력하세요.',

@@ -130,7 +130,7 @@ function validateTitleAgainstFrame(title, frame = {}) {
     errors.push(`title contains a tangential or contradicted event: ${forbiddenTerms.join(', ')}`);
   }
 
-  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory'].includes(frame.eventKind)) {
+  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory', 'political_statement'].includes(frame.eventKind)) {
     const lower = normalized.toLowerCase();
     const hasSubject = (frame.subjectTerms || []).some(term => lower.includes(String(term).toLowerCase()));
     const hasEvent = (frame.eventTerms || []).some(term => lower.includes(String(term).toLowerCase()));
