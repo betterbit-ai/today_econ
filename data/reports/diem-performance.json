@@ -1,37 +1,37 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-17T04:41:57.342Z",
+  "generatedAt": "2026-08-17T10:31:28.493Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
-  "publishedCount": 109,
+  "publishedCount": 110,
   "operations": {
-    "totalRuns": 187,
+    "totalRuns": 189,
     "noPublishReasons": {
       "no_candidate_passed_hotness_gate": {
         "count": 39,
-        "share": 52.7
+        "share": 52
       },
       "no_candidate_passed_editorial_generation": {
-        "count": 31,
-        "share": 41.89
+        "count": 32,
+        "share": 42.67
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
-        "share": 2.7
+        "share": 2.67
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 2,
-        "share": 2.7
+        "share": 2.67
       }
     },
     "candidateFailureReasons": {
       "unknown": {
         "count": 44,
-        "share": 55
+        "share": 54.32
       },
       "editorial_generation_failed": {
-        "count": 36,
-        "share": 45
+        "count": 37,
+        "share": 45.68
       }
     },
     "titleRepairFailures": 0,
@@ -39,22 +39,22 @@
   },
   "windows": {
     "24h": {
-      "sampleCount": 28,
+      "sampleCount": 30,
       "excludedLateBackfills": 74,
       "categories": {
         "economy": {
           "status": "ready",
-          "samples": 13,
+          "samples": 15,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1523,
-            "viewsMedian": 1523,
-            "reachMedian": 1193,
-            "savedRateMedian": 0.073,
-            "shareRateMedian": 0.084,
+            "exposureMedian": 1330,
+            "viewsMedian": 1330,
+            "reachMedian": 1090,
+            "savedRateMedian": 0.039,
+            "shareRateMedian": 0.063,
             "engagementRateMedian": 1.25,
-            "averageWatchTimeMedian": 3551,
-            "followerDeltaEstimateMedian": 3.5
+            "averageWatchTimeMedian": 3471,
+            "followerDeltaEstimateMedian": 2
           },
           "winners": [
             {
@@ -83,9 +83,62 @@
                 "trackId": "pixabay-sonican-lo-fi-music-loop-sentimental-jazzy-love-473154",
                 "mood": "serious"
               }
+            },
+            {
+              "publicationKey": "diem:2026-08-14:economy:31750735680",
+              "category": "economy",
+              "title": "백악관 경고 / 중국 환적 우려",
+              "permalink": "https://www.instagram.com/reel/Db_1YIUDxQa/",
+              "exposure": 2226,
+              "views": 2226,
+              "reach": 1584,
+              "savedRate": 0.189,
+              "shareRate": 0.063,
+              "engagementRate": 1.96,
+              "averageWatchTime": 4516,
+              "followerDeltaEstimate": 4,
+              "features": [
+                "concrete_number",
+                "event:semiconductor"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "mixkit-tech-house-vibes-130",
+                "mood": "bright"
+              }
             }
           ],
           "underperformers": [
+            {
+              "publicationKey": "diem:2026-08-16:economy:basic-isa-tax:reissue-2",
+              "category": "economy",
+              "title": "ISA 세금 / 줄이는 방식",
+              "permalink": "https://www.instagram.com/reel/DcF5SjpG4U_/",
+              "exposure": 341,
+              "views": 341,
+              "reach": 316,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 1.58,
+              "averageWatchTime": 1447,
+              "followerDeltaEstimate": 0,
+              "features": [
+                "household_money"
+              ],
+              "image": {
+                "kind": "typographic",
+                "source": "diem-original"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "mixkit-dirty-thinkin-989",
+                "mood": "bright"
+              }
+            },
             {
               "publicationKey": "diem:2026-08-12:economy:31566662723",
               "category": "economy",
@@ -141,35 +194,6 @@
                 "trackId": "bright1",
                 "mood": "bright"
               }
-            },
-            {
-              "publicationKey": "diem:2026-08-11:economy:31460502869",
-              "category": "economy",
-              "title": "콜롬비아 지진 / 비상사태 선포",
-              "permalink": "https://www.instagram.com/reel/Db4zYmVjDuy/",
-              "exposure": 702,
-              "views": 702,
-              "reach": 584,
-              "savedRate": 0,
-              "shareRate": 0.171,
-              "engagementRate": 1.03,
-              "averageWatchTime": 2665,
-              "followerDeltaEstimate": null,
-              "features": [
-                "concrete_number",
-                "event:housing_policy",
-                "housing_money",
-                "public_decision"
-              ],
-              "image": {
-                "kind": "web",
-                "source": "unsplash"
-              },
-              "audio": {
-                "mode": "silent",
-                "trackId": null,
-                "mood": null
-              }
             }
           ],
           "featureSignals": [
@@ -177,84 +201,84 @@
               "feature": "event:semiconductor",
               "samples": 2,
               "exposureMedian": 2097.5,
-              "lift": 1.377,
+              "lift": 1.577,
               "signal": "insufficient_data"
             },
             {
               "feature": "work_life",
               "samples": 1,
               "exposureMedian": 1724,
-              "lift": 1.132,
+              "lift": 1.296,
               "signal": "insufficient_data"
-            },
-            {
-              "feature": "household_money",
-              "samples": 1,
-              "exposureMedian": 1526,
-              "lift": 1.002,
-              "signal": "insufficient_data"
-            },
-            {
-              "feature": "concrete_number",
-              "samples": 13,
-              "exposureMedian": 1523,
-              "lift": 1,
-              "signal": "neutral"
             },
             {
               "feature": "housing_money",
               "samples": 7,
               "exposureMedian": 1523,
-              "lift": 1,
+              "lift": 1.145,
               "signal": "neutral"
             },
             {
               "feature": "event:interest_rate",
               "samples": 1,
               "exposureMedian": 1523,
-              "lift": 1,
+              "lift": 1.145,
               "signal": "insufficient_data"
             },
             {
               "feature": "macro_indicator",
               "samples": 1,
               "exposureMedian": 1523,
-              "lift": 1,
+              "lift": 1.145,
               "signal": "insufficient_data"
+            },
+            {
+              "feature": "concrete_number",
+              "samples": 14,
+              "exposureMedian": 1426.5,
+              "lift": 1.073,
+              "signal": "neutral"
             },
             {
               "feature": "event:housing_policy",
               "samples": 5,
               "exposureMedian": 1330,
-              "lift": 0.873,
+              "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "public_decision",
-              "samples": 8,
-              "exposureMedian": 1277.5,
-              "lift": 0.839,
+              "samples": 9,
+              "exposureMedian": 1225,
+              "lift": 0.921,
               "signal": "neutral"
             },
             {
+              "feature": "household_money",
+              "samples": 2,
+              "exposureMedian": 933.5,
+              "lift": 0.702,
+              "signal": "insufficient_data"
+            },
+            {
               "feature": "event:general",
-              "samples": 4,
-              "exposureMedian": 1140.5,
-              "lift": 0.749,
-              "signal": "neutral"
+              "samples": 5,
+              "exposureMedian": 855,
+              "lift": 0.643,
+              "signal": "underperformer"
             },
             {
               "feature": "company_event",
               "samples": 1,
               "exposureMedian": 783,
-              "lift": 0.514,
+              "lift": 0.589,
               "signal": "insufficient_data"
             },
             {
               "feature": "event:ipo",
               "samples": 1,
               "exposureMedian": 783,
-              "lift": 0.514,
+              "lift": 0.589,
               "signal": "insufficient_data"
             }
           ],
@@ -1012,7 +1036,7 @@
       }
     },
     "7d": {
-      "sampleCount": 35,
+      "sampleCount": 36,
       "excludedLateBackfills": 29,
       "categories": {
         "economy": {
@@ -1304,16 +1328,16 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 21,
+          "samples": 22,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1615,
-            "viewsMedian": 1615,
-            "reachMedian": 1211,
+            "exposureMedian": 1594,
+            "viewsMedian": 1594,
+            "reachMedian": 1206.5,
             "savedRateMedian": 0,
-            "shareRateMedian": 0.092,
-            "engagementRateMedian": 1.57,
-            "averageWatchTimeMedian": 3880,
+            "shareRateMedian": 0.09,
+            "engagementRateMedian": 1.56,
+            "averageWatchTimeMedian": 4011,
             "followerDeltaEstimateMedian": null
           },
           "winners": [
@@ -1546,49 +1570,49 @@
               "feature": "housing_money",
               "samples": 1,
               "exposureMedian": 1891,
-              "lift": 1.171,
+              "lift": 1.186,
               "signal": "insufficient_data"
             },
             {
               "feature": "event:general",
-              "samples": 17,
-              "exposureMedian": 1630,
-              "lift": 1.009,
+              "samples": 18,
+              "exposureMedian": 1626,
+              "lift": 1.02,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
-              "samples": 20,
-              "exposureMedian": 1618.5,
-              "lift": 1.002,
+              "samples": 21,
+              "exposureMedian": 1615,
+              "lift": 1.013,
               "signal": "neutral"
             },
             {
               "feature": "public_decision",
               "samples": 6,
               "exposureMedian": 905,
-              "lift": 0.56,
+              "lift": 0.568,
               "signal": "underperformer"
             },
             {
               "feature": "event:housing_policy",
               "samples": 1,
               "exposureMedian": 514,
-              "lift": 0.318,
+              "lift": 0.322,
               "signal": "insufficient_data"
             },
             {
               "feature": "event:legislation",
               "samples": 3,
               "exposureMedian": 478,
-              "lift": 0.296,
+              "lift": 0.3,
               "signal": "underperformer"
             },
             {
               "feature": "work_life",
               "samples": 1,
               "exposureMedian": 314,
-              "lift": 0.194,
+              "lift": 0.197,
               "signal": "insufficient_data"
             }
           ],
@@ -1604,117 +1628,117 @@
   "image": {
     "kindDistribution": {
       "web": {
-        "count": 78,
-        "share": 71.56
+        "count": 79,
+        "share": 71.82
       },
       "typographic": {
         "count": 31,
-        "share": 28.44
+        "share": 28.18
       }
     },
     "sourceDistribution": {
       "pexels": {
-        "count": 70,
-        "share": 64.22
+        "count": 71,
+        "share": 64.55
       },
       "diem-original": {
         "count": 31,
-        "share": 28.44
+        "share": 28.18
       },
       "unsplash": {
         "count": 5,
-        "share": 4.59
+        "share": 4.55
       },
       "wikimedia": {
         "count": 3,
-        "share": 2.75
+        "share": 2.73
       }
     },
-    "typographyFallbackRate": 28.44
+    "typographyFallbackRate": 28.18
   },
   "music": {
     "trackDistribution": {
       "pixabay-magpiemusic-action-trailer-promo-rock-513687": {
         "count": 10,
-        "share": 10
+        "share": 9.9
       },
       "bright2": {
         "count": 10,
-        "share": 10
+        "share": 9.9
       },
       "mixkit-tech-house-vibes-130": {
         "count": 9,
-        "share": 9
+        "share": 8.91
       },
       "bright1": {
         "count": 8,
-        "share": 8
+        "share": 7.92
       },
       "pixabay-alexguz-funk-amp-breakbeat-541097": {
         "count": 8,
-        "share": 8
+        "share": 7.92
+      },
+      "serious1": {
+        "count": 7,
+        "share": 6.93
       },
       "mixkit-dirty-thinkin-989": {
         "count": 7,
-        "share": 7
+        "share": 6.93
       },
       "bright3": {
         "count": 6,
-        "share": 6
-      },
-      "serious1": {
-        "count": 6,
-        "share": 6
+        "share": 5.94
       },
       "pixabay-bransboynd-night-summer-lounge-473222": {
         "count": 6,
-        "share": 6
+        "share": 5.94
       },
       "serious2": {
         "count": 5,
-        "share": 5
+        "share": 4.95
       },
       "pixabay-sonican-lo-fi-music-loop-sentimental-jazzy-love-473154": {
         "count": 5,
-        "share": 5
+        "share": 4.95
       },
       "serious3": {
         "count": 4,
-        "share": 4
+        "share": 3.96
       },
       "mixkit-driving-ambition-32": {
         "count": 4,
-        "share": 4
+        "share": 3.96
       },
       "serious4": {
         "count": 4,
-        "share": 4
+        "share": 3.96
       },
       "mixkit-serene-view-443": {
         "count": 3,
-        "share": 3
+        "share": 2.97
       },
       "mixkit-fright-night-871": {
         "count": 3,
-        "share": 3
+        "share": 2.97
       },
       "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494": {
         "count": 2,
-        "share": 2
+        "share": 1.98
       }
     },
     "moodDistribution": {
       "bright": {
         "count": 62,
-        "share": 56.88
+        "share": 56.36
       },
       "serious": {
-        "count": 38,
-        "share": 34.86
+        "count": 39,
+        "share": 35.45
       },
       "unknown": {
         "count": 9,
-        "share": 8.26
+        "share": 8.18
       }
     },
     "diversityWarning": null,
