@@ -4,7 +4,7 @@
   "date": "2026-08-18",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-17T16:25:58.671Z",
-  "updatedAt": "2026-08-18T04:34:49.614Z",
+  "updatedAt": "2026-08-18T04:36:15.798Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -95,7 +95,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned an ungrounded numeric claim: 70 in \"공정거래위원회 자료에 따르면 김가네 가맹점은 2022년 448개에서 2024년 378개로 70곳 감소했으며, 김밥 1줄 평균 가격은 6월 3,8\"; 10% in \"쌀·계란·김 등 주요 원재료 가격이 10% 이상 상승하고 최저임금이 12.7% 인상돼 인건비 부담이 커지면서 저가 김밥의 생존이 어려워지고 있다\" | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "李대통령 “을지연습, 北 공격 의도 없다…전작권 임기내 환수”",
@@ -133,7 +135,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[롤러코스피 탑승기] “자산격차만 더 커졌다” 분노한 청년들",
@@ -169,7 +173,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "출생 줄었는데 장애아 늘어… “숨기기보다 조기 진단·지원” 확산",
@@ -207,7 +213,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“한국 역대 가장 느린 협상가... 훈련 축소는 美의 불만 표시”",
@@ -245,7 +253,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:extraordinary_claim_unverified"
+      ]
     },
     {
       "title": "국민 65% “개헌 논의 위해 李 ‘연임 안 한다’ 밝혀야”",
@@ -283,7 +293,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "민주당 전당대회에 울려퍼진 ‘버스 안에서’… 국힘 김재섭 “청년 조롱”",
@@ -319,7 +331,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "‘비거주 1주택자’ 괴롭히기, 실패할 수밖에 없는 이유 [손진석의 머니워치]",
@@ -11312,24 +11326,24 @@
     "economy": {
       "publicationKey": "diem:2026-08-18:economy:32099481460",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "김가네 1호점도 폐업…줄줄이 문 닫는 김밥집들",
-        "url": "https://n.news.naver.com/article/005/0001867411?ntype=RANKING",
+        "title": "‘비거주 1주택자’ 괴롭히기, 실패할 수밖에 없는 이유 [손진석의 머니워치]",
+        "url": "https://n.news.naver.com/article/023/0003993509?ntype=RANKING",
         "publishedDate": "2026-08-18",
-        "publishedAt": "2026-08-18 06:02:14",
+        "publishedAt": "2026-08-18 08:55:07",
         "observedAt": "2026-08-18T04:34:40.670Z",
-        "popularityScore": 97.9796,
+        "popularityScore": 83.8367,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 86.89,
-          "popularityScore": 97.9796,
-          "freshnessScore": 70,
-          "editorialValueScore": 80,
-          "ageHours": 7.54,
-          "publishedAt": "2026-08-18 06:02:14",
+          "score": 84.36,
+          "popularityScore": 83.8367,
+          "freshnessScore": 80,
+          "editorialValueScore": 95,
+          "ageHours": 4.68,
+          "publishedAt": "2026-08-18 08:55:07",
           "observedAt": "2026-08-18T04:34:40.670Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -11348,40 +11362,41 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 2,
-            "normalizedScore": 97.9796,
-            "title": "김가네 1호점도 폐업…줄줄이 문 닫는 김밥집들",
-            "url": "https://n.news.naver.com/article/005/0001867411?ntype=RANKING"
+            "rank": 9,
+            "normalizedScore": 83.8367,
+            "title": "‘비거주 1주택자’ 괴롭히기, 실패할 수밖에 없는 이유 [손진석의 머니워치]",
+            "url": "https://n.news.naver.com/article/023/0003993509?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "고물가·인건비 인상 직격탄버티지 못하는 ‘서민 김밥’김밥 1줄 가격 4000원 앞둬 포장전문 김밥 가게. AI가 생성한 이미지 17일 서울 동대문구 이문동의 한 김밥집. 3.3㎡(약 1평) 남짓한 공간에서는 60대 여사장 A씨가 김밥을 말고 외국인 종업원이 포장과 계산을 맡고 있었다. ‘팔뚝만한’ 푸짐한 양에 저렴한 가격으로 사랑받는 포장 맛집이지만 지난 6월 김밥 가격을 500원씩 인상했다. 지속된 원재료 상승에 2년 이상 유지한 가격을 손볼 수밖에 없었다. A씨는 가격을 올리면서도 “처음처럼 김밥 재료를 듬뿍 넣어야 장사가 유지된다”고 한숨을 쉬었다. 고물가에 최저임금 상승까지 겹치며 많은 김밥집들이 경영 고충을 겪고 있다. A씨의 가게처럼 가격을 올리고도 영업을 이어가는 경우는 드물다. 매년 수십개의 김밥집들이 폐업 수순을 밟고 있다. 대표 서민 외식 메뉴였던 김밥 가격이 뛰자, 소비자들의 외면이 이어지는 악순환도 지속하는 모습이다. 유명 김밥 프랜차이즈 매장도 최근 몇 년 새 눈에 띄게 줄었다. 공정거래위원회 가맹사업거래 현황에 따르면 2022년 448개였던 김가네 가맹점·직영점수는 2024년 378개로 감소했다. 1992년에 문을 열었던 국내 1세대 김밥 프랜차이즈 ‘김가네 1호점(서울 종로 대학로점)’마저 지난달 31일 문을 닫았다. 고봉민김밥의 매장 수 역시 2022년 541개에서 2년 만에 450개로 91개 줄었으며, 바르다김선생은 2023년 125개에서 지난해 94개까지 됐다. 바르다김선생의 경우 지난해 신규 개점은 4개에 그친 반면 계약 종료는 15개에 달했다. 다양한 식재료가 들어가는 김밥은 물가 인상의 타격을 그대로 받는 품목이다. 올해도 쌀과 계란, 김 등 핵심 재료 가격이 오르면서 김밥집들이 생존 위기에 몰리고 있다. 김밥 한 줄 가격 역시 나날이 오름세다. 한국소비자원 가격정보종합포털 참가격에 따르면 지난 6월 서울 지역 김밥 한 줄 평균 가격은 3838원으로 전년 대비 5.9% 상승했다. 2023년 처음 3000원을 넘어선 데 이어 4000원 선을 위협하고 있다. 이는 칼국수·삼겹살·냉면·삼계탕·짜장면·김치찌개 백반 등 대표 외식 메뉴 중 가장 높은 상승률이다. 주요 재료비와 인건비 부담이 김밥 가격을 밀어 올린 주원인으로 분석된다. 국가데이터처 소비자물가지수를 보면 올해 2분기 쌀 가격은 전년 동기 대비 13.2% 올랐다. 계란은 9.0%, 김은 2.5% 상승했으며, 채소류 역시 폭염 등 기후 이상으로 가격 변동 폭이 커졌다. 여기에 2021년 8720원이던 최저임금이 올해 1만320원으로 5년 새 12.7% 오르는 등 인건비 부담까지 가중되고 있다.",
-        "summary": "고물가·인건비 인상 직격탄버티지 못하는 ‘서민 김밥’김밥 1줄 가격 4000원 앞둬 포장전문 김밥 가게. AI가 생성한 이미지 17일 서울 동대문구 이문동의 한 김밥집. 3.3㎡(약 1평) 남짓한 공간에서는 60대 여사장 A씨가 김밥을 말고 외국인 종업원이 포장과 계산을 맡고 있었다. ‘팔뚝만한’ 푸짐한 양에 저렴한 가격으로 사랑받는 포장 맛집이지만 지난 6월 김밥 가격을 500원씩 인상했다. 지속된 원재료 상승에 2년 이상 유지한 가격을 손볼 수밖에 없었다. A씨는 가격을 올리면서도 “처음처럼 김밥 재료를 듬뿍 넣어야 장사가 유지",
+        "fullText": "비거주 1주택자 징벌적 과세 적용전월세 매물 감소로 월세 상승 유발2030·6070세대 불리, 4050세대 유리 안녕하세요. 조선일보 유튜브 ‘손진석의 머니워치’입니다. 이번 영상에서는 비거주 1주택자를 압박하는 정부의 부동산 정책이 실패할 수밖에 없는 이유를 분석합니다. 비거주 1주택자들은 자녀 교육, 지방·해외 발령, 부모 봉양 등 저마다 사정이 있습니다. 또한 미래의 실거주용 또는 투자용으로 갭투자를 한 사람들이 있을 것이고요. 자가를 세를 주고 더 저렴한 집에서 세를 살면서 전·월세 차액을 생활비로 쓰는 고령자들도 있습니다. 수도권 집값 단기간에 잡을 방법 없다는 고백 역대 정부는 소수의 고가 주택을 제외하면 1주택자를 건드리는 정책은 사용하지 않았는데요. 이재명 정부는 이달 초 발표한 세제개편안을 통해 비거주 1주택자에게 종합부동산세와 양도소득세에서 모두 다주택자 수준의 징벌적 과세를 적용하겠다는 방침을 밝혔습니다. 8·3 세제 개편안 발표 이후 세금 부담에 집주인의 실거주 가능성이 커지면서 연초부터 가팔라진 전세 감소 현상이 심화될 것이라는 우려가 나온다. 사진은 이날 서울 송파구 한 부동산 중개업소의 모습./뉴스1 정부가 비거주자를 선별해서 1주택자에게도 세금 폭탄을 던지겠다고 예고한 이유는 당장에 집값을 잡을 방도가 없다는 고백이나 마찬가지입니다. 서울과 근교는 단기간에 공급을 늘릴 방법이 여의치 않습니다. 먼저 다주택자를 압박해서 매물을 내놓게 했는데요. 그래도 집값이 잡히지 않자 1주택자 중에서도 자기 집에 살지 않는 사람들이 매물로 내놓도록 유도해 가격 하락을 유도하는 것으로 관측됩니다. 시장 경제 체제를 선택한 나라에서 국민으로 하여금 사유재산을 팔도록 압력을 넣는 정책을 구사하는 것 자체가 비정상입니다.집주인이 어떤 선택하더라도 세입자는 피해 정부의 압박을 받은 비거주 1주택자의 선택지는 3가지입니다. 첫째, 세입자를 내보내고 직접 입주하는 것입니다. 세금 부담을 줄이기 위해서인데요. 벌써부터 세입자에게 계약 기간이 끝나는 대로 나가 달라고 요구하는 집주인들이 속출하고 있습니다.둘째, 압박을 견디지 못하고 팔아버리는 경우가 있을 수 있습니다. 이럴 때 매입하는 사람이 갭 투자를 할 수 없고 실거주해야 하기 때문에 이런 집에 세 들어 사는 사람은 계약 기간이 끝나는 대로 새 주인에게 집을 비워줘야 합니다. 이 경우도 집주인이 실거주를 선택하는 것과 마찬가지로 시장에 존재하던 전월세 매물 한 개를 없애는 결과를 낳습니다.셋째, 당장 입주할 수도 없고 집을 팔기도 원치 않는 비거주 1주택자는 종부세·재산세 부담을 덜기 위해 기존 전세를 반전세나 월세로 전환하고, 늘어난 세금 부담만큼 월세를 올려 세입자에게 청구하게 됩니다. 결국 비거주 1주택자가 어떤 선택을 하더라도 그 집에 세 들어 사는 사람이 유리해지는 상황은 생기기 어렵습니다. 올해 들어 전월세 매물이 크게 줄어들고 있어 전월세 가격이 상승하고 있다./아실 더 치명적인 것은 이렇게 비거주 1주택자를 압박해서 전월세 매물이 줄어들면 월세가 오르고 전세가율도 올라가는 현상이 나타난다는 것입니다. 그러면 결국 매매 가격을 밀어 올리는 부메랑을 맞게 됩니다.젊은층과 노년층에 불리하고 4050세대엔 유리 비거주 1주택자 압박은 결과적으로 자가를 갖고 있고 소득이 충분한 4050세대만 상대적으로 유리하고요. 2030세대나 6070세대는 불리해질 수밖에 없습니다. 민주당 정권이 4050세대만 챙긴다는 색깔이 더 분명해질 것으로 예상됩니다.이유는 이렇습니다. 자금이 부족한 젊은 부부들은 사고 싶은 아파트를 전세를 끼고 먼저 매수한 다음 열심히 돈을 모아서 세입자를 내보내고 실거주로 들어가는 단계적인 사다리를 탔습니다. 오랫동안 자연스럽게 사용하던 내 집 마련 방식인데요. 지금 젊은 세대들한테는 사실상 금지한 것이기 때문에 반발이 클 것으로 예상됩니다.게다가 비거주 1주택자 중에는 자기 집을 세주고 더 싼 집에 세들어 살면서 전월세 비용의 차액을 노후 생활비로 쓰는 은퇴자들이 있습니다. 이런 비거주 1주택 고령자들을 압박하는 것 역시 결과적으로 세대 간 갈라치기가 될 수밖에 없습니다. 한국부동산원에 따르면, 서울 전세값은 올해 들어서 6월까지 누적으로 4.99% 올라 작년 연간 상승률 3.77%를 이미 뛰어넘었다. 현재 추세라면 올해 서울 전세값은 두자리수 상승률을 기록할 수도 있다./한국부동산원 부작용 2028년 총선 앞두고 본격화될 듯 정부의 ‘비거주 1주택자 포위 작전’은 실패가 예견된 정책입니다. 민주당 정부는 과거에도 부동산 가격이 폭등하면 ‘공공의 적’을 설정해 책임을 회피하는 패턴을 보였습니다. 과거에는 주로 다주택자나 초고가 주택 소유자가 타깃이었지만, 이재명 정부는 ‘비거주 1주택자’까지 대상을 넓혔습니다. 하지만 ‘비거주 1주택자’는 대부분 투기꾼이라기보다는 평범한 우리의 이웃·친구·친척입니다.비거주 1주택자 압박 정책에 따른 역효과가 본격적으로 나타나는 건 2028년 봄 총선을 앞둔 시기일 것으로 예상됩니다. 무리한 정책은 정권 심판으로 돌아올 가능성이 있습니다.",
+        "summary": "비거주 1주택자 징벌적 과세 적용전월세 매물 감소로 월세 상승 유발2030·6070세대 불리, 4050세대 유리 안녕하세요. 조선일보 유튜브 ‘손진석의 머니워치’입니다. 이번 영상에서는 비거주 1주택자를 압박하는 정부의 부동산 정책이 실패할 수밖에 없는 이유를 분석합니다. 비거주 1주택자들은 자녀 교육, 지방·해외 발령, 부모 봉양 등 저마다 사정이 있습니다. 또한 미래의 실거주용 또는 투자용으로 갭투자를 한 사람들이 있을 것이고요. 자가를 세를 주고 더 저렴한 집에서 세를 살면서 전·월세 차액을 생활비로 쓰는 고령자들도 있습니다.",
         "topicSignature": {
           "category": "economy",
-          "target": "최저임금",
-          "event": "인상",
+          "target": "주거 정책",
+          "event": "감소",
           "entities": [
-            "1호점도"
+            "1주택자"
           ],
           "eventKey": null,
-          "text": "economy | 최저임금 | 인상 | 1호점도"
+          "text": "economy | 주거 정책 | 감소 | 1주택자"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "최저임금",
+          "subject": "주거 정책",
           "subjectTerms": [
-            "최저임금"
+            "주거",
+            "정책"
           ],
-          "eventKind": "general",
-          "eventLabel": "인상",
+          "eventKind": "housing_policy",
+          "eventLabel": "감소",
           "eventTerms": [
-            "인상"
+            "감소"
           ],
           "eventKey": null,
           "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "17일",
+          "date": "",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -11390,98 +11405,1180 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 80,
+          "score": 95,
           "signals": [
             "reader_money_work_life_impact",
             "concrete_event_or_decision",
+            "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "최저임금",
+            "subject": "주거 정책",
             "subjectTerms": [
-              "최저임금"
+              "주거",
+              "정책"
             ],
-            "eventKind": "general",
-            "eventLabel": "인상",
+            "eventKind": "housing_policy",
+            "eventLabel": "감소",
             "eventTerms": [
-              "인상"
+              "감소"
             ],
             "eventKey": null,
             "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "17일",
+            "date": "",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": []
           },
-          "baseScore": 80,
+          "baseScore": 95,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "uncertain",
-            "category": null,
-            "excluded": [
-              "category_not_allowed"
-            ],
+            "status": "classified",
+            "category": "economy",
+            "excluded": [],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "uncertain_initial_classification"
+            "reason": "verify_primary_article"
           },
           "final": {
             "status": "classified",
             "category": "economy",
             "excluded": [],
-            "ambiguous": false
+            "ambiguous": true
           }
         }
       },
       "corroboration": null,
       "duplicateCheck": {
         "duplicate": false,
-        "repeatOverride": false,
-        "score": 0.6484,
+        "repeatOverride": true,
+        "score": 0.9281,
         "method": "embedding",
-        "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-12:issue:31530100592",
+        "reason": "material_follow_up",
+        "matchedPublicationKey": "diem:2026-08-15:economy:31879202956",
         "signature": {
           "category": "economy",
-          "target": "최저임금",
-          "event": "인상",
+          "target": "주거 정책",
+          "event": "감소",
           "entities": [
-            "1호점도"
+            "1주택자"
           ],
           "eventKey": null,
-          "text": "economy | 최저임금 | 인상 | 1호점도"
+          "text": "economy | 주거 정책 | 감소 | 1주택자"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "비거주1주택\n징벌과세 결정",
+            "lines": [
+              "비거주1주택",
+              "징벌과세 결정"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "비거주1주택\n징벌과세 결정",
+          "lines": [
+            "비거주1주택",
+            "징벌과세 결정"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "정부는 이번 달 발표한 세제 개편안으로 비거주 1주택자에게 다주택 수준의 종합부동산세·양도소득세를 부과하기로 결정했습니다.📰",
+            "이 조치가 시행되면 전월세 매물이 급감해 월세가 상승하고, 2030·6070 세대는 주거 비용 부담이 크게 늘어날 전망입니다.",
+            "정부는 고가 주택을 제외하고 1주택자까지 압박해 공급을 늘리려 했지만, 실제로는 세입자와 젊은 세대에게 불리한 역효과가 예상돼 정책 효과가 의문시되고 있습니다.📰"
+          ],
+          "text": "정부는 이번 달 발표한 세제 개편안으로 비거주 1주택자에게 다주택 수준의 종합부동산세·양도소득세를 부과하기로 결정했습니다.📰\n\n이 조치가 시행되면 전월세 매물이 급감해 월세가 상승하고, 2030·6070 세대는 주거 비용 부담이 크게 늘어날 전망입니다.\n\n정부는 고가 주택을 제외하고 1주택자까지 압박해 공급을 늘리려 했지만, 실제로는 세입자와 젊은 세대에게 불리한 역효과가 예상돼 정책 효과가 의문시되고 있습니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #비거주1주택 #징벌과세 #전월세 #주거정책 #1주택자 #주거",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#비거주1주택",
+            "#징벌과세",
+            "#전월세",
+            "#주거정책",
+            "#1주택자",
+            "#주거"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#비거주1주택",
+              "#징벌과세",
+              "#전월세",
+              "#주거정책",
+              "#1주택자",
+              "#주거"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-08-18T04:36:10.173Z",
+        "id": "pexels:17082223",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/apartments-in-town-17082223/",
+        "downloadUrl": "https://images.pexels.com/photos/17082223/pexels-photo-17082223.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Ahmet Polat",
+        "creatorUrl": "https://www.pexels.com/@ibnulharezmi",
+        "width": 3914,
+        "height": 4892,
+        "description": "High angle view of modern urban apartment buildings with red roofs and balconies.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "real estate modern apartment building",
+        "score": 0.61,
+        "components": {
+          "semanticMetadata": 0.4,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "real",
+            "estate",
+            "modern",
+            "apartment",
+            "building"
+          ],
+          "matchedConcreteTokens": [
+            "modern",
+            "apartment"
+          ],
+          "primaryVisualAnchors": [
+            "real",
+            "estate",
+            "modern",
+            "apartment"
+          ],
+          "matchedPrimaryVisualAnchors": [
+            "modern",
+            "apartment"
+          ],
+          "primaryVisualAnchorMatched": true,
+          "matchRatio": 0.4,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "identity": {
+            "required": false,
+            "name": null,
+            "role": null,
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 5,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 19,
+            "suitableCount": 0,
+            "suitabilityRejected": 19,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:28812520",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37827719",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7395908",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7396389",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7395462",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5428013",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36769588",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37811262",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:12506803",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "education",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8617960",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8423045",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32426220",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18734743",
+                "rankWithinQuery": 13,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5428145",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18931276",
+                "rankWithinQuery": 15,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8923032",
+                "rankWithinQuery": 16,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35290769",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5905923",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5905458",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.8375
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "real estate modern apartment building",
+            "count": 19,
+            "suitableCount": 14,
+            "suitabilityRejected": 5,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:4082527",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:13812522",
+                "rankWithinQuery": 15,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:35834851",
+                "rankWithinQuery": 17,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18553239",
+                "rankWithinQuery": 18,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:27307400",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 14,
+            "recentReuseBlocked": 4,
+            "bestScore": 0.74
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 38,
+          "recentKeyCount": 123,
+          "blockedCandidateCount": 4,
+          "selectedImageKeys": [
+            "pexels:17082223",
+            "https://www.pexels.com/photo/apartments-in-town-17082223/",
+            "https://images.pexels.com/photos/17082223/pexels-photo-17082223.jpeg"
+          ]
+        },
+        "selectionReason": "selected concrete-subject-matched unused rank #5 from pexels results above 0.42; 5 unsuitable and 4 recent images blocked",
+        "localSha256": "67c65a6f413a341a815a5f318682a573b6e23bca855fd964f18656015fca3bfb"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-driving-ambition-32",
+        "mood": "bright",
+        "title": "Driving Ambition",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-driving-ambition-32.mp3",
+        "sha256": "b7324d6677ec17155282f09f429e802c49a74f5f1b7d167e7fa7c0b95e982e8d",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-18T04:36:15.781Z"
       },
       "story": {
         "status": "planned",
@@ -11549,6 +12646,64 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-18/economy/economy-cover.png",
+        "coverSha256": "efafebc1dc313dadc57a6a77fc57127f3dbff0deebb1785f2c29e19a22756d9b",
+        "reelPath": ".diem-cache/2026-08-18/economy/economy-reel.mp4",
+        "reelSha256": "4e02e87ee4153f21f689bfb6da89ebb8505137beb36725ffcca459933176ed82",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 2,
+        "candidateFailures": [
+          {
+            "title": "김가네 1호점도 폐업…줄줄이 문 닫는 김밥집들",
+            "url": "https://n.news.naver.com/article/005/0001867411?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned an ungrounded numeric claim: 70 in \"공정거래위원회 자료에 따르면 김가네 가맹점은 2022년 448개에서 2024년 378개로 70곳 감소했으며, 김밥 1줄 평균 가격은 6월 3,8\"; 10% in \"쌀·계란·김 등 주요 원재료 가격이 10% 이상 상승하고 최저임금이 12.7% 인상돼 인건비 부담이 커지면서 저가 김밥의 생존이 어려워지고 있다\" | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 70 in \"공정거래위원회 자료에 따르면 김가네 가맹점은 2022년 448개에서 2024년 378개로 70곳 감소했으며, 김밥 1줄 평균 가격은 6월 3,8\"; 10% in \"쌀·계란·김 등 주요 원재료 가격이 10% 이상 상승하고 최저임금이 12.7% 인상돼 인건비 부담이 커지면서 저가 김밥의 생존이 어려워지고 있다\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-18T04:34:59.084Z"
+          },
+          {
+            "title": "[롤러코스피 탑승기] “자산격차만 더 커졌다” 분노한 청년들",
+            "url": "https://n.news.naver.com/article/005/0001867460?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-18T04:35:34.904Z"
+          }
+        ],
+        "updatedAt": "2026-08-18T04:35:49.223Z"
       }
     },
     "issue": {
