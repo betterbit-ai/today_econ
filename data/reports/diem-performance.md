@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 114편
-- 생성 시각: 2026-08-18T10:29:58.612Z
+- 발행 원장 Reel: 116편
+- 생성 시각: 2026-08-18T16:34:57.741Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -10,17 +10,17 @@
   - 반복 후보: 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226)
   - 부진 후보: ISA 세금 / 줄이는 방식(341), ISA 개편 / 복원안 발표(365), 이만희 재판 / 합의부 재배당(557)
   - 특성 신호: event:semiconductor insufficient_data×1.58, work_life insufficient_data×1.3, event:interest_rate insufficient_data×1.15, macro_indicator insufficient_data×1.15, household_money insufficient_data×0.7, event:general underperformer×0.64, company_event insufficient_data×0.59, event:ipo insufficient_data×0.59
-- issue: 표본 17편 · 노출 중앙값 1,638 · 공유율 0.09% · 저장률 0%
+- issue: 표본 18편 · 노출 중앙값 1,624 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 한동훈 흉기 / 징역 1년 확정(3,867), 새벽 19도 / 13·15호(3,187)
-  - 부진 후보: 광복연휴 비예보 / 폭염 예상(173), 대전시 / 공공기관2차선점전(460)
-  - 특성 신호: event:housing_policy insufficient_data×1.65, housing_money insufficient_data×1
+  - 부진 후보: 광복연휴 비예보 / 폭염 예상(173), 롤스로이스 / 주차 빌런 보도(456), 대전시 / 공공기관2차선점전(460)
+  - 특성 신호: event:housing_policy insufficient_data×1.67, housing_money insufficient_data×0.65
 - 정시 비교에서 제외한 늦은 백필: 76편
 
 ## 72h
-- economy: 표본 15편 · 노출 중앙값 1,530 · 공유율 0.08% · 저장률 0.07%
-  - 반복 후보: 이재명 / ISA 개편 중단(722,599), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297)
+- economy: 표본 16편 · 노출 중앙값 1,537.5 · 공유율 0.09% · 저장률 0.07%
+  - 반복 후보: 이재명 / ISA 개편 중단(722,599), 공무원 / 광고 사과(4,641)
   - 부진 후보: ISA 개편 / 복원안 발표(383), 이만희 재판 / 합의부 재배당(573), 콜롬비아 지진 / 비상사태 선포(717)
-  - 특성 신호: event:semiconductor insufficient_data×1.47, household_money insufficient_data×1.26, work_life insufficient_data×1.15, event:interest_rate insufficient_data×1, macro_indicator insufficient_data×1, company_event insufficient_data×0.52, event:ipo insufficient_data×0.52
+  - 특성 신호: event:semiconductor insufficient_data×1.38, household_money insufficient_data×1.25, work_life insufficient_data×1.14, event:interest_rate insufficient_data×0.99, macro_indicator insufficient_data×0.99, company_event insufficient_data×0.52, event:ipo insufficient_data×0.52
 - issue: 표본 20편 · 노출 중앙값 1,639 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 한동훈 흉기 / 징역 1년 확정(3,959), 새벽 19도 / 13·15호(3,267)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(176), 대전시 / 공공기관2차선점전(479)
@@ -39,8 +39,8 @@
 - 정시 비교에서 제외한 늦은 백필: 29편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 27.19%
-- 이미지 공급원: pexels 75편, diem-original 31편, unsplash 5편, wikimedia 3편
+- 타이포그래피 폴백률: 26.72%
+- 이미지 공급원: pexels 77편, diem-original 31편, unsplash 5편, wikimedia 3편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: unknown 44건, editorial_generation_failed 43건
