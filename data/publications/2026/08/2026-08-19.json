@@ -4,7 +4,7 @@
   "date": "2026-08-19",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-18T16:33:20.148Z",
-  "updatedAt": "2026-08-18T19:22:52.119Z",
+  "updatedAt": "2026-08-18T19:23:27.448Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -48,7 +48,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned an ungrounded numeric claim: 115,000 in \"6대의 펌프는 1분당 1920톤씩 물을 끌어올려 최대 115,000톤을 처리할 수 있으며, 90㎜/시간 이하의 집중호우는 충분히 감당합니다.\" | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "‘모텔 살인’ 김소영에 사형 구형... 검찰 “거짓 계속, 반성도 안 해”",
@@ -86,7 +88,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "15억 사기 수사 뭉갰나... ‘조폭 유착 의혹’ 전북경찰청 간부 피소",
@@ -124,7 +128,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "DJ 17주기 추모식에 장동혁·이준석 불참… 보수 정당 지도부 불참은 처음",
@@ -160,7 +166,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "은퇴 후 여행만 다닌 58세…‘월 500만원’ 꽂히는 계좌의 비밀",
@@ -198,7 +206,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "제니, 노출 영상에 결국 법적대응…“악의적 편집·유포, 선처 없다”",
@@ -236,7 +246,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "국힘 윤리위, 진종오에 “한국말 못 알아듣냐”…‘비장횡사’ 말 나온다",
@@ -274,7 +286,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:recent_duplicate"
+      ]
     },
     {
       "title": "삼성맨 남편 덕분?…이현이 “5만전자 때 주식 샀다” 수익률 무려",
@@ -312,7 +326,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“다른 남자 있어?” 오해가 비극 불렀다, 백화점 흉기난동 전말",
@@ -4716,24 +4732,24 @@
     "issue": {
       "publicationKey": "diem:2026-08-19:issue:32175982892",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "시간당 11만t, 제 역할한 거제 배수펌프장… ‘200년 폭우’엔 역부족",
-        "url": "https://n.news.naver.com/article/023/0003993586?ntype=RANKING",
+        "title": "“다른 남자 있어?” 오해가 비극 불렀다, 백화점 흉기난동 전말",
+        "url": "https://n.news.naver.com/article/025/0003545153?ntype=RANKING",
         "publishedDate": "2026-08-19",
-        "publishedAt": "2026-08-18 17:06:12",
+        "publishedAt": "2026-08-18 21:36:33",
         "observedAt": "2026-08-18T19:22:42.912Z",
-        "popularityScore": 100,
+        "popularityScore": 81.8163,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 90.25,
-          "popularityScore": 100,
+          "score": 78,
+          "popularityScore": 81.8163,
           "freshnessScore": 70,
-          "editorialValueScore": 95,
-          "ageHours": 11.28,
-          "publishedAt": "2026-08-18 17:06:12",
+          "editorialValueScore": 80,
+          "ageHours": 6.78,
+          "publishedAt": "2026-08-18 21:36:33",
           "observedAt": "2026-08-18T19:22:42.912Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -4752,41 +4768,39 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 1,
-            "normalizedScore": 100,
-            "title": "시간당 11만t, 제 역할한 거제 배수펌프장… ‘200년 폭우’엔 역부족",
-            "url": "https://n.news.naver.com/article/023/0003993586?ntype=RANKING"
+            "rank": 10,
+            "normalizedScore": 81.8163,
+            "title": "“다른 남자 있어?” 오해가 비극 불렀다, 백화점 흉기난동 전말",
+            "url": "https://n.news.naver.com/article/025/0003545153?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "하천 범람 막을 ‘고현천댐’ 사업은 하세월경남도, “정부에 필요성 개진할 것” 18일 오전 경남 거제시 고현동 한 신발가게가 폭우로 침수 피해를 겪었다. /연합뉴스 지난 15일부터 사흘간 900㎜가 넘는 기록적인 폭우가 쏟아진 경남 거제에서 고현항 배수펌프장이 도심 침수 피해를 줄이는 데 큰 역할을 한 것으로 나타났다. 시간당 11만t이 넘는 물을 빼내 상습 침수지역인 고현·장평동의 피해를 줄였지만, 시간당 120㎜가 넘는 ‘200년 빈도’ 폭우까지 막지는 못했다.18일 거제시에 따르면 지난 15일 0시부터 17일 오후 5시까지 거제에는 910㎜의 비가 내렸다. 17일 시간당 최대 강수량은 124.5㎜를 기록했다.고현·장평동은 거제의 대표적인 상습 침수지역이다.고현천은 상류 문동저수지에서 시작해 고현동 도심을 가로질러 진해만으로 흐른다. 바닷가와 가까운 데다 매립지와 기존 지반 사이에 높이 차가 있어 집중호우가 만조와 겹치면 물이 쉽게 빠지지 않아 도로와 상가가 침수된 적이 많았다.거제시는 고현항 재개발 사업 과정에서 2018년 이 일대에 대형 배수펌프장을 설치했다. 사업 시행자인 거제빅아일랜드PFV가 692억원을 들여 건설한 뒤 거제시에 기부채납했다.펌프 6대가 1분당 1920t, 시간당 최대 11만5000t의 물을 바다로 빼낸다. 시간당 약 90㎜의 집중호우를 처리할 수 있다.이번 폭우 때도 펌프장은 가동됐다. 설계 용량을 넘어선 비가 쏟아지면서 고현동 시외버스터미널 일대가 한때 물에 잠겼지만, 비가 잦아든 뒤 물이 빠르게 빠지면서 복구 작업에도 비교적 일찍 들어갈 수 있었다.거제시 관계자는 “배수펌프장이 없었다면 이번 폭우 피해는 훨씬 컸을 것”이라고 했다. 18일 오전 극한호우 피해를 본 경남 거제시 고현동 한 빌딩 지하 주차장에서 배수 작업이 이뤄지고 있다. /경남소방본부 배수펌프장은 앞선 태풍 때도 효과를 냈다. 2019년 9월 태풍 ‘타파’ 때 이틀간 302㎜의 비가 내렸지만 상습 침수지역인 고현·장평동 일대에는 큰 침수 피해가 없었다. 2022년 태풍 ‘힌남노’ 때도 도심 침수 피해를 줄였다.지역 온라인 커뮤니티에서도 “900㎜가 넘는 비가 내렸는데 이 정도 피해에 그친 것은 배수펌프장 덕분” “침수 뒤 짧은 시간에 물이 빠진 것이 인상적이었다”는 반응이 나왔다.하지만 이번 비는 배수펌프장의 처리 능력을 넘어섰다. 시간당 최대 124.5㎜의 비가 쏟아지면서 결국 고현천이 범람했고, 거제 중심 상권 중 한 곳인 고현동 시외버스터미널 일대가 침수됐다.거제시는 고현천 범람을 막기 위해 상류 문동저수지를 확장하는 고현천댐 사업을 추진하고 있다. 487억원을 들여 저수량을 현재 34만㎥에서 71만㎥로 두 배 이상 늘리는 사업이다.그러나 아직 기본계획 수립 단계다. 지난해 9월 신규 댐 후보지로 선정돼 내년 착공이 목표였으나, 기후 환경을 중요시하는 새 정부가 들어오면서 속도를 내지 못하고 있다. 아직까지 기본 계획 수립 단계에 있으며 타당성 조사와 전략환경영향평가, 재해영향성 검토 등 행정 절차가 남아 있다. 수몰이 예상되는 11가구에 대한 이주 대책도 마련해야 한다.경남도와 거제시는 이번 침수 사태를 계기로 댐 사업 추진의 필요성을 정부에 적극 개진할 계획이다.경남도 관계자는 “이번 폭우를 계기로 주민 안전을 위해 댐 확장이 필요하다는 게 다시 한 번 확인됐다”며 “관련 자료를 모아 정부에 제출할 계획”이라고 말했다.",
-        "summary": "하천 범람 막을 ‘고현천댐’ 사업은 하세월경남도, “정부에 필요성 개진할 것” 18일 오전 경남 거제시 고현동 한 신발가게가 폭우로 침수 피해를 겪었다. /연합뉴스 지난 15일부터 사흘간 900㎜가 넘는 기록적인 폭우가 쏟아진 경남 거제에서 고현항 배수펌프장이 도심 침수 피해를 줄이는 데 큰 역할을 한 것으로 나타났다. 시간당 11만t이 넘는 물을 빼내 상습 침수지역인 고현·장평동의 피해를 줄였지만, 시간당 120㎜가 넘는 ‘200년 빈도’ 폭우까지 막지는 못했다.18일 거제시에 따르면 지난 15일 0시부터 17일 오후 5시까지 거",
+        "fullText": "지난 4월 30일 저녁 대전 서구 한 백화점 식당가에서 흉기 난동이 발생해 경찰 과학수사대가 범행 현장에서 증거를 보존하고 있다. 연합뉴스 대전 한 백화점에서 이전 연인관계였던 여성 직원에게 흉기를 휘두른 40대 남성 직원이 실형을 선고받았다. 대전지법 제13형사부(장민경 부장판사)는 살인미수 혐의로 기소된 A씨(44)에게 징역 5년을 선고했다고 18일 밝혔다. A씨는 지난 4월 30일 오후 5시 55분께 대전 서구 둔산동 한 백화점 지하 2층 식당가에서 여성 직원 B씨를 흉기로 찔러 살해하려 한 혐의로 재판에 넘겨졌다. A씨는 연인관계였던 B씨에게 다른 남자친구가 생긴 것 같다는 생각에 화가 나 흉기를 휘두른 것으로 조사됐다. 그는 B씨의 목과 무릎, 팔 등을 여러 차례 찌른 뒤 백화점 보안요원에 의해 제압됐다. B씨는 열상 등을 입어 수술을 받은 뒤 한동안 중환자실에서 치료받았다. 재판부는 “피해자가 피고인과 합의해 피고인에 대한 처벌을 원하지 않으며, 피고인은 피해자에게 남자친구가 생겼다고 오해해 화가 나 우발적으로 범행한 것으로 보인다”며 “미수에 그쳤지만, 단순히 화가 났다는 이유로 무차별적으로 피해자를 공격해 죄책이 무겁고 비난 가능성이 크다”고 양형 이유를 밝혔다. 한편 A씨와 검찰은 1심 판결에 불복해 각각 항소를 제기했다.",
+        "summary": "지난 4월 30일 저녁 대전 서구 한 백화점 식당가에서 흉기 난동이 발생해 경찰 과학수사대가 범행 현장에서 증거를 보존하고 있다. 연합뉴스 대전 한 백화점에서 이전 연인관계였던 여성 직원에게 흉기를 휘두른 40대 남성 직원이 실형을 선고받았다. 대전지법 제13형사부(장민경 부장판사)는 살인미수 혐의로 기소된 A씨(44)에게 징역 5년을 선고했다고 18일 밝혔다. A씨는 지난 4월 30일 오후 5시 55분께 대전 서구 둔산동 한 백화점 지하 2층 식당가에서 여성 직원 B씨를 흉기로 찔러 살해하려 한 혐의로 재판에 넘겨졌다. A씨는 연",
         "topicSignature": {
           "category": "issue",
-          "target": "시간당 11만t",
-          "event": "시행",
-          "entities": [
-            "11만t"
-          ],
+          "target": "다른 남자",
+          "event": "합의",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 시간당 11만t | 시행 | 11만t"
+          "text": "issue | 다른 남자 | 합의"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "시간당 11만t",
+          "subject": "다른 남자",
           "subjectTerms": [
-            "시간당",
-            "11만t"
+            "다른",
+            "남자"
           ],
           "eventKind": "general",
-          "eventLabel": "시행",
+          "eventLabel": "합의",
           "eventTerms": [
-            "시행"
+            "합의"
           ],
           "eventKey": null,
           "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "18일",
+          "date": "30일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -4795,50 +4809,49 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 95,
+          "score": 80,
           "signals": [
             "reader_money_work_life_impact",
             "concrete_event_or_decision",
-            "broad_audience_or_market_scope",
             "issue_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "시간당 11만t",
+            "subject": "다른 남자",
             "subjectTerms": [
-              "시간당",
-              "11만t"
+              "다른",
+              "남자"
             ],
             "eventKind": "general",
-            "eventLabel": "시행",
+            "eventLabel": "합의",
             "eventTerms": [
-              "시행"
+              "합의"
             ],
             "eventKey": null,
             "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "18일",
+            "date": "30일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": []
           },
-          "baseScore": 95,
+          "baseScore": 80,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -4865,30 +4878,639 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.6968,
+        "score": 0.5434,
         "method": "embedding",
-        "reason": "gray_distinct_event",
-        "matchedPublicationKey": "diem:2026-08-16:issue:31921429219",
+        "reason": "below_threshold",
+        "matchedPublicationKey": "diem:2026-08-13:issue:31634985422",
         "signature": {
           "category": "issue",
-          "target": "시간당 11만t",
-          "event": "시행",
-          "entities": [
-            "11만t"
-          ],
+          "target": "다른 남자",
+          "event": "합의",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 시간당 11만t | 시행 | 11만t"
+          "text": "issue | 다른 남자 | 합의"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "백화점 난동\n5년 형 선고",
+            "lines": [
+              "백화점 난동",
+              "5년 형 선고"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "백화점 난동\n5년 형 선고",
+          "lines": [
+            "백화점 난동",
+            "5년 형 선고"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "대전 서구 한 백화점 식당가에서 전 연인인 여성 직원을 흉기로 찔러 살인미수를 시도한 44세 남성 직원 A씨가 징역 5년 실형을 받았다.📰",
+            "피고는 피해자가 새 남자친구가 생겼다는 오해에 분노해 범행을 저질렀으며, 피해자는 목·팔·무릎 등에 상처를 입어 수술 후 중환자실에서 치료받았다.",
+            "재판부는 피해자가 피고와 합의해 처벌을 원치 않음에도 불구하고, 화가 난 일시적 충동이라도 무차별 공격은 중대한 죄책을 만든다고 판단해 실형을 선고했으며, 피고와 검찰은 1심 판결에 항소했다.📰"
+          ],
+          "text": "대전 서구 한 백화점 식당가에서 전 연인인 여성 직원을 흉기로 찔러 살인미수를 시도한 44세 남성 직원 A씨가 징역 5년 실형을 받았다.📰\n\n피고는 피해자가 새 남자친구가 생겼다는 오해에 분노해 범행을 저질렀으며, 피해자는 목·팔·무릎 등에 상처를 입어 수술 후 중환자실에서 치료받았다.\n\n재판부는 피해자가 피고와 합의해 처벌을 원치 않음에도 불구하고, 화가 난 일시적 충동이라도 무차별 공격은 중대한 죄책을 만든다고 판단해 실형을 선고했으며, 피고와 검찰은 1심 판결에 항소했다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #백화점 #살인미수 #형사판결 #폭력 #다른 #남자",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#백화점",
+            "#살인미수",
+            "#형사판결",
+            "#폭력",
+            "#다른",
+            "#남자"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#백화점",
+              "#살인미수",
+              "#형사판결",
+              "#폭력",
+              "#다른",
+              "#남자"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-08-18T19:23:22.638Z",
+        "id": "pexels:5668484",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/black-wooden-gavel-5668484/",
+        "downloadUrl": "https://images.pexels.com/photos/5668484/pexels-photo-5668484.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Sora Shimazaki",
+        "creatorUrl": "https://www.pexels.com/@sora-shimazaki",
+        "width": 4000,
+        "height": 6000,
+        "description": "Black wooden gavel with golden strip on table near stack of folders in courthouse",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "legal court document gavel",
+        "score": 0.5125,
+        "components": {
+          "semanticMetadata": 0.25,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "legal",
+            "court",
+            "document",
+            "gavel"
+          ],
+          "matchedConcreteTokens": [
+            "gavel"
+          ],
+          "primaryVisualAnchors": [
+            "legal",
+            "court",
+            "document",
+            "gavel"
+          ],
+          "matchedPrimaryVisualAnchors": [
+            "gavel"
+          ],
+          "primaryVisualAnchorMatched": true,
+          "matchRatio": 0.25,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "identity": {
+            "required": false,
+            "name": "부장",
+            "role": "판사",
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 2,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": "부장",
+          "role": "판사",
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "legal court document gavel",
+            "count": 20,
+            "suitableCount": 8,
+            "suitabilityRejected": 12,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:6077294",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [
+                  "legal"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5668802",
+                "rankWithinQuery": 10,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876039",
+                "rankWithinQuery": 11,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:5668882",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876148",
+                "rankWithinQuery": 13,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876087",
+                "rankWithinQuery": 14,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:6077355",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:8112195",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:8731036",
+                "rankWithinQuery": 17,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876045",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876042",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:5668791",
+                "rankWithinQuery": 20,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "부장",
+                  "role": "판사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 8,
+            "recentReuseBlocked": 2,
+            "bestScore": 0.8375
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 38,
+          "recentKeyCount": 125,
+          "blockedCandidateCount": 2,
+          "selectedImageKeys": [
+            "pexels:5668484",
+            "https://www.pexels.com/photo/black-wooden-gavel-5668484/",
+            "https://images.pexels.com/photos/5668484/pexels-photo-5668484.jpeg"
+          ]
+        },
+        "selectionReason": "selected concrete-subject-matched unused rank #2 from pexels results above 0.42; 12 unsuitable and 2 recent images blocked",
+        "localSha256": "604c4d9f4b9ac5ea57cfbdc69ec4a98c7a4adab77cfc2df83603f2be40751ab3"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "bright1",
+        "mood": "bright",
+        "sha256": "3d262d01f0a1fe6d91a4806cab40beb8f793d0ea9bb8a5c3c48ea33b5ce7d0d1",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-18T19:23:27.438Z"
       },
       "story": {
         "status": "planned",
@@ -4954,6 +5576,42 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-19/issue/issue-cover.png",
+        "coverSha256": "c1de468a358d9d5ac39ee5c032996ae7c32bfd905fda32683f7ca45c2ea715fe",
+        "reelPath": ".diem-cache/2026-08-19/issue/issue-reel.mp4",
+        "reelSha256": "17c104936bfca8f48cac3d74f9f07013bedb039eef0be91548d6d953a82975c8",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "시간당 11만t, 제 역할한 거제 배수펌프장… ‘200년 폭우’엔 역부족",
+            "url": "https://n.news.naver.com/article/023/0003993586?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned an ungrounded numeric claim: 115,000 in \"6대의 펌프는 1분당 1920톤씩 물을 끌어올려 최대 115,000톤을 처리할 수 있으며, 90㎜/시간 이하의 집중호우는 충분히 감당합니다.\" | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 115,000 in \"6대의 펌프는 1분당 1920톤씩 물을 끌어올려 최대 115,000톤을 처리할 수 있으며, 90㎜/시간 이하의 집중호우는 충분히 감당합니다.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-18T19:23:01.609Z"
+          }
+        ],
+        "updatedAt": "2026-08-18T19:23:18.628Z"
       }
     }
   },
