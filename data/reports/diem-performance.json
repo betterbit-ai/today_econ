@@ -1,37 +1,37 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-19T13:43:19.903Z",
+  "generatedAt": "2026-08-19T16:31:56.339Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
-  "publishedCount": 120,
+  "publishedCount": 121,
   "operations": {
-    "totalRuns": 204,
+    "totalRuns": 207,
     "noPublishReasons": {
       "no_candidate_passed_hotness_gate": {
-        "count": 40,
-        "share": 50
+        "count": 41,
+        "share": 50.62
       },
       "no_candidate_passed_editorial_generation": {
         "count": 36,
-        "share": 45
+        "share": 44.44
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
-        "share": 2.5
+        "share": 2.47
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 2,
-        "share": 2.5
+        "share": 2.47
       }
     },
     "candidateFailureReasons": {
+      "editorial_generation_failed": {
+        "count": 45,
+        "share": 50.56
+      },
       "unknown": {
         "count": 44,
-        "share": 50
-      },
-      "editorial_generation_failed": {
-        "count": 44,
-        "share": 50
+        "share": 49.44
       }
     },
     "titleRepairFailures": 1,
@@ -1210,7 +1210,7 @@
       }
     },
     "7d": {
-      "sampleCount": 44,
+      "sampleCount": 45,
       "excludedLateBackfills": 30,
       "categories": {
         "economy": {
@@ -1572,19 +1572,47 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 25,
+          "samples": 26,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1622,
-            "viewsMedian": 1622,
-            "reachMedian": 1291,
+            "exposureMedian": 1626,
+            "viewsMedian": 1626,
+            "reachMedian": 1304.5,
             "savedRateMedian": 0,
-            "shareRateMedian": 0.092,
-            "engagementRateMedian": 1.47,
-            "averageWatchTimeMedian": 4227,
-            "followerDeltaEstimateMedian": 13
+            "shareRateMedian": 0.1075,
+            "engagementRateMedian": 1.51,
+            "averageWatchTimeMedian": 4400.5,
+            "followerDeltaEstimateMedian": 18
           },
           "winners": [
+            {
+              "publicationKey": "diem:2026-08-12:issue:31605450490",
+              "category": "issue",
+              "title": "주진우 증언 / 우원식표결지연",
+              "permalink": "https://www.instagram.com/reel/Db8WvFLidaR/",
+              "exposure": 38433,
+              "views": 38433,
+              "reach": 20059,
+              "savedRate": 0.15,
+              "shareRate": 0.449,
+              "engagementRate": 4.12,
+              "averageWatchTime": 9197,
+              "followerDeltaEstimate": 23,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "pixabay-bransboynd-night-summer-lounge-473222",
+                "mood": "serious"
+              }
+            },
             {
               "publicationKey": "diem:2026-08-09:issue:31291362521",
               "category": "issue",
@@ -1692,34 +1720,6 @@
               "audio": {
                 "mode": "track",
                 "trackId": "serious4",
-                "mood": "serious"
-              }
-            },
-            {
-              "publicationKey": "diem:2026-08-11:issue:31471395092",
-              "category": "issue",
-              "title": "한동훈 흉기 / 징역 1년 확정",
-              "permalink": "https://www.instagram.com/reel/Db5HnexgGBP/",
-              "exposure": 3966,
-              "views": 3966,
-              "reach": 2766,
-              "savedRate": 0,
-              "shareRate": 0,
-              "engagementRate": 0.9,
-              "averageWatchTime": 5683,
-              "followerDeltaEstimate": null,
-              "features": [
-                "concrete_number",
-                "event:housing_policy",
-                "public_decision"
-              ],
-              "image": {
-                "kind": "web",
-                "source": "pexels"
-              },
-              "audio": {
-                "mode": "track",
-                "trackId": "pixabay-bransboynd-night-summer-lounge-473222",
                 "mood": "serious"
               }
             }
@@ -1870,34 +1870,34 @@
               "feature": "event:housing_policy",
               "samples": 2,
               "exposureMedian": 2240,
-              "lift": 1.381,
+              "lift": 1.378,
               "signal": "insufficient_data"
+            },
+            {
+              "feature": "public_decision",
+              "samples": 9,
+              "exposureMedian": 1994,
+              "lift": 1.226,
+              "signal": "neutral"
             },
             {
               "feature": "housing_money",
               "samples": 1,
               "exposureMedian": 1891,
-              "lift": 1.166,
+              "lift": 1.163,
               "signal": "insufficient_data"
             },
             {
               "feature": "event:general",
-              "samples": 20,
-              "exposureMedian": 1645,
-              "lift": 1.014,
-              "signal": "neutral"
-            },
-            {
-              "feature": "public_decision",
-              "samples": 8,
-              "exposureMedian": 1645,
-              "lift": 1.014,
+              "samples": 21,
+              "exposureMedian": 1660,
+              "lift": 1.021,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
-              "samples": 24,
-              "exposureMedian": 1626,
+              "samples": 25,
+              "exposureMedian": 1630,
               "lift": 1.002,
               "signal": "neutral"
             },
@@ -1905,14 +1905,14 @@
               "feature": "event:legislation",
               "samples": 3,
               "exposureMedian": 478,
-              "lift": 0.295,
+              "lift": 0.294,
               "signal": "underperformer"
             },
             {
               "feature": "work_life",
               "samples": 1,
               "exposureMedian": 314,
-              "lift": 0.194,
+              "lift": 0.193,
               "signal": "insufficient_data"
             }
           ],
@@ -1928,33 +1928,33 @@
   "image": {
     "kindDistribution": {
       "web": {
-        "count": 89,
-        "share": 74.17
+        "count": 90,
+        "share": 74.38
       },
       "typographic": {
         "count": 31,
-        "share": 25.83
+        "share": 25.62
       }
     },
     "sourceDistribution": {
       "pexels": {
-        "count": 80,
-        "share": 66.67
+        "count": 81,
+        "share": 66.94
       },
       "diem-original": {
         "count": 31,
-        "share": 25.83
+        "share": 25.62
       },
       "unsplash": {
         "count": 5,
-        "share": 4.17
+        "share": 4.13
       },
       "wikimedia": {
         "count": 4,
-        "share": 3.33
+        "share": 3.31
       }
     },
-    "typographyFallbackRate": 25.83
+    "typographyFallbackRate": 25.62
   },
   "music": {
     "trackDistribution": {
@@ -2030,15 +2030,15 @@
     "moodDistribution": {
       "bright": {
         "count": 69,
-        "share": 57.5
+        "share": 57.02
       },
       "serious": {
         "count": 41,
-        "share": 34.17
+        "share": 33.88
       },
       "unknown": {
-        "count": 10,
-        "share": 8.33
+        "count": 11,
+        "share": 9.09
       }
     },
     "diversityWarning": null,

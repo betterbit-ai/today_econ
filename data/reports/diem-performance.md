@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 120편
-- 생성 시각: 2026-08-19T13:43:19.903Z
+- 발행 원장 Reel: 121편
+- 생성 시각: 2026-08-19T16:31:56.339Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -32,18 +32,18 @@
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 이재명 대통령 / 휴가 권고(126,102), 청년 퇴사 / 실업급여 추진(3,285), 보유세 개편 / 결정(2,313), 대출 규제 / 계약 포기 급증(2,268)
   - 부진 후보: 미니 드라이버 / 기아 에어백(183), ISA 개편 / 복원안 발표(390), 생산적 ISA / 정책 개편(395), 이만희 재판 / 합의부 재배당(579)
   - 특성 신호: work_life winner×1.64, event:interest_rate insufficient_data×1.57, macro_indicator insufficient_data×1.57, company_event insufficient_data×0.56, event:ipo insufficient_data×0.56
-- issue: 표본 25편 · 노출 중앙값 1,622 · 공유율 0.09% · 저장률 0%
-  - 반복 후보: 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870), 한동훈 흉기 / 징역 1년 확정(3,966)
+- issue: 표본 26편 · 노출 중앙값 1,626 · 공유율 0.11% · 저장률 0%
+  - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 이주노동자 / 폭염 작업(314), 세종시 환경원 / 트럭 가득(428), 형사소송법 / 보완수사권폐지(444), 형사소송법 개정 / 보완권 폐지(478), 청년 청소 / 삶 회복(514)
-  - 특성 신호: event:housing_policy insufficient_data×1.38, housing_money insufficient_data×1.17, event:legislation underperformer×0.29, work_life insufficient_data×0.19
+  - 특성 신호: event:housing_policy insufficient_data×1.38, housing_money insufficient_data×1.16, event:legislation underperformer×0.29, work_life insufficient_data×0.19
 - 정시 비교에서 제외한 늦은 백필: 30편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 25.83%
-- 이미지 공급원: pexels 80편, diem-original 31편, unsplash 5편, wikimedia 4편
+- 타이포그래피 폴백률: 25.62%
+- 이미지 공급원: pexels 81편, diem-original 31편, unsplash 5편, wikimedia 4편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: unknown 44건, editorial_generation_failed 44건
+- 편집 후보 실패: editorial_generation_failed 45건, unknown 44건
 - 제목 재정제 실패: 1건
 
 ## 해석 주의
