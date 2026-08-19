@@ -1,36 +1,36 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 119편
-- 생성 시각: 2026-08-19T04:38:47.081Z
+- 발행 원장 Reel: 120편
+- 생성 시각: 2026-08-19T13:43:19.903Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
-- economy: 표본 17편 · 노출 중앙값 1,330 · 공유율 0.08% · 저장률 0.04%
+- economy: 표본 18편 · 노출 중앙값 1,426.5 · 공유율 0.07% · 저장률 0.02%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226)
-  - 부진 후보: ISA 세금 / 줄이는 방식(341), ISA 개편 / 복원안 발표(365), 거제 폭우 / 복구 진행(482), 이만희 재판 / 합의부 재배당(557)
-  - 특성 신호: event:semiconductor insufficient_data×1.58, work_life insufficient_data×1.3, event:interest_rate insufficient_data×1.15, macro_indicator insufficient_data×1.15, household_money insufficient_data×0.7, company_event insufficient_data×0.59, event:ipo insufficient_data×0.59, event:general underperformer×0.53
-- issue: 표본 18편 · 노출 중앙값 1,624 · 공유율 0.09% · 저장률 0%
+  - 부진 후보: ISA 세금 / 줄이는 방식(341), ISA 개편 / 복원안 발표(365), 거제 폭우 / 복구 진행(482), 이만희 재판 / 합의부 재배당(557), 콜롬비아 지진 / 비상사태 선포(702)
+  - 특성 신호: event:semiconductor insufficient_data×1.47, work_life insufficient_data×1.21, event:interest_rate insufficient_data×1.07, macro_indicator insufficient_data×1.07, household_money insufficient_data×0.65, event:general underperformer×0.6, company_event insufficient_data×0.55, event:ipo insufficient_data×0.55
+- issue: 표본 19편 · 노출 중앙값 1,637 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 한동훈 흉기 / 징역 1년 확정(3,867), 새벽 19도 / 13·15호(3,187)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(173), 롤스로이스 / 주차 빌런 보도(456), 대전시 / 공공기관2차선점전(460)
-  - 특성 신호: event:housing_policy insufficient_data×1.67, housing_money insufficient_data×0.65
+  - 특성 신호: event:housing_policy insufficient_data×1.65, housing_money insufficient_data×0.64
 - 정시 비교에서 제외한 늦은 백필: 78편
 
 ## 72h
-- economy: 표본 16편 · 노출 중앙값 1,537.5 · 공유율 0.09% · 저장률 0.07%
-  - 반복 후보: 이재명 / ISA 개편 중단(722,599), 공무원 / 광고 사과(4,641)
-  - 부진 후보: ISA 개편 / 복원안 발표(383), 이만희 재판 / 합의부 재배당(573), 콜롬비아 지진 / 비상사태 선포(717)
-  - 특성 신호: event:semiconductor insufficient_data×1.38, household_money insufficient_data×1.25, work_life insufficient_data×1.14, event:interest_rate insufficient_data×0.99, macro_indicator insufficient_data×0.99, company_event insufficient_data×0.52, event:ipo insufficient_data×0.52
+- economy: 표본 18편 · 노출 중앙값 1,450.5 · 공유율 0.07% · 저장률 0.05%
+  - 반복 후보: 이재명 / ISA 개편 중단(722,599), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
+  - 부진 후보: ISA 세금 / 줄이는 방식(358), ISA 개편 / 복원안 발표(383), 이만희 재판 / 합의부 재배당(573), 콜롬비아 지진 / 비상사태 선포(717)
+  - 특성 신호: event:semiconductor insufficient_data×1.46, work_life insufficient_data×1.21, event:interest_rate insufficient_data×1.05, macro_indicator insufficient_data×1.05, company_event insufficient_data×0.55, event:ipo insufficient_data×0.55
 - issue: 표본 22편 · 노출 중앙값 1,639 · 공유율 0.12% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 한동훈 흉기 / 징역 1년 확정(3,959), 새벽 19도 / 13·15호(3,267)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(176), 대전시 / 공공기관2차선점전(479)
   - 특성 신호: event:housing_policy insufficient_data×1.69, public_decision winner×1.39, housing_money insufficient_data×1.08
-- 정시 비교에서 제외한 늦은 백필: 64편
+- 정시 비교에서 제외한 늦은 백필: 65편
 
 ## 7d
-- economy: 표본 18편 · 노출 중앙값 1,443.5 · 공유율 0.17% · 저장률 0.09%
+- economy: 표본 19편 · 노출 중앙값 1,442 · 공유율 0.17% · 저장률 0.09%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 이재명 대통령 / 휴가 권고(126,102), 청년 퇴사 / 실업급여 추진(3,285), 보유세 개편 / 결정(2,313), 대출 규제 / 계약 포기 급증(2,268)
-  - 부진 후보: 미니 드라이버 / 기아 에어백(183), 생산적 ISA / 정책 개편(395), 이만희 재판 / 합의부 재배당(579)
+  - 부진 후보: 미니 드라이버 / 기아 에어백(183), ISA 개편 / 복원안 발표(390), 생산적 ISA / 정책 개편(395), 이만희 재판 / 합의부 재배당(579)
   - 특성 신호: work_life winner×1.64, event:interest_rate insufficient_data×1.57, macro_indicator insufficient_data×1.57, company_event insufficient_data×0.56, event:ipo insufficient_data×0.56
 - issue: 표본 25편 · 노출 중앙값 1,622 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870), 한동훈 흉기 / 징역 1년 확정(3,966)
@@ -39,8 +39,8 @@
 - 정시 비교에서 제외한 늦은 백필: 30편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 26.05%
-- 이미지 공급원: pexels 79편, diem-original 31편, unsplash 5편, wikimedia 4편
+- 타이포그래피 폴백률: 25.83%
+- 이미지 공급원: pexels 80편, diem-original 31편, unsplash 5편, wikimedia 4편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: unknown 44건, editorial_generation_failed 44건
