@@ -1,4 +1,5 @@
 const { validateEditorial } = require('./editorial');
+const { assessImageSuitability } = require('./image-selector');
 
 function validateImageQuality(image = {}) {
   const errors = [];
@@ -36,11 +37,28 @@ function validateImageQuality(image = {}) {
 function validatePreparedQuality({ article = {}, editorial = {}, image = {}, handle } = {}) {
   const editorialResult = validateEditorial(editorial, { article, handle });
   const imageResult = validateImageQuality(image);
+  const finalImageReview = image.kind === 'web' && image.query && image.description
+    ? assessImageSuitability(image, image.query, {
+      ...article,
+      editorialTitle: editorial.title?.text || editorial.title || '',
+    }, {
+      selectionRole: image.visualRole || 'context',
+      requirePersonFreeEvidence: image.visualRole !== 'portrait',
+    })
+    : null;
   const errors = [
     ...editorialResult.errors.map(error => `editorial: ${error}`),
     ...imageResult.errors.map(error => `image: ${error}`),
+    ...(finalImageReview && !finalImageReview.ok
+      ? [`image: final context review failed (${finalImageReview.reason})`]
+      : []),
   ];
-  return { ok: errors.length === 0, errors, editorial: editorialResult, image: imageResult };
+  return {
+    ok: errors.length === 0,
+    errors,
+    editorial: editorialResult,
+    image: { ...imageResult, finalReview: finalImageReview },
+  };
 }
 
 function assertPreparedQuality(input = {}) {

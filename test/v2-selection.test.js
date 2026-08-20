@@ -610,6 +610,80 @@ test('rejects a United States ballot box for a Korean party-election story', () 
   assert.equal(result.requiredGeography, 'south_korea');
 });
 
+test('treats a presidential dinner as a meeting instead of an incidental party election', () => {
+  const queries = buildImageQueries({
+    title: '이재명 대통령, 김민석·정청래·송영길과 화합 만찬',
+    summary: '이재명 대통령이 당 지도부와 만찬을 함께했다. 참석자들은 전당대회 이후 당의 단합과 국정 협력을 논의했다.',
+    editorialTitle: '이재명\n당 지도부 식사',
+    category: 'issue',
+    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령' },
+  });
+
+  assert.match(queries[0], /presidential office|meeting room|conference table/i);
+  assert.doesNotMatch(queries.join(' '), /election|ballot|vote/i);
+  assert.equal(createTypographyFallback({
+    title: '이재명 대통령, 김민석·정청래·송영길과 화합 만찬',
+    summary: '이재명 대통령이 당 지도부와 만찬을 함께했다.',
+    category: 'issue',
+  }).fallbackTheme, 'political-meeting');
+});
+
+test('reviews multiple contextual candidates and rejects an American ballot box before selection', async () => {
+  const candidate = {
+    title: '이재명 대통령, 김민석·정청래·송영길과 화합 만찬',
+    summary: '이재명 대통령이 당 지도부와 만찬을 함께하며 국정 협력을 당부했다.',
+    editorialTitle: '이재명\n당 지도부 식사',
+    category: 'issue',
+    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령' },
+  };
+  const photos = [
+    {
+      id: 8846786,
+      url: 'https://www.pexels.com/photo/american-ballot-8846786/',
+      src: { portrait: 'https://images.pexels.com/photos/8846786/american-ballot.jpeg' },
+      photographer: 'Election Creator',
+      width: 3603,
+      height: 5405,
+      alt: 'A clear ballot box with an American flag on it placed on a wooden stool, symbolizing voting and elections.',
+    },
+    {
+      id: 901,
+      url: 'https://www.pexels.com/photo/korean-office-901/',
+      src: { portrait: 'https://images.pexels.com/photos/901/korean-office.jpeg' },
+      photographer: 'Office Creator',
+      width: 2400,
+      height: 3600,
+      alt: 'South Korea presidential office meeting room with an empty conference table in Seoul',
+    },
+    {
+      id: 902,
+      url: 'https://www.pexels.com/photo/korean-podium-902/',
+      src: { portrait: 'https://images.pexels.com/photos/902/korean-podium.jpeg' },
+      photographer: 'Briefing Creator',
+      width: 2400,
+      height: 3600,
+      alt: 'South Korea government briefing room podium in Seoul',
+    },
+  ];
+  const selection = await selectLicensedImage(candidate, {
+    pexelsApiKey: 'pexels-key',
+    fetchImpl: async url => {
+      if (/api\.pexels/u.test(String(url))) return { ok: true, json: async () => ({ photos }) };
+      if (/api\.unsplash/u.test(String(url))) return { ok: true, json: async () => ({ results: [] }) };
+      if (/api\.openverse/u.test(String(url))) return { ok: true, json: async () => ({ results: [] }) };
+      return { ok: true, json: async () => ({ query: { pages: {} } }) };
+    },
+  });
+
+  assert.equal(selection.kind, 'web');
+  assert.equal(selection.id, 'pexels:901');
+  assert.equal(selection.finalReview.ok, true);
+  assert.ok(selection.finalReview.candidateCount >= 2);
+  assert.ok(selection.attempts.some(attempt => attempt.suitabilityRejections?.some(item => (
+    item.id === 'pexels:8846786'
+  ))));
+});
+
 test('does not parse Korean candidate grammar as a named person', () => {
   assert.equal(extractPrimaryPersonIdentity({
     title: '경기에서 차세대 대선 후보로 주목받는 인물',

@@ -66,6 +66,7 @@ const TYPOGRAPHY_THEMES = new Set([
   'markets',
   'occupational-heat',
   'political-election',
+  'political-meeting',
   'public-interest',
   'rate-reset',
   'tax-account',
@@ -175,6 +176,12 @@ function typographyMotif(theme) {
       body: `<rect x="175" y="505" width="730" height="315" rx="34"/><path d="M280 505L335 300H745L800 505"/>
         <rect x="380" y="160" width="320" height="235" rx="22"/><path d="M430 225H650M430 295H595"/>
         <path d="M330 650H750M410 730H670"/>`,
+    },
+    'political-meeting': {
+      id: 'conference-table-podium',
+      body: `<path d="M165 690L330 455H750L915 690Z"/><path d="M245 690V820M835 690V820M355 690V780M725 690V780"/>
+        <rect x="415" y="175" width="250" height="225" rx="26"/><path d="M470 245H610M470 315H570"/>
+        <path d="M255 520H355M725 520H825M540 455V400"/>`,
     },
     'democratic-history': {
       id: 'memorial-flower',

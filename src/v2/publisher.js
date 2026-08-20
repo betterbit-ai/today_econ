@@ -167,12 +167,20 @@ async function preparePublication(ledger, category, {
     && !(imageSelection.kind === 'web' && imageSelection.identity?.verified)) {
     throw new Error(`[DIEM Image] named-person identity could not be verified: ${personIdentity.name}`);
   }
-  assertPreparedQuality({
+  const preparedQuality = assertPreparedQuality({
     article,
     editorial,
     image: imageSelection,
     handle: config.instagramUsername,
   });
+  if (imageSelection.kind === 'web' && preparedQuality.image.finalReview) {
+    imageSelection.finalReview = {
+      ...(imageSelection.finalReview || {}),
+      ok: preparedQuality.image.finalReview.ok,
+      gate: 'prepared_quality_context_recheck',
+      reason: preparedQuality.image.finalReview.reason,
+    };
+  }
 
   const coverPath = path.join(outputDir, `${category}-cover.png`);
   await renderCoverImpl({

@@ -73,6 +73,8 @@ const NON_PERSON_NAMES = new Set([
 const PERSON_METADATA_PATTERN = /\b(?:person|people|portraits?|models?|man|men|woman|women|boys?|girls?|students?|workers?|doctors?|nurses?|teachers?|actors?|actresses|singers?|couples?|parents?|children?|famil(?:y|ies)|crowds?)\b|(?:사람|인물|남성|여성|학생|노동자|근로자|의사|간호사|교사|배우|가수|아동|자녀|부부|부모|가족|군중)/iu;
 const PERSON_FREE_CONTEXT_PATTERN = /\b(?:building|exterior|interior|architecture|office|institution|document|paper|contract|legislation|law|gavel|courtroom|cityscape|skyline|flag|chart|screen|billboard|computer|phone|factory|microchip|chip|vehicle|car|apartment|house|door|doorway|entrance|package|parcel|ballot\s+box|podium|memorial|monument|cemetery|graves?|hospital|classroom|landscape|weather|storm|rain|flood|heatwave|thermometer|equipment|machinery|road|street|roof|rooftop|construction\s+site)\b|(?:건물|외관|내부|건축|기관|문서|서류|계약서|법안|법률|의사봉|법정|도시|전경|국기|차트|화면|전광판|컴퓨터|공장|반도체|차량|자동차|아파트|주택|현관|문|택배|소포|투표함|연단|기념관|기념비|묘역|묘지|병원|교실|풍경|날씨|폭우|침수|폭염|온도계|장비|기자재|도로|거리|지붕|옥상|건설현장)/iu;
 const LEGAL_JUDGMENT_CONTEXT = /(지방법원|지법|고등법원|고법|대법원|헌법재판소|재판부|법정|판결|선고|실형|징역|유죄|무죄|구속영장|판사)/u;
+const POLITICAL_MEETING_CONTEXT = /(만찬|오찬|식사|회동|간담회|회의)/u;
+const DOMESTIC_POLITICAL_ACTOR = /(대통령|청와대|대통령실|당\s*지도부|더불어민주당|국민의힘|조국혁신당|당대표|원내대표)/u;
 
 function extractPrimaryPersonIdentity(candidate = {}) {
   const patterns = [
@@ -111,6 +113,13 @@ function isOccupationalHeatStory(text = '') {
 
 function eventVisualQueries(sourceText = '') {
   const queries = [];
+  if (POLITICAL_MEETING_CONTEXT.test(sourceText) && DOMESTIC_POLITICAL_ACTOR.test(sourceText)) {
+    return [
+      'South Korea presidential office meeting room conference table',
+      'South Korea presidential office Blue House exterior',
+      'South Korea government briefing room podium',
+    ];
+  }
   if (/(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율)/u.test(sourceText)) {
     return [
       'South Korea political party convention podium',
@@ -164,6 +173,7 @@ function inferFallbackTheme(candidate = {}) {
   if (/(폭우|집중호우|호우|침수|물폭탄|홍수)/u.test(sourceText)) return 'weather-emergency';
   if (/(배달기사|배달원).{0,40}(집|주택|아파트|현관|문|침입|무단출입)|(집|현관|문).{0,40}(배달기사|배달원)/u.test(sourceText)) return 'home-security';
   if (/(타임스스퀘어|전광판|옥외\s*광고|뉴욕.{0,30}광고|광고.{0,30}뉴욕)/u.test(sourceText)) return 'civic-advertising';
+  if (POLITICAL_MEETING_CONTEXT.test(sourceText) && DOMESTIC_POLITICAL_ACTOR.test(sourceText)) return 'political-meeting';
   if (/(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율)/u.test(sourceText)) return 'political-election';
   if (/5[·.]18|광주\s*민주화운동/u.test(sourceText)) return 'democratic-history';
   if (isOccupationalHeatStory(sourceText)) return 'occupational-heat';
@@ -457,6 +467,29 @@ function imageWasRecentlyUsed(image, recentKeys) {
   return imageReuseKeys(image).some(key => recentKeys.has(key));
 }
 
+function imageFinalReviewScore(image = {}) {
+  const suitability = image.suitability || {};
+  const anchorCoverage = (suitability.matchedPrimaryVisualAnchors || []).length
+    / Math.max(1, (suitability.primaryVisualAnchors || []).length);
+  const score = (Number(image.score) || 0) * 0.55
+    + (Number(suitability.matchRatio) || 0) * 0.25
+    + anchorCoverage * 0.2;
+  return Number(Math.max(0, Math.min(1, score)).toFixed(4));
+}
+
+function reviewImagePool(images = [], limit = 5) {
+  const unique = new Map();
+  for (const image of images) {
+    const key = imageReuseKeys(image)[0] || `${image.source || 'unknown'}:${image.id || image.downloadUrl || unique.size}`;
+    const reviewed = { ...image, finalReviewScore: imageFinalReviewScore(image) };
+    const existing = unique.get(key);
+    if (!existing || reviewed.finalReviewScore > existing.finalReviewScore) unique.set(key, reviewed);
+  }
+  return [...unique.values()]
+    .sort((left, right) => right.finalReviewScore - left.finalReviewScore || right.score - left.score)
+    .slice(0, limit);
+}
+
 function createTypographyFallback(candidate = {}, {
   attempts = [],
   recentImages = [],
@@ -702,6 +735,7 @@ async function selectLicensedImage(candidate, {
   minimumScore = 0.42,
   recentImages = [],
   reuseWindowDays = 7,
+  reviewPoolTarget = 8,
 } = {}) {
   const queries = buildImageQueries(candidate);
   const attempts = [];
@@ -732,6 +766,8 @@ async function selectLicensedImage(candidate, {
   ];
 
   for (const phase of phases) {
+    const phasePool = [];
+    let phaseBlockedCandidateCount = 0;
     for (const provider of phase.providers) {
       for (const query of phase.queries) {
         try {
@@ -755,6 +791,7 @@ async function selectLicensedImage(candidate, {
           const eligible = suitable.filter(img => img.score >= minimumScore);
           const blocked = eligible.filter(image => imageWasRecentlyUsed(image, recentKeys));
           const unused = eligible.filter(image => !imageWasRecentlyUsed(image, recentKeys));
+          phaseBlockedCandidateCount += blocked.length;
           const suitabilityRejections = scored
           .filter(image => !image.suitability.ok)
           .map(image => ({
@@ -785,34 +822,51 @@ async function selectLicensedImage(candidate, {
           recentReuseBlocked: blocked.length,
           bestScore: scored[0]?.score ?? null,
           });
-          if (unused.length > 0) {
-            const topN = unused.slice(0, 5);
-            const selectedIndex = 0;
-            const selected = topN[selectedIndex];
-            return {
-            kind: 'web',
-            selectedAt: new Date().toISOString(),
-            ...selected,
-            visualRole: phase.visualRole,
-            identity: selected.suitability.identity,
-            selectedPoolIndex: selectedIndex + 1,
-            selectionPoolSize: topN.length,
-            attempts,
-            reuseGuard: {
-              allowed: true,
-              windowDays: reuseWindowDays,
-              recentImageCount: recentImages.length,
-              recentKeyCount: recentKeys.size,
-              blockedCandidateCount: blocked.length,
-              selectedImageKeys: imageReuseKeys(selected),
-            },
-            selectionReason: `selected concrete-subject-matched unused rank #${selected.rankWithinQuery} from ${provider.name} results above ${minimumScore}; ${suitabilityRejected} unsuitable and ${blocked.length} recent images blocked`,
-            };
-          }
+          phasePool.push(...unused);
         } catch (error) {
           attempts.push({ provider: provider.name, visualRole: phase.visualRole, query, count: 0, error: error.message });
         }
       }
+      if (reviewImagePool(phasePool, reviewPoolTarget).length >= reviewPoolTarget) break;
+    }
+    const shortlist = reviewImagePool(phasePool, 5);
+    if (shortlist.length > 0) {
+      const selected = shortlist[0];
+      const suitabilityRejected = attempts.reduce((total, attempt) => total + (attempt.suitabilityRejected || 0), 0);
+      return {
+        kind: 'web',
+        selectedAt: new Date().toISOString(),
+        ...selected,
+        visualRole: phase.visualRole,
+        identity: selected.suitability.identity,
+        selectedPoolIndex: 1,
+        selectionPoolSize: shortlist.length,
+        finalReview: {
+          ok: true,
+          method: 'deterministic_context_shortlist',
+          candidateCount: reviewImagePool(phasePool, Number.MAX_SAFE_INTEGER).length,
+          selectedId: selected.id,
+          selectedScore: selected.finalReviewScore,
+          shortlist: shortlist.map(image => ({
+            id: image.id,
+            source: image.source,
+            query: image.query,
+            score: image.score,
+            finalReviewScore: image.finalReviewScore,
+            suitabilityReason: image.suitability.reason,
+          })),
+        },
+        attempts,
+        reuseGuard: {
+          allowed: true,
+          windowDays: reuseWindowDays,
+          recentImageCount: recentImages.length,
+          recentKeyCount: recentKeys.size,
+          blockedCandidateCount: phaseBlockedCandidateCount,
+          selectedImageKeys: imageReuseKeys(selected),
+        },
+        selectionReason: `selected best of ${shortlist.length} context-reviewed unused candidates; source ${selected.source}, query rank #${selected.rankWithinQuery}, score ${selected.finalReviewScore}; ${suitabilityRejected} unsuitable and ${phaseBlockedCandidateCount} recent images blocked`,
+      };
     }
   }
 

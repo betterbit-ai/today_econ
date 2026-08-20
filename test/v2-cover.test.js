@@ -81,6 +81,7 @@ test('renders distinct production-incident motifs for weather, access, advertisi
     ['home-security', 'front-door-delivery'],
     ['civic-advertising', 'city-billboard'],
     ['political-election', 'ballot-podium'],
+    ['political-meeting', 'conference-table-podium'],
     ['democratic-history', 'memorial-flower'],
   ];
   for (const [theme, motif] of cases) {
