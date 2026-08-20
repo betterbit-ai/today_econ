@@ -4,7 +4,7 @@
   "date": "2026-08-20",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-19T16:31:27.688Z",
-  "updatedAt": "2026-08-20T10:29:25.952Z",
+  "updatedAt": "2026-08-20T10:29:41.664Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -16033,7 +16033,7 @@
     "economy": {
       "publicationKey": "diem:2026-08-20:economy:32358960979",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "택시승객 인터뷰했는데…알고보니 정의선 누나?",
         "url": "https://n.news.naver.com/article/021/0002812690?ntype=RANKING",
@@ -16187,15 +16187,381 @@
           "text": "economy | 택시승객 인터뷰했는데"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "택시 인터뷰\n정의선 누나",
+            "lines": [
+              "택시 인터뷰",
+              "정의선 누나"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "택시 인터뷰\n정의선 누나",
+          "lines": [
+            "택시 인터뷰",
+            "정의선 누나"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "정윤이 해비치호텔 고문이 택시 승객으로 공개돼 화제.📰",
+            "그녀는 현대자동차그룹 총수 일가의 정몽구 명예회장 셋째 딸이자 정의선 회장의 누나이다.",
+            "와썹맨 채널이 공개한 영상에서 길거리 인터뷰를 진행하던 중, 제작진은 이 사실을 전혀 몰랐으며 영상 공개 후 댓글로 확인됐다.📰"
+          ],
+          "text": "정윤이 해비치호텔 고문이 택시 승객으로 공개돼 화제.📰\n\n그녀는 현대자동차그룹 총수 일가의 정몽구 명예회장 셋째 딸이자 정의선 회장의 누나이다.\n\n와썹맨 채널이 공개한 영상에서 길거리 인터뷰를 진행하던 중, 제작진은 이 사실을 전혀 몰랐으며 영상 공개 후 댓글로 확인됐다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #현대자동차 #정윤 #택시인터뷰 #택시승객 #인터뷰했는데 #정의선",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#현대자동차",
+            "#정윤",
+            "#택시인터뷰",
+            "#택시승객",
+            "#인터뷰했는데",
+            "#정의선"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#현대자동차",
+              "#정윤",
+              "#택시인터뷰",
+              "#택시승객",
+              "#인터뷰했는데",
+              "#정의선"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "failed",
+              "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "title_generation",
+              "status": "failed",
+              "error": "model returned no valid title candidates for article frame"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "title_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-08-20T10:29:36.171Z",
+        "id": "pexels:11291683",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/back-of-a-white-bmw-m5-11291683/",
+        "downloadUrl": "https://images.pexels.com/photos/11291683/pexels-photo-11291683.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Danilo Marcelino",
+        "creatorUrl": "https://www.pexels.com/@danmds",
+        "width": 3782,
+        "height": 5666,
+        "description": "A stylish white BMW car showcased in a modern urban environment.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "modern car automotive manufacturing",
+        "score": 0.675,
+        "components": {
+          "semanticMetadata": 0.5,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "modern",
+            "car",
+            "automotive",
+            "manufacturing"
+          ],
+          "matchedConcreteTokens": [
+            "modern",
+            "car"
+          ],
+          "primaryVisualAnchors": [
+            "modern",
+            "car",
+            "automotive",
+            "manufacturing"
+          ],
+          "matchedPrimaryVisualAnchors": [
+            "modern",
+            "car"
+          ],
+          "primaryVisualAnchorMatched": true,
+          "matchRatio": 0.5,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "identity": {
+            "required": false,
+            "name": "박준형이",
+            "role": "가수",
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 1,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": "박준형이",
+          "role": "가수",
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "modern car automotive manufacturing",
+            "count": 20,
+            "suitableCount": 16,
+            "suitabilityRejected": 4,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:36814641",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "modern",
+                  "car",
+                  "automotive",
+                  "manufacturing"
+                ],
+                "matchedConcreteTokens": [
+                  "modern"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "박준형이",
+                  "role": "가수",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:39079193",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "modern",
+                  "car",
+                  "automotive",
+                  "manufacturing"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "박준형이",
+                  "role": "가수",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:34298678",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "modern",
+                  "car",
+                  "automotive",
+                  "manufacturing"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "박준형이",
+                  "role": "가수",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38935464",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "modern",
+                  "car",
+                  "automotive",
+                  "manufacturing"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "박준형이",
+                  "role": "가수",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 15,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.675
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 42,
+          "recentKeyCount": 129,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "pexels:11291683",
+            "https://www.pexels.com/photo/back-of-a-white-bmw-m5-11291683/",
+            "https://images.pexels.com/photos/11291683/pexels-photo-11291683.jpeg"
+          ]
+        },
+        "selectionReason": "selected concrete-subject-matched unused rank #1 from pexels results above 0.42; 4 unsuitable and 0 recent images blocked",
+        "localSha256": "355563ea12d9a41b29af80bc39b2aea020e29754a7d53e17840f751a0155b45e"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "serious2",
+        "mood": "serious",
+        "sha256": "300ed5ddb8b2692a714fef9424c886e465313261f5a97d277343952bc8b08268",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-20T10:29:41.647Z"
       },
       "story": {
         "status": "planned",
@@ -16267,6 +16633,13 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-20/economy/economy-cover.png",
+        "coverSha256": "242912f43d687fe69dfdf711cd3faa72065be766e6292eff546f14e196627de1",
+        "reelPath": ".diem-cache/2026-08-20/economy/economy-reel.mp4",
+        "reelSha256": "61c03ec01e6fd3666818c3805d1022e6bcf82604f7555be5a21bbafb85a410c7",
+        "temporary": true
       }
     },
     "issue": {
