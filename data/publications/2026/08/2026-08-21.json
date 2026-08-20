@@ -4,7 +4,7 @@
   "date": "2026-08-21",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-20T16:33:58.031Z",
-  "updatedAt": "2026-08-20T19:24:31.431Z",
+  "updatedAt": "2026-08-20T19:25:20.596Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -95,7 +95,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}} | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "“13만원 이체? 성매매 했지!” 간호조무사 여친의 ‘링거 살인’",
@@ -133,7 +135,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“내가 李대통령을 왜 싫어해”…이하늘, 유시민과 나눈 대화 공개",
@@ -171,7 +175,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "‘100g에 10만원’ 가격 깜짝…먹어보면 납득되는 ‘곰삭은 맛’",
@@ -209,7 +215,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"살 빠지는 원리 이해하니 수월\"…약물·수술 없이 160㎏ 감량한 비결 [헬스+]",
@@ -247,7 +255,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "\"도로에 웬 식빵이?\"…3일간 길에 28.5kg 뿌려져 '누가, 왜?'",
@@ -285,7 +295,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "\"똥 더러워서 피하지\" \"나잇값 하세요\"…MZ 미용실 직원에 '분통'",
@@ -323,7 +335,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "[결혼과 이혼] \"엄마는 남자친구 있던데...아빠는 없어?\"...5살 딸의 증언",
@@ -361,7 +375,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "SK하이닉스, 성과급 60%는 주식으로…기본급 6.3%↑",
@@ -399,7 +415,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "'구혜선 만년필' 한자루 45만원…고가 논란에도 하루 만에 완판",
@@ -437,7 +455,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "'디 워2 개봉 준비' 심형래, \"BTS 아리랑은 되고 나는 욕 먹나\"",
@@ -475,7 +495,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "경복궁서 '한푸' 입는 중국 인플루언서들…\"한복 오해 우려\"",
@@ -513,7 +535,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[날씨] 금요일 중부 흐리고 비…충청 이남 늦더위 속 소나기",
@@ -551,7 +575,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "북, 탄도미사일 10여 발 발사…김여정 \"서울의 가긍한 처지\" 조롱도",
@@ -4530,24 +4556,24 @@
     "issue": {
       "publicationKey": "diem:2026-08-21:issue:32408276164",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "“지방간 사라지고 검은머리 났다” 前아산병원 의사 홀린 ‘술’",
-        "url": "https://n.news.naver.com/article/025/0003545709?ntype=RANKING",
+        "title": "북, 탄도미사일 10여 발 발사…김여정 \"서울의 가긍한 처지\" 조롱도",
+        "url": "https://n.news.naver.com/article/422/0000897839?ntype=RANKING",
         "publishedDate": "2026-08-21",
-        "publishedAt": "2026-08-20 18:01:05",
+        "publishedAt": "2026-08-21 00:08:11",
         "observedAt": "2026-08-20T19:24:20.631Z",
-        "popularityScore": 97.9796,
+        "popularityScore": 71.7143,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 83.14,
-          "popularityScore": 97.9796,
-          "freshnessScore": 70,
-          "editorialValueScore": 55,
-          "ageHours": 10.39,
-          "publishedAt": "2026-08-20 18:01:05",
+          "score": 70.19,
+          "popularityScore": 71.7143,
+          "freshnessScore": 80,
+          "editorialValueScore": 45,
+          "ageHours": 4.28,
+          "publishedAt": "2026-08-21 00:08:11",
           "observedAt": "2026-08-20T19:24:20.631Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -4566,39 +4592,41 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 2,
-            "normalizedScore": 97.9796,
-            "title": "“지방간 사라지고 검은머리 났다” 前아산병원 의사 홀린 ‘술’",
-            "url": "https://n.news.naver.com/article/025/0003545709?ntype=RANKING"
+            "rank": 15,
+            "normalizedScore": 71.7143,
+            "title": "북, 탄도미사일 10여 발 발사…김여정 \"서울의 가긍한 처지\" 조롱도",
+            "url": "https://n.news.naver.com/article/422/0000897839?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "\" 의사 슨상님, 어젯밤부터 열이 나서 잠을 한숨도 못 잤어요. 나 좀 고쳐주소. \" 지난달, 전북 정읍의 고부보건지소 진료실. 밤새 열에 시달렸다는 80대 할머니 한 분이 울상을 한 채 들어섰다. 임경수(69) 소장은 청진기를 대고 가슴팍을 짚었다. 언제부터 열이 났는지, 숨쉬기는 편한지, 밥맛은 있는지…, 온갖 질문이 이어졌다. 그리고 한참 동안 몸 이곳저곳을 눌러보고 숨 쉬는 소리까지 꼼꼼히 확인했다. \" 어르신, 시내 보건소 아시죠? 거기 가서 폐! 엑! 스! 레! 이! 찍어오세요. 아셨죠? 엑! 스! 레! 이! 여기는 기계가 없어서 못 찍어드려요. 시내 보건소, 폐 엑스레이! 꼭 가셔야 돼요! \" 족히 열번은 당부한 것 같은데, 그래도 마음이 안 놓였는지 임 소장은 보건소 문을 나서는 환자를 졸졸 따라가면서 계속 말을 반복했다. 그렇게 환자 한 분 보는 데 30분이 훌쩍 지났다. 임경수 소장의 진료는 최소 30분이다. 환자가 오면 머리부터 발끝까지 세심하게 챙긴다. 진료실 밖에까지 나와 잔소리하는 열혈 의사다. 장정필 기자 기자의 눈에 임 소장은 ‘의사로 성공해 금의환향한 정읍의 아들’, 이곳 토박이가 분명해 보였다. 하지만 그는 한국 최초로 응급의학 체계를 완성하고 서울아산병원에 응급의학과를 만든 ‘대한민국 응급의학계 거두’이자, 후배 의사들의 간담을 서늘하게 만들던 ‘호랑이 교수’였다. 2년 전 그가 정읍아산병원을 퇴직했을 때, 서울 큰 병원에서 연봉 4억을 제시하며 ‘모셔가기’ 작전을 펼쳤다던데, 굳이 보건지소를 택한 이유가 뭘까. 병원장 시절 넉넉한 자산을 쌓아둬 노후엔 재능 기부같은 ‘좋은 일’을 하며 살고 싶었던 걸까. 재산은 무슨…. 저는 퇴직할 때까지 집 대출금도 못 갚은 상태였어요. 보건지소장 월급이 380만원인데, 이걸로 대출금 갚고 우리 부부 생활비 쓰면서 살 수가 없어요. 겨울이 특히 추운데 난방비 아끼느라 오들오들 떨 때면 ‘와 이거 그만둬야 하나’ 싶죠. 「 “저러다 실려오시지”… 의료봉사 때 충격적 장면 」 임경수는 전북 정읍에 위치한 고부보건지소 소장으로 일하고 있다. 서울아산병원 응급의학과 교수 출신인 그는 2년 전 정읍아산병원장을 끝으로 정년퇴임 후 곧장 보건지소장으로 부임했다. 장정필 기자 Q : 서울 토박이에, 서울아산병원에서 오래 근무하셨습니다. 어쩌다 정읍까지 오게 됐나요? 서울아산병원에서 정년 2년이 남은 시점이었어요. 갑자기 병원장이 “정읍아산병원장을 맡아달라”고 부탁하는 거예요. 그 병원이 아산재단이 어려운 이웃을 돕기 위해 세운 1호 병원이거든요. 평생 아산에 몸담았는데, 의미 있는 곳에서 마무리하고 싶어서 그러자고 했죠. Q : 그런데 병원장 임기가 끝나고 아예 정읍에 눌러앉으셨어요. 그때 올라갔어야 했는데…. 병원장으로 있을 때, 제가 보지 말아야 할 걸 봐버렸어요. 이 장면을 목격한 이후 부랴부랴 정읍의 장애 발병률을 찾아본 임 소장은 더 놀랄 수밖에 없었다. 전국 평균의 두 배에 가까운 9.8%. 그가 목격한 충격적인 장면은 무엇이었을까. Q : 생활고까지 겪고 있다는데 지금껏 어떻게 버티고 계신 건가요? (계속) “버티는 게 아니고, 여기서 건강을 되찾았어요. 33년 달고 산 지방간도 없어지고 혈압, 당수치 모두 정상이라니까요.” 53세에 경계성 위암 수술을 받은 임 교수는 그날로 술·담배를 다 끊었다. 그런데 웬일인가, 정읍에 와서 ‘이 술’을 먹기 시작하면서 더 건강해졌다고 한다. “마흔 살에 완전 백발이 됐는데, 2년 만에 검은 머리도 난다.” 아산병원 명의도 푹 빠진 ‘이 술’의 정체는 무엇일까. 또 임 소장이 정읍에 눌러앉을 수 밖에 없었던 충격적인 장면까지, 아래 링크에서 확인할 수 있다. https://www.joongang.co.kr/article/25453844 ‘더,마음’ 또 다른 이야기가 궁금하다면? 첫째 아들 조울증 10년 뒤…“난 예수야” 둘째까지 덮쳤다 https://www.joongang.co.kr/article/25429299 “내 몸에 바늘 13만번 찔렀다” 1형 당뇨 약사, 10년째 먹는 것 https://www.joongang.co.kr/article/25450400 “치매 아빠, 죽으면 해방될 줄…” 34세 딸 덮친 또 다른 지옥 https://www.joongang.co.kr/article/25438752 “손글씨 덕분에 의대 합격” 93년생 여의사 ‘인생 만년필’ https://www.joongang.co.kr/article/25413081",
-        "summary": "\" 의사 슨상님, 어젯밤부터 열이 나서 잠을 한숨도 못 잤어요. 나 좀 고쳐주소. \" 지난달, 전북 정읍의 고부보건지소 진료실. 밤새 열에 시달렸다는 80대 할머니 한 분이 울상을 한 채 들어섰다. 임경수(69) 소장은 청진기를 대고 가슴팍을 짚었다. 언제부터 열이 났는지, 숨쉬기는 편한지, 밥맛은 있는지…, 온갖 질문이 이어졌다. 그리고 한참 동안 몸 이곳저곳을 눌러보고 숨 쉬는 소리까지 꼼꼼히 확인했다. \" 어르신, 시내 보건소 아시죠? 거기 가서 폐! 엑! 스! 레! 이! 찍어오세요. 아셨죠? 엑! 스! 레! 이! 여기는 기계",
+        "fullText": "[앵커]북한이 어제(20일) 오후 단거리 탄도미사일 10여 발을 무더기로 발사했습니다.도널드 트럼프 미국 대통령의 대화 손짓에도 미사일 도발을 감행한 것인데요.북한은 한미 연합훈련의 를 겨냥한 조롱 발언도 쏟아냈습니다.[기자]합동참모본부가 북한의 미사일을 포착한 건 오후 5시쯤입니다.북한은 평양 일대에서 동해상으로 단거리 탄도미사일 십여 발을 발사한 것으로 확인됩니다.포착된 북한의 미사일은 300여 km를 비행했다고 우리 군은 분석했습니다.군 당국은 북한이 600mm 초대형 방사포 KN-25를 발사했을 가능성에 무게를 두고 분석 중인 것으로 전해졌습니다.북한이 탄도미사일을 발사한 것은 8일 만이며, 올해 들어 12번째입니다.북한은 미사일 발사에 그치지 않고 트럼프 대통령 지시로 이뤄진 한미연합훈련 를 언급하며 조롱 섞인 거친 말을 쏟아내기도 했습니다.김정은 북한 국무위원장의 동생인 김여정 노동당 총무부장은 미사일 발사 당일 밤 발표한 담화에서 \"돌연 훈련 를 지시한 트럼프의 말 한마디에 서울은 제일 즐겨하던 전쟁놀이 판을 못하게 된 가긍한 처지에 놓이게 됐다\"고 비꼬았습니다.김 부장은 또 트럼프 대통령의 연합훈련 에 '경의를 표한다'고 했던 이재명 대통령을 향해서는 \"안팎이 다른 이중적 언행은 한국의 불안초조한 모순심리를 그대로 보여주고 있다\"고 비꼬았습니다.앞서 김 부장은 지난 19일 입장에서는 한미 연합훈련 에 대해서는 평가절하하면서도 김정은 국무위원장과 트럼프 대통령과의 좋은 관계를 언급해 북미 대화의 여지를 남겨둔 바 있습니다.하지만, 한국을 향해서는 멸시 어린 메시지를 보냄으로써 적대적 두 국가로서 경계심을 내비친 것으로 풀이됩니다.청와대 국가안보실은 북한의 미사일 발사 직후 국방부와 합참 등 관계기관이 참석한 가운데 긴급안보상황점검회의를 개최했습니다.안보실은 우리 측 대응 상황을 점검하고, 이번 발사가 우리 안보에 미치는 영향을 분석·평가해 필요한 조치 사항을 지시했습니다.특히 현재 을지연습 기간인 만큼 대비태세에 만전을 기할 것을 강조했습니다.연합뉴스TV 팽재용입니다.[영상편집 박은준][그래픽 조민기 이은별]연합뉴스TV 기사문의 및 제보 : 카톡/라인 jebo23",
+        "summary": "[앵커]북한이 어제(20일) 오후 단거리 탄도미사일 10여 발을 무더기로 발사했습니다.도널드 트럼프 미국 대통령의 대화 손짓에도 미사일 도발을 감행한 것인데요.북한은 한미 연합훈련의 를 겨냥한 조롱 발언도 쏟아냈습니다.[기자]합동참모본부가 북한의 미사일을 포착한 건 오후 5시쯤입니다.북한은 평양 일대에서 동해상으로 단거리 탄도미사일 십여 발을 발사한 것으로 확인됩니다.포착된 북한의 미사일은 300여 km를 비행했다고 우리 군은 분석했습니다.군 당국은 북한이 600mm 초대형 방사포 KN-25를 발사했을 가능성에 무게를 두고 분석 중",
         "topicSignature": {
           "category": "issue",
-          "target": "지방간 사라지고",
-          "event": "났다 아산병원 의사",
-          "entities": [],
+          "target": "탄도미사일 10여",
+          "event": "김여정 서울의 가긍한",
+          "entities": [
+            "10여"
+          ],
           "eventKey": null,
-          "text": "issue | 지방간 사라지고"
+          "text": "issue | 탄도미사일 10여 | 10여"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "지방간 사라지고",
+          "subject": "탄도미사일 10여",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "지방간",
-            "사라지고"
+            "탄도미사일",
+            "10여"
           ],
           "eventKind": "general",
           "eventLabel": "",
           "eventTerms": [],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "",
+          "date": "20일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -4607,48 +4635,48 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 55,
+          "score": 45,
           "signals": [
-            "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "issue_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "지방간 사라지고",
+            "subject": "탄도미사일 10여",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "지방간",
-              "사라지고"
+              "탄도미사일",
+              "10여"
             ],
             "eventKind": "general",
             "eventLabel": "",
             "eventTerms": [],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "",
+            "date": "20일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": []
           },
-          "baseScore": 55,
+          "baseScore": 45,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -4675,28 +4703,2031 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.3984,
+        "score": 0.4782,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-19:issue:32258939328",
+        "matchedPublicationKey": "diem:2026-08-20:issue:32323651690",
         "signature": {
           "category": "issue",
-          "target": "지방간 사라지고",
-          "event": "났다 아산병원 의사",
-          "entities": [],
+          "target": "탄도미사일 10여",
+          "event": "김여정 서울의 가긍한",
+          "entities": [
+            "10여"
+          ],
           "eventKey": null,
-          "text": "issue | 지방간 사라지고"
+          "text": "issue | 탄도미사일 10여 | 10여"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "북 미사일 발사\n김여정 조롱",
+            "lines": [
+              "북 미사일 발사",
+              "김여정 조롱"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "북 미사일 발사\n김여정 조롱",
+          "lines": [
+            "북 미사일 발사",
+            "김여정 조롱"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "북한이 20일 오후, 300km 비행한 단거리 탄도미일 10여 발을 동해상으로 발사하고 김여정 노동당 총무부장이 서울을 조롱했다.📰",
+            "합동참모본부는 오후 5시 북한 미사일을 포착했으며, 군은 600mm 초대형 방사포 KN‑25 발사 가능성을 검토하고 있다.",
+            "이번 발사는 8일 만에 이뤄진 12번째 미사일 발사이며, 청와대는 즉시 안보점검회의를 열어 대비태세를 강화하겠다고 밝혔다.📰"
+          ],
+          "text": "북한이 20일 오후, 300km 비행한 단거리 탄도미일 10여 발을 동해상으로 발사하고 김여정 노동당 총무부장이 서울을 조롱했다.📰\n\n합동참모본부는 오후 5시 북한 미사일을 포착했으며, 군은 600mm 초대형 방사포 KN‑25 발사 가능성을 검토하고 있다.\n\n이번 발사는 8일 만에 이뤄진 12번째 미사일 발사이며, 청와대는 즉시 안보점검회의를 열어 대비태세를 강화하겠다고 밝혔다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #북한 #탄도미사일 #김여정 #한미연합훈련 #10여 #서울의",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#북한",
+            "#탄도미사일",
+            "#김여정",
+            "#한미연합훈련",
+            "#10여",
+            "#서울의"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#북한",
+              "#탄도미사일",
+              "#김여정",
+              "#한미연합훈련",
+              "#10여",
+              "#서울의"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "typographic",
+        "id": "diem-art:public-interest:v61",
+        "source": "diem-original",
+        "license": {
+          "name": "Project-owned original",
+          "url": null
+        },
+        "selectedAt": "2026-08-20T19:25:16.253Z",
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:22682007",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:29404698",
+                "rankWithinQuery": 2,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:22682005",
+                "rankWithinQuery": 3,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33577981",
+                "rankWithinQuery": 4,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:26319168",
+                "rankWithinQuery": 5,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37323645",
+                "rankWithinQuery": 6,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18910447",
+                "rankWithinQuery": 7,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38333372",
+                "rankWithinQuery": 8,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18401987",
+                "rankWithinQuery": 9,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33795178",
+                "rankWithinQuery": 10,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20949044",
+                "rankWithinQuery": 11,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37384706",
+                "rankWithinQuery": 12,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38279173",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:31872697",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:32536911",
+                "rankWithinQuery": 15,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33019198",
+                "rankWithinQuery": 16,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:25587793",
+                "rankWithinQuery": 17,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:23499392",
+                "rankWithinQuery": 18,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20837361",
+                "rankWithinQuery": 19,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:35396694",
+                "rankWithinQuery": 20,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7833
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:fEyw6zOKGSo",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:SbVwB1cDyj4",
+                "rankWithinQuery": 2,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:W8xwAHoqdu8",
+                "rankWithinQuery": 3,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:aUhwQgpoU_U",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:3ftcu-IAvio",
+                "rankWithinQuery": 5,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:9hx6Fa8eHuE",
+                "rankWithinQuery": 6,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:WQWYralcC2U",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:Pd-7zGxOMHA",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:8oloB-8_qIA",
+                "rankWithinQuery": 9,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:_lbntKP8Z2I",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cBkYnWvRq30",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:Haq3tXiVjEQ",
+                "rankWithinQuery": 12,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:z1ExbRI13No",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:PsA_BJ_fhBg",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:HpXbH9guhVc",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:rkqtJhyjmgQ",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:_2FQPqwyHws",
+                "rankWithinQuery": 17,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:ufSgnOnJ9lc",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:GqVn9FlmsE0",
+                "rankWithinQuery": 19,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:k-1ULcmHC5k",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.4083
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 10,
+            "suitableCount": 0,
+            "suitabilityRejected": 10,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:23375520",
+                "rankWithinQuery": 1,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375524",
+                "rankWithinQuery": 2,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375532",
+                "rankWithinQuery": 3,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375537",
+                "rankWithinQuery": 4,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375542",
+                "rankWithinQuery": 5,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375549",
+                "rankWithinQuery": 6,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375554",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375556",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375562",
+                "rankWithinQuery": 9,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375585",
+                "rankWithinQuery": 10,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.3
+          }
+        ],
+        "score": 0,
+        "fallbackTheme": "public-interest",
+        "fallbackVariant": 61,
+        "artVariantId": "diem-art:public-interest:v61",
+        "visualFingerprint": "diem-art:public-interest:v61",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 35,
+          "recentKeyCount": 115,
+          "blockedCandidateCount": 1,
+          "selectedImageKeys": [
+            "diem-art:public-interest:v61"
+          ]
+        },
+        "selectionReason": "no concrete-subject-matched licensed unused image met the confidence threshold; topic-grounded public-interest art variant 61 selected",
+        "localSha256": "a409ec97e31c9003887f673ed96b3644650045803c1a3cb41664b04bed40ed03"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "serious1",
+        "mood": "serious",
+        "sha256": "7a6bdeafe5b9f5d0d84205cc45337c65b93bb2dc7824d39d82adb48b89451c53",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-20T19:25:20.586Z"
       },
       "story": {
         "status": "planned",
@@ -4764,6 +6795,42 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-21/issue/issue-cover.png",
+        "coverSha256": "a409ec97e31c9003887f673ed96b3644650045803c1a3cb41664b04bed40ed03",
+        "reelPath": ".diem-cache/2026-08-21/issue/issue-reel.mp4",
+        "reelSha256": "e1db88db1bfc3a4abee9fcc7b50c09f6d71bfde317b2308e5a7c8ae51f6b8b0a",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "“지방간 사라지고 검은머리 났다” 前아산병원 의사 홀린 ‘술’",
+            "url": "https://n.news.naver.com/article/025/0003545709?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}} | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-20T19:24:59.272Z"
+          }
+        ],
+        "updatedAt": "2026-08-20T19:25:11.159Z"
       }
     }
   },
