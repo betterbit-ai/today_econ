@@ -4,7 +4,7 @@
   "date": "2026-08-22",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-21T16:32:30.907Z",
-  "updatedAt": "2026-08-22T07:24:06.951Z",
+  "updatedAt": "2026-08-22T07:25:29.507Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -171,7 +171,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}} | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "“출소 후 후덕해진 근황”…‘버닝썬’ 승리, 베트남서 포착",
@@ -209,7 +211,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "3kg 고기 먹방 실패한 뒤 \"돈 없다\"는 손님…경찰까지 출동",
@@ -247,7 +251,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "한국에서 한달 일하고 평생 연금 받은 중국인...'추납 꼼수' 논란",
@@ -283,7 +289,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "[앵커 한마디] 스스로 발부한 '압수수색 영장'",
@@ -321,7 +329,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "“신속히 주택 공급하는 데 집중”…한성숙 총리와 서울 구청장들 한자리에",
@@ -357,7 +367,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "\"꽝\" 돌아보니 차가 코앞에…고속도로 만취운전 '아찔'",
@@ -395,7 +407,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "장미란씨 3개월째 행방불명… \"연락됐다\"던 경찰, 실종관리 정보도 삭제",
@@ -433,7 +447,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "'송지은 남편' 박위, KTX 낙상사고 CCTV 공개 후폭풍… 영상 삭제·사과",
@@ -20562,24 +20578,24 @@
     "issue": {
       "publicationKey": "diem:2026-08-22:issue:32559395276",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "악몽이 된 휴가, 펜션 주인의 새빨간 거짓말…이중예약 받고 항의하자 잠수탔다 [세상&]",
-        "url": "https://n.news.naver.com/article/016/0002686957?ntype=RANKING",
+        "title": "'송지은 남편' 박위, KTX 낙상사고 CCTV 공개 후폭풍… 영상 삭제·사과",
+        "url": "https://n.news.naver.com/article/469/0000949437?ntype=RANKING",
         "publishedDate": "2026-08-22",
-        "publishedAt": "2026-08-22 08:46:13",
+        "publishedAt": "2026-08-22 11:38:15",
         "observedAt": "2026-08-22T07:23:59.629Z",
-        "popularityScore": 93.9388,
+        "popularityScore": 77.7755,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 80.17,
-          "popularityScore": 93.9388,
-          "freshnessScore": 70,
-          "editorialValueScore": 50,
-          "ageHours": 7.63,
-          "publishedAt": "2026-08-22 08:46:13",
+          "score": 75.03,
+          "popularityScore": 77.7755,
+          "freshnessScore": 80,
+          "editorialValueScore": 55,
+          "ageHours": 4.77,
+          "publishedAt": "2026-08-22 11:38:15",
           "observedAt": "2026-08-22T07:23:59.629Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -20598,39 +20614,42 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 4,
-            "normalizedScore": 93.9388,
-            "title": "악몽이 된 휴가, 펜션 주인의 새빨간 거짓말…이중예약 받고 항의하자 잠수탔다 [세상&]",
-            "url": "https://n.news.naver.com/article/016/0002686957?ntype=RANKING"
+            "rank": 12,
+            "normalizedScore": 77.7755,
+            "title": "'송지은 남편' 박위, KTX 낙상사고 CCTV 공개 후폭풍… 영상 삭제·사과",
+            "url": "https://n.news.naver.com/article/469/0000949437?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "이중예약·당일 취소에도 배상 강제 못 해‘소비자 분쟁 해결기준’ 있지만 유명무실정부, ‘정당한 사유 없는 예약취소’ 입법 검토 계곡 찾은 피서객들 [헤럴드경제=김도윤 기자] “무슨 이런 경우가 있나요? 저희는 휴가 날짜 맞춰 일부러 시간 낸 건데 미리 연락도 없으시고 멀리서 가는 거라 이미 출발한 상황인데 너무 무책임하시네요”숙박업소가 중복예약을 받은 뒤 입실 당일 일방적으로 예약을 취소해 여름휴가를 망쳤다는 소비자 피해가 잇따르고 있다. 소비자에게 책임이 있을 경우 높은 위약금을 물리면서도 정작 업체 측 잘못으로 예약이 취소됐을 때는 소비자가 입은 추가 피해를 제대로 보상받기 어렵다는 지적이 나온다.직장인 박모(30) 씨는 남편과 부모님 그리고 동생 부부네와 함께 10년 만에 가족여행을 준비했다. 하지만 여행 당일 숙박업체의 갑작스러운 예약 취소로 휴가 계획이 엉망이 됐다.사건의 발단은 이렇다. 박씨는 지난 5월 세종시의 한 한옥 숙박업체에 연락해 방을 예약한 뒤 6월 잔금을 모두 이체했다. 하지만 입실 당일인 지난 2일 체크인 방법을 문의하자 숙박업체 측은 돌연 “에어컨이 고장 나 숙소를 이용할 수 없다”고 통보했다.박씨는 “최소한 숙소까지 이동하는 데 들어간 유류비라도 피해 보상을 요구했지만 업체는 ‘에어컨이 안 돼도 그냥 방을 이용하고 싶으면 써라’는 식으로 답했다”며 “결국 원금만 환불해준 뒤 이후로는 연락도 제대로 받지 않았다”고 호소했다.같은 숙박시설에서 배모(29) 씨도 지난 15일 비슷한 일을 겪었다. 대학 동문들과 1박2일 여행을 계획한 배씨는 지난 6월 에어비엔비를 통해 한옥 숙소를 예약했다. 일행은 11명이었고 어린 자녀를 동반한 가족도 있어 방이 여러 개인 대형 숙소를 골랐다.방을 예약한 직후 숙소 업주는 배씨에게 “플랫폼 예약을 취소하고 직접 계좌이체를 하면 90만원에 이용할 수 있다”고 제안했다. 그는 고민 끝에 숙박비와 보증금 등 총 95만원을 계좌로 송금했다. 여행 전날에는 바비큐 이용료 3만원도 추가로 보냈다.그러나 숙소 이용 당일 입실 예정 시각인 오후 2시가 지나도록 별다른 안내 문자가 오지 않았다. 이상하게 여긴 배씨가 업주에게 전화를 걸자 그제야 숙박시설 업주는 “숙소에 문제가 생겨 이용이 어렵다”고 통보했다. 일행이 숙소에 도착해 확인해 보니 해당 숙소에는 이미 다른 투숙객들이 머물고 있었다.배씨는 “전날 바비큐 비용까지 받으면서 아무런 이야기가 없다가 숙소에 도착한 뒤에야 이용할 수 없다는 말을 들었다”며 “상습적으로 이중계약을 하는 업체에 제대로 된 피해 보상이나 책임을 물을 방법이 마땅치 않아 답답하다”고 하소연했다.이중계약 등 최근 3년간 숙박업체 소비자 피해구제 신청 5517건 숙박시설 관련 연도별, 신청이유별 피해구제 현황. 한국소비자원 제공. [챗GPT 제작]휴가철 숙박업체의 일방적인 예약 취소나 계약 불이행 등으로 피해를 호소하는 소비자들이 늘고 있다.21일 한국소비자원의 ‘최근 3년간 숙박업소 관련 신청 이유별 피해구제 현황’에 따르면 2024년부터 지난 6월까지 숙박시설 관련 피해구제 신청은 누적 5517건이었다. 연도별로는 2024년 1919건에서 지난해 2662건으로 38.7% 증가했다. 올해 역시 지난 6월까지 936건이 접수됐다.신청 이유별로는 ‘계약해제·해지/위약금’ 관련 피해가 2513건으로 전체의 45.6%를 차지해 가장 많았다. 숙박업체가 계약 내용을 제대로 이행하지 않는 ‘계약불(완전)이행’은 930건(16.9%) 이었다.청약철회 830건(15.0%), 품질 관련 344건(6.2%), 부당행위 329건(6.0%), 안전 관련 165건(3.0%)이 뒤를 이었다.매년 업데이트되는 ‘소비자분쟁해결기준’ 있지만 유명무실 직장인 박모(30) 씨 가족이 숙박시설 대표와 주고받은 문자내용. [독자제공]소비자분쟁해결기준에선 사업자의 귀책 사유로 숙박 계약이 취소된 경우 소비자에게 어떤 배상이 적절한지를 제시하고 있다. 하지만 어디까지나 당사자 간 분쟁을 해결하기 위한 권고 사항일 뿐 법적인 강제력은 없다.공정거래위원회의 품목별 소비자분쟁해결기준에 따르면 숙박업체의 책임으로 예약이 취소될 경우 취소 시점에 따라 계약금 환급에 더해 추가 배상을 받을 수 있도록 하고 있다.여름철 성수기(7월 15일부터 8월 24일까지) 기준 평일에 업체 측 사정으로 숙박을 취소할 경우 이용 예정일 10일 전까지는 계약금만 환불된다. 7일 전 취소는 계약금 환급에 더해 총 숙박요금의 10%, 5일 전은 30%, 3일 전은 50%를 각각 추가로 배상하도록 하고 있다. 이용 하루 전이나 당일 업체가 예약을 취소하면 그에 상응하는 추가적인 손해배상을 하도록 정하고 있다. 주말에는 배상 기준이 이보다 더 높다.공정거래위원회 관계자는 “소비자분쟁해결기준은 양 당사자가 공동의 합의안을 끌어낼 수 있도록 기본적으로 검토해 볼 수 있는 일종의 가이드라인이지만, 분쟁조정은 사업자와 소비자가 서로 타협과 양보를 통해 해결하는 절차이기 때문에 사업자가 받아들이지 않는다면 이를 강제할 수는 없다”고 설명했다.다만 “합의가 이뤄지지 않아 민사소송으로 갈 경우 소비자분쟁해결기준이 법원의 판단에 참고될 수 있다”고 덧붙였다.한국소비자원의 피해구제 절차도 사업자가 합의 권고에 응하지 않거나 연락을 끊으면 사실상 피해 구제를 이어가기 어렵다.한국소비자원 관계자는 “소비자원은 경찰이나 법원처럼 사업자에게 조치를 강제하거나 정보를 수집할 수 있는 권한이 없어 당사자들에게 연락해 합의 권고를 타진하는 역할을 할 뿐 전보 등을 보내 연락을 시도하기도 하지만 최종적으로 연락이 닿지 않으면 종결 처리할 수 밖에 없다.”고 설명했다.이어 소비자원은 “예약이나 결제 관련 자료를 잘 보관하고 투숙 일까지 기간이 남아 있더라도 숙소에 예약 확정 여부를 미리 확인할 필요가 있다”며 “사업자가 임의로 예약 취소를 요구한다면 곧바로 취소하기보다 통화 녹취나 문자메시지 등 관련 자료를 확보해 숙박 예약 플랫폼 등에 문제를 제기하는 것도 방법”이라고 설명했다.시나 지자체 차원에서 바가지요금을 받거나 일방적으로 예약을 취소하는 숙박업소에 대해 단속에 나서기도 하지만 한계가 있다. 숙박업은 업종에 따라 공중위생관리법이나 관광진흥법 등의 적용을 받지만, 일반적인 예약 취소 행위 자체를 행정적으로 제재할 규정은 없기 때문이다.한편 지난 6월 그룹 방탄소년단(BTS)의 부산 공연을 앞두고 숙박업소의 일방적인 예약 취소 등 관련 민원이 집중되자 정부는 ‘바가지요금 근절대책 이행현황 및 향후 계획’을 발표하기도 했다. 여기에는 ‘바가지 안심가격제도’ 도입과 함께 정당한 사유 없는 일방적인 예약 취소를 제재하기 위한 관련 법률 개정 방안이 담겼다.",
-        "summary": "이중예약·당일 취소에도 배상 강제 못 해‘소비자 분쟁 해결기준’ 있지만 유명무실정부, ‘정당한 사유 없는 예약취소’ 입법 검토 계곡 찾은 피서객들 [헤럴드경제=김도윤 기자] “무슨 이런 경우가 있나요? 저희는 휴가 날짜 맞춰 일부러 시간 낸 건데 미리 연락도 없으시고 멀리서 가는 거라 이미 출발한 상황인데 너무 무책임하시네요”숙박업소가 중복예약을 받은 뒤 입실 당일 일방적으로 예약을 취소해 여름휴가를 망쳤다는 소비자 피해가 잇따르고 있다. 소비자에게 책임이 있을 경우 높은 위약금을 물리면서도 정작 업체 측 잘못으로 예약이 취소됐을 ",
+        "fullText": "KTX 경사로서 낙상사고, CCTV 영상 공개 파장 유튜버 박위가 사회복무요원의 실수로 휠체어에서 떨어지는 사고를 당한 이후 현장이 담긴 CCTV 영상을 공개했다가 뭇매를 맞고 사과했다. 박위 SNS가수 송지은의 남편이자 유튜버 박위가 최근 KTX 이용 도중 벌어진 낙상 사고 관련 CCTV 영상을 공개한 이후 불거진 논란에 대해 사과했다. 22일 박위는 자신의 유튜브 채널 '위라클' 게시판을 통해 \"업로드한 영상으로 인해 많은 분들께 실망을 드려 죄송하다\"며 \"상황이 일어난 당시 현장에서 저를 도와주시기 위해 최선을 다해주셨고 정중하게 사과해 주셨던 근무자님의 입장을 생각하지 못했다\"고 밝혔다.이어 \"저를 더 잘 도와주시기 위한 과정에서 발생한 실수를 제가 부정적으로만 생각했다\"며 \"제 전달 방식이 미숙했고 생각이 짧았다. 현장에서 노력해 주신 모든 분들께 사과드린다\"고 전했다.그러면서 \"영상을 시청하신 분들께도 깊이 사과드린다\"며 \"보내주신 조언을 새겨 콘텐츠를 제작하는 과정에서 더욱 성숙한 자세로 임하겠다. 이번 일을 계기로 매사에 더 신중하고 책임감 있게 행동하겠다\"고 덧붙였다.앞서 박위는 자신의 채널에 'CCTV 영상을 공개하는 이유'라는 제목의 영상을 공개, 최근 KTX를 이용하던 중 휠체어 바퀴가 사회복무요원의 발에 걸리면서 휠체어에서 떨어지는 사고를 당했다고 밝혔다. 공개된 CCTV 영상에는 경사로 위에 올라가 있던 사회복무요원의 발에 박위가 탄 휠체어 바퀴가 걸리면서 앞으로 넘어지는 모습이 담겼다.박위는 당시 상황에 대해 \"발을 경사로 위에 올려놓은 것 자체가 너무 화가 났다\"며 \"공손하게 죄송하다고 하셨지만 순간적으로 납득되지 않았다\"고 말했다. 이어 \"안전 교육이 필요하다고 생각한다. 더 세심하게 휠체어를 탄 사람들을 보살펴야 하지 않을까 싶다\"고 자신의 생각을 밝혔다. 그러나 일각에서는 해당 사회복무요원이 사고에 대해 사과했음에도 CCTV 영상을 공개한 것은 지나치다는 지적이 나왔다. 이후 박위를 향한 비판이 이어졌고, 해당 영상은 현재 삭제된 상태다.한편 박위는 2014년 낙상 사고로 전신마비 판정을 받았으며 유튜버로 활동하고 있다. 현재 유튜브 채널 '위라클'은 구독자 100만 명을 보유하고 있다. 그는 2024년 그룹 시크릿 출신 가수 송지은과 결혼했다.김연주 기자 yeonju.kimm@hankookilbo.com",
+        "summary": "KTX 경사로서 낙상사고, CCTV 영상 공개 파장 유튜버 박위가 사회복무요원의 실수로 휠체어에서 떨어지는 사고를 당한 이후 현장이 담긴 CCTV 영상을 공개했다가 뭇매를 맞고 사과했다. 박위 SNS가수 송지은의 남편이자 유튜버 박위가 최근 KTX 이용 도중 벌어진 낙상 사고 관련 CCTV 영상을 공개한 이후 불거진 논란에 대해 사과했다. 22일 박위는 자신의 유튜브 채널 '위라클' 게시판을 통해 \"업로드한 영상으로 인해 많은 분들께 실망을 드려 죄송하다\"며 \"상황이 일어난 당시 현장에서 저를 도와주시기 위해 최선을 다해주셨고 정중",
         "topicSignature": {
           "category": "issue",
-          "target": "악몽이 휴가",
-          "event": "주인의 새빨간 거짓말",
-          "entities": [],
+          "target": "송지은 남편",
+          "event": "KTX 고속철도 낙상사고",
+          "entities": [
+            "KTX",
+            "CCTV"
+          ],
           "eventKey": null,
-          "text": "issue | 악몽이 휴가"
+          "text": "issue | 송지은 남편 | KTX 고속철도 CCTV"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "악몽이 휴가",
+          "subject": "송지은 남편",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "악몽이",
-            "휴가"
+            "송지은",
+            "남편"
           ],
           "eventKind": "general",
           "eventLabel": "",
           "eventTerms": [],
           "eventKey": null,
-          "claimState": "tentative",
+          "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "2일",
+          "date": "22일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -20639,61 +20658,59 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 50,
+          "score": 55,
           "signals": [
             "reader_money_work_life_impact",
-            "broad_audience_or_market_scope"
+            "issue_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "악몽이 휴가",
+            "subject": "송지은 남편",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "악몽이",
-              "휴가"
+              "송지은",
+              "남편"
             ],
             "eventKind": "general",
             "eventLabel": "",
             "eventTerms": [],
             "eventKey": null,
-            "claimState": "tentative",
+            "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "2일",
+            "date": "22일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": []
           },
-          "baseScore": 50,
+          "baseScore": 55,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "uncertain",
-            "category": null,
-            "excluded": [
-              "category_not_allowed"
-            ],
+            "status": "classified",
+            "category": "issue",
+            "excluded": [],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "uncertain_initial_classification"
+            "reason": "verify_primary_article"
           },
           "final": {
             "status": "classified",
@@ -20707,28 +20724,177 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.5532,
+        "score": 0.4727,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-21:issue:32439262969",
+        "matchedPublicationKey": "diem:2026-08-20:issue:32323651690",
         "signature": {
           "category": "issue",
-          "target": "악몽이 휴가",
-          "event": "주인의 새빨간 거짓말",
-          "entities": [],
+          "target": "송지은 남편",
+          "event": "KTX 고속철도 낙상사고",
+          "entities": [
+            "KTX",
+            "CCTV"
+          ],
           "eventKey": null,
-          "text": "issue | 악몽이 휴가"
+          "text": "issue | 송지은 남편 | KTX 고속철도 CCTV"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "박위낙상영상공개\n삭제·사과",
+            "lines": [
+              "박위낙상영상공개",
+              "삭제·사과"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "박위낙상영상공개\n삭제·사과",
+          "lines": [
+            "박위낙상영상공개",
+            "삭제·사과"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "유튜버 박위가 KTX 낙상 사고 현장을 담은 CCTV 영상을 공개해 큰 파장을 일으킨 뒤, 해당 영상을 삭제하고 공식 사과했다.📰",
+            "영상에는 사회복무요원의 발에 휠체어 바퀴가 걸려 박위가 넘어지는 장면이 포착됐으며, 공개 후 과도한 유포가 비판받았다.",
+            "박위는 2014년 낙상 사고로 전신마비 판정을 받은 뒤 유튜버로 전향해 현재 구독자 100만 명을 보유하고 있다.📰"
+          ],
+          "text": "유튜버 박위가 KTX 낙상 사고 현장을 담은 CCTV 영상을 공개해 큰 파장을 일으킨 뒤, 해당 영상을 삭제하고 공식 사과했다.📰\n\n영상에는 사회복무요원의 발에 휠체어 바퀴가 걸려 박위가 넘어지는 장면이 포착됐으며, 공개 후 과도한 유포가 비판받았다.\n\n박위는 2014년 낙상 사고로 전신마비 판정을 받은 뒤 유튜버로 전향해 현재 구독자 100만 명을 보유하고 있다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #박위 #KTX #CCTV #송지은 #남편 #고속철도",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#박위",
+            "#KTX",
+            "#CCTV",
+            "#송지은",
+            "#남편",
+            "#고속철도"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#박위",
+              "#KTX",
+              "#CCTV",
+              "#송지은",
+              "#남편",
+              "#고속철도"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "title_generation",
+              "status": "failed",
+              "error": "model returned no valid title candidates for article frame"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "title_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "typographic",
+        "id": "diem-art:public-interest:v22",
+        "source": "diem-original",
+        "license": {
+          "name": "Project-owned original",
+          "url": null
+        },
+        "selectedAt": "2026-08-22T07:25:26.787Z",
+        "attempts": [],
+        "score": 0,
+        "fallbackTheme": "public-interest",
+        "fallbackVariant": 22,
+        "artVariantId": "diem-art:public-interest:v22",
+        "visualFingerprint": "diem-art:public-interest:v22",
+        "identity": {
+          "required": false,
+          "name": "송지은의",
+          "role": "가수",
+          "depicted": false,
+          "verified": null
+        },
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 45,
+          "recentKeyCount": 137,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-art:public-interest:v22"
+          ]
+        },
+        "selectionReason": "no concrete-subject-matched licensed unused image met the confidence threshold; topic-grounded public-interest art variant 22 selected",
+        "localSha256": "80a8473bb02c94d950ec4cbc3e89be9215914d03c2de444346aa8f39ec89a110"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "bright1",
+        "mood": "bright",
+        "sha256": "3d262d01f0a1fe6d91a4806cab40beb8f793d0ea9bb8a5c3c48ea33b5ce7d0d1",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-22T07:25:29.482Z"
       },
       "story": {
         "status": "planned",
@@ -20797,6 +20963,42 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-22/issue/issue-cover.png",
+        "coverSha256": "80a8473bb02c94d950ec4cbc3e89be9215914d03c2de444346aa8f39ec89a110",
+        "reelPath": ".diem-cache/2026-08-22/issue/issue-reel.mp4",
+        "reelSha256": "304a2e5c30c3fbe9bd7637b9e58d3267e108826e34c8e66322979a2395b1b6ce",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "악몽이 된 휴가, 펜션 주인의 새빨간 거짓말…이중예약 받고 항의하자 잠수탔다 [세상&]",
+            "url": "https://n.news.naver.com/article/016/0002686957?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}} | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-22T07:24:15.923Z"
+          }
+        ],
+        "updatedAt": "2026-08-22T07:24:22.470Z"
       }
     }
   },
