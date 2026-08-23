@@ -47,6 +47,7 @@ function featureSet(input = {}) {
   if (/(실적|영업이익|매출|인수|합병|IPO|상장)/iu.test(text)) features.add('company_event');
   if (/(대통령|정부|정책|법안|국회|법원|판결|시행|폐지|확정)/u.test(text)) features.add('public_decision');
   if (frame.eventKind) features.add(`event:${frame.eventKind}`);
+  if (frame.readerNeed) features.add(`reader_need:${frame.readerNeed}`);
   return [...features].sort();
 }
 

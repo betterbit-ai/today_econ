@@ -136,6 +136,14 @@ test('reports image fallback and music concentration without changing assets', (
   assert.equal(report.music.trackDistribution['same-track'].count, 5);
 });
 
+test('records reader-need features for later growth comparisons', () => {
+  const { featureSet } = require('../src/v2/performance-loop');
+  assert.ok(featureSet({ candidate: {
+    title: '정책대출 주택가격 기준',
+    newsFrame: { eventKind: 'housing_policy', readerNeed: 'housing', subject: '정책대출' },
+  } }).includes('reader_need:housing'));
+});
+
 test('keeps operator-deleted publications out of performance learning while preserving the audit count', () => {
   const kept = publication(0, { exposure: 300 });
   const deleted = publication(1, { exposure: 100000 });

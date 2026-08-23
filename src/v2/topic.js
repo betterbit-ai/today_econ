@@ -68,6 +68,17 @@ function normalizeTopicAliases(value = '') {
   );
 }
 
+function inferReaderNeed(value = '') {
+  const text = normalizeTopicAliases(value);
+  if (/(아파트|주택|부동산|전세|월세|청약|보증금|주거)/u.test(text)) return 'housing';
+  if (/(세금|과세|소득세|종부세|재산세|연말정산|세액공제)/u.test(text)) return 'tax';
+  if (/(대출|금리|주담대|보금자리론|디딤돌|신용점수)/u.test(text)) return 'credit';
+  if (/(월급|임금|퇴사|이직|실업급여|고용|일자리|노동|근로)/u.test(text)) return 'work';
+  if (/(물가|식비|공깃밥|교통비|보험료|건보료|연금|지원금|소비쿠폰)/u.test(text)) return 'household_cost';
+  if (/(주식|증시|코스피|코스닥|IPO|상장|반도체|환율|채권|ETF)/iu.test(text)) return 'market';
+  return 'public_interest';
+}
+
 function candidateText(candidate = {}) {
   return normalizeTopicAliases(`${candidate.title || ''} ${candidate.summary || ''} ${(candidate.entities || []).join(' ')}`);
 }
@@ -276,6 +287,7 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
     competitiveState: chinaLeadsBatteryShipbuilding ? 'china_leads_battery_shipbuilding' : null,
     competitiveLeader: chinaLeadsBatteryShipbuilding ? '중국' : null,
     competitiveSectors: chinaLeadsBatteryShipbuilding ? ['배터리', '조선'] : [],
+    readerNeed: inferReaderNeed(text),
   };
 }
 
@@ -552,6 +564,7 @@ module.exports = {
   candidateText,
   classifyCandidate,
   extractSignatureTokens,
+  inferReaderNeed,
   hasTargetAndEventOverlap,
   isOfficialDenialCandidate,
   isMaterialFollowUp,

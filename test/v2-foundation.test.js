@@ -21,6 +21,7 @@ const {
   buildTopicSignature,
   classifyCandidate,
   isSensitiveTopic,
+  inferReaderNeed,
   normalizeTopicAliases,
 } = require('../src/v2/topic');
 const {
@@ -367,6 +368,14 @@ test('rejects weekly low-mission anecdotes and routes disaster leads away from e
     fullText: '피해 업체의 손실과 보험 문제가 함께 거론됐습니다.',
   });
   assert.equal(disaster.category, CATEGORIES.ISSUE);
+});
+
+test('classifies durable reader needs without inventing an exact persona', () => {
+  assert.equal(inferReaderNeed('서울 아파트 정책대출 6억원 기준'), 'housing');
+  assert.equal(inferReaderNeed('연말정산 세액공제 확대'), 'tax');
+  assert.equal(inferReaderNeed('직장인 실업급여와 퇴사 요건'), 'work');
+  assert.equal(inferReaderNeed('북한 미사일 발사'), 'public_interest');
+  assert.equal(buildNewsFrame({ title: '주택담보대출 금리 인하', summary: '대출 금리가 낮아졌습니다.' }, CATEGORIES.ECONOMY).readerNeed, 'housing');
 });
 
 test('applies automatic and gray-zone duplicate thresholds', () => {
