@@ -4,7 +4,7 @@
   "date": "2026-08-23",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-22T16:22:41.730Z",
-  "updatedAt": "2026-08-23T07:26:14.854Z",
+  "updatedAt": "2026-08-23T07:27:42.920Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -48,7 +48,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "괜찮네…은퇴하고 딱 ‘주20시간’ 돈 벌고 시간도 벌고 [건강한겨레]",
@@ -86,7 +88,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "홍준표 “조선제일검 아닌 껌” 한동훈 또 직격…‘노웅래 녹취록’ 공개 주장에 “무식”",
@@ -124,7 +128,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})"
+      ]
     },
     {
       "title": "이란 “호르무즈 석유 한 방울도…” 미 제재 앞두고 “동참하면 적”",
@@ -16655,24 +16661,24 @@
     "issue": {
       "publicationKey": "diem:2026-08-23:issue:32625446649",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "조희대, 헌법의 기본 ‘국민주권’ 모르는 무자격자…제청권 파동 풀려면",
-        "url": "https://n.news.naver.com/article/028/0002819696?ntype=RANKING",
+        "title": "이란 “호르무즈 석유 한 방울도…” 미 제재 앞두고 “동참하면 적”",
+        "url": "https://n.news.naver.com/article/028/0002819719?ntype=RANKING",
         "publishedDate": "2026-08-23",
-        "publishedAt": "2026-08-23 09:06:08",
+        "publishedAt": "2026-08-23 14:20:14",
         "observedAt": "2026-08-23T07:26:06.214Z",
-        "popularityScore": 100,
+        "popularityScore": 93.9388,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 83.5,
-          "popularityScore": 100,
-          "freshnessScore": 70,
-          "editorialValueScore": 50,
-          "ageHours": 7.33,
-          "publishedAt": "2026-08-23 09:06:08",
+          "score": 90.67,
+          "popularityScore": 93.9388,
+          "freshnessScore": 90,
+          "editorialValueScore": 80,
+          "ageHours": 2.11,
+          "publishedAt": "2026-08-23 14:20:14",
           "observedAt": "2026-08-23T07:26:06.214Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -16691,41 +16697,38 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 1,
-            "normalizedScore": 100,
-            "title": "조희대, 헌법의 기본 ‘국민주권’ 모르는 무자격자…제청권 파동 풀려면",
-            "url": "https://n.news.naver.com/article/028/0002819696?ntype=RANKING"
+            "rank": 4,
+            "normalizedScore": 93.9388,
+            "title": "이란 “호르무즈 석유 한 방울도…” 미 제재 앞두고 “동참하면 적”",
+            "url": "https://n.news.naver.com/article/028/0002819719?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "성한용 선임기자의 정치 막전막후 654제청 반려하고 추천위 새로 꾸려 재제청 적절노무현·MB·윤석열 때도 갈등 있었지만 해소김민석 대표 대법원장 사퇴 요구는 정치 공세 조희대 대법원장이 8월 19일 오전 서울 서초구 대법원으로 출근하고 있다. 정용일 선임기자 yongil@hani.co.kr 헌법 104조 2항은 “대법관은 대법원장의 제청으로 국회의 동의를 얻어 대통령이 임명한다”입니다. 대법원장은 제청권이 있고, 국회는 동의권이 있고, 대통령은 임명권이 있습니다. 대법원장이 제청하지 않으면, 국회가 동의하지 않으면, 대통령이 임명하지 않으면 대법관은 임명될 수 없습니다.특히 대법원장과 대통령이 각각 다른 인물을 고집하면 대법관 임명 절차가 아예 진행되지 않을 수 있습니다. 그동안 대통령과 대법원장이 사전 조율로 사실상 인선을 마친 뒤 제청-동의-임명 절차에 들어가는 관행을 만든 이유입니다.대법원장은 자기 마음대로 대법관 후보를 제청할 수 없습니다. 법원조직법은 대법원장이 제청할 대법관 후보 추천을 위해 대법관후보추천위원회를 두도록 했습니다. 대법원장은 추천위원회의 추천을 존중해야 합니다.추천위원회는 대법원장이 대법관 후보를 제청할 때마다 위원장 1명을 포함한 10명의 위원으로 구성합니다. 선임대법관, 법원행정처장, 법무부 장관, 대한변호사협회장, 한국법학교수회 회장, 법학전문대학원협의회 이사장, 대법관이 아닌 법관 1명, 그리고 “학식과 덕망이 있고 각계 전문 분야에서 경험이 풍부한 사람으로서 변호사 자격을 가지지 아니한 사람 3명(이 중 1명 이상 여성)”입니다. 추천위원회는 대법관 후보를 추천하면 해산합니다.올 3월 퇴임한 노태악 대법관 후임을 제청하기 위해 대법관후보추천위원회(위원장 최재천)가 구성됐습니다. 추천위는 1월21일 김민기 수원고법 판사, 박순영 서울고법 판사, 손봉기 대구지법 부장판사, 윤성식 서울고법 부장판사를 추천했습니다.관행에 따라 청와대와 대법원은 조율에 나섰습니다. 청와대는 여성으로 진보 성향인 김민기 판사를 희망했지만, 조희대 대법원장이 완강히 반대했습니다. 표면적인 이유는 김민기 판사가 오영준 헌법재판관의 배우자라는 것이었습니다. 그렇게 7개월이 흘렀습니다.결국 노태악 대법관은 퇴임했고 후임자는 임명되지 않았습니다. 그 사이 윤성식 부장판사는 내란전담재판부 재판장으로 지정됐고, 중앙선거관리위원인 박순영 판사는 6·3 선거 투표용지 부족 사태 논란에 휘말렸습니다.이와 별도로 오는 9월 퇴임하는 이흥구 대법관 후임자 인선을 위한 대법관후보추천위원회(위원장 박은정)가 새로 구성됐습니다. 추천위는 8월4일 김문관 부산지법원장, 김성수 서울고법 부장판사, 김예영 서울남부지법 부장판사, 김정중 광주지법 부장판사를 추천했습니다. 청와대와 대법원은 이 가운데 김성수 부장판사를 제청하기로 의견을 모았다고 합니다.문제는 노태악 대법관 후임자였습니다. 조희대 대법원장은 갑자기 관행을 깨고 서면으로 손봉기 부장판사와 김성수 부장판사를 한꺼번에 제청했습니다. 이재명 대통령을 정면으로 들이받은 모양새입니다.저는 조희대 대법원장이 잘못했다고 봅니다. 대통령을 끝까지 설득하든 자신이 양보하든 관행을 지켰어야 한다고 봅니다. 국정에서 관행은 법률보다 우위에 있는 경우가 많습니다.더구나 이재명 대통령과 조희대 대법원장은 구원이 있습니다. 조희대 대법원장은 대통령 선거 직전 이재명 후보 선거법 위반 사건 상고심을 전원합의체에 회부해 졸속 심의한 뒤 유죄 취지로 파기환송했습니다. 짐작건대 아마도 유죄 취지로 파기자판을 하고 싶었을 것입니다.만약 대법원이 파기자판으로 이재명 후보의 피선거권을 박탈했다면 어떻게 됐을까요? 주권자인 국민이 가만히 있지 않았을 것입니다. 시민혁명이 일어났을 것입니다. 조희대 대법원장의 대법원은 사라졌을 것입니다.대선 뒤 이재명 대통령과 민주당이 대법원과 국민의힘의 반대에도 불구하고 밀어붙인 사법개혁에 대해 국민 다수가 찬성한 이유가 바로 여기에 있습니다. 조희대 대법원장은 뛰어난 법률가인지는 몰라도 헌법의 가장 기본인 국민주권 원리를 모르는 무자격자입니다. 이재명 대통령이 8월21일 청와대에서 열린 반부패정책협의회에서 발언하고 있다. 청와대사진기자단과거에도 대통령과 대법원장은 대법관 인선을 둘러싸고 여러 차례 갈등했습니다. 대통령과 대법원장이 한 발씩 양보해서 관행을 유지했습니다.노무현 대통령과 최종영 대법원장 사례부터 살펴보겠습니다. 노무현 대통령의 민정수석이었던 문재인 전 대통령이 2011년 펴낸 책 ‘문재인의 운명’에 기록을 자세히 남겼습니다.“2003년 8월 대법관 파동이 있었다. 대법관 추천 문제로 청와대와 대법원이 상당히 난감한 상황에 처했다. 당시 법조계 안팎에선 대법관·헌법재판관 구성에서 인권, 여성, 소수자 보호 등 사회 다양성이 보장되도록 요구하는 여론이 높았다.”“대법원장이 신임 대법관 후보를 제청하기 위해 인선 작업을 시작할 때 나는 대통령의 뜻을 대법원 측에 전달했다. 인권, 여성, 소수자 보호 등 어느 쪽이든 대법관 구성의 다양성을 지향하는 방향으로 제청해주길 바라는 것이 대통령의 뜻이라고 했다. 그런데 대법원에선 다른 쪽 이야기를 듣고 대통령의 뜻을 잘못 이해했는지, 그만 전통적으로 해오던 연공서열 방식으로 후보를 제청했다.”“대법관 추천회의에 추천위원으로 참석했던 강금실 법무부 장관과 대한변협 박재승 회장이 반발해 퇴장했다. 재야 법조계는 말할 것도 없고 소장 판사들도 문제 제기를 했다. 개혁성으로 신망을 받고 있던 서울중앙지법의 박시환 부장판사는 사표를 제출했다. 일부 소장 판사들은 대법관 제청 절차에 반발해 인터넷 연판장을 돌리는 등 집단적 의사표시에 나섰다.”“현실적으로 대법원장이 제청을 철회하기도 쉬운 일이 아니었다. 그렇다고 다양성 정신이 반영되지 않은 대법관 제청을 대통령이 그냥 수용하기도 어려운 상황이었다.”“진퇴양난의 상황에서 윤관 전 대법원장이 중재에 나서 법원과 의논한 해결 방안을 내게 제시해왔다. ‘대통령이 마뜩잖더라도 이번 대법관 제청을 받아주시면 첫째, 대법원장에게 추천권이 있는 다음번 헌법재판관 후보 추천부터 시작해 다음 대법관 제청을 다양성의 기준으로 하겠다. 그리고 전국 판사회의를 소집해 의견 수렴과 함께 차기 헌법재판관 인사와 대법관 인사를 다양성의 기준으로 할 것을 공개적으로 약속하겠다’는 것이었다. 법원 쪽 의지를 확인하고 그 방안을 수용했다. 우리나라 최초의 여성 헌법재판관, 최초의 여성 대법관이 그렇게 해서 탄생했다.”대통령과 대법원장의 이런 신뢰를 바탕으로 참여정부는 사법개혁에서 상당한 성과를 이루어냈습니다.이명박 대통령과 이용훈 대법원장도 2009년 8월 충돌했습니다. 이용훈 대법원장이 제청하겠다는 후보가 마음에 들지 않자 이명박 대통령의 청와대는 “대법관 제청 문제로 대법원장을 만날 이유가 없다. 대법원은 앞으로 대법관 후보를 서면으로 제청하라”고 불쾌감을 표시했습니다. 이용훈 대법원장이 “세 명의 후보를 제시하되 청와대가 누구를 선택하든 따르겠다”고 양보했습니다. 이명박 대통령과 이용훈 대법원장이 만났고 제청이 순조롭게 이뤄졌습니다.윤석열 대통령과 김명수 대법원장도 충돌했습니다. 2023년 5월 대법관후보추천위원회가 퇴임 예정 대법관 2명의 후임자로 8명을 추천했습니다. 김명수 대법원장은 그중에서 진보 성향의 여성 후보들을 제청하려고 했습니다. 윤석열 대통령과 청와대는 거부권을 행사하겠다고 위협했습니다. 결국 김명수 대법원장이 소신을 꺾고 6월 9일 다른 후보 2명을 제청했습니다. 이번에는 어떻게 해결해야 할까요? 이번 사태의 본질은 조희대 대법원장이 대통령의 뜻에 반기를 들어 관행을 깨고 서면으로 손봉기 후보를 제청한 것입니다. 헌법이 보장한 대법원장의 제청권을 ‘법대로’ 행사한 것입니다. 그렇다면 이재명 대통령도 ‘법대로’ 권한을 행사하면 됩니다. 제청을 반려하면 됩니다.이 경우 대법원은 후보추천위원회를 새로 구성해야 합니다. 추천위에서 새로운 후보들을 추천하면 조희대 대법원장이 이 가운데 한 사람을 다시 제청해야 합니다. 만약 이재명 대통령이 이 사람도 마음에 들지 않으면 다시 제청을 반려할 것입니다. 최악의 경우 대법원장의 제청과 대통령의 반려가 무한 반복될 수 있습니다. 그래도 어쩔 수 없습니다. 조희대 대법원장이 자초한 ‘뉴노멀’입니다.대법원장의 추천위 재구성 및 재제청은 전례도 있습니다. 2012년 7일 김병화 후보가 국회 임명동의안 표결을 앞두고 자진 사퇴하자 양승태 대법원장은 대법관후보추천위원회를 새로 구성해 2012년 10월 김소영 후보를 다시 제청했습니다.이번 사태를 계기로 민주당은 조희대 대법원장 사퇴를 요구합니다. 김민석 대표 지시로 전국에 조희대 대법원장 사퇴를 요구하는 현수막을 걸었습니다. 정치 공세입니다. 옳지 않습니다. 비겁합니다. 조희대 대법원장이 헌법이나 법률을 위반했다면 국회에서 탄핵소추 하는 것이 정당합니다. 탄핵소추를 하지 못하는 것은 헌법재판소가 탄핵을 기각할 가능성이 크다고 보기 때문일 것입니다.조희대 대법원장 중도 사퇴는 이재명 대통령과 민주당에 정치적 부담도 너무 큽니다. 국민에게는 집권세력이 입법, 행정, 사법을 다 장악하려는 것으로 비치기 때문입니다. 조희대 대법원장은 어차피 내년 6월 나이 정년으로 퇴직합니다. 이재명 대통령이 그때 가서 절차에 따라 새로운 인물을 대법원장에 임명하는 것이 순리입니다. 정치는 상식입니다. 여러분은 어떻게 생각하십니까?",
-        "summary": "성한용 선임기자의 정치 막전막후 654제청 반려하고 추천위 새로 꾸려 재제청 적절노무현·MB·윤석열 때도 갈등 있었지만 해소김민석 대표 대법원장 사퇴 요구는 정치 공세 조희대 대법원장이 8월 19일 오전 서울 서초구 대법원으로 출근하고 있다. 정용일 선임기자 yongil@hani.co.kr 헌법 104조 2항은 “대법관은 대법원장의 제청으로 국회의 동의를 얻어 대통령이 임명한다”입니다. 대법원장은 제청권이 있고, 국회는 동의권이 있고, 대통령은 임명권이 있습니다. 대법원장이 제청하지 않으면, 국회가 동의하지 않으면, 대통령이 임명하",
+        "fullText": "미국, 24일 추가 경제제재 발표 22일(현지시각) 이란 테헤란의 한 가판대 밖에 이란 일간지 신문에는 도널드 트럼프 미국 대통령의 사진과 페르시아어로 ‘제재라는 빈 총’이라는 제목이 적혀 있다. EPA 연합뉴스미국이 오는 24일(현지시각) 대이란 추가 경제제재 계획을 발표할 예정인 가운데 이란은 미국의 제재에 동참하는 국가를 적으로 간주하겠다고 경고했다. 이란 내부에서는 수개월째 이어진 전쟁을 끝내야 한다는 목소리도 나왔다.모센 레자이 이란 최고국가안보회의 사무총장은 22일(현지시각) 이란 국영방송(IRIB)을 통해 “주변 국가들에 미국과의 경제 전쟁에 동참하지 말 것을 경고한다”며 “그렇지 않으면 어떤 국가든지 적대국으로 간주할 것”이라고 말했다. 그는 “전쟁 를 추구하지 않지만, 주변 국가가 미국의 경제 전쟁에 동참한다면 그들의 이익을 침해할 것”이라며 “호르무즈해협에서 한 방울의 석유도 빠져나가지 못할 것이고 석유가 수출되는 다른 경로들도 표적이 될 것”이라고 강조했다.협상파들 사이에서는 전쟁을 종결하자는 주장이 대두됐다. 마수드 페제슈키안 이란 대통령은 21일 의사들과 만난 자리에서 “우리가 힘과 존엄을 갖추고 있는 지금 전쟁을 끝내는 것이 더 낫다”고 말했다. 그는 “세계가 이란의 승리를 인정하고 있다”며 미국이 학교·병원·기반시설을 공격해 국제사회의 비판을 받고 있다고 주장했다. 이란 쪽 종전 협상단장인 모하마드 바게르 갈리바프 의회의장은 미국의 경제 압박을 “부당한 제재”라며 “이란은 부당한 제재를 극복할 수 있는 대응 계획을 세워야 한다”고 했다. 그 방식 중 하나로 이란과 이라크가 무역에서 자국 통화를 사용해 달러 의존도를 낮춰야 한다고 주장했다.앞서 도널드 트럼프 미국 대통령은 19일 소셜미디어 트루스소셜을 통해 이란을 상대로 “전례 없는 규모의 경제 전쟁”에 나서겠다고 밝혔다. 그는 이란에 자금을 제공하는 제3국에 ‘막대한 경제적 대가’를 치르게 하겠다고 경고하며 국제사회에 이란과의 거래 중단을 압박했다. 트럼프 대통령이 말한 ‘경제 전쟁’의 구체적인 윤곽은 24일 스콧 베선트 미 재무장관이 기자회견을 열고 공개할 예정이다. 베선트 장관은 20일 시엔비시(CNBC) 방송과 인터뷰에서 이란에 “역사상 가장 강력한 제재”를 가하겠다며 이를 통해 이란 정권을 붕괴시킬 것이라고 말했다.한편, 트럼프 대통령은 21일 미 사우스캐롤라이나주 머틀비치 연설에서 호르무즈해협을 “미국 영토”라고 거듭 주장했다. 그는 “이란은 절실하게 합의하고 싶어 하지만, 우리는 합의를 원하는지조차 모르겠다”며 “나는 현재 호르무즈해협을 미국 영토로 본다”고 말했다. 트럼프 대통령은 앞서 14일에도 “이란을 패배시킨 뒤 호르무즈해협을 미국 영토로 선언하겠다”고 말했고, 18일에는 이 해협 일대를 ‘새로운 미국 영토’로 표기한 지도를 트루스소셜에 올렸다.",
+        "summary": "미국, 24일 추가 경제제재 발표 22일(현지시각) 이란 테헤란의 한 가판대 밖에 이란 일간지 신문에는 도널드 트럼프 미국 대통령의 사진과 페르시아어로 ‘제재라는 빈 총’이라는 제목이 적혀 있다. EPA 연합뉴스미국이 오는 24일(현지시각) 대이란 추가 경제제재 계획을 발표할 예정인 가운데 이란은 미국의 제재에 동참하는 국가를 적으로 간주하겠다고 경고했다. 이란 내부에서는 수개월째 이어진 전쟁을 끝내야 한다는 목소리도 나왔다.모센 레자이 이란 최고국가안보회의 사무총장은 22일(현지시각) 이란 국영방송(IRIB)을 통해 “주변 국가들",
         "topicSignature": {
           "category": "issue",
-          "target": "조희대 헌법의",
-          "event": "국민주권 모르는 무자격자",
-          "entities": [
-            "헌법의"
-          ],
+          "target": "관세",
+          "event": "방울도 제재 앞두고",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 조희대 헌법의 | 헌법의"
+          "text": "issue | 관세"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "조희대 헌법의",
+          "subject": "관세",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "조희대",
-            "헌법의"
+            "관세"
           ],
           "eventKind": "general",
           "eventLabel": "",
           "eventTerms": [],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "19일",
+          "date": "24일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -16734,48 +16737,48 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 50,
+          "score": 80,
           "signals": [
             "reader_money_work_life_impact",
-            "broad_audience_or_market_scope"
+            "concrete_event_or_decision",
+            "issue_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "조희대 헌법의",
+            "subject": "관세",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "조희대",
-              "헌법의"
+              "관세"
             ],
             "eventKind": "general",
             "eventLabel": "",
             "eventTerms": [],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "19일",
+            "date": "24일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": []
           },
-          "baseScore": 50,
+          "baseScore": 80,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -16794,7 +16797,7 @@
             "status": "classified",
             "category": "issue",
             "excluded": [],
-            "ambiguous": false
+            "ambiguous": true
           }
         }
       },
@@ -16802,30 +16805,2732 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.6166,
+        "score": 0.7242,
         "method": "embedding",
-        "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-20:issue:32344394829",
+        "reason": "gray_distinct_event",
+        "matchedPublicationKey": "diem:2026-08-21:issue:32487744263",
         "signature": {
           "category": "issue",
-          "target": "조희대 헌법의",
-          "event": "국민주권 모르는 무자격자",
-          "entities": [
-            "헌법의"
-          ],
+          "target": "관세",
+          "event": "방울도 제재 앞두고",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 조희대 헌법의 | 헌법의"
+          "text": "issue | 관세"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "이란 경고\n제재 동참 적",
+            "lines": [
+              "이란 경고",
+              "제재 동참 적"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "이란 경고\n제재 동참 적",
+          "lines": [
+            "이란 경고",
+            "제재 동참 적"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "이란 최고국가안보회의 사무총장 모센 레자이는 24일 미국이 발표할 추가 제재에 동참하는 국가를 적으로 규정하겠다고 경고했다.📰",
+            "미국은 24일 이란에 대한 추가 경제제재를 발표할 예정이며, 이란은 호르무즈 해협 석유 흐름을 차단하고 제재 동참 국가의 수출 경로도 표적이 될 것이라고 밝혔다.",
+            "이러한 경고는 미국과 이란 간 장기적인 경제전쟁 속에서 이란이 달러 의존도를 낮추고 자국 통화 사용을 확대하려는 전략적 대응의 일환이다.📰"
+          ],
+          "text": "이란 최고국가안보회의 사무총장 모센 레자이는 24일 미국이 발표할 추가 제재에 동참하는 국가를 적으로 규정하겠다고 경고했다.📰\n\n미국은 24일 이란에 대한 추가 경제제재를 발표할 예정이며, 이란은 호르무즈 해협 석유 흐름을 차단하고 제재 동참 국가의 수출 경로도 표적이 될 것이라고 밝혔다.\n\n이러한 경고는 미국과 이란 간 장기적인 경제전쟁 속에서 이란이 달러 의존도를 낮추고 자국 통화 사용을 확대하려는 전략적 대응의 일환이다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #이란 #미국제재 #호르무즈 #관세 #방울도 #제재",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#이란",
+            "#미국제재",
+            "#호르무즈",
+            "#관세",
+            "#방울도",
+            "#제재"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#이란",
+              "#미국제재",
+              "#호르무즈",
+              "#관세",
+              "#방울도",
+              "#제재"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-08-23T07:27:37.653Z",
+        "id": "pexels:9786322",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/woman-covering-eyes-of-girl-and-boy-surrounded-by-blue-code-9786322/",
+        "downloadUrl": "https://images.pexels.com/photos/9786322/pexels-photo-9786322.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Ron Lach",
+        "creatorUrl": "https://www.pexels.com/@ron-lach",
+        "width": 2432,
+        "height": 3648,
+        "description": "A mother and child with a digital screen projection, symbolizing online safety and privacy.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "digital privacy face recognition data",
+        "score": 0.61,
+        "components": {
+          "semanticMetadata": 0.4,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "digital",
+            "privacy",
+            "face",
+            "recognition",
+            "data"
+          ],
+          "matchedConcreteTokens": [
+            "digital",
+            "privacy"
+          ],
+          "primaryVisualAnchors": [
+            "digital",
+            "privacy",
+            "face",
+            "recognition",
+            "data"
+          ],
+          "matchedPrimaryVisualAnchors": [
+            "digital",
+            "privacy"
+          ],
+          "primaryVisualAnchorMatched": true,
+          "matchRatio": 0.4,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "foreignPoliticalSymbolMismatch": false,
+          "identity": {
+            "required": false,
+            "name": null,
+            "role": null,
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 5,
+        "finalReviewScore": 0.5155,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "finalReview": {
+          "ok": true,
+          "method": "deterministic_context_shortlist",
+          "candidateCount": 13,
+          "selectedId": "pexels:9786322",
+          "selectedScore": 0.5155,
+          "shortlist": [
+            {
+              "id": "pexels:9786322",
+              "source": "pexels",
+              "query": "digital privacy face recognition data",
+              "score": 0.61,
+              "finalReviewScore": 0.5155,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:8847142",
+              "source": "pexels",
+              "query": "South Korea presidential office meeting room conference table",
+              "score": 0.5125,
+              "finalReviewScore": 0.4244,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:9271438",
+              "source": "pexels",
+              "query": "South Korea presidential office meeting room conference table",
+              "score": 0.5125,
+              "finalReviewScore": 0.4244,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:18022171",
+              "source": "pexels",
+              "query": "South Korea presidential office meeting room conference table",
+              "score": 0.5125,
+              "finalReviewScore": 0.3844,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:8134173",
+              "source": "pexels",
+              "query": "South Korea presidential office meeting room conference table",
+              "score": 0.5125,
+              "finalReviewScore": 0.3844,
+              "suitabilityReason": "concrete_subject_matched"
+            }
+          ],
+          "gate": "prepared_quality_context_recheck",
+          "reason": "concrete_subject_matched"
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 20,
+            "suitableCount": 7,
+            "suitabilityRejected": 13,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:37375236",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:13609018",
+                "rankWithinQuery": 3,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32168739",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8574469",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5103610",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8102300",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6008847",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6949365",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36007720",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33827304",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:17664083",
+                "rankWithinQuery": 18,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "office"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18787913",
+                "rankWithinQuery": 19,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "office"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:36631641",
+                "rankWithinQuery": 20,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "office"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 7,
+            "recentReuseBlocked": 1,
+            "bestScore": 0.675
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office Blue House exterior",
+            "count": 20,
+            "suitableCount": 6,
+            "suitabilityRejected": 14,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:29673494",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37841629",
+                "rankWithinQuery": 3,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:26319168",
+                "rankWithinQuery": 7,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "south"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:15354089",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "blue"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35090207",
+                "rankWithinQuery": 11,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37384706",
+                "rankWithinQuery": 12,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:19365688",
+                "rankWithinQuery": 13,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20949044",
+                "rankWithinQuery": 14,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:13208725",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33415078",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:12011391",
+                "rankWithinQuery": 17,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38279173",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36880423",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38333372",
+                "rankWithinQuery": 20,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 6,
+            "recentReuseBlocked": 1,
+            "bestScore": 0.6286
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea government briefing room podium",
+            "count": 20,
+            "suitableCount": 1,
+            "suitabilityRejected": 19,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:28529893",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:29013548",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172582",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172612",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172593",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172585",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37726695",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:6949933",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "room"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172614",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6949979",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172609",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172587",
+                "rankWithinQuery": 12,
+                "reason": "foreign_political_symbol_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:31990882",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "room"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8730783",
+                "rankWithinQuery": 15,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8730761",
+                "rankWithinQuery": 16,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6950185",
+                "rankWithinQuery": 17,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38464756",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8731034",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6949910",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 1,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.5667
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "digital privacy face recognition data",
+            "count": 20,
+            "suitableCount": 1,
+            "suitabilityRejected": 19,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:8090146",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "face",
+                  "recognition"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5474023",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "digital",
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5474039",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "digital",
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5473953",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "digital",
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5380667",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "digital",
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5474028",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "digital",
+                  "data"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8090299",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "recognition"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5473954",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8090150",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5474038",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "digital"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5474040",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8090296",
+                "rankWithinQuery": 13,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "recognition"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5474027",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "digital"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5473957",
+                "rankWithinQuery": 15,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8090123",
+                "rankWithinQuery": 16,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [
+                  "face"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:14956313",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:9804530",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5380671",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8090126",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "digital",
+                  "privacy",
+                  "face",
+                  "recognition",
+                  "data"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 1,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.61
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 41,
+          "recentKeyCount": 137,
+          "blockedCandidateCount": 2,
+          "selectedImageKeys": [
+            "pexels:9786322",
+            "https://www.pexels.com/photo/woman-covering-eyes-of-girl-and-boy-surrounded-by-blue-code-9786322/",
+            "https://images.pexels.com/photos/9786322/pexels-photo-9786322.jpeg"
+          ]
+        },
+        "selectionReason": "selected best of 5 context-reviewed unused candidates; source pexels, query rank #5, score 0.5155; 65 unsuitable and 2 recent images blocked",
+        "localSha256": "01d3c7db50807b48829d4c02d803ae7b1b805e9b96354c2ae08d4c38c3bb2edb"
+      },
+      "audio": {
+        "mode": "silent",
+        "trackId": null,
+        "reason": "sensitive topic",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-23T07:27:42.888Z"
       },
       "story": {
         "status": "planned",
@@ -16891,6 +19596,64 @@
             "alertCooldownHours": 24
           }
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-23/issue/issue-cover.png",
+        "coverSha256": "7ff8d4be2a4638585081ac8b5b9e1d8cd6f0a53944ffb56d3a669ba03486a371",
+        "reelPath": ".diem-cache/2026-08-23/issue/issue-reel.mp4",
+        "reelSha256": "c799da287301c49f7b1372a22cd7adac31dd136afab4fd4c1077f2b1b22473b3",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 2,
+        "candidateFailures": [
+          {
+            "title": "조희대, 헌법의 기본 ‘국민주권’ 모르는 무자격자…제청권 파동 풀려면",
+            "url": "https://n.news.naver.com/article/028/0002819696?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-23T07:26:24.586Z"
+          },
+          {
+            "title": "홍준표 “조선제일검 아닌 껌” 한동훈 또 직격…‘노웅래 녹취록’ 공개 주장에 “무식”",
+            "url": "https://n.news.naver.com/article/028/0002819702?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-23T07:27:05.220Z"
+          }
+        ],
+        "updatedAt": "2026-08-23T07:27:12.415Z"
       }
     }
   },
