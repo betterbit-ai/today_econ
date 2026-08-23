@@ -1,37 +1,41 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-23T10:25:21.172Z",
+  "generatedAt": "2026-08-23T16:23:45.469Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
   "publishedCount": 145,
   "operations": {
-    "totalRuns": 237,
+    "totalRuns": 240,
     "noPublishReasons": {
+      "no_candidate_passed_editorial_generation": {
+        "count": 42,
+        "share": 47.73
+      },
       "no_candidate_passed_hotness_gate": {
         "count": 41,
-        "share": 47.67
-      },
-      "no_candidate_passed_editorial_generation": {
-        "count": 41,
-        "share": 47.67
+        "share": 46.59
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
-        "share": 2.33
+        "share": 2.27
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 2,
-        "share": 2.33
+        "share": 2.27
+      },
+      "daily_publication_budget_exhausted": {
+        "count": 1,
+        "share": 1.14
       }
     },
     "candidateFailureReasons": {
       "editorial_generation_failed": {
-        "count": 59,
-        "share": 57.28
+        "count": 60,
+        "share": 57.69
       },
       "unknown": {
         "count": 44,
-        "share": 42.72
+        "share": 42.31
       }
     },
     "titleRepairFailures": 1,
@@ -39,7 +43,7 @@
   },
   "windows": {
     "24h": {
-      "sampleCount": 57,
+      "sampleCount": 58,
       "excludedLateBackfills": 82,
       "categories": {
         "economy": {
@@ -454,16 +458,16 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 30,
+          "samples": 31,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1660.5,
-            "viewsMedian": 1660.5,
-            "reachMedian": 1209,
+            "exposureMedian": 1638,
+            "viewsMedian": 1638,
+            "reachMedian": 1207,
             "savedRateMedian": 0,
-            "shareRateMedian": 0.15999999999999998,
-            "engagementRateMedian": 1.655,
-            "averageWatchTimeMedian": 4575.5,
+            "shareRateMedian": 0.147,
+            "engagementRateMedian": 1.59,
+            "averageWatchTimeMedian": 4539,
             "followerDeltaEstimateMedian": 2
           },
           "winners": [
@@ -663,6 +667,34 @@
               }
             },
             {
+              "publicationKey": "diem:2026-08-22:issue:32575610252",
+              "category": "issue",
+              "title": "이란 협상파 / 전쟁 종식 촉구",
+              "permalink": "https://www.instagram.com/reel/DcWBGAHkxPw/",
+              "exposure": 421,
+              "views": 421,
+              "reach": 333,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 1.5,
+              "averageWatchTime": 3359,
+              "followerDeltaEstimate": 5,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels"
+              },
+              "audio": {
+                "mode": "silent",
+                "trackId": null,
+                "mood": null
+              }
+            },
+            {
               "publicationKey": "diem:2026-08-17:issue:32035553739",
               "category": "issue",
               "title": "롤스로이스 / 주차 빌런 보도",
@@ -724,42 +756,42 @@
               "feature": "event:housing_policy",
               "samples": 2,
               "exposureMedian": 2706,
-              "lift": 1.63,
+              "lift": 1.652,
               "signal": "insufficient_data"
             },
             {
               "feature": "public_decision",
-              "samples": 16,
-              "exposureMedian": 2000,
-              "lift": 1.204,
-              "signal": "neutral"
-            },
-            {
-              "feature": "event:general",
-              "samples": 28,
-              "exposureMedian": 1660.5,
-              "lift": 1,
+              "samples": 17,
+              "exposureMedian": 1870,
+              "lift": 1.142,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
+              "samples": 30,
+              "exposureMedian": 1637.5,
+              "lift": 1,
+              "signal": "neutral"
+            },
+            {
+              "feature": "event:general",
               "samples": 29,
               "exposureMedian": 1638,
-              "lift": 0.986,
+              "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "housing_money",
               "samples": 4,
               "exposureMedian": 1558,
-              "lift": 0.938,
+              "lift": 0.951,
               "signal": "neutral"
             },
             {
               "feature": "market_shock",
               "samples": 1,
               "exposureMedian": 1478,
-              "lift": 0.89,
+              "lift": 0.902,
               "signal": "insufficient_data"
             }
           ],
@@ -769,7 +801,7 @@
     },
     "72h": {
       "sampleCount": 55,
-      "excludedLateBackfills": 68,
+      "excludedLateBackfills": 69,
       "categories": {
         "economy": {
           "status": "ready",
@@ -1477,7 +1509,7 @@
     },
     "7d": {
       "sampleCount": 65,
-      "excludedLateBackfills": 31,
+      "excludedLateBackfills": 32,
       "categories": {
         "economy": {
           "status": "ready",
