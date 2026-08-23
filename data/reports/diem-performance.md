@@ -1,19 +1,19 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 143편
-- 생성 시각: 2026-08-23T04:39:38.639Z
+- 발행 원장 Reel: 145편
+- 생성 시각: 2026-08-23T10:25:21.172Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
-- economy: 표본 26편 · 노출 중앙값 742.5 · 공유율 0% · 저장률 0%
+- economy: 표본 27편 · 노출 중앙값 702 · 공유율 0% · 저장률 0%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
-  - 부진 후보: 주차 로봇 / 아파트 도입(145), 통영 폭우 / 도로·공장 붕괴(158), 서초·강남 / 2주 연속 하락(167), 중국인 추납 / 연금 논란(168), 강남 아파트 / 가격 급락(205)
-  - 특성 신호: event:semiconductor winner×2.65, event:interest_rate insufficient_data×2.05, macro_indicator insufficient_data×2.05, housing_money winner×1.72, event:ipo insufficient_data×1.05, event:market_move insufficient_data×0.83, market_shock insufficient_data×0.83, company_event insufficient_data×0.76
-- issue: 표본 29편 · 노출 중앙값 1,638 · 공유율 0.17% · 저장률 0%
+  - 부진 후보: 주차 로봇 / 아파트 도입(145), 통영 폭우 / 도로·공장 붕괴(158), 서초·강남 / 2주 연속 하락(167), 중국인 추납 / 연금 논란(168), 6억 허들 / 정책대출 고정(192)
+  - 특성 신호: event:semiconductor winner×2.81, event:interest_rate insufficient_data×2.17, macro_indicator insufficient_data×2.17, housing_money winner×1.75, event:ipo insufficient_data×1.11, event:market_move insufficient_data×0.88, market_shock insufficient_data×0.88, company_event insufficient_data×0.8
+- issue: 표본 30편 · 노출 중앙값 1,660.5 · 공유율 0.16% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(173), 백화점 난동 / 5년 형 선고(189), 롤스로이스 / 주차 빌런 보도(456), 대전시 / 공공기관2차선점전(460)
-  - 특성 신호: event:housing_policy insufficient_data×1.65, market_shock insufficient_data×0.9
+  - 특성 신호: event:housing_policy insufficient_data×1.63, market_shock insufficient_data×0.89
 - 정시 비교에서 제외한 늦은 백필: 82편
 
 ## 72h
@@ -21,17 +21,17 @@
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
   - 부진 후보: 주차 로봇 / 아파트 도입(152), 통영 폭우 / 도로·공장 붕괴(162), ISA 세금 / 줄이는 방식(358), 일본 기업 / 정년 65세 연장(359), ISA 개편 / 복원안 발표(383)
   - 특성 신호: event:semiconductor insufficient_data×1.56, event:interest_rate insufficient_data×1.13, macro_indicator insufficient_data×1.13, work_life insufficient_data×0.78, event:ipo insufficient_data×0.59, company_event insufficient_data×0.43
-- issue: 표본 30편 · 노출 중앙값 1,639 · 공유율 0.09% · 저장률 0%
+- issue: 표본 31편 · 노출 중앙값 1,632 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 한동훈 흉기 / 징역 1년 확정(3,959), 트럼프 분노 / 한국 희생양(3,802)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(176), 백화점 난동 / 5년 형 선고(199), 롤스로이스 / 주차 빌런 보도(461), 대전시 / 공공기관2차선점전(479)
-  - 특성 신호: event:housing_policy insufficient_data×1.69, market_shock insufficient_data×0.91
+  - 특성 신호: event:housing_policy insufficient_data×1.7, market_shock insufficient_data×0.91
 - 정시 비교에서 제외한 늦은 백필: 68편
 
 ## 7d
-- economy: 표본 27편 · 노출 중앙값 1,519 · 공유율 0.17% · 저장률 0.08%
+- economy: 표본 29편 · 노출 중앙값 1,445 · 공유율 0.1% · 저장률 0.08%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285), 보유세 개편 / 결정(2,313)
-  - 부진 후보: 미니 드라이버 / 기아 에어백(183), ISA 개편 / 복원안 발표(390), 생산적 ISA / 정책 개편(395), 이만희 재판 / 합의부 재배당(579), 콜롬비아 지진 / 비상사태 선포(727)
-  - 특성 신호: event:semiconductor insufficient_data×1.4, event:interest_rate insufficient_data×1.25, macro_indicator insufficient_data×1.25, company_event insufficient_data×0.53, event:ipo insufficient_data×0.53
+  - 부진 후보: 미니 드라이버 / 기아 에어백(183), ISA 세금 / 줄이는 방식(360), ISA 개편 / 복원안 발표(390), 생산적 ISA / 정책 개편(395), 이만희 재판 / 합의부 재배당(579)
+  - 특성 신호: event:semiconductor insufficient_data×1.47, event:interest_rate insufficient_data×1.32, macro_indicator insufficient_data×1.32, company_event insufficient_data×0.56, event:ipo insufficient_data×0.56
 - issue: 표본 36편 · 노출 중앙값 1,626 · 공유율 0.11% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(180), 이주노동자 / 폭염 작업(314), 세종시 환경원 / 트럭 가득(428), 형사소송법 / 보완수사권폐지(444), 형사소송법 개정 / 보완권 폐지(478)
@@ -39,11 +39,11 @@
 - 정시 비교에서 제외한 늦은 백필: 31편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 26.57%
-- 이미지 공급원: pexels 94편, diem-original 38편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 26.21%
+- 이미지 공급원: pexels 96편, diem-original 38편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 57건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 59건, unknown 44건
 - 제목 재정제 실패: 1건
 
 ## 해석 주의
