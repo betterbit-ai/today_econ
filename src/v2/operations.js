@@ -21,6 +21,7 @@ function publicationTitle(publication = {}) {
 }
 
 function rejectionLabel(reason = '') {
+  if (reason === 'daily_publication_budget_exhausted') return '오늘 분야별 발행 예산 소진';
   if (reason === 'category_not_allowed') return '분야 부적합';
   if (/^assigned_to_/u.test(reason)) return '다른 분야 배정';
   if (reason === 'not_hot:article_too_old') return '기사 신선도 초과';
@@ -68,6 +69,10 @@ function dailyWatchdogReason(publication = {}) {
 
 function noPublishReason(publication = {}) {
   const base = publication.reason || publication.error || '품질 기준을 통과한 후보가 없습니다.';
+  if (base === 'daily_publication_budget_exhausted') {
+    const budget = publication.publicationBudget || {};
+    return `오늘 ${publication.category === 'issue' ? '시사' : '경제'} 기본 발행 ${budget.published || budget.limit || 1}편을 완료해 다음 폴링은 생략했습니다.`;
+  }
   if (base !== 'no_candidate_passed_editorial_generation') return base;
   const failures = publication.generation?.candidateFailures || [];
   const last = failures.at(-1);
@@ -171,7 +176,9 @@ async function dispatchOperationalEvent(publication, event, {
   }
 
   const usesIssue = ['retry_pending', 'manual_action_required', 'no_publish', 'recovered'].includes(event.status)
-    && event.stage !== 'daily_watchdog';
+    && event.stage !== 'daily_watchdog'
+    && event.reason !== 'daily_publication_budget_exhausted'
+    && !/기본 발행.*완료해 다음 폴링은 생략/u.test(String(event.reason || ''));
   if (usesIssue && githubToken && githubRepository) {
     configuredTargets += 1;
     try {

@@ -61,8 +61,52 @@ function createGroqCaller({
   };
 }
 
+function createGroqVisionReviewer({ apiKey, client, model = 'qwen/qwen3.6-27b' } = {}) {
+  const groq = client || (apiKey ? new Groq({ apiKey }) : null);
+  if (!groq) throw new Error('[DIEM Vision] GROQ_API_KEY is required for image review.');
+  return async function reviewImages({ candidate = {}, query = '', images = [] } = {}) {
+    if (images.length < 1 || images.length > 3) throw new Error('[DIEM Vision] image shortlist must contain 1-3 candidates.');
+    const content = [{
+      type: 'text',
+      text: [
+        'You are the final visual safety editor for a Korean news magazine.',
+        'Choose one image only if its ACTUAL pixels accurately represent the primary article event.',
+        'Reject country mismatch, foreign flags or election symbols in Korean politics, unrelated people, and generic finance charts for non-market stories.',
+        'Return JSON: {"ok":boolean,"selectedId":string|null,"reason":string,"evaluations":[{"id":string,"relevant":boolean,"countryMismatch":boolean,"foreignPoliticalSymbol":boolean,"unrelatedPerson":boolean,"reason":string}]}',
+        JSON.stringify({ title: candidate.title, summary: String(candidate.summary || '').slice(0, 900), editorialTitle: candidate.editorialTitle, query, imageIds: images.map(image => image.id) }),
+      ].join('\n').normalize('NFC'),
+    }];
+    for (const image of images) {
+      content.push({ type: 'text', text: `IMAGE_ID=${image.id}` });
+      content.push({ type: 'image_url', image_url: { url: image.downloadUrl } });
+    }
+    const response = await groq.chat.completions.create({
+      model,
+      messages: [{ role: 'user', content }],
+      temperature: 0,
+      max_tokens: 1000,
+      response_format: { type: 'json_object' },
+    });
+    const parsed = JSON.parse(response.choices?.[0]?.message?.content || '{}');
+    const selected = (parsed.evaluations || []).find(item => item.id === parsed.selectedId);
+    const safe = Boolean(parsed.ok && selected?.relevant
+      && !selected.countryMismatch
+      && !selected.foreignPoliticalSymbol
+      && !selected.unrelatedPerson
+      && images.some(image => image.id === parsed.selectedId));
+    return {
+      ok: safe,
+      selectedId: safe ? parsed.selectedId : null,
+      reason: parsed.reason || (safe ? 'vision_review_passed' : 'vision_review_rejected_all'),
+      evaluations: Array.isArray(parsed.evaluations) ? parsed.evaluations : [],
+      model,
+    };
+  };
+}
+
 module.exports = {
   createGroqCaller,
+  createGroqVisionReviewer,
   headerValue,
   isRetryable,
   retryAfterMs,

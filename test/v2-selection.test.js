@@ -717,6 +717,16 @@ test('does not let incidental legislation in the article body replace the primar
   assert.doesNotMatch(queries[0], /assembly|parliament|legislation/i);
 });
 
+test('uses Iranian context instead of a Korean presidential office for an Iran political story', () => {
+  const queries = buildImageQueries({
+    title: '이란 협상파, 전쟁 종식과 경제 회복 촉구',
+    summary: '마수드 페제시키안 이란 대통령과 의회 의장이 강경파에 맞서 협상을 주장했습니다.',
+    category: 'issue',
+  });
+  assert.match(queries[0], /Iran|Tehran/i);
+  assert.doesNotMatch(queries.join(' '), /South Korea|Blue House/i);
+});
+
 test('rejects generic keyword matches and selects the next person-free image with the concrete subject', async () => {
   const generic = assessImageSuitability({
     description: 'government support policy parliament building',
@@ -1011,6 +1021,74 @@ test('ships 30 labeled Korean article pairs for live embedding calibration', () 
   assert.equal(dataset.length, 30);
   assert.equal(dataset.filter(pair => pair.expectedDuplicate).length, 15);
   assert.equal(dataset.filter(pair => !pair.expectedDuplicate).length, 15);
+});
+
+test('locks selection to the first safe visual intent instead of mixing later finance queries', async () => {
+  const reviewedQueries = [];
+  const selection = await selectLicensedImage({
+    title: '20년째 6억 기준에 묶인 정책대출',
+    summary: '서울 아파트 가격은 올랐지만 보금자리론의 주택가격 기준은 6억원에 머물러 있습니다.',
+    category: 'economy',
+    newsFrame: { eventKind: 'housing_policy', subject: '정책대출' },
+  }, {
+    pexelsApiKey: 'key',
+    fetchImpl: async url => {
+      const value = String(url);
+      if (!/api\.pexels/u.test(value)) return { ok: true, json: async () => ({ results: [], query: { pages: {} } }) };
+      const query = new URL(value).searchParams.get('query');
+      return { ok: true, json: async () => ({ photos: [{
+        id: query.includes('apartment') ? 1001 : 2001,
+        url: `https://pexels.example/${encodeURIComponent(query)}`,
+        src: { portrait: `https://images.example/${encodeURIComponent(query)}.jpg` },
+        photographer: 'Fixture',
+        width: 2000,
+        height: 3000,
+        alt: query,
+      }] }) };
+    },
+    reviewImages: async ({ query, images }) => {
+      reviewedQueries.push(query);
+      return { ok: true, selectedId: images[0].id, reason: 'article housing intent matched' };
+    },
+  });
+
+  assert.equal(selection.kind, 'web');
+  assert.match(selection.query, /apartment/i);
+  assert.equal(selection.finalReview.method, 'vision_context_shortlist');
+  assert.deepEqual(reviewedQueries, [selection.query]);
+});
+
+test('fails closed to DIEM art when the actual-image review rejects the first visual intent', async () => {
+  let reviews = 0;
+  const selection = await selectLicensedImage({
+    title: '이재명 대통령 당 지도부 만찬',
+    summary: '한국 대통령이 당 지도부와 청와대에서 만났습니다.',
+    category: 'issue',
+  }, {
+    pexelsApiKey: 'key',
+    fetchImpl: async url => {
+      if (!/api\.pexels/u.test(String(url))) return { ok: true, json: async () => ({ results: [], query: { pages: {} } }) };
+      const query = new URL(String(url)).searchParams.get('query');
+      return { ok: true, json: async () => ({ photos: [{
+        id: 3001,
+        url: 'https://pexels.example/ballot',
+        src: { portrait: 'https://images.example/us-ballot.jpg' },
+        photographer: 'Fixture',
+        width: 2000,
+        height: 3000,
+        alt: `${query} meeting room ballot box building`,
+      }] }) };
+    },
+    reviewImages: async () => {
+      reviews += 1;
+      return { ok: false, selectedId: null, reason: 'United States flag detected' };
+    },
+  });
+
+  assert.equal(reviews, 1);
+  assert.equal(selection.kind, 'typographic');
+  assert.equal(selection.source, 'diem-original');
+  assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review'));
 });
 
 test('detectCharset extracts charset from Content-Type header values', () => {

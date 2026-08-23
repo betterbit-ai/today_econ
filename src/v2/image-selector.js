@@ -75,6 +75,7 @@ const PERSON_FREE_CONTEXT_PATTERN = /\b(?:building|exterior|interior|architectur
 const LEGAL_JUDGMENT_CONTEXT = /(지방법원|지법|고등법원|고법|대법원|헌법재판소|재판부|법정|판결|선고|실형|징역|유죄|무죄|구속영장|판사)/u;
 const POLITICAL_MEETING_CONTEXT = /(만찬|오찬|식사|회동|간담회|회의)/u;
 const DOMESTIC_POLITICAL_ACTOR = /(대통령|청와대|대통령실|당\s*지도부|더불어민주당|국민의힘|조국혁신당|당대표|원내대표)/u;
+const FOREIGN_POLITICAL_CONTEXT = /(이란|미국|중국|일본|러시아|우크라이나|프랑스|영국|독일|이스라엘|팔레스타인|대만|태국|인도|브라질|캐나다|호주)/u;
 
 function extractPrimaryPersonIdentity(candidate = {}) {
   const patterns = [
@@ -113,7 +114,12 @@ function isOccupationalHeatStory(text = '') {
 
 function eventVisualQueries(sourceText = '') {
   const queries = [];
-  if (POLITICAL_MEETING_CONTEXT.test(sourceText) && DOMESTIC_POLITICAL_ACTOR.test(sourceText)) {
+  const domesticPoliticalContext = DOMESTIC_POLITICAL_ACTOR.test(sourceText)
+    && !FOREIGN_POLITICAL_CONTEXT.test(sourceText);
+  if (/이란/u.test(sourceText) && /(대통령|의회|협상|전쟁|강경파)/u.test(sourceText)) {
+    return ['Iran government Tehran parliament diplomacy', 'Tehran government building Iran'];
+  }
+  if (POLITICAL_MEETING_CONTEXT.test(sourceText) && domesticPoliticalContext) {
     return [
       'South Korea presidential office meeting room conference table',
       'South Korea presidential office Blue House exterior',
@@ -143,7 +149,7 @@ function eventVisualQueries(sourceText = '') {
     queries.push('construction workers rooftop extreme heat', 'outdoor workers heatwave safety');
     return queries;
   }
-  if (/(?:^|[^전])대통령(?!직속)|청와대|대통령실/u.test(sourceText)) {
+  if (domesticPoliticalContext && /(?:^|[^전])대통령(?!직속)|청와대|대통령실/u.test(sourceText)) {
     queries.push('South Korea presidential office building Seoul');
   }
   if (/(아파트|주택|부동산).{0,30}(신고가|거래|매매|실거주|세입자)/u.test(sourceText)) {
@@ -736,6 +742,7 @@ async function selectLicensedImage(candidate, {
   recentImages = [],
   reuseWindowDays = 7,
   reviewPoolTarget = 8,
+  reviewImages,
 } = {}) {
   const queries = buildImageQueries(candidate);
   const attempts = [];
@@ -766,10 +773,10 @@ async function selectLicensedImage(candidate, {
   ];
 
   for (const phase of phases) {
-    const phasePool = [];
     let phaseBlockedCandidateCount = 0;
-    for (const provider of phase.providers) {
-      for (const query of phase.queries) {
+    for (const query of phase.queries) {
+      const queryPool = [];
+      for (const provider of phase.providers) {
         try {
           const images = (await provider.search(query)).slice(0, 20);
           const scored = images
@@ -822,16 +829,29 @@ async function selectLicensedImage(candidate, {
           recentReuseBlocked: blocked.length,
           bestScore: scored[0]?.score ?? null,
           });
-          phasePool.push(...unused);
+          queryPool.push(...unused);
         } catch (error) {
           attempts.push({ provider: provider.name, visualRole: phase.visualRole, query, count: 0, error: error.message });
         }
+        if (reviewImagePool(queryPool, reviewPoolTarget).length >= reviewPoolTarget) break;
       }
-      if (reviewImagePool(phasePool, reviewPoolTarget).length >= reviewPoolTarget) break;
-    }
-    const shortlist = reviewImagePool(phasePool, 5);
-    if (shortlist.length > 0) {
-      const selected = shortlist[0];
+      const shortlist = reviewImagePool(queryPool, 5);
+      if (shortlist.length < 1) continue;
+      let selected = shortlist[0];
+      let visionReview = null;
+      if (reviewImages) {
+        try {
+          visionReview = await reviewImages({ candidate, query, images: shortlist.slice(0, 3) });
+          selected = shortlist.find(image => image.id === visionReview?.selectedId);
+          if (!visionReview?.ok || !selected) {
+            attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: visionReview?.reason || 'no safe image selected' });
+            break;
+          }
+        } catch (error) {
+          attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: error.message });
+          break;
+        }
+      }
       const suitabilityRejected = attempts.reduce((total, attempt) => total + (attempt.suitabilityRejected || 0), 0);
       return {
         kind: 'web',
@@ -843,8 +863,8 @@ async function selectLicensedImage(candidate, {
         selectionPoolSize: shortlist.length,
         finalReview: {
           ok: true,
-          method: 'deterministic_context_shortlist',
-          candidateCount: reviewImagePool(phasePool, Number.MAX_SAFE_INTEGER).length,
+          method: reviewImages ? 'vision_context_shortlist' : 'deterministic_context_shortlist',
+          candidateCount: reviewImagePool(queryPool, Number.MAX_SAFE_INTEGER).length,
           selectedId: selected.id,
           selectedScore: selected.finalReviewScore,
           shortlist: shortlist.map(image => ({
@@ -855,6 +875,7 @@ async function selectLicensedImage(candidate, {
             finalReviewScore: image.finalReviewScore,
             suitabilityReason: image.suitability.reason,
           })),
+          visionReview,
         },
         attempts,
         reuseGuard: {

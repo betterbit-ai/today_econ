@@ -5,7 +5,7 @@ const config = require('../../config');
 const { cleanupExpiredReleases, createTemporaryRelease } = require('../github-assets');
 const { publishReel, publishStory, searchInstagramAudio } = require('../instagram');
 const { generateEditorial } = require('./editorial');
-const { createGroqCaller } = require('./groq');
+const { createGroqCaller, createGroqVisionReviewer } = require('./groq');
 const {
   createTypographyFallback,
   downloadSelectedImage,
@@ -93,6 +93,7 @@ async function preparePublication(ledger, category, {
   renderCoverImpl = renderDiemCover,
   selectMusicImpl = selectMusic,
   createReelImpl = createDiemReelWithMusic,
+  reviewImages,
   artifactRoot,
   history = [],
 } = {}) {
@@ -118,6 +119,11 @@ async function preparePublication(ledger, category, {
     editorialTitle: editorial.title.text,
   };
   const personIdentity = extractPrimaryPersonIdentity(imageCandidate);
+  const imageReviewer = reviewImages || (
+    selectImageImpl === selectLicensedImage && config.groqApiKey
+      ? createGroqVisionReviewer({ apiKey: config.groqApiKey, model: config.groqVisionModel })
+      : null
+  );
   let imageSelection;
   let downloaded;
   for (let selectionAttempt = 1; selectionAttempt <= 5; selectionAttempt += 1) {
@@ -126,6 +132,7 @@ async function preparePublication(ledger, category, {
       unsplashAccessKey: config.unsplashAccessKey,
       recentImages,
       reuseWindowDays: config.maxHistoryDays,
+      reviewImages: imageReviewer,
     });
     downloaded = imageSelection;
     if (imageSelection.kind !== 'web') break;

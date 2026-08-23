@@ -15,6 +15,7 @@ const {
 const { notifyTransitions } = require('./operations');
 const { evaluateCandidate, planDailyQueue } = require('./planner');
 const { assessPublicationHealth } = require('./publication-health');
+const { assessDailyPublicationBudget } = require('./publication-policy');
 const { preparePublication, publishPreparedPublication } = require('./publisher');
 const { kstDate, kstRunSlot } = require('./time');
 
@@ -137,6 +138,40 @@ async function planCategoryPhase({
     return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true };
   }
 
+  const publicationBudget = assessDailyPublicationBudget(previousLedger, category, {
+    limit: config.maxDailyPublicationsPerCategory,
+  });
+  if (!publicationBudget.allowed) {
+    if (current.reason === publicationBudget.reason && current.status === 'no_publish') {
+      return {
+        ledger: previousLedger,
+        previousLedger: structuredClone(previousLedger),
+        reused: true,
+        recovery: false,
+        budgetExhausted: true,
+      };
+    }
+    let ledger = archivePublication(previousLedger, category);
+    ledger = startPublicationRun(ledger, category, slot || config.githubRunId || kstRunSlot(now));
+    ledger = updatePublication(ledger, category, {
+      status: 'no_publish',
+      reason: publicationBudget.reason,
+      publicationBudget,
+      observedAt: now.toISOString(),
+      reel: { ...ledger.publications[category].reel, status: 'no_publish' },
+      story: { ...ledger.publications[category].story, status: 'no_publish' },
+      comment: { ...ledger.publications[category].comment, status: 'no_publish' },
+      reply: { ...ledger.publications[category].reply, status: 'no_publish' },
+    });
+    return {
+      ledger,
+      previousLedger: structuredClone(previousLedger),
+      reused: false,
+      recovery: false,
+      budgetExhausted: true,
+    };
+  }
+
   const sourceLedgers = replaceLedgerForDate(listLedgersImpl(), previousLedger);
   const publicationHealth = assessPublicationHealth(sourceLedgers, { now });
   const dailyFloorMode = category === CATEGORIES.ECONOMY && publicationHealth.dailyFloorDue;
@@ -176,6 +211,7 @@ async function planCategoryPhase({
     result.selectionDiagnostics = {
       ...(result.selectionDiagnostics || {}),
       publicationHealth,
+      publicationBudget,
     };
   }
   return {

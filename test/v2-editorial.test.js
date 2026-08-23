@@ -1,6 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { CATEGORIES } = require('../src/v2/constants');
+const { buildNewsFrame } = require('../src/v2/topic');
 const {
   DEFAULT_MODELS,
   buildDeterministicEditorial,
@@ -13,6 +14,7 @@ const {
   validateCaption,
   validateHashtagReply,
   validateTitle,
+  validateTitleAgainstFrame,
 } = require('../src/v2/text');
 
 function economyArticle() {
@@ -327,6 +329,56 @@ test('rejects official-denial titles that invert the article state instead of au
     }),
     /fallback is disabled|try the next candidate/i
   );
+});
+
+test('rejects a reported courtroom allegation rewritten as confirmed theft', () => {
+  const article = {
+    category: CATEGORIES.ECONOMY,
+    title: '전 삼성 연구원, 법정서 CXMT 기술 탈취 증언',
+    summary: '전직 연구원이 CXMT가 삼성 공정 정보를 입수했다고 법정에서 증언했습니다.',
+    fullText: '전직 연구원이 법정에서 기술 탈취 의혹을 증언했습니다. 법원 판단은 아직 나오지 않았습니다.',
+    target: 'CXMT',
+    event: '기술 탈취 증언',
+  };
+  const frame = buildNewsFrame(article, CATEGORIES.ECONOMY);
+  const validation = validateTitleAgainstFrame('CXMT\n탈취 확정', frame);
+  assert.equal(frame.claimState, 'reported');
+  assert.equal(validation.ok, false);
+  assert.match(validation.errors.join(' '), /cannot strengthen/u);
+});
+
+test('rejects a sentence that combines numeric policy thresholds from different source sentences', () => {
+  const article = {
+    category: CATEGORIES.ECONOMY,
+    title: '정책대출 주택가격 기준 장기 고정',
+    summary: '보금자리론은 6억원 이하 주택을 대상으로 합니다.',
+    fullText: '보금자리론은 6억원 이하 주택을 대상으로 합니다. 일반 디딤돌 대출은 5억원 이하 주택이 기준입니다. 신혼부부 디딤돌 대출은 6억원 이하입니다.',
+    target: '정책대출',
+    event: '가격 기준 고정',
+  };
+  const editorial = {
+    schemaVersion: 2,
+    category: 'economy',
+    titleCandidates: [{ title: '정책대출\n기준 장기고정' }],
+    title: { text: '정책대출\n기준 장기고정' },
+    caption: {
+      sentences: [
+        '보금자리론의 주택가격 기준은 6억원입니다.🏠',
+        '현재 5억원 이하 일반 디딤돌과 6억원 이하 신혼부부 대출에 같은 기준이 적용됩니다.',
+        '상품별 기준을 구분해 확인해야 합니다.📊',
+      ],
+      text: '보금자리론의 주택가격 기준은 6억원입니다.🏠\n\n현재 5억원 이하 일반 디딤돌과 6억원 이하 신혼부부 대출에 같은 기준이 적용됩니다.\n\n상품별 기준을 구분해 확인해야 합니다.📊',
+    },
+    emojis: { first: '🏠', third: '📊' },
+    comments: {
+      first: '🏠',
+      reply: '@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #정책대출 #보금자리론 #디딤돌대출',
+      hashtagsByRole: { sector: ['#경제', '#금융', '#경제뉴스'], audience: ['#재테크초보', '#뉴스요약', '#릴스'], brand: ['#diem', '#diemmagazine', '#데일리이슈앤이코노미'], topic: ['#정책대출', '#보금자리론', '#디딤돌대출', '#주택금융'] },
+    },
+  };
+  const validation = validateEditorial(editorial, { article });
+  assert.equal(validation.ok, false);
+  assert.match(validation.errors.join(' '), /combines numeric claims/u);
 });
 
 test('accepts an official-denial caption only when its lead preserves the denial', async () => {

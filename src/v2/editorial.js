@@ -391,6 +391,32 @@ function numericContextViolations(sentences = [], article = {}) {
   });
 }
 
+function numericBundleViolations(sentences = [], article = {}) {
+  const evidenceSentences = [
+    ...(article.verifiedFacts || article.facts || []),
+    article.context,
+    article.fullText,
+    article.body,
+    article.summary,
+  ]
+    .filter(Boolean)
+    .flatMap(splitSourceSentences)
+    .map(cleanVisibleText)
+    .filter(Boolean);
+  return sentences.flatMap((sentence, index) => {
+    const cleanSentence = cleanVisibleText(sentence);
+    if (!/(같은|동일(?:한|하게)?|모두.{0,20}적용)/u.test(cleanSentence)) return [];
+    const numbers = [...new Set((cleanSentence.match(NUMBER_TOKEN) || [])
+      .map(number => number.replace(/[\s,]/gu, '')))];
+    if (numbers.length < 2) return [];
+    const oneSourceSupportsBundle = evidenceSentences.some(evidence => {
+      const compact = evidence.replace(/[\s,]/gu, '');
+      return numbers.every(number => compact.includes(number));
+    });
+    return oneSourceSupportsBundle ? [] : [{ index, numbers }];
+  });
+}
+
 function frameAlignmentViolations(sentences = [], frame = {}) {
   const first = cleanVisibleText(sentences[0] || '');
   const full = sentences.map(cleanVisibleText).join(' ');
@@ -399,6 +425,10 @@ function frameAlignmentViolations(sentences = [], frame = {}) {
   const denialLanguage = /(확정된?\s*바\s*없|확정되지\s*않|확정하지\s*않|미확정|사실이\s*아니|반박|부인|해명)/u;
   if (officialDenial && !denialLanguage.test(first)) {
     violations.push('caption first sentence must preserve the official denial');
+  }
+  if (['reported', 'tentative'].includes(frame.claimState)
+    && /(확정했|확정됐|확정되었|결정했|시행하기로\s*확정)/u.test(first)) {
+    violations.push('caption cannot strengthen a reported or tentative event into a confirmed decision');
   }
   if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory', 'political_statement'].includes(frame.eventKind)) {
     const firstLower = first.toLowerCase();
@@ -608,6 +638,10 @@ function validateModelBody(parsed = {}, article = {}, frame = {}) {
   if (contextViolations.length > 0) {
     throw new Error(`model returned a comparison basis that conflicts with article evidence: ${JSON.stringify(contextViolations.slice(0, 3))}`);
   }
+  const bundleViolations = numericBundleViolations(parsed.sentences, article);
+  if (bundleViolations.length > 0) {
+    throw new Error(`[DIEM Editorial] multiple numeric claims lack one shared source sentence: ${bundleViolations.map(item => item.numbers.join('+')).join(', ')}`);
+  }
   const alignmentViolations = frameAlignmentViolations(parsed.sentences, frame);
   if (alignmentViolations.length > 0) {
     throw new Error(`model returned content outside the primary news frame: ${alignmentViolations.join('; ')}`);
@@ -773,6 +807,9 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   }
   numericContextViolations(editorial?.caption?.sentences || [], article).forEach(({ index, number }) => {
     errors.push(`caption sentence ${index + 1} has a comparison basis unsupported for ${number}`);
+  });
+  numericBundleViolations(editorial?.caption?.sentences || [], article).forEach(({ index, numbers }) => {
+    errors.push(`caption sentence ${index + 1} combines numeric claims without one shared source sentence: ${numbers.join(', ')}`);
   });
   errors.push(...frameAlignmentViolations(editorial?.caption?.sentences || [], frame));
   const copiedRawSource = copiedRawSourceViolations(editorial?.caption?.sentences || [], article);

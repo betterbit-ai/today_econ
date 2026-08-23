@@ -117,6 +117,10 @@ function validateTitleAgainstFrame(title, frame = {}) {
   if (frame.claimState !== 'official_denial' && DENIAL_TITLE_TOKEN.test(normalized)) {
     errors.push('title cannot label a reported, scheduled, or confirmed event as unconfirmed or denied');
   }
+  if (['reported', 'tentative'].includes(frame.claimState)
+    && /(확정|결정|시행\s*확정|완료)/u.test(normalized)) {
+    errors.push('reported or tentative title cannot strengthen the event into a confirmed decision');
+  }
 
   if (frame.eventKind === 'ipo' && !/(IPO|기업공개|상장|첫\s*거래|증시\s*데뷔|데뷔)/iu.test(normalized)) {
     errors.push('IPO title must name the IPO, listing, first-trade, or market-debut event');

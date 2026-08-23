@@ -35,6 +35,9 @@ const PRIVATE_PERSON_MARKER = /(?:\d{1,3}세\s*(?:여성|남성)|(?:여성|남�
 const PRIVATE_CRIME_EVENT = /(계모임|곗돈|먹튀|사기|편취|횡령|절도|폭행|협박|성범죄|징역|실형|구속|범행|혐의)/u;
 const PRIVATE_CRIME_OUTCOME = /(지방법원|지법|고등법원|고법|재판부|법정|판결|선고|징역|실형|유죄|무죄|구속)/u;
 const SYSTEMIC_CRIME_ANCHOR = /((?<!의)정부|국회|법안|법률\s*개정|정책|제도|규제|대법원|헌법재판소|전원합의체|공직자|대통령|장관|국회의원|대규모|전국|다수\s*피해자|피해자\s*\d{2,}\s*명|집단\s*피해)/u;
+const LOW_MISSION_FIT = /(주차\s*빌런|택시\s*승객.{0,20}알고\s*보니|성기\s*필러|음경.{0,12}(?:필러|확대)|연예인|유튜버.{0,30}(?:영상|사과|후폭풍)|CCTV\s*공개\s*후폭풍|북극곰.{0,30}(?:뱃고동|벌금)|재산분할.{0,16}(?:될까|상담|문의)|변호사에게\s*상담)/iu;
+const LOW_MISSION_PUBLIC_OVERRIDE = /(정부.{0,24}(?:발표|결정|시행)|국회|법안|법률\s*개정|정책|제도\s*개편|규제|대법원|헌법재판소|공중보건|안전\s*(?:기준|대책|규정))/u;
+const DISASTER_PRIMARY_EVENT = /(산사태|폭우|집중호우|침수|도로\s*붕괴|토사\s*붕괴|사망|재난|태풍|지진)/u;
 const OFFICIAL_ACTOR = /(정부|부처|복지부|보건복지부|기획재정부|금융위원회|금융감독원|국토교통부|고용노동부|교육부|대통령실|국회|공단|공사|위원회|당국|관계자)/u;
 const OFFICIAL_RESPONSE = /(설명자료|해명자료|보도\s*설명|보도\s*해명|반박|부인|해명|오보|허위|사실\s*무근|보도와\s*관련|기사에서\s*언급된\s*내용)/u;
 const TOPIC_ALIASES = Object.freeze([
@@ -147,10 +150,13 @@ function isOfficialDenialCandidate(candidate = {}, text = candidateText(candidat
 }
 
 function claimState(candidate = {}, text = primaryCandidateText(candidate), kind = eventKind(candidate, text)) {
+  const title = normalizeNfc(candidate.title || '');
+  const lead = normalizeNfc(`${candidate.summary || candidate.fullText || ''}`).slice(0, 500);
   if (isOfficialDenialCandidate(candidate, text)) return 'official_denial';
   if (kind === 'ipo') return 'scheduled';
   if (kind === 'medical_safety_advisory') return 'decided';
   if (kind === 'asset_sale' && /(매각|인수|넘겼|넘긴|넘기며|매수자로\s*선정)/u.test(text)) return 'decided';
+  if (/(증언|주장|의혹|혐의)/u.test(`${title} ${lead}`) && !DECIDED.test(title)) return 'reported';
   if (DECIDED.test(text)) return 'decided';
   if (TENTATIVE.test(text)) return 'tentative';
   return 'reported';
@@ -275,6 +281,7 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
 
 function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(candidate).category, frame = buildNewsFrame(candidate, category)) {
   const text = candidateText(candidate);
+  const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || '').slice(0, 420)}`);
   const signals = [];
   const penalties = [];
   const hasEconomyCore = ECONOMY_CORE_TOPIC.test(text)
@@ -305,6 +312,16 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   }
 
   let hardReject = '';
+  if (LOW_MISSION_FIT.test(primaryLead) && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
+    score -= 80;
+    penalties.push('low_mission_fit_anecdote');
+    hardReject = 'low_mission_fit_anecdote';
+  }
+  if (category === CATEGORIES.ECONOMY && DISASTER_PRIMARY_EVENT.test(primaryLead)) {
+    score -= 80;
+    penalties.push('disaster_primary_event_not_economy');
+    hardReject ||= 'disaster_primary_event_not_economy';
+  }
   if (isNarrowPrivateCrimeStory(candidate)) {
     score -= 70;
     penalties.push('narrow_private_crime_story');
@@ -361,6 +378,9 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
 function classifyCandidate(candidate = {}) {
   const text = primaryCandidateText(candidate);
   const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 420)}`);
+  if (LOW_MISSION_FIT.test(primaryLead) && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
+    return { category: null, excluded: ['low_mission_fit_anecdote'] };
+  }
   if (isNarrowPrivateCrimeStory(candidate)) {
     return { category: null, excluded: ['narrow_private_crime_story'] };
   }
@@ -373,6 +393,9 @@ function classifyCandidate(candidate = {}) {
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text))
     && !ECONOMY_EXCLUDE.test(text);
   const issue = ISSUE_INCLUDE.test(text) && !ISSUE_EXCLUDE.test(text);
+  if (DISASTER_PRIMARY_EVENT.test(primaryLead) && issue) {
+    return { category: CATEGORIES.ISSUE, excluded: [], primaryEvent: 'public_safety' };
+  }
   if (PRIMARY_POLITICAL_EVENT.test(primaryLead) && !ISSUE_EXCLUDE.test(primaryLead)) {
     return { category: CATEGORIES.ISSUE, excluded: [], primaryEvent: 'political' };
   }

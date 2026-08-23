@@ -347,6 +347,28 @@ test('scores DIEM editorial value instead of accepting every broad issue keyword
   assert.match(privacyAiAsEconomy.reason, /economy_core_topic_missing|privacy_rights_policy_not_economy/u);
 });
 
+test('rejects weekly low-mission anecdotes and routes disaster leads away from economy', () => {
+  const lowMissionCases = [
+    ['롤스로이스 주차 빌런에 아파트 주민 골머리', '온라인에서 주차 사진이 화제가 됐습니다.'],
+    ['성기 필러 시술 명암', '영국 남성들의 확대 시술 경험과 부작용을 소개합니다.'],
+    ['유튜버 박위 CCTV 공개 후 영상 삭제·사과', 'KTX 낙상 영상 공개 후폭풍입니다.'],
+    ['택시 승객 인터뷰했는데 알고 보니 정의선 누나', '우연히 만난 승객의 신원이 화제입니다.'],
+    ['남편 건물 재산분할 될까', '가정폭력 별거 중인 여성이 변호사에게 상담했습니다.'],
+  ];
+  for (const [title, summary] of lowMissionCases) {
+    const classification = classifyCandidate({ title, summary });
+    assert.equal(classification.category, null, title);
+    assert.deepEqual(classification.excluded, ['low_mission_fit_anecdote']);
+  }
+
+  const disaster = classifyCandidate({
+    title: '통영 폭우에 도로·공장 붕괴',
+    summary: '집중호우로 도로가 무너지고 공장 피해가 발생해 정부가 복구를 지원합니다.',
+    fullText: '피해 업체의 손실과 보험 문제가 함께 거론됐습니다.',
+  });
+  assert.equal(disaster.category, CATEGORIES.ISSUE);
+});
+
 test('applies automatic and gray-zone duplicate thresholds', () => {
   const current = { target: '한국은행 기준금리', event: '금리 동결', text: '경제 | 한국은행 기준금리 | 금리 동결' };
   const same = { target: '한국은행 기준금리', event: '금리 동결', text: '경제 | 기준금리 한국은행 | 동결 결정' };

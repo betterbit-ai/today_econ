@@ -26,6 +26,8 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
     assert.match(content, /steps\.embedding-cache\.outputs\.cache-hit != 'true'/u);
     assert.match(content, /HF_HUB_OFFLINE:\s*'0'/u);
     assert.match(content, /PUBLISH_INSTAGRAM_STORY:\s*'true'/u);
+    assert.match(content, /MAX_DAILY_PUBLICATIONS_PER_CATEGORY:\s*'1'/u);
+    assert.match(content, /GROQ_VISION_MODEL:\s*qwen\/qwen3\.6-27b/u);
     assert.doesNotMatch(content, /retry-all|inputs:\s*\n\s+phase:/u);
     assert.doesNotMatch(content, /DIEM_PIPELINE_ENABLED/u);
   }
