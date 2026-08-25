@@ -4,7 +4,7 @@
   "date": "2026-08-25",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-24T16:35:32.638Z",
-  "updatedAt": "2026-08-25T03:16:30.908Z",
+  "updatedAt": "2026-08-25T03:21:05.036Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -164,7 +164,7 @@
         }
       },
       "rejectionReasons": [
-        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)"
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 40% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\"; 52% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)"
       ]
     }
   ],
@@ -7460,6 +7460,374 @@
         ],
         "updatedAt": "2026-08-25T03:12:12.929Z"
       }
+    },
+    {
+      "publicationKey": "diem:2026-08-25:issue:editorial-retry-1787627726068",
+      "category": "issue",
+      "status": "no_publish",
+      "candidate": {
+        "title": "유시민 “이 대통령, 오만한 권력자의 모습…지지율 곧 30%대 나온다”",
+        "url": "https://n.news.naver.com/article/009/0005725341?ntype=RANKING",
+        "publishedDate": "2026-08-25",
+        "publishedAt": "2026-08-25 09:51:06",
+        "observedAt": "2026-08-25T02:13:34.585Z",
+        "popularityScore": 87.8776,
+        "popularitySignalReliable": true,
+        "hotness": {
+          "ok": true,
+          "reason": "regular_hot_news",
+          "score": 89.58,
+          "popularityScore": 87.8776,
+          "freshnessScore": 100,
+          "editorialValueScore": 75,
+          "ageHours": 1.37,
+          "publishedAt": "2026-08-25 09:51:06",
+          "observedAt": "2026-08-25T02:13:34.585Z",
+          "freshnessSource": "article_published_at",
+          "usedPublishedAtFallback": false,
+          "publishedAtInvalidReason": null,
+          "urgent": false,
+          "urgencyBonus": 0,
+          "popularitySignalReliable": true,
+          "thresholds": {
+            "popularity": 70,
+            "maximumAgeHours": 12,
+            "score": 70
+          }
+        },
+        "crossPortal": false,
+        "sources": [
+          {
+            "portal": "naver",
+            "publisher": null,
+            "rank": 7,
+            "normalizedScore": 87.8776,
+            "title": "유시민 “이 대통령, 오만한 권력자의 모습…지지율 곧 30%대 나온다”",
+            "url": "https://n.news.naver.com/article/009/0005725341?ntype=RANKING"
+          }
+        ],
+        "category": "issue",
+        "fullText": "각종 여론조사서 ‘취임 후 최저’호남 등 핵심 지지층도 흔들유시민, 이 대통령 尹에 빗대“오만한 권력자의 모습” 비판 유시민 작가. [유튜브 ‘매불쇼’ 갈무리]이재명 대통령의 국정 지지율이 취임 후 최저 수준으로 떨어지면서 여권 내 우려가 커지는 가운데, 범여권 논객인 유시민 작가가 “이제 30%대도 곧 나온다”고 경고했다. 특히 유 작가는 이 대통령의 국정 운영을 윤석열 전 대통령 당시와 비교하며 “오만한 권력자의 모습”이라고 강하게 비판했다.25일 발표된 미디어토마토 조사에서 이 대통령의 국정 운영 긍정평가는 40.0%로 집계됐다. 직전 조사보다 4.2%포인트 하락하며 취임 후 최저치를 기록했다. 당의 핵심 지지 기반인 호남 지역의 지지율도 52.3%로 2주 전(68.5%)보다 16.2%포인트 하락했다.전날 발표된 리얼미터 조사에서도 이 대통령의 국정 수행 긍정평가는 6주 연속 하락하며 40.2%로 취임 후 최저치를 기록했다. 이 조사에서도 호남 지역 지지율은 64.7%로 직전 조사(73.5%)보다 8.8%포인트 떨어졌다.특히 리얼미터 조사에서는 민주당의 핵심 지지 기반으로 꼽히는 50대에서도 지지율 하락세가 나타났다. 민주당의 전당대회 직후 기대됐던 이른바 ‘컨벤션 효과’가 뚜렷하게 나타나지 않는 가운데 부동산 세제 개편 등이 겹치면서 여권의 전통적 지지층까지 흔들리는 모습이다.이런 가운데 유 작가는 전날 장인수 전 MBC 기자가 운영하는 유튜브 채널 ‘저널리스트’에 출연해 이 대통령의 국정 운영을 정면으로 비판했다. 이재명 대통령 [청와대사진기자단]유 작가는 “윤석열 정부 때와 같은 분석 틀로 이재명 정부를 분석해보고 있다. 1년밖에 안 됐는데 (윤 정부와) 비슷한 증상들이 참 많더라”면서 “1년 동안 대통령이 보인 모습은 오만한 권력자의 모습”이라고 지적했다. 이어 민주당 의원들의 ‘90도 인사’ 등을 거론하며 “우민화된 행태에 아무도 항의하는 사람이 없다”고 주장했다.지지율 하락에 대해서는 보다 직접적인 경고를 내놨다. 유 작가는 “항상 주의해서 봐야 하는 게 대통령 국정수행에 대한 국민의 평가”라며 “대통령 지지율에도 엄청난 변화가 있었다. 이제 3자(30%대)도 곧 나온다”고 전망했다.이 대통령의 지지 기반 자체가 흔들리고 있다는 진단도 내놨다. 유 작가는 “이 대통령은 (대선 당시) ‘내란 극복 정치연합’을 통해 진보·개혁 진영을 결집해 49%의 득표율을 얻었지만, 이걸 지금까지 스스로 해체해왔다”고 주장했다.특히 유 작가는 전당대회 기간 동안 이재명 대통령이 김민석 대표를 지지했다는 일각의 주장에 대해서도 “대통령이 여당 대표를 자신이 픽해서 당선시키려 하는 건 왕정, 귀족정으로 가는 것”이라며 “(당원은) 굉장히 괴로운 선택을 강요당한 것”이라고 했다.한편 기사에 인용된 여론조사는 모두 무선 자동응답 방식으로 이뤄졌다.미디어토마토 조사는 지난 22~23일 이틀간 전국 18세 이상 유권자 1033명을 대상으로 진행됐으며, 표본 오차는 95% 신뢰 수준에서 ±3.0%포인트, 응답률은 2.2%였다. 리얼미터 여론조사는 지난 18~21일 전국 18세 이상 유권자 2026명을 대상으로 진행됐다. 표본 오차는 95% 신뢰 수준에서 ±2.2%포인트, 응답률은 3.2%였다.자세한 내용은 중앙선거여론조사심의위원회 홈페이지 참조하면 된다.",
+        "summary": "각종 여론조사서 ‘취임 후 최저’호남 등 핵심 지지층도 흔들유시민, 이 대통령 尹에 빗대“오만한 권력자의 모습” 비판 유시민 작가. [유튜브 ‘매불쇼’ 갈무리]이재명 대통령의 국정 지지율이 취임 후 최저 수준으로 떨어지면서 여권 내 우려가 커지는 가운데, 범여권 논객인 유시민 작가가 “이제 30%대도 곧 나온다”고 경고했다. 특히 유 작가는 이 대통령의 국정 운영을 윤석열 전 대통령 당시와 비교하며 “오만한 권력자의 모습”이라고 강하게 비판했다.25일 발표된 미디어토마토 조사에서 이 대통령의 국정 운영 긍정평가는 40.0%로 집계됐",
+        "topicSignature": {
+          "category": "issue",
+          "target": "유시민",
+          "event": "정치 발언",
+          "entities": [
+            "30"
+          ],
+          "eventKey": null,
+          "text": "issue | 유시민 | 정치 발언 | 30"
+        },
+        "newsFrame": {
+          "category": "issue",
+          "subject": "유시민",
+          "primaryActor": "유시민",
+          "attributionMode": "single_speaker_quote",
+          "subjectTerms": [
+            "유시민"
+          ],
+          "eventKind": "political_statement",
+          "eventLabel": "정치 발언",
+          "eventTerms": [
+            "언급",
+            "발언",
+            "주장",
+            "말해",
+            "호소",
+            "강조"
+          ],
+          "eventKey": null,
+          "claimState": "decided",
+          "evidenceState": "established_or_not_stated",
+          "date": "25일",
+          "requiredTitleTerms": [],
+          "forbiddenTitleTerms": [],
+          "competitiveState": null,
+          "competitiveLeader": null,
+          "competitiveSectors": [],
+          "readerNeed": "housing"
+        },
+        "editorialValue": {
+          "ok": true,
+          "score": 75,
+          "signals": [
+            "reader_money_work_life_impact",
+            "concrete_event_or_decision",
+            "broad_audience_or_market_scope"
+          ],
+          "penalties": [],
+          "reason": "passes_editorial_value_gate",
+          "frame": {
+            "category": "issue",
+            "subject": "유시민",
+            "primaryActor": "유시민",
+            "attributionMode": "single_speaker_quote",
+            "subjectTerms": [
+              "유시민"
+            ],
+            "eventKind": "political_statement",
+            "eventLabel": "정치 발언",
+            "eventTerms": [
+              "언급",
+              "발언",
+              "주장",
+              "말해",
+              "호소",
+              "강조"
+            ],
+            "eventKey": null,
+            "claimState": "decided",
+            "evidenceState": "established_or_not_stated",
+            "date": "25일",
+            "requiredTitleTerms": [],
+            "forbiddenTitleTerms": [],
+            "competitiveState": null,
+            "competitiveLeader": null,
+            "competitiveSectors": [],
+            "readerNeed": "housing"
+          },
+          "baseScore": 75,
+          "performancePrior": {
+            "adjustment": 0,
+            "window": "7d",
+            "matched": [],
+            "reason": "no_repeated_feature_signal"
+          }
+        },
+        "performancePrior": {
+          "adjustment": 0,
+          "window": "7d",
+          "matched": [],
+          "reason": "no_repeated_feature_signal"
+        },
+        "classificationTrace": {
+          "initial": {
+            "status": "uncertain",
+            "category": null,
+            "excluded": [
+              "category_not_allowed"
+            ],
+            "ambiguous": false
+          },
+          "hydration": {
+            "attempted": true,
+            "reason": "uncertain_initial_classification"
+          },
+          "final": {
+            "status": "classified",
+            "category": "issue",
+            "excluded": [],
+            "ambiguous": false
+          }
+        }
+      },
+      "corroboration": null,
+      "duplicateCheck": {
+        "duplicate": false,
+        "repeatOverride": false,
+        "score": 0.6793,
+        "method": "embedding",
+        "reason": "below_threshold",
+        "matchedPublicationKey": "diem:2026-08-22:issue:32517752463",
+        "signature": {
+          "category": "issue",
+          "target": "유시민",
+          "event": "정치 발언",
+          "entities": [
+            "30"
+          ],
+          "eventKey": null,
+          "text": "issue | 유시민 | 정치 발언 | 30"
+        }
+      },
+      "editorial": null,
+      "image": null,
+      "audio": null,
+      "reel": {
+        "status": "no_publish",
+        "attempts": 0,
+        "externalId": null,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+        "updatedAt": "2026-08-25T03:16:29.786Z"
+      },
+      "story": {
+        "status": "no_publish",
+        "attempts": 0,
+        "externalId": null,
+        "error": null,
+        "updatedAt": "2026-08-25T03:16:29.786Z"
+      },
+      "comment": {
+        "status": "no_publish",
+        "attempts": 0,
+        "externalId": null,
+        "error": null,
+        "updatedAt": "2026-08-25T03:16:29.786Z"
+      },
+      "reply": {
+        "status": "no_publish",
+        "attempts": 0,
+        "externalId": null,
+        "error": null,
+        "updatedAt": "2026-08-25T03:16:29.786Z"
+      },
+      "notifications": [
+        {
+          "key": "diem:2026-08-25:issue:editorial-retry-1787627726068:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-08-25T03:16:30.714Z",
+          "slackTs": "1787627789.901559",
+          "issueNumber": 61,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/61"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
+      "plannedAt": "2026-08-25T03:15:26.068Z",
+      "hotness": {
+        "ok": true,
+        "reason": "regular_hot_news",
+        "score": 89.58,
+        "popularityScore": 87.8776,
+        "freshnessScore": 100,
+        "editorialValueScore": 75,
+        "ageHours": 1.37,
+        "publishedAt": "2026-08-25 09:51:06",
+        "observedAt": "2026-08-25T02:13:34.585Z",
+        "freshnessSource": "article_published_at",
+        "usedPublishedAtFallback": false,
+        "publishedAtInvalidReason": null,
+        "urgent": false,
+        "urgencyBonus": 0,
+        "popularitySignalReliable": true,
+        "thresholds": {
+          "popularity": 70,
+          "maximumAgeHours": 12,
+          "score": 70
+        }
+      },
+      "selectionDiagnostics": {
+        "candidateCount": 49,
+        "rejectedCandidateCount": 5,
+        "rejectionCounts": {
+          "category_not_allowed_after_hydration": 3,
+          "extraordinary_claim_unverified": 1,
+          "assigned_to_economy_after_hydration": 1
+        },
+        "publicationHealth": {
+          "lastPublishedAt": "2026-08-24T04:44:30.709Z",
+          "monitoringStartedAt": "2026-07-25T07:10:45.856Z",
+          "hoursSinceLastPublished": 21.48,
+          "dailyFloorDue": true,
+          "overdue": false,
+          "watchdogAlertDue": false,
+          "lastWatchdogAt": "2026-08-02T03:38:44.877Z",
+          "thresholds": {
+            "dailyFloorAfterHours": 18,
+            "overdueAfterHours": 24,
+            "alertCooldownHours": 24
+          }
+        },
+        "publicationBudget": {
+          "allowed": true,
+          "reason": "daily_publication_budget_available",
+          "category": "issue",
+          "published": 0,
+          "limit": 2,
+          "remaining": 2
+        }
+      },
+      "publicationBudget": {
+        "allowed": true,
+        "reason": "daily_publication_budget_available",
+        "category": "issue",
+        "published": 0,
+        "limit": 2,
+        "remaining": 2
+      },
+      "editorialRetry": {
+        "sourcePublicationKey": "diem:2026-08-25:issue:32800427485",
+        "stagedAt": "2026-08-25T03:15:26.068Z",
+        "originalFailures": [
+          {
+            "title": "유시민 “이 대통령, 오만한 권력자의 모습…지지율 곧 30%대 나온다”",
+            "url": "https://n.news.naver.com/article/009/0005725341?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}} | openai/gpt-oss-20b/editorial: 400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}})",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-25T02:13:55.238Z"
+          }
+        ]
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+        "candidateFailures": [
+          {
+            "title": "유시민 “이 대통령, 오만한 권력자의 모습…지지율 곧 30%대 나온다”",
+            "url": "https://n.news.naver.com/article/009/0005725341?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-25T03:16:29.784Z"
+          }
+        ],
+        "updatedAt": "2026-08-25T03:16:29.786Z"
+      }
     }
   ],
   "publications": {
@@ -8074,7 +8442,7 @@
       }
     },
     "issue": {
-      "publicationKey": "diem:2026-08-25:issue:editorial-retry-1787627726068",
+      "publicationKey": "diem:2026-08-25:issue:editorial-retry-1787628013123",
       "category": "issue",
       "status": "no_publish",
       "candidate": {
@@ -8260,43 +8628,43 @@
         "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
-        "updatedAt": "2026-08-25T03:16:29.786Z"
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 40% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\"; 52% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+        "updatedAt": "2026-08-25T03:21:03.786Z"
       },
       "story": {
         "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": "2026-08-25T03:16:29.786Z"
+        "updatedAt": "2026-08-25T03:21:03.786Z"
       },
       "comment": {
         "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": "2026-08-25T03:16:29.786Z"
+        "updatedAt": "2026-08-25T03:21:03.786Z"
       },
       "reply": {
         "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": "2026-08-25T03:16:29.786Z"
+        "updatedAt": "2026-08-25T03:21:03.786Z"
       },
       "notifications": [
         {
-          "key": "diem:2026-08-25:issue:editorial-retry-1787627726068:selection:no_publish",
+          "key": "diem:2026-08-25:issue:editorial-retry-1787628013123:selection:no_publish",
           "status": "no_publish",
           "stage": "selection",
-          "sentAt": "2026-08-25T03:16:30.714Z",
-          "slackTs": "1787627789.901559",
-          "issueNumber": 61,
-          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/61"
+          "sentAt": "2026-08-25T03:21:04.842Z",
+          "slackTs": "1787628063.925589",
+          "issueNumber": 62,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/62"
         }
       ],
       "reason": "no_candidate_passed_editorial_generation",
-      "plannedAt": "2026-08-25T03:15:26.068Z",
+      "plannedAt": "2026-08-25T03:20:13.123Z",
       "hotness": {
         "ok": true,
         "reason": "regular_hot_news",
@@ -8360,7 +8728,7 @@
       },
       "editorialRetry": {
         "sourcePublicationKey": "diem:2026-08-25:issue:32800427485",
-        "stagedAt": "2026-08-25T03:15:26.068Z",
+        "stagedAt": "2026-08-25T03:20:13.123Z",
         "originalFailures": [
           {
             "title": "유시민 “이 대통령, 오만한 권력자의 모습…지지율 곧 30%대 나온다”",
@@ -8389,12 +8757,12 @@
       "generation": {
         "status": "no_publish",
         "attempts": 1,
-        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 40% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\"; 52% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
         "candidateFailures": [
           {
             "title": "유시민 “이 대통령, 오만한 권력자의 모습…지지율 곧 30%대 나온다”",
             "url": "https://n.news.naver.com/article/009/0005725341?ntype=RANKING",
-            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 40% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\"; 52% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
             "modelAttempts": [
               {
                 "model": "openai/gpt-oss-120b",
@@ -8406,19 +8774,19 @@
                 "model": "openai/gpt-oss-120b",
                 "stage": "editorial_repair",
                 "status": "failed",
-                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+                "error": "model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\""
               },
               {
                 "model": "openai/gpt-oss-120b",
                 "stage": "editorial",
                 "status": "failed",
-                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+                "error": "editorial repair failed: model returned an ungrounded numeric claim: 40% in \"그는 최근 미디어토마토 조사에서 대통령의 긍정평가가 40%에 불과하고 호남 지지율이 크게 하락했다고 인용했다.\""
               },
               {
                 "model": "openai/gpt-oss-20b",
                 "stage": "editorial_structure",
                 "status": "failed",
-                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+                "error": "model returned an ungrounded numeric claim: 40% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\"; 52% in \"미디어토마토와 리얼미터 여론조사에 따르면 이재명 대통령의 국정 운영 긍정평가는 40%대에 머물며, 호남 지역 지지율은 52%로 크게 하락했다\""
               },
               {
                 "model": "openai/gpt-oss-20b",
@@ -8435,14 +8803,14 @@
             ],
             "reason": "editorial_generation_failed",
             "stage": "editorial_generation",
-            "rejectedAt": "2026-08-25T03:16:29.784Z"
+            "rejectedAt": "2026-08-25T03:21:03.783Z"
           }
         ],
-        "updatedAt": "2026-08-25T03:16:29.786Z"
+        "updatedAt": "2026-08-25T03:21:03.786Z"
       }
     }
   },
   "candidateCategory": "issue",
-  "candidatePublicationKey": "diem:2026-08-25:issue:editorial-retry-1787627726068",
+  "candidatePublicationKey": "diem:2026-08-25:issue:editorial-retry-1787628013123",
   "selectionMode": "hot"
 }
