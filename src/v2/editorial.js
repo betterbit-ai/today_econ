@@ -623,6 +623,9 @@ function modelPrompt(article) {
 
 function editorialRepairPrompt(article = {}, error = {}) {
   const frame = articleFrame(article);
+  const politicalAttributionRule = frame.eventKind === 'political_statement'
+    ? '정치인·평론가 발언은 첫 문장에 발언 주체와 비판했다, 지적했다, 전망했다, 말했다 중 하나를 반드시 쓰세요.'
+    : '';
   return {
     systemPrompt: [
       '당신은 DIEM 편집 JSON 복구기입니다.',
@@ -631,6 +634,7 @@ function editorialRepairPrompt(article = {}, error = {}) {
       '각 문장은 하나의 완결문이며 120자 이내입니다. 기사에 없는 숫자·원인·전망·조언은 금지합니다.',
       'titleCandidates는 1개 이상이며 각 title은 줄바꿈 1개, 정확히 2줄, 두 줄 합계 14자 이내입니다.',
       '제목은 주체·사건·보도 상태를 보존합니다. 발언은 발언, 전망은 전망, 잠정합의는 합의로 적습니다.',
+      politicalAttributionRule,
       'emojis는 first와 third, topicTags는 3~5개, imageKeyword는 영문 2~5단어입니다.',
       '오직 하나의 JSON 객체만 출력하세요.',
       '{"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}],"selectedTitleIndex":0,"sentences":["문장1","문장2","문장3"],"emojis":{"first":"📰","third":"📰"},"topicTags":["태그1","태그2","태그3"],"imageKeyword":"concrete object"}',

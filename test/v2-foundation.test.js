@@ -293,6 +293,8 @@ test('keeps a tentative labor agreement and a political quote out of confirmed c
   assert.equal(quote.claimState, 'reported');
   assert.ok(quote.eventTerms.includes('비판'));
   assert.ok(quote.eventTerms.includes('전망'));
+  assert.ok(quote.eventTerms.includes('지적'));
+  assert.ok(quote.eventTerms.includes('라고 했다'));
   assert.equal(validateTitleAgainstFrame('유시민 비판\n지지율하락 확정', quote).ok, false);
 });
 
