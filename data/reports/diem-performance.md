@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 150편
-- 생성 시각: 2026-08-25T16:40:06.033Z
+- 발행 원장 Reel: 151편
+- 생성 시각: 2026-08-25T22:30:31.531Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -28,20 +28,20 @@
 - 정시 비교에서 제외한 늦은 백필: 72편
 
 ## 7d
-- economy: 표본 32편 · 노출 중앙값 1,482 · 공유율 0.13% · 저장률 0.08%
+- economy: 표본 33편 · 노출 중앙값 1,445 · 공유율 0.17% · 저장률 0.08%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
-  - 부진 후보: 미니 드라이버 / 기아 에어백(183), ISA 세금 / 줄이는 방식(360), ISA 개편 / 복원안 발표(390), 생산적 ISA / 정책 개편(395), 거제 폭우 / 복구 진행(499)
-  - 특성 신호: event:semiconductor insufficient_data×1.44, event:interest_rate insufficient_data×1.28, macro_indicator insufficient_data×1.28, company_event insufficient_data×0.54, event:ipo insufficient_data×0.54
-- issue: 표본 40편 · 노출 중앙값 1,638.5 · 공유율 0.09% · 저장률 0%
+  - 부진 후보: 통영 폭우 / 도로·공장 붕괴(165), 미니 드라이버 / 기아 에어백(183), ISA 세금 / 줄이는 방식(360), ISA 개편 / 복원안 발표(390), 생산적 ISA / 정책 개편(395)
+  - 특성 신호: event:semiconductor insufficient_data×1.47, event:interest_rate insufficient_data×1.32, macro_indicator insufficient_data×1.32, company_event insufficient_data×0.56, event:ipo insufficient_data×0.56
+- issue: 표본 41편 · 노출 중앙값 1,630 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
-  - 부진 후보: 광복연휴 비예보 / 폭염 예상(180), 이주노동자 / 폭염 작업(314), 세종시 환경원 / 트럭 가득(428), 형사소송법 / 보완수사권폐지(444), 롤스로이스 / 주차 빌런 보도(463)
+  - 부진 후보: 광복연휴 비예보 / 폭염 예상(180), 백화점 난동 / 5년 형 선고(205), 이주노동자 / 폭염 작업(314), 세종시 환경원 / 트럭 가득(428), 형사소송법 / 보완수사권폐지(444)
   - 특성 신호: event:legislation underperformer×0.29, work_life insufficient_data×0.19
 - 정시 비교에서 제외한 늦은 백필: 33편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 27.33%
-- 생성 배경 폴백률: 1.33% · 전체 폴백률: 28.67%
-- 이미지 공급원: pexels 96편, diem-original 41편, unsplash 6편, wikimedia 4편, diem-generated 2편, openverse 1편
+- 타이포그래피 폴백률: 27.15%
+- 생성 배경 폴백률: 1.99% · 전체 폴백률: 29.14%
+- 이미지 공급원: pexels 96편, diem-original 41편, unsplash 6편, wikimedia 4편, diem-generated 3편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 74건, unknown 44건
