@@ -1112,11 +1112,13 @@ test('selects a verified project-generated housing asset before typography', () 
 test('maps recurring fallback themes to committed generated assets', () => {
   const cases = [
     [{ title: '폭염 속 옥상 작업 중지', summary: '건설 현장 근로자들이 고온 노출로 작업을 멈췄습니다.', category: 'economy' }, 'work'],
-    [{ title: '배달기사가 열린 현관문으로 들어왔다', summary: '주거침입 논란이 된 무단 출입 사건이 있었다.', category: 'issue' }, 'work'],
+    [{ title: '배달기사가 열린 현관문으로 들어왔다', summary: '주거침입 논란이 된 무단 출입 사건이 있었다.', category: 'issue' }, 'home-security'],
     [{ title: '물놀이장에 구렁이가 나타났다', summary: '야생동물 보호종이 발견돼 시민들이 대피했다.', category: 'issue' }, 'public-interest'],
     [{ title: '교도관 소진과 과밀 수용', summary: '교정 현장의 노동 환경이 논의됐다.', category: 'issue' }, 'legislation'],
     [{ title: '성형 시술 후 피부 괴사', summary: '의료 시술 부작용 사례가 보도됐다.', category: 'issue' }, 'health'],
     [{ title: '곗돈 1.5억 먹튀 사기', summary: '채무자가 계 모임 금원을 가로채 실형을 선고받았다.', category: 'economy' }, 'finance'],
+    [{ title: '코스피 시가총액 급등', summary: '주식시장 지수가 큰 폭으로 올랐다.', category: 'economy' }, 'markets'],
+    [{ title: '분류되지 않은 지역 공공사건', summary: '시민 안전과 관련된 새로운 소식이다.', category: 'issue' }, 'public-interest'],
   ];
 
   for (const [candidate, expectedTopic] of cases) {
@@ -1127,8 +1129,10 @@ test('maps recurring fallback themes to committed generated assets', () => {
 test('verifies every committed generated fallback asset hash and vertical canvas', () => {
   const root = path.join(__dirname, '..', 'assets', 'fallback', 'generated');
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
-  assert.equal(manifest.assets.length, 9);
+  assert.equal(manifest.assets.length, 33);
+  const topicCounts = new Map();
   for (const asset of manifest.assets) {
+    for (const topic of asset.topics || []) topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
     const buffer = fs.readFileSync(path.join(root, asset.file));
     assert.equal(crypto.createHash('sha256').update(buffer).digest('hex'), asset.sha256, asset.id);
     assert.equal(buffer.toString('ascii', 1, 4), 'PNG', asset.id);
@@ -1137,6 +1141,11 @@ test('verifies every committed generated fallback asset hash and vertical canvas
     assert.ok(width >= 900 && height >= 1600, `${asset.id} is too small`);
     assert.ok(Math.abs((width / height) - (9 / 16)) < 0.002, `${asset.id} is not a 9:16 canvas`);
   }
+  assert.deepEqual([...topicCounts.keys()].sort(), [
+    'finance', 'geopolitics', 'health', 'home-security', 'housing', 'legislation', 'markets',
+    'public-interest', 'public-opinion', 'technology', 'transit', 'weather', 'work',
+  ]);
+  for (const [topic, count] of topicCounts) assert.ok(count >= 2, `${topic} needs at least two variants`);
 });
 
 test('uses the reviewed public-opinion asset for an operator-directed political reissue', async () => {
@@ -1156,11 +1165,21 @@ test('uses the reviewed public-opinion asset for an operator-directed political 
   assert.equal(selection.generatedTopic, 'public-opinion');
 });
 
-test('does not repeat a project-generated fallback inside the recent image window', () => {
+test('rotates project-generated assets and fails closed after every topic variant is recent', () => {
   const candidate = { title: '서울 아파트 정책대출', summary: '주택가격 기준 기사입니다.', category: 'economy' };
   const first = createGeneratedFallback(candidate);
-  const repeated = createGeneratedFallback(candidate, { recentImages: [first] });
-  assert.equal(repeated, null);
+  const second = createGeneratedFallback(candidate, { recentImages: [first] });
+  assert.notEqual(second.id, first.id);
+  const exhausted = createGeneratedFallback(candidate, { recentImages: [first, second] });
+  assert.equal(exhausted, null);
+});
+
+test('stable-shuffles variants by article while returning the same asset for the same article', () => {
+  const firstArticle = { title: '서울 아파트 공매', summary: '주택 아파트 기사', category: 'economy' };
+  const secondArticle = { title: '아파트 전세 상승', summary: '주택 아파트 기사', category: 'economy' };
+  const first = createGeneratedFallback(firstArticle);
+  assert.equal(createGeneratedFallback(firstArticle).id, first.id);
+  assert.notEqual(createGeneratedFallback(secondArticle).id, first.id);
 });
 
 test('uses a generated topic asset after licensed image providers fail when enabled', async () => {
@@ -1174,6 +1193,21 @@ test('uses a generated topic asset after licensed image providers fail when enab
   });
   assert.equal(selection.kind, 'generated');
   assert.equal(selection.generatedTopic, 'housing');
+});
+
+test('never emits basic typography when every reviewed generated variant is exhausted', async () => {
+  const candidate = {
+    title: '서울 아파트 정책대출 6억원 기준',
+    summary: '주택가격과 정책대출 기준을 다룹니다.',
+    category: 'economy',
+  };
+  const first = createGeneratedFallback(candidate);
+  const second = createGeneratedFallback(candidate, { recentImages: [first] });
+  await assert.rejects(() => selectLicensedImage(candidate, {
+    generatedFallbackEnabled: true,
+    recentImages: [first, second],
+    fetchImpl: async () => new Response('{}', { status: 500 }),
+  }), /typography fallback is disabled/iu);
 });
 
 test('detectCharset extracts charset from Content-Type header values', () => {

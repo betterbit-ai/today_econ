@@ -200,7 +200,7 @@ function generatedFallbackTopic(candidate = {}) {
   const text = articleSourceText(candidate);
   if (/(지지율|국정\s*(?:운영|수행)|여론조사).{0,80}(하락|최저|비판|경고|전망)|(대통령|정권).{0,80}(지지율|여론조사)/u.test(text)) return 'public-opinion';
   if (/(작업자|노동자|근로자|현장).{0,60}(폭염|온열|열사병|그늘|작업중지)|(폭염|온열|열사병).{0,60}(작업자|노동자|근로자|현장|그늘)/iu.test(text)) return 'work';
-  if (/(배달기사|배달원|주거침입|현관문|홈캠)/u.test(text)) return 'work';
+  if (/(배달기사|배달원|주거침입|현관문|홈캠|도어락|무단출입)/u.test(text)) return 'home-security';
   if (/(야생동물|구렁이|뱀|동물\s*보호)/u.test(text)) return 'public-interest';
   if (/(교도소|교정|수용자|교도관)/u.test(text)) return 'legislation';
   if (/(의료|병원|건강|질병|환자|시술|약국|보험료)/iu.test(text)) return 'health';
@@ -213,9 +213,18 @@ function generatedFallbackTopic(candidate = {}) {
   if (/(부동산|주택|아파트|전세|월세|청약|보증금|재건축|PF|공매)/iu.test(text)) return 'housing';
   if (/(고용|취업|퇴사|이직|실업급여|구직급여|노동|근로|직장|정년|공무원)/u.test(text)) return 'work';
   if (/(의료|병원|건강|질병|환자|시술|약국)/iu.test(text)) return 'health';
-  if (/(세금|과세|연금|금리|대출|보험료|지원금|소비쿠폰|주식|증시|환율|물가|은행|ISA|ETF|ETN)/iu.test(text)) return 'finance';
+  if (/(주식|증시|코스피|코스닥|나스닥|주가|시가총액|상장|IPO|GDP|성장률|환율|채권|ETF|ETN)/iu.test(text)) return 'markets';
+  if (/(세금|과세|연금|금리|대출|보험료|지원금|소비쿠폰|물가|은행|ISA|예금|적금|사기|횡령|보이스피싱|채무|빚)/iu.test(text)) return 'finance';
   if (/((대통령|총리|장관|의원|정당)|국정|정책|선거|정치)/iu.test(text)) return 'legislation';
-  return null;
+  return candidate.category === 'economy' ? 'markets' : 'public-interest';
+}
+
+function stableGeneratedAssetStart(candidate = {}, topic = '', length = 1) {
+  const seed = [topic, candidate.target, candidate.event, candidate.title, candidate.url]
+    .map(value => normalizeNfc(value || '').trim())
+    .join('|');
+  return Number.parseInt(crypto.createHash('sha256').update(seed).digest('hex').slice(0, 8), 16)
+    % Math.max(1, length);
 }
 
 function createGeneratedFallback(candidate = {}, {
@@ -231,9 +240,11 @@ function createGeneratedFallback(candidate = {}, {
   const topic = requestedAsset?.topics?.[0] || generatedFallbackTopic(candidate);
   if (!topic) return null;
   const recentKeys = recentImageKeySet(recentImages);
-  const assets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => (
+  const matchingAssets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => (
     requestedAssetId ? asset.id === requestedAssetId : asset.topics?.includes(topic)
   ));
+  const start = requestedAssetId ? 0 : stableGeneratedAssetStart(candidate, topic, matchingAssets.length);
+  const assets = [...matchingAssets.slice(start), ...matchingAssets.slice(0, start)];
   let blockedCandidateCount = 0;
   for (const asset of assets) {
     const localPath = path.join(GENERATED_FALLBACK_ROOT, asset.file);
@@ -277,7 +288,7 @@ function createGeneratedFallback(candidate = {}, {
         blockedCandidateCount,
         selectedImageKeys: keys,
       },
-      selectionReason: `${reason}; project-generated ${topic} asset ${asset.id} selected`,
+      selectionReason: `${reason}; stable-shuffled project-generated ${topic} asset ${asset.id} selected`,
     };
   }
   return null;
@@ -999,11 +1010,17 @@ async function selectLicensedImage(candidate, {
     }
   }
 
-  return (generatedFallbackEnabled && createGeneratedFallback(candidate, {
-    attempts,
-    recentImages,
-    reuseWindowDays,
-  })) || createTypographyFallback(candidate, {
+  if (generatedFallbackEnabled) {
+    const generated = createGeneratedFallback(candidate, {
+      attempts,
+      recentImages,
+      reuseWindowDays,
+    });
+    if (generated) return generated;
+    const topic = generatedFallbackTopic(candidate) || 'unmapped';
+    throw new Error(`[DIEM Image] reviewed generated asset library unavailable or exhausted for ${topic}; typography fallback is disabled`);
+  }
+  return createTypographyFallback(candidate, {
     attempts,
     recentImages,
     reuseWindowDays,

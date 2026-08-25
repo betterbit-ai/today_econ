@@ -7,7 +7,7 @@ const { publishReel, publishStory, searchInstagramAudio } = require('../instagra
 const { generateEditorial } = require('./editorial');
 const { createGroqCaller, createGroqVisionReviewer } = require('./groq');
 const {
-  createTypographyFallback,
+  createGeneratedFallback,
   downloadSelectedImage,
   extractPrimaryPersonIdentity,
   imageReuseKeys,
@@ -144,7 +144,7 @@ async function preparePublication(ledger, category, {
       imageSelection = null;
       downloaded = null;
     } catch (error) {
-      imageSelection = createTypographyFallback(imageCandidate, {
+      imageSelection = createGeneratedFallback(imageCandidate, {
         recentImages,
         reuseWindowDays: config.maxHistoryDays,
         attempts: [
@@ -153,17 +153,23 @@ async function preparePublication(ledger, category, {
         ],
         reason: 'licensed image download failed',
       });
+      if (!imageSelection) {
+        throw new Error('[DIEM Image] licensed image download failed and no unused reviewed generated asset remains; typography fallback is disabled');
+      }
       imageSelection.downloadError = error.message;
       downloaded = imageSelection;
       break;
     }
   }
   if (!imageSelection || !downloaded) {
-    imageSelection = createTypographyFallback(imageCandidate, {
+    imageSelection = createGeneratedFallback(imageCandidate, {
       recentImages,
       reuseWindowDays: config.maxHistoryDays,
       reason: 'all licensed candidates matched a recent seven-day image hash',
     });
+    if (!imageSelection) {
+      throw new Error('[DIEM Image] all licensed and reviewed generated assets are exhausted; typography fallback is disabled');
+    }
     downloaded = imageSelection;
   }
   if (imageSelection.kind === 'typographic' && imageSelection.reuseGuard?.allowed === false) {

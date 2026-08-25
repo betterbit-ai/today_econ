@@ -346,6 +346,56 @@ test('renders a generated fallback asset as the reel background', async () => {
   assert.equal(result.publications.economy.image.kind, 'generated');
 });
 
+test('replaces a failed web download with reviewed generated art instead of typography', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-download-generated-'));
+  let ledger = createDailyLedger('2026-08-06');
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: {
+      title: '서울 아파트 공매',
+      fullText: '서울 아파트 공매가 진행됩니다. 입찰 조건이 공개됐습니다. 후속 절차가 남았습니다.',
+      category: 'economy',
+    },
+    duplicateCheck: { signature: { target: '서울 아파트', event: '공매', entities: ['서울'] } },
+  });
+  let rendered = null;
+  const result = await preparePublication(ledger, 'economy', {
+    artifactRoot: root,
+    callModel: async () => ({
+      titleCandidates: [{ title: '서울 아파트\n공매 시작' }],
+      selectedTitleIndex: 0,
+      sentences: ['서울 아파트 공매가 진행됩니다.', '입찰 조건이 공개됐습니다.', '후속 절차가 남았습니다.'],
+      emojis: { first: '🏠', third: '📄' },
+      topicTags: ['서울', '아파트', '공매'],
+      imageKeyword: 'apartment auction document',
+    }),
+    selectImageImpl: async () => ({
+      kind: 'web',
+      id: 'pexels:broken',
+      source: 'pexels',
+      downloadUrl: 'https://images.example/broken.jpg',
+      license: { name: 'Pexels License' },
+      visualRole: 'context',
+      suitability: { ok: true, personScreening: { safe: true } },
+      attempts: [],
+    }),
+    downloadImageImpl: async () => { throw new Error('404 image'); },
+    renderCoverImpl: async options => {
+      rendered = options;
+      fs.writeFileSync(options.outputPath, 'cover');
+    },
+    selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
+    createReelImpl: async ({ outputPath }) => {
+      fs.writeFileSync(outputPath, 'video');
+      return { outputPath, audio: { trackId: 'mock-track' } };
+    },
+  });
+
+  assert.equal(result.publications.economy.image.kind, 'generated');
+  assert.equal(result.publications.economy.image.generatedTopic, 'housing');
+  assert.equal(fs.existsSync(rendered.imagePath), true);
+});
+
 test('reconciles an existing exact Reel instead of republishing', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-publisher-'));
   const ledger = readyLedger(root);
