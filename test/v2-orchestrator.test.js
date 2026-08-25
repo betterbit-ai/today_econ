@@ -582,6 +582,38 @@ test('stages a recent editorial JSON failure under a new publication key while p
   assert.ok(staged.publicationHistory.some(item => item.publicationKey === 'diem:2026-08-25:economy:failed-json'));
 });
 
+test('refreshes stale news-frame rules before retrying a political statement', () => {
+  let source = createDailyLedger('2026-08-25');
+  source = updatePublication(source, 'issue', {
+    publicationKey: 'diem:2026-08-25:issue:stale-frame',
+    status: 'no_publish',
+    reason: 'no_candidate_passed_editorial_generation',
+    candidate: {
+      title: '유시민 “지지율 곧 30%대 나온다”',
+      publishedAt: '2026-08-25 09:51:06',
+      fullText: '유시민 작가가 대통령 지지율이 곧 30%대로 내려갈 수 있다고 경고하고 국정 운영을 비판했다.'.repeat(10),
+      category: 'issue',
+      newsFrame: {
+        eventKind: 'political_statement',
+        subjectTerms: ['유시민'],
+        eventTerms: ['언급', '발언', '주장'],
+      },
+    },
+  });
+  const staged = stageEditorialRetry({
+    publicationKey: 'diem:2026-08-25:issue:stale-frame',
+    date: '2026-08-25',
+    now: new Date('2026-08-25T03:00:00.000Z'),
+    slot: 'editorial-retry-frame-refresh',
+    loadLedgerImpl: () => source,
+    listLedgersImpl: () => [source],
+  });
+  const terms = staged.publications.issue.candidate.newsFrame.eventTerms;
+  assert.ok(terms.includes('비판'));
+  assert.ok(terms.includes('경고'));
+  assert.ok(terms.includes('전망'));
+});
+
 test('refuses editorial retry for an old article or a non-editorial failure', () => {
   let source = createDailyLedger('2026-08-20');
   source = updatePublication(source, 'issue', {

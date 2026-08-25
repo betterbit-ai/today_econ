@@ -19,6 +19,7 @@ const { assessPublicationHealth } = require('./publication-health');
 const { assessDailyPublicationBudget } = require('./publication-policy');
 const { preparePublication, publishPreparedPublication } = require('./publisher');
 const { kstDate, kstRunSlot } = require('./time');
+const { buildNewsFrame } = require('./topic');
 
 const CATEGORY_ORDER = [CATEGORIES.ECONOMY, CATEGORIES.ISSUE];
 
@@ -159,6 +160,8 @@ function stageEditorialRetry({
     throw new Error('[DIEM Editorial Retry] original article is older than the 48-hour retry window.');
   }
   const category = source.category;
+  const candidate = structuredClone(source.candidate);
+  candidate.newsFrame = buildNewsFrame(candidate, category);
   const current = loadLedgerImpl(date) || createDailyLedger(date, now);
   const publicationBudget = assessDailyPublicationBudget(current, category, {
     limit: config.maxDailyPublicationsPerCategory,
@@ -168,14 +171,14 @@ function stageEditorialRetry({
   }
   let next = archivePublication(current, category);
   next = startPublicationRun(next, category, slot);
-  next.candidates = [structuredClone(source.candidate)];
+  next.candidates = [structuredClone(candidate)];
   next.candidateCategory = category;
   next.candidatePublicationKey = next.publications[category].publicationKey;
   next = updatePublication(next, category, {
     status: 'planned',
     reason: null,
     plannedAt: now.toISOString(),
-    candidate: structuredClone(source.candidate),
+    candidate: structuredClone(candidate),
     hotness: source.hotness || source.candidate.hotness || null,
     corroboration: source.corroboration || null,
     duplicateCheck: source.duplicateCheck || null,
