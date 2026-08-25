@@ -621,6 +621,29 @@ function modelPrompt(article) {
   };
 }
 
+function editorialRepairPrompt(article = {}, error = {}) {
+  const frame = articleFrame(article);
+  return {
+    systemPrompt: [
+      '당신은 DIEM 편집 JSON 복구기입니다.',
+      '이전 응답의 구조가 깨졌습니다. 아래 기사 근거만 사용해 더 단순한 JSON을 새로 만드세요.',
+      'sentences는 정확히 3개입니다: 사건 요약, 핵심 근거, 기사에 명시된 맥락 또는 다음 핵심 사실.',
+      '각 문장은 하나의 완결문이며 120자 이내입니다. 기사에 없는 숫자·원인·전망·조언은 금지합니다.',
+      'titleCandidates는 1개 이상이며 각 title은 줄바꿈 1개, 정확히 2줄, 두 줄 합계 14자 이내입니다.',
+      '제목은 주체·사건·보도 상태를 보존합니다. 발언은 발언, 전망은 전망, 잠정합의는 합의로 적습니다.',
+      'emojis는 first와 third, topicTags는 3~5개, imageKeyword는 영문 2~5단어입니다.',
+      '오직 하나의 JSON 객체만 출력하세요.',
+      '{"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}],"selectedTitleIndex":0,"sentences":["문장1","문장2","문장3"],"emojis":{"first":"📰","third":"📰"},"topicTags":["태그1","태그2","태그3"],"imageKeyword":"concrete object"}',
+    ].join('\n'),
+    userPrompt: JSON.stringify({
+      sourceTitle: article.title,
+      newsFrame: frame,
+      previousFailure: String(error.message || error).slice(0, 500),
+      source: sourceText(article).slice(0, 7000),
+    }).normalize('NFC'),
+  };
+}
+
 function validateModelBody(parsed = {}, article = {}, frame = {}) {
   if (!Array.isArray(parsed.sentences) || parsed.sentences.length !== 3) {
     throw new Error('model returned invalid sentence structure');
@@ -702,8 +725,22 @@ async function generateEditorial(article = {}, {
   for (const model of [primaryModel, fallbackModel]) {
     try {
       const raw = await callModel({ model, ...prompt });
-      const parsed = parseModelResult(raw);
-      validateModelBody(parsed, article, frame);
+      let parsed;
+      try {
+        parsed = parseModelResult(raw);
+        validateModelBody(parsed, article, frame);
+      } catch (bodyError) {
+        attempts.push({ model, stage: 'editorial_structure', status: 'failed', error: bodyError.message });
+        try {
+          const repairedRaw = await callModel({ model, ...editorialRepairPrompt(article, bodyError) });
+          parsed = parseModelResult(repairedRaw);
+          validateModelBody(parsed, article, frame);
+          attempts.push({ model, stage: 'editorial_repair', status: 'succeeded' });
+        } catch (repairError) {
+          attempts.push({ model, stage: 'editorial_repair', status: 'failed', error: repairError.message });
+          throw new Error(`editorial repair failed: ${repairError.message}`);
+        }
+      }
       let candidates = normalizeModelCandidates(parsed.titleCandidates, frame).filter(c => c.valid);
       if (candidates.length < 1) {
         attempts.push({
@@ -826,6 +863,7 @@ module.exports = {
   DEFAULT_MODELS,
   buildCommentChain,
   buildDeterministicEditorial,
+  editorialRepairPrompt,
   buildDeterministicTitleCandidates,
   generateEditorial,
   modelPrompt,

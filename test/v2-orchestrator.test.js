@@ -8,6 +8,7 @@ const {
   planCategoryPhase,
   planPhase,
   runCategoryStep,
+  stageEditorialRetry,
 } = require('../src/v2/orchestrator');
 const { transitionEvents } = require('../src/v2/operations');
 const { nextDate } = require('../src/v2/index');
@@ -548,6 +549,63 @@ test('category polling records no_publish without selecting after the daily budg
   assert.equal(repeated.reused, true);
   assert.equal(repeated.ledger.publications.economy.publicationKey, result.ledger.publications.economy.publicationKey);
   assert.equal(plannerCalls, 0);
+});
+
+test('stages a recent editorial JSON failure under a new publication key while preserving its audit record', () => {
+  let source = createDailyLedger('2026-08-25');
+  source = updatePublication(source, 'economy', {
+    publicationKey: 'diem:2026-08-25:economy:failed-json',
+    status: 'no_publish',
+    reason: 'no_candidate_passed_editorial_generation',
+    candidate: {
+      title: '현대차 노사 잠정합의…기본급 10만원·성과금 400%',
+      url: 'https://example.com/hyundai',
+      publishedAt: '2026-08-25 06:24:14',
+      fullText: '현대차 노사가 임금안에 잠정합의했습니다.'.repeat(10),
+      category: 'economy',
+    },
+    generation: { candidateFailures: [{ reason: 'editorial_generation_failed', error: 'json_validate_failed' }] },
+    reel: { status: 'no_publish', attempts: 0, externalId: null },
+  });
+  const staged = stageEditorialRetry({
+    publicationKey: 'diem:2026-08-25:economy:failed-json',
+    date: '2026-08-25',
+    now: new Date('2026-08-25T03:00:00.000Z'),
+    slot: 'editorial-retry-test',
+    loadLedgerImpl: () => source,
+    listLedgersImpl: () => [source],
+  });
+  assert.equal(staged.publications.economy.status, 'planned');
+  assert.equal(staged.publications.economy.publicationKey, 'diem:2026-08-25:economy:editorial-retry-test');
+  assert.equal(staged.publications.economy.editorialRetry.sourcePublicationKey, 'diem:2026-08-25:economy:failed-json');
+  assert.equal(staged.publications.economy.candidate.title, source.publications.economy.candidate.title);
+  assert.ok(staged.publicationHistory.some(item => item.publicationKey === 'diem:2026-08-25:economy:failed-json'));
+});
+
+test('refuses editorial retry for an old article or a non-editorial failure', () => {
+  let source = createDailyLedger('2026-08-20');
+  source = updatePublication(source, 'issue', {
+    publicationKey: 'diem:2026-08-20:issue:failed',
+    status: 'no_publish',
+    reason: 'no_candidate_passed_editorial_generation',
+    candidate: { title: '오래된 기사', publishedAt: '2026-08-20 10:00:00', fullText: '근거'.repeat(100) },
+  });
+  assert.throws(() => stageEditorialRetry({
+    publicationKey: source.publications.issue.publicationKey,
+    date: '2026-08-25',
+    now: new Date('2026-08-25T03:00:00.000Z'),
+    loadLedgerImpl: () => createDailyLedger('2026-08-25'),
+    listLedgersImpl: () => [source],
+  }), /older than the 48-hour/u);
+
+  source.publications.issue.reason = 'no_candidate_passed_hotness_gate';
+  assert.throws(() => stageEditorialRetry({
+    publicationKey: source.publications.issue.publicationKey,
+    date: '2026-08-20',
+    now: new Date('2026-08-20T03:00:00.000Z'),
+    loadLedgerImpl: () => source,
+    listLedgersImpl: () => [source],
+  }), /only editorial-generation/u);
 });
 
 test('Story recovery is publish work even when Reel and comments are already complete', async () => {

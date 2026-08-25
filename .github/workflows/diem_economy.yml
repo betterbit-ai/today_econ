@@ -19,6 +19,7 @@ on:
           - hot_news
           - publish_basic
           - retry_basic
+          - retry_editorial
           - record_moderation
           - collect_insights
       content_id:
@@ -26,7 +27,7 @@ on:
         required: false
         type: string
       publication_key:
-        description: 'retry_basic 또는 record_moderation 대상 publication_key'
+        description: 'retry_basic, retry_editorial 또는 record_moderation 대상 publication_key'
         required: false
         type: string
       moderation_action:
@@ -197,6 +198,47 @@ jobs:
 
       - name: Commit measurement snapshots
         run: bash scripts/commit-diem-state.sh "Refresh DIEM performance evidence without publishing"
+
+  retry-editorial-publication:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'retry_editorial'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require an exact failed publication key
+        env:
+          EDITORIAL_PUBLICATION_KEY: ${{ inputs.publication_key }}
+        run: |
+          if [ -z "$EDITORIAL_PUBLICATION_KEY" ]; then
+            echo "publication_key is required for retry_editorial" >&2
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install editorial publishing dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Re-run the selected article through safe editorial generation
+        env:
+          EDITORIAL_PUBLICATION_KEY: ${{ inputs.publication_key }}
+        run: node src/v2/index.js editorial-retry --publication-key "$EDITORIAL_PUBLICATION_KEY" --publish
+
+      - name: Commit editorial retry outcome
+        if: always()
+        run: bash scripts/commit-diem-state.sh "Recover a selected DIEM article after model JSON failure"
 
   publish-stored-diem-basic:
     if: >-

@@ -3,6 +3,7 @@ const { resolveInstagramToken } = require('../token-vault');
 const { CATEGORIES } = require('./constants');
 const {
   archivePublication,
+  allLedgerPublications,
   createDailyLedger,
   emptyPublication,
   historyFromLedgers,
@@ -119,6 +120,75 @@ function publicationNeedsRecovery(publication = {}) {
 
 function replaceLedgerForDate(ledgers, ledger) {
   return [...ledgers.filter(item => item.date !== ledger.date), ledger];
+}
+
+function candidatePublishedInstant(candidate = {}) {
+  const raw = String(candidate.publishedAt || candidate.observedAt || '').trim();
+  if (!raw) return null;
+  const normalized = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}/u.test(raw)
+    ? `${raw.replace(' ', 'T')}+09:00`
+    : raw;
+  const instant = new Date(normalized);
+  return Number.isFinite(instant.getTime()) ? instant : null;
+}
+
+function stageEditorialRetry({
+  publicationKey,
+  date = kstDate(),
+  now = new Date(),
+  slot = `editorial-retry-${Date.now()}`,
+  loadLedgerImpl = loadLedger,
+  listLedgersImpl = listLedgers,
+} = {}) {
+  if (!publicationKey) throw new Error('[DIEM Editorial Retry] publication key is required.');
+  const ledgers = listLedgersImpl();
+  let source = null;
+  for (const ledger of ledgers) {
+    source = allLedgerPublications(ledger).find(publication => publication.publicationKey === publicationKey);
+    if (source) break;
+  }
+  if (!source) throw new Error(`[DIEM Editorial Retry] publication not found: ${publicationKey}`);
+  if (source.status !== 'no_publish' || source.reason !== 'no_candidate_passed_editorial_generation') {
+    throw new Error('[DIEM Editorial Retry] only editorial-generation no_publish records can be retried.');
+  }
+  if (!source.candidate?.title || !source.candidate?.fullText) {
+    throw new Error('[DIEM Editorial Retry] original selected article evidence is missing.');
+  }
+  const publishedAt = candidatePublishedInstant(source.candidate);
+  if (!publishedAt || now.getTime() - publishedAt.getTime() > 48 * 3600000) {
+    throw new Error('[DIEM Editorial Retry] original article is older than the 48-hour retry window.');
+  }
+  const category = source.category;
+  const current = loadLedgerImpl(date) || createDailyLedger(date, now);
+  const publicationBudget = assessDailyPublicationBudget(current, category, {
+    limit: config.maxDailyPublicationsPerCategory,
+  });
+  if (!publicationBudget.allowed) {
+    throw new Error(`[DIEM Editorial Retry] ${category} daily publication budget is exhausted.`);
+  }
+  let next = archivePublication(current, category);
+  next = startPublicationRun(next, category, slot);
+  next.candidates = [structuredClone(source.candidate)];
+  next.candidateCategory = category;
+  next.candidatePublicationKey = next.publications[category].publicationKey;
+  next = updatePublication(next, category, {
+    status: 'planned',
+    reason: null,
+    plannedAt: now.toISOString(),
+    candidate: structuredClone(source.candidate),
+    hotness: source.hotness || source.candidate.hotness || null,
+    corroboration: source.corroboration || null,
+    duplicateCheck: source.duplicateCheck || null,
+    selectionDiagnostics: source.selectionDiagnostics || null,
+    publicationBudget,
+    editorialRetry: {
+      sourcePublicationKey: publicationKey,
+      stagedAt: now.toISOString(),
+      originalFailures: structuredClone(source.generation?.candidateFailures || []),
+    },
+    generation: { status: 'planned', attempts: 0, retryOf: publicationKey, updatedAt: now.toISOString() },
+  });
+  return next;
 }
 
 async function planCategoryPhase({
@@ -579,4 +649,5 @@ module.exports = {
   runCategoryStep,
   runPersistedPhase,
   selectedCategories,
+  stageEditorialRetry,
 };

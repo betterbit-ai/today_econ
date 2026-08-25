@@ -1,5 +1,25 @@
 # Feature: DIEM 성과 학습 루프와 편집 복구력 강화
 
+## 2026-08-25 approved amendment: 좋은 후보의 JSON 편집 복구
+
+1. Groq JSON mode가 `json_validate_failed` 400을 반환하면 같은 모델에
+   response format 강제를 제거한 plain-JSON 요청을 정확히 한 번 보낸다.
+2. 모델 응답에 정확히 3문장 구조가 없거나 본문 검증이 실패하면, 같은 기사와
+   news frame을 잠근 단순 편집 복구 요청을 모델별 한 번만 보낸다.
+3. 복구된 결과도 기존 숫자·확정 상태·복사 문장·제목·이미지 품질 가드를 모두
+   통과해야 하며, 실패하면 다음 모델과 다음 후보로 이동한다.
+4. 이미 신선한 시점에 선정됐지만 편집 JSON 장애로 `no_publish`가 된 기사는
+   48시간 안에 publication key를 지정해 `retry_editorial`로 다시 태울 수 있다.
+   일일 분야별 2편 예산은 그대로 적용한다.
+
+### Acceptance criteria
+
+- [ ] JSON mode 400 뒤 plain JSON 회수가 성공하면 같은 후보를 유지한다.
+- [ ] 잘못된 sentences 구조 뒤 단순 편집 복구가 성공하면 같은 후보를 유지한다.
+- [ ] 복구가 사실 가드를 통과하지 못하면 자동 발행하지 않는다.
+- [ ] 편집 실패가 아닌 publication key, 후보 근거가 없는 기록, 48시간 초과 기록은 재시도하지 않는다.
+- [ ] 수동 retry는 원본 실패 기록을 보존하고 새 publication key로 준비·발행한다.
+
 ## 2026-08-25 approved amendment: 생성형 폴백 자산과 일일 4편 상한
 
 1. 일반 자동 발행 예산을 KST 하루 Economy 2편, Issue 2편으로 조정한다.

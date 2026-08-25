@@ -17,7 +17,7 @@ const {
   saveLedger,
 } = require('./ledger');
 const { notifyTransitions } = require('./operations');
-const { planCategoryPhase, planPhase, runPersistedPhase } = require('./orchestrator');
+const { planCategoryPhase, planPhase, runPersistedPhase, stageEditorialRetry } = require('./orchestrator');
 const { kstDate } = require('./time');
 
 function parseArgs(argv = process.argv.slice(2)) {
@@ -48,6 +48,7 @@ function helpText() {
     '  node src/v2/index.js prepare [--date YYYY-MM-DD] [--category economy|issue]',
     '  node src/v2/index.js publish [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
     '  node src/v2/index.js retry [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
+    '  node src/v2/index.js editorial-retry --publication-key KEY [--date YYYY-MM-DD] [--publish]',
     '  node src/v2/index.js basic-prepare [--date YYYY-MM-DD]',
     '  node src/v2/index.js basic-publish-stored [--content-id ID] --publish',
     '  node src/v2/index.js basic-publish --publication-key KEY --publish',
@@ -133,6 +134,22 @@ async function runCommand({ command, options }) {
     console.log(`[DIEM Basic] draft rejected: ${options.publicationKey}`);
     return ledger;
   }
+  if (command === 'editorial-retry') {
+    if (!options.publicationKey) throw new Error('[DIEM Editorial Retry] editorial-retry requires --publication-key.');
+    let ledger = saveLedger(stageEditorialRetry({ publicationKey: options.publicationKey, date }));
+    const category = ledger.candidateCategory;
+    const prepared = await runPersistedPhase({ phase: 'prepare', date, category });
+    ledger = prepared.ledger;
+    const published = await runPersistedPhase({
+      phase: 'publish',
+      date,
+      category,
+      publish: options.publish || config.publishInstagram,
+    });
+    rebuildEditorialHistory({ referenceDate: nextDate(date) });
+    console.log(`[DIEM] editorial retry ${options.publicationKey}: ${category}=${published.ledger.publications[category].status}${published.skipped ? ' (publishing disabled)' : ''}`);
+    return published.ledger;
+  }
   if (command === 'select') {
     if (!options.category) throw new Error('[DIEM] select requires --category economy|issue.');
     const result = await planCategoryPhase({
@@ -206,8 +223,9 @@ async function runCommand({ command, options }) {
 if (require.main === module) {
   const request = parseArgs();
   runCommand(request).catch(async error => {
-    if (request.command.startsWith('basic-')) {
-      await sendAnalyticsReport(`🚨 *DIEM 기초 작업 실패*\n작업: ${request.command}\n사유: ${String(error.message || error).replace(/\s+/gu, ' ').slice(0, 1000)}`).catch(() => null);
+    if (request.command.startsWith('basic-') || request.command === 'editorial-retry') {
+      const label = request.command === 'editorial-retry' ? 'DIEM 편집 복구 실패' : 'DIEM 기초 작업 실패';
+      await sendAnalyticsReport(`🚨 *${label}*\n작업: ${request.command}\n사유: ${String(error.message || error).replace(/\s+/gu, ' ').slice(0, 1000)}`).catch(() => null);
     }
     console.error(error.stack || error.message);
     process.exitCode = 1;

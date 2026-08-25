@@ -21,6 +21,11 @@ function isRetryable(error = {}) {
     || /rate|timeout|temporar/i.test(String(error.message || ''));
 }
 
+function isJsonValidationFailure(error = {}) {
+  return Number(error.status) === 400
+    && /json_validate_failed|Failed to validate JSON/iu.test(String(error.message || error.payload?.error?.message || ''));
+}
+
 function createGroqCaller({
   apiKey,
   client,
@@ -37,20 +42,31 @@ function createGroqCaller({
     userPrompt,
     maxTokens = 1800,
   } = {}) {
+    const messages = [
+      { role: 'system', content: String(systemPrompt || '').normalize('NFC') },
+      { role: 'user', content: String(userPrompt || '').normalize('NFC') },
+    ];
+    const request = async ({ jsonMode = true } = {}) => groq.chat.completions.create({
+      model,
+      messages: jsonMode
+        ? messages
+        : [{
+          role: 'system',
+          content: `${messages[0].content}\nJSON mode recovery: return exactly one JSON object as plain text, with no markdown fence or commentary.`,
+        }, messages[1]],
+      temperature: jsonMode ? 0.25 : 0.1,
+      max_tokens: maxTokens,
+      ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
+    });
     for (let attempt = 1; attempt <= retries; attempt += 1) {
       try {
-        const response = await groq.chat.completions.create({
-          model,
-          messages: [
-            { role: 'system', content: String(systemPrompt || '').normalize('NFC') },
-            { role: 'user', content: String(userPrompt || '').normalize('NFC') },
-          ],
-          temperature: 0.25,
-          max_tokens: maxTokens,
-          response_format: { type: 'json_object' },
-        });
+        const response = await request({ jsonMode: true });
         return response.choices?.[0]?.message?.content || '';
       } catch (error) {
+        if (isJsonValidationFailure(error)) {
+          const recovered = await request({ jsonMode: false });
+          return recovered.choices?.[0]?.message?.content || '';
+        }
         if (!isRetryable(error) || attempt >= retries) throw error;
         const retryDelay = retryAfterMs(error);
         if (retryDelay !== null && retryDelay > maxRetryDelayMs) throw error;
@@ -109,5 +125,6 @@ module.exports = {
   createGroqVisionReviewer,
   headerValue,
   isRetryable,
+  isJsonValidationFailure,
   retryAfterMs,
 };

@@ -34,6 +34,8 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
 
   const economy = fs.readFileSync(path.join(workflowRoot, 'diem_economy.yml'), 'utf8');
   assert.match(economy, /operation:[\s\S]*publish_basic[\s\S]*retry_basic/u);
+  assert.match(economy, /retry_editorial/u);
+  assert.match(economy, /editorial-retry --publication-key "\$EDITORIAL_PUBLICATION_KEY" --publish/u);
   assert.doesNotMatch(economy, /- prepare_basic|- reject_basic/u);
   assert.match(economy, /collect_insights/u);
   assert.match(economy, /inputs\.operation == 'collect_insights'/u);

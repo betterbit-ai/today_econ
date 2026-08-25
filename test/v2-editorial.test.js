@@ -181,12 +181,45 @@ test('uses the fallback model after an invalid primary response', async () => {
     },
   });
 
-  assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback]);
+  assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback]);
   assert.equal(result.generation.method, 'model');
   assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
   assert.equal(result.title.selectedIndex, 1);
   assert.equal(result.generation.attempts[0].status, 'failed');
-  assert.equal(result.generation.attempts[1].status, 'succeeded');
+  assert.equal(result.generation.attempts.at(-1).status, 'succeeded');
+});
+
+test('repairs a selected high-value article when the first model body has no sentence array', async () => {
+  const article = {
+    category: CATEGORIES.ECONOMY,
+    title: '현대차 노사 잠정합의…기본급 10만원·성과금 400%',
+    summary: '현대차 노사가 기본급 10만원 인상과 성과금 400%에 잠정합의했습니다.',
+    fullText: '현대차 노사는 기본급 10만원 인상과 성과금 400% 지급에 잠정합의했습니다. 조합원 찬반투표를 거쳐 최종 확정됩니다. 노사는 파업 없이 교섭을 마무리했습니다.',
+    target: '현대차 노사',
+    event: '잠정합의',
+  };
+  const requests = [];
+  const result = await generateEditorial(article, {
+    callModel: async request => {
+      requests.push(request);
+      if (!/편집 JSON 복구기/u.test(request.systemPrompt)) return { titleCandidates: [], sentence: 'broken' };
+      return {
+        titleCandidates: [{ title: '현대차 노사\n임금 잠정합의' }],
+        sentences: [
+          '현대차 노사가 기본급 10만원 인상과 성과금 400% 지급안에 잠정합의했습니다.',
+          '이번 합의안은 조합원 찬반투표를 통과해야 최종 확정됩니다.',
+          '노사는 파업 없이 올해 임금 교섭을 마무리했습니다.',
+        ],
+        emojis: { first: '🚗', third: '📰' },
+        topicTags: ['현대차', '임금협상', '노사합의'],
+        imageKeyword: 'automobile factory assembly line',
+      };
+    },
+  });
+  assert.equal(requests.length, 2);
+  assert.equal(result.generation.model, DEFAULT_MODELS.primary);
+  assert.ok(result.generation.attempts.some(attempt => attempt.stage === 'editorial_repair' && attempt.status === 'succeeded'));
+  assert.match(result.caption.sentences[0], /잠정합의/u);
 });
 
 test('does not widen one politician quote into a shared claim by several candidates', async () => {
@@ -517,7 +550,7 @@ test('rejects the article when both model calls fail or invent a number', async 
     /fallback is disabled|try the next candidate/i
   );
 
-  assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback]);
+  assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback, DEFAULT_MODELS.fallback]);
 });
 
 test('rejects copied raw source sentences and accepts rewritten model summaries', async () => {
@@ -547,7 +580,7 @@ test('rejects copied raw source sentences and accepts rewritten model summaries'
     },
   });
 
-  assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback]);
+  assert.deepEqual(calls, [DEFAULT_MODELS.primary, DEFAULT_MODELS.primary, DEFAULT_MODELS.fallback]);
   assert.equal(result.generation.model, DEFAULT_MODELS.fallback);
   assert.doesNotMatch(result.caption.text, /일부 정비업체의 과잉수리가 손해율을 끌어올렸다고 설명/u);
 });
