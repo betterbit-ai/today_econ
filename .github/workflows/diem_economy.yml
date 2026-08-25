@@ -20,6 +20,7 @@ on:
           - publish_basic
           - retry_basic
           - retry_editorial
+          - reissue_news
           - record_moderation
           - collect_insights
       content_id:
@@ -28,6 +29,10 @@ on:
         type: string
       publication_key:
         description: 'retry_basic, retry_editorial 또는 record_moderation 대상 publication_key'
+        required: false
+        type: string
+      generated_asset_id:
+        description: 'reissue_news에 강제 사용할 검증된 DIEM 생성 이미지 asset id'
         required: false
         type: string
       moderation_action:
@@ -239,6 +244,44 @@ jobs:
       - name: Commit editorial retry outcome
         if: always()
         run: bash scripts/commit-diem-state.sh "Recover a selected DIEM article after model JSON failure"
+
+  reissue-deleted-news:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'reissue_news'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require deleted publication and generated asset
+        env:
+          NEWS_PUBLICATION_KEY: ${{ inputs.publication_key }}
+          GENERATED_ASSET_ID: ${{ inputs.generated_asset_id }}
+        run: |
+          if [ -z "$NEWS_PUBLICATION_KEY" ] || [ -z "$GENERATED_ASSET_ID" ]; then
+            echo "publication_key and generated_asset_id are required for reissue_news" >&2
+            exit 1
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install publishing dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Reissue deleted news with the reviewed asset
+        env:
+          NEWS_PUBLICATION_KEY: ${{ inputs.publication_key }}
+          GENERATED_ASSET_ID: ${{ inputs.generated_asset_id }}
+        run: node src/v2/index.js news-reissue --publication-key "$NEWS_PUBLICATION_KEY" --generated-asset-id "$GENERATED_ASSET_ID" --publish
+      - name: Commit news reissue outcome
+        if: always()
+        run: bash scripts/commit-diem-state.sh "Reissue deleted DIEM news with a reviewed image"
 
   publish-stored-diem-basic:
     if: >-

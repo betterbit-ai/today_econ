@@ -31,6 +31,7 @@ function parseArgs(argv = process.argv.slice(2)) {
     else if (token === '--category') options.category = rest[++index];
     else if (token === '--slot') options.slot = rest[++index];
     else if (token === '--publication-key') options.publicationKey = rest[++index];
+    else if (token === '--generated-asset-id') options.generatedAssetId = rest[++index];
     else if (token === '--content-id') options.contentId = rest[++index];
     else if (token === '--reason') options.reason = rest[++index];
     else if (token === '--action') options.action = rest[++index];
@@ -49,6 +50,7 @@ function helpText() {
     '  node src/v2/index.js publish [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
     '  node src/v2/index.js retry [--date YYYY-MM-DD] [--category economy|issue] [--publish]',
     '  node src/v2/index.js editorial-retry --publication-key KEY [--date YYYY-MM-DD] [--publish]',
+    '  node src/v2/index.js news-reissue --publication-key KEY --generated-asset-id ASSET_ID [--date YYYY-MM-DD] --publish',
     '  node src/v2/index.js basic-prepare [--date YYYY-MM-DD]',
     '  node src/v2/index.js basic-publish-stored [--content-id ID] --publish',
     '  node src/v2/index.js basic-publish --publication-key KEY --publish',
@@ -148,6 +150,25 @@ async function runCommand({ command, options }) {
     });
     rebuildEditorialHistory({ referenceDate: nextDate(date) });
     console.log(`[DIEM] editorial retry ${options.publicationKey}: ${category}=${published.ledger.publications[category].status}${published.skipped ? ' (publishing disabled)' : ''}`);
+    return published.ledger;
+  }
+  if (command === 'news-reissue') {
+    if (!options.publicationKey) throw new Error('[DIEM News Reissue] news-reissue requires --publication-key.');
+    if (!options.generatedAssetId) throw new Error('[DIEM News Reissue] news-reissue requires --generated-asset-id.');
+    if (!(options.publish || config.publishInstagram)) {
+      throw new Error('[DIEM News Reissue] Publishing requires PUBLISH_INSTAGRAM=true or --publish.');
+    }
+    let ledger = saveLedger(stageEditorialRetry({
+      publicationKey: options.publicationKey,
+      date,
+      reissueDeleted: true,
+      generatedAssetId: options.generatedAssetId,
+    }));
+    const category = ledger.candidateCategory;
+    ledger = (await runPersistedPhase({ phase: 'prepare', date, category })).ledger;
+    const published = await runPersistedPhase({ phase: 'publish', date, category, publish: true });
+    rebuildEditorialHistory({ referenceDate: nextDate(date) });
+    console.log(`[DIEM] news reissue ${options.publicationKey}: ${category}=${published.ledger.publications[category].status}`);
     return published.ledger;
   }
   if (command === 'select') {

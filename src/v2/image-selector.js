@@ -198,6 +198,7 @@ function inferFallbackTheme(candidate = {}) {
 
 function generatedFallbackTopic(candidate = {}) {
   const text = articleSourceText(candidate);
+  if (/(지지율|국정\s*(?:운영|수행)|여론조사).{0,80}(하락|최저|비판|경고|전망)|(대통령|정권).{0,80}(지지율|여론조사)/u.test(text)) return 'public-opinion';
   if (/(지하철|철도|KTX|SRT|역사|무정차|전장연|교통약자|장애인\s*이동)/iu.test(text)) return 'transit';
   if (/(폭우|집중호우|호우|침수|물폭탄|홍수|태풍|폭염|한파|산불|지진|재난|기후)/u.test(text)) return 'weather';
   if (/(외교|전쟁|미사일|군사|안보|국방부|북한|이란|러시아|우크라이나|이스라엘|정상회담)/u.test(text)) return 'geopolitics';
@@ -215,10 +216,16 @@ function createGeneratedFallback(candidate = {}, {
   reuseWindowDays = 7,
   reason = 'licensed image unavailable or actual-image review failed',
 } = {}) {
-  const topic = generatedFallbackTopic(candidate);
+  const requestedAssetId = String(candidate.generatedAssetId || '').trim();
+  const requestedAsset = requestedAssetId
+    ? (GENERATED_FALLBACK_MANIFEST.assets || []).find(asset => asset.id === requestedAssetId)
+    : null;
+  const topic = requestedAsset?.topics?.[0] || generatedFallbackTopic(candidate);
   if (!topic) return null;
   const recentKeys = recentImageKeySet(recentImages);
-  const assets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => asset.topics?.includes(topic));
+  const assets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => (
+    requestedAssetId ? asset.id === requestedAssetId : asset.topics?.includes(topic)
+  ));
   let blockedCandidateCount = 0;
   for (const asset of assets) {
     const localPath = path.join(GENERATED_FALLBACK_ROOT, asset.file);
@@ -821,6 +828,16 @@ async function selectLicensedImage(candidate, {
 } = {}) {
   const queries = buildImageQueries(candidate);
   const attempts = [];
+  if (candidate.generatedAssetId) {
+    const generated = createGeneratedFallback(candidate, {
+      attempts: [{ provider: 'operator-generated-asset', assetId: candidate.generatedAssetId, count: 1 }],
+      recentImages,
+      reuseWindowDays,
+      reason: 'operator-selected story-specific generated image',
+    });
+    if (!generated) throw new Error(`[DIEM Image] requested generated asset is unavailable or recently used: ${candidate.generatedAssetId}`);
+    return generated;
+  }
   const recentKeys = recentImageKeySet(recentImages);
   const identity = extractPrimaryPersonIdentity(candidate);
   const contextProviders = [

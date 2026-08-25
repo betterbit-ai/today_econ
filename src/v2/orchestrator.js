@@ -135,6 +135,8 @@ function candidatePublishedInstant(candidate = {}) {
 
 function stageEditorialRetry({
   publicationKey,
+  reissueDeleted = false,
+  generatedAssetId = null,
   date = kstDate(),
   now = new Date(),
   slot = `editorial-retry-${Date.now()}`,
@@ -149,8 +151,14 @@ function stageEditorialRetry({
     if (source) break;
   }
   if (!source) throw new Error(`[DIEM Editorial Retry] publication not found: ${publicationKey}`);
-  if (source.status !== 'no_publish' || source.reason !== 'no_candidate_passed_editorial_generation') {
-    throw new Error('[DIEM Editorial Retry] only editorial-generation no_publish records can be retried.');
+  const editorialFailure = source.status === 'no_publish'
+    && source.reason === 'no_candidate_passed_editorial_generation';
+  const operatorDeleted = source.moderation?.action === 'deleted' || Boolean(source.moderation?.deletedAt);
+  if (!editorialFailure && !(reissueDeleted && operatorDeleted)) {
+    throw new Error('[DIEM Editorial Retry] only editorial-generation failures or explicitly deleted publications can be retried.');
+  }
+  if (reissueDeleted && !String(generatedAssetId || '').trim()) {
+    throw new Error('[DIEM Editorial Retry] deleted news reissue requires a story-specific generated asset id.');
   }
   if (!source.candidate?.title || !source.candidate?.fullText) {
     throw new Error('[DIEM Editorial Retry] original selected article evidence is missing.');
@@ -162,6 +170,7 @@ function stageEditorialRetry({
   const category = source.category;
   const candidate = structuredClone(source.candidate);
   candidate.newsFrame = buildNewsFrame(candidate, category);
+  if (generatedAssetId) candidate.generatedAssetId = String(generatedAssetId).trim();
   const current = loadLedgerImpl(date) || createDailyLedger(date, now);
   const publicationBudget = assessDailyPublicationBudget(current, category, {
     limit: config.maxDailyPublicationsPerCategory,
@@ -189,6 +198,14 @@ function stageEditorialRetry({
       stagedAt: now.toISOString(),
       originalFailures: structuredClone(source.generation?.candidateFailures || []),
     },
+    ...(reissueDeleted ? {
+      newsReissue: {
+        sourcePublicationKey: publicationKey,
+        reason: source.moderation?.reason || 'operator deleted publication',
+        generatedAssetId: candidate.generatedAssetId,
+        stagedAt: now.toISOString(),
+      },
+    } : {}),
     generation: { status: 'planned', attempts: 0, retryOf: publicationKey, updatedAt: now.toISOString() },
   });
   return next;

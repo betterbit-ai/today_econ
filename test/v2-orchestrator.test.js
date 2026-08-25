@@ -614,6 +614,48 @@ test('refreshes stale news-frame rules before retrying a political statement', (
   assert.ok(terms.includes('전망'));
 });
 
+test('stages an operator-deleted news Reel only with an explicit reviewed generated asset', () => {
+  let source = createDailyLedger('2026-08-25');
+  source = updatePublication(source, 'issue', {
+    publicationKey: 'diem:2026-08-25:issue:deleted-news',
+    status: 'published',
+    candidate: {
+      title: '유시민 “지지율 곧 30%대 나온다”',
+      publishedAt: '2026-08-25 09:51:06',
+      fullText: '유시민 작가가 대통령 지지율이 곧 30%대로 내려갈 수 있다고 경고하고 국정 운영을 비판했다.'.repeat(10),
+      category: 'issue',
+    },
+    moderation: {
+      action: 'deleted',
+      reason: '주제와 무관한 폴백 이미지',
+      deletedAt: '2026-08-25T03:40:00.000Z',
+    },
+    reel: { status: 'published', attempts: 1, externalId: 'deleted-reel' },
+  });
+  assert.throws(() => stageEditorialRetry({
+    publicationKey: source.publications.issue.publicationKey,
+    date: '2026-08-25',
+    now: new Date('2026-08-25T04:00:00.000Z'),
+    reissueDeleted: true,
+    loadLedgerImpl: () => source,
+    listLedgersImpl: () => [source],
+  }), /requires a story-specific generated asset/u);
+  const staged = stageEditorialRetry({
+    publicationKey: source.publications.issue.publicationKey,
+    date: '2026-08-25',
+    now: new Date('2026-08-25T04:00:00.000Z'),
+    slot: 'news-reissue-test',
+    reissueDeleted: true,
+    generatedAssetId: 'public-opinion-01',
+    loadLedgerImpl: () => source,
+    listLedgersImpl: () => [source],
+  });
+  assert.equal(staged.publications.issue.status, 'planned');
+  assert.equal(staged.publications.issue.candidate.generatedAssetId, 'public-opinion-01');
+  assert.equal(staged.publications.issue.newsReissue.sourcePublicationKey, source.publications.issue.publicationKey);
+  assert.equal(staged.publicationHistory.at(-1).moderation.action, 'deleted');
+});
+
 test('refuses editorial retry for an old article or a non-editorial failure', () => {
   let source = createDailyLedger('2026-08-20');
   source = updatePublication(source, 'issue', {

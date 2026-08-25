@@ -1112,7 +1112,7 @@ test('selects a verified project-generated housing asset before typography', () 
 test('verifies every committed generated fallback asset hash and vertical canvas', () => {
   const root = path.join(__dirname, '..', 'assets', 'fallback', 'generated');
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
-  assert.equal(manifest.assets.length, 8);
+  assert.equal(manifest.assets.length, 9);
   for (const asset of manifest.assets) {
     const buffer = fs.readFileSync(path.join(root, asset.file));
     assert.equal(crypto.createHash('sha256').update(buffer).digest('hex'), asset.sha256, asset.id);
@@ -1122,6 +1122,23 @@ test('verifies every committed generated fallback asset hash and vertical canvas
     assert.ok(width >= 900 && height >= 1600, `${asset.id} is too small`);
     assert.ok(Math.abs((width / height) - (9 / 16)) < 0.002, `${asset.id} is not a 9:16 canvas`);
   }
+});
+
+test('uses the reviewed public-opinion asset for an operator-directed political reissue', async () => {
+  const candidate = {
+    title: '유시민 비판 30% 전망',
+    summary: '대통령 국정 지지율 하락을 경고하고 국정 운영을 비판했습니다.',
+    category: 'issue',
+    generatedAssetId: 'public-opinion-01',
+  };
+  assert.equal(generatedFallbackTopic(candidate), 'public-opinion');
+  const selection = await selectLicensedImage(candidate, {
+    generatedFallbackEnabled: true,
+    fetchImpl: async () => { throw new Error('web search must not run for an operator-selected asset'); },
+  });
+  assert.equal(selection.source, 'diem-generated');
+  assert.equal(selection.id, 'diem-generated:public-opinion-01');
+  assert.equal(selection.generatedTopic, 'public-opinion');
 });
 
 test('does not repeat a project-generated fallback inside the recent image window', () => {
