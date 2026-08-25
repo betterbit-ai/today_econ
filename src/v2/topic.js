@@ -166,6 +166,8 @@ function claimState(candidate = {}, text = primaryCandidateText(candidate), kind
   if (isOfficialDenialCandidate(candidate, text)) return 'official_denial';
   if (kind === 'ipo') return 'scheduled';
   if (kind === 'medical_safety_advisory') return 'decided';
+  if (kind === 'political_statement') return 'reported';
+  if (/잠정\s*합의/u.test(title)) return 'tentative';
   if (kind === 'asset_sale' && /(매각|인수|넘겼|넘긴|넘기며|매수자로\s*선정)/u.test(text)) return 'decided';
   if (/(증언|주장|의혹|혐의)/u.test(`${title} ${lead}`) && !DECIDED.test(title)) return 'reported';
   if (DECIDED.test(text)) return 'decided';
@@ -182,7 +184,11 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
     && MEDICAL_GUIDANCE_ACTION.test(text)) return 'medical_safety_advisory';
   if (/(시타델|헤지펀드|포트폴리오|\bSA\b)/iu.test(text) && /(매각|인수|보유\s*주식|넘기)/u.test(text)) return 'asset_sale';
   if (PRIMARY_IPO_EVENT.test(title) || PRIMARY_IPO_EVENT.test(text)) return 'ipo';
-  if (politicalSpeaker && PRIMARY_POLITICAL_EVENT.test(text) && POLITICAL_STATEMENT_ACTION.test(text)) return 'political_statement';
+  if (politicalSpeaker
+    && POLITICAL_STATEMENT_ACTION.test(text)
+    && (PRIMARY_POLITICAL_EVENT.test(text) || /(대통령|정치|정부|지지율|권력|정당|국회)/u.test(text))) {
+    return 'political_statement';
+  }
   if (/(국내총생산|\bGDP\b|성장률)/iu.test(text)) return 'gdp';
   if (/(코스피|코스닥|증시|주가)/u.test(text) && /(급등|급락|폭등|폭락|상승|하락|반등|반전)/u.test(text)) return 'market_move';
   if (/(형사소송법|형소법|보완수사권|법안|개정안)/u.test(text) && /(통과|개정|폐지|의결)/u.test(text)) return 'legislation';

@@ -277,6 +277,23 @@ test('separates a confirmed medical safety advisory from limited causal evidence
   assert.equal(validateTitleAgainstFrame('마운자로 복용\n임신 피해야', frame).ok, true);
 });
 
+test('keeps a tentative labor agreement and a political quote out of confirmed claim state', () => {
+  const labor = buildNewsFrame({
+    title: '현대차 노사 잠정합의…기본급 10만원·성과금 400%',
+    summary: '조합원 찬반투표를 통과하면 최종 확정됩니다.',
+  }, CATEGORIES.ECONOMY);
+  assert.equal(labor.claimState, 'tentative');
+  assert.equal(validateTitleAgainstFrame('현대차 노사\n잠정합의 확정', labor).ok, false);
+
+  const quote = buildNewsFrame({
+    title: '유시민 “이 대통령 오만…지지율 30%대 전망”',
+    summary: '유시민 작가가 방송에서 대통령을 비판하고 지지율 하락을 전망했습니다.',
+  }, CATEGORIES.ISSUE);
+  assert.equal(quote.eventKind, 'political_statement');
+  assert.equal(quote.claimState, 'reported');
+  assert.equal(validateTitleAgainstFrame('유시민 비판\n지지율하락 확정', quote).ok, false);
+});
+
 test('canonicalizes related criminal-procedure coverage as the same event even when headlines change angle', () => {
   const first = buildTopicSignature({
     title: "'보완수사권 폐지' 국회 본회의 통과",
