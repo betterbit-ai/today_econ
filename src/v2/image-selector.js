@@ -199,6 +199,12 @@ function inferFallbackTheme(candidate = {}) {
 function generatedFallbackTopic(candidate = {}) {
   const text = articleSourceText(candidate);
   if (/(지지율|국정\s*(?:운영|수행)|여론조사).{0,80}(하락|최저|비판|경고|전망)|(대통령|정권).{0,80}(지지율|여론조사)/u.test(text)) return 'public-opinion';
+  if (/(작업자|노동자|근로자|현장).{0,60}(폭염|온열|열사병|그늘|작업중지)|(폭염|온열|열사병).{0,60}(작업자|노동자|근로자|현장|그늘)/iu.test(text)) return 'work';
+  if (/(배달기사|배달원|주거침입|현관문|홈캠)/u.test(text)) return 'work';
+  if (/(야생동물|구렁이|뱀|동물\s*보호)/u.test(text)) return 'public-interest';
+  if (/(교도소|교정|수용자|교도관)/u.test(text)) return 'legislation';
+  if (/(의료|병원|건강|질병|환자|시술|약국|보험료)/iu.test(text)) return 'health';
+  if (/(곗돈|계\s*모임|사기|횡령|보이스피싱|채무|빚)/iu.test(text)) return 'finance';
   if (/(지하철|철도|KTX|SRT|역사|무정차|전장연|교통약자|장애인\s*이동)/iu.test(text)) return 'transit';
   if (/(폭우|집중호우|호우|침수|물폭탄|홍수|태풍|폭염|한파|산불|지진|재난|기후)/u.test(text)) return 'weather';
   if (/(외교|전쟁|미사일|군사|안보|국방부|북한|이란|러시아|우크라이나|이스라엘|정상회담)/u.test(text)) return 'geopolitics';
@@ -206,7 +212,9 @@ function generatedFallbackTopic(candidate = {}) {
   if (/(반도체|칩|웨이퍼|D램|HBM|AI|인공지능|데이터센터|배터리|전기차)/iu.test(text)) return 'technology';
   if (/(부동산|주택|아파트|전세|월세|청약|보증금|재건축|PF|공매)/iu.test(text)) return 'housing';
   if (/(고용|취업|퇴사|이직|실업급여|구직급여|노동|근로|직장|정년|공무원)/u.test(text)) return 'work';
+  if (/(의료|병원|건강|질병|환자|시술|약국)/iu.test(text)) return 'health';
   if (/(세금|과세|연금|금리|대출|보험료|지원금|소비쿠폰|주식|증시|환율|물가|은행|ISA|ETF|ETN)/iu.test(text)) return 'finance';
+  if (/((대통령|총리|장관|의원|정당)|국정|정책|선거|정치)/iu.test(text)) return 'legislation';
   return null;
 }
 

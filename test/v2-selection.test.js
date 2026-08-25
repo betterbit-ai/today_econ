@@ -1109,6 +1109,21 @@ test('selects a verified project-generated housing asset before typography', () 
   assert.equal(selection.localSha256, 'f9d8abc43a5f4d39f7819efaf3a71f343f0812ada87c72521ad79c3c8daa9ada');
 });
 
+test('maps recurring fallback themes to committed generated assets', () => {
+  const cases = [
+    [{ title: '폭염 속 옥상 작업 중지', summary: '건설 현장 근로자들이 고온 노출로 작업을 멈췄습니다.', category: 'economy' }, 'work'],
+    [{ title: '배달기사가 열린 현관문으로 들어왔다', summary: '주거침입 논란이 된 무단 출입 사건이 있었다.', category: 'issue' }, 'work'],
+    [{ title: '물놀이장에 구렁이가 나타났다', summary: '야생동물 보호종이 발견돼 시민들이 대피했다.', category: 'issue' }, 'public-interest'],
+    [{ title: '교도관 소진과 과밀 수용', summary: '교정 현장의 노동 환경이 논의됐다.', category: 'issue' }, 'legislation'],
+    [{ title: '성형 시술 후 피부 괴사', summary: '의료 시술 부작용 사례가 보도됐다.', category: 'issue' }, 'health'],
+    [{ title: '곗돈 1.5억 먹튀 사기', summary: '채무자가 계 모임 금원을 가로채 실형을 선고받았다.', category: 'economy' }, 'finance'],
+  ];
+
+  for (const [candidate, expectedTopic] of cases) {
+    assert.equal(generatedFallbackTopic(candidate), expectedTopic);
+  }
+});
+
 test('verifies every committed generated fallback asset hash and vertical canvas', () => {
   const root = path.join(__dirname, '..', 'assets', 'fallback', 'generated');
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));

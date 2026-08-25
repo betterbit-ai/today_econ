@@ -196,7 +196,7 @@ async function preparePublication(ledger, category, {
     date: ledger.date,
     category,
     contentType: editorial.contentType || article.contentType || publication.contentType || 'hot_news',
-    imagePath: downloaded.localPath,
+    imagePath: downloaded.localPath || (imageSelection.kind === 'generated' ? imageSelection.localPath : null),
     fallbackTheme: imageSelection.fallbackTheme,
     fallbackVariant: imageSelection.fallbackVariant,
     visualFingerprint: imageSelection.visualFingerprint,

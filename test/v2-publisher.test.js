@@ -5,6 +5,7 @@ const path = require('node:path');
 const test = require('node:test');
 
 const { createDailyLedger, updatePublication } = require('../src/v2/ledger');
+const { createGeneratedFallback } = require('../src/v2/image-selector');
 const { preparePublication, publishCommentChain, publishPreparedPublication } = require('../src/v2/publisher');
 
 function readyLedger(root) {
@@ -297,6 +298,52 @@ test('allows person-free typography when a named-person story has no safe photo'
   assert.equal(result.publications.economy.status, 'ready');
   assert.equal(result.publications.economy.image.kind, 'typographic');
   assert.equal(result.publications.economy.image.identity.depicted, false);
+});
+
+test('renders a generated fallback asset as the reel background', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-generated-art-'));
+  let ledger = createDailyLedger('2026-08-05');
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: {
+      title: '청년 실업급여 정책',
+      fullText: '정부가 청년 고용 지원 정책을 개편했습니다. 지원 대상과 지급 방식이 달라집니다. 후속 절차가 진행됩니다.',
+      category: 'economy',
+    },
+    duplicateCheck: { signature: { target: '청년 고용', event: '정책 개편', entities: ['정부'] } },
+  });
+
+  const generated = createGeneratedFallback(ledger.publications.economy.candidate);
+  assert.equal(generated.kind, 'generated');
+  let rendered = null;
+  const result = await preparePublication(ledger, 'economy', {
+    artifactRoot: root,
+    callModel: async () => ({
+      titleCandidates: [{ title: '청년 고용\n정책 개편' }],
+      selectedTitleIndex: 0,
+      sentences: [
+        '정부가 청년 고용 지원 정책을 개편했습니다.',
+        '지원 대상과 지급 방식이 달라집니다.',
+        '후속 절차가 진행됩니다.',
+      ],
+      emojis: { first: '💼', third: '📈' },
+      topicTags: ['청년', '고용', '정책'],
+      imageKeyword: 'employment policy document',
+    }),
+    selectImageImpl: async () => generated,
+    renderCoverImpl: async options => {
+      rendered = options;
+      fs.writeFileSync(options.outputPath, 'cover');
+    },
+    selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
+    createReelImpl: async ({ outputPath }) => {
+      fs.writeFileSync(outputPath, 'video');
+      return { outputPath, audio: { trackId: 'mock-track' } };
+    },
+  });
+
+  assert.equal(rendered.imagePath, generated.localPath);
+  assert.equal(result.publications.economy.image.kind, 'generated');
 });
 
 test('reconciles an existing exact Reel instead of republishing', async () => {
