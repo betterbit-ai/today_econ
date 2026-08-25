@@ -3,8 +3,8 @@ const { assessImageSuitability } = require('./image-selector');
 
 function validateImageQuality(image = {}) {
   const errors = [];
-  if (!['web', 'typographic'].includes(image.kind)) {
-    errors.push('image must be a licensed web image or DIEM-owned typographic art');
+  if (!['web', 'generated', 'typographic'].includes(image.kind)) {
+    errors.push('image must be a licensed web image, DIEM-generated asset, or DIEM-owned typographic art');
     return { ok: false, errors };
   }
   if (!image.license?.name) errors.push('image license evidence is missing');
@@ -16,6 +16,15 @@ function validateImageQuality(image = {}) {
       errors.push('typographic art must record a topic-grounded theme and stable fingerprint');
     }
     if (image.identity?.depicted === true) errors.push('typographic art cannot claim to depict a named person');
+  }
+
+  if (image.kind === 'generated') {
+    if (image.source !== 'diem-generated') errors.push('generated fallback must be a project-owned DIEM asset');
+    if (!image.assetPath || !image.localSha256 || !image.generatedTopic) {
+      errors.push('generated fallback must record its asset path, hash, and topic');
+    }
+    if (image.identity?.depicted === true) errors.push('generated fallback cannot claim to depict a named person');
+    if (image.suitability?.personScreening?.safe !== true) errors.push('generated fallback must have person-free safety evidence');
   }
 
   if (image.kind === 'web') {

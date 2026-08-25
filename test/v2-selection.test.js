@@ -1,4 +1,5 @@
 const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
@@ -12,8 +13,10 @@ const {
   assessImageSuitability,
   buildImageQueries,
   createTypographyFallback,
+  createGeneratedFallback,
   extractPrimaryPersonIdentity,
   imageReuseKeys,
+  generatedFallbackTopic,
   scoreImageCandidate,
   searchOpenverse,
   selectLicensedImage,
@@ -1089,6 +1092,56 @@ test('fails closed to DIEM art when the actual-image review rejects the first vi
   assert.equal(selection.kind, 'typographic');
   assert.equal(selection.source, 'diem-original');
   assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review'));
+});
+
+test('selects a verified project-generated housing asset before typography', () => {
+  const candidate = {
+    title: '1080억 공매 에드가 휘경',
+    summary: '부동산 PF 사업장 공매가 진행됩니다.',
+    category: 'economy',
+  };
+  assert.equal(generatedFallbackTopic(candidate), 'housing');
+  const selection = createGeneratedFallback(candidate);
+  assert.equal(selection.kind, 'generated');
+  assert.equal(selection.source, 'diem-generated');
+  assert.equal(selection.generatedTopic, 'housing');
+  assert.equal(fs.existsSync(selection.localPath), true);
+  assert.equal(selection.localSha256, 'f9d8abc43a5f4d39f7819efaf3a71f343f0812ada87c72521ad79c3c8daa9ada');
+});
+
+test('verifies every committed generated fallback asset hash and vertical canvas', () => {
+  const root = path.join(__dirname, '..', 'assets', 'fallback', 'generated');
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
+  assert.equal(manifest.assets.length, 8);
+  for (const asset of manifest.assets) {
+    const buffer = fs.readFileSync(path.join(root, asset.file));
+    assert.equal(crypto.createHash('sha256').update(buffer).digest('hex'), asset.sha256, asset.id);
+    assert.equal(buffer.toString('ascii', 1, 4), 'PNG', asset.id);
+    const width = buffer.readUInt32BE(16);
+    const height = buffer.readUInt32BE(20);
+    assert.ok(width >= 900 && height >= 1600, `${asset.id} is too small`);
+    assert.ok(Math.abs((width / height) - (9 / 16)) < 0.002, `${asset.id} is not a 9:16 canvas`);
+  }
+});
+
+test('does not repeat a project-generated fallback inside the recent image window', () => {
+  const candidate = { title: '서울 아파트 정책대출', summary: '주택가격 기준 기사입니다.', category: 'economy' };
+  const first = createGeneratedFallback(candidate);
+  const repeated = createGeneratedFallback(candidate, { recentImages: [first] });
+  assert.equal(repeated, null);
+});
+
+test('uses a generated topic asset after licensed image providers fail when enabled', async () => {
+  const selection = await selectLicensedImage({
+    title: '서울 아파트 정책대출 6억원 기준',
+    summary: '주택가격과 정책대출 기준을 다룹니다.',
+    category: 'economy',
+  }, {
+    generatedFallbackEnabled: true,
+    fetchImpl: async () => new Response('{}', { status: 500 }),
+  });
+  assert.equal(selection.kind, 'generated');
+  assert.equal(selection.generatedTopic, 'housing');
 });
 
 test('detectCharset extracts charset from Content-Type header values', () => {

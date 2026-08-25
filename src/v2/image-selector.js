@@ -11,6 +11,8 @@ const LICENSES = Object.freeze({
 });
 const WIKIMEDIA_LICENSE = /public domain|cc0|cc by(?:-sa)?(?:\s|$)/i;
 const OPENVERSE_LICENSES = new Set(['cc0', 'pdm', 'by', 'by-sa']);
+const GENERATED_FALLBACK_ROOT = path.join(__dirname, '..', '..', 'assets', 'fallback', 'generated');
+const GENERATED_FALLBACK_MANIFEST = JSON.parse(fs.readFileSync(path.join(GENERATED_FALLBACK_ROOT, 'manifest.json'), 'utf8'));
 
 const KOR_TO_ENG_VISUALS = [
   { match: /결혼|혼인|신혼|축의금|예식/u, english: 'wedding couple marriage ceremony' },
@@ -192,6 +194,78 @@ function inferFallbackTheme(candidate = {}) {
   if (/(기후|폭염|한파|홍수|가뭄|산불|탄소)/u.test(sourceText)) return 'climate';
   if (/(고용|취업|일자리|노동|근로)/u.test(sourceText)) return 'work';
   return candidate.category === 'economy' ? 'markets' : 'public-interest';
+}
+
+function generatedFallbackTopic(candidate = {}) {
+  const text = articleSourceText(candidate);
+  if (/(지하철|철도|KTX|SRT|역사|무정차|전장연|교통약자|장애인\s*이동)/iu.test(text)) return 'transit';
+  if (/(폭우|집중호우|호우|침수|물폭탄|홍수|태풍|폭염|한파|산불|지진|재난|기후)/u.test(text)) return 'weather';
+  if (/(외교|전쟁|미사일|군사|안보|국방부|북한|이란|러시아|우크라이나|이스라엘|정상회담)/u.test(text)) return 'geopolitics';
+  if (/(법원|재판|판결|선고|징역|법안|국회|형사소송법|보완수사권|선관위|정치자금법|조세심판)/u.test(text)) return 'legislation';
+  if (/(반도체|칩|웨이퍼|D램|HBM|AI|인공지능|데이터센터|배터리|전기차)/iu.test(text)) return 'technology';
+  if (/(부동산|주택|아파트|전세|월세|청약|보증금|재건축|PF|공매)/iu.test(text)) return 'housing';
+  if (/(고용|취업|퇴사|이직|실업급여|구직급여|노동|근로|직장|정년|공무원)/u.test(text)) return 'work';
+  if (/(세금|과세|연금|금리|대출|보험료|지원금|소비쿠폰|주식|증시|환율|물가|은행|ISA|ETF|ETN)/iu.test(text)) return 'finance';
+  return null;
+}
+
+function createGeneratedFallback(candidate = {}, {
+  attempts = [],
+  recentImages = [],
+  reuseWindowDays = 7,
+  reason = 'licensed image unavailable or actual-image review failed',
+} = {}) {
+  const topic = generatedFallbackTopic(candidate);
+  if (!topic) return null;
+  const recentKeys = recentImageKeySet(recentImages);
+  const assets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => asset.topics?.includes(topic));
+  let blockedCandidateCount = 0;
+  for (const asset of assets) {
+    const localPath = path.join(GENERATED_FALLBACK_ROOT, asset.file);
+    if (!fs.existsSync(localPath)) continue;
+    const buffer = fs.readFileSync(localPath);
+    const sha256 = crypto.createHash('sha256').update(buffer).digest('hex');
+    if (sha256 !== asset.sha256) continue;
+    const selection = {
+      kind: 'generated',
+      id: `diem-generated:${asset.id}`,
+      source: 'diem-generated',
+      selectedAt: new Date().toISOString(),
+      assetPath: path.relative(process.cwd(), localPath),
+      localPath,
+      sha256,
+      localSha256: sha256,
+      generatedTopic: topic,
+      description: asset.description,
+      license: { name: 'Project-owned AI-generated editorial asset', url: null },
+      visualRole: 'context',
+      identity: { required: false, name: null, role: null, depicted: false, verified: null },
+      suitability: {
+        ok: true,
+        reason: 'project_generated_topic_match',
+        personScreening: { detected: false, personFreeEvidence: true, requiredPersonFreeEvidence: true, safe: true },
+      },
+    };
+    const keys = imageReuseKeys(selection);
+    if (keys.some(key => recentKeys.has(key))) {
+      blockedCandidateCount += 1;
+      continue;
+    }
+    return {
+      ...selection,
+      attempts,
+      reuseGuard: {
+        allowed: true,
+        windowDays: reuseWindowDays,
+        recentImageCount: recentImages.length,
+        recentKeyCount: recentKeys.size,
+        blockedCandidateCount,
+        selectedImageKeys: keys,
+      },
+      selectionReason: `${reason}; project-generated ${topic} asset ${asset.id} selected`,
+    };
+  }
+  return null;
 }
 
 function stableVariantStart(candidate = {}, theme = '') {
@@ -743,6 +817,7 @@ async function selectLicensedImage(candidate, {
   reuseWindowDays = 7,
   reviewPoolTarget = 8,
   reviewImages,
+  generatedFallbackEnabled = false,
 } = {}) {
   const queries = buildImageQueries(candidate);
   const attempts = [];
@@ -841,7 +916,7 @@ async function selectLicensedImage(candidate, {
       let visionReview = null;
       if (reviewImages) {
         try {
-          visionReview = await reviewImages({ candidate, query, images: shortlist.slice(0, 3) });
+          visionReview = await reviewImages({ candidate, query, images: shortlist.slice(0, 2) });
           selected = shortlist.find(image => image.id === visionReview?.selectedId);
           if (!visionReview?.ok || !selected) {
             attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: visionReview?.reason || 'no safe image selected' });
@@ -889,9 +964,21 @@ async function selectLicensedImage(candidate, {
         selectionReason: `selected best of ${shortlist.length} context-reviewed unused candidates; source ${selected.source}, query rank #${selected.rankWithinQuery}, score ${selected.finalReviewScore}; ${suitabilityRejected} unsuitable and ${phaseBlockedCandidateCount} recent images blocked`,
       };
     }
+    if (phase.visualRole === 'context' && generatedFallbackEnabled) {
+      const generated = createGeneratedFallback(candidate, {
+        attempts,
+        recentImages,
+        reuseWindowDays,
+      });
+      if (generated) return generated;
+    }
   }
 
-  return createTypographyFallback(candidate, {
+  return (generatedFallbackEnabled && createGeneratedFallback(candidate, {
+    attempts,
+    recentImages,
+    reuseWindowDays,
+  })) || createTypographyFallback(candidate, {
     attempts,
     recentImages,
     reuseWindowDays,
@@ -919,9 +1006,11 @@ module.exports = {
   assessImageSuitability,
   buildImageQueries,
   createTypographyFallback,
+  createGeneratedFallback,
   downloadSelectedImage,
   extractPrimaryPersonIdentity,
   imageReuseKeys,
+  generatedFallbackTopic,
   scoreImageCandidate,
   isSpecificImageKeyword,
   searchPexels,

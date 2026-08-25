@@ -133,6 +133,7 @@ async function preparePublication(ledger, category, {
       recentImages,
       reuseWindowDays: config.maxHistoryDays,
       reviewImages: imageReviewer,
+      generatedFallbackEnabled: true,
     });
     downloaded = imageSelection;
     if (imageSelection.kind !== 'web') break;

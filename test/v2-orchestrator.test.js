@@ -261,7 +261,7 @@ test('published history is rebuilt against the next KST day', () => {
   assert.equal(nextDate('2026-12-31'), '2027-01-01');
 });
 
-test('category polling archives a completed run but does not select beyond the daily budget', async () => {
+test('category polling archives the first completed run and selects a second daily article', async () => {
   let existing = createDailyLedger('2026-07-29');
   existing.publications.economy = {
     ...existing.publications.economy,
@@ -304,11 +304,12 @@ test('category polling archives a completed run but does not select beyond the d
     },
   });
 
-  assert.equal(plannerOptions, null);
+  assert.deepEqual(plannerOptions.categories, ['economy']);
+  assert.equal(plannerOptions.hotMode, true);
+  assert.equal(plannerOptions.history[0].publicationKey, 'diem:2026-07-29:economy');
   assert.equal(result.ledger.publicationHistory.length, 1);
   assert.equal(result.ledger.publications.economy.publicationKey, 'diem:2026-07-29:economy:run-1300');
-  assert.equal(result.ledger.publications.economy.status, 'no_publish');
-  assert.equal(result.ledger.publications.economy.reason, 'daily_publication_budget_exhausted');
+  assert.equal(result.ledger.publications.economy.candidate.title, '오후 경제 기사');
   assert.equal(result.ledger.publications.issue.candidate, null);
 });
 
@@ -500,7 +501,8 @@ test('category polling repairs a pending Story before selecting another article'
 
 test('category polling records no_publish without selecting after the daily budget is spent', async () => {
   let existing = createDailyLedger('2026-08-23');
-  existing = updatePublication(existing, 'economy', {
+  existing.publicationHistory.push({
+    ...structuredClone(existing.publications.economy),
     publicationKey: 'diem:2026-08-23:economy:first',
     status: 'published',
     candidate: { title: '오늘 첫 경제 기사', url: 'https://example.com/first' },
@@ -508,6 +510,15 @@ test('category polling records no_publish without selecting after the daily budg
     story: { status: 'published', attempts: 1, externalId: 'story-first' },
     comment: { status: 'published', attempts: 1, externalId: 'comment-first' },
     reply: { status: 'published', attempts: 1, externalId: 'reply-first' },
+  });
+  existing = updatePublication(existing, 'economy', {
+    publicationKey: 'diem:2026-08-23:economy:second',
+    status: 'published',
+    candidate: { title: '오늘 둘째 경제 기사', url: 'https://example.com/second' },
+    reel: { status: 'published', attempts: 1, externalId: 'reel-second' },
+    story: { status: 'published', attempts: 1, externalId: 'story-second' },
+    comment: { status: 'published', attempts: 1, externalId: 'comment-second' },
+    reply: { status: 'published', attempts: 1, externalId: 'reply-second' },
   });
   let plannerCalls = 0;
   const result = await planCategoryPhase({
@@ -523,8 +534,8 @@ test('category polling records no_publish without selecting after the daily budg
   assert.equal(result.budgetExhausted, true);
   assert.equal(result.ledger.publications.economy.status, 'no_publish');
   assert.equal(result.ledger.publications.economy.reason, 'daily_publication_budget_exhausted');
-  assert.equal(result.ledger.publications.economy.publicationBudget.published, 1);
-  assert.equal(result.ledger.publicationHistory.at(-1).publicationKey, 'diem:2026-08-23:economy:first');
+  assert.equal(result.ledger.publications.economy.publicationBudget.published, 2);
+  assert.equal(result.ledger.publicationHistory.at(-1).publicationKey, 'diem:2026-08-23:economy:second');
 
   const repeated = await planCategoryPhase({
     date: '2026-08-23',

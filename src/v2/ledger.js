@@ -184,6 +184,8 @@ function imageRecordFromPublication(publication = {}, date = '') {
         : null,
       artVariantId: publication.image.artVariantId || null,
       visualFingerprint: publication.image.visualFingerprint || null,
+      assetPath: publication.image.assetPath || null,
+      generatedTopic: publication.image.generatedTopic || null,
     },
   };
 }

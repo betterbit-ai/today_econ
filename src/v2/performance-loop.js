@@ -261,6 +261,12 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
       typographyFallbackRate: publications.length
         ? Number((publications.filter(publication => publication.image?.kind === 'typographic').length / publications.length * 100).toFixed(2))
         : null,
+      generatedFallbackRate: publications.length
+        ? Number((publications.filter(publication => publication.image?.kind === 'generated').length / publications.length * 100).toFixed(2))
+        : null,
+      combinedFallbackRate: publications.length
+        ? Number((publications.filter(publication => ['generated', 'typographic'].includes(publication.image?.kind)).length / publications.length * 100).toFixed(2))
+        : null,
     },
     music: {
       trackDistribution,
@@ -327,6 +333,7 @@ function performanceMarkdown(report) {
   }
   lines.push('## 이미지·음악 운영');
   lines.push(`- 타이포그래피 폴백률: ${display(report.image.typographyFallbackRate, '%')}`);
+  lines.push(`- 생성 배경 폴백률: ${display(report.image.generatedFallbackRate, '%')} · 전체 폴백률: ${display(report.image.combinedFallbackRate, '%')}`);
   lines.push(`- 이미지 공급원: ${Object.entries(report.image.sourceDistribution).map(([key, value]) => `${key} ${value.count}편`).join(', ') || '기록 없음'}`);
   lines.push(`- 음악: ${report.music.diversityWarning || '현재 20% 초과 단일 트랙 편중 경고 없음'}`);
   lines.push(`- 음악 판단 원칙: ${report.music.decisionRule}`);

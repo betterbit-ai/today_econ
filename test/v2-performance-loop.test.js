@@ -132,6 +132,8 @@ test('reports image fallback and music concentration without changing assets', (
   const report = buildPerformanceReport([ledger]);
 
   assert.equal(report.image.typographyFallbackRate, 40);
+  assert.equal(report.image.generatedFallbackRate, 0);
+  assert.equal(report.image.combinedFallbackRate, 40);
   assert.match(report.music.diversityWarning, /100%/u);
   assert.equal(report.music.trackDistribution['same-track'].count, 5);
 });
