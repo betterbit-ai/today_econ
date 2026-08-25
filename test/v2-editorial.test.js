@@ -5,6 +5,7 @@ const { buildNewsFrame } = require('../src/v2/topic');
 const {
   DEFAULT_MODELS,
   buildDeterministicEditorial,
+  editorialRepairPrompt,
   generateEditorial,
   sourceSentences,
   validateEditorial,
@@ -220,6 +221,20 @@ test('repairs a selected high-value article when the first model body has no sen
   assert.equal(result.generation.model, DEFAULT_MODELS.primary);
   assert.ok(result.generation.attempts.some(attempt => attempt.stage === 'editorial_repair' && attempt.status === 'succeeded'));
   assert.match(result.caption.sentences[0], /잠정합의/u);
+});
+
+test('locks editorial repair to numbers that actually occur in the selected article', () => {
+  const prompt = editorialRepairPrompt({
+    category: CATEGORIES.ISSUE,
+    title: '유시민 “지지율 곧 30%대 나온다”',
+    summary: '유시민 작가가 대통령 지지율이 30%대로 내려갈 수 있다고 전망했습니다.',
+    fullText: '유 작가는 30%대 전망을 언급했지만 현재 40%나 52%라는 수치는 기사에 제시되지 않았습니다.'.replace('현재 40%나 52%라는 수치는 기사에 제시되지 않았습니다.', ''),
+  }, new Error('repair'));
+  const payload = JSON.parse(prompt.userPrompt);
+  assert.ok(payload.allowedNumbers.includes('30%'));
+  assert.equal(payload.allowedNumbers.includes('40%'), false);
+  assert.equal(payload.allowedNumbers.includes('52%'), false);
+  assert.match(prompt.systemPrompt, /allowedNumbers/u);
 });
 
 test('does not widen one politician quote into a shared claim by several candidates', async () => {
