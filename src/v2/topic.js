@@ -242,7 +242,7 @@ function frameTerms(subject, eventLabel, kind, text) {
     subjectTerms.push(...['마운자로', '위고비', 'GLP-1'].filter(term => normalizeNfc(text).includes(term)));
     eventTerms.splice(0, eventTerms.length, '피해야', '피하', '피해', '중단', '주의', '경고', '권고', '안내');
   } else if (kind === 'political_statement') {
-    eventTerms.splice(0, eventTerms.length, '언급', '발언', '주장', '말해', '호소', '강조');
+    eventTerms.splice(0, eventTerms.length, '언급', '발언', '주장', '말해', '호소', '강조', '비판', '평가', '전망');
   }
   return {
     subjectTerms: [...new Set(subjectTerms.filter(term => normalizeNfc(text).includes(term) || term.length >= 2))],
