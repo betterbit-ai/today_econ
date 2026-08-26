@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 153편
-- 생성 시각: 2026-08-26T04:40:50.535Z
+- 생성 시각: 2026-08-26T10:35:09.914Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -17,10 +17,10 @@
 - 정시 비교에서 제외한 늦은 백필: 83편
 
 ## 72h
-- economy: 표본 32편 · 노출 중앙값 817.5 · 공유율 0% · 저장률 0%
+- economy: 표본 33편 · 노출 중앙값 800 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
-  - 부진 후보: ETF·ETN / 핵심 차이(134), 주차 로봇 / 아파트 도입(152), 통영 폭우 / 도로·공장 붕괴(162), 중국인 추납 / 연금 논란(175), 서초·강남 / 2주 연속 하락(175)
-  - 특성 신호: event:semiconductor winner×2.43, event:interest_rate insufficient_data×1.87, macro_indicator insufficient_data×1.87, event:general winner×1.65, housing_money winner×1.61, event:market_move insufficient_data×1.02, market_shock insufficient_data×1.02, event:ipo insufficient_data×0.98
+  - 부진 후보: ETF·ETN / 핵심 차이(134), 서울 아파트값 / 16억 돌파(151), 주차 로봇 / 아파트 도입(152), 통영 폭우 / 도로·공장 붕괴(162), 중국인 추납 / 연금 논란(175)
+  - 특성 신호: event:semiconductor winner×2.48, event:interest_rate insufficient_data×1.91, macro_indicator insufficient_data×1.91, event:general winner×1.69, event:market_move insufficient_data×1.04, market_shock insufficient_data×1.04, event:ipo insufficient_data×1, company_event insufficient_data×0.72
 - issue: 표본 39편 · 노출 중앙값 1,652 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 북 미사일 발사 / 김여정 조롱(5,393), 한동훈 흉기 / 징역 1년 확정(3,959)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(176), 백화점 난동 / 5년 형 선고(199), 롤스로이스 / 주차 빌런 보도(461), 대전시 / 공공기관2차선점전(479), 이란 협상파 / 전쟁 종식 촉구(493)
@@ -44,8 +44,8 @@
 - 이미지 공급원: pexels 96편, diem-original 41편, unsplash 6편, diem-generated 5편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 74건, unknown 44건
-- 제목 재정제 실패: 2건
+- 편집 후보 실패: editorial_generation_failed 75건, unknown 44건
+- 제목 재정제 실패: 3건
 
 ## 해석 주의
 - 한 건의 바이럴이나 부진으로 주제를 금지하지 않습니다. 표본 하한과 중앙값을 함께 봅니다.
