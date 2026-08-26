@@ -9,6 +9,8 @@ const DIEM_REEL = Object.freeze({
   width: 1080,
   height: 1920,
   durationSeconds: 7,
+  contentSeconds: 5,
+  followCtaSeconds: 2,
   fps: 30,
   frameCount: 210,
   audioSampleRate: 48_000,
@@ -54,17 +56,21 @@ function buildDiemVideoFilter() {
 
 function buildDiemReelArgs({
   imagePath,
+  followCtaImagePath,
   audioPath,
   outputPath,
 } = {}) {
-  const { durationSeconds, fps, frameCount, audioSampleRate, audioVolume } = DIEM_REEL;
+  const { durationSeconds, contentSeconds, followCtaSeconds, fps, frameCount, audioSampleRate, audioVolume } = DIEM_REEL;
   const args = [
     '-y',
     '-loop', '1',
     '-framerate', String(fps),
-    '-t', String(durationSeconds),
+    '-t', String(followCtaImagePath ? contentSeconds : durationSeconds),
     '-i', imagePath,
   ];
+  if (followCtaImagePath) {
+    args.push('-loop', '1', '-framerate', String(fps), '-t', String(followCtaSeconds), '-i', followCtaImagePath);
+  }
   if (audioPath) {
     args.push('-stream_loop', '-1', '-i', audioPath);
   } else {
@@ -74,9 +80,13 @@ function buildDiemReelArgs({
       '-i', `anullsrc=channel_layout=stereo:sample_rate=${audioSampleRate}`,
     );
   }
+  const audioIndex = followCtaImagePath ? 2 : 1;
+  const video = followCtaImagePath
+    ? `[0:v]${buildDiemVideoFilter()},trim=duration=${contentSeconds},setpts=PTS-STARTPTS[content];[1:v]${buildDiemVideoFilter()},trim=duration=${followCtaSeconds},setpts=PTS-STARTPTS[cta];[content][cta]concat=n=2:v=1:a=0[v]`
+    : `[0:v]${buildDiemVideoFilter()}[v]`;
   args.push(
     '-filter_complex',
-    `[0:v]${buildDiemVideoFilter()}[v];[1:a]atrim=duration=${durationSeconds},asetpts=N/SR/TB,volume=${audioVolume},afade=t=in:st=0:d=0.18,afade=t=out:st=6.55:d=0.45,aresample=${audioSampleRate}[a]`,
+    `${video};[${audioIndex}:a]atrim=duration=${durationSeconds},asetpts=N/SR/TB,volume=${audioVolume},afade=t=in:st=0:d=0.18,afade=t=out:st=6.55:d=0.45,aresample=${audioSampleRate}[a]`,
     '-map', '[v]',
     '-map', '[a]',
     '-frames:v', String(frameCount),
@@ -166,6 +176,7 @@ function buildDiemBasicReelArgs({
 
 async function createDiemReelVideo({
   imagePath,
+  followCtaImagePath,
   outputPath = path.join(os.tmpdir(), `diem-reel-${Date.now()}.mp4`),
   audioPath = null,
   execFileImpl,
@@ -175,11 +186,14 @@ async function createDiemReelVideo({
   if (!imagePath || !fsImpl.existsSync(imagePath)) {
     throw new Error(`[DIEM Reel] Image not found: ${imagePath || '(missing)'}`);
   }
+  if (followCtaImagePath && !fsImpl.existsSync(followCtaImagePath)) {
+    throw new Error(`[DIEM Reel] Follow CTA image not found: ${followCtaImagePath}`);
+  }
   if (audioPath && !fsImpl.existsSync(audioPath)) {
     throw new Error(`[DIEM Reel] Audio not found: ${audioPath}`);
   }
   fsImpl.mkdirSync(path.dirname(outputPath), { recursive: true });
-  const args = buildDiemReelArgs({ imagePath, audioPath, outputPath });
+  const args = buildDiemReelArgs({ imagePath, followCtaImagePath, audioPath, outputPath });
   await runFfmpeg(args, { execFileImpl, ffmpegPath });
   return outputPath;
 }
@@ -206,6 +220,7 @@ async function createDiemBasicReelVideo({
 
 async function createDiemReelWithMusic({
   imagePath,
+  followCtaImagePath,
   outputPath,
   music,
   execFileImpl,
@@ -222,6 +237,7 @@ async function createDiemReelWithMusic({
     try {
       const renderedPath = await createVideoImpl({
         imagePath,
+        followCtaImagePath,
         outputPath,
         audioPath: candidate.path,
         execFileImpl,
@@ -259,6 +275,7 @@ async function createDiemReelWithMusic({
 
   const silentPath = await createVideoImpl({
     imagePath,
+    followCtaImagePath,
     outputPath,
     audioPath: null,
     execFileImpl,

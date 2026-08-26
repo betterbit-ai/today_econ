@@ -316,6 +316,7 @@ test('renders a generated fallback asset as the reel background', async () => {
   const generated = createGeneratedFallback(ledger.publications.economy.candidate);
   assert.equal(generated.kind, 'generated');
   let rendered = null;
+  let reelInput = null;
   const result = await preparePublication(ledger, 'economy', {
     artifactRoot: root,
     callModel: async () => ({
@@ -334,16 +335,22 @@ test('renders a generated fallback asset as the reel background', async () => {
     renderCoverImpl: async options => {
       rendered = options;
       fs.writeFileSync(options.outputPath, 'cover');
+      fs.writeFileSync(options.followCtaOutputPath, 'follow-cta');
     },
     selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
-    createReelImpl: async ({ outputPath }) => {
+    createReelImpl: async options => {
+      reelInput = options;
+      const { outputPath } = options;
       fs.writeFileSync(outputPath, 'video');
       return { outputPath, audio: { trackId: 'mock-track' } };
     },
   });
 
   assert.equal(rendered.imagePath, generated.localPath);
+  assert.equal(reelInput.followCtaImagePath, rendered.followCtaOutputPath);
+  assert.equal(fs.existsSync(reelInput.followCtaImagePath), true);
   assert.equal(result.publications.economy.image.kind, 'generated');
+  assert.match(result.publications.economy.artifacts.followCtaPath, /economy-follow-cta\.png$/u);
 });
 
 test('replaces a failed web download with reviewed generated art instead of typography', async () => {

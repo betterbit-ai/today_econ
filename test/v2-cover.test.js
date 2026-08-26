@@ -7,13 +7,26 @@ const { BRAND, CATEGORIES } = require('../src/v2/constants');
 const {
   COVER_HEIGHT,
   COVER_WIDTH,
+  FOLLOW_CTA,
   buildCoverHtml,
+  buildFollowCtaHtml,
   coverMeta,
   escapeHtml,
   renderDiemCover,
   resolveImageData,
   validateCoverLayout,
 } = require('../src/v2/cover');
+
+test('builds a truthful Korean follow sticker without inventing a fixed briefing time', () => {
+  const html = buildFollowCtaHtml({ coverImageDataUri: 'data:image/png;base64,AAAA' });
+  assert.match(html, /data-follow-cta="true"/u);
+  assert.match(html, /중요한 경제·시사만 골라/u);
+  assert.match(html, /매일 짧고 쉽게 전해드려요/u);
+  assert.match(html, /\+ 팔로우/u);
+  assert.match(html, /@diem\.magazine/u);
+  assert.doesNotMatch(html, /아침|8시|놓치면|무조건/u);
+  assert.equal(FOLLOW_CTA.action, '+ 팔로우');
+});
 
 test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () => {
   const html = buildCoverHtml({

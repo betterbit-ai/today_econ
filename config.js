@@ -35,6 +35,6 @@ module.exports = {
   editorialHistoryFile: process.env.EDITORIAL_HISTORY_FILE || path.join(__dirname, 'data', 'editorial-history.json'),
   instagramTokenFile: process.env.INSTAGRAM_TOKEN_FILE || path.join(__dirname, 'data', 'instagram-token.enc'),
   maxHistoryDays: parseInt(process.env.MAX_HISTORY_DAYS || '7', 10),
-  maxDailyPublicationsPerCategory: Math.max(1, parseInt(process.env.MAX_DAILY_PUBLICATIONS_PER_CATEGORY || '2', 10)),
+  maxDailyPublicationsPerCategory: Math.max(1, parseInt(process.env.MAX_DAILY_PUBLICATIONS_PER_CATEGORY || '3', 10)),
   groqVisionModel: process.env.GROQ_VISION_MODEL || 'qwen/qwen3.6-27b',
 };

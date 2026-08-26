@@ -521,11 +521,21 @@ test('category polling records no_publish without selecting after the daily budg
     comment: { status: 'published', attempts: 1, externalId: 'comment-second' },
     reply: { status: 'published', attempts: 1, externalId: 'reply-second' },
   });
+  existing.publicationHistory.push(structuredClone(existing.publications.economy));
+  existing = updatePublication(existing, 'economy', {
+    publicationKey: 'diem:2026-08-23:economy:third',
+    status: 'published',
+    candidate: { title: '오늘 셋째 경제 기사', url: 'https://example.com/third' },
+    reel: { status: 'published', attempts: 1, externalId: 'reel-third' },
+    story: { status: 'published', attempts: 1, externalId: 'story-third' },
+    comment: { status: 'published', attempts: 1, externalId: 'comment-third' },
+    reply: { status: 'published', attempts: 1, externalId: 'reply-third' },
+  });
   let plannerCalls = 0;
   const result = await planCategoryPhase({
     date: '2026-08-23',
     category: 'economy',
-    slot: 'run-second',
+    slot: 'run-fourth',
     loadLedgerImpl: () => existing,
     listLedgersImpl: () => [existing],
     planDailyQueueImpl: async () => { plannerCalls += 1; },
@@ -535,13 +545,13 @@ test('category polling records no_publish without selecting after the daily budg
   assert.equal(result.budgetExhausted, true);
   assert.equal(result.ledger.publications.economy.status, 'no_publish');
   assert.equal(result.ledger.publications.economy.reason, 'daily_publication_budget_exhausted');
-  assert.equal(result.ledger.publications.economy.publicationBudget.published, 2);
-  assert.equal(result.ledger.publicationHistory.at(-1).publicationKey, 'diem:2026-08-23:economy:second');
+  assert.equal(result.ledger.publications.economy.publicationBudget.published, 3);
+  assert.equal(result.ledger.publicationHistory.at(-1).publicationKey, 'diem:2026-08-23:economy:third');
 
   const repeated = await planCategoryPhase({
     date: '2026-08-23',
     category: 'economy',
-    slot: 'run-third',
+    slot: 'run-fifth',
     loadLedgerImpl: () => result.ledger,
     listLedgersImpl: () => [result.ledger],
     planDailyQueueImpl: async () => { plannerCalls += 1; },

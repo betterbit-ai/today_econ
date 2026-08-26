@@ -197,6 +197,7 @@ async function preparePublication(ledger, category, {
   }
 
   const coverPath = path.join(outputDir, `${category}-cover.png`);
+  const followCtaPath = path.join(outputDir, `${category}-follow-cta.png`);
   await renderCoverImpl({
     editorial,
     date: ledger.date,
@@ -206,8 +207,12 @@ async function preparePublication(ledger, category, {
     fallbackTheme: imageSelection.fallbackTheme,
     fallbackVariant: imageSelection.fallbackVariant,
     visualFingerprint: imageSelection.visualFingerprint,
+    followCtaOutputPath: followCtaPath,
     outputPath: coverPath,
   });
+  if (renderCoverImpl === renderDiemCover && !fs.existsSync(followCtaPath)) {
+    throw new Error('[DIEM Publisher] Follow CTA frame was not rendered; automatic publication is blocked.');
+  }
 
   const articleText = `${article.title} ${article.summary} ${article.fullText}`;
   const mood = getMood(articleText);
@@ -221,6 +226,7 @@ async function preparePublication(ledger, category, {
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,
+    followCtaImagePath: followCtaPath,
     outputPath: reelPath,
     music,
   });
@@ -237,6 +243,8 @@ async function preparePublication(ledger, category, {
     artifacts: {
       coverPath: path.relative(process.cwd(), coverPath),
       coverSha256: sha256File(coverPath),
+      followCtaPath: path.relative(process.cwd(), followCtaPath),
+      followCtaSha256: fs.existsSync(followCtaPath) ? sha256File(followCtaPath) : null,
       reelPath: path.relative(process.cwd(), reelResult.outputPath),
       reelSha256: sha256File(reelResult.outputPath),
       temporary: true,
