@@ -38,6 +38,7 @@ const SYSTEMIC_CRIME_ANCHOR = /((?<!의)정부|국회|법안|법률\s*개정|정
 const LOW_MISSION_FIT = /(주차\s*빌런|택시\s*승객.{0,20}알고\s*보니|성기\s*필러|음경.{0,12}(?:필러|확대)|연예인|유튜버.{0,30}(?:영상|사과|후폭풍)|CCTV\s*공개\s*후폭풍|북극곰.{0,30}(?:뱃고동|벌금)|재산분할.{0,16}(?:될까|상담|문의)|변호사에게\s*상담)/iu;
 const LOW_MISSION_PUBLIC_OVERRIDE = /(정부.{0,24}(?:발표|결정|시행)|국회|법안|법률\s*개정|정책|제도\s*개편|규제|대법원|헌법재판소|공중보건|안전\s*(?:기준|대책|규정))/u;
 const DISASTER_PRIMARY_EVENT = /(산사태|폭우|집중호우|침수|도로\s*붕괴|토사\s*붕괴|사망|재난|태풍|지진)/u;
+const PUBLIC_HEARING_DISRUPTION = /(공청회|토론회|설명회).{0,120}(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무)|(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무).{0,120}(공청회|토론회|설명회)/u;
 const OFFICIAL_ACTOR = /(정부|부처|복지부|보건복지부|기획재정부|금융위원회|금융감독원|국토교통부|고용노동부|교육부|대통령실|국회|공단|공사|위원회|당국|관계자)/u;
 const OFFICIAL_RESPONSE = /(설명자료|해명자료|보도\s*설명|보도\s*해명|반박|부인|해명|오보|허위|사실\s*무근|보도와\s*관련|기사에서\s*언급된\s*내용)/u;
 const TOPIC_ALIASES = Object.freeze([
@@ -118,6 +119,10 @@ function canonicalEventKey(text = '') {
 
 function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   const normalized = normalizeTopicAliases(text);
+  if (PUBLIC_HEARING_DISRUPTION.test(normalized)) {
+    return normalized.match(/([가-힣]{2,4})\s*(?:국방부\s*)?(?:장관|의원|대통령|총리)/u)?.[1]
+      || (/국군사관학교/u.test(normalized) ? '국군사관학교' : '공청회');
+  }
   if (/마운자로/u.test(normalized)) return '마운자로';
   if (/위고비/u.test(normalized)) return '위고비';
   if (/GLP-?1/iu.test(normalized)) return 'GLP-1 비만약';
@@ -178,6 +183,7 @@ function claimState(candidate = {}, text = primaryCandidateText(candidate), kind
 function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
   const title = normalizeNfc(candidate.title || '');
   const politicalSpeaker = primaryPoliticalSpeaker(candidate);
+  if (PUBLIC_HEARING_DISRUPTION.test(text)) return 'public_hearing_disruption';
   if (MEDICAL_SAFETY_SUBJECT.test(text)
     && MEDICAL_SAFETY_CONTEXT.test(text)
     && MEDICAL_AUTHORITY.test(text)
@@ -202,6 +208,7 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
 }
 
 function frameEventLabel(text = '', kind = 'general') {
+  if (kind === 'public_hearing_disruption') return '공청회 파행';
   if (kind === 'medical_safety_advisory') return /임신|피임/u.test(text) ? '임신 주의' : '복용 주의';
   if (kind === 'political_statement') {
     return /(제\s*2|제2|제\s*3|제3|차세대).{0,10}이재명|이재명.{0,10}(제\s*2|제2|제\s*3|제3|차세대)/u.test(text)
@@ -249,6 +256,8 @@ function frameTerms(subject, eventLabel, kind, text) {
       '호소', '강조', '비판', '평가', '전망', '지적', '진단', '예상',
       '내다', '꼬집', '경고', '설명', '분석'
     );
+  } else if (kind === 'public_hearing_disruption') {
+    eventTerms.splice(0, eventTerms.length, '공청회', '파행', '난장판', '아수라장', '고성', '욕설', '난무', '충돌');
   }
   return {
     subjectTerms: [...new Set(subjectTerms.filter(term => normalizeNfc(text).includes(term) || term.length >= 2))],
@@ -279,6 +288,9 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
     requiredTitleTerms.push('IPO', '기업공개', '상장', '첫 거래', '증시 데뷔', '데뷔');
   } else if (IPO_EVENT.test(text)) {
     forbiddenTitleTerms.push('IPO', '기업공개', '공모주', '증시 데뷔');
+  }
+  if (kind === 'public_hearing_disruption' && /오라\s*그래/u.test(text)) {
+    forbiddenTitleTerms.push('오라');
   }
 
   return {

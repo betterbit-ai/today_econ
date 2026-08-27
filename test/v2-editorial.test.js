@@ -395,6 +395,44 @@ test('rejects a reported courtroom allegation rewritten as confirmed theft', () 
   assert.match(validation.errors.join(' '), /cannot strengthen/u);
 });
 
+test('repairs a clipped indirect command into a natural named public-hearing title', async () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '“규백이 오라 그래” “깡패냐”…국군사관학교 공청회 욕설-고성 난무',
+    summary: '국군사관학교 창설 공청회에서 참석자들이 안규백 국방부 장관을 겨냥해 고성과 욕설을 쏟아냈습니다.',
+    fullText: '국방부가 연 국군사관학교 창설 공청회가 거센 반발 속에 파행했습니다. 참석자들은 안규백 국방부 장관을 겨냥해 규백이 오라 그래라고 외쳤습니다. 국방부는 추가 공청회를 거쳐 세부 계획을 발표할 예정입니다.',
+    verifiedFacts: [
+      '국군사관학교 창설 공청회가 고성과 욕설 속에 파행했습니다.',
+      '참석자들은 안규백 국방부 장관을 겨냥해 고성을 질렀습니다.',
+      '국방부는 추가 공청회를 열 예정입니다.',
+    ],
+  };
+  const calls = [];
+  const result = await generateEditorial(article, {
+    callModel: async request => {
+      calls.push(request);
+      if (/표지 제목 교정기/u.test(request.systemPrompt)) {
+        return { titleCandidates: [{ title: '안규백 나와\n공청회 아수라장', score: 100 }] };
+      }
+      return {
+        titleCandidates: [{ title: '규백이 오라\n공청회 난무', score: 100 }],
+        selectedTitleIndex: 0,
+        sentences: [
+          '안규백 장관을 향한 고성과 욕설로 국군사관학교 공청회가 파행했습니다.',
+          '일부 참석자는 단상에 올라 진행을 막고 찬성 측 패널에게도 야유를 보냈습니다.',
+          '국방부는 추가 공청회를 거쳐 국군사관학교 세부 계획을 발표할 예정입니다.',
+        ],
+        emojis: { first: '📰', third: '📰' },
+        topicTags: ['국군사관학교', '공청회', '안규백'],
+        imageKeyword: 'empty public hearing room',
+      };
+    },
+  });
+  assert.equal(result.title.text, '안규백 나와\n공청회 아수라장');
+  assert.ok(calls.some(request => /표지 제목 교정기/u.test(request.systemPrompt)));
+  assert.ok(result.generation.attempts.some(attempt => attempt.stage === 'title_repair' && attempt.status === 'succeeded'));
+});
+
 test('rejects a sentence that combines numeric policy thresholds from different source sentences', () => {
   const article = {
     category: CATEGORIES.ECONOMY,

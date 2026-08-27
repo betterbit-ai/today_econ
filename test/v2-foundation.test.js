@@ -192,6 +192,20 @@ test('frames a named party-election quote around its speaker instead of a later 
   assert.equal(validateTitleAgainstFrame('김민석\n제2 이재명 언급', frame).ok, true);
 });
 
+test('frames a disrupted public hearing around the named target and rejects clipped indirect commands', () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '“규백이 오라 그래” “깡패냐”…국군사관학교 공청회 욕설-고성 난무',
+    summary: '국군사관학교 창설 공청회에서 참석자들이 안규백 국방부 장관을 겨냥해 고성과 욕설을 쏟아냈습니다.',
+  };
+  const frame = buildNewsFrame(article, CATEGORIES.ISSUE);
+  assert.equal(frame.eventKind, 'public_hearing_disruption');
+  assert.equal(frame.subject, '안규백');
+  assert.ok(frame.forbiddenTitleTerms.includes('오라'));
+  assert.equal(validateTitleAgainstFrame('규백이 오라\n공청회 난무', frame).ok, false);
+  assert.equal(validateTitleAgainstFrame('안규백 나와\n공청회 아수라장', frame).ok, true);
+});
+
 test('builds claim-state frames that prevent misleading denial and acronym-date titles', () => {
   const denialArticle = {
     category: CATEGORIES.ISSUE,

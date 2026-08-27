@@ -16,6 +16,7 @@ const {
   createGeneratedFallback,
   extractPrimaryPersonIdentity,
   imageReuseKeys,
+  generatedFallbackEnergy,
   generatedFallbackTopic,
   scoreImageCandidate,
   searchOpenverse,
@@ -264,6 +265,18 @@ test('builds concrete event-first queries for recent production image failures',
   assert.match(weather[0], /heavy rain|flooded|rainstorm/i);
   assert.match(billboard[0], /Times Square|billboard/i);
   assert.ok(billboard.some(query => /^Times Square billboard$/i.test(query)));
+});
+
+test('locks a disrupted public hearing to hearing-room queries instead of education or geopolitics', () => {
+  const queries = buildImageQueries({
+    title: '“규백이 오라 그래”…국군사관학교 공청회 욕설-고성 난무',
+    summary: '안규백 국방부 장관을 겨냥한 욕설과 충돌로 공청회가 파행했다.',
+    category: 'issue',
+    imageKeyword: 'military school classroom',
+  });
+  assert.ok(queries.length >= 2);
+  assert.ok(queries.every(query => /public hearing|public forum/iu.test(query)));
+  assert.ok(queries.every(query => !/students|school|diplomacy|military/iu.test(query)));
 });
 
 test('accepts person-free event objects for memorial, billboard, and home-access stories', () => {
@@ -1106,7 +1119,10 @@ test('selects a verified project-generated housing asset before typography', () 
   assert.equal(selection.source, 'diem-generated');
   assert.equal(selection.generatedTopic, 'housing');
   assert.equal(fs.existsSync(selection.localPath), true);
-  assert.equal(selection.localSha256, 'f9d8abc43a5f4d39f7819efaf3a71f343f0812ada87c72521ad79c3c8daa9ada');
+  const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'fallback', 'generated', 'manifest.json'), 'utf8'));
+  const selectedAsset = manifest.assets.find(asset => `diem-generated:${asset.id}` === selection.id);
+  assert.ok(selectedAsset?.topics.includes('housing'));
+  assert.equal(selection.localSha256, selectedAsset.sha256);
 });
 
 test('maps recurring fallback themes to committed generated assets', () => {
@@ -1119,6 +1135,7 @@ test('maps recurring fallback themes to committed generated assets', () => {
     [{ title: '곗돈 1.5억 먹튀 사기', summary: '채무자가 계 모임 금원을 가로채 실형을 선고받았다.', category: 'economy' }, 'finance'],
     [{ title: '코스피 시가총액 급등', summary: '주식시장 지수가 큰 폭으로 올랐다.', category: 'economy' }, 'markets'],
     [{ title: '분류되지 않은 지역 공공사건', summary: '시민 안전과 관련된 새로운 소식이다.', category: 'issue' }, 'public-interest'],
+    [{ title: '안규백 나와, 공청회 고성 난무', summary: '국군사관학교 공청회가 욕설과 충돌로 파행했다.', category: 'issue' }, 'public-hearing'],
   ];
 
   for (const [candidate, expectedTopic] of cases) {
@@ -1129,7 +1146,7 @@ test('maps recurring fallback themes to committed generated assets', () => {
 test('verifies every committed generated fallback asset hash and vertical canvas', () => {
   const root = path.join(__dirname, '..', 'assets', 'fallback', 'generated');
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
-  assert.equal(manifest.assets.length, 33);
+  assert.equal(manifest.assets.length, 43);
   const topicCounts = new Map();
   for (const asset of manifest.assets) {
     for (const topic of asset.topics || []) topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
@@ -1143,9 +1160,25 @@ test('verifies every committed generated fallback asset hash and vertical canvas
   }
   assert.deepEqual([...topicCounts.keys()].sort(), [
     'finance', 'geopolitics', 'health', 'home-security', 'housing', 'legislation', 'markets',
-    'public-interest', 'public-opinion', 'technology', 'transit', 'weather', 'work',
+    'public-hearing', 'public-interest', 'public-opinion', 'technology', 'transit', 'weather', 'work',
   ]);
   for (const [topic, count] of topicCounts) assert.ok(count >= 2, `${topic} needs at least two variants`);
+});
+
+test('prefers dynamic generated art for high-motion stories and calm art for routine updates', () => {
+  const disrupted = {
+    title: '“규백이 오라 그래”…국군사관학교 공청회 고성 난무',
+    summary: '안규백 장관을 겨냥한 욕설과 충돌로 공청회가 파행했다.',
+    category: 'issue',
+  };
+  assert.equal(generatedFallbackEnergy(disrupted), 'dynamic');
+  const dynamic = createGeneratedFallback(disrupted);
+  assert.equal(dynamic.generatedTopic, 'public-hearing');
+  assert.equal(dynamic.generatedEnergy, 'dynamic');
+
+  const routine = { title: '노사 협상 일정 발표', summary: '정례 협상 일정이 공개됐다.', category: 'economy' };
+  assert.equal(generatedFallbackEnergy(routine), 'calm');
+  assert.equal(createGeneratedFallback(routine).generatedEnergy, 'calm');
 });
 
 test('uses the reviewed public-opinion asset for an operator-directed political reissue', async () => {
