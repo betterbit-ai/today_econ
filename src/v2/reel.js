@@ -11,6 +11,7 @@ const DIEM_REEL = Object.freeze({
   durationSeconds: 7,
   contentSeconds: 5,
   followCtaSeconds: 2,
+  transitionSeconds: 0.35,
   fps: 30,
   frameCount: 210,
   audioSampleRate: 48_000,
@@ -60,12 +61,21 @@ function buildDiemReelArgs({
   audioPath,
   outputPath,
 } = {}) {
-  const { durationSeconds, contentSeconds, followCtaSeconds, fps, frameCount, audioSampleRate, audioVolume } = DIEM_REEL;
+  const {
+    durationSeconds,
+    contentSeconds,
+    followCtaSeconds,
+    transitionSeconds,
+    fps,
+    frameCount,
+    audioSampleRate,
+    audioVolume,
+  } = DIEM_REEL;
   const args = [
     '-y',
     '-loop', '1',
     '-framerate', String(fps),
-    '-t', String(followCtaImagePath ? contentSeconds : durationSeconds),
+    '-t', String(followCtaImagePath ? contentSeconds + transitionSeconds : durationSeconds),
     '-i', imagePath,
   ];
   if (followCtaImagePath) {
@@ -82,7 +92,7 @@ function buildDiemReelArgs({
   }
   const audioIndex = followCtaImagePath ? 2 : 1;
   const video = followCtaImagePath
-    ? `[0:v]${buildDiemVideoFilter()},trim=duration=${contentSeconds},setpts=PTS-STARTPTS[content];[1:v]${buildDiemVideoFilter()},trim=duration=${followCtaSeconds},setpts=PTS-STARTPTS[cta];[content][cta]concat=n=2:v=1:a=0[v]`
+    ? `[0:v]${buildDiemVideoFilter()},trim=duration=${contentSeconds + transitionSeconds},setpts=PTS-STARTPTS[content];[1:v]${buildDiemVideoFilter()},trim=duration=${followCtaSeconds},setpts=PTS-STARTPTS[cta];[content][cta]xfade=transition=fade:duration=${transitionSeconds}:offset=${contentSeconds}[v]`
     : `[0:v]${buildDiemVideoFilter()}[v]`;
   args.push(
     '-filter_complex',

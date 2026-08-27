@@ -77,7 +77,7 @@ test('uses silence for sensitive topics', () => {
   assert.match(selection.reason, /sensitive/);
 });
 
-test('builds a seven-second Reel with the follow sticker in the final two seconds', () => {
+test('builds a seven-second Reel with a soft fade into the final follow sticker', () => {
   const args = buildDiemReelArgs({
     imagePath: '/tmp/cover.png',
     followCtaImagePath: '/tmp/follow-cta.png',
@@ -88,9 +88,10 @@ test('builds a seven-second Reel with the follow sticker in the final two second
   assert.equal(args.filter(value => value === '-i').length, 3);
   assert.doesNotMatch(buildDiemVideoFilter(), /zoompan|cos\(2\*PI\*on/u);
   assert.match(filter, /scale=1080:1920/);
-  assert.match(filter, /trim=duration=5/u);
+  assert.match(filter, /trim=duration=5\.35/u);
   assert.match(filter, /trim=duration=2/u);
-  assert.match(filter, /concat=n=2:v=1:a=0/u);
+  assert.match(filter, /xfade=transition=fade:duration=0\.35:offset=5/u);
+  assert.doesNotMatch(filter, /\[content\]\[cta\]concat=/u);
   assert.match(filter, /\[2:a\]/u);
   assert.match(filter, /volume=0\.3/);
   assert.ok(args.includes('210'));
