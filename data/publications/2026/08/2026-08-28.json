@@ -4,7 +4,7 @@
   "date": "2026-08-28",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-27T15:00:44.549Z",
-  "updatedAt": "2026-08-27T22:43:24.958Z",
+  "updatedAt": "2026-08-27T22:43:52.055Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -6131,7 +6131,7 @@
     "issue": {
       "publicationKey": "diem:2026-08-28:issue:33123428858",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "한밤엔 '30km' 제한 해제...스쿨존 시간제 속도제한 확대",
         "url": "https://n.news.naver.com/article/052/0002399297?ntype=RANKING",
@@ -6300,15 +6300,176 @@
           "text": "issue | 한밤엔 30km | 확대 | 30km"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "한밤엔 30km\n제한 확대",
+            "lines": [
+              "한밤엔 30km",
+              "제한 확대"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "한밤엔 30km\n제한 확대",
+          "lines": [
+            "한밤엔 30km",
+            "제한 확대"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "한밤엔은 어린이보호구역의 시간제 속도 제한을 밤에도 적용해 시속 30km로 확대했습니다.📰",
+            "보도에 따르면, 아침 8시에는 표지판이 50km에서 30km로 바뀌고, 최근 5년간 심야 시간대 교통사고가 없었습니다.",
+            "경찰은 현재 전체 구간의 0.5%에 불과한 시간제 제한을 확대해 더 많은 도로에 적용할 계획이라고 밝혔습니다.📰"
+          ],
+          "text": "한밤엔은 어린이보호구역의 시간제 속도 제한을 밤에도 적용해 시속 30km로 확대했습니다.📰\n\n보도에 따르면, 아침 8시에는 표지판이 50km에서 30km로 바뀌고, 최근 5년간 심야 시간대 교통사고가 없었습니다.\n\n경찰은 현재 전체 구간의 0.5%에 불과한 시간제 제한을 확대해 더 많은 도로에 적용할 계획이라고 밝혔습니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #시간제속도제한 #어린이보호구역 #교통안전 #30km #한밤엔 #확대",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#시간제속도제한",
+            "#어린이보호구역",
+            "#교통안전",
+            "#30km",
+            "#한밤엔",
+            "#확대"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#시간제속도제한",
+              "#어린이보호구역",
+              "#교통안전",
+              "#30km",
+              "#한밤엔",
+              "#확대"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned invalid sentence structure"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:public-interest-03",
+        "source": "diem-generated",
+        "selectedAt": "2026-08-27T22:43:42.693Z",
+        "assetPath": "assets/fallback/generated/public-interest-03.png",
+        "sha256": "c2adce312698885e1aa0934013b4ab6aeeee8f997b8d0cb532d6d663a0007f88",
+        "localSha256": "c2adce312698885e1aa0934013b4ab6aeeee8f997b8d0cb532d6d663a0007f88",
+        "generatedTopic": "public-interest",
+        "generatedEnergy": "calm",
+        "description": "Mustard and green civic maintenance response equipment.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 28,
+          "recentKeyCount": 77,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:public-interest-03",
+            "c2adce312698885e1aa0934013b4ab6aeeee8f997b8d0cb532d6d663a0007f88"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated public-interest asset public-interest-03 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-tech-house-vibes-130",
+        "mood": "bright",
+        "title": "Tech House Vibes",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-tech-house-vibes-130.mp3",
+        "sha256": "72ed4e66ef3714048fe6bf57783b35d32a4b1b8f12245bc1f64f16b3cbb4949b",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-27T22:43:52.045Z"
       },
       "story": {
         "status": "planned",
@@ -6384,6 +6545,15 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-28/issue/issue-cover.png",
+        "coverSha256": "5824e7f29bb3f22b1bcb6a9337598279353f2bc9dd235282a1a912116b66907d",
+        "followCtaPath": ".diem-cache/2026-08-28/issue/issue-follow-cta.png",
+        "followCtaSha256": "7472b6fcba99efff523760e702f0d5eee152de2580afd6eee6fd05209253c3a8",
+        "reelPath": ".diem-cache/2026-08-28/issue/issue-reel.mp4",
+        "reelSha256": "791afe75050bc6450f12b2474a039d2d73d0eab7c1546b97d3aca6d74fbfa0b0",
+        "temporary": true
       }
     }
   },
