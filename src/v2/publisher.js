@@ -28,6 +28,7 @@ const { selectMusic, getMood } = require('./music');
 const { createDiemReelWithMusic } = require('./reel');
 const { renderDiemCover } = require('./cover');
 const { isSensitiveTopic } = require('./topic');
+const { MANUAL_REEL_STORY_SHARE_REASON } = require('./constants');
 
 function sha256File(filePath) {
   return crypto.createHash('sha256').update(fs.readFileSync(filePath)).digest('hex');
@@ -445,6 +446,19 @@ async function publishIndependentStory(publication, {
   const story = pendingStoryStep(publication.story);
   if (['published', 'manual_action_required', 'no_publish'].includes(story.status)) return publication;
   if (!config.publishInstagramStory) {
+    if (config.manualReelStoryShare) {
+      return {
+        ...publication,
+        story: {
+          ...story,
+          status: 'manual_action_required',
+          error: MANUAL_REEL_STORY_SHARE_REASON,
+          manualShareUrl: publication.reel?.permalink || null,
+          mode: 'native_reel_share',
+          updatedAt: new Date().toISOString(),
+        },
+      };
+    }
     return {
       ...publication,
       story: { ...story, status: 'no_publish', error: 'story_disabled', updatedAt: new Date().toISOString() },

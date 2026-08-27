@@ -10,6 +10,8 @@ const {
   shouldNotify,
   upsertGitHubIssue,
 } = require('../src/v2/notifications');
+const { dispatchOperationalEvent } = require('../src/v2/operations');
+const { MANUAL_REEL_STORY_SHARE_REASON } = require('../src/v2/constants');
 
 function jsonResponse(payload, status = 200) {
   return new Response(payload === null ? '' : JSON.stringify(payload), {
@@ -76,6 +78,40 @@ test('formats only defined state transitions', () => {
   assert.match(buildSlackStatusText({ ...baseEvent, status: 'manual_action_required' }), /수동 조치/);
   assert.match(buildSlackStatusText({ ...baseEvent, status: 'no_publish', reason: '후보 소진' }), /발행 생략/);
   assert.throws(() => buildSlackStatusText({ ...baseEvent, status: 'failed' }), /Unsupported/);
+});
+
+test('formats one-click native Reel Story sharing guidance', () => {
+  const text = buildSlackStatusText({
+    ...baseEvent,
+    stage: 'story',
+    status: 'manual_action_required',
+    error: MANUAL_REEL_STORY_SHARE_REASON,
+    permalink: 'https://www.instagram.com/reel/DIEM123/',
+  });
+  assert.match(text, /Reel → Story 공유 필요/u);
+  assert.match(text, /Instagram Reel 열기/u);
+  assert.match(text, /공유 아이콘 → 스토리에 추가/u);
+  assert.doesNotMatch(text, /native_reel_story_share_required/u);
+});
+
+test('sends routine native Story prompts to Slack without opening a GitHub issue', async () => {
+  let issueCalls = 0;
+  const result = await dispatchOperationalEvent({ notifications: [] }, {
+    ...baseEvent,
+    stage: 'story',
+    status: 'manual_action_required',
+    error: MANUAL_REEL_STORY_SHARE_REASON,
+    permalink: 'https://www.instagram.com/reel/DIEM123/',
+  }, {
+    slackClient: { chat: { postMessage: async () => ({ ts: '1.2' }) } },
+    slackChannelId: 'channel',
+    githubToken: 'token',
+    githubRepository: 'owner/repo',
+    upsertIssueImpl: async () => { issueCalls += 1; return { number: 1 }; },
+  });
+  assert.equal(result.sent, true);
+  assert.equal(issueCalls, 0);
+  assert.equal(result.publication.notifications.length, 1);
 });
 
 test('formats a 24-hour watchdog alert with an actionable reason and no content payload', () => {

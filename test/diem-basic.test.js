@@ -206,6 +206,7 @@ test('publishing selects one stored package, preserves the hot-news slot, and re
   const currentKey = current.publications.economy.publicationKey;
   const saved = [];
   let calls = 0;
+  let manualStoryNotifications = 0;
 
   const result = await publishBasicPackage({
     date: '2026-08-17',
@@ -233,10 +234,15 @@ test('publishing selects one stored package, preserves the hot-news slot, and re
         story: { status: 'published', attempts: 1, externalId: 'story-basic-isa' },
       });
     },
+    notifyManualStoryShareImpl: async publication => {
+      manualStoryNotifications += 1;
+      return { publication, sent: true, errors: [] };
+    },
   });
 
   const publication = result.publicationHistory.find(item => item.basicContentId === 'isa-tax');
   assert.equal(calls, 1);
+  assert.equal(manualStoryNotifications, 1);
   assert.equal(saved.length, 2, 'ready state must be saved before external publishing and result afterwards');
   assert.equal(publication.status, 'published');
   assert.equal(publication.reel.externalId, 'ig-basic-isa');

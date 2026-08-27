@@ -16,6 +16,8 @@ const {
 const { sendBasicDraftPreview } = require('./notifications');
 const { preparePublication, publishPreparedPublication } = require('./publisher');
 const { kstDate } = require('./time');
+const { notifyManualStoryShare } = require('./operations');
+const { MANUAL_REEL_STORY_SHARE_REASON } = require('./constants');
 
 const BASIC_CONTENT_TYPE = 'diem_basic';
 const BASIC_EXPERIMENT_LIMIT = 4;
@@ -340,6 +342,7 @@ async function publishBasicDraft({
   ledgers = listLedgers(),
   token = config.instagramAccessToken,
   publishPreparedPublicationImpl = publishPreparedPublication,
+  notifyManualStoryShareImpl = notifyManualStoryShare,
   saveLedgerImpl = saveLedger,
   now = new Date(),
 } = {}) {
@@ -364,12 +367,13 @@ async function publishBasicDraft({
     approval: { ...draft.approval, approvedAt: now.toISOString(), approvedBy: 'workflow_dispatch' },
   };
   const publishedSandbox = await publishPreparedPublicationImpl(sandbox, 'economy', token);
-  const published = {
+  let published = {
     ...publishedSandbox.publications.economy,
     contentType: BASIC_CONTENT_TYPE,
     review: sandbox.publications.economy.review,
     approval: sandbox.publications.economy.approval,
   };
+  published = (await notifyManualStoryShareImpl(published, sandbox.publications.economy)).publication;
   const restored = structuredClone(found.ledger);
   restored.publications.economy = originalCurrent;
   return saveLedgerImpl(replaceHistoryPublication(restored, published));
@@ -389,9 +393,13 @@ async function retryBasicPublication({
   if (publication.reel?.status !== 'published' || !publication.reel?.externalId) {
     throw new Error('[DIEM Basic] Operational retry requires an already published Reel.');
   }
-  const incomplete = ['story', 'comment', 'reply'].some(step => (
-    !['published', 'no_publish'].includes(publication[step]?.status)
-  ));
+  const incomplete = ['story', 'comment', 'reply'].some(step => {
+    const current = publication[step] || {};
+    if (step === 'story'
+      && current.status === 'manual_action_required'
+      && current.error === MANUAL_REEL_STORY_SHARE_REASON) return false;
+    return !['published', 'no_publish'].includes(current.status);
+  });
   if (!incomplete) throw new Error('[DIEM Basic] No independent Story or comment step needs recovery.');
   if (basicContentHash(publication) !== publication.approval?.contentHash) {
     throw new Error('[DIEM Basic] Published content hash mismatch; use manual operational review.');

@@ -19,6 +19,7 @@ module.exports = {
   instagramApiVersion: process.env.INSTAGRAM_API_VERSION || 'v23.0',
   instagramFormat: process.env.INSTAGRAM_FORMAT || 'reel',
   publishInstagramStory: process.env.PUBLISH_INSTAGRAM_STORY !== 'false',
+  manualReelStoryShare: process.env.MANUAL_REEL_STORY_SHARE !== 'false',
   instagramAudioFile: process.env.INSTAGRAM_AUDIO_FILE || '',
   reelDurationPerSlide: parseFloat(process.env.REEL_DURATION_PER_SLIDE || '0'),
   instagramAllowCarouselFallback: process.env.INSTAGRAM_ALLOW_CAROUSEL_FALLBACK !== 'false',

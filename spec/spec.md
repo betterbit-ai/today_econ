@@ -1,5 +1,26 @@
 # Feature: DIEM 성과 학습 루프와 편집 복구력 강화
 
+## 2026-08-27 approved amendment: Reel 연결형 Story 수동 공유 알림
+
+1. GitHub Actions의 자동 Instagram Story 업로드를 비활성화한다. 기존
+   `publishStory` 함수, 컨테이너 발행과 재시도 코드는 삭제하지 않는다.
+2. Reel 발행이 성공하면 Story 단계를 `manual_action_required`와
+   `native_reel_story_share_required`로 기록하고 Reel permalink를 저장한다.
+3. Slack에 Reel 링크와 `Instagram 앱에서 공유 아이콘 → 스토리에 추가` 안내를
+   한 번만 전송한다. 이 반복 운영 작업으로 GitHub Issue를 만들지 않는다.
+4. 일반 Economy·Issue뿐 아니라 DIEM Basic Reel에도 같은 수동 공유 알림을 보낸다.
+5. `MANUAL_REEL_STORY_SHARE=false`로 명시하면 과거의 완전 Story 비활성
+   `no_publish` 동작을 사용할 수 있다.
+
+### Acceptance criteria
+
+- [ ] 두 GitHub Actions가 `PUBLISH_INSTAGRAM_STORY=false`와 수동 공유 모드를 사용한다.
+- [ ] 자동 Story API 함수는 호출되지 않지만 기존 구현과 테스트 경로는 남아 있다.
+- [ ] Slack 안내의 링크는 방금 발행된 Reel permalink다.
+- [ ] 같은 publication/stage/status 알림은 중복 발송되지 않는다.
+- [ ] 수동 Story 공유 안내는 GitHub Issue를 만들지 않는다.
+- [ ] `npm run test`와 `git diff --check`가 통과한다.
+
 ## 2026-08-27 approved amendment: 자연스러운 직접화법과 역동 생성 배경
 
 1. `오라 그래·하라 그래` 같은 간접명령형 인용을 표지에 잘라 쓰지 않는다.

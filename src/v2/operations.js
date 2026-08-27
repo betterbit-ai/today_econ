@@ -8,6 +8,7 @@ const {
   upsertGitHubIssue,
 } = require('./notifications');
 const { updatePublication } = require('./ledger');
+const { MANUAL_REEL_STORY_SHARE_REASON } = require('./constants');
 
 function githubActionsUrl(repository = config.githubRepository, runId = config.githubRunId) {
   if (!repository || !runId) return '';
@@ -175,7 +176,11 @@ async function dispatchOperationalEvent(publication, event, {
     }
   }
 
-  const usesIssue = ['retry_pending', 'manual_action_required', 'no_publish', 'recovered'].includes(event.status)
+  const routineNativeStoryShare = event.stage === 'story'
+    && event.status === 'manual_action_required'
+    && event.error === MANUAL_REEL_STORY_SHARE_REASON;
+  const usesIssue = !routineNativeStoryShare
+    && ['retry_pending', 'manual_action_required', 'no_publish', 'recovered'].includes(event.status)
     && event.stage !== 'daily_watchdog'
     && event.reason !== 'daily_publication_budget_exhausted'
     && !/기본 발행.*완료해 다음 폴링은 생략/u.test(String(event.reason || ''));
@@ -199,6 +204,19 @@ async function dispatchOperationalEvent(publication, event, {
     sent,
     errors,
   };
+}
+
+async function notifyManualStoryShare(publication, before, options = {}) {
+  const event = transitionEvents(before, publication, options).find(item => (
+    item.stage === 'story'
+    && item.status === 'manual_action_required'
+    && item.error === MANUAL_REEL_STORY_SHARE_REASON
+  ));
+  if (!event) return { publication: structuredClone(publication), sent: false, errors: [] };
+  return dispatchOperationalEvent(publication, event, {
+    ...options,
+    ...operationalClients(options),
+  });
 }
 
 async function notifyTransitions(ledger, category, before, {
@@ -225,6 +243,7 @@ module.exports = {
   dispatchOperationalEvent,
   githubActionsUrl,
   notifyTransitions,
+  notifyManualStoryShare,
   operationalClients,
   publicationTitle,
   dailyWatchdogReason,

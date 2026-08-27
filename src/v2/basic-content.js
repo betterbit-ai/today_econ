@@ -13,6 +13,7 @@ const {
   saveLedger,
 } = require('./ledger');
 const { publishPreparedPublication } = require('./publisher');
+const { notifyManualStoryShare } = require('./operations');
 const {
   extractEmojiClusters,
   graphemeCount,
@@ -360,6 +361,7 @@ async function publishBasicPackage({
   verifyArtifacts = true,
   now = new Date(),
   publishPreparedPublicationImpl = publishPreparedPublication,
+  notifyManualStoryShareImpl = notifyManualStoryShare,
   saveLedgerImpl = saveLedger,
 } = {}) {
   if (!token) throw new Error('[DIEM Basic] Instagram token is required.');
@@ -409,12 +411,13 @@ async function publishBasicPackage({
   const sandbox = structuredClone(persisted);
   sandbox.publications.economy = staged;
   const publishedSandbox = await publishPreparedPublicationImpl(sandbox, 'economy', token);
-  const published = {
+  let published = {
     ...publishedSandbox.publications.economy,
     contentType: BASIC_CONTENT_TYPE,
     basicContentId: item.id,
     basicSequence: item.sequence,
   };
+  published = (await notifyManualStoryShareImpl(published, staged)).publication;
   const restored = structuredClone(persisted);
   restored.publications.economy = originalCurrent;
   return saveLedgerImpl(replaceHistoryPublication(restored, published));

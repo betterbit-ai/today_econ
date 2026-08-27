@@ -33,10 +33,12 @@ const PUBLICATION_STATES = Object.freeze([
 ]);
 
 const TERMINAL_STATES = Object.freeze(['published', 'no_publish', 'manual_action_required']);
+const MANUAL_REEL_STORY_SHARE_REASON = 'native_reel_story_share_required';
 
 module.exports = {
   BRAND,
   CATEGORIES,
+  MANUAL_REEL_STORY_SHARE_REASON,
   PUBLICATION_STATES,
   TERMINAL_STATES,
 };

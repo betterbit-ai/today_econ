@@ -3,8 +3,10 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const test = require('node:test');
+const config = require('../config');
 
 const { createDailyLedger, updatePublication } = require('../src/v2/ledger');
+const { MANUAL_REEL_STORY_SHARE_REASON } = require('../src/v2/constants');
 const { createGeneratedFallback } = require('../src/v2/image-selector');
 const { preparePublication, publishCommentChain, publishPreparedPublication } = require('../src/v2/publisher');
 
@@ -58,6 +60,35 @@ test('publishes only one Reel and records its external identity', async () => {
   assert.equal(result.publications.economy.story.externalId, 'ig-story');
   assert.equal(result.publications.economy.story.attempts, 1);
   assert.equal(result.publications.economy.release.videoUrl, 'https://example.com/reel.mp4');
+});
+
+test('keeps automatic Story publishing code dormant and records native Reel sharing work', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-manual-story-'));
+  const ledger = readyLedger(root);
+  const previousAuto = config.publishInstagramStory;
+  const previousManual = config.manualReelStoryShare;
+  let storyCalls = 0;
+  config.publishInstagramStory = false;
+  config.manualReelStoryShare = true;
+  try {
+    const result = await publishPreparedPublication(ledger, 'economy', 'token', {
+      cleanupReleasesImpl: async () => [],
+      createReleaseImpl: async () => ({ releaseId: 1, tag: 'temp', createdAt: new Date().toISOString(), videoUrl: 'https://example.com/reel.mp4' }),
+      reconcileReelImpl: async () => ({ status: 'not_found', shouldPublish: true }),
+      publishReelImpl: async () => ({ id: 'ig-reel', permalink: 'https://www.instagram.com/reel/DIEM123/' }),
+      publishStoryImpl: async () => { storyCalls += 1; return { id: 'must-not-publish' }; },
+      publishCommentsImpl: async publication => publication,
+    });
+    const story = result.publications.economy.story;
+    assert.equal(storyCalls, 0);
+    assert.equal(story.status, 'manual_action_required');
+    assert.equal(story.error, MANUAL_REEL_STORY_SHARE_REASON);
+    assert.equal(story.manualShareUrl, 'https://www.instagram.com/reel/DIEM123/');
+    assert.equal(story.mode, 'native_reel_share');
+  } finally {
+    config.publishInstagramStory = previousAuto;
+    config.manualReelStoryShare = previousManual;
+  }
 });
 
 test('passes recent historical and same-day ledger images into image selection', async () => {

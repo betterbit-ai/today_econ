@@ -1,4 +1,5 @@
 const { normalizeNfc } = require('./text');
+const { MANUAL_REEL_STORY_SHARE_REASON } = require('./constants');
 
 const NOTIFIABLE_STATUSES = new Set([
   'published',
@@ -63,6 +64,15 @@ function buildSlackStatusText(event = {}) {
     return `✅ DIEM ${label} ${stage} 자동 복구 완료\n${title}`.normalize('NFC');
   }
   if (event.status === 'manual_action_required') {
+    if (stage === 'story' && safeError(event.error) === MANUAL_REEL_STORY_SHARE_REASON) {
+      const permalink = String(event.permalink || '').trim();
+      return [
+        `📲 DIEM ${label} Reel → Story 공유 필요`,
+        title,
+        permalink ? `<${permalink}|Instagram Reel 열기>` : 'Reel 링크를 원장에서 확인해 주세요.',
+        'Instagram 앱에서 공유 아이콘 → 스토리에 추가',
+      ].join('\n').normalize('NFC');
+    }
     return `🚨 DIEM ${label} ${stage} 수동 조치 필요\n${title}${safeError(event.error) ? `\n${safeError(event.error)}` : ''}${links ? `\n${links}` : ''}`.normalize('NFC');
   }
   if (event.status === 'no_publish') {
