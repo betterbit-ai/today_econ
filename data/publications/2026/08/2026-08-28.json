@@ -4,7 +4,7 @@
   "date": "2026-08-28",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-27T15:00:44.549Z",
-  "updatedAt": "2026-08-28T00:47:21.477Z",
+  "updatedAt": "2026-08-28T00:49:53.318Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -84,7 +84,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 4.38% in \"8월 27일 기준금리 2.75%에서 3.00%로 0.25%p 인상됐으며, 7월 코픽스는 3.18%로 4개월 연속 상승해 KB국민은행 변동형 주담\"; 4.69% in \"8월 27일 기준금리 2.75%에서 3.00%로 0.25%p 인상됐으며, 7월 코픽스는 3.18%로 4개월 연속 상승해 KB국민은행 변동형 주담\"; 3.2% in \"하지만 예금 금리는 3.2% 수준에 머물러 예대금리 차이가 2% 이상 벌어지고, 대출자는 금리 상승 부담을, 예금자는 낮은 수익률을 동시에 겪는\" | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "“2,800조 블랙홀이 온다”…안 그래도 불안한 코스피, 또 한 번 흔들까? [잇슈 머니]",
@@ -120,7 +122,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:extraordinary_claim_unverified"
+      ]
     },
     {
       "title": "‘네팔 대홍수’ 사망자 362명·실종자 천5백 명 육박",
@@ -156,7 +160,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "中 유학생 살해한 중국인 남성, 사이코패스 검사 거부",
@@ -194,7 +200,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "한국인 소장 “네팔인 직원들 두고 못 간다…다 구조되면 나가겠다”",
@@ -232,7 +240,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“빈방서 ‘참을 인’ 쓰다 동의”…윤석열 감사원 ‘강압·조작’ 있었다",
@@ -270,7 +280,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:official_denial_without_confirmed_change"
+      ]
     },
     {
       "title": "SK하이닉스, 미국산 HBM 만든다…“2029년 하반기부터 연 수십만장씩”",
@@ -306,7 +318,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "김민석 “정청래 ‘중도는 없다’론자”…정청래 “마이크 독재”",
@@ -344,7 +358,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] 혐오·차별 막자면서 ‘성소수자’ 제외한 교육부",
@@ -380,7 +396,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "'이재명 지지 선언' 신대철에 \"양아치\"…대법원 판단은",
@@ -418,7 +436,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"경찰 못 믿어…우리가 직접 찾는다\" 곳곳서 등장",
@@ -456,7 +476,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"축의금 얼마가 적당?\"…미혼·기혼 '엇갈린 답변'",
@@ -8024,24 +8046,24 @@
     "economy": {
       "publicationKey": "diem:2026-08-28:economy:33130651585",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "“한 달 대출 이자만 수백만 원”…정기 예금은 3%대 요지부동? [잇슈 머니]",
-        "url": "https://n.news.naver.com/article/056/0012246309?ntype=RANKING",
+        "title": "\"축의금 얼마가 적당?\"…미혼·기혼 '엇갈린 답변'",
+        "url": "https://n.news.naver.com/article/055/0001384070?ntype=RANKING",
         "publishedDate": "2026-08-28",
-        "publishedAt": "2026-08-28 06:50:55",
+        "publishedAt": "2026-08-28 07:06:34",
         "observedAt": "2026-08-28T00:47:12.199Z",
-        "popularityScore": 97.9796,
+        "popularityScore": 75.7551,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 95.14,
-          "popularityScore": 97.9796,
+          "score": 76.92,
+          "popularityScore": 75.7551,
           "freshnessScore": 90,
-          "editorialValueScore": 95,
-          "ageHours": 2.94,
-          "publishedAt": "2026-08-28 06:50:55",
+          "editorialValueScore": 55,
+          "ageHours": 2.71,
+          "publishedAt": "2026-08-28 07:06:34",
           "observedAt": "2026-08-28T00:47:12.199Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -8060,114 +8082,104 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 2,
-            "normalizedScore": 97.9796,
-            "title": "“한 달 대출 이자만 수백만 원”…정기 예금은 3%대 요지부동? [잇슈 머니]",
-            "url": "https://n.news.naver.com/article/056/0012246309?ntype=RANKING"
+            "rank": 13,
+            "normalizedScore": 75.7551,
+            "title": "\"축의금 얼마가 적당?\"…미혼·기혼 '엇갈린 답변'",
+            "url": "https://n.news.naver.com/article/055/0001384070?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "[앵커] 두 번째 키워드 '기준금리 3% 시대'입니다. 한국은행이 어제 기준금리를 연 3%로 올렸습니다. 두 달 연속 인상인데요. 주택담보대출 금리는 얼마나 더 오르는 건가요?[답변]결론부터 말씀드리면, 변동금리는 연 6%대 진입이 눈앞이고, 고정금리는 이미 상단이 7%를 넘었습니다. 한국은행 금융통화위원회는 8월 27일 기준금리를 연 2.75%에서 3.00%로 0.25%포인트 인상했습니다. 7월에 이어 두 달 연속, 이른바 백투백 인상입니다. 올해 성장률 전망도 2.6%에서 3.3%로 대폭 올렸습니다.이미 대출금리는 뛰고 있습니다. 변동금리 기준인 7월 신규 코픽스가 3.18%로 4개월 연속 올랐고, 이걸 반영해 KB국민은행 6개월 변동형 주담대는 4.38에서 5.78%, 우리은행은 4.69에서 5.89%까지 상단이 올라왔습니다. 고정형은 시장금리를 먼저 반영해서 상단이 이미 연 7%를 넘어섰습니다. 여기에 시장에서는 최종 금리를 3.25%~3.50%로 전망하고 있습니다. 8월 27일 인상분은 아직 코픽스에 반영도 안 됐다는 점, 그러니까 진짜 청구서는 이제부터 날아온다는 겁니다.[앵커]그런데 이번에 금리를 올린 이유가 경기가 좋아서다, 성장률 전망을 3.3%까지 올렸다는 거 아닙니까? 경기가 좋으면 다행인 건데, 왜 영끌족은 더 힘들어진다는 건가요?[답변]한마디로 성장의 과실은 반도체가 가져가고, 금리 인상 청구서는 대출자가 받는 구조이기 때문입니다. 지금 성장은 반도체 쏠림 성장입니다. 국책연구기관 KDI도 8월 경제 동향에서 우리 경제가 반도체 관련 부문을 중심으로 개선되고 있다면서도, 물가는 여전히 높고 고용은 둔화하고 있다고 진단했습니다. 반도체 호황이 내 월급, 내 일자리로 이어지지 않는 가구가 많다는 뜻입니다. 체감경기는 오히려 뒷걸음질입니다. 8월 소비자심리지수는 넉 달 만에 하락했는데, 한국은행은 그 이유로 누적된 물가 상승을 꼽았습니다. 향후 1년 기대인플레이션율도 2.7%로 높은 수준입니다. 물가 부담에 이자 부담까지 이중고인 겁니다. 더욱이 최근 대출자일수록 변동금리에 몰려 있습니다. 7월 은행 주담대 평균 금리는 연 4.48%로 2년 8개월 만에 최고인데, 신규 대출 중 고정금리 비중은 2014년 이후 최저로 떨어졌습니다. 금리가 오를수록 직격탄을 맞는 구조에 스스로 들어가 있는 셈입니다. [앵커]그런데 이처럼 대출금리는 무섭게 오르는데, 예금금리를 보면 그렇지 않습니다. 오르는 게 체감 안 된다는 분들도 많은데, 왜 이렇게 찔끔 오르는 건가요?[답변]이유는 은행이 지금 예금을 절실하게 끌어올 필요가 없기 때문입니다. 두 가지로 정리해 보겠습니다. 첫째, 반영 속도가 다릅니다. 대출금리는 은행채, 코픽스 같은 시장금리에 인상 전망까지 미리 반영해 빠르게 오르지만, 예금금리는 은행이 재량으로 정하기 때문에 천천히 따라갑니다. 한국은행 통계로 7월 저축성수신금리는 연 3.21%, 주담대는 4.48%였고, 잔액 기준 예대금리차는 2.22%포인트에 달합니다.둘째, 가계대출 총량규제의 역설입니다. 정부가 대출을 조이라고 하니 은행은 가산금리를 올리고 우대금리를 줄여 대출 문턱을 높입니다. 대출금리가 오를 수밖에 없는 구조죠. 문제는 여기서 끝나지 않습니다. 예금은 대출의 재원인데, 대출을 못 늘리는 은행 입장에서는 비싼 이자를 주면서까지 예금을 유치할 이유도 함께 사라집니다. 결국 규제가 대출금리는 밀어 올리고, 예금금리는 눌러놓는 셈입니다. 그래서 예금자는 발품이 답입니다. 은행연합회 최근 공시를 보면 같은 시장 환경에서도 은행별 가계 예대금리차가 최대 0.44%포인트까지 벌어져 있고, 인터넷은행 평균은 2.22%포인트로 시중은행보다 큽니다. 기준금리 3% 시대, 대출자는 금리 상단을, 예금자는 은행별 금리 격차를 반드시 비교하셔야 하겠습니다. ■ 제보하기▷ 전화 : 02-781-1234, 4444▷ 이메일 : kbs1234@kbs.co.kr▷ 카카오톡 : 'KBS제보' 검색, 채널 추가▷ 유튜브, 다음에서도 KBS뉴스를 구독해주세요!",
-        "summary": "[앵커] 두 번째 키워드 '기준금리 3% 시대'입니다. 한국은행이 어제 기준금리를 연 3%로 올렸습니다. 두 달 연속 인상인데요. 주택담보대출 금리는 얼마나 더 오르는 건가요?[답변]결론부터 말씀드리면, 변동금리는 연 6%대 진입이 눈앞이고, 고정금리는 이미 상단이 7%를 넘었습니다. 한국은행 금융통화위원회는 8월 27일 기준금리를 연 2.75%에서 3.00%로 0.25%포인트 인상했습니다. 7월에 이어 두 달 연속, 이른바 백투백 인상입니다. 올해 성장률 전망도 2.6%에서 3.3%로 대폭 올렸습니다.이미 대출금리는 뛰고 있습니다",
+        "fullText": "다음 핫토픽입니다. 이번에 아주 뜨거운 주제를 가지고 왔습니다. 바로 축의금에 대한 내용입니다. 요즘 결혼식 가실 때 축의금 얼마 내시나요? 얼마가 적당하다고 생각하시나요? 그런데 혼인 여부에 따라서 13만 원에서 29만 원까지 답변이 크게 엇갈렸습니다. 한 결혼정보 회사가 미혼 500명, 기혼 500명에게 축의금에 대해서 물었습니다. 일단 관계는 친구라고 생각해 볼게요. 그리고 결혼식에 직접 참석하는 경우다. 여러분 얼마나 적당하다고 생각하세요? 미혼은 평균 13만 원이라고 했고요. 기혼자들은 평균 29만 원이라고 답을 했습니다. 2배가 넘게 차이가 납니다. 미혼 남녀 축의금 금액을 정할 때 1순위로 뽑는 기준이 당사자와의 친분 그리고 알고 지내온 시간이라고 했고요. 그다음으로는 '향후 내 결혼식 때 이 사람이 올 건가' 그리고 '실물 청첩장을 내게 줬나' 이런 내용들을 살핀다고 했습니다. 반면 기혼자는 어떨까요. 먼저 상대와의 친밀도, 그리고 관계가 가장 많은 영향을 준다고 밝혔습니다. 뒤이어서 '내가 결혼했을 때 이 사람이 얼마를 냈었는지' 그리고 '내가 동행자가 있는가' 등을 고려한다고 합니다. 아무래도 기혼자의 경우는 실제 결혼을 해 봤으니까 체감해 본 물가가 있죠. 그게 반영됐다, 그리고 부부가 함께 참석해서 식사를 하는 경우가 많기 때문에 축의금 기준 금액이 상대적으로 높게 집계된 것으로 보인다는 게 결혼 정보회사의 설명이었습니다.",
+        "summary": "다음 핫토픽입니다. 이번에 아주 뜨거운 주제를 가지고 왔습니다. 바로 축의금에 대한 내용입니다. 요즘 결혼식 가실 때 축의금 얼마 내시나요? 얼마가 적당하다고 생각하시나요? 그런데 혼인 여부에 따라서 13만 원에서 29만 원까지 답변이 크게 엇갈렸습니다. 한 결혼정보 회사가 미혼 500명, 기혼 500명에게 축의금에 대해서 물었습니다. 일단 관계는 친구라고 생각해 볼게요. 그리고 결혼식에 직접 참석하는 경우다. 여러분 얼마나 적당하다고 생각하세요? 미혼은 평균 13만 원이라고 했고요. 기혼자들은 평균 29만 원이라고 답을 했습니다.",
         "topicSignature": {
           "category": "economy",
-          "target": "경제성장률",
-          "event": "성장률 변화",
+          "target": "축의금 얼마가",
+          "event": "미혼 기혼 엇갈린",
           "entities": [],
           "eventKey": null,
-          "text": "economy | 경제성장률 | 성장률 변화"
+          "text": "economy | 축의금 얼마가"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "경제성장률",
+          "subject": "축의금 얼마가",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "경제성장률",
-            "GDP",
-            "성장률"
+            "축의금",
+            "얼마가"
           ],
-          "eventKind": "gdp",
-          "eventLabel": "성장률 변화",
-          "eventTerms": [
-            "변화",
-            "성장",
-            "증가"
-          ],
+          "eventKind": "general",
+          "eventLabel": "",
+          "eventTerms": [],
           "eventKey": null,
-          "claimState": "decided",
+          "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "27일",
+          "date": "",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "housing"
+          "readerNeed": "household_cost"
         },
         "editorialValue": {
           "ok": true,
-          "score": 95,
+          "score": 55,
           "signals": [
             "reader_money_work_life_impact",
-            "concrete_event_or_decision",
-            "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "경제성장률",
+            "subject": "축의금 얼마가",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "경제성장률",
-              "GDP",
-              "성장률"
+              "축의금",
+              "얼마가"
             ],
-            "eventKind": "gdp",
-            "eventLabel": "성장률 변화",
-            "eventTerms": [
-              "변화",
-              "성장",
-              "증가"
-            ],
+            "eventKind": "general",
+            "eventLabel": "",
+            "eventTerms": [],
             "eventKey": null,
-            "claimState": "decided",
+            "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "27일",
+            "date": "",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "housing"
+            "readerNeed": "household_cost"
           },
-          "baseScore": 95,
+          "baseScore": 55,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "classified",
-            "category": "economy",
-            "excluded": [],
+            "status": "uncertain",
+            "category": null,
+            "excluded": [
+              "category_not_allowed"
+            ],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "verify_primary_article"
+            "reason": "uncertain_initial_classification"
           },
           "final": {
             "status": "classified",
@@ -8181,28 +8193,2456 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.7642,
+        "score": 0.7351,
         "method": "embedding",
         "reason": "gray_distinct_event",
-        "matchedPublicationKey": "diem:2026-08-22:economy:32567319240",
+        "matchedPublicationKey": "diem:2026-08-28:economy:33085193640",
         "signature": {
           "category": "economy",
-          "target": "경제성장률",
-          "event": "성장률 변화",
+          "target": "축의금 얼마가",
+          "event": "미혼 기혼 엇갈린",
           "entities": [],
           "eventKey": null,
-          "text": "economy | 경제성장률 | 성장률 변화"
+          "text": "economy | 축의금 얼마가"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "미혼·기혼 차이\n축의금",
+            "lines": [
+              "미혼·기혼 차이",
+              "축의금"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "미혼·기혼 차이\n축의금",
+          "lines": [
+            "미혼·기혼 차이",
+            "축의금"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "결혼식 축의금에 대한 설문에서 미혼 500명은 평균 13만원, 기혼 500명은 평균 29만원을 제시해 두 그룹 간 금액 차이가 2배 이상임이 밝혀졌습니다.📰",
+            "미혼 응답자는 친분과 교류 기간을, 기혼 응답자는 과거 결혼식 경험과 동반자 여부 등을 주요 판단 기준으로 꼽았습니다.",
+            "결혼 정보 회사는 기혼자는 실제 결혼 경험을 통해 물가 체감이 반영되고, 부부가 함께 참석해 식비 부담이 커져 축의금 수준이 높아진다고 분석했습니다.📰"
+          ],
+          "text": "결혼식 축의금에 대한 설문에서 미혼 500명은 평균 13만원, 기혼 500명은 평균 29만원을 제시해 두 그룹 간 금액 차이가 2배 이상임이 밝혀졌습니다.📰\n\n미혼 응답자는 친분과 교류 기간을, 기혼 응답자는 과거 결혼식 경험과 동반자 여부 등을 주요 판단 기준으로 꼽았습니다.\n\n결혼 정보 회사는 기혼자는 실제 결혼 경험을 통해 물가 체감이 반영되고, 부부가 함께 참석해 식비 부담이 커져 축의금 수준이 높아진다고 분석했습니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #축의금 #결혼식 #가구소득 #얼마가 #미혼 #기혼",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#축의금",
+            "#결혼식",
+            "#가구소득",
+            "#얼마가",
+            "#미혼",
+            "#기혼"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#축의금",
+              "#결혼식",
+              "#가구소득",
+              "#얼마가",
+              "#미혼",
+              "#기혼"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:markets-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-08-28T00:49:44.766Z",
+        "assetPath": "assets/fallback/generated/markets-01.png",
+        "sha256": "f72443d8b2e980963907ccd94e9063410f83aaeb2dc0675a0e442b50368056c2",
+        "localSha256": "f72443d8b2e980963907ccd94e9063410f83aaeb2dc0675a0e442b50368056c2",
+        "generatedTopic": "markets",
+        "generatedEnergy": "calm",
+        "description": "Emerald abstract market chart installation and trading desk details.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "wedding couple marriage ceremony",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:29891244",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37951746",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38963323",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35556972",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:15511100",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:1393471",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:15686008",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:11505178",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:4374430",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:27743346",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37821002",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:9197331",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:27008987",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:29237371",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:26673441",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:19270483",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38270664",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "couple"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38630291",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:9674085",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38979805",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.8375
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "wedding couple marriage ceremony",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:JZB-sebrKa4",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:dvF6s1H1x68",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:mUYjrnQLrSA",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:y4bE8ST_CTg",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:wVGTTgUazFQ",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:TMYqBuDhOrs",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:J8NztVoqIU0",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:5HVsvoH-qYU",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:6RhtS98AV-w",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:YsCj8eluO-Y",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:BJrbQpEshtY",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:nKJzYDP10Zw",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:WTuYfjSrAxo",
+                "rankWithinQuery": 13,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:TxWPS-hk_Yc",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:SnCt5JwPj00",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:xLWWmFTqj8Y",
+                "rankWithinQuery": 16,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:aFs0E6gW3k8",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:vRRWhH5FXC4",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:opcnK9Oh0fE",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cpvC2ki47e8",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7875
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "wedding couple marriage ceremony",
+            "count": 3,
+            "suitableCount": 0,
+            "suitabilityRejected": 3,
+            "suitabilityRejections": [
+              {
+                "id": "openverse:410030cb-5880-40cc-be71-e0ba8ee3cd09",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "openverse:ef8dee83-3eb3-49de-ac32-5b9a66b802dd",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "couple",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "openverse:86c8a6f7-88cf-42ea-9a83-9a052677cf2c",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.8563
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "wedding couple marriage ceremony",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:36631561",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:134789509",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:47261890",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding",
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126411",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126416",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190129842",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "couple",
+                  "marriage"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190115623",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126388",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126399",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126405",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126429",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126437",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126451",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126454",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126469",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126485",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126489",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126492",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:190126501",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "marriage",
+                  "ceremony"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:1700770",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "wedding",
+                  "couple",
+                  "marriage",
+                  "ceremony"
+                ],
+                "matchedConcreteTokens": [
+                  "wedding"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7462
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 30,
+          "recentKeyCount": 79,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:markets-01",
+            "f72443d8b2e980963907ccd94e9063410f83aaeb2dc0675a0e442b50368056c2"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated markets asset markets-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+        "mood": "serious",
+        "title": "Moment of Peace",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/solo-piano-moment-of-peace-mickeyscat-554494/",
+        "sha256": "2cbc249e7f038abbca64a6d849c0c37c29d132b2088171b715c0055d5339cfed",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-28T00:49:53.305Z"
       },
       "story": {
         "status": "planned",
@@ -8278,6 +10718,68 @@
           "limit": 3,
           "remaining": 2
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-28/economy/economy-cover.png",
+        "coverSha256": "ee4048db3e37656bf1a6ea004f54dba523c9157dca820bf36e24b44010afedb2",
+        "followCtaPath": ".diem-cache/2026-08-28/economy/economy-follow-cta.png",
+        "followCtaSha256": "0f546261404f69aa547b9ebd018ffd3bb8bb367e9342c57e6d978d2d999a6185",
+        "reelPath": ".diem-cache/2026-08-28/economy/economy-reel.mp4",
+        "reelSha256": "7887ccf2fe5c5aebdf45e88a0f8d70ff0ed3e6d6cc4b11626051b8018deb22b4",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "“한 달 대출 이자만 수백만 원”…정기 예금은 3%대 요지부동? [잇슈 머니]",
+            "url": "https://n.news.naver.com/article/056/0012246309?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 4.38% in \"8월 27일 기준금리 2.75%에서 3.00%로 0.25%p 인상됐으며, 7월 코픽스는 3.18%로 4개월 연속 상승해 KB국민은행 변동형 주담\"; 4.69% in \"8월 27일 기준금리 2.75%에서 3.00%로 0.25%p 인상됐으며, 7월 코픽스는 3.18%로 4개월 연속 상승해 KB국민은행 변동형 주담\"; 3.2% in \"하지만 예금 금리는 3.2% 수준에 머물러 예대금리 차이가 2% 이상 벌어지고, 대출자는 금리 상승 부담을, 예금자는 낮은 수익률을 동시에 겪는\" | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 4.38% in \"8월 27일 기준금리 2.75%에서 3.00%로 0.25%p 인상됐으며, 7월 코픽스는 3.18%로 4개월 연속 상승해 KB국민은행 변동형 주담\"; 4.69% in \"8월 27일 기준금리 2.75%에서 3.00%로 0.25%p 인상됐으며, 7월 코픽스는 3.18%로 4개월 연속 상승해 KB국민은행 변동형 주담\"; 3.2% in \"하지만 예금 금리는 3.2% 수준에 머물러 예대금리 차이가 2% 이상 벌어지고, 대출자는 금리 상승 부담을, 예금자는 낮은 수익률을 동시에 겪는\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-28T00:49:14.109Z"
+          }
+        ],
+        "updatedAt": "2026-08-28T00:49:31.401Z"
       }
     },
     "issue": {
