@@ -1,41 +1,41 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-29T19:13:49.292Z",
+  "generatedAt": "2026-08-29T23:57:48.673Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
   "publishedCount": 167,
   "operations": {
-    "totalRuns": 282,
+    "totalRuns": 284,
     "noPublishReasons": {
       "no_candidate_passed_editorial_generation": {
-        "count": 55,
-        "share": 51.4
+        "count": 56,
+        "share": 51.38
       },
       "no_candidate_passed_hotness_gate": {
-        "count": 43,
-        "share": 40.19
+        "count": 44,
+        "share": 40.37
       },
       "daily_publication_budget_exhausted": {
         "count": 5,
-        "share": 4.67
+        "share": 4.59
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
-        "share": 1.87
+        "share": 1.83
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 2,
-        "share": 1.87
+        "share": 1.83
       }
     },
     "candidateFailureReasons": {
       "editorial_generation_failed": {
-        "count": 76,
-        "share": 63.33
+        "count": 78,
+        "share": 63.93
       },
       "unknown": {
         "count": 44,
-        "share": 36.67
+        "share": 36.07
       }
     },
     "titleRepairFailures": 3,
@@ -855,7 +855,7 @@
       }
     },
     "72h": {
-      "sampleCount": 79,
+      "sampleCount": 80,
       "excludedLateBackfills": 74,
       "categories": {
         "economy": {
@@ -1287,17 +1287,17 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 42,
+          "samples": 43,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1639,
-            "viewsMedian": 1639,
-            "reachMedian": 1191.5,
+            "exposureMedian": 1632,
+            "viewsMedian": 1632,
+            "reachMedian": 1185,
             "savedRateMedian": 0,
-            "shareRateMedian": 0.09,
-            "engagementRateMedian": 1.75,
-            "averageWatchTimeMedian": 4445,
-            "followerDeltaEstimateMedian": 5.5
+            "shareRateMedian": 0.089,
+            "engagementRateMedian": 1.74,
+            "averageWatchTimeMedian": 4366,
+            "followerDeltaEstimateMedian": 5
           },
           "winners": [
             {
@@ -1588,63 +1588,63 @@
               "feature": "event:housing_policy",
               "samples": 2,
               "exposureMedian": 2767,
-              "lift": 1.688,
+              "lift": 1.695,
               "signal": "insufficient_data"
             },
             {
               "feature": "public_decision",
-              "samples": 20,
-              "exposureMedian": 1863,
-              "lift": 1.137,
+              "samples": 21,
+              "exposureMedian": 1787,
+              "lift": 1.095,
               "signal": "neutral"
             },
             {
               "feature": "housing_money",
               "samples": 5,
               "exposureMedian": 1646,
-              "lift": 1.004,
+              "lift": 1.009,
               "signal": "neutral"
             },
             {
               "feature": "event:general",
-              "samples": 40,
-              "exposureMedian": 1639,
+              "samples": 41,
+              "exposureMedian": 1632,
               "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
-              "samples": 41,
-              "exposureMedian": 1632,
-              "lift": 0.996,
+              "samples": 42,
+              "exposureMedian": 1624,
+              "lift": 0.995,
               "signal": "neutral"
             },
             {
               "feature": "market_shock",
               "samples": 1,
               "exposureMedian": 1487,
-              "lift": 0.907,
+              "lift": 0.911,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:public_interest",
-              "samples": 2,
-              "exposureMedian": 209.5,
-              "lift": 0.128,
-              "signal": "insufficient_data"
+              "samples": 3,
+              "exposureMedian": 237,
+              "lift": 0.145,
+              "signal": "underperformer"
             },
             {
               "feature": "reader_need:work",
               "samples": 1,
               "exposureMedian": 169,
-              "lift": 0.103,
+              "lift": 0.104,
               "signal": "insufficient_data"
             },
             {
               "feature": "work_life",
               "samples": 1,
               "exposureMedian": 169,
-              "lift": 0.103,
+              "lift": 0.104,
               "signal": "insufficient_data"
             }
           ],
