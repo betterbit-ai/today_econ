@@ -4,7 +4,7 @@
   "date": "2026-08-29",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-28T15:55:36.365Z",
-  "updatedAt": "2026-08-29T10:47:36.807Z",
+  "updatedAt": "2026-08-29T10:47:50.746Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -12025,7 +12025,7 @@
     "economy": {
       "publicationKey": "diem:2026-08-29:economy:33248535278",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "복권 긁다 “어, 5천원 됐네” 대수롭지 않게 여겼는데…1등 5억원 대박",
         "url": "https://n.news.naver.com/article/009/0005727462?ntype=RANKING",
@@ -12198,15 +12198,176 @@
           "text": "economy | 복권 긁다 | 전환 | 5천원 1등 5억원"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "복권 1등 당첨\n5억원 수령",
+            "lines": [
+              "복권 1등 당첨",
+              "5억원 수령"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "복권 1등 당첨\n5억원 수령",
+          "lines": [
+            "복권 1등 당첨",
+            "5억원 수령"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "서울 성북구 복권 판매점에서 스피또1000 복권 7장을 구입한 A씨가 스크래치를 긁은 뒤 1등에 당첨돼 5억원의 당첨금을 받았다.📰",
+            "수술 후 회복 중이던 A씨는 산책 겸 스피또1000 복권 7장을 구입했으며, 당첨금을 5천원으로 오해했다가 실제 5억원이라는 사실을 확인했다.",
+            "스피또1000은 즉석 긁는 복권으로 1등 당첨금이 5억원이며, 당첨자는 대출 상환 등 재정적 부담을 해소하는 데 활용할 수 있다.📰"
+          ],
+          "text": "서울 성북구 복권 판매점에서 스피또1000 복권 7장을 구입한 A씨가 스크래치를 긁은 뒤 1등에 당첨돼 5억원의 당첨금을 받았다.📰\n\n수술 후 회복 중이던 A씨는 산책 겸 스피또1000 복권 7장을 구입했으며, 당첨금을 5천원으로 오해했다가 실제 5억원이라는 사실을 확인했다.\n\n스피또1000은 즉석 긁는 복권으로 1등 당첨금이 5억원이며, 당첨자는 대출 상환 등 재정적 부담을 해소하는 데 활용할 수 있다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #복권 #당첨 #스피또1000 #재정 #5천원 #1등",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#복권",
+            "#당첨",
+            "#스피또1000",
+            "#재정",
+            "#5천원",
+            "#1등"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#복권",
+              "#당첨",
+              "#스피또1000",
+              "#재정",
+              "#5천원",
+              "#1등"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "title_generation",
+              "status": "failed",
+              "error": "model returned no valid title candidates for article frame"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "title_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:markets-03",
+        "source": "diem-generated",
+        "selectedAt": "2026-08-29T10:47:43.819Z",
+        "assetPath": "assets/fallback/generated/markets-03.png",
+        "sha256": "472aafc494a283bedae921f55881e89ee9144517fef7ad936ff19570e9f46bf0",
+        "localSha256": "472aafc494a283bedae921f55881e89ee9144517fef7ad936ff19570e9f46bf0",
+        "generatedTopic": "markets",
+        "generatedEnergy": "dynamic",
+        "description": "Crimson and cobalt market-volatility lines on dark glass.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 30,
+          "recentKeyCount": 61,
+          "blockedCandidateCount": 2,
+          "selectedImageKeys": [
+            "diem-generated:markets-03",
+            "472aafc494a283bedae921f55881e89ee9144517fef7ad936ff19570e9f46bf0"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated markets asset markets-03 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-driving-ambition-32",
+        "mood": "bright",
+        "title": "Driving Ambition",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-driving-ambition-32.mp3",
+        "sha256": "b7324d6677ec17155282f09f429e802c49a74f5f1b7d167e7fa7c0b95e982e8d",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-29T10:47:50.732Z"
       },
       "story": {
         "status": "planned",
@@ -12287,6 +12448,15 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-29/economy/economy-cover.png",
+        "coverSha256": "070f9b193ef11774275b6e568f69f44792d54efa06d0116a8f421103dec428c6",
+        "followCtaPath": ".diem-cache/2026-08-29/economy/economy-follow-cta.png",
+        "followCtaSha256": "8665bd618aeab7f7a7f3fcb8c514e487cd7181bd688aaae9d56eb4be3d401e0c",
+        "reelPath": ".diem-cache/2026-08-29/economy/economy-reel.mp4",
+        "reelSha256": "2eb050d86d278c827b93d78c39f6369757ade25dddde16b41f5c60c5891fbce5",
+        "temporary": true
       }
     },
     "issue": {
