@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 161편
-- 생성 시각: 2026-08-28T15:57:10.799Z
+- 발행 원장 Reel: 163편
+- 생성 시각: 2026-08-29T00:26:55.920Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -10,17 +10,17 @@
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
   - 부진 후보: ETF·ETN / 핵심 차이(133), 주차 로봇 / 아파트 도입(145), 서울 아파트값 / 16억 돌파(148), 현대차 노사 / 잠정합의 확정(154), 삼성 / LPDDR5X 공개(156)
   - 특성 신호: reader_need:public_interest insufficient_data×3.1, event:interest_rate insufficient_data×2.95, macro_indicator insufficient_data×2.95, event:semiconductor winner×2.16, event:ipo insufficient_data×1.51, event:market_move insufficient_data×1.2, market_shock insufficient_data×1.2, company_event insufficient_data×1.08
-- issue: 표본 37편 · 노출 중앙값 1,601 · 공유율 0.09% · 저장률 0%
+- issue: 표본 38편 · 노출 중앙값 1,573 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
   - 부진 후보: 3인 가족 / 수수료 급등(157), 광복연휴 비예보 / 폭염 예상(173), 장동혁 발언 / 당원 주권 확대(178), 백화점 난동 / 5년 형 선고(189), 네팔 대홍수 / 사망자 270명(219)
-  - 특성 신호: event:housing_policy insufficient_data×1.69, market_shock insufficient_data×0.92, reader_need:public_interest underperformer×0.14, reader_need:work insufficient_data×0.1, work_life insufficient_data×0.1
+  - 특성 신호: event:housing_policy insufficient_data×1.72, market_shock insufficient_data×0.94, reader_need:public_interest underperformer×0.14, reader_need:work insufficient_data×0.1, work_life insufficient_data×0.1
 - 정시 비교에서 제외한 늦은 백필: 84편
 
 ## 72h
-- economy: 표본 35편 · 노출 중앙값 717 · 공유율 0% · 저장률 0%
+- economy: 표본 36편 · 노출 중앙값 651 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
   - 부진 후보: ETF·ETN / 핵심 차이(134), 서울 아파트값 / 16억 돌파(151), 주차 로봇 / 아파트 도입(152), 통영 폭우 / 도로·공장 붕괴(162), SK하이닉스 / 합의 부결(165)
-  - 특성 신호: event:semiconductor winner×2.77, event:interest_rate insufficient_data×2.13, macro_indicator insufficient_data×2.13, event:general winner×1.85, event:market_move insufficient_data×1.17, market_shock insufficient_data×1.17, event:ipo insufficient_data×1.12, company_event insufficient_data×0.81
+  - 특성 신호: event:semiconductor winner×3.05, event:interest_rate insufficient_data×2.35, macro_indicator insufficient_data×2.35, event:general winner×1.46, event:market_move insufficient_data×1.28, market_shock insufficient_data×1.28, event:ipo insufficient_data×1.23, company_event insufficient_data×0.89
 - issue: 표본 40편 · 노출 중앙값 1,649 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 북 미사일 발사 / 김여정 조롱(5,393), 한동훈 흉기 / 징역 1년 확정(3,959)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(176), 백화점 난동 / 5년 형 선고(199), 전장연·시의회 / 타협 발표(237), 롤스로이스 / 주차 빌런 보도(461), 대전시 / 공공기관2차선점전(479)
@@ -28,20 +28,20 @@
 - 정시 비교에서 제외한 늦은 백필: 74편
 
 ## 7d
-- economy: 표본 37편 · 노출 중앙값 1,438 · 공유율 0.09% · 저장률 0.07%
+- economy: 표본 39편 · 노출 중앙값 1,375 · 공유율 0.09% · 저장률 0.07%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: 주차 로봇 / 아파트 도입(165), 통영 폭우 / 도로·공장 붕괴(165), 서초·강남 / 2주 연속 하락(180), 미니 드라이버 / 기아 에어백(183), 중국인 추납 / 연금 논란(185)
-  - 특성 신호: event:semiconductor insufficient_data×1.48, event:interest_rate insufficient_data×1.32, macro_indicator insufficient_data×1.32, event:ipo insufficient_data×0.56, company_event insufficient_data×0.41, event:insurance_premium insufficient_data×0.13
-- issue: 표본 48편 · 노출 중앙값 1,638.5 · 공유율 0.11% · 저장률 0%
+  - 특성 신호: event:semiconductor insufficient_data×1.55, event:interest_rate insufficient_data×1.38, macro_indicator insufficient_data×1.38, event:market_move insufficient_data×0.64, market_shock insufficient_data×0.64, event:ipo insufficient_data×0.58, company_event insufficient_data×0.42, event:insurance_premium insufficient_data×0.14
+- issue: 표본 49편 · 노출 중앙값 1,647 · 공유율 0.12% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 광복연휴 비예보 / 폭염 예상(180), 백화점 난동 / 5년 형 선고(205), 이주노동자 / 폭염 작업(314), 세종시 환경원 / 트럭 가득(428), 형사소송법 / 보완수사권폐지(444)
   - 특성 신호: market_shock insufficient_data×0.91, event:legislation underperformer×0.29, work_life insufficient_data×0.19
-- 정시 비교에서 제외한 늦은 백필: 36편
+- 정시 비교에서 제외한 늦은 백필: 37편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 24.84%
-- 생성 배경 폴백률: 8.7% · 전체 폴백률: 33.54%
-- 이미지 공급원: pexels 96편, diem-original 40편, diem-generated 14편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 24.54%
+- 생성 배경 폴백률: 9.82% · 전체 폴백률: 34.36%
+- 이미지 공급원: pexels 96편, diem-original 40편, diem-generated 16편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 76건, unknown 44건
