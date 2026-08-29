@@ -365,6 +365,25 @@ DIEM의 과거·신규 Reel 성과를 같은 관찰 구간끼리 비교해 잘�
 
 ## Constraints
 
+### Life-critical audio gate
+
+1. Stories involving death, missing people, searches, rescue operations,
+   serious injury, fire, explosion, collapse, flooding, or other immediate
+   threats to life must never use a `bright` track.
+2. These stories rotate only through manifest tracks explicitly reviewed and
+   marked `sensitiveEligible: true` with mood `serious`.
+3. If no reviewed serious asset passes file and hash verification, publish with
+   silence instead of falling back to a bright or celebratory track.
+4. Search detection must ignore law-enforcement phrases such as
+   `압수수색` and `수색영장`, which do not describe a missing-person search.
+
+- [x] A missing-person search selects a reviewed serious track even when the
+  article also contains positive words such as support or rescue.
+- [x] A death or memorial story selects a reviewed serious track rather than
+  the former automatic-silence path.
+- [x] A life-critical story cannot fall back to a bright track when reviewed
+  serious audio is unavailable.
+
 - 별도 DB, 상시 유료 서버, 신규 유료 이미지·분석 서비스를 추가하지 않는다.
 - GitHub 원장과 Actions, 기존 Instagram Graph API와 Slack을 사용한다.
 - 한 건의 바이럴이나 부진 Reel로 주제를 금지하거나 자동 전략을 확정하지 않는다.

@@ -65,16 +65,45 @@ test('rotates the least-used track and excludes the previous track', () => {
   assert.ok(ranked.every(track => track.id !== 'bright1'));
 });
 
-test('uses silence for sensitive topics', () => {
+test('uses only curated somber tracks for life-critical topics', () => {
+  assert.equal(isSensitiveTopic({ title: '\uB124\uD314\uAD70 \uD5EC\uAE30 \uD55C\uAD6D\uC778 9\uBA85 \uC218\uC0C9' }), true);
+  assert.equal(isSensitiveTopic({ title: '\uAC80\uCC30 \uC555\uC218\uC218\uC0C9 \uACB0\uACFC \uBC1C\uD45C' }), false);
+  assert.equal(isSensitiveTopic({ title: '\uAC80\uCC30 \uC555\uC218 \uC218\uC0C9 \uACB0\uACFC \uBC1C\uD45C' }), false);
   assert.equal(isSensitiveTopic({ title: '산불 희생자 애도 기간 선포' }), true);
   const selection = selectMusic({
     category: 'issue',
-    topic: { title: '지진 피해와 희생자 추모' },
+    topic: {
+      title: '\uB124\uD314\uAD70 \uD5EC\uAE30 \uB744\uC6CC \uD55C\uAD6D\uC778 9\uBA85 \uC218\uC0C9',
+      summary: '\uAD6C\uC870 \uC9C0\uC6D0\uC774 \uACC4\uC18D\uB41C\uB2E4',
+    },
+    mood: 'bright',
     publicationKey: 'diem:2026-07-25:issue',
+  });
+  assert.equal(selection.mode, 'track');
+  assert.equal(selection.mood, 'serious');
+  assert.equal(selection.sensitive, true);
+  assert.ok(selection.candidates.length >= 2);
+  assert.ok(selection.candidates.every(track => track.mood === 'serious'));
+  assert.ok(new Set([
+    'mixkit-serene-view-443',
+    'pixabay-mickeyscat-moment-of-peace-mickeyscat-554494',
+  ]).has(selection.trackId));
+  assert.match(selection.reason, /sensitive topic requires somber audio/);
+});
+
+test('falls back to silence rather than a bright track when somber audio is unavailable', () => {
+  const selection = selectMusic({
+    category: 'issue',
+    topic: { title: '\uC2E4\uC885\uC790 \uC0DD\uC0AC \uD604\uC7A5 \uC218\uC0C9' },
+    publicationKey: 'diem:2026-08-29:issue',
+    manifest: {
+      schemaVersion: 1,
+      tracks: [{ id: 'bright-only', filename: 'bright1.mp3', mood: 'bright' }],
+    },
   });
   assert.equal(selection.mode, 'silent');
   assert.equal(selection.trackId, null);
-  assert.match(selection.reason, /sensitive/);
+  assert.match(selection.reason, /no verified somber audio/);
 });
 
 test('builds a seven-second Reel with a soft fade into the final follow sticker', () => {
