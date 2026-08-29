@@ -4,7 +4,7 @@
   "date": "2026-08-30",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-29T16:56:55.735Z",
-  "updatedAt": "2026-08-29T16:57:06.532Z",
+  "updatedAt": "2026-08-29T16:57:40.668Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -1695,7 +1695,7 @@
     "issue": {
       "publicationKey": "diem:2026-08-30:issue:33264226815",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "한국 등 4개국만 '현장 투입' 허용…우리 국민 수색 본격화",
         "url": "https://n.news.naver.com/article/437/0000508501?ntype=RANKING",
@@ -1865,15 +1865,176 @@
           "text": "issue | 한국 4개국만 | 지원 | 4개국만"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "네팔 현장 투입\n4개국 허용",
+            "lines": [
+              "네팔 현장 투입",
+              "4개국 허용"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "네팔 현장 투입\n4개국 허용",
+          "lines": [
+            "네팔 현장 투입",
+            "4개국 허용"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "네팔은 한국을 포함한 4개국만 현장 투입을 허용하고 오늘부터 한국 헬기 2대가 수색을 시작했습니다.📰",
+            "각 헬기에는 4명씩 탑승한 신속대응팀이 동원돼 실종된 9명을 찾고 있습니다.",
+            "네팔은 초기 외국 지원 거부를 번복해 4개국에만 기술 전문가 현장 진입을 제한적으로 승인했습니다.📰"
+          ],
+          "text": "네팔은 한국을 포함한 4개국만 현장 투입을 허용하고 오늘부터 한국 헬기 2대가 수색을 시작했습니다.📰\n\n각 헬기에는 4명씩 탑승한 신속대응팀이 동원돼 실종된 9명을 찾고 있습니다.\n\n네팔은 초기 외국 지원 거부를 번복해 4개국에만 기술 전문가 현장 진입을 제한적으로 승인했습니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #네팔 #수색 #외국지원 #한국 #4개국만 #지원",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#네팔",
+            "#수색",
+            "#외국지원",
+            "#한국",
+            "#4개국만",
+            "#지원"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#네팔",
+              "#수색",
+              "#외국지원",
+              "#한국",
+              "#4개국만",
+              "#지원"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 8명 in \"네팔 정부가 한국을 포함한 4개국에만 현장 투입을 허용해 오늘부터 헬기 2대와 8명의 신속대응팀이 수색을 본격화했다\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:public-interest-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-08-29T16:57:32.034Z",
+        "assetPath": "assets/fallback/generated/public-interest-01.png",
+        "sha256": "6cd1c1a1fac84497a0f730a78b497ad83844c2938aac9c30ba5cb9a6a486f807",
+        "localSha256": "6cd1c1a1fac84497a0f730a78b497ad83844c2938aac9c30ba5cb9a6a486f807",
+        "generatedTopic": "public-interest",
+        "generatedEnergy": "calm",
+        "description": "Green urban park safety response scene without people or animals.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 22,
+          "recentKeyCount": 44,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:public-interest-01",
+            "6cd1c1a1fac84497a0f730a78b497ad83844c2938aac9c30ba5cb9a6a486f807"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated public-interest asset public-interest-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-serene-view-443",
+        "mood": "serious",
+        "title": "Serene View",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-serene-view-443.mp3",
+        "sha256": "93baae1bea4748b0a36d8a8b2d2af1c9391d3abb5e18f2bff270ea91d9a0fd31",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-29T16:57:40.659Z"
       },
       "story": {
         "status": "planned",
@@ -1949,6 +2110,15 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-30/issue/issue-cover.png",
+        "coverSha256": "ec024de604c95c44225caf56b30d10b75e12bf0df06a2e9bd67996e24aa59e62",
+        "followCtaPath": ".diem-cache/2026-08-30/issue/issue-follow-cta.png",
+        "followCtaSha256": "35811f75393a01041c9dd07270ab0e5a8045170c3e7c8a4df6ef9e5d0bfdde4a",
+        "reelPath": ".diem-cache/2026-08-30/issue/issue-reel.mp4",
+        "reelSha256": "9653e554efe2a564a94755b25017434f056361f447bbb598535996b78f19ff74",
+        "temporary": true
       }
     }
   },
