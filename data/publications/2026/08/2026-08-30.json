@@ -4,7 +4,7 @@
   "date": "2026-08-30",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-29T16:56:55.735Z",
-  "updatedAt": "2026-08-29T19:12:34.086Z",
+  "updatedAt": "2026-08-29T19:13:00.591Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -3458,7 +3458,7 @@
     "economy": {
       "publicationKey": "diem:2026-08-30:economy:33270150391",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "방범창 뜯고 사다리차까지…이웃들이 불길 뚫고 구조",
         "url": "https://n.news.naver.com/article/057/0001966255?ntype=RANKING",
@@ -3619,15 +3619,375 @@
           "text": "economy | 주거 정책"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "인천 화재\n이웃 구조",
+            "lines": [
+              "인천 화재",
+              "이웃 구조"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "인천 화재\n이웃 구조",
+          "lines": [
+            "인천 화재",
+            "이웃 구조"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "인천 연수구 옥련동 다가구 주택에서 화재가 발생해 1명이 사망하고 4명이 부상했습니다.📰",
+            "이웃이 방범창을 맨손으로 뜯어 아이들을 구하고 사다리차를 이용해 3층 주민을 구조했습니다.",
+            "화재는 밤 10시 55분경 1층에서 시작돼 급속히 번졌으며, 구조 활동이 인명 피해를 크게 줄였습니다.📰"
+          ],
+          "text": "인천 연수구 옥련동 다가구 주택에서 화재가 발생해 1명이 사망하고 4명이 부상했습니다.📰\n\n이웃이 방범창을 맨손으로 뜯어 아이들을 구하고 사다리차를 이용해 3층 주민을 구조했습니다.\n\n화재는 밤 10시 55분경 1층에서 시작돼 급속히 번졌으며, 구조 활동이 인명 피해를 크게 줄였습니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #화재 #인천 #이웃구조 #주거 #정책 #이웃들이",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#화재",
+            "#인천",
+            "#이웃구조",
+            "#주거",
+            "#정책",
+            "#이웃들이"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#화재",
+              "#인천",
+              "#이웃구조",
+              "#주거",
+              "#정책",
+              "#이웃들이"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 22 in \"불은 22시 55분경 1층에서 시작돼 급속히 번졌고, 이웃은 방범창을 부수어 3층까지 올라가 사다리차를 이용해 남은 주민을 구조했으며, 총 5명\"; 5명 in \"불은 22시 55분경 1층에서 시작돼 급속히 번졌고, 이웃은 방범창을 부수어 3층까지 올라가 사다리차를 이용해 남은 주민을 구조했으며, 총 5명\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:housing-02",
+        "source": "diem-generated",
+        "selectedAt": "2026-08-29T19:12:52.508Z",
+        "assetPath": "assets/fallback/generated/housing-02.png",
+        "sha256": "5aa2ff85dfc989dc04689d1faa08fe186b430eeb00152ac2d8fb5a7764825017",
+        "localSha256": "5aa2ff85dfc989dc04689d1faa08fe186b430eeb00152ac2d8fb5a7764825017",
+        "generatedTopic": "housing",
+        "generatedEnergy": "calm",
+        "description": "Warm apartment skyline, blank property folder and key at amber dusk.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "real estate modern apartment building",
+            "count": 19,
+            "suitableCount": 14,
+            "suitabilityRejected": 5,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:4082527",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:13812522",
+                "rankWithinQuery": 15,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:35834851",
+                "rankWithinQuery": 17,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18553239",
+                "rankWithinQuery": 18,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:27307400",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "real",
+                  "estate",
+                  "modern",
+                  "apartment",
+                  "building"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 14,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.74
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "real estate modern apartment building",
+            "count": 5,
+            "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 24,
+          "recentKeyCount": 46,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:housing-02",
+            "5aa2ff85dfc989dc04689d1faa08fe186b430eeb00152ac2d8fb5a7764825017"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated housing asset housing-02 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-serene-view-443",
+        "mood": "serious",
+        "title": "Serene View",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-serene-view-443.mp3",
+        "sha256": "93baae1bea4748b0a36d8a8b2d2af1c9391d3abb5e18f2bff270ea91d9a0fd31",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-29T19:13:00.580Z"
       },
       "story": {
         "status": "planned",
@@ -3704,6 +4064,15 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-30/economy/economy-cover.png",
+        "coverSha256": "ff57cd90749f7e9889bac18243de01153cf001531d08ea57021835ae2997db2f",
+        "followCtaPath": ".diem-cache/2026-08-30/economy/economy-follow-cta.png",
+        "followCtaSha256": "6d927b1bf7767249e0abcb565b08ad3dfee8cb2d1594a837a521d2803a93547c",
+        "reelPath": ".diem-cache/2026-08-30/economy/economy-reel.mp4",
+        "reelSha256": "a0fa8b149c3eb595c719611221fabb7b470cf0190a5be271357d1dfd42fde44a",
+        "temporary": true
       }
     },
     "issue": {
