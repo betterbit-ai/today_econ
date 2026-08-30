@@ -4,7 +4,7 @@
   "date": "2026-08-31",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-30T17:04:07.956Z",
-  "updatedAt": "2026-08-30T19:04:00.796Z",
+  "updatedAt": "2026-08-30T19:05:28.197Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -46,7 +46,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: editorial repair failed: model returned invalid sentence structure)"
+      ]
     },
     {
       "title": "네팔 대홍수서 구조된 두산 현장소장 “사방에 물보라…현장 남아 수색 돕겠다”",
@@ -82,7 +84,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "김민석, ‘여론조사 조작 의혹’ 유튜버 긴급 감찰 지시",
@@ -120,7 +124,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "‘비동의간음죄’ 용혜인 기용…김재섭 “갈라치기 선동가”",
@@ -158,7 +164,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "금감원, 미래에셋증권 고강도 검사…스페이스X 영업행위 초점",
@@ -3707,24 +3715,24 @@
     "economy": {
       "publicationKey": "diem:2026-08-31:economy:33329694270",
       "category": "economy",
-      "status": "planned",
+      "status": "retry_pending",
       "candidate": {
-        "title": "집값 오르는데…李 “주택가격 폭락 대비해 공공주택 대량 매입”",
-        "url": "https://n.news.naver.com/article/366/0001189201?ntype=RANKING",
+        "title": "금감원, 미래에셋증권 고강도 검사…스페이스X 영업행위 초점",
+        "url": "https://n.news.naver.com/article/366/0001189198?ntype=RANKING",
         "publishedDate": "2026-08-31",
-        "publishedAt": "2026-08-30 17:31:11",
+        "publishedAt": "2026-08-30 17:13:11",
         "observedAt": "2026-08-30T19:03:51.707Z",
-        "popularityScore": 100,
+        "popularityScore": 91.9184,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 86.5,
-          "popularityScore": 100,
+          "score": 80.56,
+          "popularityScore": 91.9184,
           "freshnessScore": 70,
-          "editorialValueScore": 70,
-          "ageHours": 10.54,
-          "publishedAt": "2026-08-30 17:31:11",
+          "editorialValueScore": 60,
+          "ageHours": 10.86,
+          "publishedAt": "2026-08-30 17:13:11",
           "observedAt": "2026-08-30T19:03:51.707Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -3743,45 +3751,50 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 1,
-            "normalizedScore": 100,
-            "title": "집값 오르는데…李 “주택가격 폭락 대비해 공공주택 대량 매입”",
-            "url": "https://n.news.naver.com/article/366/0001189201?ntype=RANKING"
+            "rank": 5,
+            "normalizedScore": 91.9184,
+            "title": "금감원, 미래에셋증권 고강도 검사…스페이스X 영업행위 초점",
+            "url": "https://n.news.naver.com/article/366/0001189198?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "대출연체, 투기수요 억제 등으로 집값 폭락 전망3년간 인허가·착공 급감 두고 서울시와 책임공방“서울 수도권 주택 조기 대량공급 반드시” 이재명 대통령이 30일 “주택가격이 폭락할 경우에 대비해 공공주택 보유용으로 일정기준 이하의 주택을 대량 매입하는 시스템을 준비하도록 지시했다”고 밝혔다. 서울 집값과 전셋값이 계속 오르고 정부 부동산 정책이 국정 지지율 급락의 원인으로 꼽히고 있지만, 정부의 대량 공급 등에 따라 집값이 폭락할 거란 뜻이다. 이재명 대통령. /대통령실 제공 이 대통령은 이날 X(옛 트위터)에 “국민주권정부는 망국적 부동산 투기를 무슨 수를 써서라도 반드시 타파할 것”이라며 이렇게 말했다. 그러면서 “부동산 투기를 부추기는 것으로 드러난 불공정하고 불합리한 조세제도 역시 조세정의 차원에서라도 반드시 시정할 것”이라고 했다.집값 폭락 전망의 근거로는 ▲조기 대량 공급 ▲투기수요 억제 ▲고금리에 의한 대출 연체와 경매 폭증 등을 들었다. 그러면서 “주택담보대출 연체와 경매물건이 많이 늘고 있다. 낙찰율도 관심가져 보시기 바란다”며 “정부는 금융, 세제 개혁은 물론이고, 주택 공급물량 와 신속한 공급에 국가역량을 총동원할 것”이라고 했다.이 대통령은 글로벌 투자은행 모건스탠리가 올해 한국 GDP 성장률 전망치를 3.4%로 상향조정하고, 한국은행이 내년 1분기 기준금리를 3.5%로 올릴 것으로 전망된다는 내용의 기사를 공유했다. 이어 “부동산 투기에 관심가진 분들은 6개월 후인 ‘내년 1분기 한은 금리 3.5% 예상’ 이 부분을 특히 유의하셔야 한다”고 했다. 기준금리가 오르면 주택담보대출 이자 부담이 높아져 경제적 불이익도 커진다는 취지다.“서울 수도권 주택 조기 대량공급 반드시 시행” 정부가 최근 발표한 ‘수도권 23만4000호’ 공급 계획에도 속도를 내겠다고 했다. 이 대통령은 “단기적으로 보면 주택건설의 조기 가 내수부족과 K자 성장의 한계를 극복하는 최적 수단”이라며 “서울 수도권의 주택 조기 대량 공급은 양수겸장(兩手兼將) 정책이라 반드시 시행한다”고 했다.또 “정부는 금융·세제 개혁은 물론이고, 주택 공급물량 와 신속한 공급에 국가 역량을 총동원할 것”이라며 “수도권 특히 서울은 2022년부터 3년 이상 주택 인허가와 착공이 급감했는데, 구청장에게 500세대 이하 규모 인허가권을 부여하는 등 조기 인허가와 착공에 각종 인센티브를 최대한 부여할 것”이라고 했다.최근 청와대·정부는 부동산 공급 방안을 두고 국민의힘 소속 오세훈 서울시장과 건건이 대립하고 있다. 서울시는 ‘최근 3년 주택 인허가 및 착공’이 급감한 것이 민주당 출신인 박원순 전 시장 책임이라고 주장하고 있다. 이 대통령은 이런 상황을 직접 언급하면서 “국토부의 주택공급 담당 인력을 늘리고, 가용택지는 소규모라도 최대한 추가로 발굴하도록 했다”고 말했다. 이어 “주택공급을 1채라도 더 늘리는 것이 실효적 주택정책인 동시에 수억원대 일자리, 복지정책임을 부처에 주지시키고 있다”고도 했다.한편 이 대통령은 같은 날 오전 부동산 정책 주무부처인 재정경제부, 국토교통부 장관을 교체했다. 신임 경제부총리 겸 재경부장관 후보자에는 이형일 현 재경부 1차관, 국토부 장관 후보자에는 홍지선 현 국토부 2차관이 지명됐다. 이 대통령은 또 벤처중소기업부·법무부·국방부·성평등가족부 장관 후보자에는 각각 더불어민주당 이소영·김승원 의원, 강신철 전 한미연합사 부사령관, 용혜인 기본소득당 의원을 지명했다.",
-        "summary": "대출연체, 투기수요 억제 등으로 집값 폭락 전망3년간 인허가·착공 급감 두고 서울시와 책임공방“서울 수도권 주택 조기 대량공급 반드시” 이재명 대통령이 30일 “주택가격이 폭락할 경우에 대비해 공공주택 보유용으로 일정기준 이하의 주택을 대량 매입하는 시스템을 준비하도록 지시했다”고 밝혔다. 서울 집값과 전셋값이 계속 오르고 정부 부동산 정책이 국정 지지율 급락의 원인으로 꼽히고 있지만, 정부의 대량 공급 등에 따라 집값이 폭락할 거란 뜻이다. 이재명 대통령. /대통령실 제공 이 대통령은 이날 X(옛 트위터)에 “국민주권정부는 망국적",
+        "fullText": "전문투자자 등록 권유 등 점검 예상 금융감독원이 미래에셋증권을 대상으로 거점점포의 불건전 영업행위와 관련한 고강도 검사에 착수한다. 스페이스X 공모 과정에서 고액자산가들에게 전문투자자 등록을 권유하는 등 부적절한 영업행위가 있었는지가 주요 검사 대상이 될 것으로 관측된다. 서울 중구 미래에셋증권 본점 모습. /뉴스1 30일 금융투자업계에 따르면 금융감독원은 다음 달 미래에셋증권의 거점점포를 대상으로 수시검사에 나선다. 해당 점포는 미래에셋증권의 초고액자산가 고객들이 집중된 곳이다.금융당국은 고위험 금융투자상품의 판매 절차와 내부통제 적정성 등을 집중적으로 살펴볼 것으로 알려졌다. 특히 지난 6월 스페이스X 공모 청약 과정에서 영업행위에 문제가 있었는지를 집중적으로 파악할 것으로 보인다.당시 미래에셋증권은 개인 및 법인 전문투자자를 대상으로 공모주 청약을 진행했다. 당초 일반 개인투자자를 대상으로 한 일반 공모 방식이 추진될 것으로 예상됐으나, 상장 예정 기업의 증권신고서 제출 등 현실적인 제약을 감안해 전문투자자 대상 공모 방식을 택했다는 관측이 대다수였다.문제는 이 과정에서 미래에셋증권 거점점포를 중심으로 일반 개인투자자에게 전문투자자 등록을 권유했을 가능성이다. 개인 전문투자자 등록은 지난 2019년 제도 개편을 거치며 소득·자산·투자경험 요건이 대폭 완화됐다. 당시 등록 심사기관도 금융투자협회에서 자산 1000억원 이상 금융투자업자로 변경됐다.다만 현행법상 금융회사는 일반투자자에게 전문투자자 등록을 먼저 권유할 수 없다. 이에 따라 투자자가 스스로 전문투자자 요건을 충족한다는 사실을 증명할 자료를 제출해야 한다. 금융당국은 미래에셋증권이 스페이스X 공모 청약을 진행한 기간에 전문투자자 등록이 늘어난 점에도 주목하고 있는 것으로 전해진다.이번 거점점포 검사 결과는 스페이스X 공모 ‘0주 배정’ 사태와 관련한 제재 수위에도 영향을 미칠 것으로 보인다. 거점점포를 중심으로 일반투자자에게 전문투자자 등록을 권유한 부적절한 영업행위가 확인될 경우 관련 제재 수위가 높아질 가능성도 있기 때문이다.",
+        "summary": "전문투자자 등록 권유 등 점검 예상 금융감독원이 미래에셋증권을 대상으로 거점점포의 불건전 영업행위와 관련한 고강도 검사에 착수한다. 스페이스X 공모 과정에서 고액자산가들에게 전문투자자 등록을 권유하는 등 부적절한 영업행위가 있었는지가 주요 검사 대상이 될 것으로 관측된다. 서울 중구 미래에셋증권 본점 모습. /뉴스1 30일 금융투자업계에 따르면 금융감독원은 다음 달 미래에셋증권의 거점점포를 대상으로 수시검사에 나선다. 해당 점포는 미래에셋증권의 초고액자산가 고객들이 집중된 곳이다.금융당국은 고위험 금융투자상품의 판매 절차와 내부통제",
         "topicSignature": {
           "category": "economy",
-          "target": "경제성장률",
-          "event": "성장률 변화",
+          "target": "금감원 미래에셋증권",
+          "event": "IPO 상장",
           "entities": [],
           "eventKey": null,
-          "text": "economy | 경제성장률 | 성장률 변화"
+          "text": "economy | 금감원 미래에셋증권 | IPO 상장"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "경제성장률",
+          "subject": "금감원 미래에셋증권",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "경제성장률",
-            "GDP",
-            "성장률"
+            "금감원",
+            "미래에셋증권"
           ],
-          "eventKind": "gdp",
-          "eventLabel": "성장률 변화",
+          "eventKind": "ipo",
+          "eventLabel": "IPO 상장",
           "eventTerms": [
-            "변화",
-            "성장",
-            "증가"
+            "IPO",
+            "상장"
           ],
           "eventKey": null,
-          "claimState": "tentative",
+          "claimState": "scheduled",
           "evidenceState": "established_or_not_stated",
           "date": "30일",
-          "requiredTitleTerms": [],
+          "requiredTitleTerms": [
+            "IPO",
+            "기업공개",
+            "상장",
+            "첫 거래",
+            "증시 데뷔",
+            "데뷔"
+          ],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
           "competitiveLeader": null,
@@ -3790,9 +3803,9 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 70,
+          "score": 60,
           "signals": [
-            "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
@@ -3800,56 +3813,63 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "경제성장률",
+            "subject": "금감원 미래에셋증권",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "경제성장률",
-              "GDP",
-              "성장률"
+              "금감원",
+              "미래에셋증권"
             ],
-            "eventKind": "gdp",
-            "eventLabel": "성장률 변화",
+            "eventKind": "ipo",
+            "eventLabel": "IPO 상장",
             "eventTerms": [
-              "변화",
-              "성장",
-              "증가"
+              "IPO",
+              "상장"
             ],
             "eventKey": null,
-            "claimState": "tentative",
+            "claimState": "scheduled",
             "evidenceState": "established_or_not_stated",
             "date": "30일",
-            "requiredTitleTerms": [],
+            "requiredTitleTerms": [
+              "IPO",
+              "기업공개",
+              "상장",
+              "첫 거래",
+              "증시 데뷔",
+              "데뷔"
+            ],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
             "readerNeed": "housing"
           },
-          "baseScore": 70,
+          "baseScore": 60,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "classified",
-            "category": "economy",
-            "excluded": [],
+            "status": "uncertain",
+            "category": null,
+            "excluded": [
+              "category_not_allowed"
+            ],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "verify_primary_article"
+            "reason": "uncertain_initial_classification"
           },
           "final": {
             "status": "classified",
@@ -3862,18 +3882,18 @@
       "corroboration": null,
       "duplicateCheck": {
         "duplicate": false,
-        "repeatOverride": true,
-        "score": 1,
+        "repeatOverride": false,
+        "score": 0.5597,
         "method": "embedding",
-        "reason": "material_follow_up",
-        "matchedPublicationKey": "diem:2026-08-30:economy:33270150391",
+        "reason": "below_threshold",
+        "matchedPublicationKey": "diem:2026-08-29:economy:33248535278",
         "signature": {
           "category": "economy",
-          "target": "경제성장률",
-          "event": "성장률 변화",
+          "target": "금감원 미래에셋증권",
+          "event": "IPO 상장",
           "entities": [],
           "eventKey": null,
-          "text": "economy | 경제성장률 | 성장률 변화"
+          "text": "economy | 금감원 미래에셋증권 | IPO 상장"
         }
       },
       "editorial": null,
@@ -3958,6 +3978,13 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "retry_pending",
+        "attempts": 2,
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for markets; typography fallback is disabled",
+        "updatedAt": "2026-08-30T19:05:28.192Z"
       }
     },
     "issue": {
