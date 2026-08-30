@@ -4,7 +4,7 @@
   "date": "2026-08-30",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-29T16:56:55.735Z",
-  "updatedAt": "2026-08-30T12:25:07.985Z",
+  "updatedAt": "2026-08-30T12:26:48.338Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -318,7 +318,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "잔해 속 희미한 울음소리…\"끌어올려!\" 6살 소녀 기적의 생환",
@@ -356,7 +358,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:narrow_or_local_issue"
+      ]
     },
     {
       "title": "\"실적 못채웠으니 스쾃 200개\"…중국 금융사 신입, 근육 괴사로 회사 신고",
@@ -392,7 +396,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "김용범 유임·김승원 지명에…국힘 \"아집\" \"공소취소 선언\"",
@@ -17600,24 +17606,24 @@
     "issue": {
       "publicationKey": "diem:2026-08-30:issue:33311318675",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "쌓여가는 시신, 전염병 우려까지 터졌다…네팔 정부 결국",
-        "url": "https://n.news.naver.com/article/437/0000508575?ntype=RANKING",
+        "title": "김용범 유임·김승원 지명에…국힘 \"아집\" \"공소취소 선언\"",
+        "url": "https://n.news.naver.com/article/437/0000508568?ntype=RANKING",
         "publishedDate": "2026-08-30",
-        "publishedAt": "2026-08-30 19:18:11",
+        "publishedAt": "2026-08-30 18:38:30",
         "observedAt": "2026-08-30T12:24:56.834Z",
-        "popularityScore": 87.8776,
+        "popularityScore": 81.8163,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 85.83,
-          "popularityScore": 87.8776,
+          "score": 82.5,
+          "popularityScore": 81.8163,
           "freshnessScore": 90,
           "editorialValueScore": 70,
-          "ageHours": 2.11,
-          "publishedAt": "2026-08-30 19:18:11",
+          "ageHours": 2.8,
+          "publishedAt": "2026-08-30 18:38:30",
           "observedAt": "2026-08-30T12:24:56.834Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -17636,46 +17642,41 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 7,
-            "normalizedScore": 87.8776,
-            "title": "쌓여가는 시신, 전염병 우려까지 터졌다…네팔 정부 결국",
-            "url": "https://n.news.naver.com/article/437/0000508575?ntype=RANKING"
+            "rank": 10,
+            "normalizedScore": 81.8163,
+            "title": "김용범 유임·김승원 지명에…국힘 \"아집\" \"공소취소 선언\"",
+            "url": "https://n.news.naver.com/article/437/0000508568?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "최소한의 DNA 샘플만 채취한 뒤 '일괄매장' 방침 밝혀 [앵커]이렇게 기적의 생환이 이어지는 반면, 끝내 살아오지 못한 가족들도 점점 늘고 있습니다. 네팔 현지 연결해 보겠습니다.이도성 특파원, 사망자가 계속 늘면서 장례를 제때 치르지 못할 정도로 현지 사정이 어렵다고요?[기자]네, 제가 있는 곳은 네팔 수도 카트만두의 힌두교 성지인 파슈파티나트 사원 바로 앞입니다.제 뒤로 화장터가 있는데요. 계속해서 흰 연기가 피어오르는 것을 보실 수 있습니다.밀려드는 시신에 장례 절차가 종일 이어지고 있는 겁니다.이렇게 마지막 길이라도 배웅하는 건 그나마 다행인 편입니다.현지 영안실과 안치실은 이미 완전 포화 상태인데요.신원이 확인되지 않은 시신은 시신 가방에 담긴 채 트럭과 노상에 쌓여가고 있습니다.전염병 우려가 커지면서 네팔 정부는 최소한의 DNA 샘플만 채취한 뒤 시신을 일괄 매장하겠다는 방침까지 밝힌 상태입니다.[앵커]구호 작업은 제대로 이뤄지고 있습니까?[기자]네팔 정부와 국제구호단체가 구호물자 지급에 총력을 기울이고 있지만, 현장 이재민들이 체감하기에는 턱없이 부족합니다.주요 도로와 교량이 사방에서 끊기고 통신망마저 단절되면서 구호품을 실은 트럭은 제때 고립 지역으로 진입하지 못하고 있습니다.이번 재해로 인한 피해 복구비만 네팔 연간 GDP의 10%에 달하는 약 7조 원으로 추산될 만큼 피해 규모는 이미 국가적 재앙 수준입니다.당장 마실 깨끗한 물과 식량, 임시 거처조차 구하지 못한 생존자들은 또 다른 생존의 위협에 몰려 있습니다.리포트로 이재민들의 상황 보시겠습니다.도로 양옆으로 진흙더미가 가득 쌓여 있습니다.수도 카트만두에서 서쪽으로 2시간, 회색빛 폐허로 변해버린 '다딩' 지역입니다.홍수가 시작된 곳에서 100㎞ 넘게 떨어진 곳이지만 이곳 역시 재앙을 피하진 못했습니다.일가족의 정든 터전은 한순간에 날아갔고 평생 재산을 모아 이룬 '내 집 마련'의 꿈도 물거품이 됐습니다.고사리손 어린아이까지 힘을 보태보지만, 흙더미를 치워내기엔 역부족입니다.[기따 번다리/네팔 다딩 주민 : 물소와 염소 키워서 번 돈으로 땅을 사서 집을 지었어요. 그런데 홍수 때문에 2년도 되지 않아서 다 끝났습니다.]흙빛 강물은 지금이라도 마을을 다시 집어삼킬 듯 여전히 매섭게 휘몰아칩니다.집 안 구석구석을 가득 채운 토사는 참사 당시의 참혹했던 순간을 그대로 보여줍니다.온 마을이 보시는 것처럼 이렇게 두꺼운 모래와 진흙으로 뒤덮였습니다. 제 옆을 보시면 폭우로 물길이 바뀌면서 전에 없던 새로운 강이 생겨났을 정도입니다.슬퍼하고 절망할 시간조차 없습니다.당장 살아남아야 하기에, 무서운 강물을 등진 채 다시 삽을 들어 올립니다.[서찐 어디까리/네팔 다딩 주민 : 갑자기 홍수가 일어나 온 집안에 진흙이 들어찼어요. 어떻게 치워야 할지 막막해요. 그래도 진흙이 무거워 위험할 수 있으니 옥상부터 치우고 있습니다.]하지만 채 아픔이 가시기도 전에 2차 홍수 우려가 나오면서 이재민들의 한숨은 더욱더 깊어지고 있습니다.[앵커]우리 국민 9명을 찾기 위한 수색 작업은 성과가 좀 있습니까?[기자]정부합동 신속대응팀은 애초 수력발전소와 주요 하천변을 중심으로 수색 범위를 넓힐 예정이었지만 기상악화로 추가 수색이 어려움을 겪고 있습니다.신속대응팀 헬기 수색에 한계가 분명한 만큼 차량을 활용한 수색도 진행한다는 방침인데요.험준한 산악지형이 많은 특성을 고려해 현지 산악전문가인 '셰르파'를 섭외해 수색을 진행할 예정입니다.신속대응팀은 우리 국민안전이 확인될 때까지 실종추정 지점뿐 아니라 예상 대피경로와 함께 하류 지점까지 수색 범위를 넓힌다는 방침입니다.[영상취재 조용희 영상편집 이휘수]",
-        "summary": "최소한의 DNA 샘플만 채취한 뒤 '일괄매장' 방침 밝혀 [앵커]이렇게 기적의 생환이 이어지는 반면, 끝내 살아오지 못한 가족들도 점점 늘고 있습니다. 네팔 현지 연결해 보겠습니다.이도성 특파원, 사망자가 계속 늘면서 장례를 제때 치르지 못할 정도로 현지 사정이 어렵다고요?[기자]네, 제가 있는 곳은 네팔 수도 카트만두의 힌두교 성지인 파슈파티나트 사원 바로 앞입니다.제 뒤로 화장터가 있는데요. 계속해서 흰 연기가 피어오르는 것을 보실 수 있습니다.밀려드는 시신에 장례 절차가 종일 이어지고 있는 겁니다.이렇게 마지막 길이라도 배웅하",
+        "fullText": "이해민·김경수 발탁…'범진보 진영 대통합' 해석도 [앵커]청와대 및 대통령 직속기구의 인선도 함께 이루어졌습니다. 조국혁신당 인사와 김경수 전 지사까지 중용했는데 흩어진 야권을 하나로 묶는 '범진보 대통합'에 시동을 걸었단 분석입니다. 국민의힘은 국정 기조 전환이 없는 '아집 개각'이자, 대통령 재판을 덮기 위한 '방탄용 인사'라며 강하게 반발했습니다.구혜진 기자입니다.[기자]이재명 대통령은 신임 청와대 AI 수석에 구글 엔지니어 출신의 이해민 조국혁신당 의원을 발탁했습니다.대통령 정무특보에는 김경수 전 경남지사를, 국가AI전략위원회 부위원장엔 하정우 전 수석을 선임했습니다.청와대가 오늘 인사에서 '범진보 대통합'을 시도했다는 해석이 나옵니다.[강훈식/대통령비서실장 : 야당도 함께할 수 있는 분 중에 실력 있는 분들이라면 저희가 최대한 모시려고 했고 오로지 기준은 실력이었습니다.]특히 합당 논의 과정에서 잡음이 있었던 조국혁신당의 이해민 의원을 발탁한 건 '정책적 연대'의 메시지를 담고 있다는 해석이 나옵니다.김경수 전 지사 역시 친노·친문의 상징인만큼 지난 민주당 전당대회에서 불거진 경쟁과 갈등을 봉합하려는 포석으로 풀이됩니다.이 대통령은 지난주 민주당 지도부를 만나 \"우리가 왼쪽을 너무 안 챙겼다\"며 \"더 품고 가야 한다\"고 강조한 바 있습니다.국민의힘은 즉각 반발했습니다.정점식 원내대표는 \"현직 차관을 임명한 건 기존의 경제 정책 기조를 바꾸지 않겠다는 선언\"이라고 꼬집었습니다.나경원 의원 역시 \"김용범 정책실장을 유임시킨 건 아집\"이라고 했습니다.김승원 법무부 장관 후보자에 대해서도 '공소취소 돌입 선언'이라며 강하게 반발했습니다.[최보윤/국민의힘 수석대변인 : 공소 취소 모임의 핵심 인사였던 분이고, 공소 취소 관련된 그런 논의들이 법무부 장관이 인선되면서 더 가속화되지 않을까 하는 우려가…][영상취재 김상현 김대호 영상편집 최다희 영상디자인 조영익 김현주]",
+        "summary": "이해민·김경수 발탁…'범진보 진영 대통합' 해석도 [앵커]청와대 및 대통령 직속기구의 인선도 함께 이루어졌습니다. 조국혁신당 인사와 김경수 전 지사까지 중용했는데 흩어진 야권을 하나로 묶는 '범진보 대통합'에 시동을 걸었단 분석입니다. 국민의힘은 국정 기조 전환이 없는 '아집 개각'이자, 대통령 재판을 덮기 위한 '방탄용 인사'라며 강하게 반발했습니다.구혜진 기자입니다.[기자]이재명 대통령은 신임 청와대 AI 수석에 구글 엔지니어 출신의 이해민 조국혁신당 의원을 발탁했습니다.대통령 정무특보에는 김경수 전 경남지사를, 국가AI전략위원",
         "topicSignature": {
           "category": "issue",
-          "target": "경제성장률",
-          "event": "성장률 변화",
-          "entities": [
-            "DNA"
-          ],
+          "target": "김용범 유임",
+          "event": "전환",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 경제성장률 | 성장률 변화 | DNA"
+          "text": "issue | 김용범 유임 | 전환"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "경제성장률",
+          "subject": "김용범 유임",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "경제성장률",
-            "GDP",
-            "성장률"
+            "김용범",
+            "유임"
           ],
-          "eventKind": "gdp",
-          "eventLabel": "성장률 변화",
+          "eventKind": "general",
+          "eventLabel": "전환",
           "eventTerms": [
-            "변화",
-            "성장",
-            "증가"
+            "전환"
           ],
           "eventKey": null,
           "claimState": "tentative",
           "evidenceState": "established_or_not_stated",
-          "date": "",
+          "date": "오늘",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -17695,25 +17696,22 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "경제성장률",
+            "subject": "김용범 유임",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "경제성장률",
-              "GDP",
-              "성장률"
+              "김용범",
+              "유임"
             ],
-            "eventKind": "gdp",
-            "eventLabel": "성장률 변화",
+            "eventKind": "general",
+            "eventLabel": "전환",
             "eventTerms": [
-              "변화",
-              "성장",
-              "증가"
+              "전환"
             ],
             "eventKey": null,
             "claimState": "tentative",
             "evidenceState": "established_or_not_stated",
-            "date": "",
+            "date": "오늘",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -17724,27 +17722,29 @@
           "baseScore": 70,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "classified",
-            "category": "issue",
-            "excluded": [],
+            "status": "uncertain",
+            "category": null,
+            "excluded": [
+              "category_not_allowed"
+            ],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "verify_primary_article"
+            "reason": "uncertain_initial_classification"
           },
           "final": {
             "status": "classified",
@@ -17758,30 +17758,2458 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.6081,
+        "score": 0.7034,
         "method": "embedding",
-        "reason": "below_threshold",
+        "reason": "gray_distinct_event",
         "matchedPublicationKey": "diem:2026-08-27:issue:33015240767",
         "signature": {
           "category": "issue",
-          "target": "경제성장률",
-          "event": "성장률 변화",
-          "entities": [
-            "DNA"
-          ],
+          "target": "김용범 유임",
+          "event": "전환",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 경제성장률 | 성장률 변화 | DNA"
+          "text": "issue | 김용범 유임 | 전환"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "국민힘 비판\n청와대 인사",
+            "lines": [
+              "국민힘 비판",
+              "청와대 인사"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "국민힘 비판\n청와대 인사",
+          "lines": [
+            "국민힘 비판",
+            "청와대 인사"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "이재명 대통령이 구글 엔지니어 출신 이해민을 AI 수석으로, 김경수 전 경남지사를 정무특보로, 김용범 정책실장을 유임하고 김승원 법무부 장관 후보자를 지명했다.📰",
+            "국민의힘은 김용범 유임을 ‘아집 개각’이라 규정하고, 김승원 후보 지명을 ‘공소취소 선언’이라 비난하며 강하게 반발했다.",
+            "청와대는 이번 인사를 ‘범진보 대통합’ 전략으로 설명하며, 실력 중심 인사를 강조했다.📰"
+          ],
+          "text": "이재명 대통령이 구글 엔지니어 출신 이해민을 AI 수석으로, 김경수 전 경남지사를 정무특보로, 김용범 정책실장을 유임하고 김승원 법무부 장관 후보자를 지명했다.📰\n\n국민의힘은 김용범 유임을 ‘아집 개각’이라 규정하고, 김승원 후보 지명을 ‘공소취소 선언’이라 비난하며 강하게 반발했다.\n\n청와대는 이번 인사를 ‘범진보 대통합’ 전략으로 설명하며, 실력 중심 인사를 강조했다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #청와대인사 #정치 #국민힘 #AI전략 #김용범 #유임",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#청와대인사",
+            "#정치",
+            "#국민힘",
+            "#AI전략",
+            "#김용범",
+            "#유임"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#청와대인사",
+              "#정치",
+              "#국민힘",
+              "#AI전략",
+              "#김용범",
+              "#유임"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:legislation-02",
+        "source": "diem-generated",
+        "selectedAt": "2026-08-30T12:26:41.560Z",
+        "assetPath": "assets/fallback/generated/legislation-02.png",
+        "sha256": "0ece53d29a55a87c8f30927acd02538a9c6b24228197339ddb7b74770aaaf89c",
+        "localSha256": "0ece53d29a55a87c8f30927acd02538a9c6b24228197339ddb7b74770aaaf89c",
+        "generatedTopic": "legislation",
+        "generatedEnergy": "calm",
+        "description": "Ivory committee desk, blank bill folder and gavel in a neutral chamber.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:22682007",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:29404698",
+                "rankWithinQuery": 2,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:22682005",
+                "rankWithinQuery": 3,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33577981",
+                "rankWithinQuery": 4,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:26319168",
+                "rankWithinQuery": 5,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18910447",
+                "rankWithinQuery": 6,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37323645",
+                "rankWithinQuery": 7,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18401987",
+                "rankWithinQuery": 8,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:22617710",
+                "rankWithinQuery": 9,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korea",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38333372",
+                "rankWithinQuery": 10,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33795178",
+                "rankWithinQuery": 11,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37384706",
+                "rankWithinQuery": 12,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20949044",
+                "rankWithinQuery": 13,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:31872697",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:32536911",
+                "rankWithinQuery": 15,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38279173",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:25587793",
+                "rankWithinQuery": 17,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:23499392",
+                "rankWithinQuery": 18,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:35396694",
+                "rankWithinQuery": 19,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20837361",
+                "rankWithinQuery": 20,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7833
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:fEyw6zOKGSo",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:5Pv3rWXMc3w",
+                "rankWithinQuery": 2,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:SbVwB1cDyj4",
+                "rankWithinQuery": 3,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:O5dcl9yej8Y",
+                "rankWithinQuery": 4,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:-Duj098aGXQ",
+                "rankWithinQuery": 5,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:ioE6hpvgiXQ",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:eF6JSsU3t2k",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:7myNldve8vE",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:_lbntKP8Z2I",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cBkYnWvRq30",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:OGB_kCvpHBo",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8tLJYfeF7r8",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:XKG6usnQXgU",
+                "rankWithinQuery": 13,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:z1ExbRI13No",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:PsA_BJ_fhBg",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:VaKf8BY8rng",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8qviRbngB24",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:HpXbH9guhVc",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:rkqtJhyjmgQ",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:AXjmlRbgVwA",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.4083
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 10,
+            "suitableCount": 0,
+            "suitabilityRejected": 10,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:23375520",
+                "rankWithinQuery": 1,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375524",
+                "rankWithinQuery": 2,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375532",
+                "rankWithinQuery": 3,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375537",
+                "rankWithinQuery": 4,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375542",
+                "rankWithinQuery": 5,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375549",
+                "rankWithinQuery": 6,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375554",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375556",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375562",
+                "rankWithinQuery": 9,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375585",
+                "rankWithinQuery": 10,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.3
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "legal court document gavel",
+            "count": 20,
+            "suitableCount": 8,
+            "suitabilityRejected": 12,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:6077294",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [
+                  "legal"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5668802",
+                "rankWithinQuery": 10,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876039",
+                "rankWithinQuery": 11,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:5668882",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876148",
+                "rankWithinQuery": 13,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876087",
+                "rankWithinQuery": 14,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:6077355",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876045",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:8731036",
+                "rankWithinQuery": 17,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:8112195",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876042",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:5668791",
+                "rankWithinQuery": 20,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "legal",
+                  "court",
+                  "document",
+                  "gavel"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "직속기구",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 8,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.8375
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "legal court document gavel",
+            "count": 5,
+            "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 32,
+          "recentKeyCount": 55,
+          "blockedCandidateCount": 1,
+          "selectedImageKeys": [
+            "diem-generated:legislation-02",
+            "0ece53d29a55a87c8f30927acd02538a9c6b24228197339ddb7b74770aaaf89c"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated legislation asset legislation-02 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "bright3",
+        "mood": "bright",
+        "sha256": "820dddc19847024530e690bfb86c33a50a2024f72f88a95c43c761516d913d5c",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-30T12:26:48.320Z"
       },
       "story": {
         "status": "planned",
@@ -17859,6 +20287,68 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-30/issue/issue-cover.png",
+        "coverSha256": "0496e88604c0ea0ceb344494ac8d9cec23c01e37a2a907e4e750eb433092318a",
+        "followCtaPath": ".diem-cache/2026-08-30/issue/issue-follow-cta.png",
+        "followCtaSha256": "4721a82be4d223265f87840a34c0f407ba53a813d38a452ab4b06eeaaf5c82fa",
+        "reelPath": ".diem-cache/2026-08-30/issue/issue-reel.mp4",
+        "reelSha256": "b49c11dbe10c347baaa5c82d7fa0f75909e8652c882200db63569e67a5d94d92",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "쌓여가는 시신, 전염병 우려까지 터졌다…네팔 정부 결국",
+            "url": "https://n.news.naver.com/article/437/0000508575?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-08-30T12:26:24.278Z"
+          }
+        ],
+        "updatedAt": "2026-08-30T12:26:32.278Z"
       }
     }
   },
