@@ -4,7 +4,7 @@
   "date": "2026-08-31",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-30T17:04:07.956Z",
-  "updatedAt": "2026-08-31T10:33:24.768Z",
+  "updatedAt": "2026-08-31T10:35:09.795Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -11330,7 +11330,7 @@
     "economy": {
       "publicationKey": "diem:2026-08-31:economy:33382646662",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "트럼프 “하르그섬 산산조각” 이란 폭격 ‘초토화’ 영상 공개, 알고보니… [배틀라인]",
         "url": "https://n.news.naver.com/article/081/0003675058?ntype=RANKING",
@@ -11537,15 +11537,615 @@
           "text": "economy | 트럼프 | 정치 발언 | 3줄"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "트럼프\n발언",
+            "lines": [
+              "트럼프",
+              "발언"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "트럼프\n발언",
+          "lines": [
+            "트럼프",
+            "발언"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "트럼프가 30일에 ‘하르그섬이 산산조각 나고 있다’는 AI 영상과 함께 발언했다.📰",
+            "영상은 AI 합성으로 확인됐으며, 미군·이란 당국은 실제 공격을 인정하지 않았다.",
+            "미·이란 직접교전이 재개된 직후 트럼프는 하르그섬이 핵심 원유 수출 거점이 될 수 있다고 경고했다.📰"
+          ],
+          "text": "트럼프가 30일에 ‘하르그섬이 산산조각 나고 있다’는 AI 영상과 함께 발언했다.📰\n\n영상은 AI 합성으로 확인됐으며, 미군·이란 당국은 실제 공격을 인정하지 않았다.\n\n미·이란 직접교전이 재개된 직후 트럼프는 하르그섬이 핵심 원유 수출 거점이 될 수 있다고 경고했다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #정치발언 #트럼프 #하르그섬 #3줄 #정치 #발언",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#정치발언",
+            "#트럼프",
+            "#하르그섬",
+            "#3줄",
+            "#정치",
+            "#발언"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#정치발언",
+              "#트럼프",
+              "#하르그섬",
+              "#3줄",
+              "#정치",
+              "#발언"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "failed",
+              "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "failed",
+              "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "Unexpected end of JSON input"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:geopolitics-03",
+        "source": "diem-generated",
+        "selectedAt": "2026-08-31T10:35:03.248Z",
+        "assetPath": "assets/fallback/generated/geopolitics-03.png",
+        "sha256": "c8fb9aa6e42f9a00273d906d3551ba2d679d406fb2a1da7302809b92218c05bb",
+        "localSha256": "c8fb9aa6e42f9a00273d906d3551ba2d679d406fb2a1da7302809b92218c05bb",
+        "generatedTopic": "geopolitics",
+        "generatedEnergy": "dynamic",
+        "description": "Tense empty diplomatic roundtable with displaced chairs and open folders.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "Iran government Tehran parliament diplomacy",
+            "count": 20,
+            "suitableCount": 8,
+            "suitabilityRejected": 12,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:9183306",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [
+                  "iran",
+                  "tehran"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:31344794",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [
+                  "iran",
+                  "tehran"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33193574",
+                "rankWithinQuery": 3,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [
+                  "iran",
+                  "tehran"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:14364005",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [
+                  "iran",
+                  "tehran"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36473160",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [
+                  "tehran"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:20564758",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [
+                  "tehran"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:14413068",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:13992106",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38464756",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:14383775",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35710204",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:28238927",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "iran",
+                  "tehran",
+                  "diplomacy"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "트럼프",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 8,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.61
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "Iran government Tehran parliament diplomacy",
+            "count": 5,
+            "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 30,
+          "recentKeyCount": 57,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:geopolitics-03",
+            "c8fb9aa6e42f9a00273d906d3551ba2d679d406fb2a1da7302809b92218c05bb"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; dynamic-first stable-shuffled project-generated geopolitics asset geopolitics-03 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+        "mood": "serious",
+        "title": "Moment of Peace",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/solo-piano-moment-of-peace-mickeyscat-554494/",
+        "sha256": "2cbc249e7f038abbca64a6d849c0c37c29d132b2088171b715c0055d5339cfed",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-08-31T10:35:09.783Z"
       },
       "story": {
         "status": "planned",
@@ -11625,6 +12225,15 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-08-31/economy/economy-cover.png",
+        "coverSha256": "c161f13591d7bd4165a055270f7d96560da7b48819f50df894c95566d4c238df",
+        "followCtaPath": ".diem-cache/2026-08-31/economy/economy-follow-cta.png",
+        "followCtaSha256": "6cecd0a2c123663ebf3ad87316937404a5b2240ea2ba728f9eacdc651afe9678",
+        "reelPath": ".diem-cache/2026-08-31/economy/economy-reel.mp4",
+        "reelSha256": "be18cd79504aff5100f158c1624163b7454812f3b8563138a2e5476bf7dbc7a7",
+        "temporary": true
       }
     },
     "issue": {
