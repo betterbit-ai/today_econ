@@ -4,7 +4,7 @@
   "date": "2026-09-01",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-31T21:20:27.674Z",
-  "updatedAt": "2026-08-31T23:05:41.904Z",
+  "updatedAt": "2026-08-31T23:08:02.954Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -93,7 +93,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: Unterminated string in JSON at position 42 | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "'사인 불명' 인정...'극단 선택' 무게 뒀다 의혹 키운 경찰",
@@ -131,7 +133,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "경부고속도로 빗길 사고로 50대 부부 참변",
@@ -169,7 +173,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "비구름 강원도로 이동...오전까지 최대 100mm 예상",
@@ -5584,24 +5590,24 @@
     "issue": {
       "publicationKey": "diem:2026-09-01:issue:33449000520",
       "category": "issue",
-      "status": "planned",
+      "status": "retry_pending",
       "candidate": {
-        "title": "'공소 취소' 말 아낀 김승원...여 '엄호' 야 '공세' 총력전",
-        "url": "https://n.news.naver.com/article/052/0002400905?ntype=RANKING",
+        "title": "비구름 강원도로 이동...오전까지 최대 100mm 예상",
+        "url": "https://n.news.naver.com/article/052/0002400893?ntype=RANKING",
         "publishedDate": "2026-09-01",
-        "publishedAt": "2026-09-01 04:24:56",
+        "publishedAt": "2026-09-01 04:02:46",
         "observedAt": "2026-08-31T23:05:32.792Z",
-        "popularityScore": 97.9796,
+        "popularityScore": 91.9184,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 88.39,
-          "popularityScore": 97.9796,
-          "freshnessScore": 90,
-          "editorialValueScore": 50,
-          "ageHours": 3.68,
-          "publishedAt": "2026-09-01 04:24:56",
+          "score": 82.81,
+          "popularityScore": 91.9184,
+          "freshnessScore": 80,
+          "editorialValueScore": 55,
+          "ageHours": 4.08,
+          "publishedAt": "2026-09-01 04:02:46",
           "observedAt": "2026-08-31T23:05:32.792Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -5620,47 +5626,41 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 2,
-            "normalizedScore": 97.9796,
-            "title": "'공소 취소' 말 아낀 김승원...여 '엄호' 야 '공세' 총력전",
-            "url": "https://n.news.naver.com/article/052/0002400905?ntype=RANKING"
+            "rank": 5,
+            "normalizedScore": 91.9184,
+            "title": "비구름 강원도로 이동...오전까지 최대 100mm 예상",
+            "url": "https://n.news.naver.com/article/052/0002400893?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "[앵커] 김승원 법무부 장관 후보자는 새 형사사법체계 안착의 필요성을 강조하면서도 이 대통령 공소취소 문제 등 현안에 대해선 말을 아꼈습니다.엄호하는 더불어민주당과 공세를 펼친 국민의힘은 다시 한 번 충돌했습니다.박희재 기자가 보도합니다.[기자] 김승원 법무부 장관 후보자가 지명 다음 날, 막중한 책임감을 느낀다며 국회 취재진 앞에 다시 섰습니다.정부 핵심 기조인 '국민주권'과 새 형사사법체계 안착 필요성을 언급하면서, 검찰개혁 완수 의지도 거듭 천명했습니다.[김승원 / 법무부 장관 후보자 : 종국에는 이재명 국민주권정부가 정말 대한민국의 주인이 국민이라는 것을, 우리 주권자이신 국민에 체감시키실 수 있도록 하는 그런 역할을 다하겠다….]김 후보자는 인사청문 준비 단계에 있는 게 아니라며, 이 대통령 공소취소를 비롯한 구체적인 현안에 대해선 말을 아꼈습니다.다만, 일각에서 제기된 과거 대장동 사건 수임 의혹엔 사실과 다르다고 반박하며 법무법인 내 지시에 따라 남욱 변호사를 한차례 접견했을 뿐이라고 해명했습니다.판사 출신 민주당 재선 의원으로, 친명계로 꼽히는 김 후보자는 법사위 소속으로 검찰개혁 입법을 국회에서 주도해왔습니다.[김승원 / 법무부 장관 후보자(지난 7월) : 사법경찰관의 적정한 보완 수사를 기대하기 어려운 경우 다른 수사관서에 보완수사 요구를 할 수 있도록 하였습니다.]더불어민주당은 이런 이력을 부각하면서, 70년 만에 바뀔 형사사법체계를 구현할 적임자라고 김 후보자를 치켜세웠습니다.[박 선 원 / 더불어민주당 최고위원 : 개정 형사소송법에 대한 이해도가 누구보다도 높습니다. 김승원 의원이 법무부 장관으로서 큰 역할을 할 것이라 기대하고 있습니다.]반면, 국민의힘은 '이 대통령 공소취소 모임'이나 배임죄 폐지 법안을 주도한 이력을 고리로 '민심 역주행' 개각으로 규정하며, 총공세에 나섰습니다.[장동혁 / 국민의힘 대표 : 안 봐도 뻔하지 않습니까? 결국, 국민이 아무리 반대해도 재판 취소에 '올인'하겠다는 겁니다.]검찰개혁부터 공소취소까지.정국 최대 뇌관으로 꼽히는 현안이 집중된 만큼, 김 후보자 인사청문회는 정기국회 청문 정국의 가장 뜨거운 감자가 될 전망입니다.YTN 박희재입니다.영상기자 : 이상은 최성훈 영상편집 : 문지환 보도디자인 : 지경윤※ '당신의 제보가 뉴스가 됩니다'[카카오톡] YTN 검색해 채널 추가[전화] 02-398-8585[메일] social@ytn.co.kr",
-        "summary": "[앵커] 김승원 법무부 장관 후보자는 새 형사사법체계 안착의 필요성을 강조하면서도 이 대통령 공소취소 문제 등 현안에 대해선 말을 아꼈습니다.엄호하는 더불어민주당과 공세를 펼친 국민의힘은 다시 한 번 충돌했습니다.박희재 기자가 보도합니다.[기자] 김승원 법무부 장관 후보자가 지명 다음 날, 막중한 책임감을 느낀다며 국회 취재진 앞에 다시 섰습니다.정부 핵심 기조인 '국민주권'과 새 형사사법체계 안착 필요성을 언급하면서, 검찰개혁 완수 의지도 거듭 천명했습니다.[김승원 / 법무부 장관 후보자 : 종국에는 이재명 국민주권정부가 정말 대",
+        "fullText": "[앵커] 전남에 이어 충남에도 폭우를 쏟아낸 비구름이 차츰 약해지고 있습니다.충남 홍성에는 어젯밤 시간당 60mm에 달하는 폭우로 호우 긴급재난문자가 발송되기도 했는데, 현재는 강원도로 비구름이 옮겨갔습니다.취재기자 연결해 기상 상황 알아봅니다. 박소정 기자.지금은 비구름이 약해졌다고요?[기자] 그렇습니다.오늘 종일 수도권과 충청, 강원, 전북 경북까지 비구름이 넓게 펼쳐져 있었는데, 자정 전부터 비구름 면적이 점차 줄어들고 있습니다.1시간 전 경기 동남부에 비를 뿌리던 구름은 이제 강원 영서로 자리를 옮겼습니다.강원 횡성과 원주에 시간당 20~30mm 강한 비가 내리고 있습니다.앞서 어젯밤 9시쯤 충남 홍성에는 한때 시간당 최대 60mm에 달하는 폭우가 쏟아지며 호우 긴급재난문자까지 발송됐는데요.지금은 이곳은 비가 그치면서 충남에 이어 이천과 여주에 내려졌던 호우특보까지 모두 해제됐습니다.비구름의 이동 속도가 빠른 편이라 차츰 동해로 빠져나갈 것으로 보입니다.앞서 충남 홍성과 예산에 내린 폭우로 금강 수위가 홍수주의 수위인 5.8m에 임박하면서 삽교천 일부에는 홍수주의보가 내려졌습니다.이 지역의 비는 그쳐 유량은 줄었지만, 수위는 여전히 높은 만큼 홍수주의보는 유지되고 있습니다.[앵커]9월에 들어섰는데, 이번에 내리는 폭우는 장맛비라고요?[기자] 그렇습니다.북쪽의 찬 공기가 남하하면서 남쪽의 따뜻하고 습한 공기와 강하게 충돌해 정체전선이 다시 만들어졌는데요.시기상 9월, 즉 가을에 들어섰지만, 장마철과 같은 형태이기 때문에 2차 장마, 혹은 가을장마라고도 부릅니다.주말부터 본격적으로 시작한 이번 장맛비는 전남북 곳곳에 극한 호우를 쏟아냈는데요.지구온난화로 바다가 뜨거워지면서 수증기량이 많고 대기가 불안정해, 좁은 지역에 많은 비가 집중되고 지역별로 강수 편차도 큰 것이 특징입니다.지난 광복절 연휴 거제, 통영에 쏟아졌던 물폭탄에 비해 비구름이 빠르게 움직이는 편이라는 게 그나마 다행입니다.이번 장맛비는 오늘 오전까지 이어지겠습니다.충남 서해안에 최대 100mm, 다른 충청 지역은 최대 80mm, 수도권·강원에는 60mm까지 예상됩니다.침수 피해 위험이 있으니 저지대나 지하 공간에는 들어가지 말고 미리 안전한 곳으로 대피해야 합니다.지금까지 과학기상부에서 YTN 박소정입니다.※ '당신의 제보가 뉴스가 됩니다'[카카오톡] YTN 검색해 채널 추가[전화] 02-398-8585[메일] social@ytn.co.kr",
+        "summary": "[앵커] 전남에 이어 충남에도 폭우를 쏟아낸 비구름이 차츰 약해지고 있습니다.충남 홍성에는 어젯밤 시간당 60mm에 달하는 폭우로 호우 긴급재난문자가 발송되기도 했는데, 현재는 강원도로 비구름이 옮겨갔습니다.취재기자 연결해 기상 상황 알아봅니다. 박소정 기자.지금은 비구름이 약해졌다고요?[기자] 그렇습니다.오늘 종일 수도권과 충청, 강원, 전북 경북까지 비구름이 넓게 펼쳐져 있었는데, 자정 전부터 비구름 면적이 점차 줄어들고 있습니다.1시간 전 경기 동남부에 비를 뿌리던 구름은 이제 강원 영서로 자리를 옮겼습니다.강원 횡성과 원주에",
         "topicSignature": {
           "category": "issue",
-          "target": "형사소송법",
-          "event": "개정",
+          "target": "비구름 강원도로",
+          "event": "오전까지 최대 100mm",
           "entities": [
-            "법무부",
-            "형사사법체계"
+            "100mm"
           ],
           "eventKey": null,
-          "text": "issue | 형사소송법 | 개정 | 법무부 형사사법체계"
+          "text": "issue | 비구름 강원도로 | 100mm"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "형사소송법",
+          "subject": "비구름 강원도로",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "형사소송법",
-            "형소법",
-            "보완수사권"
+            "비구름",
+            "강원도로"
           ],
-          "eventKind": "legislation",
-          "eventLabel": "개정",
-          "eventTerms": [
-            "개정",
-            "통과",
-            "폐지"
-          ],
+          "eventKind": "general",
+          "eventLabel": "",
+          "eventTerms": [],
           "eventKey": null,
           "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "",
+          "date": "오늘",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -5670,34 +5670,29 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 50,
+          "score": 55,
           "signals": [
             "reader_money_work_life_impact",
-            "broad_audience_or_market_scope"
+            "issue_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "형사소송법",
+            "subject": "비구름 강원도로",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "형사소송법",
-              "형소법",
-              "보완수사권"
+              "비구름",
+              "강원도로"
             ],
-            "eventKind": "legislation",
-            "eventLabel": "개정",
-            "eventTerms": [
-              "개정",
-              "통과",
-              "폐지"
-            ],
+            "eventKind": "general",
+            "eventLabel": "",
+            "eventTerms": [],
             "eventKey": null,
             "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "",
+            "date": "오늘",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -5705,19 +5700,19 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 50,
+          "baseScore": 55,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -5744,20 +5739,19 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.5383,
+        "score": 0.5066,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-31:issue:33324092590",
+        "matchedPublicationKey": "diem:2026-08-28:issue:33123428858",
         "signature": {
           "category": "issue",
-          "target": "형사소송법",
-          "event": "개정",
+          "target": "비구름 강원도로",
+          "event": "오전까지 최대 100mm",
           "entities": [
-            "법무부",
-            "형사사법체계"
+            "100mm"
           ],
           "eventKey": null,
-          "text": "issue | 형사소송법 | 개정 | 법무부 형사사법체계"
+          "text": "issue | 비구름 강원도로 | 100mm"
         }
       },
       "editorial": null,
@@ -5844,6 +5838,13 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "retry_pending",
+        "attempts": 2,
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for weather; typography fallback is disabled",
+        "updatedAt": "2026-08-31T23:08:02.948Z"
       }
     }
   },
