@@ -4,7 +4,7 @@
   "date": "2026-09-01",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-31T21:20:27.674Z",
-  "updatedAt": "2026-09-01T01:00:56.361Z",
+  "updatedAt": "2026-09-01T01:01:41.580Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -7469,7 +7469,7 @@
     "economy": {
       "publicationKey": "diem:2026-09-01:economy:33456886666",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "\"예전만큼 재미없네요\"…7000 못 넘고 횡보하는 코스피에 지친 개미들[개미의 세계]",
         "url": "https://n.news.naver.com/article/014/0005568970?ntype=RANKING",
@@ -7635,15 +7635,576 @@
           "text": "economy | 코스피 | 인상 | 7000"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "코스피 횡보\n보도",
+            "lines": [
+              "코스피 횡보",
+              "보도"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "코스피 횡보\n보도",
+          "lines": [
+            "코스피 횡보",
+            "보도"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "코스피가 7000 포인트를 넘지 못하고 횡보하며 개인투자자들의 관심이 감소하고 있다.📰",
+            "31일 개장 시 코스피는 175.30포인트(2.58%) 하락한 6,613.58로 시작했고, 거래량·회전율이 연중 최저 수준을 기록했다.",
+            "기준금리 인상과 정기예금 금리 상승으로 자금이 예금으로 이동하며, 투자심리는 미국 주식으로 전환되고 있다.📰"
+          ],
+          "text": "코스피가 7000 포인트를 넘지 못하고 횡보하며 개인투자자들의 관심이 감소하고 있다.📰\n\n31일 개장 시 코스피는 175.30포인트(2.58%) 하락한 6,613.58로 시작했고, 거래량·회전율이 연중 최저 수준을 기록했다.\n\n기준금리 인상과 정기예금 금리 상승으로 자금이 예금으로 이동하며, 투자심리는 미국 주식으로 전환되고 있다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #코스피 #개인투자자 #거래량 #금리 #인상 #예전만큼",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#코스피",
+            "#개인투자자",
+            "#거래량",
+            "#금리",
+            "#인상",
+            "#예전만큼"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#코스피",
+              "#개인투자자",
+              "#거래량",
+              "#금리",
+              "#인상",
+              "#예전만큼"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"3\",\"generatedBases\":[\"month_on_month\"],\"evidenceBases\":[]},{\"index\":1,\"number\":\"2179\",\"generatedBases\":[\"month_on_month\"],\"evidenceBases\":[]},{\"index\":1,\"number\":\"25\",\"generatedBases\":[\"month_on_month\"],\"evidenceBases\":[]}]"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:work-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-01T01:01:34.203Z",
+        "assetPath": "assets/fallback/generated/work-01.png",
+        "sha256": "2353d500f527696fdbc073aba97117a85dd26facf0c88fadfd995e037d0dc2dd",
+        "localSha256": "2353d500f527696fdbc073aba97117a85dd26facf0c88fadfd995e037d0dc2dd",
+        "generatedTopic": "work",
+        "generatedEnergy": "calm",
+        "description": "Empty contemporary office desk after work.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "stock market trading finance chart",
+            "count": 20,
+            "suitableCount": 9,
+            "suitabilityRejected": 11,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:30572289",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market",
+                  "trading"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32396570",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market",
+                  "trading"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6771631",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6801869",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6120177",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7948045",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35638668",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876507",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876388",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:21299740",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7108077",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 9,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.87
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "stock market trading finance chart",
+            "count": 5,
+            "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 27,
+          "recentKeyCount": 53,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:work-01",
+            "2353d500f527696fdbc073aba97117a85dd26facf0c88fadfd995e037d0dc2dd"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated work asset work-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-tech-house-vibes-130",
+        "mood": "bright",
+        "title": "Tech House Vibes",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-tech-house-vibes-130.mp3",
+        "sha256": "72ed4e66ef3714048fe6bf57783b35d32a4b1b8f12245bc1f64f16b3cbb4949b",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-01T01:01:41.566Z"
       },
       "story": {
         "status": "planned",
@@ -7720,6 +8281,15 @@
           "limit": 3,
           "remaining": 2
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-01/economy/economy-cover.png",
+        "coverSha256": "e2e0cf0cb05ca5542c68a504a4e38775f928fa4fbc444e3ef2858487b00abea8",
+        "followCtaPath": ".diem-cache/2026-09-01/economy/economy-follow-cta.png",
+        "followCtaSha256": "ef65a6c9e7f6495924fade49fca791fb905a45dc61f40c2b4d2e41517cee9db7",
+        "reelPath": ".diem-cache/2026-09-01/economy/economy-reel.mp4",
+        "reelSha256": "b3a85cddea8f371d02319ea120d201c2903f2d9af0ede35f5133c26b5852c830",
+        "temporary": true
       }
     },
     "issue": {
