@@ -4,7 +4,7 @@
   "date": "2026-09-01",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-08-31T21:20:27.674Z",
-  "updatedAt": "2026-09-01T09:11:34.068Z",
+  "updatedAt": "2026-09-01T09:13:23.909Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -48,7 +48,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "4번 신고·피신에도 참변…아내 살해 공무원 남편 검거(종합2보)",
@@ -86,7 +88,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[네팔 대홍수 르포] 아들 주검 앞 어머니는 끝내 실신…화장 전 마지막 배웅",
@@ -122,7 +126,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "\"용혜인, 안산 주택 중국인에 되팔아 1년새 2천만원 차익\"",
@@ -158,7 +164,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "대홍수 참사 사망자 천 명 넘어서...터널 갇힌 600명 등 수색 총력",
@@ -194,7 +202,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "태풍 벌써 24개...여름엔 비껴갔지만 가을은 안심 못 해",
@@ -230,7 +240,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "중국인 유학생 살해 피의자 '정창성'...신상정보 공개",
@@ -268,7 +280,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "국정원 \"김주애 사실상 후계자 내정...북 미사일 설계도 확보\"",
@@ -306,7 +320,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "내년 예산안 역대 최대 821조 원...미래대응기금 162조 신설",
@@ -344,7 +360,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:extraordinary_claim_unverified"
+      ]
     },
     {
       "title": "\"장미란씨 포함 63건 싹 다?\"...'왜 그랬나' 드디어 입 열어",
@@ -382,7 +400,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "남산 터널 막고 사진 찍은 예비 부부? 확인 결과 '반전'",
@@ -10210,24 +10230,24 @@
     "economy": {
       "publicationKey": "diem:2026-09-01:economy:33490678674",
       "category": "economy",
-      "status": "planned",
+      "status": "retry_pending",
       "candidate": {
-        "title": "[2027예산] 공무원 보수 3.9% 인상·16년만에 최대폭…9급 초임 월 300만",
-        "url": "https://n.news.naver.com/article/001/0016282303?ntype=RANKING",
+        "title": "남산 터널 막고 사진 찍은 예비 부부? 확인 결과 '반전'",
+        "url": "https://n.news.naver.com/article/018/0006361836?ntype=RANKING",
         "publishedDate": "2026-09-01",
-        "publishedAt": "2026-09-01 11:43:20",
+        "publishedAt": "2026-09-01 16:46:13",
         "observedAt": "2026-09-01T09:11:26.348Z",
-        "popularityScore": 100,
+        "popularityScore": 77.7755,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 90.25,
-          "popularityScore": 100,
-          "freshnessScore": 70,
-          "editorialValueScore": 95,
-          "ageHours": 6.47,
-          "publishedAt": "2026-09-01 11:43:20",
+          "score": 81.03,
+          "popularityScore": 77.7755,
+          "freshnessScore": 100,
+          "editorialValueScore": 55,
+          "ageHours": 1.45,
+          "publishedAt": "2026-09-01 16:46:13",
           "observedAt": "2026-09-01T09:11:26.348Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -10246,108 +10266,91 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 1,
-            "normalizedScore": 100,
-            "title": "[2027예산] 공무원 보수 3.9% 인상·16년만에 최대폭…9급 초임 월 300만",
-            "url": "https://n.news.naver.com/article/001/0016282303?ntype=RANKING"
+            "rank": 12,
+            "normalizedScore": 77.7755,
+            "title": "남산 터널 막고 사진 찍은 예비 부부? 확인 결과 '반전'",
+            "url": "https://n.news.naver.com/article/018/0006361836?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "공공부문 비정규직에 최저임금의 118% '적정임금'…공정수당 지급 전국공무원노동조합, 공무원·교사 노동자대회(서울=연합뉴스) 류영석 기자 = 11일 서울 숭례문 앞 세종대로에서 열린 전국공무원노동조합 공무원·교사 노동자대회에서 참석자들이 구호를 외치고 있다. 2026.7.11 ondol@yna.co.kr (세종=연합뉴스) 송정은 기자 = 내년 공무원 보수가 16년 만에 최대폭인 3.9% 인상된다. 이번 보수 인상으로 9급 초임 월급은 300만원 수준으로 높아진다. 기획예산처는 1일 국무회의에서 이런 내용 등의 '2027년 예산안을 심의했다. 작년(3.0%)과 올해(3.5%)에 이어 3년 연속 3%대 인상이다. 내년 보수 인상률은 2011년(5.1%) 이후 가장 높은 수준이다. 당시는 글로벌 금융위기로 동결됐던 공무원 보수를 현실화했던 때다. 내년도 최저임금 인상률(3.7%)과 정부와 한국은행의 내년도 물가 상승 전망치(각각 2.2%·2.3%)를 웃돈다. 조용범 기획처 차관은 \"민간과의 보수 인상률 격차, 최저임금 인상률 등을 모두 고려했으며 민간 보수 인상률이 높아지면서 민간과의 격차가 커지는 점을 반영했다\"고 말했다. 아울러 내년 보수 인상이 반영되면 9급 초임(1호봉) 보수(봉급+수당) 기준 월 300만원 수준을 받게 된다고 기획처는 설명했다. 앞서 지난 6월 말 공무원보수위원회 노조 대표 측은 내년도 공무원 보수를 7.1% 인상해 지급하라고 요구했다. 내년도 경제성장률 전망치, 소비자물가 상승률 전망치와 상시근로자 100인 이상 민간 사업장 대비 공무원 보수 수준(83.9%)을 고려한 가산치 3.2%를 더해 보수인상률 목표를 산정했다고 설명했다. 공무원보수위원회는 논의 끝에 3.4∼3.9% 수준에서 합의했다. 정부는 아울러 내년도 예산안에서 공공부문 비정규직 노동자에 최저임금의 118% 수준인 적정 임금을 지급하겠다고 밝혔다. 이재명 대통령은 지난 2월 임금 격차 해소를 위한 구상으로 \"정부도 다 최저임금으로 고용을 하는데, 앞으로는 정부는 고용할 때 적정 임금을 주도록 방침을 정할 것\"이라고 했다. 공정수당 지급 예산도 730억원 반영해 정부의 모범적 사용자 역할 수행을 뒷받침하겠다고 설명했다. 공정수당이란 내년부터 공공부문에서 일하는 1년 미만 기간제 노동자에게 고용 불안정에 대한 보상으로 지급하는 추가 수당을 말한다. sje@yna.co.kr",
-        "summary": "공공부문 비정규직에 최저임금의 118% '적정임금'…공정수당 지급 전국공무원노동조합, 공무원·교사 노동자대회(서울=연합뉴스) 류영석 기자 = 11일 서울 숭례문 앞 세종대로에서 열린 전국공무원노동조합 공무원·교사 노동자대회에서 참석자들이 구호를 외치고 있다. 2026.7.11 ondol@yna.co.kr (세종=연합뉴스) 송정은 기자 = 내년 공무원 보수가 16년 만에 최대폭인 3.9% 인상된다. 이번 보수 인상으로 9급 초임 월급은 300만원 수준으로 높아진다. 기획예산처는 1일 국무회의에서 이런 내용 등의 '2027년 예산안을 ",
+        "fullText": "무개념 예비부부로 온라인서 비난 폭주알고 보니 대학원 졸업식 참석 하던 길차 고장...2차 사고 막고자 수신호최초 글 유포자, 사과 없이 글 삭제[이데일리 홍수현 기자] 1일 온라인을 떠들썩하게 한 ‘남산터널 무개념 웨딩촬영 예비 부부’ 논란이 사실이 아닌 것으로 드러났다. 이들의 지인에 따르면 당시 차가 고장 나 추가 사고를 막기 위해 수신호 등의 조처를 하고 있었다고 밝혔다. 온라인에서 \"남산 터널에서 도로를 막고 웨딩 촬영을 한다\"며 엄청난 비난을 받은 이들이다. 사실 확인 결과 이들은 부부가 아니며 대학원 졸업식 참석하러 이동 중 차가 고장 나 2차 사고를 방지하기 위해 수신호를 하던 것으로 밝혀졌다. (사진=사회관계망서비스)이날 사회관계망서비스(SNS)와 온라인을 중심으로 남산 3호터널에서 한 남녀가 차선 하나를 막고 웨딩 촬영을 했다는 내용의 글과 사진이 급속도로 확산했다.사진을 처음 공개한 작성자 A씨는 “8월 25일 오전 남산3호터널 차선 하나를 막아두고 터널에서 웨딩 촬영하는 정신 나간 예비부부를 포착했다”고 주장하며 사진을 공개했다.공개된 사진에선 2차선 터널 한쪽 차로에 흰색 차량이 정차해 있고, 차량 뒤쪽에는 차량 이동 제한을 유도하는 삼각뿔이 세워져 있다. 오른쪽 터널 벽면 인근에는 흰색 드레스를 입은 여성과 검은색 정장 차림의 남성이 서 있는 모습도 확인됐다.이에 이들은 몰지각한 행동을 했다는 이유로 온라인에서 엄청난 비난을 뚜드려맞았는데 사실은 이와 달랐다.이들의 지인이라고 밝힌 B씨는 이날 뉴스1에 “사고가 나서 보험사를 기다리던 중 혹시 또 다른 사고가 날까 봐 손을 뻗어 신호를 주고 있었던 것”이라고 당시 상황을 구체적으로 설명했다.또 당시 두 사람은 웨딩 촬영을 하던 것이 아니었다고 한다. 대학원 졸업식에 참석하기 위해 이동하던 중 타고 있던 차가 터널 안에서 갑자기 고장이 나서 일어난 일이었다고 말했다.B씨는 “진짜 위험한 상황이었다”며 “사진도 친구들에게 ‘이런 일이 있었다’면서 보내준 게 전부다. 당사자들이 어디에 올리거나 한 것도 아니다”라고 말했다.또 다른 지인 역시 SNS를 통해 “대학원 졸업식에 가는 길에 차가 퍼져 터널 안에서 수신호를 하고 있었던 것”이라며 “어떤 정신 나간 커플이 조명 하나 없는 남산터널에서 웨딩 사진을 찍겠냐. 그것도 카메라 하나 없이 찍는다는 게 말이 되느냐”고 반박했다.당초 원글을 올린 A씨는 이들에 대해 촬영 당시 별도의 도로 점용 허가를 받지 않은 것으로 보인다며 도로법과 도로교통법 위반 가능성도 제기했다.그는 도로법상 ‘무단 점용’과 관련 “관할 지자체나 경찰의 정식 점용 허가 없이 도로를 점거하고 촬영 장비나 인원 등으로 차선을 막은 경우 제114조에 따라 2년 이하의 징역 또는 2000만 원 이하의 벌금에 처할 수 있다”고 설명하기도 했다.이어 도로교통법 제68조와 제32조를 언급하며 ‘교통에 방해가 되는 방법으로 도로에 서 있거나 물건을 놓아두는 행위는 벌금 또는 범칙금 대상’, ‘터널 안은 정차 및 주차가 금지된 구역으로, 촬영을 위해 세워둔 차량 역시 범칙금과 벌금 부과’ 등 각각 내용을 명시했다.A씨는 당시 상황에 대해 “삼각뿔이 세워져 있길래 사고가 났나 했더니 촬영차 세워놓고 촬영하더라”며 “나라가 미쳐 돌아가는 건지, 똑같은 것들끼리 만나서 둘이 평생 헤어지지 말고 애는 낳지 마라”라고 강하게 비판했다.자초지종이 밝혀진 후 현재 최초 유포자인 A씨는 별도의 사과 없이 글을 삭제한 상태다.",
+        "summary": "무개념 예비부부로 온라인서 비난 폭주알고 보니 대학원 졸업식 참석 하던 길차 고장...2차 사고 막고자 수신호최초 글 유포자, 사과 없이 글 삭제[이데일리 홍수현 기자] 1일 온라인을 떠들썩하게 한 ‘남산터널 무개념 웨딩촬영 예비 부부’ 논란이 사실이 아닌 것으로 드러났다. 이들의 지인에 따르면 당시 차가 고장 나 추가 사고를 막기 위해 수신호 등의 조처를 하고 있었다고 밝혔다. 온라인에서 \"남산 터널에서 도로를 막고 웨딩 촬영을 한다\"며 엄청난 비난을 받은 이들이다. 사실 확인 결과 이들은 부부가 아니며 대학원 졸업식 참석하러 이",
         "topicSignature": {
           "category": "economy",
-          "target": "경제성장률",
-          "event": "성장률 변화",
-          "entities": [
-            "2027예산",
-            "16년만에",
-            "9급",
-            "300만"
-          ],
+          "target": "남산 터널",
+          "event": "사진 찍은 예비",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 경제성장률 | 성장률 변화 | 2027예산 16년만에 9급 300만"
+          "text": "economy | 남산 터널"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "경제성장률",
+          "subject": "남산 터널",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "경제성장률",
-            "GDP",
-            "성장률"
+            "남산",
+            "터널"
           ],
-          "eventKind": "gdp",
-          "eventLabel": "성장률 변화",
-          "eventTerms": [
-            "변화",
-            "성장",
-            "증가"
-          ],
+          "eventKind": "general",
+          "eventLabel": "",
+          "eventTerms": [],
           "eventKey": null,
-          "claimState": "decided",
+          "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "11일",
+          "date": "1일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "work"
+          "readerNeed": "public_interest"
         },
         "editorialValue": {
           "ok": true,
-          "score": 95,
+          "score": 55,
           "signals": [
             "reader_money_work_life_impact",
-            "concrete_event_or_decision",
-            "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "경제성장률",
+            "subject": "남산 터널",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "경제성장률",
-              "GDP",
-              "성장률"
+              "남산",
+              "터널"
             ],
-            "eventKind": "gdp",
-            "eventLabel": "성장률 변화",
-            "eventTerms": [
-              "변화",
-              "성장",
-              "증가"
-            ],
+            "eventKind": "general",
+            "eventLabel": "",
+            "eventTerms": [],
             "eventKey": null,
-            "claimState": "decided",
+            "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "11일",
+            "date": "1일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "work"
+            "readerNeed": "public_interest"
           },
-          "baseScore": 95,
+          "baseScore": 55,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -10374,22 +10377,17 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.6022,
+        "score": 0.6976,
         "method": "embedding",
-        "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-28:economy:33130651585",
+        "reason": "gray_distinct_event",
+        "matchedPublicationKey": "diem:2026-08-28:economy:33085193640",
         "signature": {
           "category": "economy",
-          "target": "경제성장률",
-          "event": "성장률 변화",
-          "entities": [
-            "2027예산",
-            "16년만에",
-            "9급",
-            "300만"
-          ],
+          "target": "남산 터널",
+          "event": "사진 찍은 예비",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 경제성장률 | 성장률 변화 | 2027예산 16년만에 9급 300만"
+          "text": "economy | 남산 터널"
         }
       },
       "editorial": null,
@@ -10474,6 +10472,13 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "retry_pending",
+        "attempts": 2,
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for weather; typography fallback is disabled",
+        "updatedAt": "2026-09-01T09:13:23.901Z"
       }
     },
     "issue": {
