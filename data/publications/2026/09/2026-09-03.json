@@ -4,7 +4,7 @@
   "date": "2026-09-03",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-02T16:56:43.882Z",
-  "updatedAt": "2026-09-02T21:34:47.186Z",
+  "updatedAt": "2026-09-02T21:36:14.991Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -8459,7 +8459,7 @@
     "issue": {
       "publicationKey": "diem:2026-09-03:issue:33684999490",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "네팔·中 대홍수 사망자 1천130명…韓긴급구호대 현지 도착(종합)",
         "url": "https://n.news.naver.com/article/001/0016286353?ntype=RANKING",
@@ -8627,15 +8627,646 @@
           "text": "issue | 네팔 대홍수 | 지원 | 1천130명 4천462명"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "네팔 대홍수\n보도",
+            "lines": [
+              "네팔 대홍수",
+              "보도"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "네팔 대홍수\n보도",
+          "lines": [
+            "네팔 대홍수",
+            "보도"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "네팔과 중국 국경의 히말라야 산악지대에 대홍수가 발생해 수많은 인명 피해가 보고됐다.📰",
+            "한국 해외긴급구호대가 현지에 도착해 수색·구조 활동을 지원하고 있다.",
+            "수력발전소 터널에 갇힌 실종자 수색이 어려워 구조 가능성이 낮아지고 있다.📰"
+          ],
+          "text": "네팔과 중국 국경의 히말라야 산악지대에 대홍수가 발생해 수많은 인명 피해가 보고됐다.📰\n\n한국 해외긴급구호대가 현지에 도착해 수색·구조 활동을 지원하고 있다.\n\n수력발전소 터널에 갇힌 실종자 수색이 어려워 구조 가능성이 낮아지고 있다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #네팔 #대홍수 #구조 #한국 #수력발전소 #1천130명",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#네팔",
+            "#대홍수",
+            "#구조",
+            "#한국",
+            "#수력발전소",
+            "#1천130명"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#네팔",
+              "#대홍수",
+              "#구조",
+              "#한국",
+              "#수력발전소",
+              "#1천130명"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 1,130명 in \"네팔·중국 국경을 강타한 대홍수로 사망자 1,130명, 실종자 4,462명에 이르며, 한국 해외긴급구호대가 현지에 도착했다\"; 4,462명 in \"네팔·중국 국경을 강타한 대홍수로 사망자 1,130명, 실종자 4,462명에 이르며, 한국 해외긴급구호대가 현지에 도착했다\"; 1,114명 in \"네팔 재난관리청이 발표한 사망자는 네팔 1,114명·중국 16명이며, 실종자는 네팔 3,916명(외국인 583명)과 중국 546명(외국인 261\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "failed",
+              "error": "model returned invalid sentence structure"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "failed",
+              "error": "editorial repair failed: model returned invalid sentence structure"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "Unexpected end of JSON input"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:weather-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-02T21:36:07.499Z",
+        "assetPath": "assets/fallback/generated/weather-01.png",
+        "sha256": "69535820595d0005f8431fa23987abcf9dba4c38d6b4939070f59eff089252bf",
+        "localSha256": "69535820595d0005f8431fa23987abcf9dba4c38d6b4939070f59eff089252bf",
+        "generatedTopic": "weather",
+        "generatedEnergy": "calm",
+        "description": "Rainwater flowing through an empty urban street drain.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "heavy rain flooded street storm",
+            "count": 20,
+            "suitableCount": 8,
+            "suitabilityRejected": 12,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:30539393",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "heavy",
+                  "rain",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33628086",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "heavy",
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33261303",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33274240",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36288940",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35302178",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:30561706",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32988688",
+                "rankWithinQuery": 16,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18312461",
+                "rankWithinQuery": 17,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:17750945",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:28428673",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:34162194",
+                "rankWithinQuery": 20,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 8,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.74
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "heavy rain flooded street storm",
+            "count": 5,
+            "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 25,
+          "recentKeyCount": 49,
+          "blockedCandidateCount": 2,
+          "selectedImageKeys": [
+            "diem-generated:weather-01",
+            "69535820595d0005f8431fa23987abcf9dba4c38d6b4939070f59eff089252bf"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; dynamic-first stable-shuffled project-generated weather asset weather-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+        "mood": "serious",
+        "title": "Moment of Peace",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/solo-piano-moment-of-peace-mickeyscat-554494/",
+        "sha256": "2cbc249e7f038abbca64a6d849c0c37c29d132b2088171b715c0055d5339cfed",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-02T21:36:14.976Z"
       },
       "story": {
         "status": "planned",
@@ -8714,6 +9345,15 @@
           "limit": 3,
           "remaining": 2
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-03/issue/issue-cover.png",
+        "coverSha256": "1fb4b94f51a541c4085499c371e784d8028728225327728010c0136733b1c413",
+        "followCtaPath": ".diem-cache/2026-09-03/issue/issue-follow-cta.png",
+        "followCtaSha256": "0da7acde02eb988132042ef9c9d68a993106349a61ef49c7029cedd647f821d0",
+        "reelPath": ".diem-cache/2026-09-03/issue/issue-reel.mp4",
+        "reelSha256": "6df88f48df33d713f20c5411cdb0c2b36e55fd96bb932b7202a3774208155e01",
+        "temporary": true
       }
     }
   },
