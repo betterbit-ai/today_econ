@@ -4,7 +4,7 @@
   "date": "2026-09-03",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-02T16:56:43.882Z",
-  "updatedAt": "2026-09-02T16:56:54.900Z",
+  "updatedAt": "2026-09-02T16:58:55.965Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -183,7 +183,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-120b/title_repair: title repair returned no valid title candidates for article frame | openai/gpt-oss-120b/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 2024년 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\"; 10월 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\"; 29일 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\" | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "청주 초교생이 시험 안내한 교사 폭행…교육당국 조사",
@@ -1964,24 +1966,24 @@
     "issue": {
       "publicationKey": "diem:2026-09-03:issue:33657746987",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "이태원 참사 현장 찾은 국민의힘…'윤석열 뇌진탕 발언'에 \"보고 잘못\"[노컷브이]",
-        "url": "https://n.news.naver.com/article/079/0004185367?ntype=RANKING",
+        "title": "청주 초교생이 시험 안내한 교사 폭행…교육당국 조사",
+        "url": "https://n.news.naver.com/article/079/0004185362?ntype=RANKING",
         "publishedDate": "2026-09-03",
-        "publishedAt": "2026-09-02 18:43:07",
+        "publishedAt": "2026-09-02 18:26:15",
         "observedAt": "2026-09-02T16:56:43.882Z",
-        "popularityScore": 93.9388,
+        "popularityScore": 91.9184,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 80.17,
-          "popularityScore": 93.9388,
+          "score": 79.81,
+          "popularityScore": 91.9184,
           "freshnessScore": 70,
-          "editorialValueScore": 50,
-          "ageHours": 7.23,
-          "publishedAt": "2026-09-02 18:43:07",
+          "editorialValueScore": 55,
+          "ageHours": 7.54,
+          "publishedAt": "2026-09-02 18:26:15",
           "observedAt": "2026-09-02T16:56:43.882Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -2000,37 +2002,39 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 4,
-            "normalizedScore": 93.9388,
-            "title": "이태원 참사 현장 찾은 국민의힘…'윤석열 뇌진탕 발언'에 \"보고 잘못\"[노컷브이]",
-            "url": "https://n.news.naver.com/article/079/0004185367?ntype=RANKING"
+            "rank": 5,
+            "normalizedScore": 91.9184,
+            "title": "청주 초교생이 시험 안내한 교사 폭행…교육당국 조사",
+            "url": "https://n.news.naver.com/article/079/0004185362?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "국민의힘 정점식 원내대표는 2일 10·29 이태원 참사 현장을 방문하고 헌화했습니다.현장을 둘러보던 정 원내대표는 과거 논란이 됐던 윤석열 전 대통령의 이른바 '뇌진탕 발언'에 대한 이야기가 나오자 \"초기 보고가 잘못됐다\"고 해명했습니다.이후 이태원 참사 희생자 기억·소통 공간인 '별들의 집'을 방문해 유가족들을 위로하며 \"특별조사위원회의 진상규명과 후속 조치에 필요한 역할을 다하겠다\"고 약속했습니다.영상으로 확인해 보시죠.※CBS노컷뉴스는 여러분의 제보로 함께 세상을 바꿉니다. 각종 비리와 부당대우, 사건사고와 미담 등 모든 얘깃거리를 알려주세요. 이메일 : jebo@cbs.co.kr카카오톡 : @노컷뉴스사이트 : https://url.kr/b71afn",
-        "summary": "국민의힘 정점식 원내대표는 2일 10·29 이태원 참사 현장을 방문하고 헌화했습니다.현장을 둘러보던 정 원내대표는 과거 논란이 됐던 윤석열 전 대통령의 이른바 '뇌진탕 발언'에 대한 이야기가 나오자 \"초기 보고가 잘못됐다\"고 해명했습니다.이후 이태원 참사 희생자 기억·소통 공간인 '별들의 집'을 방문해 유가족들을 위로하며 \"특별조사위원회의 진상규명과 후속 조치에 필요한 역할을 다하겠다\"고 약속했습니다.영상으로 확인해 보시죠.※CBS노컷뉴스는 여러분의 제보로 함께 세상을 바꿉니다. 각종 비리와 부당대우, 사건사고와 미담 등 모든 얘깃",
+        "fullText": "A양이 B씨를 폭행하는 모습. 독자 제공충북 청주의 한 초등학교에서 학생이 교사를 폭행하는 사건이 발생해 교육당국이 조사에 나섰다.2일 충북교육청 등에 따르면 이날 오전 8시 40분쯤 청주의 한 초등학교 5학년 교실에서 A양이 담임교사 B씨를 폭행했다.A양은 전날 치르지 못한 진단평가를 다시 보도록 안내받은 뒤 이같은 행동을 보인 것으로 전해졌다.학교 측은 보호자를 불러 A양을 귀가 조치했다. 폭행을 당한 교사 B씨도 조기 귀가해 병원에서 치료와 검사를 받았다.A양은 우울증 등으로 약을 복용하고 있는 것으로 알려졌다.교육당국은 교권보호센터 관계자를 학교에 보내 정확한 경위 파악에 나섰다. 피해 교원에게는 심리 안정을 위한 상담을 지원할 방침이다.충북교육청 관계자는 \"교권보호센터에서 정확한 경위를 조사하고 있다\"며 \"피해 교사 보호와 지원을 비롯한 후속 대응을 논의할 예정\"이라고 말했다.※CBS노컷뉴스는 여러분의 제보로 함께 세상을 바꿉니다. 각종 비리와 부당대우, 사건사고와 미담 등 모든 얘깃거리를 알려주세요. 이메일 : jebo@cbs.co.kr카카오톡 : @노컷뉴스사이트 : https://url.kr/b71afn",
+        "summary": "A양이 B씨를 폭행하는 모습. 독자 제공충북 청주의 한 초등학교에서 학생이 교사를 폭행하는 사건이 발생해 교육당국이 조사에 나섰다.2일 충북교육청 등에 따르면 이날 오전 8시 40분쯤 청주의 한 초등학교 5학년 교실에서 A양이 담임교사 B씨를 폭행했다.A양은 전날 치르지 못한 진단평가를 다시 보도록 안내받은 뒤 이같은 행동을 보인 것으로 전해졌다.학교 측은 보호자를 불러 A양을 귀가 조치했다. 폭행을 당한 교사 B씨도 조기 귀가해 병원에서 치료와 검사를 받았다.A양은 우울증 등으로 약을 복용하고 있는 것으로 알려졌다.교육당국은 교권",
         "topicSignature": {
           "category": "issue",
-          "target": "이태원 참사",
-          "event": "찾은 국민의힘 윤석열",
+          "target": "청주 초교생이",
+          "event": "지원",
           "entities": [],
           "eventKey": null,
-          "text": "issue | 이태원 참사"
+          "text": "issue | 청주 초교생이 | 지원"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "이태원 참사",
+          "subject": "청주 초교생이",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "이태원",
-            "참사"
+            "청주",
+            "초교생이"
           ],
           "eventKind": "general",
-          "eventLabel": "",
-          "eventTerms": [],
+          "eventLabel": "지원",
+          "eventTerms": [
+            "지원"
+          ],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "tentative",
           "evidenceState": "established_or_not_stated",
           "date": "2일",
           "requiredTitleTerms": [],
@@ -2042,27 +2046,29 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 50,
+          "score": 55,
           "signals": [
             "reader_money_work_life_impact",
-            "broad_audience_or_market_scope"
+            "issue_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "이태원 참사",
+            "subject": "청주 초교생이",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "이태원",
-              "참사"
+              "청주",
+              "초교생이"
             ],
             "eventKind": "general",
-            "eventLabel": "",
-            "eventTerms": [],
+            "eventLabel": "지원",
+            "eventTerms": [
+              "지원"
+            ],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "tentative",
             "evidenceState": "established_or_not_stated",
             "date": "2일",
             "requiredTitleTerms": [],
@@ -2072,19 +2078,19 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 50,
+          "baseScore": 55,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -2109,28 +2115,2109 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.5125,
+        "score": 0.6833,
         "method": "embedding",
-        "reason": "below_threshold",
+        "reason": "gray_distinct_event",
         "matchedPublicationKey": "diem:2026-08-31:issue:33337171096",
         "signature": {
           "category": "issue",
-          "target": "이태원 참사",
-          "event": "찾은 국민의힘 윤석열",
+          "target": "청주 초교생이",
+          "event": "지원",
           "entities": [],
           "eventKey": null,
-          "text": "issue | 이태원 참사"
+          "text": "issue | 청주 초교생이 | 지원"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "청주 초교생\n교사 폭행 조사",
+            "lines": [
+              "청주 초교생",
+              "교사 폭행 조사"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "청주 초교생\n교사 폭행 조사",
+          "lines": [
+            "청주 초교생",
+            "교사 폭행 조사"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "2일 청주 초등학교 5학년 교실에서 A양이 담임교사 B씨를 폭행했다.📰",
+            "교육청은 교권보호센터를 파견해 정확한 경위를 조사하고 있다.",
+            "피해 교사는 병원에서 치료를 받고, A양은 보호자와 함께 귀가 조치되었다.📰"
+          ],
+          "text": "2일 청주 초등학교 5학년 교실에서 A양이 담임교사 B씨를 폭행했다.📰\n\n교육청은 교권보호센터를 파견해 정확한 경위를 조사하고 있다.\n\n피해 교사는 병원에서 치료를 받고, A양은 보호자와 함께 귀가 조치되었다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #청주 #교사폭행 #교육청조사 #초교생이 #지원 #시험",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#청주",
+            "#교사폭행",
+            "#교육청조사",
+            "#초교생이",
+            "#지원",
+            "#시험"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#청주",
+              "#교사폭행",
+              "#교육청조사",
+              "#초교생이",
+              "#지원",
+              "#시험"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "Unexpected non-whitespace character after JSON at position 341"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:health-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-02T16:58:48.493Z",
+        "assetPath": "assets/fallback/generated/health-01.png",
+        "sha256": "c2456ce3a37e281e46560c8b2ec46a942133b5503cbadb41369778737c79104c",
+        "localSha256": "c2456ce3a37e281e46560c8b2ec46a942133b5503cbadb41369778737c79104c",
+        "generatedTopic": "health",
+        "generatedEnergy": "calm",
+        "description": "Mint medical treatment room with person-free clinical equipment.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:28812520",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7395908",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37827719",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7396389",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7395462",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5428013",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:12506803",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "education",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8617960",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36769588",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37811262",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8423045",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32426220",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18734743",
+                "rankWithinQuery": 13,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5428145",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8363722",
+                "rankWithinQuery": 15,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18931276",
+                "rankWithinQuery": 16,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37811162",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8923032",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5905923",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5905458",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.8375
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 20,
+            "suitableCount": 1,
+            "suitabilityRejected": 19,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:nw-viHamgmU",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:XrWlSSW4DNM",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:ne0vdRjN_hw",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:zLbYAAz6F4U",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:LYL31WBHynQ",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:gEnM-OAr0Rg",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:gElGkbMnyKE",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:MtcBG4y3JJ8",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:FoB-ImUjLqE",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:l8c46wvbEv8",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:xaWCjNBEu5w",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:sjkXYJYrU5g",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:Go8pYLUhGg0",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8VRKYQ_pVwo",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:VOUicg8Ejus",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:FPx5Bn6PnuM",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:sundi8vhoiY",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cDKou5SvVwQ",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:bN79-xSUPwQ",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 1,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.625
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 14,
+            "suitableCount": 0,
+            "suitabilityRejected": 14,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:125920265",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920266",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920267",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920269",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920270",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:145913471",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:30842420",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:86369215",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:80497442",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:26240400",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:137155751",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "education",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:92751802",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school",
+                  "education"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:92751809",
+                "rankWithinQuery": 13,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school",
+                  "education"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:109258585",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "education"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "치료와",
+                  "role": "검사",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7875
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 1,
+            "error": "400 {\"error\":{\"message\":\"Failed to generate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"max completion tokens reached before generating a valid document\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 23,
+          "recentKeyCount": 47,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:health-01",
+            "c2456ce3a37e281e46560c8b2ec46a942133b5503cbadb41369778737c79104c"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated health asset health-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-tech-house-vibes-130",
+        "mood": "bright",
+        "title": "Tech House Vibes",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-tech-house-vibes-130.mp3",
+        "sha256": "72ed4e66ef3714048fe6bf57783b35d32a4b1b8f12245bc1f64f16b3cbb4949b",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-02T16:58:55.954Z"
       },
       "story": {
         "status": "planned",
@@ -2208,6 +4295,80 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-03/issue/issue-cover.png",
+        "coverSha256": "3a61c6dd24553642656edf3c36dea671a5260c5c3a814b6be7279ecda764029e",
+        "followCtaPath": ".diem-cache/2026-09-03/issue/issue-follow-cta.png",
+        "followCtaSha256": "8cbee4b23e2f0b130c727ce68287248439d05b2e1ffb7fb8e88539d5b3f557f9",
+        "reelPath": ".diem-cache/2026-09-03/issue/issue-reel.mp4",
+        "reelSha256": "d66fbd68e669c45493112282528a8e8b899ede3ee6943f7b3462e7080f0fc40e",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "이태원 참사 현장 찾은 국민의힘…'윤석열 뇌진탕 발언'에 \"보고 잘못\"[노컷브이]",
+            "url": "https://n.news.naver.com/article/079/0004185367?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-120b/title_repair: title repair returned no valid title candidates for article frame | openai/gpt-oss-120b/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 2024년 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\"; 10월 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\"; 29일 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\" | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 10월 in \"국민의힘 정점식 원내대표가 10월 29일 이태원 참사 현장을 찾아 헌화를 하고, 윤석열 전 대통령의 ‘뇌진탕 발언’ 초기 보도가 잘못됐다고 해명\"; 29일 in \"국민의힘 정점식 원내대표가 10월 29일 이태원 참사 현장을 찾아 헌화를 하고, 윤석열 전 대통령의 ‘뇌진탕 발언’ 초기 보도가 잘못됐다고 해명\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "succeeded",
+                "error": null
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "title_generation",
+                "status": "failed",
+                "error": "model returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "title_repair",
+                "status": "failed",
+                "error": "title repair returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "title repair failed: title repair returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 2024년 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\"; 10월 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\"; 29일 in \"이태원 참사는 2024년 10월 29일 발생한 대규모 화재로 159명이 사망한 사건으로, 정부와 정치계의 책임과 대응이 지속적으로 검토되고 있다\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-02T16:58:27.196Z"
+          }
+        ],
+        "updatedAt": "2026-09-02T16:58:35.292Z"
       }
     }
   },
