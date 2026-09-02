@@ -4,7 +4,7 @@
   "date": "2026-09-02",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-01T17:05:51.140Z",
-  "updatedAt": "2026-09-02T11:52:50.936Z",
+  "updatedAt": "2026-09-02T11:56:25.220Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -48,7 +48,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model copied raw source wording in caption sentence 2 | openai/gpt-oss-20b/editorial: editorial repair failed: model copied raw source wording in caption sentence 2)"
+      ]
     },
     {
       "title": "김성수 대법관 후보, 처남이 임차한 강남 아파트에 ‘시세보다 싼’ 전대차 논란",
@@ -12891,24 +12893,24 @@
     "issue": {
       "publicationKey": "diem:2026-09-02:issue:33626545864",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "청와대, 용혜인 ‘의원 겸직’ 부정적 기류…후보자에 전달",
-        "url": "https://n.news.naver.com/article/028/0002821339?ntype=RANKING",
+        "title": "김성수 대법관 후보, 처남이 임차한 강남 아파트에 ‘시세보다 싼’ 전대차 논란",
+        "url": "https://n.news.naver.com/article/028/0002821346?ntype=RANKING",
         "publishedDate": "2026-09-02",
-        "publishedAt": "2026-09-02 17:28:23",
+        "publishedAt": "2026-09-02 17:52:13",
         "observedAt": "2026-09-02T11:52:41.860Z",
-        "popularityScore": 100,
+        "popularityScore": 97.9796,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 89.5,
-          "popularityScore": 100,
+          "score": 88.39,
+          "popularityScore": 97.9796,
           "freshnessScore": 90,
           "editorialValueScore": 50,
-          "ageHours": 3.41,
-          "publishedAt": "2026-09-02 17:28:23",
+          "ageHours": 3.04,
+          "publishedAt": "2026-09-02 17:52:13",
           "observedAt": "2026-09-02T11:52:41.860Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -12927,55 +12929,38 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 1,
-            "normalizedScore": 100,
-            "title": "청와대, 용혜인 ‘의원 겸직’ 부정적 기류…후보자에 전달",
-            "url": "https://n.news.naver.com/article/028/0002821339?ntype=RANKING"
+            "rank": 2,
+            "normalizedScore": 97.9796,
+            "title": "김성수 대법관 후보, 처남이 임차한 강남 아파트에 ‘시세보다 싼’ 전대차 논란",
+            "url": "https://n.news.naver.com/article/028/0002821346?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "민주 송영길·이연희 의원도 반대 뜻“장관에 의원까지 욕심, 불공정하게 비쳐” 용혜인 성평등가족부 장관 후보자가 2일 서울 서대문구에 마련된 인사청문회 준비 사무실로 출근하고 있다. 공동취재사진용혜인 성평등가족부 장관 후보자의 ‘장관-비례대표 국회의원 겸직 논란’이 확산하면서 청와대와 여권의 고심이 깊어지고 있다. 청와대는 더불어민주당 내에서도 비판 목소리가 이어지자 용 후보자 쪽에 의원직 겸직에 대한 부정적 여론을 전달한 것으로 전해졌다.여권 관계자는 2일 “청와대에서 의원 겸직에 대한 부정적 민심을 용 후보자 쪽에 전달한 것으로 안다”고 말했다. 용 후보자가 장관에 취임한 뒤에도 의원직을 유지하는 것은 국민 눈높이에 맞지 않는다는 입장을 사실상 밝힌 것이다.특히 2030 세대와 여성층으로의 외연 확장을 기대하며 용 후보자를 발탁했으나 이번 논란이 오히려 이들의 정부를 향한 반감을 키우고 있다는 우려가 청와대 내부에서 나오는 것으로 알려졌다. 용 후보자의 배우자가 기본소득당 당직자로 일하면서 주요 당직을 맡아왔다는 점 역시 정당 운영 투명성 측면에서 의구심을 불러일으키고 있다. 또 다른 여권 관계자는 “후보자에게 강제로 의원직을 내려놓으라고 할 수는 없는 만큼 일단 여론을 지켜보고, 후보자가 결단해주길 바라는 분위기”라고 말했다.민주당에서도 ‘용 후보자가 장관직과 의원직 가운데 하나를 내려놓아야 한다’는 목소리가 커지고 있다. 송영길 의원은 이날 에스비에스(SBS) 라디오에서 “과연 이분을 임명한 게 2030 세대한테 무슨 소구력이 있을까 의문”이라며 “장관 시키는데 또 국회의원까지 계속하겠다, 누가 보더라도 욕심으로 보이는 것이고, 불공정하게 느껴지는 것”이라고 했다. 이연희 의원도 문화방송(MBC)에 나와 “기본소득당을 지켜야 되는 일이 중하면 장관직 제안을 거절했어야 하고, 장관직을 수행하고 싶으면 의원직을 사퇴하는 게 맞다”고 했다.다만 진보 정당과의 연대·통합 뜻을 밝힌 이재명 대통령의 인선 취지를 여당이 존중해야 한다는 의견도 있다. 민주당 대통합추진단 소속 한 의원은 한겨레에 “기본소득당의 유일한 의원을 입각시킨 건 대통합의 측면도 있다는 점을 무게 있게 고려해야 한다”며 “본인이 소명할 기회를 분명히 줘야 한다”고 말했다.용 후보자는 이날 비례의원직 사퇴 여부에 대해 “청문회 때 많은 말씀 나눌 수 있도록 하겠다”며 즉답을 피했다. 용 후보자는 이날 서울 서대문구 한국청소년활동진흥원에 마련된 인사청문회 준비 사무실로 출근하는 길에 ‘청문회 전에라도 의원직과 장관직 중 하나를 선택할 생각은 없냐’고 기자들이 묻자 “청문회 과정이 국민과 소통하는 과정이기에 청문회를 잘 준비하며 제 생각을 잘 정리하고 전달해드리겠다”고만 했다.",
-        "summary": "민주 송영길·이연희 의원도 반대 뜻“장관에 의원까지 욕심, 불공정하게 비쳐” 용혜인 성평등가족부 장관 후보자가 2일 서울 서대문구에 마련된 인사청문회 준비 사무실로 출근하고 있다. 공동취재사진용혜인 성평등가족부 장관 후보자의 ‘장관-비례대표 국회의원 겸직 논란’이 확산하면서 청와대와 여권의 고심이 깊어지고 있다. 청와대는 더불어민주당 내에서도 비판 목소리가 이어지자 용 후보자 쪽에 의원직 겸직에 대한 부정적 여론을 전달한 것으로 전해졌다.여권 관계자는 2일 “청와대에서 의원 겸직에 대한 부정적 민심을 용 후보자 쪽에 전달한 것으로 ",
+        "fullText": "주진우 국힘 의원, ‘증여세 회피 의혹’ 제기“전세금 시세와 차액은 증여세 부과 대상” 김성수 대법관 후보자. 연합뉴스김성수 대법관 후보자가 처남이 임차한 서울 강남구 아파트에 시세보다 낮은 가격을 내고 전대차 계약을 맺어 증여세를 회피했다는 의혹이 제기됐다.2일 김 후보자가 국회에 제출한 재산신고내역과 주민등록자료, 부동산 등기부 등을 보면, 김 후보자는 2011년 2월부터 2021년 6월까지 처남 소유의 서울 강남구 역삼e편한세상 아파트(25평형)에 전세보증금 3억5천만원을 내고 거주했다. 또 2021년 6월부터는 처남이 계약한 도곡렉슬 아파트 43평형에 보증금 3억5천만원에 월세 80만원(보증금 전환시 2억원 안팎)을 내는 조건으로 전대차 계약을 맺고 살았다. 서울부동산정보광장이 공개한 계약 당시 역삼e편한세상의 전세 실거래가는 4억∼4억3000만원, 도곡렉슬 아파트의 전세 실거래가는 12억~20억원이다. 이에 대해 주진우 국민의힘 의원은 “(보증금이) 터무니없이 적은 금액”이라며 “전세금 시세와의 차액은 법률상 증여세 부과 대상이다. 처남으로부터 막대한 이익을 받는 전형적인 증여세 탈세 수법”이라고 주장했다.이날 김 후보자 청문회 준비단은 공지를 내어 “미혼인 처남을 염려한 장모의 권유로 2021년 후보자 가족과 처남이 함께 해당 아파트에 이사하게 된 것”이라며 “인사청문회 절차가 마무리되는 대로 적정한 방법으로 정리할 예정”이라고 해명했다.",
+        "summary": "주진우 국힘 의원, ‘증여세 회피 의혹’ 제기“전세금 시세와 차액은 증여세 부과 대상” 김성수 대법관 후보자. 연합뉴스김성수 대법관 후보자가 처남이 임차한 서울 강남구 아파트에 시세보다 낮은 가격을 내고 전대차 계약을 맺어 증여세를 회피했다는 의혹이 제기됐다.2일 김 후보자가 국회에 제출한 재산신고내역과 주민등록자료, 부동산 등기부 등을 보면, 김 후보자는 2011년 2월부터 2021년 6월까지 처남 소유의 서울 강남구 역삼e편한세상 아파트(25평형)에 전세보증금 3억5천만원을 내고 거주했다. 또 2021년 6월부터는 처남이 계약한",
         "topicSignature": {
           "category": "issue",
-          "target": "청와대",
-          "event": "정치 발언",
-          "entities": [],
+          "target": "주거 정책",
+          "event": "전환",
+          "entities": [
+            "대법관"
+          ],
           "eventKey": null,
-          "text": "issue | 청와대 | 정치 발언"
+          "text": "issue | 주거 정책 | 전환 | 대법관"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "청와대",
-          "primaryActor": "청와대",
-          "attributionMode": "single_speaker_quote",
+          "subject": "주거 정책",
+          "primaryActor": null,
+          "attributionMode": null,
           "subjectTerms": [
-            "청와대"
+            "주거",
+            "정책"
           ],
-          "eventKind": "political_statement",
-          "eventLabel": "정치 발언",
+          "eventKind": "housing_policy",
+          "eventLabel": "전환",
           "eventTerms": [
-            "언급",
-            "발언",
-            "주장",
-            "말해",
-            "말했",
-            "라고 했다",
-            "밝혔",
-            "전했",
-            "호소",
-            "강조",
-            "비판",
-            "평가",
-            "전망",
-            "지적",
-            "진단",
-            "예상",
-            "내다",
-            "꼬집",
-            "경고",
-            "설명",
-            "분석"
+            "전환"
           ],
           "eventKey": null,
           "claimState": "reported",
@@ -12986,7 +12971,7 @@
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "public_interest"
+          "readerNeed": "housing"
         },
         "editorialValue": {
           "ok": true,
@@ -12999,36 +12984,17 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "청와대",
-            "primaryActor": "청와대",
-            "attributionMode": "single_speaker_quote",
+            "subject": "주거 정책",
+            "primaryActor": null,
+            "attributionMode": null,
             "subjectTerms": [
-              "청와대"
+              "주거",
+              "정책"
             ],
-            "eventKind": "political_statement",
-            "eventLabel": "정치 발언",
+            "eventKind": "housing_policy",
+            "eventLabel": "전환",
             "eventTerms": [
-              "언급",
-              "발언",
-              "주장",
-              "말해",
-              "말했",
-              "라고 했다",
-              "밝혔",
-              "전했",
-              "호소",
-              "강조",
-              "비판",
-              "평가",
-              "전망",
-              "지적",
-              "진단",
-              "예상",
-              "내다",
-              "꼬집",
-              "경고",
-              "설명",
-              "분석"
+              "전환"
             ],
             "eventKey": null,
             "claimState": "reported",
@@ -13039,21 +13005,21 @@
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "public_interest"
+            "readerNeed": "housing"
           },
           "baseScore": 50,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -13080,28 +13046,1703 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.607,
+        "score": 0.7198,
         "method": "embedding",
-        "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-30:issue:33295940961",
+        "reason": "gray_distinct_event",
+        "matchedPublicationKey": "diem:2026-08-27:economy:33034646780",
         "signature": {
           "category": "issue",
-          "target": "청와대",
-          "event": "정치 발언",
-          "entities": [],
+          "target": "주거 정책",
+          "event": "전환",
+          "entities": [
+            "대법관"
+          ],
           "eventKey": null,
-          "text": "issue | 청와대 | 정치 발언"
+          "text": "issue | 주거 정책 | 전환 | 대법관"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "김성수 후보\n전대차 논란",
+            "lines": [
+              "김성수 후보",
+              "전대차 논란"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "김성수 후보\n전대차 논란",
+          "lines": [
+            "김성수 후보",
+            "전대차 논란"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "김성수 대법관 후보가 처남이 임차한 강남 아파트에 시세보다 낮은 전세금으로 전대차 계약을 맺어 증여세 회피 의혹이 제기됐다.📰",
+            "2011년 2월부터 2021년 6월까지 3억5천만 원의 전세보증금으로 25평형 아파트에 거주했고, 2021년 6월 이후에는 3억5천만 원 보증금과 월세 80만 원으로 43평형 아파트에 전대차를 진행했다.",
+            "전세 실거래가가 4억~4억3천만 원, 12억~20억 원에 비해 보증금이 현저히 낮아 증여세 탈세 수법으로 비난받으며, 김 후보는 장모의 권유로 이사했다고 해명했다.📰"
+          ],
+          "text": "김성수 대법관 후보가 처남이 임차한 강남 아파트에 시세보다 낮은 전세금으로 전대차 계약을 맺어 증여세 회피 의혹이 제기됐다.📰\n\n2011년 2월부터 2021년 6월까지 3억5천만 원의 전세보증금으로 25평형 아파트에 거주했고, 2021년 6월 이후에는 3억5천만 원 보증금과 월세 80만 원으로 43평형 아파트에 전대차를 진행했다.\n\n전세 실거래가가 4억~4억3천만 원, 12억~20억 원에 비해 보증금이 현저히 낮아 증여세 탈세 수법으로 비난받으며, 김 후보는 장모의 권유로 이사했다고 해명했다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #대법관 #전대차 #증여세 #주거 #전환",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#대법관",
+            "#전대차",
+            "#증여세",
+            "#주거",
+            "#전환"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#대법관",
+              "#전대차",
+              "#증여세",
+              "#주거",
+              "#정책",
+              "#전환"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "Unexpected non-whitespace character after JSON at position 436"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "failed",
+              "error": "[DIEM Editorial] caption sentence 2 exceeds 120 graphemes"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:legislation-03",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-02T11:56:18.184Z",
+        "assetPath": "assets/fallback/generated/legislation-03.png",
+        "sha256": "912bed0613d170d3a0682d2740568d5c1b0a3b93bb8a885c438795339db244aa",
+        "localSha256": "912bed0613d170d3a0682d2740568d5c1b0a3b93bb8a885c438795339db244aa",
+        "generatedTopic": "legislation",
+        "generatedEnergy": "calm",
+        "description": "Dark-green institutional corridor with blank agenda folders.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "Korean National Assembly Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:39050264",
+                "rankWithinQuery": 1,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33148956",
+                "rankWithinQuery": 2,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18401905",
+                "rankWithinQuery": 3,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:12057526",
+                "rankWithinQuery": 4,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:31743256",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:25956386",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "national",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:31990869",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33034604",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:20837274",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:22617710",
+                "rankWithinQuery": 10,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33795178",
+                "rankWithinQuery": 11,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:39125479",
+                "rankWithinQuery": 12,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:27924825",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18470531",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:31990868",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37384703",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:24866596",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:27924805",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:27850125",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:34676844",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.675
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "Korean National Assembly Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:Via0Hy2rYIc",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:dNtwZ-VnZ30",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:fEyw6zOKGSo",
+                "rankWithinQuery": 3,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:NyKvWWSrjGc",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:VaKf8BY8rng",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:WWmTo7Qd4eM",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korean"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:dvg1NvSuxEQ",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:9hx6Fa8eHuE",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:CJYmvgAd01w",
+                "rankWithinQuery": 9,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:cBkYnWvRq30",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:Q71xOFBC5rs",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:_88rRx6t1ps",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:l87VMx8jDeA",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8tLJYfeF7r8",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:OGB_kCvpHBo",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:PsA_BJ_fhBg",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:O5dcl9yej8Y",
+                "rankWithinQuery": 17,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:hMDQPmCxXFc",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:z1ExbRI13No",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:5Va5EuINfxE",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.4625
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "Korean National Assembly Seoul",
+            "count": 0,
+            "error": "504 Gateway Timeout"
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "Korean National Assembly Seoul",
+            "count": 19,
+            "suitableCount": 17,
+            "suitabilityRejected": 2,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:134760625",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "national",
+                  "assembly"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:134759818",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "korean",
+                  "national",
+                  "assembly",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "national",
+                  "assembly"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "대법관",
+                  "role": "후보",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 17,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.75
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "Korean National Assembly Seoul",
+            "count": 5,
+            "error": "400 {\"error\":{\"message\":\"failed to retrieve media: received status code: 403\",\"type\":\"invalid_request_error\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 27,
+          "recentKeyCount": 51,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:legislation-03",
+            "912bed0613d170d3a0682d2740568d5c1b0a3b93bb8a885c438795339db244aa"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated legislation asset legislation-03 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "serious1",
+        "mood": "serious",
+        "sha256": "7a6bdeafe5b9f5d0d84205cc45337c65b93bb2dc7824d39d82adb48b89451c53",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-02T11:56:25.205Z"
       },
       "story": {
         "status": "planned",
@@ -13175,6 +14816,68 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-02/issue/issue-cover.png",
+        "coverSha256": "73dec388238494fddf0a4a2f899e919ea6186a470ca87ffa4d5243ccd49c1eeb",
+        "followCtaPath": ".diem-cache/2026-09-02/issue/issue-follow-cta.png",
+        "followCtaSha256": "d8e8af880253f2fa5b6de32e3e2c850ae2e8af5cbc9f1452e3ad3cd59c851db1",
+        "reelPath": ".diem-cache/2026-09-02/issue/issue-reel.mp4",
+        "reelSha256": "5cb2f3e8d26c5851f6408e5565eccb109e4de1eb644d928f5382006db20f97ed",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "청와대, 용혜인 ‘의원 겸직’ 부정적 기류…후보자에 전달",
+            "url": "https://n.news.naver.com/article/028/0002821339?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model copied raw source wording in caption sentence 2 | openai/gpt-oss-20b/editorial: editorial repair failed: model copied raw source wording in caption sentence 2)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model copied raw source wording in caption sentence 2"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model copied raw source wording in caption sentence 2"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-02T11:54:27.400Z"
+          }
+        ],
+        "updatedAt": "2026-09-02T11:54:34.584Z"
       }
     }
   },
