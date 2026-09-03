@@ -4,7 +4,7 @@
   "date": "2026-09-03",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-02T16:56:43.882Z",
-  "updatedAt": "2026-09-03T14:11:10.561Z",
+  "updatedAt": "2026-09-03T14:13:19.238Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -497,7 +497,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"2\",\"generatedBases\":[\"day_on_day\"],\"evidenceBases\":[]}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"2\",\"generatedBases\":[\"day_on_day\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "\"그래도 흰쌀밥이 젤 맛있다\"…늘어나는 '소식좌'에 승부수 던졌다",
@@ -535,7 +537,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"전쟁도 안 하는데, 러시아 절반 수준\"…韓 콕 집은 푸틴, 이유는",
@@ -571,7 +575,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "환율이 '복병'…삼전 43만·하닉 300만 목표가 동반↓",
@@ -607,7 +613,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 7% in \"원·달러 환율 부담이 3분기 실적을 잠식할 것으로 판단해 3분기 예상 영업이익을 10%와 3% 낮추었으며, 2026년 연간 영업이익 전망도 각각\" | openai/gpt-oss-20b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-20b/title_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: title repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "\"성매매 영구 중단\"…'대추벌' 업주·종사자들 공개 선언",
@@ -645,7 +653,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "\"패딩 덜 꺼내나, 비 자주 오고 따뜻한 한국 겨울?\"…'역대 최강' 엘니뇨 온다",
@@ -683,7 +693,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"300억 벌어다 주더라\" 이탈리아에서 태워버리던 '꽃게', 수출했더니 '대박'",
@@ -719,7 +731,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"비행기서 잘못 내렸나? 여긴 한국\"…유카타 입고 등장한 美 배우 논란",
@@ -757,7 +771,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"모자관계 이어갈 수 없어\" 양아들 구광모 LG회장 파양 소송했지만 1심 '패소'",
@@ -795,7 +811,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"카페 창가 65만원, 잔디밭 40만원\"…'손쓸 방법이 없다' 기막힌 명당 장사",
@@ -833,7 +851,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "코로나+독감 '동시 유행' 비상…'위생·접종' 중요",
@@ -871,7 +891,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] 초록불에 횡단보도 건너던 여성 굴착기에 치여 숨져…운전자 \"사고 낸 지 몰랐다\"",
@@ -909,7 +931,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "빗길에 음식 쏟은 배달기사…\"괜찮다\" 용돈까지 건넨 손님 사연에 '울컥' [포크뉴스]",
@@ -947,7 +971,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "네팔 홍수 버틴 '초록집' 명소 됐다…암반에 고정한 기둥 덕분",
@@ -983,7 +1009,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "[단독] 기본소득당 정책연구소, 상반기 지출 99%가 인건비…정책개발비 0원",
@@ -1019,7 +1047,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"성수동 지금 위험해\" 발칵…사장님들 우르르 탈출하는 까닭 [벼랑 끝 사장님]",
@@ -1057,7 +1087,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "삼전닉스 믿고 샀는데 어쩌나…\"잔치는 끝났다\" 충격 전망 [분석+]",
@@ -1095,7 +1127,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"버티다 버티다 못 버텼다\"…'국민 자격증' 날개 없는 추락",
@@ -1133,7 +1167,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"6억 전세 산다\" 용혜인 장관 후보자 재산 살펴 보니…",
@@ -1171,7 +1207,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"죽기 전에 내놓자\" 눈물의 할인…수산시장 갔다가 '화들짝'",
@@ -1209,7 +1247,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“지방 갈 바엔 사표 쓰겠다”…‘신의 직장’도 폭발, 총파업 결의",
@@ -1247,7 +1287,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "푸틴 “한국, 전쟁이 없는데도 출산율 낮아…러의 절반 수준”",
@@ -1283,7 +1325,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "‘뿔난’ 진보…정의당 “용혜인·김승원 지명철회” 참여연대 “신약 로비, 구체적”",
@@ -1321,7 +1365,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“나도 봤는데, 여성 뒤만 노려 바짝”…50대 ‘2호선 밀착남’ 잠복 경찰이 체포",
@@ -1359,7 +1405,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "김웅 “영장 기각한 판사가 셀카 속 인물?…이건 ‘김승원 게이트’”",
@@ -1397,7 +1445,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“지하철서 女뒤에 바짝”…목격담 이어진 ‘2호선 중년男’ 잡혔다",
@@ -1435,7 +1485,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“골칫덩이가 복덩이로”…伊 양식장 망치던 블루크랩, 수출 불티",
@@ -1471,7 +1523,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "수사기관 3000명 세종行…“서울 치안수요 큰데” 우려도",
@@ -1509,7 +1563,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“뾰족 손톱으로 등 긁어주는데 5만원”…월매출 2000만원 올렸다",
@@ -1547,7 +1603,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독]기본소득당, 기업에 주는 청년장려금 1860만원 받았다",
@@ -1583,7 +1641,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“터널 안에 물·식량 있는 ‘에어 포켓’…최대 17일 생존 가능”",
@@ -1621,7 +1681,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] 1,200억 넘는 땅을 900억에?…한양학원 ‘헐값 매각’ 경찰 수사",
@@ -1659,7 +1721,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "[단독] 용혜인, 정책 개발비도 ‘내부 거래’?…당직자에게 연구용역",
@@ -1695,7 +1759,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "청와대 “‘호르무즈 파병 가닥’ 보도 사실과 달라…결정된 바 없어”",
@@ -1733,7 +1799,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "‘이혼 소송 아내 살해’ 30대 구속…전에도 구속 기회 있었다",
@@ -1771,7 +1839,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "“김승원 지명 철회” “결격 사유”... 정의당·참여연대도 나섰다",
@@ -1809,7 +1879,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] 양정원 남편 접대 받은 경찰… ‘인권 침해’ 내세워 사건 뭉개",
@@ -1847,7 +1919,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "매달 166만원 저축 가능하세요? 평생 돈 걱정 끝내는 ‘풍차 돌리기’ 전략",
@@ -1885,7 +1959,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "성남도개공, 대장동 남욱 99억 차명재산에 ‘사해행위 취소 소송’",
@@ -1923,7 +1999,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "무제한이라더니 사진도 안 열려…‘생색내기’ 통합 요금제 논란",
@@ -1961,7 +2039,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     }
   ],
   "candidateRuns": [
@@ -13343,24 +13423,24 @@
     "economy": {
       "publicationKey": "diem:2026-09-03:economy:33764942261",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
-        "title": "오후 2시에 무슨 일이? 243포인트 '출렁'…'공포의 30분' 일제히 흔들렸다",
-        "url": "https://n.news.naver.com/article/215/0001264796?ntype=RANKING",
+        "title": "환율이 '복병'…삼전 43만·하닉 300만 목표가 동반↓",
+        "url": "https://n.news.naver.com/article/215/0001264788?ntype=RANKING",
         "publishedDate": "2026-09-03",
-        "publishedAt": "2026-09-03 21:08:52",
+        "publishedAt": "2026-09-03 19:00:35",
         "observedAt": "2026-09-03T14:10:57.982Z",
-        "popularityScore": 79.7959,
+        "popularityScore": 73.7347,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 81.39,
-          "popularityScore": 79.7959,
-          "freshnessScore": 90,
+          "score": 75.05,
+          "popularityScore": 73.7347,
+          "freshnessScore": 80,
           "editorialValueScore": 70,
-          "ageHours": 2.03,
-          "publishedAt": "2026-09-03 21:08:52",
+          "ageHours": 4.18,
+          "publishedAt": "2026-09-03 19:00:35",
           "observedAt": "2026-09-03T14:10:57.982Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -13379,42 +13459,42 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 11,
-            "normalizedScore": 79.7959,
-            "title": "오후 2시에 무슨 일이? 243포인트 '출렁'…'공포의 30분' 일제히 흔들렸다",
-            "url": "https://n.news.naver.com/article/215/0001264796?ntype=RANKING"
+            "rank": 14,
+            "normalizedScore": 73.7347,
+            "title": "환율이 '복병'…삼전 43만·하닉 300만 목표가 동반↓",
+            "url": "https://n.news.naver.com/article/215/0001264788?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "6700선 눈앞이었는데…돌연 3%p 털썩3일 오후 한중일 증시 일제히 'V자' 변동성 장세BOJ 빅스탭 가능성·엔 캐리 청산 우려↑ 미국 국채금리 급등세가 멈춘데 힘입어 오름세를 보이던 코스피가 3일 오후 갑작스런 출렁임에 상승분을 대부분 반납하는 모습을 보였다. 한국과 일본, 중국, 대만 등 아시아 주요국 주식시장도 이날 오후 일제히 급락했다가 곧장 반등하는 '널뛰기' 장세를 보이면서 투자자들이 혼란을 겪는 일이 벌어졌다. 국제유가 등에 큰 변화가 없는 가운데 증시만 요동을 치는 기현상이 나타난데 대해 전문가들은 엔화 강세에 따른 '엔 캐리 트레이드' 청산 우려가 자극받은 결과일 수 있다는 추측을 내놓았다.이날 한국거래소에 따르면 코스피는 전 거래일 대비 0.26% 오른 6,579.48에 장을 마쳤다. 장 초반 미 국채 금리 안정과 기술주 훈풍에 1.83%까지 올랐던 지수는 오후 2시 28분 기준 전장보다 1.88% 하락 전환하며 6,439.49까지 급락하는 모습을 보였다. 불과 30분 전까지만 해도 6,645.41(+1.26%)을 나타내고 있었는데 순식간에 3%포인트 넘게 지수가 빠진 것이다. 하지만, 그 직후 급격한 내림세만큼 빠른 반등이 나타나면서 코스피는 'V'자를 그리며 상승, 전장 대비 0.26% 오른 6,579.48로 마감했다. 이날 장중 고점과 저점의 차이는 243.48포인트에 달했다.한국 주식시장에만 국한된 것은 아니었다. 같은 시각 일본 닛케이225 지수와 대만 가권지수, 중국 상하이종합지수 등도 강세였던 흐름이 가파르게 꺾이며 급락했다가 곧 내림폭을 되돌리는 널뛰기를 보였다. 엔화. 연합뉴스원인을 둘러싼 증권가의 해석은 아직 분분한 모습이지만, 일각에선 '엔 캐리 트레이드 청산' 위험에 대한 우려가 일시적으로 부각된 데 따른 것 아니겠느냐는 추측이 나온다.엔 캐리 트레이드는 낮은 금리의 엔화 자금으로 달러와 같은 고금리 통화의 채권·주식 등을 운용하는 전략이다. 미·일 금리차 와 엔화 강세 등이 맞물릴 경우 투자한 자산을 매도하고 엔화를 다시 사들여 빚을 갚는 '청산'이 발생, 이는 글로벌 금융시장 전반의 급격한 매도세로 이어질 수 있다는 분석이다.이날 일본 10년물 국채금리는 1996년 이후 30년 만에 처음으로 3%를 돌파했다. 외신에서는 일본은행(BOJ)이 9월 기준금리를 50bp(1bp=0.01%포인트) 인상하는 빅스텝에 나설 수 있다는 보도를 전했다.강진혁 신한투자증권 연구원은 \"이란 이슈는 오전에 보도됐고 유가 변동도 크지 않았다. 엔화가 156엔 선까지 가파르게 강세를 보이자 엔캐리 청산 불안이 기관 투매를 자극했다\"고 분석했다.글로벌 주식시장 전반의 투자심리가 극도로 약화한 상태가 아니었다면 이 정도로 급등락이 나타나진 않았을 것이란 시선도 있다. 김두언 하나증권 연구원은 \"오늘 장중 급락에 대한 원인보다는 시장이 이토록 과민 반응한 이유가 더 중요할 것으로 보인다. 투심이 생각보다 '발작' 같은 반응을 보이고 있다\"라고 분석했다. 그는 \"현재 국내 증시는 대형주 쏠림에 갇혀있고, 금리 추이를 보며 거래량은 얇아졌고, 9월은 계절적으로 증시에 안 좋다 보니 일촉즉발의 상태에 있다\"며 \"투심이 극도로 악화해 있어 앞으로도 이런 현상이 더 벌어질 수 있다\"라고 덧붙였다.",
-        "summary": "6700선 눈앞이었는데…돌연 3%p 털썩3일 오후 한중일 증시 일제히 'V자' 변동성 장세BOJ 빅스탭 가능성·엔 캐리 청산 우려↑ 미국 국채금리 급등세가 멈춘데 힘입어 오름세를 보이던 코스피가 3일 오후 갑작스런 출렁임에 상승분을 대부분 반납하는 모습을 보였다. 한국과 일본, 중국, 대만 등 아시아 주요국 주식시장도 이날 오후 일제히 급락했다가 곧장 반등하는 '널뛰기' 장세를 보이면서 투자자들이 혼란을 겪는 일이 벌어졌다. 국제유가 등에 큰 변화가 없는 가운데 증시만 요동을 치는 기현상이 나타난데 대해 전문가들은 엔화 강세에 따른",
+        "fullText": "\"환율 반영 단기 조치\"…메모리 상승 국면 유효 '매수' 유지 씨티그룹이 삼성전자와 SK하이닉스의 실적 전망치와 목표주가를 하향 조정했다. 원·달러 환율 부담으로 3분기 실적을 잠식할 것이라는 분석에서다. 환율 역풍을 반영해 조정에 나섰지만 메모리 시장의 견조한 펀더멘털을 근거로 업황의 상승 흐름 자체는 유효하다며 두 종목에 대한 '매수' 의견은 유지했다.3일 금융투자업계에 따르면 씨티는 삼성전자와 SK하이닉스 목표주가를 45만 원에서 43만 원으로, 310만 원에서 300만 원으로 각각 4.4%, 3.2% 내렸다. SK하이닉스의 올해 3분기 예상 영업이익을 기존 76조7,000억원에서 74조원으로 3% 낮췄다. 2026년 연간 영업이익 전망치도 261조1,000억원에서 254조2,000억원으로 하향했다. 환율 여건이 불리해지면서 영업이익 전망치를 낮춘 데 따른 것으로 하향 조정에 따라 목표주가 역시 기존 310만원에서 300만원으로 내려잡았다. 환율 영향에 따른 삼성전자의 3분기 예상 실적 전망치 조정 폭은 더 컸다. 씨티는 삼성전자의 2026년 3분기 예상 영업이익은 기존 115조5,000억원에서 104조1,000억원으로 10% 하향했다. 비우호적인 환율에서 약 5조원, 추과 성과급에서 생긴 약 5조원 부담을 반영한 결과다. 메모리 가격 상승과 소비심리 악화로 모바일·소비자 가전 부문의 부진 예측도 나왔다. 씨티가 제시한 삼성전자의 3분기 사업 부문별 영업이익은 반도체 105조1,000억원, 디스플레이 1조4,000억원, 모바일 1조7,000억원 적자, 소비자 가전 6,000억원 적자다.단기 실적 부담은 있지만 씨티는 삼성전자와 SK하이닉스가 다년간의 장기공급계약과 제한적인 메모리 공급을 바탕으로 메모리 업황 상승세가 이어질 것으로 내다봤다. HBM4 경쟁력을 바탕으로 삼성전자가 2026년 하반기 고대역폭메모리(HBM) 시장점유율을 추가로 확보할 가능성도 실적 성장 요인으로 꼽았다.이날 종가 기준 삼성전자는 전 거래일 대비 0.2% 내린 25만원에, SK하이닉스는 1.05% 내린 159만6,000원에 장을 마쳤다.(사진=연합뉴스)",
+        "summary": "\"환율 반영 단기 조치\"…메모리 상승 국면 유효 '매수' 유지 씨티그룹이 삼성전자와 SK하이닉스의 실적 전망치와 목표주가를 하향 조정했다. 원·달러 환율 부담으로 3분기 실적을 잠식할 것이라는 분석에서다. 환율 역풍을 반영해 조정에 나섰지만 메모리 시장의 견조한 펀더멘털을 근거로 업황의 상승 흐름 자체는 유효하다며 두 종목에 대한 '매수' 의견은 유지했다.3일 금융투자업계에 따르면 씨티는 삼성전자와 SK하이닉스 목표주가를 45만 원에서 43만 원으로, 310만 원에서 300만 원으로 각각 4.4%, 3.2% 내렸다. SK하이닉스의 ",
         "topicSignature": {
           "category": "economy",
-          "target": "코스피",
-          "event": "급등",
+          "target": "삼성 반도체",
+          "event": "상승",
           "entities": [
-            "2시에",
-            "243포인트",
-            "30분",
-            "6700선"
+            "43만",
+            "300만"
           ],
           "eventKey": null,
-          "text": "economy | 코스피 | 급등 | 2시에 243포인트 30분 6700선"
+          "text": "economy | 삼성 반도체 | 상승 | 43만 300만"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "코스피",
+          "subject": "삼성 반도체",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
+            "삼성",
+            "반도체",
             "코스피",
             "코스닥",
             "증시"
           ],
           "eventKind": "market_move",
-          "eventLabel": "급등",
+          "eventLabel": "상승",
           "eventTerms": [
-            "급등"
+            "상승"
           ],
           "eventKey": null,
           "claimState": "tentative",
@@ -13425,7 +13505,7 @@
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "credit"
+          "readerNeed": "market"
         },
         "editorialValue": {
           "ok": true,
@@ -13439,18 +13519,20 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "코스피",
+            "subject": "삼성 반도체",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
+              "삼성",
+              "반도체",
               "코스피",
               "코스닥",
               "증시"
             ],
             "eventKind": "market_move",
-            "eventLabel": "급등",
+            "eventLabel": "상승",
             "eventTerms": [
-              "급등"
+              "상승"
             ],
             "eventKey": null,
             "claimState": "tentative",
@@ -13461,40 +13543,38 @@
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "credit"
+            "readerNeed": "market"
           },
           "baseScore": 70,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "uncertain",
-            "category": null,
-            "excluded": [
-              "category_not_allowed"
-            ],
+            "status": "classified",
+            "category": "economy",
+            "excluded": [],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "uncertain_initial_classification"
+            "reason": "verify_primary_article"
           },
           "final": {
             "status": "classified",
             "category": "economy",
             "excluded": [],
-            "ambiguous": true
+            "ambiguous": false
           }
         }
       },
@@ -13502,57 +13582,65 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.5699,
+        "score": 0.7054,
         "method": "embedding",
-        "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-08-28:issue:33123428858",
+        "reason": "gray_distinct_event",
+        "matchedPublicationKey": "diem:2026-09-01:economy:33440569321",
         "signature": {
           "category": "economy",
-          "target": "코스피",
-          "event": "급등",
+          "target": "삼성 반도체",
+          "event": "상승",
           "entities": [
-            "2시에",
-            "243포인트",
-            "30분",
-            "6700선"
+            "43만",
+            "300만"
           ],
           "eventKey": null,
-          "text": "economy | 코스피 | 급등 | 2시에 243포인트 30분 6700선"
+          "text": "economy | 삼성 반도체 | 상승 | 43만 300만"
         }
       },
       "editorial": null,
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 7% in \"원·달러 환율 부담이 3분기 실적을 잠식할 것으로 판단해 3분기 예상 영업이익을 10%와 3% 낮추었으며, 2026년 연간 영업이익 전망도 각각\" | openai/gpt-oss-20b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-20b/title_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: title repair failed: Unexpected end of JSON input)",
+        "updatedAt": "2026-09-03T14:13:17.884Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-03T14:13:17.884Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-03T14:13:17.884Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-03T14:13:17.884Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-09-03:economy:33764942261:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-09-03T14:13:19.236Z",
+          "slackTs": "1788444798.056769",
+          "issueNumber": 68,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/68"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-09-03T14:11:10.553Z",
       "hotness": {
         "ok": true,
@@ -13609,6 +13697,119 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "no_publish",
+        "attempts": 2,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 7% in \"원·달러 환율 부담이 3분기 실적을 잠식할 것으로 판단해 3분기 예상 영업이익을 10%와 3% 낮추었으며, 2026년 연간 영업이익 전망도 각각\" | openai/gpt-oss-20b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-20b/title_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: title repair failed: Unexpected end of JSON input)",
+        "candidateFailures": [
+          {
+            "title": "오후 2시에 무슨 일이? 243포인트 '출렁'…'공포의 30분' 일제히 흔들렸다",
+            "url": "https://n.news.naver.com/article/215/0001264796?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"2\",\"generatedBases\":[\"day_on_day\"],\"evidenceBases\":[]}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"2\",\"generatedBases\":[\"day_on_day\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"2\",\"generatedBases\":[\"day_on_day\"],\"evidenceBases\":[]}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"2\",\"generatedBases\":[\"day_on_day\"],\"evidenceBases\":[]}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-03T14:11:34.232Z"
+          },
+          {
+            "title": "환율이 '복병'…삼전 43만·하닉 300만 목표가 동반↓",
+            "url": "https://n.news.naver.com/article/215/0001264788?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 7% in \"원·달러 환율 부담이 3분기 실적을 잠식할 것으로 판단해 3분기 예상 영업이익을 10%와 3% 낮추었으며, 2026년 연간 영업이익 전망도 각각\" | openai/gpt-oss-20b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-20b/title_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: title repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 7% in \"원·달러 환율 부담이 3분기 실적을 잠식할 것으로 판단해 3분기 예상 영업이익을 10%와 3% 낮추었으며, 2026년 연간 영업이익 전망도 각각\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "succeeded",
+                "error": null
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "title_generation",
+                "status": "failed",
+                "error": "model returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "title_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "title repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-03T14:13:07.377Z"
+          }
+        ],
+        "updatedAt": "2026-09-03T14:13:17.884Z"
       }
     },
     "issue": {
