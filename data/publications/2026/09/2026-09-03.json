@@ -4,7 +4,7 @@
   "date": "2026-09-03",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-02T16:56:43.882Z",
-  "updatedAt": "2026-09-03T05:20:14.932Z",
+  "updatedAt": "2026-09-03T05:21:28.067Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -452,7 +452,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned invalid sentence structure | openai/gpt-oss-20b/editorial: editorial repair failed: model returned invalid sentence structure)"
+      ]
     },
     {
       "title": "\"주식 손댄 20대, 다 손해봤다더라\" 고민에…존리 대답은",
@@ -490,7 +492,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "\"李대통령, '난 몰랐다'며 용혜인 지명 철회해야\"...연일 맹공",
@@ -528,7 +532,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:official_denial_without_confirmed_change"
+      ]
     },
     {
       "title": "“굿바이 이재명” 이별 예고한 조국의 벼랑끝 전술 [이슈 현미경]",
@@ -11374,35 +11380,35 @@
     "issue": {
       "publicationKey": "diem:2026-09-03:issue:33718185706",
       "category": "issue",
-      "status": "planned",
+      "status": "retry_pending",
       "candidate": {
-        "title": "행안장관 “법무부·성평등부, 2027년 상반기 세종 이전… 검·경은 청사 신축 후 이전”",
-        "url": "https://n.news.naver.com/article/366/0001190148?ntype=RANKING",
+        "title": "“굿바이 이재명” 이별 예고한 조국의 벼랑끝 전술 [이슈 현미경]",
+        "url": "https://n.news.naver.com/article/018/0006363062?ntype=RANKING",
         "publishedDate": "2026-09-03",
-        "publishedAt": "2026-09-03 11:25:10",
+        "publishedAt": "2026-09-03 12:04:14",
         "observedAt": "2026-09-03T05:20:00.885Z",
-        "popularityScore": 81.8163,
+        "popularityScore": 75.7551,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
-          "reason": "regular_hot_news",
-          "score": 82.5,
-          "popularityScore": 81.8163,
+          "reason": "urgent_hot_news",
+          "score": 92.92,
+          "popularityScore": 75.7551,
           "freshnessScore": 90,
-          "editorialValueScore": 70,
-          "ageHours": 2.91,
-          "publishedAt": "2026-09-03 11:25:10",
+          "editorialValueScore": 95,
+          "ageHours": 2.28,
+          "publishedAt": "2026-09-03 12:04:14",
           "observedAt": "2026-09-03T05:20:00.885Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
           "publishedAtInvalidReason": null,
-          "urgent": false,
-          "urgencyBonus": 0,
+          "urgent": true,
+          "urgencyBonus": 10,
           "popularitySignalReliable": true,
           "thresholds": {
-            "popularity": 70,
-            "maximumAgeHours": 12,
-            "score": 70
+            "popularity": 50,
+            "maximumAgeHours": 6,
+            "score": 65
           }
         },
         "crossPortal": false,
@@ -11410,62 +11416,41 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 10,
-            "normalizedScore": 81.8163,
-            "title": "행안장관 “법무부·성평등부, 2027년 상반기 세종 이전… 검·경은 청사 신축 후 이전”",
-            "url": "https://n.news.naver.com/article/366/0001190148?ntype=RANKING"
+            "rank": 13,
+            "normalizedScore": 75.7551,
+            "title": "“굿바이 이재명” 이별 예고한 조국의 벼랑끝 전술 [이슈 현미경]",
+            "url": "https://n.news.naver.com/article/018/0006363062?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "윤호중 행정안전부 장관이 3일 서울 종로구 정부서울청사에서 열린 행정·공공기관 이전 및 공공기관 기능 개혁 관련 기자회견에서 발언하고 있다. /연합뉴스 윤호중 행정안전부 장관은 3일 “2027년 상반기부터 법무부, 성평등가족부 등 규모나 이전 효과가 큰 기관을 우선으로 순차적 (세종) 이전을 추진하겠다”면서 “검찰청(공소청·중수청), 경찰청 등 별도의 청사가 필요한 기관은 청사 신축 이후 이전을 추진하겠다”고 말했다.윤 장관은 이날 정부서울청사에서 진행한 행정·공공기관 지방 이전 기자회견에서 “세종 중심의 국정 운영 체계를 강화하고 부처 간 협업과 소통의 효율성을 높이기 위해 2차 중앙행정기관 이전을 추진하겠다”면서 이같이 밝혔다.그는 “수도권에 소재한 중앙행정기관과 소속기관 등을 대상으로 세종 이전을 추진하겠다”면서 “구체적인 (이전) 대상은 기관별 기능과 성격, 기관 간 업무 연계성 등을 종합적으로 검토하겠다. 법무부, 성평등부 등 중앙부처의 세종 이전을 위해, 해당 기관들을 이전 제외기관에서 삭제하는 내용의 ‘행복도시법’ 개정도 추진하겠다”고 했다.이어 “모든 기관을 같은 시기에 일률적으로 옮기기보다는 기관별 업무 여건과 준비 상황을 고려해 행정 공백이 없도록 단계적으로 추진하겠다”면서 “이전 과정에서 국민이 이용하는 행정서비스에 공백이 생기지 않도록 하겠다”고 했다.윤 장관은 또 “이전 직원과 가족이 세종에 안정적으로 정착할 수 있도록 주거와 교육, 보육, 교통 등 정주여건을 살피고, 기관이 조기에 안정적으로 업무를 수행할 수 있도록 근무환경도 함께 조성하겠다”면서 “중앙행정기관 이전에 필요한 2027년 예산 반영과 행복도시법 개정 등 필요한 사항에 대해 국회의 협조를 요청드린다”고 했다.그러면서 “중앙행정기관의 이전은 정부의 공간을 옮기는 데 그치는 일이 아니다”면서 “국가행정의 효율성을 높이고, 세종의 행정중심복합도시로서의 기능을 강화하며, 국가균형성장의 기반을 더욱 튼튼히 하는 일”이라고 덧붙였다.",
-        "summary": "윤호중 행정안전부 장관이 3일 서울 종로구 정부서울청사에서 열린 행정·공공기관 이전 및 공공기관 기능 개혁 관련 기자회견에서 발언하고 있다. /연합뉴스 윤호중 행정안전부 장관은 3일 “2027년 상반기부터 법무부, 성평등가족부 등 규모나 이전 효과가 큰 기관을 우선으로 순차적 (세종) 이전을 추진하겠다”면서 “검찰청(공소청·중수청), 경찰청 등 별도의 청사가 필요한 기관은 청사 신축 이후 이전을 추진하겠다”고 말했다.윤 장관은 이날 정부서울청사에서 진행한 행정·공공기관 지방 이전 기자회견에서 “세종 중심의 국정 운영 체계를 강화하고",
+        "fullText": "-페이스북 통해 연일 민주당 견제·정부 비판 메시지-李대통령 공소취소 및 부동산 정책 유턴 맹비난 -조국 ‘레드팀’ 역할 강조에도 민주 ‘배은망덕’ 격앙-민주·혁신 ‘통합 vs 분열’ 23대 총선, 중대 분수령 조국 조국혁신당 혁신정책연구원장. (사진=뉴시스)[이데일리 김성곤 기자] “대법원의 법리가 다시 뒤집어지지 않는 한, 이재명 대통령 임기 후 재개될 2심 재판에서 유죄 판결이 내려질 가능성이 매우 높다. 민주당이 공소 취소를 밀어붙인다면 정치적, 법적으로 낭패를 볼 수 있다.”(조국 조국혁신당 혁신정책연구원장 1일 페이스북)“굿바이 이재명 대통령” 조국 원장이 루비콘강을 건넜다. 사실상 이재명 정부와의 이별이다. 조 원장은 레드팀 역할이라지만 민주당은 “레드라인을 넘은 역린(逆鱗)”이라고 성토했다. △22대 총선 △비상계엄·탄핵국면 △2025년 21대 대선 등 민주당과 사선을 함께 했던 조 원장은 이제 유시민 작가와 더불어 둘도 없는 ‘반명수괴’가 돼버렸다.“李대통령 퇴임 이후 2심 유죄” 조국, 레드팀 강조하며 ‘민주당 정조준’조 원장의 1일 페이스북 글은 범여권 전반에 엄청난 충격이었다. 조 원장은 지난 21대 대선 이전 대법원의 유죄 취지 파기환송을 고려할 때 이 대통령의 공직선거법 위반 재판의 경우 퇴임 이후 재개되면 2심에서 유죄 판결이 내려진다고 전망했다. 또 민주당이 세간의 부정적 여론에도 이 대통령 공소취소를 의석수의 힘으로 밀어붙일 경우 차기 총선과 대선에서 불이익을 볼 것이라는 취지의 언급도 덧붙였다. 오죽하면 정점식 국민의힘 원내대표가 이를 인용해 “이재명 대통령의 레임덕이 본격화된 것”이라고 꼬집을 정도다. 조 원장의 날선 비판은 김민석 대표의 대통합추진단 설치 및 이해민 의원의 청와대 AI미래수석 발탁이라는 우호적 분위기를 고려하면 다소 낯선 것이었다. 특히 ‘공소 취소’는 청와대와 민주당이 가장 예민하게 여기는 정치적 문제다. 사실상 이 대통령의 역린을 건드린 것으로 유 작가의 ‘필패론·오만한 권력자’ 비판을 뛰어넘는 수준이다. 민주당은 격앙된 분위기였다. 박선원 최고위원의 “배은망덕”이라는 성토는 친명계의 대체적인 기류와 반발을 보여준다. 광복절특사·합당 파동에 평택을 갈등·김용남 당직까지 민주당과 혁신당은 정치동맹이다. 22대 총선에서 ‘지민비조(지역구는 민주당 비례대표는 조국당)’라는 혁신적 선거전략으로 시너지 효과를 냈다. 민주당은 175석, 조국당은 12석을 얻었다. 12.3 비상계엄 및 탄핵국면을 거치며 관계는 더 끈끈해졌다. 21대 대선은 절정이었다. 한마디로 내란극복과 정권교체의 혈맹이었다. 이제 남은 건 양당 합당이었다. 묘한 것은 이재명정부 출범 이후였다. 특히 광복절특사 이후 양당의 계산법이 달랐다. 민주당은 ‘조국특사’로 총선·대선의 빚을 모두 갚았다고 생각했다. 혁신당은 자강론을 내세워 민주당과의 경쟁을 선언했다. 합당을 하더라도 몸집을 키워야 했기 때문이다. 특히 지난 1월 민주당발 합당 제안과 무산 과정은 양측의 자존심에 엄청난 상처를 남겼다. 6월 경기 평택을 국회의원 재선거는 결정타였다. 게다가 민주당의 김용남 정책위 상임부의장 임명 소식도 갈등을 키웠다. 양당 모두 불가피한 선택이었다. 민주당은 범여권 차기주자인 ‘정치인 조국’과의 동거가 불편했다. 특히 조국사태 이후 광범위하게 형성된 ‘조로남불’도 민주당에 역효과만 불러온다는 계산이었다. 혁신당은 못내 서운하다. 총선 승리, 내란 청산, 정권교체의 동지에 대한 찬밥 대접이 심하다는 것이다. 민주당의 필요에 따라 ‘쓰고 버리는’ 우당이 아닌 만큼 ‘독자생존’ 버튼을 눌러 버렸다. ‘민주 vs 조국’ 힘겨루기 불가피…23대 총선 최대 분수령과연 조 원장의 의도는 뭘까. 총선 이전 합당을 위한 몸값 부풀리기라는 것만으로는 해석이 안된다. 6.3 지방선거 이후 조 원장의 정부 비판 메시지는 부쩍 늘었다. △민주당 이언주·강득구 의원 지역구에 자객공천 △김정관 장관의 ‘996 노동제’ 칭송은 시대착오적 발상 △레버리지 ETF 사태에 따른 김용범 경질 △종부세 유턴으로 지킨 건 상위 1% 이익 등등. 정치적 언어라기보다는 벼랑끝 전술에 가깝다. 이대로 가다가는 용혜인 성평등가족부·김승원 법무장관 후보자 거취와 관련, 혁신당의 임명 불가 주장도 나올 수 있다. 만일 그렇다면 이별이 아닌 진짜 ‘이혼’이다.민주·혁신 양당 관계는 연대·통합이 아닌 갈등·분열에 쏠려있다. 분수령은 23대 총선이다. 승리 방정식은 간단하다. 뭉치면 승리, 흩어지면 패배다. 22대 총선 당시 범여권의 승리는 ‘윤석열 vs 한동훈’ 갈등에 의대정원 논란, 김건희 리스크, 채상병 사건 등 여권의 악재에 따른 사실상의 어부지리였다. 민주당은 20·21·22대 총선에서 수도권을 싹쓸이했다. 반면 범여권의 23대 총선 전망은 불투명하다. 특히 부동산여론 악화를 고려하면 서울 한강벨트 전멸이 우려될 정도다. 특히 혁신당이 수도권 전역에 독자출마를 고집하면 상황은 더 어려워진다. 만일 총선패배 위기감에 이재명 대통령과 조국 원장이 비공개 단독회동을 한들 해법이 나올 수 있을까. 더 큰 문제는 어떤 합의가 나와도 양당 지지층이 이를 거부할 정도로 감정이 격앙돼 있다는 점이다.",
+        "summary": "-페이스북 통해 연일 민주당 견제·정부 비판 메시지-李대통령 공소취소 및 부동산 정책 유턴 맹비난 -조국 ‘레드팀’ 역할 강조에도 민주 ‘배은망덕’ 격앙-민주·혁신 ‘통합 vs 분열’ 23대 총선, 중대 분수령 조국 조국혁신당 혁신정책연구원장. (사진=뉴시스)[이데일리 김성곤 기자] “대법원의 법리가 다시 뒤집어지지 않는 한, 이재명 대통령 임기 후 재개될 2심 재판에서 유죄 판결이 내려질 가능성이 매우 높다. 민주당이 공소 취소를 밀어붙인다면 정치적, 법적으로 낭패를 볼 수 있다.”(조국 조국혁신당 혁신정책연구원장 1일 페이스북)",
         "topicSignature": {
           "category": "issue",
-          "target": "행안장관",
-          "event": "정치 발언",
-          "entities": [
-            "법무부"
-          ],
+          "target": "굿바이 이재명",
+          "event": "판결",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 행안장관 | 정치 발언 | 법무부"
+          "text": "issue | 굿바이 이재명 | 판결"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "행안장관",
-          "primaryActor": "행안장관",
-          "attributionMode": "single_speaker_quote",
+          "subject": "굿바이 이재명",
+          "primaryActor": null,
+          "attributionMode": null,
           "subjectTerms": [
-            "행안장관"
+            "굿바이",
+            "이재명"
           ],
-          "eventKind": "political_statement",
-          "eventLabel": "정치 발언",
+          "eventKind": "general",
+          "eventLabel": "판결",
           "eventTerms": [
-            "언급",
-            "발언",
-            "주장",
-            "말해",
-            "말했",
-            "라고 했다",
-            "밝혔",
-            "전했",
-            "호소",
-            "강조",
-            "비판",
-            "평가",
-            "전망",
-            "지적",
-            "진단",
-            "예상",
-            "내다",
-            "꼬집",
-            "경고",
-            "설명",
-            "분석"
+            "판결"
           ],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "3일",
+          "date": "1일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -11475,9 +11460,10 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 70,
+          "score": 95,
           "signals": [
             "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "issue_core_topic"
           ],
@@ -11485,41 +11471,22 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "행안장관",
-            "primaryActor": "행안장관",
-            "attributionMode": "single_speaker_quote",
+            "subject": "굿바이 이재명",
+            "primaryActor": null,
+            "attributionMode": null,
             "subjectTerms": [
-              "행안장관"
+              "굿바이",
+              "이재명"
             ],
-            "eventKind": "political_statement",
-            "eventLabel": "정치 발언",
+            "eventKind": "general",
+            "eventLabel": "판결",
             "eventTerms": [
-              "언급",
-              "발언",
-              "주장",
-              "말해",
-              "말했",
-              "라고 했다",
-              "밝혔",
-              "전했",
-              "호소",
-              "강조",
-              "비판",
-              "평가",
-              "전망",
-              "지적",
-              "진단",
-              "예상",
-              "내다",
-              "꼬집",
-              "경고",
-              "설명",
-              "분석"
+              "판결"
             ],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "3일",
+            "date": "1일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -11527,19 +11494,19 @@
             "competitiveSectors": [],
             "readerNeed": "housing"
           },
-          "baseScore": 70,
+          "baseScore": 95,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -11566,19 +11533,17 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.5794,
+        "score": 0.5831,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-09-02:issue:33626545864",
+        "matchedPublicationKey": "diem:2026-08-31:issue:33337171096",
         "signature": {
           "category": "issue",
-          "target": "행안장관",
-          "event": "정치 발언",
-          "entities": [
-            "법무부"
-          ],
+          "target": "굿바이 이재명",
+          "event": "판결",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 행안장관 | 정치 발언 | 법무부"
+          "text": "issue | 굿바이 이재명 | 판결"
         }
       },
       "editorial": null,
@@ -11669,6 +11634,13 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "retry_pending",
+        "attempts": 2,
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for legislation; typography fallback is disabled",
+        "updatedAt": "2026-09-03T05:21:28.058Z"
       }
     }
   },
