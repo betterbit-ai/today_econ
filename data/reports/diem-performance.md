@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 181편
-- 생성 시각: 2026-09-03T14:13:28.465Z
+- 발행 원장 Reel: 183편
+- 생성 시각: 2026-09-03T19:08:58.754Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -10,10 +10,10 @@
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
   - 부진 후보: 남대문시장 / 2030 핫플(126), ETF·ETN / 핵심 차이(133), 주차 로봇 / 아파트 도입(145), 서울 아파트값 / 16억 돌파(148), 현대차 노사 / 잠정합의 확정(154)
   - 특성 신호: reader_need:public_interest insufficient_data×2.62, event:ipo insufficient_data×2.34, event:market_move insufficient_data×1.84, market_shock insufficient_data×1.84, company_event insufficient_data×1.68, housing_money winner×1.65, public_decision winner×1.37, reader_need:market insufficient_data×0.73
-- issue: 표본 45편 · 노출 중앙값 1,465 · 공유율 0% · 저장률 0%
+- issue: 표본 46편 · 노출 중앙값 1,440 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
-  - 부진 후보: 3인 가족 / 수수료 급등(157), 광복연휴 비예보 / 폭염 예상(173), 장동혁 발언 / 당원 주권 확대(178), 요코하마시장 사퇴 / 폭언 논란(180), 백화점 난동 / 5년 형 선고(189)
-  - 특성 신호: market_shock insufficient_data×1.01, event:political_statement insufficient_data×0.63, reader_need:public_interest underperformer×0.19, household_money insufficient_data×0.14, reader_need:housing insufficient_data×0.14, work_life insufficient_data×0.12, reader_need:work insufficient_data×0.11
+  - 부진 후보: 3인 가족 / 수수료 급등(157), 광복연휴 비예보 / 폭염 예상(173), 장동혁 발언 / 당원 주권 확대(178), 청주 초교생 / 교사 폭행 조사(179), 요코하마시장 사퇴 / 폭언 논란(180)
+  - 특성 신호: market_shock insufficient_data×1.03, event:political_statement insufficient_data×0.64, reader_need:public_interest underperformer×0.18, household_money insufficient_data×0.15, reader_need:housing insufficient_data×0.15, work_life insufficient_data×0.12, reader_need:work insufficient_data×0.11
 - 정시 비교에서 제외한 늦은 백필: 87편
 
 ## 72h
@@ -28,10 +28,10 @@
 - 정시 비교에서 제외한 늦은 백필: 77편
 
 ## 7d
-- economy: 표본 50편 · 노출 중앙값 797.5 · 공유율 0% · 저장률 0%
+- economy: 표본 51편 · 노출 중앙값 805 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 현대차 노사 / 잠정합의 확정(163), 주차 로봇 / 아파트 도입(165)
-  - 특성 신호: event:interest_rate insufficient_data×2.38, macro_indicator insufficient_data×2.38, work_life winner×1.8, housing_money winner×1.7, public_decision winner×1.7, event:semiconductor winner×1.46, event:market_move insufficient_data×1.11, market_shock insufficient_data×1.11
+  - 특성 신호: event:interest_rate insufficient_data×2.36, macro_indicator insufficient_data×2.36, reader_need:public_interest insufficient_data×2.02, work_life winner×1.79, housing_money winner×1.68, public_decision winner×1.68, event:semiconductor winner×1.45, event:market_move insufficient_data×1.1
 - issue: 표본 58편 · 노출 중앙값 1,618.5 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 3인 가족 / 수수료 급등(171), 광복연휴 비예보 / 폭염 예상(180), 장동혁 발언 / 당원 주권 확대(183), 백화점 난동 / 5년 형 선고(205), 네팔 대홍수 / 사망자 270명(220)
@@ -39,9 +39,9 @@
 - 정시 비교에서 제외한 늦은 백필: 39편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 22.65%
-- 생성 배경 폴백률: 18.23% · 전체 폴백률: 40.88%
-- 이미지 공급원: pexels 96편, diem-original 41편, diem-generated 33편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 22.4%
+- 생성 배경 폴백률: 19.13% · 전체 폴백률: 41.53%
+- 이미지 공급원: pexels 96편, diem-original 41편, diem-generated 35편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 84건, unknown 44건
