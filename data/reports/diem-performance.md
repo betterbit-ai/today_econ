@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 189편
-- 생성 시각: 2026-09-05T23:36:10.797Z
+- 발행 원장 Reel: 191편
+- 생성 시각: 2026-09-06T08:24:10.553Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -28,23 +28,23 @@
 - 정시 비교에서 제외한 늦은 백필: 77편
 
 ## 7d
-- economy: 표본 55편 · 노출 중앙값 727 · 공유율 0% · 저장률 0%
+- economy: 표본 56편 · 노출 중앙값 660.5 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
-  - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 현대차 노사 / 잠정합의 확정(163)
-  - 특성 신호: event:interest_rate insufficient_data×2.62, reader_need:public_interest insufficient_data×2.24, macro_indicator winner×2.11, work_life winner×1.98, housing_money winner×1.84, public_decision winner×1.84, event:semiconductor winner×1.6, event:market_move insufficient_data×1.22
-- issue: 표본 62편 · 노출 중앙값 1,579 · 공유율 0.08% · 저장률 0%
+  - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 고정·변동 / 금리 차이(161)
+  - 특성 신호: event:interest_rate insufficient_data×2.88, reader_need:public_interest insufficient_data×2.46, work_life winner×2.18, housing_money winner×2.03, public_decision winner×2.03, event:semiconductor winner×1.76, event:market_move insufficient_data×1.34, market_shock insufficient_data×1.34
+- issue: 표본 63편 · 노출 중앙값 1,573 · 공유율 0.09% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 3인 가족 / 수수료 급등(171), 광복연휴 비예보 / 폭염 예상(180), 장동혁 발언 / 당원 주권 확대(183), 요코하마시장 사퇴 / 폭언 논란(187), 백화점 난동 / 5년 형 선고(205)
-  - 특성 신호: market_shock insufficient_data×0.95, event:legislation underperformer×0.3, reader_need:public_interest underperformer×0.15, work_life underperformer×0.12, reader_need:work insufficient_data×0.11
+  - 특성 신호: market_shock insufficient_data×0.95, event:political_statement insufficient_data×0.59, event:legislation underperformer×0.3, reader_need:public_interest underperformer×0.16, work_life underperformer×0.12, reader_need:work insufficient_data×0.11
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 21.69%
-- 생성 배경 폴백률: 21.69% · 전체 폴백률: 43.39%
-- 이미지 공급원: pexels 96편, diem-original 41편, diem-generated 41편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 21.99%
+- 생성 배경 폴백률: 21.99% · 전체 폴백률: 43.98%
+- 이미지 공급원: pexels 96편, diem-original 42편, diem-generated 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 87건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 88건, unknown 44건
 - 제목 재정제 실패: 6건
 
 ## 해석 주의
