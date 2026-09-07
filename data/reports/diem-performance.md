@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 194편
-- 생성 시각: 2026-09-07T08:57:14.312Z
+- 생성 시각: 2026-09-07T15:32:52.526Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -17,10 +17,10 @@
 - 정시 비교에서 제외한 늦은 백필: 87편
 
 ## 72h
-- economy: 표본 51편 · 노출 중앙값 358 · 공유율 0% · 저장률 0%
+- economy: 표본 52편 · 노출 중앙값 351 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
   - 부진 후보: 남대문시장 / 2030 핫플(126), ETF·ETN / 핵심 차이(134), 서울 아파트값 / 16억 돌파(151), 주차 로봇 / 아파트 도입(152), 고정·변동 / 금리 차이(157)
-  - 특성 신호: reader_need:public_interest insufficient_data×2.5, event:market_move insufficient_data×2.33, event:ipo insufficient_data×2.23, company_event insufficient_data×1.62, public_decision winner×1.6, housing_money winner×1.5, market_shock insufficient_data×1.49, event:general winner×1.37
+  - 특성 신호: reader_need:public_interest insufficient_data×2.55, event:market_move insufficient_data×2.38, event:ipo insufficient_data×2.28, company_event insufficient_data×1.65, public_decision winner×1.63, housing_money winner×1.53, market_shock insufficient_data×1.52, reader_need:market insufficient_data×0.71
 - issue: 표본 55편 · 노출 중앙값 1,494 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 북 미사일 발사 / 김여정 조롱(5,393), 한동훈 흉기 / 징역 1년 확정(3,959)
   - 부진 후보: 네팔 대홍수 / 보도(81), 3인 가족 / 수수료 급등(169), 성평등·법무부 / 세종 이전(173), 광복연휴 비예보 / 폭염 예상(176), 장동혁 발언 / 당원 주권 확대(182)
@@ -28,10 +28,10 @@
 - 정시 비교에서 제외한 늦은 백필: 77편
 
 ## 7d
-- economy: 표본 57편 · 노출 중앙값 594 · 공유율 0% · 저장률 0%
+- economy: 표본 58편 · 노출 중앙값 586.5 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 고정·변동 / 금리 차이(161)
-  - 특성 신호: event:interest_rate insufficient_data×3.2, reader_need:public_interest insufficient_data×2.74, housing_money winner×2.25, public_decision winner×2.25, event:semiconductor winner×1.96, work_life winner×1.52, event:market_move insufficient_data×1.49, market_shock insufficient_data×1.49
+  - 특성 신호: event:interest_rate insufficient_data×3.24, housing_money winner×2.28, public_decision winner×2.26, event:semiconductor winner×1.99, work_life winner×1.54, reader_need:public_interest insufficient_data×1.53, event:market_move insufficient_data×1.51, market_shock insufficient_data×1.51
 - issue: 표본 65편 · 노출 중앙값 1,566 · 공유율 0.08% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 3인 가족 / 수수료 급등(171), 광복연휴 비예보 / 폭염 예상(180), 장동혁 발언 / 당원 주권 확대(183), 요코하마시장 사퇴 / 폭언 논란(187), 백화점 난동 / 5년 형 선고(205)
