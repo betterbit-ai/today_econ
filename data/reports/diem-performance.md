@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 194편
-- 생성 시각: 2026-09-07T15:32:52.526Z
+- 발행 원장 Reel: 195편
+- 생성 시각: 2026-09-07T19:38:13.775Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -10,10 +10,10 @@
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
   - 부진 후보: 신용점수 / 대출금리 영향(119), 남대문시장 / 2030 핫플(126)
   - 특성 신호: reader_need:public_interest insufficient_data×3.33, event:ipo insufficient_data×2.97, event:market_move insufficient_data×2.34, company_event insufficient_data×2.13, housing_money winner×1.96, market_shock insufficient_data×1.59, reader_need:market underperformer×0.65, event:insurance_premium insufficient_data×0.64
-- issue: 표본 52편 · 노출 중앙값 1,393.5 · 공유율 0% · 저장률 0%
+- issue: 표본 53편 · 노출 중앙값 1,372 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
   - 부진 후보: 네팔 대홍수 / 보도(73), 3인 가족 / 수수료 급등(157), 성평등·법무부 / 세종 이전(166), 광복연휴 비예보 / 폭염 예상(173), 장동혁 발언 / 당원 주권 확대(178)
-  - 특성 신호: market_shock insufficient_data×1.06, event:political_statement underperformer×0.66, reader_need:public_interest underperformer×0.2, household_money insufficient_data×0.15, reader_need:housing insufficient_data×0.14, work_life insufficient_data×0.12, reader_need:work insufficient_data×0.11
+  - 특성 신호: market_shock insufficient_data×1.08, event:political_statement underperformer×0.67, reader_need:public_interest underperformer×0.21, household_money insufficient_data×0.15, reader_need:housing insufficient_data×0.14, work_life insufficient_data×0.12, reader_need:work insufficient_data×0.11
 - 정시 비교에서 제외한 늦은 백필: 87편
 
 ## 72h
@@ -39,9 +39,9 @@
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 21.65%
-- 생성 배경 폴백률: 23.2% · 전체 폴백률: 44.85%
-- 이미지 공급원: pexels 96편, diem-generated 45편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 21.54%
+- 생성 배경 폴백률: 23.59% · 전체 폴백률: 45.13%
+- 이미지 공급원: pexels 96편, diem-generated 46편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 89건, unknown 44건
