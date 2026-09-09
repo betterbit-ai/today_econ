@@ -91,6 +91,14 @@ test('uses only curated somber tracks for life-critical topics', () => {
   assert.match(selection.reason, /sensitive topic requires somber audio/);
 });
 
+test('does not let a secondary overseas fire turn a domestic market story into life-critical audio', () => {
+  assert.equal(isSensitiveTopic({
+    title: '코스피 0.58% 하락',
+    summary: '국내 증시느 매크로 이수로 하락했다.',
+    fullText: '중동 지역에서 화재가 발새해 유가가 올랐다.',
+  }), false);
+});
+
 test('falls back to silence rather than a bright track when somber audio is unavailable', () => {
   const selection = selectMusic({
     category: 'issue',
