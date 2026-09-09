@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-09T19:07:12.769Z",
+  "generatedAt": "2026-09-09T23:53:08.903Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
   "publishedCount": 201,
@@ -807,7 +807,7 @@
       }
     },
     "72h": {
-      "sampleCount": 115,
+      "sampleCount": 116,
       "excludedLateBackfills": 77,
       "categories": {
         "economy": {
@@ -1266,16 +1266,16 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 60,
+          "samples": 61,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1490.5,
-            "viewsMedian": 1490.5,
-            "reachMedian": 1093,
+            "exposureMedian": 1487,
+            "viewsMedian": 1487,
+            "reachMedian": 1090,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "engagementRateMedian": 1.8450000000000002,
-            "averageWatchTimeMedian": 4244.5,
+            "engagementRateMedian": 1.86,
+            "averageWatchTimeMedian": 4266,
             "followerDeltaEstimateMedian": 5
           },
           "winners": [
@@ -1569,56 +1569,56 @@
               "feature": "public_decision",
               "samples": 29,
               "exposureMedian": 1575,
-              "lift": 1.057,
+              "lift": 1.059,
               "signal": "neutral"
             },
             {
               "feature": "event:housing_policy",
               "samples": 3,
               "exposureMedian": 1575,
-              "lift": 1.057,
+              "lift": 1.059,
               "signal": "neutral"
             },
             {
               "feature": "housing_money",
               "samples": 6,
               "exposureMedian": 1566.5,
-              "lift": 1.051,
+              "lift": 1.053,
               "signal": "neutral"
             },
             {
               "feature": "event:general",
-              "samples": 54,
-              "exposureMedian": 1490.5,
-              "lift": 1,
-              "signal": "neutral"
-            },
-            {
-              "feature": "concrete_number",
-              "samples": 59,
+              "samples": 55,
               "exposureMedian": 1487,
-              "lift": 0.998,
+              "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "market_shock",
               "samples": 1,
               "exposureMedian": 1487,
-              "lift": 0.998,
+              "lift": 1,
               "signal": "insufficient_data"
+            },
+            {
+              "feature": "concrete_number",
+              "samples": 60,
+              "exposureMedian": 1464,
+              "lift": 0.985,
+              "signal": "neutral"
             },
             {
               "feature": "event:political_statement",
               "samples": 3,
               "exposureMedian": 929,
-              "lift": 0.623,
+              "lift": 0.625,
               "signal": "underperformer"
             },
             {
               "feature": "reader_need:public_interest",
-              "samples": 18,
-              "exposureMedian": 312.5,
-              "lift": 0.21,
+              "samples": 19,
+              "exposureMedian": 332,
+              "lift": 0.223,
               "signal": "underperformer"
             },
             {
@@ -1646,7 +1646,7 @@
               "feature": "reader_need:work",
               "samples": 1,
               "exposureMedian": 169,
-              "lift": 0.113,
+              "lift": 0.114,
               "signal": "insufficient_data"
             }
           ],
@@ -1655,7 +1655,7 @@
       }
     },
     "7d": {
-      "sampleCount": 129,
+      "sampleCount": 130,
       "excludedLateBackfills": 40,
       "categories": {
         "economy": {
@@ -2115,16 +2115,16 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 67,
+          "samples": 68,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 1519,
-            "viewsMedian": 1519,
-            "reachMedian": 1133,
+            "exposureMedian": 1516,
+            "viewsMedian": 1516,
+            "reachMedian": 1118,
             "savedRateMedian": 0,
             "shareRateMedian": 0.076,
-            "engagementRateMedian": 1.74,
-            "averageWatchTimeMedian": 4142,
+            "engagementRateMedian": 1.745,
+            "averageWatchTimeMedian": 4133.5,
             "followerDeltaEstimateMedian": 8
           },
           "winners": [
@@ -2269,6 +2269,34 @@
           ],
           "underperformers": [
             {
+              "publicationKey": "diem:2026-09-03:issue:33684999490",
+              "category": "issue",
+              "title": "네팔 대홍수 / 보도",
+              "permalink": "https://www.instagram.com/reel/DczN7PwgaGy/",
+              "exposure": 84,
+              "views": 84,
+              "reach": 61,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 8.2,
+              "averageWatchTime": 2181,
+              "followerDeltaEstimate": 2,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "generated",
+                "source": "diem-generated"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+                "mood": "serious"
+              }
+            },
+            {
               "publicationKey": "diem:2026-08-26:issue:32975934632",
               "category": "issue",
               "title": "3인 가족 / 수수료 급등",
@@ -2382,54 +2410,27 @@
                 "trackId": "mixkit-fright-night-871",
                 "mood": "serious"
               }
-            },
-            {
-              "publicationKey": "diem:2026-08-19:issue:32175982892",
-              "category": "issue",
-              "title": "백화점 난동 / 5년 형 선고",
-              "permalink": "https://www.instagram.com/reel/DcMWxlViB06/",
-              "exposure": 205,
-              "views": 205,
-              "reach": 171,
-              "savedRate": 0,
-              "shareRate": 0,
-              "engagementRate": 1.75,
-              "averageWatchTime": 3014,
-              "followerDeltaEstimate": 21,
-              "features": [
-                "concrete_number",
-                "event:general"
-              ],
-              "image": {
-                "kind": "web",
-                "source": "pexels"
-              },
-              "audio": {
-                "mode": "track",
-                "trackId": "bright1",
-                "mood": "bright"
-              }
             }
           ],
           "featureSignals": [
             {
-              "feature": "event:general",
-              "samples": 59,
-              "exposureMedian": 1573,
+              "feature": "housing_money",
+              "samples": 6,
+              "exposureMedian": 1570,
               "lift": 1.036,
               "signal": "neutral"
             },
             {
-              "feature": "housing_money",
-              "samples": 6,
-              "exposureMedian": 1570,
-              "lift": 1.034,
+              "feature": "event:general",
+              "samples": 60,
+              "exposureMedian": 1569.5,
+              "lift": 1.035,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
-              "samples": 65,
-              "exposureMedian": 1519,
+              "samples": 66,
+              "exposureMedian": 1516,
               "lift": 1,
               "signal": "neutral"
             },
@@ -2437,28 +2438,28 @@
               "feature": "market_shock",
               "samples": 1,
               "exposureMedian": 1493,
-              "lift": 0.983,
+              "lift": 0.985,
               "signal": "insufficient_data"
             },
             {
               "feature": "public_decision",
               "samples": 32,
               "exposureMedian": 1472.5,
-              "lift": 0.969,
+              "lift": 0.971,
               "signal": "neutral"
             },
             {
               "feature": "event:housing_policy",
               "samples": 4,
               "exposureMedian": 1049.5,
-              "lift": 0.691,
+              "lift": 0.692,
               "signal": "underperformer"
             },
             {
               "feature": "event:political_statement",
               "samples": 1,
               "exposureMedian": 931,
-              "lift": 0.613,
+              "lift": 0.614,
               "signal": "insufficient_data"
             },
             {
@@ -2470,23 +2471,23 @@
             },
             {
               "feature": "reader_need:public_interest",
-              "samples": 12,
-              "exposureMedian": 272.5,
-              "lift": 0.179,
+              "samples": 13,
+              "exposureMedian": 251,
+              "lift": 0.166,
               "signal": "underperformer"
             },
             {
               "feature": "household_money",
               "samples": 1,
               "exposureMedian": 233,
-              "lift": 0.153,
+              "lift": 0.154,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:housing",
               "samples": 1,
               "exposureMedian": 233,
-              "lift": 0.153,
+              "lift": 0.154,
               "signal": "insufficient_data"
             },
             {
