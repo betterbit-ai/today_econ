@@ -552,3 +552,86 @@ test('the image and topic history window is exactly seven KST calendar dates', (
   assert.equal(history.some(item => item.date === '2026-07-23'), true);
   assert.equal(history.some(item => item.date === '2026-07-29'), true);
 });
+
+test('rejects private spectacle and lifestyle features with incidental mission keywords', () => {
+  const airlineDisturbance = {
+    title: '기내서 난동 부리다 테이프로 제압당한 60대 남성',
+    summary: '이 승객은 미국의 부동산 중개인으로 확인됐다.',
+  };
+  const libraryFeature = {
+    title: '빌라 3채 부텨 이런 공간이?',
+    summary: '도서관 노동자가 구산동도서관마을을 여행한 이야기다.',
+  };
+  const admissionMarketing = {
+    title: '이 대학 지원도 안 했는데 합격통지서가?',
+    summary: '미국 대학이 해외 학생을 차즈려고 입학 러브콜을 보냈다.',
+  };
+
+  assert.equal(classifyCandidate(airlineDisturbance).category, null);
+  assert.equal(classifyCandidate(admissionMarketing).category, null);
+  assert.equal(assessDiemEditorialValue(libraryFeature, CATEGORIES.ISSUE).ok, false);
+});
+
+test('locks reader need and general event labels to the headline event', () => {
+  const frame = buildNewsFrame({
+    category: CATEGORIES.ECONOMY,
+    title: '기내 난동 승객 테이프로 제압',
+    summary: '미국의 부동산 중개인이며 후속 기사가 구조 지원했다.',
+  }, CATEGORIES.ECONOMY);
+
+  assert.equal(frame.readerNeed, 'public_interest');
+  assert.notEqual(frame.eventLabel, '지원');
+});
+
+test('rejects standalone report filler in a two-line cover title', () => {
+  assert.equal(validateTitle('코스피 하락\n보도').ok, false);
+  assert.equal(validateTitle('네팔 대홍수\n보도').ok, false);
+});
+
+test('frames currency movement and rescue as their primary events', () => {
+  const currency = buildNewsFrame({
+    category: CATEGORIES.ECONOMY,
+    title: '\uC6D0\uD654\uB294 \uAC70\uAFB8\uB85C \uAC15\uC138, 100\uC5D4\uB2F9 \uD658\uC728 850\uC6D0\uB300',
+    summary: '\uBC18\uB3C4\uCCB4 \uC218\uCD9C \uD638\uC870\uB3C4 \uC6D0\uD654 \uAC15\uC138\uC5D0 \uC601\uD5A5\uC744 \uC92C\uB2E4.',
+  }, CATEGORIES.ECONOMY);
+  const rescue = buildNewsFrame({
+    category: CATEGORIES.ISSUE,
+    title: '\uD55C\uAD6D \uAD6C\uC870\uB300, 250m \uC9C4\uD759\uD130\uB110\uC11C \uC0DD\uC874\uC790 \uAD6C\uCD9C',
+    summary: '\uD64D\uC218 \uD53C\uD574 \uD604\uC7A5\uC5D0\uC11C \uC218\uC0C9\uACFC \uAD6C\uC870\uAC00 \uC774\uC5B4\uC84C\uB2E4.',
+  }, CATEGORIES.ISSUE);
+
+  assert.equal(currency.eventKind, 'currency_move');
+  assert.equal(currency.subject, '\uC6D0\u00B7\uC5D4 \uD658\uC728');
+  assert.equal(currency.readerNeed, 'market');
+  assert.equal(rescue.eventKind, 'rescue_search');
+  assert.equal(rescue.subject, '\uD55C\uAD6D \uAD6C\uC870\uB300');
+  assert.ok(rescue.eventTerms.includes('\uAD6C\uCD9C'));
+});
+
+test('routes appointment ethics to issue while retaining genuine housing economy stories', () => {
+  const appointment = classifyCandidate({
+    title: '\uC774\uC7AC\uBA85 \uB300\uD1B5\uB839, \uC9C0\uBA85 \uCDE8\uC18C\uD560 \uC218\uB3C4',
+    summary: '\uB300\uD1B5\uB839\uC774 \uD6C4\uBCF4\uC790 \uC778\uC120\uC744 \uB450\uACE0 \uBC1C\uC5B8\uD588\uB2E4.',
+  });
+  const ethics = classifyCandidate({
+    title: '\uB300\uBC95\uAD00 \uD6C4\uBCF4, \uAC15\uB0A8 \uC544\uD30C\uD2B8 \uC804\uB300\uCC28 \uB17C\uB780',
+    summary: '\uACF5\uC9C1\uC790 \uC7AC\uC0B0\uACFC \uC804\uB300\uCC28 \uACC4\uC57D\uC5D0 \uB300\uD55C \uC758\uD639\uC774 \uC81C\uAE30\uB410\uB2E4.',
+  });
+  const housing = classifyCandidate({
+    title: '\uAC15\uB0A8\uC740 \uD558\uB77D, \uC131\uBD81\u00B7\uC911\uB791 \uC544\uD30C\uD2B8\uAC12 \uC0C1\uC2B9',
+    summary: '\uC11C\uC6B8 \uC544\uD30C\uD2B8 \uB9E4\uB9E4\uAC00\uACA9\uC774 \uC9C0\uC5ED\uBCC4\uB85C \uC5C7\uAC08\uB838\uB2E4.',
+  });
+
+  assert.equal(appointment.category, CATEGORIES.ISSUE);
+  assert.equal(ethics.category, CATEGORIES.ISSUE);
+  assert.equal(housing.category, CATEGORIES.ECONOMY);
+});
+
+test('rejects a personal firing story that only mentions employment as an outcome', () => {
+  const result = classifyCandidate({
+    title: '\uC544\uB098\uC6B4\uC11C\uAC00 \uC544\uB3D9\uC131\uC560 \uCC44\uD305\uBC29 \uBD24\uB2E4\uB294 \uAE30\uB0B4 \uC2E0\uACE0\uC5D0 \uD574\uACE0',
+    summary: '\uBBF8\uAD6D \uBC29\uC1A1\uC0AC\uAC00 \uAC1C\uC778\uACFC\uC758 \uACE0\uC6A9 \uACC4\uC57D\uC744 \uC885\uB8CC\uD588\uB2E4.',
+  });
+  assert.equal(result.category, null);
+  assert.ok(result.excluded.includes('private_spectacle_without_public_value'));
+});

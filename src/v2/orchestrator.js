@@ -362,6 +362,7 @@ function candidatePreparationReason(error = {}) {
   if (/^\[DIEM Image\].*named-person identity could not be verified/iu.test(message)) {
     return 'image_identity_unverified';
   }
+  if (/^\[DIEM Image\]/u.test(message)) return 'image_context_unavailable';
   return null;
 }
 
@@ -455,7 +456,7 @@ function candidateFailure(publication, error, now = new Date()) {
       }))
       : [],
     reason,
-    stage: ['image_identity_unverified', 'quality_gate_failed'].includes(reason)
+    stage: ['image_identity_unverified', 'image_context_unavailable', 'quality_gate_failed'].includes(reason)
       ? 'quality_gate'
       : 'editorial_generation',
     rejectedAt: now.toISOString(),

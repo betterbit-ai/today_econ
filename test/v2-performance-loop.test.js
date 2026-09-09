@@ -138,6 +138,27 @@ test('reports image fallback and music concentration without changing assets', (
   assert.equal(report.music.trackDistribution['same-track'].count, 5);
 });
 
+test('reports recent Vision transport and JSON failures separately from semantic rejects', () => {
+  const jsonFailure = publication(0, { imageKind: 'generated', imageSource: 'diem-generated' });
+  jsonFailure.image.attempts = [{ provider: 'vision-review', error: '400 {"code":"json_validate_failed"}' }];
+  const accessFailure = publication(1, { imageKind: 'generated', imageSource: 'diem-generated' });
+  accessFailure.image.attempts = [{ provider: 'vision-review', error: 'failed to retrieve media: received status code: 403' }];
+  const contextFailure = publication(2, { imageKind: 'web', imageSource: 'pexels' });
+  contextFailure.image.attempts = [{ provider: 'vision-review', error: 'Neither image depicts the primary article event.' }];
+  [jsonFailure, accessFailure, contextFailure].forEach((item, index) => {
+    item.publicationKey = `diem:2026-09-09:economy:report-${index}`;
+  });
+
+  const report = buildPerformanceReport([{ publicationHistory: [jsonFailure, accessFailure, contextFailure], publications: {} }], new Date('2026-09-09T12:00:00+09:00'));
+
+  assert.equal(report.image.recentSevenDays.publishedCount, 3);
+  assert.equal(report.image.recentSevenDays.fallbackCount, 2);
+  assert.equal(report.image.recentSevenDays.fallbackRate, 66.67);
+  assert.equal(report.image.visionFailureDistribution.vision_json_validate_failed.count, 1);
+  assert.equal(report.image.visionFailureDistribution.vision_image_access_failed.count, 1);
+  assert.equal(report.image.visionFailureDistribution.vision_context_rejected.count, 1);
+});
+
 test('records reader-need features for later growth comparisons', () => {
   const { featureSet } = require('../src/v2/performance-loop');
   assert.ok(featureSet({ candidate: {

@@ -215,6 +215,47 @@ test('named-person image verification failure reroutes to the next ranked candid
   assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('economy:image_identity_unverified')));
 });
 
+test('an unmapped generated-image fallback reroutes to the next ranked candidate', async () => {
+  let ledger = applyPlan(createDailyLedger('2026-09-09'), plannedResult('2026-09-09'));
+  ledger.candidates = [
+    { title: '맥락 없는 경제 기사', url: 'https://example.com/unmapped-image', sources: [], rejectionReasons: [] },
+    { title: '기준금리 기사', url: 'https://example.com/rate-after-image', sources: [], rejectionReasons: [] },
+  ];
+  ledger = updatePublication(ledger, 'economy', {
+    status: 'planned',
+    candidate: { title: '맥락 없는 경제 기사', url: 'https://example.com/unmapped-image', fullText: '본문입니다.'.repeat(20), category: 'economy' },
+    reel: plannedStep(),
+    comment: plannedStep(),
+    reply: plannedStep(),
+  });
+
+  const preparedUrls = [];
+  const result = await runCategoryStep(ledger, 'economy', {
+    phase: 'prepare',
+    preparePublicationImpl: async current => {
+      const url = current.publications.economy.candidate.url;
+      preparedUrls.push(url);
+      if (url.includes('unmapped-image')) {
+        throw new Error('[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled');
+      }
+      return readyPublication(current, 'economy');
+    },
+    evaluateCandidateImpl: async candidate => ({
+      ok: true,
+      selected: { title: candidate.title, url: candidate.url, fullText: '검증 본문입니다.'.repeat(20), category: 'economy' },
+      corroboration: null,
+      duplicateCheck: { duplicate: false, signature: { text: '경제 | 기준금리' } },
+    }),
+  });
+
+  assert.deepEqual(preparedUrls, ['https://example.com/unmapped-image', 'https://example.com/rate-after-image']);
+  assert.equal(result.publications.economy.status, 'ready');
+  assert.equal(result.publications.economy.candidate.url, 'https://example.com/rate-after-image');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => (
+    reason.includes('economy:image_context_unavailable')
+  )));
+});
+
 test('manual retry skips an already published Reel and repairs comments only', async () => {
   let ledger = applyPlan(createDailyLedger('2026-07-25'), plannedResult());
   ledger = updatePublication(ledger, 'economy', {

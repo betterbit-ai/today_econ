@@ -430,7 +430,7 @@ function frameAlignmentViolations(sentences = [], frame = {}) {
     && /(확정했|확정됐|확정되었|결정했|시행하기로\s*확정)/u.test(first)) {
     violations.push('caption cannot strengthen a reported or tentative event into a confirmed decision');
   }
-  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory', 'political_statement', 'public_hearing_disruption'].includes(frame.eventKind)) {
+  if (['asset_sale', 'gdp', 'market_move', 'currency_move', 'rescue_search', 'legislation', 'earnings', 'medical_safety_advisory', 'political_statement', 'public_hearing_disruption'].includes(frame.eventKind)) {
     const firstLower = first.toLowerCase();
     if (!(frame.subjectTerms || []).some(term => firstLower.includes(String(term).toLowerCase()))) {
       violations.push('caption first sentence omits the primary subject');
@@ -581,6 +581,7 @@ function modelPrompt(article) {
       '- 각 title은 줄바꿈(\'\\n\') 1개를 포함한 정확히 2줄이어야 하며, 두 줄 합계 공백 포함 최대 14자입니다.',
       '- 절망 시대, 완전 통과, 대박, 환호 터졌다 같은 과장어와 ↑·↓ 기호를 쓰지 마세요.',
       '- 제목·요약·본문 도입부가 말하는 하나의 주요 사건만 제목으로 삼고, 본문 뒤쪽의 이력·예정·부수 키워드를 주제로 바꾸지 마세요.',
+      '- 둘째 줄을 "보도", "논란", "상황", "소식" 같은 편집용 빈말 하나로 채우지 말고 실제 사건·수치·결과를 적으세요.',
       '- 원문이 뒷받침하는 구체적 숫자나 독자의 주거·세금·대출·직장·생활비 변화가 있으면 우선하되, 숫자·갈등·질문형을 억지로 만들지 마세요.',
       '- 특정 나이·연봉·가구를 가정해 금액을 계산하거나, 원문에 없는 손해·이득·긴급성을 만들지 마세요.',
       '- 좋은 예시:',
@@ -691,6 +692,7 @@ function titleRepairPrompt(article = {}, parsed = {}) {
       '각 후보는 줄바꿈 1개가 있는 정확히 2줄이며, 두 줄 합계 공백 포함 최대 14자입니다.',
       '짧게 만들더라도 핵심 주체와 실제 사건, 확정·예정·부인 같은 기사 상태를 반드시 보존하세요.',
       '표지만 읽고도 누구의 어떤 발언·결정·사건인지 이해돼야 하며, 해석이 필요한 압축 명사구는 다시 쓰세요.',
+      '"보도", "논란", "상황", "소식"을 한 줄 전체로 쓰지 말고 실제 사건·수치·결과로 교체하세요.',
       '간접명령형 "오라 그래", "하라 그래"를 표지에 그대로 잘라 쓰지 말고, 전체 이름과 자연스러운 직접화법으로 교정하세요.',
       '"미확정"은 공식 부인·반박 프레임에만 허용합니다. 확정된 경고·권고와 제한적인 의학 근거를 혼동하지 마세요.',
       '숫자를 쓰면 기사 근거에 있는 숫자만 사용하세요. 과장, 날짜만 있는 제목, 약어만 있는 제목은 금지합니다.',

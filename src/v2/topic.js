@@ -26,7 +26,6 @@ const IPO_EVENT = /(\bIPO\b|기업공개|상장|첫\s*거래|증시\s*데뷔|공
 const PRIMARY_IPO_EVENT = /(\bIPO\b|기업공개|공모가|공모주|증시\s*데뷔|첫\s*거래|신규\s*상장|상장\s*(?:예정|추진|확정|승인|신청|첫날|앞둠|나선다|한다|했다))/iu;
 const BROAD_LIFE_IMPACT = /(전국|국민|청년|직장인|근로자|가구|부모|학생|환자|자영업|소상공인|임금|월급|대출|세금|보험|보험료|자동차보험|건강보험료|건보료|주거|교육|복지|의료|고용|물가|금리|환율|부동산|반도체|자동차|수출|관세|연금|KTX|SRT|고속철도|철도|대중교통|교통비|운임|폭염|한파|태풍|산불|홍수|집중호우|재난|재해)/iu;
 const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|재배|수확|축산|어촌|마을|지역축제|천연\s*패딩|곤충|반려동물|맛집|여행지)/u;
-const NARROW_WITH_PUBLIC_POLICY = /(정부.{0,20}(지원|보조금|규제|법안|발표|시행)|국회|전국.{0,20}(지원|보조금|시행)|보험|세금|대출|주거|교육|복지|의료|노동|고용)/u;
 const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|목격담|인증샷|사진\s*한\s*장)/u;
 const SENSATIONAL_ANECDOTE = /(귀신|분장|경악|황당|기이한|엽기|반전|정체|진풍경|SNS|온라인\s*화제|누리꾼|사진이?\s*퍼|응급\s*이송|긴급\s*이송|복통을?\s*호소|구조대가?\s*(?:출동|이송))/iu;
 const SINGLE_PERSON_INCIDENT = /(\d{1,2}세|여학생|남학생|고등학생|중학생|초등학생|미성년|한\s*(?:남성|여성|학생|환자)|개인\s*(?:사연|사건))/u;
@@ -61,6 +60,19 @@ const TOPIC_ALIASES = Object.freeze([
   [/유지/gu, '동결'],
   [/결정/gu, '확정'],
 ]);
+
+const NARROW_POLICY_CONTEXT = /(정부.{0,24}(지원|보조금|구제|법안|발표|시행|제도\s*개편)|국회|전국.{0,24}(지원|보조금|시행)|(보험|세금|대출|주거|교육|복지|의료|노동|고용).{0,30}(정책|제도|지원|구제|법안|발표|시행|개편))/u;
+const PRIVATE_SPECTACLE = /((기내|항공기|비행기).{0,100}(난동|욕설|결박|테이프|케이블타이|제압)|지원도\s*안\s*했.{0,40}합격|입학\s*러브콜|희망퇴직\s*할까|자산.{0,30}고민.{0,30}희망퇴직|라디오.{0,40}(진행\s*중단|건강|기능\s*저하))/iu;
+
+const NARROW_POLICY_CONTEXT_NFC = new RegExp(NARROW_POLICY_CONTEXT.source.normalize('NFC'), NARROW_POLICY_CONTEXT.flags);
+const PRIVATE_SPECTACLE_NFC = new RegExp(PRIVATE_SPECTACLE.source.normalize('NFC'), PRIVATE_SPECTACLE.flags);
+const ECONOMY_HEADLINE_CONTEXT = /(\uC544\uD30C\uD2B8|\uC9D1\uAC12|\uC7AC\uAC74\uCD95|\uC7AC\uAC1C\uBC1C|\uB370\uC774\uD130\uC13C\uD130)/u;
+const CURRENCY_MOVE_CONTEXT = /((\uD658\uC728|\uC6D0\uD654|\uC5D4\uD654|\uB2EC\uB7EC).{0,60}(\uAC15\uC138|\uC57D\uC138|\uC0C1\uC2B9|\uD558\uB77D|\uCD5C\uC800|\uCD5C\uACE0|\uAE09\uB4F1|\uAE09\uB77D)|(\uAC15\uC138|\uC57D\uC138|\uC0C1\uC2B9|\uD558\uB77D|\uCD5C\uC800|\uCD5C\uACE0|\uAE09\uB4F1|\uAE09\uB77D).{0,60}(\uD658\uC728|\uC6D0\uD654|\uC5D4\uD654|\uB2EC\uB7EC))/u;
+const RESCUE_SEARCH_CONTEXT = /(\uAD6C\uC870\uB300|\uAD6C\uCD9C|\uC218\uC0C9|\uC2E4\uC885|\uC0DD\uC874\uC790|\uC5F0\uB77D\s*\uB450\uC808)/u;
+const PUBLIC_APPOINTMENT_OR_ETHICS = /((\uB300\uD1B5\uB839|\uCD1D\uB9AC).{0,80}(\uC9C0\uBA85|\uC784\uBA85|\uCDE8\uC18C|\uD6C4\uBCF4)|(\uB300\uBC95\uAD00|\uC7A5\uAD00|\uACF5\uC9C1\uC790)\s*\uD6C4\uBCF4.{0,100}(\uB17C\uB780|\uC758\uD639|\uC804\uB300\uCC28|\uC7AC\uC0B0))/u;
+const ADDITIONAL_PRIVATE_SPECTACLE = /((\uAE30\uB0B4|\uD56D\uACF5\uAE30|\uBE44\uD589\uAE30).{0,120}(\uCC44\uD305|\uC2E0\uACE0|\uD574\uACE0|\uC544\uB3D9\uC131\uC560)|(\uC544\uB3D9\uC131\uC560|\uCC44\uD305\uBC29).{0,100}(\uD574\uACE0|\uC2E0\uACE0|\uAE30\uB0B4))/u;
+const MARKET_MOVE_HEADLINE_CONTEXT = /((\uCF54\uC2A4\uD53C|\uCF54\uC2A4\uB2E5|\uC99D\uC2DC|\uC8FC\uAC00).{0,60}(\uAE09\uB4F1|\uAE09\uB77D|\uD3ED\uB4F1|\uD3ED\uB77D|\uC0C1\uC2B9|\uD558\uB77D|\uBC18\uB4F1|\uBC18\uC804|\uD6A1\uBCF4)|(\uAE09\uB4F1|\uAE09\uB77D|\uD3ED\uB4F1|\uD3ED\uB77D|\uC0C1\uC2B9|\uD558\uB77D|\uBC18\uB4F1|\uBC18\uC804|\uD6A1\uBCF4).{0,60}(\uCF54\uC2A4\uD53C|\uCF54\uC2A4\uB2E5|\uC99D\uC2DC|\uC8FC\uAC00))/u;
+const HOUSING_MARKET_CONTEXT = /((\uC544\uD30C\uD2B8|\uC9D1\uAC12|\uC7AC\uAC74\uCD95|\uC7AC\uAC1C\uBC1C|\uC8FC\uD0DD|\uC804\uC138|\uC6D4\uC138).{0,60}(\uC0C1\uC2B9|\uD558\uB77D|\uAE09\uB77D|\uC2E0\uACE0\uAC00|\uAC70\uB798|\uB9E4\uB9E4|\uAC00\uACA9|\uADDC\uC81C|\uC815\uCC45))/u;
 
 function normalizeTopicAliases(value = '') {
   return TOPIC_ALIASES.reduce(
@@ -119,6 +131,11 @@ function canonicalEventKey(text = '') {
 
 function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   const normalized = normalizeTopicAliases(text);
+  if (CURRENCY_MOVE_CONTEXT.test(normalized)) {
+    return /\uC5D4(?:\uD654|\uB2F9)/u.test(normalized) ? '\uC6D0\u00B7\uC5D4 \uD658\uC728' : '\uC6D0\uD654 \uD658\uC728';
+  }
+  if (/\uD55C\uAD6D\s*\uAD6C\uC870\uB300/u.test(normalized)) return '\uD55C\uAD6D \uAD6C\uC870\uB300';
+  if (/\uD55C\uAD6D\uC778.{0,30}\uC2E4\uC885/u.test(normalized)) return '\uD55C\uAD6D\uC778 \uC2E4\uC885';
   if (PUBLIC_HEARING_DISRUPTION.test(normalized)) {
     return normalized.match(/([가-힣]{2,4})\s*(?:국방부\s*)?(?:장관|의원|대통령|총리)/u)?.[1]
       || (/국군사관학교/u.test(normalized) ? '국군사관학교' : '공청회');
@@ -172,6 +189,7 @@ function claimState(candidate = {}, text = primaryCandidateText(candidate), kind
   if (kind === 'ipo') return 'scheduled';
   if (kind === 'medical_safety_advisory') return 'decided';
   if (kind === 'political_statement') return 'reported';
+  if (kind === 'market_move' || kind === 'currency_move' || kind === 'rescue_search') return 'reported';
   if (/잠정\s*합의/u.test(title)) return 'tentative';
   if (kind === 'asset_sale' && /(매각|인수|넘겼|넘긴|넘기며|매수자로\s*선정)/u.test(text)) return 'decided';
   if (/(증언|주장|의혹|혐의)/u.test(`${title} ${lead}`) && !DECIDED.test(title)) return 'reported';
@@ -195,6 +213,10 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
     && (PRIMARY_POLITICAL_EVENT.test(text) || /(대통령|정치|정부|지지율|권력|정당|국회)/u.test(text))) {
     return 'political_statement';
   }
+  if (MARKET_MOVE_HEADLINE_CONTEXT.test(text)) return 'market_move';
+  if (CURRENCY_MOVE_CONTEXT.test(text)) return 'currency_move';
+  if (RESCUE_SEARCH_CONTEXT.test(text) && !/(\uC555\uC218(?:\u00B7|\s)*\uC218\uC0C9|\uC218\uC0C9\uC601\uC7A5)/u.test(text)) return 'rescue_search';
+  if (HOUSING_MARKET_CONTEXT.test(text)) return 'housing_policy';
   if (/(국내총생산|\bGDP\b|성장률)/iu.test(text)) return 'gdp';
   if (/(코스피|코스닥|증시|주가)/u.test(text) && /(급등|급락|폭등|폭락|상승|하락|반등|반전)/u.test(text)) return 'market_move';
   if (/(형사소송법|형소법|보완수사권|법안|개정안)/u.test(text) && /(통과|개정|폐지|의결)/u.test(text)) return 'legislation';
@@ -208,6 +230,12 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
 }
 
 function frameEventLabel(text = '', kind = 'general') {
+  if (kind === 'currency_move') {
+    return text.match(/(\uAC15\uC138|\uC57D\uC138|\uC0C1\uC2B9|\uD558\uB77D|\uCD5C\uC800|\uCD5C\uACE0|\uAE09\uB4F1|\uAE09\uB77D)/u)?.[0] || '\uD658\uC728 \uBCC0\uB3D9';
+  }
+  if (kind === 'rescue_search') {
+    return text.match(/(\uAD6C\uCD9C|\uC218\uC0C9|\uC2E4\uC885|\uAD6C\uC870)/u)?.[0] || '\uAD6C\uC870\u00B7\uC218\uC0C9';
+  }
   if (kind === 'public_hearing_disruption') return '공청회 파행';
   if (kind === 'medical_safety_advisory') return /임신|피임/u.test(text) ? '임신 주의' : '복용 주의';
   if (kind === 'political_statement') {
@@ -245,6 +273,10 @@ function frameTerms(subject, eventLabel, kind, text) {
     eventTerms.push(...['통과', '개정', '폐지']);
   } else if (kind === 'market_move') {
     subjectTerms.push(...['코스피', '코스닥', '증시']);
+  } else if (kind === 'currency_move') {
+    subjectTerms.push(...['\uD658\uC728', '\uC6D0\uD654', '\uC5D4\uD654', '\uB2EC\uB7EC'].filter(term => normalizeNfc(text).includes(term)));
+  } else if (kind === 'rescue_search') {
+    eventTerms.push(...['\uAD6C\uCD9C', '\uC218\uC0C9', '\uC2E4\uC885', '\uAD6C\uC870'].filter(term => normalizeNfc(text).includes(term)));
   } else if (kind === 'medical_safety_advisory') {
     subjectTerms.push(...['마운자로', '위고비', 'GLP-1'].filter(term => normalizeNfc(text).includes(term)));
     eventTerms.splice(0, eventTerms.length, '피해야', '피하', '피해', '중단', '주의', '경고', '권고', '안내');
@@ -268,11 +300,26 @@ function frameTerms(subject, eventLabel, kind, text) {
 function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).category) {
   const text = primaryCandidateText(candidate);
   const evidenceText = normalizeTopicAliases(`${candidate.summary || ''} ${String(candidate.fullText || '').slice(0, 5000)}`);
-  const kind = eventKind(candidate, text);
+  const headlineKind = eventKind(candidate, normalizeTopicAliases(candidate.title || ''));
+  const evidenceKind = eventKind(candidate, text);
+  const evidenceFirstKinds = new Set([
+    'asset_sale',
+    'medical_safety_advisory',
+    'ipo',
+    'public_hearing_disruption',
+    'political_statement',
+    'legislation',
+    'earnings',
+    'auto_insurance_loss',
+  ]);
+  const kind = evidenceFirstKinds.has(evidenceKind)
+    ? evidenceKind
+    : headlineKind === 'general' ? evidenceKind : headlineKind;
   const state = claimState(candidate, text, kind);
   const primaryActor = kind === 'political_statement' ? primaryPoliticalSpeaker(candidate) : null;
   const subject = primaryActor || compactSubject(text, category);
-  const eventLabel = frameEventLabel(text, kind);
+  const headlineEventLabel = frameEventLabel(normalizeTopicAliases(candidate.title || ''), kind);
+  const eventLabel = headlineEventLabel || (kind === 'general' ? '' : frameEventLabel(text, kind));
   const { subjectTerms, eventTerms } = frameTerms(subject, eventLabel, kind, text);
   const date = dateLabel(text);
   const requiredTitleTerms = [];
@@ -311,7 +358,7 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
     competitiveState: chinaLeadsBatteryShipbuilding ? 'china_leads_battery_shipbuilding' : null,
     competitiveLeader: chinaLeadsBatteryShipbuilding ? '중국' : null,
     competitiveSectors: chinaLeadsBatteryShipbuilding ? ['배터리', '조선'] : [],
-    readerNeed: inferReaderNeed(text),
+    readerNeed: inferReaderNeed(`${candidate.title || ''} ${subject} ${eventLabel}`),
   };
 }
 
@@ -321,6 +368,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   const signals = [];
   const penalties = [];
   const hasEconomyCore = ECONOMY_CORE_TOPIC.test(text)
+    || ECONOMY_HEADLINE_CONTEXT.test(primaryLead)
     || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);
@@ -348,6 +396,12 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   }
 
   let hardReject = '';
+  if ((PRIVATE_SPECTACLE_NFC.test(primaryLead) || ADDITIONAL_PRIVATE_SPECTACLE.test(primaryLead))
+    && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
+    score -= 80;
+    penalties.push('private_spectacle_without_public_value');
+    hardReject = 'private_spectacle_without_public_value';
+  }
   if (LOW_MISSION_FIT.test(primaryLead) && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
     score -= 80;
     penalties.push('low_mission_fit_anecdote');
@@ -378,7 +432,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     penalties.push('economy_core_topic_missing');
     hardReject ||= 'economy_core_topic_missing';
   }
-  if (category === CATEGORIES.ISSUE && NARROW_OR_LOCAL.test(text) && !NARROW_WITH_PUBLIC_POLICY.test(text)) {
+  if (category === CATEGORIES.ISSUE && NARROW_OR_LOCAL.test(text) && !NARROW_POLICY_CONTEXT_NFC.test(text)) {
     score -= 40;
     penalties.push('narrow_or_local_issue');
     hardReject ||= 'narrow_or_local_issue';
@@ -414,6 +468,10 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
 function classifyCandidate(candidate = {}) {
   const text = primaryCandidateText(candidate);
   const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 420)}`);
+  if ((PRIVATE_SPECTACLE_NFC.test(primaryLead) || ADDITIONAL_PRIVATE_SPECTACLE.test(primaryLead))
+    && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
+    return { category: null, excluded: ['private_spectacle_without_public_value'] };
+  }
   if (LOW_MISSION_FIT.test(primaryLead) && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
     return { category: null, excluded: ['low_mission_fit_anecdote'] };
   }
@@ -424,6 +482,7 @@ function classifyCandidate(candidate = {}) {
   if (ECONOMY_EXCLUDE.test(text)) excluded.push('economy_low_value');
   if (ISSUE_EXCLUDE.test(text)) excluded.push('issue_low_value');
   const economy = (ECONOMY_INCLUDE.test(text)
+    || ECONOMY_HEADLINE_CONTEXT.test(primaryLead)
     || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text))
@@ -435,6 +494,9 @@ function classifyCandidate(candidate = {}) {
   if (PRIMARY_POLITICAL_EVENT.test(primaryLead) && !ISSUE_EXCLUDE.test(primaryLead)) {
     return { category: CATEGORIES.ISSUE, excluded: [], primaryEvent: 'political' };
   }
+  if (PUBLIC_APPOINTMENT_OR_ETHICS.test(primaryLead) && !ISSUE_EXCLUDE.test(primaryLead)) {
+    return { category: CATEGORIES.ISSUE, excluded: [], primaryEvent: 'public_appointment_or_ethics' };
+  }
   if (!economy && !issue) return { category: null, excluded: excluded.length ? excluded : ['category_not_allowed'] };
   if (economy && !issue) return { category: CATEGORIES.ECONOMY, excluded: [] };
   if (issue && !economy) return { category: CATEGORIES.ISSUE, excluded: [] };
@@ -444,6 +506,7 @@ function classifyCandidate(candidate = {}) {
   }
 
   const directEconomy = ECONOMY_CORE_TOPIC.test(text)
+    || ECONOMY_HEADLINE_CONTEXT.test(primaryLead)
     || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);

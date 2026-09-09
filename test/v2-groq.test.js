@@ -90,3 +90,75 @@ test('vision review rejects foreign political symbols and selects only a safe ar
   assert.equal(result.ok, true);
   assert.equal(result.selectedId, 'safe-office');
 });
+
+test('vision review recovers a JSON-mode validation failure as plain JSON once', async () => {
+  const requests = [];
+  const client = { chat: { completions: { create: async params => {
+    requests.push(params);
+    if (params.response_format) {
+      const error = new Error('400 {"error":{"code":"json_validate_failed","message":"Failed to validate JSON"}}');
+      error.status = 400;
+      throw error;
+    }
+    return { choices: [{ message: { content: JSON.stringify({
+      ok: true,
+      selectedId: 'safe-image',
+      reason: 'article event matched',
+      evaluations: [{
+        id: 'safe-image', relevant: true, countryMismatch: false,
+        foreignPoliticalSymbol: false, unrelatedPerson: false, reason: 'safe',
+      }],
+    }) } }] };
+  } } } };
+  const review = createGroqVisionReviewer({ client });
+  const result = await review({
+    candidate: { title: '한국 구조대 생존자 구출' },
+    query: 'rescue team flood tunnel',
+    images: [{ id: 'safe-image', downloadUrl: 'https://images.example/rescue.jpg' }],
+  });
+
+  assert.equal(result.ok, true);
+  assert.equal(requests.length, 2);
+  assert.deepEqual(requests[0].response_format, { type: 'json_object' });
+  assert.equal(requests[1].response_format, undefined);
+});
+
+test('vision review retries an inaccessible remote image as a local base64 data URL', async () => {
+  const requests = [];
+  const client = { chat: { completions: { create: async params => {
+    requests.push(params);
+    const imageUrl = params.messages[0].content.find(item => item.type === 'image_url').image_url.url;
+    if (!imageUrl.startsWith('data:image/jpeg;base64,')) {
+      const error = new Error('400 {"error":{"message":"failed to retrieve media: received status code: 403"}}');
+      error.status = 400;
+      throw error;
+    }
+    return { choices: [{ message: { content: JSON.stringify({
+      ok: true,
+      selectedId: 'remote-blocked',
+      reason: 'base64 image matched',
+      evaluations: [{
+        id: 'remote-blocked', relevant: true, countryMismatch: false,
+        foreignPoliticalSymbol: false, unrelatedPerson: false, reason: 'safe',
+      }],
+    }) } }] };
+  } } } };
+  const review = createGroqVisionReviewer({
+    client,
+    fetchImpl: async () => ({
+      ok: true,
+      status: 200,
+      headers: { get: name => name === 'content-type' ? 'image/jpeg' : null },
+      arrayBuffer: async () => Buffer.from('verified-image-bytes'),
+    }),
+  });
+  const result = await review({
+    candidate: { title: '데이터센터 주민 반대' },
+    query: 'data center server building',
+    images: [{ id: 'remote-blocked', downloadUrl: 'https://images.example/blocked.jpg' }],
+  });
+
+  assert.equal(result.ok, true);
+  assert.equal(requests.length, 2);
+  assert.match(requests[1].messages[0].content.find(item => item.type === 'image_url').image_url.url, /^data:image\/jpeg;base64,/u);
+});
