@@ -4,7 +4,7 @@
   "date": "2026-09-10",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-09T16:58:44.011Z",
-  "updatedAt": "2026-09-09T19:06:52.494Z",
+  "updatedAt": "2026-09-09T19:07:05.138Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -3721,7 +3721,7 @@
     "economy": {
       "publicationKey": "diem:2026-09-10:economy:34392751882",
       "category": "economy",
-      "status": "ready",
+      "status": "retry_pending",
       "candidate": {
         "title": "전국 돌며 1,600여 권 사재기‥이렇게 베스트셀러?",
         "url": "https://n.news.naver.com/article/214/0001523016?ntype=RANKING",
@@ -4469,11 +4469,11 @@
         "fallback": false
       },
       "reel": {
-        "status": "ready",
-        "attempts": 0,
+        "status": "retry_pending",
+        "attempts": 1,
         "externalId": null,
-        "error": null,
-        "updatedAt": "2026-09-09T19:06:52.485Z"
+        "error": "[Instagram] Container 18101598005108587 failed: ERROR",
+        "updatedAt": "2026-09-09T19:07:03.762Z"
       },
       "story": {
         "status": "planned",
@@ -4496,7 +4496,17 @@
         "error": null,
         "updatedAt": null
       },
-      "notifications": [],
+      "notifications": [
+        {
+          "key": "diem:2026-09-10:economy:34392751882:reel:retry_pending",
+          "status": "retry_pending",
+          "stage": "reel",
+          "sentAt": "2026-09-09T19:07:05.136Z",
+          "slackTs": "1788980823.960469",
+          "issueNumber": 73,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/73"
+        }
+      ],
       "reason": null,
       "plannedAt": "2026-09-09T19:06:33.384Z",
       "hotness": {
@@ -4561,6 +4571,13 @@
         "reelPath": ".diem-cache/2026-09-10/economy/economy-reel.mp4",
         "reelSha256": "91aa68565a6a7479d59d3b0adabb5d183246f07f7a0564f355d7d0a40351a2e8",
         "temporary": true
+      },
+      "release": {
+        "id": 385775959,
+        "tag": "instagram-assets-diem-2026-09-10-economy-34392751882-1788980817190",
+        "videoUrl": "https://github.com/betterbit-ai/today_econ/releases/download/instagram-assets-diem-2026-09-10-economy-34392751882-1788980817190/diem-2026-09-10-economy-34392751882.mp4",
+        "createdAt": "2026-09-09T16:59:52Z",
+        "deleteAfter": "2026-09-12T19:06:58.962Z"
       }
     },
     "issue": {
