@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 202편
-- 생성 시각: 2026-09-10T18:58:47.561Z
+- 발행 원장 Reel: 204편
+- 생성 시각: 2026-09-10T23:45:51.028Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -17,21 +17,21 @@
 - 정시 비교에서 제외한 늦은 백필: 87편
 
 ## 72h
-- economy: 표본 55편 · 노출 중앙값 331 · 공유율 0% · 저장률 0%
+- economy: 표본 56편 · 노출 중앙값 328 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
   - 부진 후보: 남대문시장 / 2030 핫플(126), ETF·ETN / 핵심 차이(134), 서울 아파트값 / 16억 돌파(151), 주차 로봇 / 아파트 도입(152), 고정·변동 / 금리 차이(157)
-  - 특성 신호: reader_need:public_interest insufficient_data×2.7, event:market_move insufficient_data×2.52, event:ipo insufficient_data×2.42, company_event insufficient_data×1.75, housing_money winner×1.63, market_shock insufficient_data×1.61, public_decision winner×1.44, event:housing_policy underperformer×0.7
-- issue: 표본 62편 · 노출 중앙값 1,464 · 공유율 0% · 저장률 0%
+  - 특성 신호: reader_need:public_interest insufficient_data×2.72, event:market_move insufficient_data×2.55, event:ipo insufficient_data×2.44, company_event insufficient_data×1.77, market_shock insufficient_data×1.63, housing_money winner×1.5, public_decision winner×1.46, household_money underperformer×0.67
+- issue: 표본 63편 · 노출 중앙값 1,441 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 북 미사일 발사 / 김여정 조롱(5,393), 한동훈 흉기 / 징역 1년 확정(3,959)
-  - 부진 후보: 네팔 대홍수 / 보도(81), 3인 가족 / 수수료 급등(169), 성평등·법무부 / 세종 이전(173), 광복연휴 비예보 / 폭염 예상(176), 장동혁 발언 / 당원 주권 확대(182)
-  - 특성 신호: market_shock insufficient_data×1.02, event:political_statement underperformer×0.64, reader_need:public_interest underperformer×0.21, household_money insufficient_data×0.14, reader_need:housing insufficient_data×0.14, work_life insufficient_data×0.12, reader_need:work insufficient_data×0.12
+  - 부진 후보: 네팔 대홍수 / 보도(81), 미국 대학 / 입학 러브콜(146), 3인 가족 / 수수료 급등(169), 성평등·법무부 / 세종 이전(173), 광복연휴 비예보 / 폭염 예상(176)
+  - 특성 신호: market_shock insufficient_data×1.03, event:political_statement underperformer×0.65, reader_need:public_interest underperformer×0.2, household_money insufficient_data×0.15, reader_need:housing insufficient_data×0.14, work_life insufficient_data×0.12, reader_need:work insufficient_data×0.12
 - 정시 비교에서 제외한 늦은 백필: 77편
 
 ## 7d
-- economy: 표본 62편 · 노출 중앙값 539 · 공유율 0% · 저장률 0%
+- economy: 표본 63편 · 노출 중앙값 499 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 고정·변동 / 금리 차이(161)
-  - 특성 신호: housing_money winner×2.48, public_decision winner×2.48, event:housing_policy winner×1.9, reader_need:public_interest insufficient_data×1.67, event:market_move insufficient_data×1.64, market_shock insufficient_data×1.64, event:interest_rate winner×1.62, event:ipo insufficient_data×1.49
+  - 특성 신호: housing_money winner×2.65, public_decision winner×2.65, reader_need:public_interest insufficient_data×1.8, event:market_move insufficient_data×1.77, event:interest_rate winner×1.75, event:ipo insufficient_data×1.61, event:housing_policy winner×1.46, company_event insufficient_data×1.17
 - issue: 표본 69편 · 노출 중앙값 1,513 · 공유율 0.08% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 네팔 대홍수 / 보도(84), 3인 가족 / 수수료 급등(171), 성평등·법무부 / 세종 이전(175), 광복연휴 비예보 / 폭염 예상(180), 장동혁 발언 / 당원 주권 확대(183)
@@ -39,9 +39,9 @@
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 20.79%
-- 생성 배경 폴백률: 25.74% · 전체 폴백률: 46.53%
-- 이미지 공급원: pexels 97편, diem-generated 52편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 20.59%
+- 생성 배경 폴백률: 25.98% · 전체 폴백률: 46.57%
+- 이미지 공급원: pexels 98편, diem-generated 53편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 90건, unknown 44건
