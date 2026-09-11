@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 206편
-- 생성 시각: 2026-09-11T14:05:58.661Z
+- 발행 원장 Reel: 208편
+- 생성 시각: 2026-09-11T19:01:41.688Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -10,17 +10,17 @@
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
   - 부진 후보: 신용점수 / 대출금리 영향(119)
   - 특성 신호: reader_need:public_interest insufficient_data×3.52, event:ipo insufficient_data×3.14, company_event insufficient_data×2.25, housing_money winner×2.07, market_shock insufficient_data×1.69, event:market_move insufficient_data×1.6, event:housing_policy winner×1.55, public_decision winner×1.41
-- issue: 표본 58편 · 노출 중앙값 1,084.5 · 공유율 0% · 저장률 0%
+- issue: 표본 59편 · 노출 중앙값 925 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
   - 부진 후보: 네팔 대홍수 / 보도(73), 빌라 3채 / 도서관마을(141), 미국 대학 / 입학 러브콜(141), 3인 가족 / 수수료 급등(157), 성평등·법무부 / 세종 이전(166)
-  - 특성 신호: event:housing_policy winner×1.43, public_decision winner×1.36, housing_money winner×1.36, market_shock insufficient_data×1.36, event:political_statement underperformer×0.55, reader_need:public_interest underperformer×0.25, household_money insufficient_data×0.18, reader_need:housing insufficient_data×0.17
+  - 특성 신호: event:housing_policy winner×1.67, housing_money winner×1.6, market_shock insufficient_data×1.6, public_decision winner×1.56, event:political_statement underperformer×0.64, reader_need:public_interest underperformer×0.3, household_money insufficient_data×0.21, reader_need:housing insufficient_data×0.2
 - 정시 비교에서 제외한 늦은 백필: 87편
 
 ## 72h
-- economy: 표본 57편 · 노출 중앙값 325 · 공유율 0% · 저장률 0%
+- economy: 표본 58편 · 노출 중앙값 328 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
   - 부진 후보: 남대문시장 / 2030 핫플(126), ETF·ETN / 핵심 차이(134), 서울 아파트값 / 16억 돌파(151), 주차 로봇 / 아파트 도입(152), 고정·변동 / 금리 차이(157)
-  - 특성 신호: reader_need:public_interest insufficient_data×2.75, event:ipo insufficient_data×2.46, company_event insufficient_data×1.78, market_shock insufficient_data×1.64, event:market_move insufficient_data×1.57, housing_money winner×1.51, public_decision winner×1.47, household_money underperformer×0.68
+  - 특성 신호: reader_need:public_interest insufficient_data×2.72, event:ipo insufficient_data×2.44, company_event insufficient_data×1.77, public_decision winner×1.75, housing_money winner×1.64, market_shock insufficient_data×1.63, event:market_move insufficient_data×1.56, household_money underperformer×0.67
 - issue: 표본 65편 · 노출 중앙값 1,377 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 북 미사일 발사 / 김여정 조롱(5,393), 한동훈 흉기 / 징역 1년 확정(3,959)
   - 부진 후보: 네팔 대홍수 / 보도(81), 빌라 3채 / 도서관마을(145), 미국 대학 / 입학 러브콜(146), 3인 가족 / 수수료 급등(169), 성평등·법무부 / 세종 이전(173)
@@ -39,9 +39,9 @@
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 20.39%
-- 생성 배경 폴백률: 26.7% · 전체 폴백률: 47.09%
-- 이미지 공급원: pexels 98편, diem-generated 55편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 20.19%
+- 생성 배경 폴백률: 27.4% · 전체 폴백률: 47.6%
+- 이미지 공급원: pexels 98편, diem-generated 57편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 90건, unknown 44건
