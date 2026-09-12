@@ -1,18 +1,18 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 210편
-- 생성 시각: 2026-09-11T23:57:17.034Z
+- 발행 원장 Reel: 212편
+- 생성 시각: 2026-09-12T08:25:29.913Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
 - economy: 표본 57편 · 노출 중앙값 236 · 공유율 0% · 저장률 0%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
   - 특성 신호: reader_need:public_interest insufficient_data×3.72, housing_money winner×2.19, event:ipo insufficient_data×1.99, market_shock insufficient_data×1.78, event:market_move insufficient_data×1.7, event:housing_policy winner×1.64, company_event winner×1.44, public_decision winner×1.44
-- issue: 표본 60편 · 노출 중앙값 925 · 공유율 0% · 저장률 0%
+- issue: 표본 61편 · 노출 중앙값 925 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
-  - 부진 후보: 네팔 대홍수 / 보도(73), 빌라 3채 / 도서관마을(141), 미국 대학 / 입학 러브콜(141), 보령시 김밥 식중독 / 초등야구(157), 3인 가족 / 수수료 급등(157)
-  - 특성 신호: event:housing_policy winner×1.67, housing_money winner×1.6, market_shock insufficient_data×1.6, public_decision winner×1.56, event:political_statement underperformer×0.64, reader_need:public_interest underperformer×0.29, household_money insufficient_data×0.21, reader_need:housing insufficient_data×0.2
+  - 부진 후보: 박선원 공개 / 공익제보자 위반(40), 네팔 대홍수 / 보도(73), 빌라 3채 / 도서관마을(141), 미국 대학 / 입학 러브콜(141), 보령시 김밥 식중독 / 초등야구(157)
+  - 특성 신호: event:housing_policy winner×1.67, housing_money winner×1.6, market_shock insufficient_data×1.6, public_decision winner×1.56, event:political_statement underperformer×0.64, reader_need:public_interest underperformer×0.27, household_money insufficient_data×0.21, reader_need:housing insufficient_data×0.2
 - 정시 비교에서 제외한 늦은 백필: 87편
 
 ## 72h
@@ -38,12 +38,12 @@
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 20%
-- 생성 배경 폴백률: 28.1% · 전체 폴백률: 48.1%
-- 이미지 공급원: pexels 98편, diem-generated 59편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 19.81%
+- 생성 배경 폴백률: 28.77% · 전체 폴백률: 48.58%
+- 이미지 공급원: pexels 98편, diem-generated 61편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 91건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 92건, unknown 44건
 - 제목 재정제 실패: 11건
 
 ## 해석 주의

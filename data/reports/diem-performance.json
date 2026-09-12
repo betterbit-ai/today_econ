@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-11T23:57:17.034Z",
+  "generatedAt": "2026-09-12T08:25:29.913Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
-  "publishedCount": 210,
+  "publishedCount": 212,
   "operations": {
-    "totalRuns": 363,
+    "totalRuns": 365,
     "noPublishReasons": {
       "no_candidate_passed_editorial_generation": {
         "count": 60,
@@ -30,12 +30,12 @@
     },
     "candidateFailureReasons": {
       "editorial_generation_failed": {
-        "count": 91,
-        "share": 67.41
+        "count": 92,
+        "share": 67.65
       },
       "unknown": {
         "count": 44,
-        "share": 32.59
+        "share": 32.35
       }
     },
     "titleRepairFailures": 11,
@@ -43,7 +43,7 @@
   },
   "windows": {
     "24h": {
-      "sampleCount": 117,
+      "sampleCount": 118,
       "excludedLateBackfills": 87,
       "categories": {
         "economy": {
@@ -361,16 +361,16 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 60,
+          "samples": 61,
           "minimumSamples": 5,
           "metrics": {
             "exposureMedian": 925,
             "viewsMedian": 925,
-            "reachMedian": 751,
+            "reachMedian": 746,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "engagementRateMedian": 2.0949999999999998,
-            "averageWatchTimeMedian": 4026.5,
+            "engagementRateMedian": 2.16,
+            "averageWatchTimeMedian": 3977,
             "followerDeltaEstimateMedian": 1
           },
           "winners": [
@@ -516,6 +516,34 @@
           ],
           "underperformers": [
             {
+              "publicationKey": "diem:2026-09-11:issue:34565704168",
+              "category": "issue",
+              "title": "박선원 공개 / 공익제보자 위반",
+              "permalink": "https://www.instagram.com/reel/DdIqHQDD9nI/",
+              "exposure": 40,
+              "views": 40,
+              "reach": 29,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 6.9,
+              "averageWatchTime": 3421,
+              "followerDeltaEstimate": -1,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "generated",
+                "source": "diem-generated"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "pixabay-alexguz-funk-amp-breakbeat-541097",
+                "mood": "bright"
+              }
+            },
+            {
               "publicationKey": "diem:2026-09-03:issue:33684999490",
               "category": "issue",
               "title": "네팔 대홍수 / 보도",
@@ -627,36 +655,6 @@
                 "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
                 "mood": "serious"
               }
-            },
-            {
-              "publicationKey": "diem:2026-08-26:issue:32975934632",
-              "category": "issue",
-              "title": "3인 가족 / 수수료 급등",
-              "permalink": "https://www.instagram.com/reel/DcgW0-KjKrp/",
-              "exposure": 157,
-              "views": 157,
-              "reach": 134,
-              "savedRate": 0,
-              "shareRate": 0,
-              "engagementRate": 2.24,
-              "averageWatchTime": 2019,
-              "followerDeltaEstimate": 0,
-              "features": [
-                "concrete_number",
-                "event:general",
-                "public_decision",
-                "reader_need:work",
-                "work_life"
-              ],
-              "image": {
-                "kind": "generated",
-                "source": "diem-generated"
-              },
-              "audio": {
-                "mode": "track",
-                "trackId": "mixkit-dirty-thinkin-989",
-                "mood": "bright"
-              }
             }
           ],
           "featureSignals": [
@@ -690,16 +688,16 @@
             },
             {
               "feature": "event:general",
-              "samples": 52,
-              "exposureMedian": 1084.5,
-              "lift": 1.172,
+              "samples": 53,
+              "exposureMedian": 925,
+              "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
-              "samples": 59,
-              "exposureMedian": 925,
-              "lift": 1,
+              "samples": 60,
+              "exposureMedian": 924.5,
+              "lift": 0.999,
               "signal": "neutral"
             },
             {
@@ -711,9 +709,9 @@
             },
             {
               "feature": "reader_need:public_interest",
-              "samples": 23,
-              "exposureMedian": 265,
-              "lift": 0.286,
+              "samples": 24,
+              "exposureMedian": 251,
+              "lift": 0.271,
               "signal": "underperformer"
             },
             {
@@ -2469,130 +2467,130 @@
     "kindDistribution": {
       "web": {
         "count": 109,
-        "share": 51.9
+        "share": 51.42
       },
       "generated": {
-        "count": 59,
-        "share": 28.1
+        "count": 61,
+        "share": 28.77
       },
       "typographic": {
         "count": 42,
-        "share": 20
+        "share": 19.81
       }
     },
     "sourceDistribution": {
       "pexels": {
         "count": 98,
-        "share": 46.67
+        "share": 46.23
       },
       "diem-generated": {
-        "count": 59,
-        "share": 28.1
+        "count": 61,
+        "share": 28.77
       },
       "diem-original": {
         "count": 42,
-        "share": 20
+        "share": 19.81
       },
       "unsplash": {
         "count": 6,
-        "share": 2.86
+        "share": 2.83
       },
       "wikimedia": {
         "count": 4,
-        "share": 1.9
+        "share": 1.89
       },
       "openverse": {
         "count": 1,
-        "share": 0.48
+        "share": 0.47
       }
     },
-    "typographyFallbackRate": 20,
-    "generatedFallbackRate": 28.1,
-    "combinedFallbackRate": 48.1
+    "typographyFallbackRate": 19.81,
+    "generatedFallbackRate": 28.77,
+    "combinedFallbackRate": 48.58
   },
   "music": {
     "trackDistribution": {
       "mixkit-tech-house-vibes-130": {
         "count": 21,
-        "share": 10.77
+        "share": 10.66
       },
       "serious1": {
         "count": 16,
-        "share": 8.21
+        "share": 8.12
       },
       "mixkit-driving-ambition-32": {
         "count": 16,
-        "share": 8.21
+        "share": 8.12
+      },
+      "bright3": {
+        "count": 13,
+        "share": 6.6
       },
       "pixabay-magpiemusic-action-trailer-promo-rock-513687": {
         "count": 13,
-        "share": 6.67
+        "share": 6.6
       },
       "bright2": {
         "count": 13,
-        "share": 6.67
+        "share": 6.6
       },
       "pixabay-alexguz-funk-amp-breakbeat-541097": {
         "count": 13,
-        "share": 6.67
+        "share": 6.6
       },
-      "bright3": {
-        "count": 12,
-        "share": 6.15
+      "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494": {
+        "count": 13,
+        "share": 6.6
       },
       "bright1": {
         "count": 12,
-        "share": 6.15
+        "share": 6.09
       },
       "mixkit-serene-view-443": {
         "count": 12,
-        "share": 6.15
-      },
-      "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494": {
-        "count": 12,
-        "share": 6.15
+        "share": 6.09
       },
       "pixabay-bransboynd-night-summer-lounge-473222": {
         "count": 10,
-        "share": 5.13
+        "share": 5.08
       },
       "serious2": {
         "count": 10,
-        "share": 5.13
+        "share": 5.08
       },
       "mixkit-dirty-thinkin-989": {
         "count": 10,
-        "share": 5.13
+        "share": 5.08
       },
       "pixabay-sonican-lo-fi-music-loop-sentimental-jazzy-love-473154": {
         "count": 8,
-        "share": 4.1
+        "share": 4.06
       },
       "serious3": {
         "count": 6,
-        "share": 3.08
+        "share": 3.05
       },
       "mixkit-fright-night-871": {
         "count": 6,
-        "share": 3.08
+        "share": 3.05
       },
       "serious4": {
         "count": 5,
-        "share": 2.56
+        "share": 2.54
       }
     },
     "moodDistribution": {
       "bright": {
-        "count": 110,
-        "share": 52.38
+        "count": 111,
+        "share": 52.36
       },
       "serious": {
-        "count": 85,
-        "share": 40.48
+        "count": 86,
+        "share": 40.57
       },
       "unknown": {
         "count": 15,
-        "share": 7.14
+        "share": 7.08
       }
     },
     "diversityWarning": null,
