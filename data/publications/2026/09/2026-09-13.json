@@ -4,7 +4,7 @@
   "date": "2026-09-13",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-12T15:58:20.108Z",
-  "updatedAt": "2026-09-12T15:58:29.438Z",
+  "updatedAt": "2026-09-12T15:59:19.813Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -1961,7 +1961,7 @@
     "issue": {
       "publicationKey": "diem:2026-09-13:issue:34703662840",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "국민의힘 “李대통령, 약점 잡혔나” 與도 용혜인 손절 채비",
         "url": "https://n.news.naver.com/article/005/0001872447?ntype=RANKING",
@@ -2161,15 +2161,862 @@
           "text": "issue | 국민의힘 | 정치 발언"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "국민의힘\n비판",
+            "lines": [
+              "국민의힘",
+              "비판"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "국민의힘\n비판",
+          "lines": [
+            "국민의힘",
+            "비판"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "국민의힘 수석대변인 박성훈이 12일 브리핑에서 대통령이 용혜인 후보에게 약점이 잡혔다고 비판했다.📰",
+            "그는 여론조사에서 김승원 후보 지명이 부적절하다는 응답이 43%로, 적절하다는 22%의 두 배라고 밝혔다.",
+            "민주당은 용혜인 후보 관련 의견을 수렴해 13일 고위당정협의에서 여당 입장을 조율할 것으로 보인다.📰"
+          ],
+          "text": "국민의힘 수석대변인 박성훈이 12일 브리핑에서 대통령이 용혜인 후보에게 약점이 잡혔다고 비판했다.📰\n\n그는 여론조사에서 김승원 후보 지명이 부적절하다는 응답이 43%로, 적절하다는 22%의 두 배라고 밝혔다.\n\n민주당은 용혜인 후보 관련 의견을 수렴해 13일 고위당정협의에서 여당 입장을 조율할 것으로 보인다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #정치 #국민의힘 #인사논란 #여론조사 #청와대 #발언",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#정치",
+            "#국민의힘",
+            "#인사논란",
+            "#여론조사",
+            "#청와대",
+            "#발언"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#정치",
+              "#국민의힘",
+              "#인사논란",
+              "#여론조사",
+              "#청와대",
+              "#발언"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:public-opinion-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-12T15:59:13.735Z",
+        "assetPath": "assets/fallback/generated/public-opinion-01.png",
+        "sha256": "a27dbfde0bb50700f0d9de66b2416f15e0bfe4f163049c72761dcb5fddd380cb",
+        "localSha256": "a27dbfde0bb50700f0d9de66b2416f15e0bfe4f163049c72761dcb5fddd380cb",
+        "generatedTopic": "public-opinion",
+        "generatedEnergy": "calm",
+        "description": "Empty government briefing lectern with a person-free downward public-opinion chart.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 20,
+            "suitableCount": 6,
+            "suitabilityRejected": 14,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:37375236",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:13609018",
+                "rankWithinQuery": 3,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32168739",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8574469",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5103610",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38658307",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8102300",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6949365",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6008847",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36007720",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33827304",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8847142",
+                "rankWithinQuery": 15,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:17664083",
+                "rankWithinQuery": 19,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "office"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18787913",
+                "rankWithinQuery": 20,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "office"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 6,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.675
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 0,
+            "error": "502 Bad Gateway"
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 2,
+            "suitableCount": 0,
+            "suitabilityRejected": 2,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:23393256",
+                "rankWithinQuery": 1,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23393288",
+                "rankWithinQuery": 2,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "후보자와",
+                  "role": "장관",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.3
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 5,
+            "error": "400 {\"error\":{\"message\":\"Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.\",\"type\":\"invalid_request_error\",\"code\":\"json_validate_failed\",\"failed_generation\":\"\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 21,
+          "recentKeyCount": 46,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:public-opinion-01",
+            "a27dbfde0bb50700f0d9de66b2416f15e0bfe4f163049c72761dcb5fddd380cb"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated public-opinion asset public-opinion-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "serious3",
+        "mood": "serious",
+        "sha256": "6827eac23ffb5e4593c79e2c1b7dc947635e190eb0a8f143c6a48285ac56ced3",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-12T15:59:19.805Z"
       },
       "story": {
         "status": "planned",
@@ -2245,6 +3092,15 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-13/issue/issue-cover.png",
+        "coverSha256": "8d053c6e5312730ff306254f6b78e3d89cb084fb5f31522f669e85cc82fc89dd",
+        "followCtaPath": ".diem-cache/2026-09-13/issue/issue-follow-cta.png",
+        "followCtaSha256": "969a78b13f4b4db2d4d9454f7ef42e8b0903302a2aa13b5e28d5c3ed177f1b12",
+        "reelPath": ".diem-cache/2026-09-13/issue/issue-reel.mp4",
+        "reelSha256": "7978c3e018ef4b85aa19af1ced038d92165a853dabaa5cdc4c24d6866e81cf06",
+        "temporary": true
       }
     }
   },
