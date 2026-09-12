@@ -4,7 +4,7 @@
   "date": "2026-09-12",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-11T16:50:38.969Z",
-  "updatedAt": "2026-09-12T05:15:32.313Z",
+  "updatedAt": "2026-09-12T05:15:49.917Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -15894,7 +15894,7 @@
     "issue": {
       "publicationKey": "diem:2026-09-12:issue:34675007604",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "6만원짜리 비자가 43만원으로… 中-日 ‘비자 전쟁’",
         "url": "https://n.news.naver.com/article/005/0001872444?ntype=RANKING",
@@ -16066,15 +16066,176 @@
           "text": "issue | 6만원짜리 비자가 | 인상 | 6만원짜리 43만원으로 8월26일"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "중국, 일본 비자 인상\n보도",
+            "lines": [
+              "중국, 일본 비자 인상",
+              "보도"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "중국, 일본 비자 인상\n보도",
+          "lines": [
+            "중국, 일본 비자 인상",
+            "보도"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "중국이 일본인 대상 비자 발급 수수료를 6만원에서 43만원으로 대폭 인상한다는 계획을 발표했다.📰",
+            "1년 복수 입국 비자는 기존 6만원에서 43만원으로 올랐다.",
+            "중국 외교부는 이번 인상을 일본의 비자료 인상에 대한 상호주의적 대응이라고 밝혔다.📰"
+          ],
+          "text": "중국이 일본인 대상 비자 발급 수수료를 6만원에서 43만원으로 대폭 인상한다는 계획을 발표했다.📰\n\n1년 복수 입국 비자는 기존 6만원에서 43만원으로 올랐다.\n\n중국 외교부는 이번 인상을 일본의 비자료 인상에 대한 상호주의적 대응이라고 밝혔다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #비자 #중국 #일본 #수수료 #6만원짜리 #43만원으로",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#비자",
+            "#중국",
+            "#일본",
+            "#수수료",
+            "#6만원짜리",
+            "#43만원으로"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#비자",
+              "#중국",
+              "#일본",
+              "#수수료",
+              "#6만원짜리",
+              "#43만원으로"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 5100원 in \"지난 12월 기준 2250엔(≈1만9700원)였던 1년 복수 입국 비자는 5만250엔(≈43만9500원)으로 상승했으며, 복수 2회 입국 비자는\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:geopolitics-02",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-12T05:15:42.611Z",
+        "assetPath": "assets/fallback/generated/geopolitics-02.png",
+        "sha256": "5542e920c1c74fcd4866dd31ce8ef152da9e7d8141e8e4822e2bfd7a0af71368",
+        "localSha256": "5542e920c1c74fcd4866dd31ce8ef152da9e7d8141e8e4822e2bfd7a0af71368",
+        "generatedTopic": "geopolitics",
+        "generatedEnergy": "calm",
+        "description": "Sandstone diplomatic roundtable with an unmarked globe relief.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 29,
+          "recentKeyCount": 55,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:geopolitics-02",
+            "5542e920c1c74fcd4866dd31ce8ef152da9e7d8141e8e4822e2bfd7a0af71368"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated geopolitics asset geopolitics-02 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+        "mood": "serious",
+        "title": "Moment of Peace",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/solo-piano-moment-of-peace-mickeyscat-554494/",
+        "sha256": "2cbc249e7f038abbca64a6d849c0c37c29d132b2088171b715c0055d5339cfed",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-12T05:15:49.903Z"
       },
       "story": {
         "status": "planned",
@@ -16152,6 +16313,15 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-12/issue/issue-cover.png",
+        "coverSha256": "1820c34fde6acbdc7667321956e42cfb747c9da783c0480a2179c708be2e5df6",
+        "followCtaPath": ".diem-cache/2026-09-12/issue/issue-follow-cta.png",
+        "followCtaSha256": "05b984430549fcd8353cf66f00cf1d39e70f5311dc650ddb4148338a13a607e7",
+        "reelPath": ".diem-cache/2026-09-12/issue/issue-reel.mp4",
+        "reelSha256": "e9c4fb72ac90e5aaf2df1d1c52af8afdb365cdf67f3d5f7cf1b3b797937b8ac2",
+        "temporary": true
       }
     }
   },
