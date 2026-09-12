@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 212편
-- 생성 시각: 2026-09-12T08:25:29.913Z
+- 생성 시각: 2026-09-12T13:23:19.585Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -31,10 +31,10 @@
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 고정·변동 / 금리 차이(161)
   - 특성 신호: housing_money winner×2.96, public_decision winner×2.96, reader_need:public_interest insufficient_data×2.01, event:market_move insufficient_data×1.98, event:interest_rate winner×1.95, event:ipo insufficient_data×1.8, event:housing_policy winner×1.63, company_event insufficient_data×1.31
-- issue: 표본 69편 · 노출 중앙값 1,513 · 공유율 0.08% · 저장률 0%
+- issue: 표본 70편 · 노출 중앙값 1,516 · 공유율 0.08% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 네팔 대홍수 / 보도(84), 3인 가족 / 수수료 급등(171), 성평등·법무부 / 세종 이전(175), 광복연휴 비예보 / 폭염 예상(180), 장동혁 발언 / 당원 주권 확대(183)
-  - 특성 신호: market_shock insufficient_data×0.99, event:housing_policy underperformer×0.69, event:political_statement insufficient_data×0.61, event:legislation underperformer×0.32, reader_need:public_interest underperformer×0.17, household_money insufficient_data×0.15, reader_need:housing insufficient_data×0.14, work_life underperformer×0.12
+  - 특성 신호: event:political_statement insufficient_data×1.01, market_shock insufficient_data×0.98, event:housing_policy underperformer×0.69, event:legislation underperformer×0.32, reader_need:public_interest underperformer×0.18, household_money insufficient_data×0.15, reader_need:housing insufficient_data×0.14, work_life underperformer×0.12
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
