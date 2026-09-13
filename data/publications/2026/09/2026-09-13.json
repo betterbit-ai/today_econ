@@ -4,7 +4,7 @@
   "date": "2026-09-13",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-12T15:58:20.108Z",
-  "updatedAt": "2026-09-13T05:31:07.806Z",
+  "updatedAt": "2026-09-13T05:31:54.405Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -138,7 +138,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "“신라면 들고 백년가약”…농심 3세, SK텔레콤 회사원과 오늘 결혼",
@@ -176,7 +178,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "진중권 “李대통령, 현실감각 완전 잃어…계엄전 尹때와 비슷해 불길”",
@@ -214,7 +218,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "'장관'보다 '원내정당' 택한 용혜인… 후보직 사퇴",
@@ -250,7 +256,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:recent_duplicate"
+      ]
     },
     {
       "title": "이재명 \"개혁 이름으로 개혁 방해\"… 비판에 공개 경고",
@@ -288,7 +296,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "노무현 대통령이 파키스탄 대통령에 한 질문… 23년 전 파병의 고민",
@@ -12949,24 +12959,24 @@
     "issue": {
       "publicationKey": "diem:2026-09-13:issue:34740365016",
       "category": "issue",
-      "status": "planned",
+      "status": "retry_pending",
       "candidate": {
-        "title": "용혜인, 성평등가족부 장관 후보자 사퇴…지명 2주만",
-        "url": "https://n.news.naver.com/article/009/0005734345?ntype=RANKING",
+        "title": "노무현 대통령이 파키스탄 대통령에 한 질문… 23년 전 파병의 고민",
+        "url": "https://n.news.naver.com/article/047/0002528709?ntype=RANKING",
         "publishedDate": "2026-09-13",
-        "publishedAt": "2026-09-13 11:44:15",
+        "publishedAt": "2026-09-13 10:51:08",
         "observedAt": "2026-09-13T05:30:58.352Z",
-        "popularityScore": 95.9592,
+        "popularityScore": 85.8571,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 87.28,
-          "popularityScore": 95.9592,
+          "score": 85.47,
+          "popularityScore": 85.8571,
           "freshnessScore": 90,
-          "editorialValueScore": 50,
-          "ageHours": 2.78,
-          "publishedAt": "2026-09-13 11:44:15",
+          "editorialValueScore": 75,
+          "ageHours": 3.67,
+          "publishedAt": "2026-09-13 10:51:08",
           "observedAt": "2026-09-13T05:30:58.352Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -12985,62 +12995,41 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 3,
-            "normalizedScore": 95.9592,
-            "title": "용혜인, 성평등가족부 장관 후보자 사퇴…지명 2주만",
-            "url": "https://n.news.naver.com/article/009/0005734345?ntype=RANKING"
+            "rank": 8,
+            "normalizedScore": 85.8571,
+            "title": "노무현 대통령이 파키스탄 대통령에 한 질문… 23년 전 파병의 고민",
+            "url": "https://n.news.naver.com/article/047/0002528709?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "“민주 ‘겸직 공감대 부족’ 전달에 사퇴 결심”“왜곡 보도 이어져, 청문회서 소명 원했다”2주 만에 후보직 내려놓고 비례대표 의원직 복귀 용혜인 성평등가족부 장관 후보자가 13일 국회 소통관에서 후보직 자진 사퇴 기자회견을 마친 뒤 고개 숙여 인사하고 있다. [김재훈기자]용혜인 성평등가족부 장관 후보자가 지명 2주 만에 후보직에서 전격 사퇴했다.용 후보자는 13일 오전 국회 소통관에서 기자회견을 열고 장관 후보직에서 물러나겠다는 입장을 밝혔다. 여당인 더불어민주당이 비례대표 의원직과 장관직 겸직 논란에 따른 후보자의 결단을 요구하자 이를 수용한 결과다.용 후보자는 “민주당으로부터 후보자와 기본소득당이 처한 상황을 존중하지만, 비례대표 의원직과 장관직 겸직을 두고 국민적 공감대가 넓지 못한 상황을 고려하여 후보자가 결단해달라는 의사를 전달받았다”며 “국무위원은 국회와 정부를 유기적으로 연결하며 협력을 이끌어내야 하는 역할이다. 그러나 여당도 우려를 표하는 상황에서 그 직을 수행하는 것은 현실적으로 어렵다고 판단했다”고 밝혔다.이어 “지금 여기서 멈추는 것이 더불어민주당과 기본소득당, 그리고 민주진보진영 내 연대의 정신을 이어 나가는 데에도 필요하다고 판단했다”고 했다. 그러면서 “이재명 정부의 성평등가족부장관 후보자로서 모두를 위한 성평등 사회를 만들어내고자 했던 저의 결심과 함께, 장관 후보직을 오늘로써 내려놓는다”고 말했다.청문회 무산과 대야 관계에 대한 입장도 내놨다. 용 후보자는 “지난 2주 동안, 후보자 검증은 포기한 채 소수정당의 어려운 형편을 조롱하고 폄하하는 국민의힘 의원들의 행태와 사실 확인은 뒷전으로 미루고 반론권조차 보장하지 않은 일부 언론들의 악의적인 왜곡 보도가 끝없이 이어졌다”며 “떳떳하지 않은 것이 없었기에, 국민 앞에 하나하나 소명하고 싶었다. 그러나 국민의힘은 끝내 인사청문회 일정 잡기를 거부했다”고 비판했다.인사청문회 전 자체 기자회견 논란에 대해서는 “국회의원이 아닌 ‘국무위원 후보자’로서는 적절하지 않다는 비판도 전해줬다”며 “제 부족함이다. 겸허히 수용한다”고 덧붙였다.앞서 소수야당과의 연대 차원에서 발탁됐던 용 후보자가 여당의 우려 표명과 청문회 파행 끝에 낙마함에 따라, 향후 정국은 의원직 복귀와 함께 후임 인선 국면으로 전환될 전망이다. 용혜인 성평등가족부 장관 후보자가 13일 국회 소통관에서 기자회견을 하고 있다.<연합뉴스>",
-        "summary": "“민주 ‘겸직 공감대 부족’ 전달에 사퇴 결심”“왜곡 보도 이어져, 청문회서 소명 원했다”2주 만에 후보직 내려놓고 비례대표 의원직 복귀 용혜인 성평등가족부 장관 후보자가 13일 국회 소통관에서 후보직 자진 사퇴 기자회견을 마친 뒤 고개 숙여 인사하고 있다. [김재훈기자]용혜인 성평등가족부 장관 후보자가 지명 2주 만에 후보직에서 전격 사퇴했다.용 후보자는 13일 오전 국회 소통관에서 기자회견을 열고 장관 후보직에서 물러나겠다는 입장을 밝혔다. 여당인 더불어민주당이 비례대표 의원직과 장관직 겸직 논란에 따른 후보자의 결단을 요구하자",
+        "fullText": "이라크 파병과 현저히 다른 조건인 호르무즈 파병 검토... 전쟁없는세상 \"시민들의 거센 저항 마주할 것\" ▲ 한-파키스탄 정상 악수 2003년 11월 6일 오전 청와대에서 열린 공식환영식에서 무샤라프 파키스탄 대통령과 노무현 대통령이 악수하고 있다.ⓒ 연합뉴스\"노무현은 먼저 한국이 이라크에 파병할 경우 이슬람 국가들의 반응이 어떨지 물었다. 무샤라프 대통령(파키스탄)은 \"별로 개의치 않을 것\"이라고 답했다. 이어서 \"한국이 군대를 파병할 경우 어떤 성격의 군대여야 하고, 이라크에서 어떤 일을 할 수 있을까요?\"라고 질문하자 무샤라프 대통령은 주저 없이 \"이라크 재건을 도와주는 일을 하는 것이 이라크 국민의 마음을 살 수 있을 것입니다. 경찰 활동은 절대로 하지 말고, 특히 문제 지역에서는 더더욱 그러합니다\"라고 대답했다. (중략)이로써 추가 파병을 둘러싼 기나긴 논쟁은 종지부를 찍었다. 12월 17일에 열린 안보관계 장관회의에서 정부는 '3000명 이내 독자적 지역 담당 혼성 부대'를 골자로 한 파병동의안을 최종 확정했다. 부대는 사단편제를 갖추었고 자이툰(Zaytun)을 명명되었는데, 이는 '올리브'라는 뜻의 아랍어로 '평화'를 상징했다.\" - <노무현 평전> 405쪽(사람사는세상 노무현재단 기획, 윤태영 지음, 위즈덤하우스) 이미 가본 길이라서일까. 호르무즈 해협 파병과 관련해 정치권에서는 '비전투(병력의) 지원'에 대한 언급이 자주 등장한다. 지난 4일 청와대는 취재진에 파병에 대한 군사적 지원 방안을 언급하며 \"전투도 있고, 비전투도 있고, 수색에 관한 경우도 있고 다양한 선택지를 종합적으로 검토하고 있다\"고 밝혔다.국가정보원 원장 출신인 박지원 민주당 의원 또한 7일 \"비전투 병과라면 파병할 수밖에 없지 않겠냐\"는 의견을 냈다. 한편 정부는 초계기와 군수지원함 등 비전투 '자산'을 파견하는 방안도 검토하고 있다.이는 이전 사례인 2003년 이라크전 당시 자이툰 부대 파병을 염두에 둔 것으로 보인다. 실제로 '미국 대통령'의 '중동 지역 전쟁' '파병 요구'라는 점에서 이번 호르무즈 파병 요구는 이라크전과 자주 비교된다.지난 1일 출간된 <노무현 평전>에는 이라크 파병 당시 참여정부의 고민과 논의 과정이 비교적 자세하게 실려 있다. 노무현 대통령이 2003년 11월 당시 한국을 방문한 페르베즈 무샤라프 파키스탄 대통령에게 한국의 파병 형태와 성격에 대한 의견을 묻는 장면이 나온다. 파키스탄은 노무현 정부가 이슬람권의 반응과 파병 방식의 위험성을 판단하기 위해 참고한 핵심 국가였다.이때 무샤라프 대통령은 노 대통령에게 \"(파병에) 개의치 않을 것\"이라며 이라크 재건을 도와주는 일을 하면 된다고 답한다.그렇다고 '비전투 지원'인 자이툰 부대 파병이 정부로서 쉬운 결정은 아니었다. 미국이 한국에 2차 이라크 파병을 요구하며 그 대상을 (1차와 달리) 처음부터 '전투원'으로 한정했기 때문이다. 리처드 롤리스 미국 국방부 아시아태평양 담당 부차관보는 2003년 9월 언론 인터뷰 등에서 이라크 추가 파병 규모로 3000~5000명 정도로 구성된 1개 경보병 부대 파병을 요구했다. 노무현 정부의 이라크 파병 형태는 미국의 요구를 있는 대로 수용한 것이 아닌 협상의 결과였다는 말이다.2003년 이라크와 2026년 이란의 상황은 달라... 여권 지지층 '파병 말자' 69% ▲ 에스마일 바가이 이란 외무부 대변인이 7일 X에 올린 글. 한국어로 올렸다.ⓒ @IRIMFA_SPOX김종대 전 정의당 의원 또한 11일 <한겨레> 기고문에서 \"이라크 자이툰 부대는 사담 후세인 정권이 붕괴된 뒤 전후 재건과 민사 작전 등 안정화 임무를 맡았다\"면서 \"지금 호르무즈는 엄연히 주권국가인 이란정규군과 정예 혁명수비대가 시퍼렇게 눈을 뜨고 있는 실전 교전 구역\"이라고 진단했다.이라크 파병 당시 중동 상황과 달리 이란은 한국의 파병 논의에 격렬하게 저항하고 있다. 에스마일 바가이 이란 외무부 대변인은 7일 X(옛 트위터)에 아예 한국어로 글을 올리며 한국을 정면으로 겨냥했다. 대변인은 \"다른 국가가 페르시아만과 호르무즈 해협에서 군사적으로 주둔하거나 작전에 참여하는 것은 침략 행위의 당사자를 직접적으로 지지하는 것으로 간주될 수밖에 없으며, 심각한 결과를 초래할 것\"이라고 말했다. 한국이 파병 방안으로 검토하고 있는 '비전투 지원'도 \"심각한 결과\"를 초래할 수 있다고 경고한 것이다.이런 상황 속에서 국민들의 호르무즈 파병 반대 의견은 보다 분명했다. 11일 발표된 한국갤럽 9월 2주 차 정례조사에서 파병 반대 의견이 55%로 나왔고, 특히 여당(더불어민주당) 지지층에서 '파병하지 말아야 한다'는 의견이 69%로 현저히 높았다.전쟁 초기인 지난 3월 20일에 비슷한 표본(1004명 대상)으로 진행한 한국갤럽 조사에서도 파병 반대 의견은 55%였다. 이때도 여당 지지층은 파병에 부정적(68%)이었다. 반년이 지났으나 여당 지지층의 부정 의견은 크게 달라지지 않은 것(3월 68%→9월 69%)이다.\"이라크 파병 당시 정부, 현지조사단 중 민간전문가 2명 포함\" 지적도 나와 ▲ 인권·노동·종교·평화·민중 등 601개 시민사회단체와 조국혁신당·진보당·기본소득당 관계자들이 9일 오후 서울 종로구 세종문화회관 계단에서 기자회견을 열어 미국의 호르무즈해협 군사적 기여 압박을 규탄하며 이재명 정부에 한국군 파병 검토 중단을 촉구하고 있다.ⓒ 유성호이 같은 상황 속에서 정부는 \"'파병 가닥'이라는 일부 보도는 사실과 다르다\"거나 \"관련된 사안은 결정된 바 없다\"는 입장을 반복하고 있다. 그러면서도 정부는 현지 상황을 파악하고자 아랍에미리트연합(UAE)에 현지 조사단을 파견했다(10일 귀국).참여연대는 10일 \"2003년 이라크 파병 당시 노무현 정부는 현지조사단 중 민간전문가 2명을 포함한 바 있다. 현지 상황을 다각도로 파악함으로써 정부 결정의 신중을 기하기 위한 최소한의 조치였다\"면서 \"그러나 이번에 이재명 정부는 어디를 어떻게 조사하는지, 누가 조사하는지 등의 내용을 공식적으로 밝히지 않고 있다\"고 비판했다. 참여연대는 정부에 \"지금이라도 현지조사단 파견 내용을 투명하게 공개해야 한다\"고 요구했다.반전시민단체인 전쟁없는세상은 \"정부는 연일 익명의 관계자의 입을 빌어 언론에 호르무즈 해협에 대한 군사적 기여를 언급하며 파병에 대한 여론을 살피고 있다\"며 \"이재명 정부는 노무현 정권을 비롯한 지난 정부가 침략 전쟁에 어떤 형태로든 참전할 경우 늘 시민들의 거센 저항을 마주했다는 사실을 기억해야 한다\"고 경고했다.[참고 기사]호르무즈 파병 반대 55%... \"미국도, 이란도 지지 안해\" 67% https://omn.kr/2jqt7모호한 입장, 커진 의심... '호르무즈 파병' 논란 확산 https://omn.kr/2jnmj이란 외무부, 한국어로 \"침략 지지하면 심각한 결과 초래\" https://omn.kr/2jp03호르무즈 파병 앞에 선 민주당, 왜 침묵하나 https://omn.kr/2jqcf김종대 \"호르무즈 '파병 협박' 응하면 국제사회 비웃을 것\" https://omn.kr/2joy7덧붙이는 글 | 기사 내 인용된 한국갤럽 9월 2주차 정례조사는 9월 8~10일 전국 만 18세 이상 1000명 대상 전화면접 방식으로 진행됐으며 휴대전화 가상번호(100%) 이용했습니다(응답률 9.4%). 표본오차는 95% 신뢰수준에 ±3.1%p입니다. 자세한 내용은 중앙선거여론조사심의위원회 홈페이지 참고하면 됩니다.",
+        "summary": "이라크 파병과 현저히 다른 조건인 호르무즈 파병 검토... 전쟁없는세상 \"시민들의 거센 저항 마주할 것\" ▲ 한-파키스탄 정상 악수 2003년 11월 6일 오전 청와대에서 열린 공식환영식에서 무샤라프 파키스탄 대통령과 노무현 대통령이 악수하고 있다.ⓒ 연합뉴스\"노무현은 먼저 한국이 이라크에 파병할 경우 이슬람 국가들의 반응이 어떨지 물었다. 무샤라프 대통령(파키스탄)은 \"별로 개의치 않을 것\"이라고 답했다. 이어서 \"한국이 군대를 파병할 경우 어떤 성격의 군대여야 하고, 이라크에서 어떤 일을 할 수 있을까요?\"라고 질문하자 무샤라프",
         "topicSignature": {
           "category": "issue",
-          "target": "용혜인",
-          "event": "정치 발언",
-          "entities": [
-            "2주만"
-          ],
+          "target": "노무현 대통령이",
+          "event": "확정",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 용혜인 | 정치 발언 | 2주만"
+          "text": "issue | 노무현 대통령이 | 확정"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "용혜인",
-          "primaryActor": "용혜인",
-          "attributionMode": "single_speaker_quote",
+          "subject": "노무현 대통령이",
+          "primaryActor": null,
+          "attributionMode": null,
           "subjectTerms": [
-            "용혜인"
+            "노무현",
+            "대통령이"
           ],
-          "eventKind": "political_statement",
-          "eventLabel": "정치 발언",
+          "eventKind": "general",
+          "eventLabel": "확정",
           "eventTerms": [
-            "언급",
-            "발언",
-            "주장",
-            "말해",
-            "말했",
-            "라고 했다",
-            "밝혔",
-            "전했",
-            "호소",
-            "강조",
-            "비판",
-            "평가",
-            "전망",
-            "지적",
-            "진단",
-            "예상",
-            "내다",
-            "꼬집",
-            "경고",
-            "설명",
-            "분석"
+            "확정"
           ],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "오늘",
+          "date": "6일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -13050,50 +13039,32 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 50,
+          "score": 75,
           "signals": [
             "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "broad_audience_or_market_scope"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "용혜인",
-            "primaryActor": "용혜인",
-            "attributionMode": "single_speaker_quote",
+            "subject": "노무현 대통령이",
+            "primaryActor": null,
+            "attributionMode": null,
             "subjectTerms": [
-              "용혜인"
+              "노무현",
+              "대통령이"
             ],
-            "eventKind": "political_statement",
-            "eventLabel": "정치 발언",
+            "eventKind": "general",
+            "eventLabel": "확정",
             "eventTerms": [
-              "언급",
-              "발언",
-              "주장",
-              "말해",
-              "말했",
-              "라고 했다",
-              "밝혔",
-              "전했",
-              "호소",
-              "강조",
-              "비판",
-              "평가",
-              "전망",
-              "지적",
-              "진단",
-              "예상",
-              "내다",
-              "꼬집",
-              "경고",
-              "설명",
-              "분석"
+              "확정"
             ],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "오늘",
+            "date": "6일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -13101,19 +13072,19 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 50,
+          "baseScore": 75,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -13139,20 +13110,18 @@
       "corroboration": null,
       "duplicateCheck": {
         "duplicate": false,
-        "repeatOverride": false,
-        "score": 0.543,
+        "repeatOverride": true,
+        "score": 0.9141,
         "method": "embedding",
-        "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-09-07:issue:34043660028",
+        "reason": "material_follow_up",
+        "matchedPublicationKey": "diem:2026-09-12:issue:34675007604",
         "signature": {
           "category": "issue",
-          "target": "용혜인",
-          "event": "정치 발언",
-          "entities": [
-            "2주만"
-          ],
+          "target": "노무현 대통령이",
+          "event": "확정",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | 용혜인 | 정치 발언 | 2주만"
+          "text": "issue | 노무현 대통령이 | 확정"
         }
       },
       "editorial": null,
@@ -13240,6 +13209,13 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "retry_pending",
+        "attempts": 2,
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for geopolitics; typography fallback is disabled",
+        "updatedAt": "2026-09-13T05:31:54.393Z"
       }
     }
   },
