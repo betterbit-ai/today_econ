@@ -4,7 +4,7 @@
   "date": "2026-09-13",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-12T15:58:20.108Z",
-  "updatedAt": "2026-09-13T14:05:50.952Z",
+  "updatedAt": "2026-09-13T14:06:13.271Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -15038,10 +15038,10 @@
         "category": "economy",
         "titleCandidates": [
           {
-            "title": "위스키 재고 급증\n불황 우려",
+            "title": "스코틀랜드 위스키\n재고 급증",
             "lines": [
-              "위스키 재고 급증",
-              "불황 우려"
+              "스코틀랜드 위스키",
+              "재고 급증"
             ],
             "source": "model",
             "score": 100,
@@ -15049,21 +15049,21 @@
           }
         ],
         "title": {
-          "text": "위스키 재고 급증\n불황 우려",
+          "text": "스코틀랜드 위스키\n재고 급증",
           "lines": [
-            "위스키 재고 급증",
-            "불황 우려"
+            "스코틀랜드 위스키",
+            "재고 급증"
           ],
           "selectedIndex": 0,
           "selectionReason": "accuracy_format_clarity_curiosity"
         },
         "caption": {
           "sentences": [
-            "스코틀랜드 위스키 재고가 10년 전 4억ℓ에서 올해 약 14억ℓ로 3배 이상 늘어 3년치에 달한다.📰",
-            "수요 부진으로 증류소 160곳 중 약 1/4이 생산을 3분의 1 이상 감축하고 매각을 검토하고 있다.",
-            "건강 중시와 알코올 비용 상승, 미국 1인당 주류 소비 11% 감소 등 글로벌 트렌드가 위스키 수요를 급격히 위축시켰다.📰"
+            "스코틀랜드 위스키 재고가 3년치에 달해 1980년대 이후 최악의 불황에 빠졌다.📰",
+            "FT는 숙성 위스키가 10년 전 4억ℓ 미만에서 올해 약 14억ℓ로 3배 이상 늘었다고 보도했다.",
+            "160곳 중 최대 4분의 1 증류소가 매물 위험에 처해 구조조정이 예상된다.📰"
           ],
-          "text": "스코틀랜드 위스키 재고가 10년 전 4억ℓ에서 올해 약 14억ℓ로 3배 이상 늘어 3년치에 달한다.📰\n\n수요 부진으로 증류소 160곳 중 약 1/4이 생산을 3분의 1 이상 감축하고 매각을 검토하고 있다.\n\n건강 중시와 알코올 비용 상승, 미국 1인당 주류 소비 11% 감소 등 글로벌 트렌드가 위스키 수요를 급격히 위축시켰다.📰"
+          "text": "스코틀랜드 위스키 재고가 3년치에 달해 1980년대 이후 최악의 불황에 빠졌다.📰\n\nFT는 숙성 위스키가 10년 전 4억ℓ 미만에서 올해 약 14억ℓ로 3배 이상 늘었다고 보도했다.\n\n160곳 중 최대 4분의 1 증류소가 매물 위험에 처해 구조조정이 예상된다.📰"
         },
         "emojis": {
           "first": "📰",
@@ -15071,7 +15071,7 @@
         },
         "comments": {
           "first": "📰",
-          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #위스키 #스코틀랜드 #주류소비 #불황 #관세 #증가",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #위스키 #스코틀랜드 #불황 #소비감소 #증류소 #관세",
           "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
           "hashtags": [
             "#경제",
@@ -15085,10 +15085,10 @@
             "#데일리이슈앤이코노미",
             "#위스키",
             "#스코틀랜드",
-            "#주류소비",
             "#불황",
-            "#관세",
-            "#증가"
+            "#소비감소",
+            "#증류소",
+            "#관세"
           ],
           "hashtagsByRole": {
             "sector": [
@@ -15109,10 +15109,10 @@
             "topic": [
               "#위스키",
               "#스코틀랜드",
-              "#주류소비",
               "#불황",
-              "#관세",
-              "#증가"
+              "#소비감소",
+              "#증류소",
+              "#관세"
             ]
           }
         },
@@ -15120,6 +15120,17 @@
           "method": "model",
           "model": "openai/gpt-oss-120b",
           "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 160개 in \"전 세계적인 건강 트렌드와 술값 부담으로 주류 소비가 감소하면서, 스코틀랜드 160개 증류소 중 최대 4분의 1이 매물 위험에 처했고, 일부 증\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
             {
               "model": "openai/gpt-oss-120b",
               "stage": "editorial",
@@ -15132,7 +15143,7 @@
         "kind": "generated",
         "id": "diem-generated:health-01",
         "source": "diem-generated",
-        "selectedAt": "2026-09-13T08:52:19.153Z",
+        "selectedAt": "2026-09-13T14:06:07.066Z",
         "assetPath": "assets/fallback/generated/health-01.png",
         "sha256": "c2456ce3a37e281e46560c8b2ec46a942133b5503cbadb41369778737c79104c",
         "localSha256": "c2456ce3a37e281e46560c8b2ec46a942133b5503cbadb41369778737c79104c",
@@ -16321,7 +16332,7 @@
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": "2026-09-13T08:52:27.111Z"
+        "updatedAt": "2026-09-13T14:06:13.257Z"
       },
       "story": {
         "status": "planned",
@@ -16400,11 +16411,11 @@
       },
       "artifacts": {
         "coverPath": ".diem-cache/2026-09-13/economy/economy-cover.png",
-        "coverSha256": "ebfae75d30fc8143301f2bb13bb0f3fa9e8b8e5306a5fe9c4f81ebec964a85ae",
+        "coverSha256": "2acbc8859c0e8f5b00c52b7ea70753068233ab6670c91db0918a905d66608181",
         "followCtaPath": ".diem-cache/2026-09-13/economy/economy-follow-cta.png",
-        "followCtaSha256": "714a2d2b7f5932e8eafc0eccf2340edbaf5a1b50c6a12016cffb4f11984c1ccd",
+        "followCtaSha256": "5da1fa29d88eb3ef7895a0eecacc02a4baba0edb57d9b0e8cf5cfc5f08cd7ff0",
         "reelPath": ".diem-cache/2026-09-13/economy/economy-reel.mp4",
-        "reelSha256": "20dbd68906ec3502d7d04baa116d406fcf59183600b504204aa2c83aa9fa7074",
+        "reelSha256": "bdb54dfe8af4623947bb2dcfae3339b9452fe4f56e31ac7d4493c1b796b35381",
         "temporary": true
       }
     },
