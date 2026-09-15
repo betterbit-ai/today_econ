@@ -2,7 +2,7 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const test = require('node:test');
 
-const { GitHubAppClient, PublicGitHubReadClient, createAppJwt } = require('../services/diem-mcp/src/github-app');
+const { GitHubAppClient, createAppJwt } = require('../services/diem-mcp/src/github-app');
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -67,22 +67,4 @@ test('commits allowlisted package files on a dedicated branch and opens a PR', a
   assert.equal(pr.url, 'https://github.example/pull/17');
   assert.ok(calls.some(call => call.path.endsWith('/git/trees') && call.body.tree.length === 2));
   assert.ok(calls.some(call => call.path.endsWith('/pulls') && call.body.head === 'diem/editorial/run/economy'));
-});
-
-test('public canary client fixes every read to its canary ref and cannot write', async () => {
-  const calls = [];
-  const client = new PublicGitHubReadClient({
-    owner: 'betterbit-ai', repo: 'today_econ', ref: 'codex/canary',
-    fetchImpl: async url => {
-      calls.push(url);
-      if (url.includes('/git/trees/codex%2Fcanary?recursive=1')) return jsonResponse({ tree: [{ type: 'blob', path: 'data/cloud-editorial/inbox/pack.json' }] });
-      if (url.includes('/contents/data/cloud-editorial/inbox/pack.json?ref=codex%2Fcanary')) return jsonResponse({ encoding: 'base64', content: Buffer.from('{"ok":true}\n').toString('base64') });
-      throw new Error(`Unexpected request: ${url}`);
-    },
-  });
-  assert.deepEqual(await client.listFiles('data/cloud-editorial/'), ['data/cloud-editorial/inbox/pack.json']);
-  assert.equal(await client.readFile('data/cloud-editorial/inbox/pack.json'), '{"ok":true}\n');
-  await assert.rejects(() => client.commitFiles(), /cannot commit/u);
-  await assert.rejects(() => client.createPullRequest(), /cannot create/u);
-  assert.equal(calls.every(url => url.includes('codex%2Fcanary')), true);
 });
