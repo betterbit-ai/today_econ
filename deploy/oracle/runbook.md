@@ -65,6 +65,11 @@ The current persistent credential is a transport preflight, not evidence that
 ChatGPT scheduled tasks can authenticate. Do not call the capability gate
 passed until ChatGPT itself has completed an authenticated tool call.
 
+For the exact GitHub App creation and Oracle secret placement sequence, use
+`github-app-setup.md`. The manifest is deliberately minimal: Contents and Pull
+requests write access on `betterbit-ai/today_econ` only, no webhook and no
+organization-wide installation.
+
 ## Production gate
 
 Do not replace the mock service until all conditions below are evidenced:
