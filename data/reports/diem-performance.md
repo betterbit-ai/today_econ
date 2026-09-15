@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 221편
-- 생성 시각: 2026-09-15T09:13:28.483Z
+- 발행 원장 Reel: 222편
+- 생성 시각: 2026-09-15T14:40:06.601Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -27,23 +27,23 @@
 - 정시 비교에서 제외한 늦은 백필: 77편
 
 ## 7d
-- economy: 표본 69편 · 노출 중앙값 365 · 공유율 0% · 저장률 0%
+- economy: 표본 70편 · 노출 중앙값 377.5 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 고정·변동 / 금리 차이(161)
-  - 특성 신호: housing_money winner×2.81, public_decision winner×2.81, reader_need:public_interest insufficient_data×2.46, event:interest_rate winner×2.39, event:ipo insufficient_data×2.21, event:housing_policy winner×1.99, company_event insufficient_data×1.6, market_shock insufficient_data×1.53
-- issue: 표본 78편 · 노출 중앙값 1,415 · 공유율 0.04% · 저장률 0%
+  - 특성 신호: housing_money winner×3.19, public_decision winner×3.19, event:housing_policy winner×2.56, reader_need:public_interest insufficient_data×2.38, event:interest_rate winner×2.31, event:ipo insufficient_data×2.13, company_event insufficient_data×1.55, market_shock insufficient_data×1.48
+- issue: 표본 79편 · 노출 중앙값 1,378 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
-  - 부진 후보: 네팔 대홍수 / 보도(84), 미국 대학 / 입학 러브콜(152), 3인 가족 / 수수료 급등(171), 성평등·법무부 / 세종 이전(175), 광복연휴 비예보 / 폭염 예상(180)
-  - 특성 신호: market_shock insufficient_data×1.05, event:political_statement underperformer×0.43, event:legislation underperformer×0.34, reader_need:public_interest underperformer×0.2, household_money insufficient_data×0.15, reader_need:housing insufficient_data×0.14, work_life underperformer×0.13, reader_need:work insufficient_data×0.12
+  - 부진 후보: 네팔 대홍수 / 보도(84), 빌라 3채 / 도서관마을(145), 미국 대학 / 입학 러브콜(152), 3인 가족 / 수수료 급등(171), 성평등·법무부 / 세종 이전(175)
+  - 특성 신호: market_shock insufficient_data×1.08, event:political_statement underperformer×0.44, event:legislation underperformer×0.35, reader_need:public_interest underperformer×0.21, household_money insufficient_data×0.16, reader_need:housing insufficient_data×0.15, work_life underperformer×0.13, reader_need:work insufficient_data×0.12
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 19%
-- 생성 배경 폴백률: 31.67% · 전체 폴백률: 50.68%
-- 이미지 공급원: pexels 98편, diem-generated 70편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 18.92%
+- 생성 배경 폴백률: 31.98% · 전체 폴백률: 50.9%
+- 이미지 공급원: pexels 98편, diem-generated 71편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 92건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 93건, unknown 44건
 - 제목 재정제 실패: 11건
 
 ## 해석 주의
