@@ -34,6 +34,7 @@ module.exports = {
   pipelineStateFile: process.env.PIPELINE_STATE_FILE || path.join(__dirname, 'data', 'pipeline-state.json'),
   publicationsRoot: process.env.PUBLICATIONS_ROOT || path.join(__dirname, 'data', 'publications'),
   editorialHistoryFile: process.env.EDITORIAL_HISTORY_FILE || path.join(__dirname, 'data', 'editorial-history.json'),
+  cloudEditorialRoot: process.env.CLOUD_EDITORIAL_ROOT || path.join(__dirname, 'data', 'cloud-editorial'),
   instagramTokenFile: process.env.INSTAGRAM_TOKEN_FILE || path.join(__dirname, 'data', 'instagram-token.enc'),
   maxHistoryDays: parseInt(process.env.MAX_HISTORY_DAYS || '7', 10),
   maxDailyPublicationsPerCategory: Math.max(1, parseInt(process.env.MAX_DAILY_PUBLICATIONS_PER_CATEGORY || '3', 10)),

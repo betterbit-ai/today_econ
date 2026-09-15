@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 221편
-- 생성 시각: 2026-09-15T09:13:28.483Z
+- 생성 시각: 2026-09-15T11:08:19.770Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -41,6 +41,8 @@
 - 타이포그래피 폴백률: 19%
 - 생성 배경 폴백률: 31.67% · 전체 폴백률: 50.68%
 - 이미지 공급원: pexels 98편, diem-generated 70편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 최근 7일 폴백률: 90.48% (19/21편, 2026-09-09~2026-09-15)
+- 최근 7일 Vision 실패: vision_json_validate_failed 10건, vision_other_failure 2건, vision_image_access_failed 2건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 92건, unknown 44건

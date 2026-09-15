@@ -1,0 +1,20 @@
+name: diem-mcp-mock
+
+services:
+  diem-mcp-mock:
+    build:
+      context: ../../services/diem-mcp
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    environment:
+      DIEM_MCP_MODE: "${DIEM_MCP_MODE:-mock}"
+      HOST: "0.0.0.0"
+      PORT: "3000"
+    ports:
+      - "127.0.0.1:3000:3000"

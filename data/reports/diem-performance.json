@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-15T09:13:28.483Z",
+  "generatedAt": "2026-09-15T11:08:19.770Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
   "publishedCount": 221,
@@ -2402,7 +2402,46 @@
     },
     "typographyFallbackRate": 19,
     "generatedFallbackRate": 31.67,
-    "combinedFallbackRate": 50.68
+    "combinedFallbackRate": 50.68,
+    "visionFailureDistribution": {
+      "vision_json_validate_failed": {
+        "count": 46,
+        "share": 79.31
+      },
+      "vision_image_access_failed": {
+        "count": 6,
+        "share": 10.34
+      },
+      "vision_other_failure": {
+        "count": 4,
+        "share": 6.9
+      },
+      "vision_context_rejected": {
+        "count": 2,
+        "share": 3.45
+      }
+    },
+    "recentSevenDays": {
+      "startDate": "2026-09-09",
+      "endDate": "2026-09-15",
+      "publishedCount": 21,
+      "fallbackCount": 19,
+      "fallbackRate": 90.48,
+      "visionFailureDistribution": {
+        "vision_json_validate_failed": {
+          "count": 10,
+          "share": 71.43
+        },
+        "vision_other_failure": {
+          "count": 2,
+          "share": 14.29
+        },
+        "vision_image_access_failed": {
+          "count": 2,
+          "share": 14.29
+        }
+      }
+    }
   },
   "music": {
     "trackDistribution": {
