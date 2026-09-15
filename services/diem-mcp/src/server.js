@@ -94,6 +94,10 @@ function equalSecret(expected, actual) {
   return left.length === right.length && crypto.timingSafeEqual(left, right);
 }
 
+function allowedHosts(hostname) {
+  return [...new Set([hostname, '127.0.0.1', 'localhost'].filter(Boolean))];
+}
+
 function createActiveCore(environment = process.env) {
   const privateKey = readSecretFile(environment.GITHUB_APP_PRIVATE_KEY_FILE, 'GitHub App private key');
   const githubClient = new GitHubAppClient({
@@ -132,7 +136,7 @@ function createActiveApp({ core, environment = process.env } = {}) {
   const hostname = environment.MCP_PUBLIC_HOSTNAME;
   const bearerToken = environment.MCP_BEARER_TOKEN;
   if (!hostname || !bearerToken) throw new Error('[DIEM MCP] MCP_PUBLIC_HOSTNAME and MCP_BEARER_TOKEN are required in active mode.');
-  const app = createMcpExpressApp({ host: environment.HOST || '0.0.0.0', allowedHosts: [hostname] });
+  const app = createMcpExpressApp({ host: environment.HOST || '0.0.0.0', allowedHosts: allowedHosts(hostname) });
   app.get('/healthz', (_request, response) => {
     response.status(200).json({ status: 'ok', service: 'diem-mcp', mode: 'active', transport: 'streamable-http' });
   });
@@ -153,7 +157,7 @@ function createActiveApp({ core, environment = process.env } = {}) {
 function createConnectivityCanaryApp({ environment = process.env } = {}) {
   const hostname = environment.MCP_PUBLIC_HOSTNAME;
   if (!hostname) throw new Error('[DIEM MCP] MCP_PUBLIC_HOSTNAME is required in canary_readonly mode.');
-  const app = createMcpExpressApp({ host: environment.HOST || '0.0.0.0', allowedHosts: [hostname] });
+  const app = createMcpExpressApp({ host: environment.HOST || '0.0.0.0', allowedHosts: allowedHosts(hostname) });
   app.get('/healthz', (_request, response) => {
     response.status(200).json({ status: 'ok', service: 'diem-mcp', mode: 'connectivity-canary', transport: 'streamable-http', tools: ['get_mcp_canary_status'] });
   });
@@ -185,6 +189,7 @@ module.exports = {
   createDiemMcpServer,
   createConnectivityCanaryApp,
   createConnectivityCanaryServer,
+  allowedHosts,
   equalSecret,
   runServer,
 };
