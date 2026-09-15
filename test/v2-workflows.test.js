@@ -35,6 +35,7 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
 
   const economy = fs.readFileSync(path.join(workflowRoot, 'diem_economy.yml'), 'utf8');
   assert.match(economy, /operation:[\s\S]*publish_basic[\s\S]*retry_basic/u);
+  assert.match(economy, /operation:[\s\S]*cloud_candidates/u);
   assert.match(economy, /retry_editorial/u);
   assert.match(economy, /editorial-retry --publication-key "\$EDITORIAL_PUBLICATION_KEY" --publish/u);
   assert.doesNotMatch(economy, /- prepare_basic|- reject_basic/u);
@@ -53,4 +54,13 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
   );
   assert.doesNotMatch(basicJob, /GROQ|basic-prepare|select --category|playwright|ffmpeg|PEXELS|UNSPLASH/u);
   assert.match(economy, /git add data\/publications data\/analytics-state\.json data\/reports/u);
+
+  const cloudCandidatesJob = economy.slice(
+    economy.indexOf('  build-cloud-candidate-pack:'),
+    economy.indexOf('  collect-performance-insights:'),
+  );
+  assert.match(cloudCandidatesJob, /inputs\.operation == 'cloud_candidates'/u);
+  assert.match(cloudCandidatesJob, /node src\/v2\/index\.js cloud-candidates/u);
+  assert.match(cloudCandidatesJob, /git add data\/cloud-editorial/u);
+  assert.doesNotMatch(cloudCandidatesJob, /prepare --category|publish --category|PUBLISH_INSTAGRAM=true/u);
 });

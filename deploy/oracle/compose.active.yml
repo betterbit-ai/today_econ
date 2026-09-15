@@ -1,0 +1,18 @@
+# Apply this file only after the three Step 4 capability gates are ready to test.
+# It is deliberately separate so the default compose command remains mock-only.
+services:
+  diem-mcp-mock:
+    environment:
+      DIEM_MCP_MODE: "active"
+      MCP_PUBLIC_HOSTNAME: "${MCP_PUBLIC_HOSTNAME}"
+      MCP_BEARER_TOKEN: "${MCP_BEARER_TOKEN}"
+      GITHUB_REPOSITORY_OWNER: "${GITHUB_REPOSITORY_OWNER}"
+      GITHUB_REPOSITORY_NAME: "${GITHUB_REPOSITORY_NAME}"
+      GITHUB_DEFAULT_BRANCH: "${GITHUB_DEFAULT_BRANCH:-main}"
+      GITHUB_APP_ID: "${GITHUB_APP_ID}"
+      GITHUB_APP_INSTALLATION_ID: "${GITHUB_APP_INSTALLATION_ID}"
+      GITHUB_APP_PRIVATE_KEY_FILE: "/run/secrets/github-app-private-key.pem"
+      DIEM_MCP_ASSET_ROOT: "/var/lib/diem-mcp"
+    volumes:
+      - "${DIEM_MCP_STATE_DIR}:/var/lib/diem-mcp"
+      - "${GITHUB_APP_PRIVATE_KEY_HOST_PATH}:/run/secrets/github-app-private-key.pem:ro"
