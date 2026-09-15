@@ -136,4 +136,24 @@
 - 이 mode는 GitHub App 생성 전에도 ChatGPT custom MCP 등록 및 연결 gate를
   검증하기 위한 임시 경계다. read/write 권한·production으로 확장할 수 없다.
 
+## 완료: GitHub Action 후보 팩 canary
+
+- Draft branch에서 workflow run `34996267365`를 `operation=cloud_candidates`로
+  수동 실행했다. `build-cloud-candidate-pack`만 성공했고, economy publish,
+  basic publish, retry, moderation, insights job은 모두 `skipped`였다.
+- 후보 팩은 branch commit `27748e5`의
+  `data/cloud-editorial/inbox/2026/09/2026-09-16-34996267365.json`에만 저장됐다.
+  이 작업은 Instagram 또는 Groq를 호출하지 않았다.
+
+## 완료: Oracle connectivity canary 서버 측 검증
+
+- Oracle에서 `compose.canary-readonly.yml`로 connectivity canary를 기동했고
+  container health는 `healthy`다.
+- 공개 `https://mcp.talkwithme.r-e.kr/mcp`의 standard MCP initialize,
+  `tools/list`, `tools/call(get_mcp_canary_status)`를 TLS로 확인했다.
+- 외부 tool list에는 `get_mcp_canary_status` 하나만 있으며 응답은
+  `repositoryAccess/writeAccess/imageAccess/publishAccess = none`이다.
+- 아직 **ChatGPT 계정 UI에서 이 endpoint를 custom app으로 등록해 호출한 증거는
+  없다.** 이 작업이 단계 4-1의 남은 한 단계다.
+
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.
