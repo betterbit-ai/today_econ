@@ -128,4 +128,12 @@
 - App 생성과 PEM 다운로드는 영구 credential 생성이므로 이 문서 준비만으로는
   gate가 통과한 것이 아니다.
 
+### 준비 완료: no-auth read-only connector canary
+
+- 공개 repository의 고정 non-default branch만 읽는 `canary_readonly` MCP mode를
+  추가했다. 도구 목록은 candidate/context read 두 개뿐이며 package, image, PR,
+  publish, shell 도구가 없다.
+- 이 mode는 GitHub App 생성 전에도 ChatGPT custom MCP 등록 및 read gate를
+  검증하기 위한 임시 경계다. write 권한·production으로 확장할 수 없다.
+
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.
