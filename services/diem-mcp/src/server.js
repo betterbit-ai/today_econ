@@ -8,7 +8,7 @@ const { createMcpExpressApp } = require('@modelcontextprotocol/sdk/server/expres
 const z = require('zod/v4');
 
 const { DiemMcpCore } = require('./core');
-const { GitHubAppClient } = require('./github-app');
+const { GitHubAppClient, PublicGitHubReadClient } = require('./github-app');
 const { MCP_INSTRUCTIONS } = require('./instructions');
 
 const JSON_OBJECT = z.record(z.string(), z.unknown());
@@ -61,6 +61,21 @@ function createDiemMcpServer(core) {
   return server;
 }
 
+function createReadOnlyCanaryServer(core) {
+  const server = new McpServer(
+    { name: 'diem-cloud-editorial-readonly-canary', version: '0.1.0' },
+    { capabilities: { logging: {} }, instructions: 'Read-only DIEM Oracle MCP canary. It exposes untrusted candidate data only. No write, image, publish, shell, or secret tool exists.' },
+  );
+  registerCoreTool(server, 'get_pending_candidate_pack', 'Read the latest unexpired, untrusted candidate pack from the fixed canary branch. No write is possible.', {
+    category: z.enum(['any', 'economy', 'issue']).optional(),
+    now: z.string().datetime({ offset: true }).optional(),
+  }, core);
+  registerCoreTool(server, 'get_editorial_context', 'Read public DIEM editorial performance context from the fixed canary branch. No write is possible.', {
+    days: z.number().int().min(1).max(14).optional(),
+  }, core);
+  return server;
+}
+
 function readSecretFile(filePath, label) {
   if (!filePath) throw new Error(`[DIEM MCP] ${label} file path is required.`);
   const resolved = path.resolve(filePath);
@@ -91,6 +106,38 @@ function createActiveCore(environment = process.env) {
   });
 }
 
+function createReadOnlyCanaryCore(environment = process.env) {
+  const ref = String(environment.GITHUB_CANARY_REF || '').trim();
+  if (!ref || ref === 'main' || ref === environment.GITHUB_DEFAULT_BRANCH) {
+    throw new Error('[DIEM MCP] GITHUB_CANARY_REF must name a non-default canary branch.');
+  }
+  return new DiemMcpCore({
+    githubClient: new PublicGitHubReadClient({
+      owner: environment.GITHUB_REPOSITORY_OWNER,
+      repo: environment.GITHUB_REPOSITORY_NAME,
+      ref,
+    }),
+  });
+}
+
+function attachStatelessTransport(app, serverFactory) {
+  app.post('/mcp', async (request, response) => {
+    const server = serverFactory();
+    const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
+    try {
+      await server.connect(transport);
+      await transport.handleRequest(request, response, request.body);
+      response.on('close', () => Promise.allSettled([transport.close(), server.close()]));
+    } catch (error) {
+      process.stderr.write(`[DIEM MCP] MCP request error: ${error.message}\n`);
+      if (!response.headersSent) response.status(500).json({ jsonrpc: '2.0', error: { code: -32603, message: 'Internal server error' }, id: null });
+    }
+  });
+  app.all('/mcp', (_request, response) => response.status(405).json({
+    jsonrpc: '2.0', error: { code: -32000, message: 'Method not allowed.' }, id: null,
+  }));
+}
+
 function createActiveApp({ core, environment = process.env } = {}) {
   const hostname = environment.MCP_PUBLIC_HOSTNAME;
   const bearerToken = environment.MCP_BEARER_TOKEN;
@@ -109,30 +156,30 @@ function createActiveApp({ core, environment = process.env } = {}) {
     }
     next();
   });
-  app.post('/mcp', async (request, response) => {
-    const server = createDiemMcpServer(core || createActiveCore(environment));
-    const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined });
-    try {
-      await server.connect(transport);
-      await transport.handleRequest(request, response, request.body);
-      response.on('close', () => Promise.allSettled([transport.close(), server.close()]));
-    } catch (error) {
-      process.stderr.write(`[DIEM MCP] MCP request error: ${error.message}\n`);
-      if (!response.headersSent) response.status(500).json({ jsonrpc: '2.0', error: { code: -32603, message: 'Internal server error' }, id: null });
-    }
+  attachStatelessTransport(app, () => createDiemMcpServer(core || createActiveCore(environment)));
+  return app;
+}
+
+function createReadOnlyCanaryApp({ core, environment = process.env } = {}) {
+  const hostname = environment.MCP_PUBLIC_HOSTNAME;
+  if (!hostname) throw new Error('[DIEM MCP] MCP_PUBLIC_HOSTNAME is required in canary_readonly mode.');
+  const canaryCore = core || createReadOnlyCanaryCore(environment);
+  const app = createMcpExpressApp({ host: environment.HOST || '0.0.0.0', allowedHosts: [hostname] });
+  app.get('/healthz', (_request, response) => {
+    response.status(200).json({ status: 'ok', service: 'diem-mcp', mode: 'canary-readonly', transport: 'streamable-http', tools: ['get_pending_candidate_pack', 'get_editorial_context'] });
   });
-  app.all('/mcp', (_request, response) => response.status(405).json({
-    jsonrpc: '2.0', error: { code: -32000, message: 'Method not allowed.' }, id: null,
-  }));
+  attachStatelessTransport(app, () => createReadOnlyCanaryServer(canaryCore));
   return app;
 }
 
 function runServer(environment = process.env) {
-  if (environment.DIEM_MCP_MODE !== 'active') {
+  if (!['active', 'canary_readonly'].includes(environment.DIEM_MCP_MODE)) {
     require('./mock-server');
     return;
   }
-  const app = createActiveApp({ environment });
+  const app = environment.DIEM_MCP_MODE === 'active'
+    ? createActiveApp({ environment })
+    : createReadOnlyCanaryApp({ environment });
   const port = Number(environment.PORT || 3000);
   const host = environment.HOST || '127.0.0.1';
   app.listen(port, host, error => {
@@ -147,6 +194,9 @@ module.exports = {
   createActiveApp,
   createActiveCore,
   createDiemMcpServer,
+  createReadOnlyCanaryApp,
+  createReadOnlyCanaryCore,
+  createReadOnlyCanaryServer,
   equalSecret,
   runServer,
 };

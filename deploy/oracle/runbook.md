@@ -65,6 +65,25 @@ The current persistent credential is a transport preflight, not evidence that
 ChatGPT scheduled tasks can authenticate. Do not call the capability gate
 passed until ChatGPT itself has completed an authenticated tool call.
 
+## Read-only ChatGPT connector canary
+
+Before creating a GitHub App, `compose.canary-readonly.yml` can prove that a
+ChatGPT custom MCP app reaches Oracle. It uses the public repository only at a
+fixed, non-default branch and exposes exactly `get_pending_candidate_pack` and
+`get_editorial_context`. It has no credential, image, package, PR, shell, or
+publish tool. Use it only after a candidate pack exists on that branch:
+
+```bash
+docker compose -f compose.yml -f compose.canary-readonly.yml config
+docker compose -f compose.yml -f compose.canary-readonly.yml up --build -d
+curl --fail --silent http://127.0.0.1:3000/healthz
+```
+
+Connect `https://mcp.talkwithme.r-e.kr/mcp` in ChatGPT as a no-auth custom app,
+call `get_pending_candidate_pack`, record the tool list and result, then return
+the service to default mock mode. The no-auth exposure is acceptable only for
+this public-data, read-only canary and must never be used for the write path.
+
 For the exact GitHub App creation and Oracle secret placement sequence, use
 `github-app-setup.md`. The manifest is deliberately minimal: Contents and Pull
 requests write access on `betterbit-ai/today_econ` only, no webhook and no
