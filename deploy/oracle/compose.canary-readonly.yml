@@ -1,10 +1,7 @@
-# Temporary Step 4 read proof. This overlay never mounts a GitHub App key and
-# registers only two public read tools against a non-default branch.
+# Temporary Step 4 connectivity proof. This overlay never mounts a GitHub App
+# key and registers one no-data tool only.
 services:
   diem-mcp-mock:
     environment:
       DIEM_MCP_MODE: "canary_readonly"
       MCP_PUBLIC_HOSTNAME: "${MCP_PUBLIC_HOSTNAME}"
-      GITHUB_REPOSITORY_OWNER: "betterbit-ai"
-      GITHUB_REPOSITORY_NAME: "today_econ"
-      GITHUB_CANARY_REF: "${GITHUB_CANARY_REF}"

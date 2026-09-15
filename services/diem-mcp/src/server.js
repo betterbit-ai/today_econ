@@ -8,7 +8,7 @@ const { createMcpExpressApp } = require('@modelcontextprotocol/sdk/server/expres
 const z = require('zod/v4');
 
 const { DiemMcpCore } = require('./core');
-const { GitHubAppClient, PublicGitHubReadClient } = require('./github-app');
+const { GitHubAppClient } = require('./github-app');
 const { MCP_INSTRUCTIONS } = require('./instructions');
 
 const JSON_OBJECT = z.record(z.string(), z.unknown());
@@ -61,18 +61,22 @@ function createDiemMcpServer(core) {
   return server;
 }
 
-function createReadOnlyCanaryServer(core) {
+function createConnectivityCanaryServer() {
   const server = new McpServer(
-    { name: 'diem-cloud-editorial-readonly-canary', version: '0.1.0' },
-    { capabilities: { logging: {} }, instructions: 'Read-only DIEM Oracle MCP canary. It exposes untrusted candidate data only. No write, image, publish, shell, or secret tool exists.' },
+    { name: 'diem-cloud-editorial-connectivity-canary', version: '0.1.0' },
+    { capabilities: { logging: {} }, instructions: 'No-auth DIEM Oracle MCP connectivity canary. It returns only its fixed capability status. No repository data, write, image, publish, shell, or secret tool exists.' },
   );
-  registerCoreTool(server, 'get_pending_candidate_pack', 'Read the latest unexpired, untrusted candidate pack from the fixed canary branch. No write is possible.', {
-    category: z.enum(['any', 'economy', 'issue']).optional(),
-    now: z.string().datetime({ offset: true }).optional(),
-  }, core);
-  registerCoreTool(server, 'get_editorial_context', 'Read public DIEM editorial performance context from the fixed canary branch. No write is possible.', {
-    days: z.number().int().min(1).max(14).optional(),
-  }, core);
+  server.registerTool('get_mcp_canary_status', {
+    description: 'Return the fixed, no-data connectivity-canary status. This tool cannot access or modify any system.',
+    inputSchema: {},
+  }, async () => toolResult({
+    status: 'ready',
+    mode: 'connectivity-canary',
+    repositoryAccess: 'none',
+    writeAccess: 'none',
+    imageAccess: 'none',
+    publishAccess: 'none',
+  }));
   return server;
 }
 
@@ -103,20 +107,6 @@ function createActiveCore(environment = process.env) {
   return new DiemMcpCore({
     githubClient,
     assetRoot: environment.DIEM_MCP_ASSET_ROOT || '/var/lib/diem-mcp',
-  });
-}
-
-function createReadOnlyCanaryCore(environment = process.env) {
-  const ref = String(environment.GITHUB_CANARY_REF || '').trim();
-  if (!ref || ref === 'main' || ref === environment.GITHUB_DEFAULT_BRANCH) {
-    throw new Error('[DIEM MCP] GITHUB_CANARY_REF must name a non-default canary branch.');
-  }
-  return new DiemMcpCore({
-    githubClient: new PublicGitHubReadClient({
-      owner: environment.GITHUB_REPOSITORY_OWNER,
-      repo: environment.GITHUB_REPOSITORY_NAME,
-      ref,
-    }),
   });
 }
 
@@ -160,15 +150,14 @@ function createActiveApp({ core, environment = process.env } = {}) {
   return app;
 }
 
-function createReadOnlyCanaryApp({ core, environment = process.env } = {}) {
+function createConnectivityCanaryApp({ environment = process.env } = {}) {
   const hostname = environment.MCP_PUBLIC_HOSTNAME;
   if (!hostname) throw new Error('[DIEM MCP] MCP_PUBLIC_HOSTNAME is required in canary_readonly mode.');
-  const canaryCore = core || createReadOnlyCanaryCore(environment);
   const app = createMcpExpressApp({ host: environment.HOST || '0.0.0.0', allowedHosts: [hostname] });
   app.get('/healthz', (_request, response) => {
-    response.status(200).json({ status: 'ok', service: 'diem-mcp', mode: 'canary-readonly', transport: 'streamable-http', tools: ['get_pending_candidate_pack', 'get_editorial_context'] });
+    response.status(200).json({ status: 'ok', service: 'diem-mcp', mode: 'connectivity-canary', transport: 'streamable-http', tools: ['get_mcp_canary_status'] });
   });
-  attachStatelessTransport(app, () => createReadOnlyCanaryServer(canaryCore));
+  attachStatelessTransport(app, () => createConnectivityCanaryServer());
   return app;
 }
 
@@ -179,7 +168,7 @@ function runServer(environment = process.env) {
   }
   const app = environment.DIEM_MCP_MODE === 'active'
     ? createActiveApp({ environment })
-    : createReadOnlyCanaryApp({ environment });
+    : createConnectivityCanaryApp({ environment });
   const port = Number(environment.PORT || 3000);
   const host = environment.HOST || '127.0.0.1';
   app.listen(port, host, error => {
@@ -194,9 +183,8 @@ module.exports = {
   createActiveApp,
   createActiveCore,
   createDiemMcpServer,
-  createReadOnlyCanaryApp,
-  createReadOnlyCanaryCore,
-  createReadOnlyCanaryServer,
+  createConnectivityCanaryApp,
+  createConnectivityCanaryServer,
   equalSecret,
   runServer,
 };

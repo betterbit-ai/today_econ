@@ -172,63 +172,8 @@ class GitHubAppClient {
   }
 }
 
-class PublicGitHubReadClient {
-  constructor({
-    owner,
-    repo,
-    ref,
-    fetchImpl = fetch,
-    apiBaseUrl = GITHUB_API,
-  } = {}) {
-    if (!owner || !repo || !ref) throw new Error('[DIEM MCP GitHub] owner, repo, and ref are required for public read access.');
-    this.owner = owner;
-    this.repo = repo;
-    this.ref = ref;
-    this.fetchImpl = fetchImpl;
-    this.apiBaseUrl = apiBaseUrl.replace(/\/$/u, '');
-  }
-
-  async request(path) {
-    const response = await this.fetchImpl(`${this.apiBaseUrl}/repos/${this.owner}/${this.repo}/${path.replace(/^\//u, '')}`, {
-      headers: {
-        Accept: 'application/vnd.github+json',
-        'User-Agent': 'diem-mcp-readonly-canary',
-        'X-GitHub-Api-Version': '2022-11-28',
-      },
-    });
-    const text = await response.text();
-    let payload = null;
-    try { payload = text ? JSON.parse(text) : null; } catch { payload = { raw: text }; }
-    if (!response.ok) throw responseError(response, payload);
-    return payload;
-  }
-
-  async listFiles(prefix = '') {
-    const tree = await this.request(`git/trees/${encodeURIComponent(this.ref)}?recursive=1`);
-    return (tree.tree || [])
-      .filter(item => item.type === 'blob' && item.path?.startsWith(prefix))
-      .map(item => item.path)
-      .sort();
-  }
-
-  async readFile(filePath) {
-    const payload = await this.request(`contents/${filePath}?ref=${encodeURIComponent(this.ref)}`);
-    if (!payload?.content || payload.encoding !== 'base64') throw new Error(`[DIEM MCP GitHub] File response is invalid: ${filePath}`);
-    return Buffer.from(payload.content.replace(/\n/gu, ''), 'base64').toString('utf8');
-  }
-
-  async commitFiles() {
-    throw new Error('[DIEM MCP GitHub] Public read canary cannot commit files.');
-  }
-
-  async createPullRequest() {
-    throw new Error('[DIEM MCP GitHub] Public read canary cannot create pull requests.');
-  }
-}
-
 module.exports = {
   GITHUB_API,
   GitHubAppClient,
-  PublicGitHubReadClient,
   createAppJwt,
 };

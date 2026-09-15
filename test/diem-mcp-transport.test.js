@@ -9,7 +9,7 @@ const serviceRequire = createRequire(path.join(__dirname, '..', 'services', 'die
 const { Client } = serviceRequire('@modelcontextprotocol/sdk/client/index.js');
 const { StreamableHTTPClientTransport } = serviceRequire('@modelcontextprotocol/sdk/client/streamableHttp.js');
 const { DiemMcpCore, MockGitHubClient } = require('../services/diem-mcp/src/core');
-const { createActiveApp, createDiemMcpServer, createReadOnlyCanaryApp, createReadOnlyCanaryServer, equalSecret } = require('../services/diem-mcp/src/server');
+const { createActiveApp, createConnectivityCanaryApp, createConnectivityCanaryServer, createDiemMcpServer, equalSecret } = require('../services/diem-mcp/src/server');
 
 test('registers the restricted MCP tool surface and uses constant-time bearer comparison', () => {
   const server = createDiemMcpServer(new DiemMcpCore({ githubClient: new MockGitHubClient() }));
@@ -23,8 +23,8 @@ test('registers the restricted MCP tool surface and uses constant-time bearer co
   ]);
   assert.equal(equalSecret('secret', 'secret'), true);
   assert.equal(equalSecret('secret', 'different'), false);
-  const canary = createReadOnlyCanaryServer(new DiemMcpCore({ githubClient: new MockGitHubClient() }));
-  assert.deepEqual(Object.keys(canary._registeredTools).sort(), ['get_editorial_context', 'get_pending_candidate_pack']);
+  const canary = createConnectivityCanaryServer();
+  assert.deepEqual(Object.keys(canary._registeredTools).sort(), ['get_mcp_canary_status']);
 });
 
 test('serves the real stateless Streamable HTTP transport only with a bearer credential', async t => {
@@ -67,11 +67,8 @@ test('serves the real stateless Streamable HTTP transport only with a bearer cre
   }
 });
 
-test('read-only canary exposes no write tool even without a bearer token', async t => {
-  const app = createReadOnlyCanaryApp({
-    core: new DiemMcpCore({ githubClient: new MockGitHubClient() }),
-    environment: { HOST: '127.0.0.1', MCP_PUBLIC_HOSTNAME: '127.0.0.1' },
-  });
+test('connectivity canary exposes one no-data tool even without a bearer token', async t => {
+  const app = createConnectivityCanaryApp({ environment: { HOST: '127.0.0.1', MCP_PUBLIC_HOSTNAME: '127.0.0.1' } });
   const listener = http.createServer(app);
   const started = await new Promise(resolve => {
     listener.once('error', error => resolve({ error }));
@@ -89,7 +86,11 @@ test('read-only canary exposes no write tool even without a bearer token', async
     const client = new Client({ name: 'diem-mcp-readonly-canary-test', version: '1.0.0' });
     await client.connect(new StreamableHTTPClientTransport(new URL(`http://127.0.0.1:${port}/mcp`)));
     const tools = await client.listTools();
-    assert.deepEqual(tools.tools.map(tool => tool.name).sort(), ['get_editorial_context', 'get_pending_candidate_pack']);
+    assert.deepEqual(tools.tools.map(tool => tool.name).sort(), ['get_mcp_canary_status']);
+    const result = await client.callTool({ name: 'get_mcp_canary_status', arguments: {} });
+    assert.deepEqual(result.structuredContent, {
+      status: 'ready', mode: 'connectivity-canary', repositoryAccess: 'none', writeAccess: 'none', imageAccess: 'none', publishAccess: 'none',
+    });
     await client.close();
   } finally {
     await new Promise(resolve => listener.close(resolve));
