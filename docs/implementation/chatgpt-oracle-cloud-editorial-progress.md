@@ -120,4 +120,12 @@
 3. ChatGPT 예약 task로 canary write를 실행할 수 있는지 확인.
 4. ChatGPT ImageGen 결과를 같은 실행에서 MCP input으로 전달할 수 있는지 확인.
 
+### 준비 완료: GitHub App gate artifact
+
+- `deploy/oracle/github-app-manifest.json`에 App의 최소 권한을 고정했다.
+- `deploy/oracle/github-app-setup.md`에 App 생성·한 저장소 설치·Oracle root-owned
+  PEM 배치와 active-mode 환경값을 단계별로 기록했다.
+- App 생성과 PEM 다운로드는 영구 credential 생성이므로 이 문서 준비만으로는
+  gate가 통과한 것이 아니다.
+
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.
