@@ -4,7 +4,7 @@
   "date": "2026-09-15",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-14T16:12:17.649Z",
-  "updatedAt": "2026-09-15T12:22:38.329Z",
+  "updatedAt": "2026-09-15T12:24:04.227Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -95,7 +95,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "서울 버스 파업 앞두고 막판 협상...\"밤 9시 시한\"",
@@ -133,7 +135,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "제주공항 교신 감청 중국인 검거...군사시설 사진도 나와",
@@ -171,7 +175,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "'가족 의혹' 놓고도 설전...해명하다 왈칵 '눈물'",
@@ -209,7 +215,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:issue_low_value"
+      ]
     },
     {
       "title": "용혜인 사퇴 하루만에 기본소득당 “의원·장관 겸직 폐지하자”",
@@ -245,7 +253,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "감기약 달랬는데 ‘피임약’을…초6 학생, 두 알 먹고 응급실",
@@ -283,7 +293,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "밤 8시까지 주식했더니 첫날부터 VI ‘1600번’…애프터마켓 곳곳서 호가 출렁",
@@ -321,7 +333,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“창문 열지 마세요!” 잠깐 방심했더니 ‘득실득실’…무서운 벌레, 감염병까지 ‘비상’ [지구, 뭐래?]",
@@ -13625,24 +13639,24 @@
     "issue": {
       "publicationKey": "diem:2026-09-15:issue:34968169395",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "이 대통령, 18일 기자회견 개최...\"분명한 현안 입장 밝힐 것\"",
-        "url": "https://n.news.naver.com/article/052/0002407379?ntype=RANKING",
+        "title": "“창문 열지 마세요!” 잠깐 방심했더니 ‘득실득실’…무서운 벌레, 감염병까지 ‘비상’ [지구, 뭐래?]",
+        "url": "https://n.news.naver.com/article/016/0002697746?ntype=RANKING",
         "publishedDate": "2026-09-15",
-        "publishedAt": "2026-09-15 17:52:05",
+        "publishedAt": "2026-09-15 19:41:08",
         "observedAt": "2026-09-15T12:22:28.424Z",
-        "popularityScore": 97.9796,
+        "popularityScore": 83.8367,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 91.39,
-          "popularityScore": 97.9796,
-          "freshnessScore": 90,
-          "editorialValueScore": 70,
-          "ageHours": 3.51,
-          "publishedAt": "2026-09-15 17:52:05",
+          "score": 84.36,
+          "popularityScore": 83.8367,
+          "freshnessScore": 100,
+          "editorialValueScore": 55,
+          "ageHours": 1.7,
+          "publishedAt": "2026-09-15 19:41:08",
           "observedAt": "2026-09-15T12:22:28.424Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -13661,102 +13675,95 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 2,
-            "normalizedScore": 97.9796,
-            "title": "이 대통령, 18일 기자회견 개최...\"분명한 현안 입장 밝힐 것\"",
-            "url": "https://n.news.naver.com/article/052/0002407379?ntype=RANKING"
+            "rank": 9,
+            "normalizedScore": 83.8367,
+            "title": "“창문 열지 마세요!” 잠깐 방심했더니 ‘득실득실’…무서운 벌레, 감염병까지 ‘비상’ [지구, 뭐래?]",
+            "url": "https://n.news.naver.com/article/016/0002697746?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "[앵커] 이재명 대통령이 오는 18일 대국민 기자회견을 열기로 했습니다.청와대는 이 대통령이 주요 현안에 대한 분명한 입장을 밝힐 거라고 강조했습니다.취재기자 연결합니다. 정인용 기자!이 대통령 회견 형식과 내용 자세히 전해주시죠.[기자] 네, 성기홍 청와대 홍보소통수석이 오늘 브리핑을 통해 밝힌 내용입니다.이재명 대통령이 오는 18일, 금요일 오전 10시 청와대 영빈관에서 기자회견을 엽니다.기자들과 일문일답 자리를 갖는 건, 취임 이후 7번째입니다.대통령 모두발언과 150여 명의 내외신 기자의 질의 응답, 마무리 발언까지 시간은 90분으로 정해졌습니다.청와대는 정치·외교와 정책·경제, 두 분야로만 나눠 밀도 있게 회견을 진행하고, 자유롭게 질문하면 대통령이 답변할 거라고 설명했습니다.이번 회견이 이 대통령의 개혁 의지와 민생 우선 기조, 국민 통합 메시지를 전하는 자리가 될 거라며 주요 현안에 대한 대통령의 분명한 입장을 국민께 밝힐 거라고 강조했습니다.[앵커] 이 대통령이 회견에서 분명한 입장을 밝힐 만한 핵심 현안은 어떤 게 있습니까?[기자] 우선 2기 개각 이후 논란이 된 인사 문제에 질문이 집중될 거 같습니다.겸직 논란 등으로 자진 사퇴한 용혜인 성평등가족부 장관 후보자 지명 배경을 두고, 청와대 인사 검증시스템에 대한 일각의 지적까지 나온 만큼, 관련 설명이 있을 거로 예상됩니다.조희대 대법원장과의 이견으로 불거진 대법관 재제청 문제나, 본인 관련 사건의 공소 취소, 연임 개헌 논란에 대한 입장도 다뤄질 거로 보입니다.최근 여당 내 갈등과 20대 지지층 이탈 등으로 지지율 하락 세가 이어지는 데 대해서도, 어떤 메시지를 내놓을지 관심입니다.경제 분야에선 수도권 집값 해법이 핵심 화두로 거론됩니다.서울 아파트값이 역대 최장기간 상승 기록을 눈앞에 두고 있는 만큼, 이 대통령이 구체적인 대책을 언급할 가능성이 큽니다.이와 함께 외교 분야에선 호르무즈 해협 파병 문제 대응이 주목할 부분입니다.국방부 실사단이 여건 파악을 위한 중동 현지 조사도 마친 만큼, 이 대통령이 큰 틀에서 파병 여부를 국민에 알릴 수 있다는 관측입니다.6천 피에 갇힌 주식시장 문제나 각종 사회 개혁 등과 관련한 질문도 잇따를 전망입니다.지금까지 청와대에서 전해드렸습니다.※ '당신의 제보가 뉴스가 됩니다'[카카오톡] YTN 검색해 채널 추가[전화] 02-398-8585[메일] social@ytn.co.kr",
-        "summary": "[앵커] 이재명 대통령이 오는 18일 대국민 기자회견을 열기로 했습니다.청와대는 이 대통령이 주요 현안에 대한 분명한 입장을 밝힐 거라고 강조했습니다.취재기자 연결합니다. 정인용 기자!이 대통령 회견 형식과 내용 자세히 전해주시죠.[기자] 네, 성기홍 청와대 홍보소통수석이 오늘 브리핑을 통해 밝힌 내용입니다.이재명 대통령이 오는 18일, 금요일 오전 10시 청와대 영빈관에서 기자회견을 엽니다.기자들과 일문일답 자리를 갖는 건, 취임 이후 7번째입니다.대통령 모두발언과 150여 명의 내외신 기자의 질의 응답, 마무리 발언까지 시간은 ",
+        "fullText": "창문에 모기떼가 붙어 있다.[챗GPT로 제작한 이미지][헤럴드경제=김광우 기자] ‘여름에는 잘 안 보이더니, 갑자기 나타났다’언제 그랬냐는 듯 역대급 폭염이 물러나고, 선선한 날씨가 시작된 9월. 하지만 완연한 가을과 함께 찾아온 ‘불청객’이 있다.그 정체는 바로 ‘모기’. 지난 8월 많은 이들이 더위로 밤잠을 설쳤다면, 이제는 불만 끄면 귓가를 울려대는 ‘윙~’소리에 밤잠을 못 이룬다는 사람들이 적지 않다.실제 더위가 꺽인 것과 동시에, 국내 모기 출몰이 두 배 가까이 뛴 것으로 나타났다. 모기 떼 [게티이미지]문제는 올해 모기의 습격이 이제부터 본격 시작된다는 것. 기후변화가 이어지며, 가을철이 최적의 모기 번식 환경으로 변모하고 있기 때문이다.심지어 겨울도 따뜻해지며, 활동 시기는 점차 장기화한다. 이에 생명을 위협하는 각종 감염병을 전파할 가능성도 커진다.향후 기후변화 전망대로 겨울이 사라질 경우, 폭염 시기를 제외하고 연중 내내 모기 출몰로 인한 질병 문제가 발생할 수 있다는 우려도 나온다. 경기도 수원시 팔달구 화성행궁 주변에서 팔달구보건소 관계자들이 모기 방역을 하고 있다.[연합]15일 서울시에 따르면 이날 모기활동 지수는 44.3으로 불과 이틀 전인 13일(33.4)에 비해 10가량 상승했다. 이에 모기 발생 단계는 2단계 관심(상)으로 상승했다. 이 경우 창문과 문에 방충망을 사용하고, 늦은 시간 창문을 여는 등 환기를 자제할 것이 권고된다.지난 9일과 10일에는 모기활동 지수가 50을 넘어 3단계 ‘주의’ 단계까지 상승한 바 있다. 모기예보가 ‘주의’ 단계에 이를 경우 출입문과 창문을 열어 환기하는 것을 자제하도록 권고한다.한여름에는 좀처럼 모습을 보이지 않더니, 더위가 한풀 꺾이자 다시 기승을 부리는 모양새다. 질병관리청의 인공지능(AI) 기반 실시간 모기 감시 결과를 보면 최근 변화는 더 뚜렷하다. 각종 질병 매개 모기[게티이미지]지난달 17~23일인 34주차 평균 전체모기지수는 53개체였다. 하지만 바로 다음 주인 35주차에는 100.9개체까지 늘었다. 일주일 만에 47.9개체, 두 배 가까이 급증한 것. 지난달 30일부터 지난 5일인 36주차에도 모기지수는 104.7개체를 기록해 높은 수준을 이어갔다.모기는 원래 더운 날씨에 잘 번식하는 대표적인 ‘여름벌레’로 여겨진다. 하지만 이제는 여름철보다 봄과 가을에 그 활동이 늘어나는 경향이 뚜렷해지고 있다. 여름철이 모기도 견디기 힘들 만큼 더워지는 동시에, 봄·가을은 더 따뜻해지고 있기 때문이다. 11월 말까지도 기승을 부리는 모기.[독자 제공]실제 기상청에 따르면 올해 여름철 전국 평균기온은 25.4도로 평년보다 1.7도 높았다. 전국적인 기상관측망이 확충된 1973년 이후 세 번째로 높은 수준이다. 특히 최근 3년이 나란히 역대 1~3위를 기록하며, 연달아 역대급 더위가 펼쳐졌다.모기는 따뜻한 환경에서 성장과 번식이 활발해진다. 하지만 더우면 더울수록 좋은 건 아니다. 모기 종류나 환경에 따라 차이는 있지만, 대체로 20도 후반의 기온에서 활발하게 움직이는 반면 극단적인 고온 환경에서는 활동과 번식이 저하될 수 있다. [게티이미지뱅크]그렇다고 해서, 모기가 줄어드는 게 아니다. 모기의 활동 영역이 넓어지는 것. 기상청이 지난 6월 발표한 ‘2026년 봄철 기후특성’에 따르면 올해 봄철 전국 평균기온은 13.3도로 평년 11.9도보다 무려 1.4도 높았다. 1973년 전국적인 기상관측망이 확충된 이후 두 번째로 높은 수준이다.최근 들어 이같은 현상은 더 뚜렷하다. 최근 10년 가운데 7개 해가 역대 봄철 평균기온 상위 10위 안에 포함됐다. 지난해 가을도 마찬가지였다. 기상청에 따르면 당시 전국 평균기온은 16.1도로 평년보다 2도 높았다. 역대 두 번째로 따뜻한 가을이었다.모기가 활동할 수 있는 비교적 따뜻한 날씨가 봄에는 더 일찍 시작되고, 가을에도 더 늦은 시기까지 이어질 수 있는 환경이 만들어지고 있는 셈. 흰줄숲모기 [헤럴드경제DB]가장 큰 문제는 단순히 모기로 인해 잠 못 이루는 불편함이 아니다. 모기가 활동할 수 있는 기간이 길어질수록 각종 병원체를 인간에게 옮길 수 있는 시간도 함께 늘어날 수 있다. 세계보건기구(WHO) 또한 기온과 강수량 변화 등으로 감염병 매개체가 활동할 수 있는 계절과 지역이 되고 있다고 설명한다.실제 질병관리청이 지난 9일 발표한 자료에 따르면 올해 국내 첫 일본뇌염 환자가 확인됐다. 60대 여성인 해당 환자는 지난달 15일 고열과 오한, 구토 등의 증상으로 의료기관을 찾았다. 지난해 첫 환자가 확인된 시점은 10월 14일. 올해는 약 5주 빨랐다. 뎅기열 바이러스를 전파하는 이집트숲모기.[EPA]단순 올해만 나타난 현상이 아니다. 최근 10년간 국내 평균기온이 약 1.4도 상승하는 동안 일본뇌염 주의보 발령 시점은 약 16일 빨라졌다. 감염병 매개체의 활동기간 역시 봄부터 늦가을까지 되는 추세다.특히 지금부터가 위험한 시기다. 질병관리청에 따르면 국내 일본뇌염 환자는 대부분 8~11월에 발생한다. 이 가운데 약 80%가 9~10월에 집중된다. 올해와 같이 모기 출몰 시기가 될 경우 뎅기열, 말라리아, 일본뇌염 바이러스 등 모기를 매개체로 하는 감염병 발생 가능성도 커진다. 폭염이 한풀 꺾이고 아침·저녁으로 선선한 바람이 불기 시작하면서 모기가 기승을 부리고 있는 8일 경기도 수원시 팔달구 인계동의 한 공원에서 팔달구보건소 관계자들이 방역을 하고 있다.[연합]한국보건사회연구원에 따르면 기온 1도가 상승할 경우 쓰쓰가무시증, 말라리아 등 주요 감염병의 평균 발생률은 4.27% 증가하는 것으로 나타났다. 인간 외에도 ‘럼피스킨병’ 등 가축 감염병도 문제로 떠오른다.기후변화가 감염병 위험까지 키우고 있는 상황, 질병관리청은 오는 2029년까지 권역별 감염병 매개체 감시 거점을 기존 16곳에서 30곳 이상으로 하고, 인공지능(AI) 기반 모기 감시장비를 활용한 ‘스마트 감시체계’도 구축할 계획이다.WHO 또한 기후변화로 감염병의 역학 자체가 달라지고 있다며 “각국이 위험을 감시·모니터링할 수단과 유행에 대응할 역량, 백신·치료제 등 대응수단을 갖추도록 해야 한다”고 강조했다.",
+        "summary": "창문에 모기떼가 붙어 있다.[챗GPT로 제작한 이미지][헤럴드경제=김광우 기자] ‘여름에는 잘 안 보이더니, 갑자기 나타났다’언제 그랬냐는 듯 역대급 폭염이 물러나고, 선선한 날씨가 시작된 9월. 하지만 완연한 가을과 함께 찾아온 ‘불청객’이 있다.그 정체는 바로 ‘모기’. 지난 8월 많은 이들이 더위로 밤잠을 설쳤다면, 이제는 불만 끄면 귓가를 울려대는 ‘윙~’소리에 밤잠을 못 이룬다는 사람들이 적지 않다.실제 더위가 꺽인 것과 동시에, 국내 모기 출몰이 두 배 가까이 뛴 것으로 나타났다. 모기 떼 [게티이미지]문제는 올해 모기의",
         "topicSignature": {
           "category": "issue",
-          "target": "대통령 기자회견",
-          "event": "하락",
+          "target": "창문 열지",
+          "event": "상승",
           "entities": [],
           "eventKey": null,
-          "text": "issue | 대통령 기자회견 | 하락"
+          "text": "issue | 창문 열지 | 상승"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "대통령 기자회견",
+          "subject": "창문 열지",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "대통령",
-            "기자회견",
-            "코스피",
-            "코스닥",
-            "증시"
+            "창문",
+            "열지"
           ],
-          "eventKind": "market_move",
-          "eventLabel": "하락",
+          "eventKind": "general",
+          "eventLabel": "상승",
           "eventTerms": [
-            "하락"
+            "상승"
           ],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "tentative",
           "evidenceState": "established_or_not_stated",
-          "date": "오늘",
+          "date": "15일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "market"
+          "readerNeed": "public_interest"
         },
         "editorialValue": {
           "ok": true,
-          "score": 70,
+          "score": 55,
           "signals": [
             "reader_money_work_life_impact",
-            "broad_audience_or_market_scope",
             "issue_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "대통령 기자회견",
+            "subject": "창문 열지",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "대통령",
-              "기자회견",
-              "코스피",
-              "코스닥",
-              "증시"
+              "창문",
+              "열지"
             ],
-            "eventKind": "market_move",
-            "eventLabel": "하락",
+            "eventKind": "general",
+            "eventLabel": "상승",
             "eventTerms": [
-              "하락"
+              "상승"
             ],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "tentative",
             "evidenceState": "established_or_not_stated",
-            "date": "오늘",
+            "date": "15일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "market"
+            "readerNeed": "public_interest"
           },
-          "baseScore": 70,
+          "baseScore": 55,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -13783,28 +13790,1455 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.5116,
+        "score": 0.6582,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-09-13:issue:34703662840",
+        "matchedPublicationKey": "diem:2026-09-12:issue:34624057537",
         "signature": {
           "category": "issue",
-          "target": "대통령 기자회견",
-          "event": "하락",
+          "target": "창문 열지",
+          "event": "상승",
           "entities": [],
           "eventKey": null,
-          "text": "issue | 대통령 기자회견 | 하락"
+          "text": "issue | 창문 열지 | 상승"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "모기 활동\n주의 권고",
+            "lines": [
+              "모기 활동",
+              "주의 권고"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "모기 활동\n주의 권고",
+          "lines": [
+            "모기 활동",
+            "주의 권고"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "9월 15일 서울의 모기활동 지수가 44.3으로, 이틀 전 33.4에 비해 10포인트 상승해 2단계 ‘관심’ 단계로 올랐습니다.🦟",
+            "지난 8월 대비 모기 출현이 거의 두 배로 늘어 35주차 평균 지수가 100.9에 달했으며, 이는 질병 매개 위험이 급증했음을 의미합니다.",
+            "기후변화로 가을·봄에 온도가 높아지면서 모기 활동 기간이 연장되고, WHO는 이로 인한 감염병 확산 위험을 경고하고 있습니다.📰"
+          ],
+          "text": "9월 15일 서울의 모기활동 지수가 44.3으로, 이틀 전 33.4에 비해 10포인트 상승해 2단계 ‘관심’ 단계로 올랐습니다.🦟\n\n지난 8월 대비 모기 출현이 거의 두 배로 늘어 35주차 평균 지수가 100.9에 달했으며, 이는 질병 매개 위험이 급증했음을 의미합니다.\n\n기후변화로 가을·봄에 온도가 높아지면서 모기 활동 기간이 연장되고, WHO는 이로 인한 감염병 확산 위험을 경고하고 있습니다.📰"
+        },
+        "emojis": {
+          "first": "🦟",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "🦟",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #모기 #감염병 #기후변화 #보건 #창문 #열지",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#모기",
+            "#감염병",
+            "#기후변화",
+            "#보건",
+            "#창문",
+            "#열지"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#모기",
+              "#감염병",
+              "#기후변화",
+              "#보건",
+              "#창문",
+              "#열지"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:weather-02",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-15T12:23:57.142Z",
+        "assetPath": "assets/fallback/generated/weather-02.png",
+        "sha256": "4beb66c12e2492fc8202f18043dc4885be6ecda13de1cd16239ab7ab507a4d8c",
+        "localSha256": "4beb66c12e2492fc8202f18043dc4885be6ecda13de1cd16239ab7ab507a4d8c",
+        "generatedTopic": "weather",
+        "generatedEnergy": "calm",
+        "description": "Copper-lit storm entrance with sandbags and emergency supplies.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "climate weather environment",
+            "count": 20,
+            "suitableCount": 3,
+            "suitabilityRejected": 17,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:11707604",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [
+                  "climate"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:12861683",
+                "rankWithinQuery": 5,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:39457992",
+                "rankWithinQuery": 6,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7287129",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33247012",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:16545421",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:17845891",
+                "rankWithinQuery": 10,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37033037",
+                "rankWithinQuery": 11,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:29350450",
+                "rankWithinQuery": 12,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:6361697",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:15642967",
+                "rankWithinQuery": 14,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:11707696",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:32073100",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32064404",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33505477",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:34261396",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:39494563",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 3,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.5667
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "climate weather environment",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:suf2PfBNdx4",
+                "rankWithinQuery": 1,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:XSWQlDTksas",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:-iUVxHaw4Uw",
+                "rankWithinQuery": 3,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8hr87Osibu0",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:6GflN5stjX8",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:DqQA9EETfXQ",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:JvPV6UV0MM4",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:J9AP6q7t2Is",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:EPz5uSdMDUQ",
+                "rankWithinQuery": 9,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:SkJG9sNkQVQ",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:Y9yjp7zAllI",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:PoIq8TXqFp0",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cGH87EBbIJY",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:bwQ2MoSGQ94",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:WXAVs-ymQEg",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:BlAbJND87o0",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:I323ZqSkkn8",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:lzQ3tsZ0i7A",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:IooaujyvkVk",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:bLHT4t0SPCQ",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.3
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "climate weather environment",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "climate weather environment",
+            "count": 20,
+            "suitableCount": 19,
+            "suitabilityRejected": 1,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:130290039",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "climate",
+                  "weather",
+                  "environment"
+                ],
+                "matchedConcreteTokens": [
+                  "climate",
+                  "environment"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 19,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7333
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "climate weather environment",
+            "count": 5,
+            "error": "404 {\"error\":{\"message\":\"The model `qwen/qwen3.6-27b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 24,
+          "recentKeyCount": 46,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:weather-02",
+            "4beb66c12e2492fc8202f18043dc4885be6ecda13de1cd16239ab7ab507a4d8c"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated weather asset weather-02 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "bright1",
+        "mood": "bright",
+        "sha256": "3d262d01f0a1fe6d91a4806cab40beb8f793d0ea9bb8a5c3c48ea33b5ce7d0d1",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-15T12:24:04.212Z"
       },
       "story": {
         "status": "planned",
@@ -13880,6 +15314,68 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-15/issue/issue-cover.png",
+        "coverSha256": "0dcccf644ad3bc18d7fab316bf56eb757daed10401fbf395d55ae9f256a9e7d0",
+        "followCtaPath": ".diem-cache/2026-09-15/issue/issue-follow-cta.png",
+        "followCtaSha256": "ec7bbc24ceab2ac72a550d8b2660c96f565ef2c2dafeff575e3ed29e965eae29",
+        "reelPath": ".diem-cache/2026-09-15/issue/issue-reel.mp4",
+        "reelSha256": "ed266133236170b58f2be8e26678f13d261d764f2c1dc044f6dd6d898022d6f4",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "이 대통령, 18일 기자회견 개최...\"분명한 현안 입장 밝힐 것\"",
+            "url": "https://n.news.naver.com/article/052/0002407379?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-15T12:22:56.926Z"
+          }
+        ],
+        "updatedAt": "2026-09-15T12:23:06.535Z"
       }
     }
   },
