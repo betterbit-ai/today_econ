@@ -94,6 +94,14 @@ function equalSecret(expected, actual) {
   return left.length === right.length && crypto.timingSafeEqual(left, right);
 }
 
+function suppliedCredential(headers = {}) {
+  const authorization = String(headers.authorization || '');
+  const bearer = /^Bearer\s+(.+)$/iu.exec(authorization);
+  if (bearer) return bearer[1];
+  const apiKey = headers['x-api-key'];
+  return typeof apiKey === 'string' ? apiKey : '';
+}
+
 function allowedHosts(hostname) {
   return [...new Set([hostname, '127.0.0.1', 'localhost'].filter(Boolean))];
 }
@@ -141,8 +149,7 @@ function createActiveApp({ core, environment = process.env } = {}) {
     response.status(200).json({ status: 'ok', service: 'diem-mcp', mode: 'active', transport: 'streamable-http' });
   });
   app.use('/mcp', (request, response, next) => {
-    const match = /^Bearer\s+(.+)$/iu.exec(request.headers.authorization || '');
-    if (!match || !equalSecret(bearerToken, match[1])) {
+    if (!equalSecret(bearerToken, suppliedCredential(request.headers))) {
       response.status(401).set('WWW-Authenticate', 'Bearer').json({
         jsonrpc: '2.0', error: { code: -32001, message: 'Unauthorized' }, id: null,
       });
@@ -191,5 +198,6 @@ module.exports = {
   createConnectivityCanaryServer,
   allowedHosts,
   equalSecret,
+  suppliedCredential,
   runServer,
 };

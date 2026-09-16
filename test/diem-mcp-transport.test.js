@@ -9,7 +9,7 @@ const serviceRequire = createRequire(path.join(__dirname, '..', 'services', 'die
 const { Client } = serviceRequire('@modelcontextprotocol/sdk/client/index.js');
 const { StreamableHTTPClientTransport } = serviceRequire('@modelcontextprotocol/sdk/client/streamableHttp.js');
 const { DiemMcpCore, MockGitHubClient } = require('../services/diem-mcp/src/core');
-const { allowedHosts, createActiveApp, createConnectivityCanaryApp, createConnectivityCanaryServer, createDiemMcpServer, equalSecret } = require('../services/diem-mcp/src/server');
+const { allowedHosts, createActiveApp, createConnectivityCanaryApp, createConnectivityCanaryServer, createDiemMcpServer, equalSecret, suppliedCredential } = require('../services/diem-mcp/src/server');
 
 test('registers the restricted MCP tool surface and uses constant-time bearer comparison', () => {
   const server = createDiemMcpServer(new DiemMcpCore({ githubClient: new MockGitHubClient() }));
@@ -23,6 +23,9 @@ test('registers the restricted MCP tool surface and uses constant-time bearer co
   ]);
   assert.equal(equalSecret('secret', 'secret'), true);
   assert.equal(equalSecret('secret', 'different'), false);
+  assert.equal(suppliedCredential({ authorization: 'Bearer secret' }), 'secret');
+  assert.equal(suppliedCredential({ 'x-api-key': 'secret' }), 'secret');
+  assert.equal(suppliedCredential({ authorization: 'Basic unrelated' }), '');
   assert.deepEqual(allowedHosts('mcp.example.test'), ['mcp.example.test', '127.0.0.1', 'localhost']);
   const canary = createConnectivityCanaryServer();
   assert.deepEqual(Object.keys(canary._registeredTools).sort(), ['get_mcp_canary_status']);
