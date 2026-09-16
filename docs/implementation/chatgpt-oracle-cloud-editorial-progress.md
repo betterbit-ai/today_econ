@@ -191,4 +191,30 @@
   capability gate의 남은 증거다. 기존 Instagram schedule은 여전히 변경하지
   않았다.
 
+## 완료: GitHub App canary write와 예약 task 준비
+
+- Oracle non-root container가 installation token으로 `today_econ`를 실제
+  읽는 것을 확인했다. 별도 GitHub App canary PR [#79]는
+  `data/cloud-editorial/canary/github-app-connectivity.json` 단 하나만 전용
+  branch에 썼으며 main에 merge하지 않는다.
+- MCP에는 `write_canary_proof`를 추가했다. request ID에서 경로와 branch를
+  고정하고 재호출은 같은 commit 결과를 재사용한다. package, workflow, secret,
+  Instagram에 접근하지 않는다.
+- Oracle active 서비스에는 OAuth 2.1과 `write_canary_proof`가 배포됐고
+  health는 `healthy`, anonymous `/mcp`는 401이다.
+
+### 다음 재개 작업 (ChatGPT usage reset 뒤)
+
+1. `DIEM Editorial OAuth MCP v2`를 선택한 새 web chat에서
+   `write_canary_proof`를 request ID `scheduled-canary-<KST date>-01`로
+   한 번 호출한다. PR의 경로가 canary JSON 한 개인지 확인한다.
+2. 같은 prompt를 ChatGPT Scheduled에서 one-time task로 생성하고, Mac/desktop
+   앱을 종료한 상태로 실행 결과와 PR을 확인한다. task가 approval 때문에
+   pause되면 gate는 실패다.
+3. 예약 run에서 ImageGen으로 사람·문자·로고 없는 세로 PNG를 만들고
+   `ingest_generated_image` → `attach_image_to_package`가 같은 run 안에서
+   GitHub SHA/MIME/size 검증을 통과하는지 확인한다.
+4. 세 결과가 모두 기록되기 전에는 PR #77을 main에 merge하거나 기존 Instagram
+   schedule을 변경하지 않는다.
+
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.
