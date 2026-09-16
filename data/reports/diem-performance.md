@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 226편
-- 생성 시각: 2026-09-16T14:39:40.571Z
+- 발행 원장 Reel: 227편
+- 생성 시각: 2026-09-16T19:24:39.347Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -16,13 +16,14 @@
 - 정시 비교에서 제외한 늦은 백필: 89편
 
 ## 72h
-- economy: 표본 65편 · 노출 중앙값 237 · 공유율 0% · 저장률 0%
+- economy: 표본 66편 · 노출 중앙값 253.5 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
-  - 특성 신호: event:housing_policy winner×2.47, housing_money winner×2.27, market_shock insufficient_data×2.25, event:ipo insufficient_data×2.02, public_decision winner×1.62, company_event winner×1.51, event:general winner×1.44, event:semiconductor winner×1.42
-- issue: 표본 73편 · 노출 중앙값 1,223 · 공유율 0% · 저장률 0%
+  - 부진 후보: 남대문시장 / 2030 핫플(126)
+  - 특성 신호: event:housing_policy winner×2.31, housing_money winner×2.12, market_shock insufficient_data×2.1, event:ipo insufficient_data×1.89, public_decision winner×1.51, company_event winner×1.42, event:insurance_premium insufficient_data×0.7, reader_need:market underperformer×0.68
+- issue: 표본 74편 · 노출 중앙값 1,163 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 북 미사일 발사 / 김여정 조롱(5,393), 한동훈 흉기 / 징역 1년 확정(3,959)
   - 부진 후보: 박선원 공개 / 공익제보자 위반(42), 네팔 대홍수 / 보도(81), 빌라 3채 / 도서관마을(145), 미국 대학 / 입학 러브콜(146), 보령시 김밥 식중독 / 초등야구(163)
-  - 특성 신호: market_shock insufficient_data×1.22, reader_need:public_interest underperformer×0.21, reader_need:housing underperformer×0.18, household_money insufficient_data×0.17, reader_need:work underperformer×0.14, work_life underperformer×0.14, event:insurance_premium insufficient_data×0.14
+  - 특성 신호: event:housing_policy winner×1.35, market_shock insufficient_data×1.28, reader_need:public_interest underperformer×0.21, reader_need:housing underperformer×0.19, household_money insufficient_data×0.18, reader_need:work underperformer×0.14, work_life underperformer×0.14, event:insurance_premium insufficient_data×0.14
 - 정시 비교에서 제외한 늦은 백필: 78편
 
 ## 7d
@@ -37,9 +38,9 @@
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 18.58%
-- 생성 배경 폴백률: 33.19% · 전체 폴백률: 51.77%
-- 이미지 공급원: pexels 98편, diem-generated 75편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 18.5%
+- 생성 배경 폴백률: 33.48% · 전체 폴백률: 51.98%
+- 이미지 공급원: pexels 98편, diem-generated 76편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 95건, unknown 44건
