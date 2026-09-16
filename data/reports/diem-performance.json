@@ -1,49 +1,49 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-16T00:00:36.383Z",
+  "generatedAt": "2026-09-16T09:07:48.525Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
-  "publishedCount": 224,
+  "publishedCount": 225,
   "operations": {
-    "totalRuns": 385,
+    "totalRuns": 386,
     "noPublishReasons": {
       "no_candidate_passed_editorial_generation": {
-        "count": 60,
-        "share": 45.8
+        "count": 61,
+        "share": 46.21
       },
       "no_candidate_passed_hotness_gate": {
         "count": 53,
-        "share": 40.46
+        "share": 40.15
       },
       "daily_publication_budget_exhausted": {
         "count": 12,
-        "share": 9.16
+        "share": 9.09
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 4,
-        "share": 3.05
+        "share": 3.03
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
-        "share": 1.53
+        "share": 1.52
       }
     },
     "candidateFailureReasons": {
       "editorial_generation_failed": {
-        "count": 93,
-        "share": 67.88
+        "count": 95,
+        "share": 68.35
       },
       "unknown": {
         "count": 44,
-        "share": 32.12
+        "share": 31.65
       }
     },
-    "titleRepairFailures": 11,
+    "titleRepairFailures": 13,
     "moderatedPublications": 5
   },
   "windows": {
     "24h": {
-      "sampleCount": 131,
+      "sampleCount": 132,
       "excludedLateBackfills": 89,
       "categories": {
         "economy": {
@@ -361,17 +361,17 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 68,
+          "samples": 69,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 703.5,
-            "viewsMedian": 703.5,
-            "reachMedian": 552,
+            "exposureMedian": 508,
+            "viewsMedian": 508,
+            "reachMedian": 411,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "engagementRateMedian": 2.355,
-            "averageWatchTimeMedian": 3960,
-            "followerDeltaEstimateMedian": 1
+            "engagementRateMedian": 2.31,
+            "averageWatchTimeMedian": 3977,
+            "followerDeltaEstimateMedian": 0.5
           },
           "winners": [
             {
@@ -662,91 +662,112 @@
               "feature": "event:housing_policy",
               "samples": 3,
               "exposureMedian": 1545,
-              "lift": 2.196,
+              "lift": 3.041,
               "signal": "winner"
             },
             {
               "feature": "market_shock",
               "samples": 1,
               "exposureMedian": 1478,
-              "lift": 2.101,
+              "lift": 2.909,
               "signal": "insufficient_data"
             },
             {
               "feature": "public_decision",
-              "samples": 34,
-              "exposureMedian": 1393.5,
-              "lift": 1.981,
+              "samples": 35,
+              "exposureMedian": 1372,
+              "lift": 2.701,
               "signal": "winner"
             },
             {
               "feature": "housing_money",
               "samples": 6,
               "exposureMedian": 967,
-              "lift": 1.375,
+              "lift": 1.904,
               "signal": "winner"
             },
             {
               "feature": "event:political_statement",
               "samples": 5,
               "exposureMedian": 925,
-              "lift": 1.315,
-              "signal": "neutral"
-            },
-            {
-              "feature": "concrete_number",
-              "samples": 67,
-              "exposureMedian": 508,
-              "lift": 0.722,
-              "signal": "neutral"
+              "lift": 1.821,
+              "signal": "winner"
             },
             {
               "feature": "event:general",
               "samples": 59,
               "exposureMedian": 508,
-              "lift": 0.722,
+              "lift": 1,
               "signal": "neutral"
+            },
+            {
+              "feature": "concrete_number",
+              "samples": 68,
+              "exposureMedian": 484,
+              "lift": 0.953,
+              "signal": "neutral"
+            },
+            {
+              "feature": "event:interest_rate",
+              "samples": 1,
+              "exposureMedian": 420,
+              "lift": 0.827,
+              "signal": "insufficient_data"
+            },
+            {
+              "feature": "macro_indicator",
+              "samples": 1,
+              "exposureMedian": 420,
+              "lift": 0.827,
+              "signal": "insufficient_data"
+            },
+            {
+              "feature": "reader_need:credit",
+              "samples": 1,
+              "exposureMedian": 420,
+              "lift": 0.827,
+              "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:public_interest",
               "samples": 30,
               "exposureMedian": 252.5,
-              "lift": 0.359,
+              "lift": 0.497,
               "signal": "underperformer"
             },
             {
               "feature": "reader_need:housing",
               "samples": 3,
               "exposureMedian": 212,
-              "lift": 0.301,
+              "lift": 0.417,
               "signal": "underperformer"
             },
             {
               "feature": "household_money",
               "samples": 2,
               "exposureMedian": 194,
-              "lift": 0.276,
+              "lift": 0.382,
               "signal": "insufficient_data"
             },
             {
               "feature": "event:insurance_premium",
               "samples": 1,
               "exposureMedian": 168,
-              "lift": 0.239,
+              "lift": 0.331,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:work",
               "samples": 3,
               "exposureMedian": 157,
-              "lift": 0.223,
+              "lift": 0.309,
               "signal": "underperformer"
             },
             {
               "feature": "work_life",
               "samples": 3,
               "exposureMedian": 157,
-              "lift": 0.223,
+              "lift": 0.309,
               "signal": "underperformer"
             }
           ],
@@ -756,7 +777,7 @@
     },
     "72h": {
       "sampleCount": 137,
-      "excludedLateBackfills": 77,
+      "excludedLateBackfills": 78,
       "categories": {
         "economy": {
           "status": "ready",
@@ -2365,130 +2386,130 @@
     "kindDistribution": {
       "web": {
         "count": 109,
-        "share": 48.66
+        "share": 48.44
       },
       "generated": {
-        "count": 73,
-        "share": 32.59
+        "count": 74,
+        "share": 32.89
       },
       "typographic": {
         "count": 42,
-        "share": 18.75
+        "share": 18.67
       }
     },
     "sourceDistribution": {
       "pexels": {
         "count": 98,
-        "share": 43.75
+        "share": 43.56
       },
       "diem-generated": {
-        "count": 73,
-        "share": 32.59
+        "count": 74,
+        "share": 32.89
       },
       "diem-original": {
         "count": 42,
-        "share": 18.75
+        "share": 18.67
       },
       "unsplash": {
         "count": 6,
-        "share": 2.68
+        "share": 2.67
       },
       "wikimedia": {
         "count": 4,
-        "share": 1.79
+        "share": 1.78
       },
       "openverse": {
         "count": 1,
-        "share": 0.45
+        "share": 0.44
       }
     },
-    "typographyFallbackRate": 18.75,
-    "generatedFallbackRate": 32.59,
-    "combinedFallbackRate": 51.34
+    "typographyFallbackRate": 18.67,
+    "generatedFallbackRate": 32.89,
+    "combinedFallbackRate": 51.56
   },
   "music": {
     "trackDistribution": {
       "mixkit-tech-house-vibes-130": {
         "count": 21,
-        "share": 10.05
+        "share": 10
+      },
+      "pixabay-magpiemusic-action-trailer-promo-rock-513687": {
+        "count": 17,
+        "share": 8.1
       },
       "mixkit-driving-ambition-32": {
         "count": 17,
-        "share": 8.13
+        "share": 8.1
       },
       "serious1": {
         "count": 16,
-        "share": 7.66
-      },
-      "pixabay-magpiemusic-action-trailer-promo-rock-513687": {
-        "count": 16,
-        "share": 7.66
+        "share": 7.62
       },
       "bright3": {
         "count": 15,
-        "share": 7.18
+        "share": 7.14
       },
       "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494": {
         "count": 15,
-        "share": 7.18
+        "share": 7.14
       },
       "bright2": {
         "count": 14,
-        "share": 6.7
+        "share": 6.67
       },
       "bright1": {
         "count": 13,
-        "share": 6.22
+        "share": 6.19
       },
       "pixabay-alexguz-funk-amp-breakbeat-541097": {
         "count": 13,
-        "share": 6.22
+        "share": 6.19
       },
       "mixkit-serene-view-443": {
         "count": 13,
-        "share": 6.22
+        "share": 6.19
       },
       "pixabay-bransboynd-night-summer-lounge-473222": {
         "count": 10,
-        "share": 4.78
+        "share": 4.76
       },
       "serious2": {
         "count": 10,
-        "share": 4.78
+        "share": 4.76
       },
       "mixkit-dirty-thinkin-989": {
         "count": 10,
-        "share": 4.78
+        "share": 4.76
       },
       "pixabay-sonican-lo-fi-music-loop-sentimental-jazzy-love-473154": {
         "count": 8,
-        "share": 3.83
+        "share": 3.81
       },
       "serious3": {
         "count": 7,
-        "share": 3.35
+        "share": 3.33
       },
       "mixkit-fright-night-871": {
         "count": 6,
-        "share": 2.87
+        "share": 2.86
       },
       "serious4": {
         "count": 5,
-        "share": 2.39
+        "share": 2.38
       }
     },
     "moodDistribution": {
       "bright": {
-        "count": 119,
-        "share": 53.13
+        "count": 120,
+        "share": 53.33
       },
       "serious": {
         "count": 90,
-        "share": 40.18
+        "share": 40
       },
       "unknown": {
         "count": 15,
-        "share": 6.7
+        "share": 6.67
       }
     },
     "diversityWarning": null,
