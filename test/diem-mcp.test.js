@@ -134,6 +134,23 @@ test('writes a package and generated image only through the allowlisted package 
   }
 });
 
+test('writes exactly one idempotent canary file on a dedicated branch', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-canary-'));
+  const github = new MockGitHubClient();
+  const core = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
+  try {
+    const first = await core.call('write_canary_proof', { requestId: 'scheduled-canary-1', note: 'scheduled task proof' });
+    const replay = await core.call('write_canary_proof', { requestId: 'scheduled-canary-1', note: 'changed replay text' });
+    assert.equal(first.commitSha, replay.commitSha);
+    assert.equal(github.commits.length, 1);
+    assert.deepEqual(github.commits[0].files, ['data/cloud-editorial/canary/scheduled-canary-1.json']);
+    assert.equal(github.pullRequests.length, 1);
+    assert.equal(first.branch, 'diem/canary/scheduled-canary-1');
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('rejects unsupported tools and refuses image inputs without inline bytes', async () => {
   const core = new DiemMcpCore({ githubClient: new MockGitHubClient(), now: () => NOW });
   await assert.rejects(() => core.call('shell', {}), /Unsupported DIEM MCP tool/u);

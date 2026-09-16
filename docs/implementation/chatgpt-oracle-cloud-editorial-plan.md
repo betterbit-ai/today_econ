@@ -462,7 +462,7 @@ curl --fail --silent --show-error https://mcp.<domain>/healthz
 
 #### 4-3. 무인 write PoC
 
-1. write scope를 `data/cloud-editorial/canary/<request-id>.json` 하나로 제한.
+1. `write_canary_proof`의 write scope를 `data/cloud-editorial/canary/<request-id>.json` 하나로 제한.
 2. 일반 웹 채팅에서 canary write.
 3. 같은 작업을 웹 예약 task로 한 번 실행.
 4. Mac과 데스크톱 앱을 끈 상태에서 완료 확인.

@@ -132,6 +132,7 @@ class DiemMcpCore {
     return [
       'get_pending_candidate_pack',
       'get_editorial_context',
+      'write_canary_proof',
       'submit_editorial_package',
       'ingest_generated_image',
       'attach_image_to_package',
@@ -187,6 +188,43 @@ class DiemMcpCore {
       try { performance = JSON.parse(await this.githubClient.readFile(performancePath)); } catch { performance = null; }
     }
     return { days: safeDays, performance, publicationContext: [] };
+  }
+
+  async write_canary_proof({ requestId, note = 'ChatGPT scheduled MCP canary' } = {}) {
+    const safeRequest = safeRequestId(requestId);
+    const existing = this.resultFor(`canary:${safeRequest}`);
+    if (existing) return existing;
+    const safeNote = String(note || '').normalize('NFC').replace(/\s+/gu, ' ').trim();
+    if (safeNote.length < 1 || safeNote.length > 280) throw new Error('[DIEM MCP] canary note must contain 1-280 characters.');
+    const canaryPath = safeRepositoryPath(`data/cloud-editorial/canary/${safeRequest}.json`);
+    const branch = `diem/canary/${safeRequest}`;
+    const content = {
+      schemaVersion: 1,
+      kind: 'chatgpt_mcp_canary',
+      requestId: safeRequest,
+      createdAt: this.now().toISOString(),
+      note: safeNote,
+      writeScope: 'data/cloud-editorial/canary only',
+    };
+    const commit = await this.githubClient.commitFiles({
+      branch,
+      files: [{ path: canaryPath, content: `${JSON.stringify(content, null, 2)}\n` }],
+      message: `DIEM MCP canary ${safeRequest}`,
+      requestId: safeRequest,
+    });
+    const pr = await this.githubClient.createPullRequest({
+      branch,
+      title: `DIEM canary: ${safeRequest}`,
+      body: `Restricted ChatGPT MCP canary. Allowed file: \`${canaryPath}\`.\n\nRequest ID: ${safeRequest}`,
+    });
+    return this.rememberResult(`canary:${safeRequest}`, {
+      status: 'submitted',
+      requestId: safeRequest,
+      branch,
+      commitSha: commit.commitSha,
+      pullRequestUrl: pr.url,
+      paths: [canaryPath],
+    });
   }
 
   async ingest_generated_image({ requestId, mimeType, dataBase64 } = {}) {

@@ -40,6 +40,10 @@ function createDiemMcpServer(core) {
   registerCoreTool(server, 'get_editorial_context', 'Read recent DIEM editorial performance context. It cannot publish or change repository settings.', {
     days: z.number().int().min(1).max(14).optional(),
   }, core);
+  registerCoreTool(server, 'write_canary_proof', 'Write one restricted canary JSON file and open a PR. It cannot write packages, workflows, settings, secrets, or Instagram content.', {
+    requestId: REQUEST_ID,
+    note: z.string().min(1).max(280).optional(),
+  }, core);
   registerCoreTool(server, 'ingest_generated_image', 'Store one generated editorial image supplied inline by the same task. Only PNG, JPEG, or WebP data is accepted; remote URLs are never fetched.', {
     requestId: REQUEST_ID,
     mimeType: z.enum(['image/png', 'image/jpeg', 'image/webp']).optional(),

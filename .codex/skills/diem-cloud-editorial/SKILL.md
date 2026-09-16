@@ -56,3 +56,10 @@ Use `submit_editorial_package` with a unique request ID. Check status once using
 `get_package_status`, then report package ID, PR link, rejection reason, and any
 required human action. Never call Instagram, alter a GitHub workflow, access a
 secret, execute a shell command, or fall back to Groq.
+
+## Capability canary only
+
+When explicitly instructed to perform the scheduled-write capability proof, do
+not prepare editorial content. Call `write_canary_proof` once with the supplied
+request ID, then report its PR link. This canary can write only one JSON file
+under `data/cloud-editorial/canary/` and never publishes anything.

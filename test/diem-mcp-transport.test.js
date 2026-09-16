@@ -20,6 +20,7 @@ test('registers the restricted MCP tool surface and uses constant-time bearer co
     'get_pending_candidate_pack',
     'ingest_generated_image',
     'submit_editorial_package',
+    'write_canary_proof',
   ]);
   assert.equal(equalSecret('secret', 'secret'), true);
   assert.equal(equalSecret('secret', 'different'), false);
