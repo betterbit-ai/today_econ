@@ -4,7 +4,7 @@
   "date": "2026-09-16",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-15T17:26:09.946Z",
-  "updatedAt": "2026-09-16T09:06:05.016Z",
+  "updatedAt": "2026-09-16T09:07:01.125Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -95,7 +95,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-120b/title_repair: title repair returned no valid title candidates for article frame | openai/gpt-oss-120b/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-20b/title_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: title repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "삼전닉스 급락시킨 샘 올트먼 이틀만에 돌변…“이번주에 큰거 온다”",
@@ -133,7 +135,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "“천명이나 만졌는데”…‘하체에 설사 잔뜩’ 우승女 민폐논란 사과한 주최측",
@@ -171,7 +175,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“결혼해 준다며 60억원 받아갔다”…톱스타·재벌남 사생활 막장 폭로전",
@@ -209,7 +215,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"연락 안 돼\" 숨진 채 발견…시신 상당 부분 백골화",
@@ -247,7 +255,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "하늘 뒤덮은 시커먼 연기…\"건물 무너질 위험\" 긴급대피",
@@ -285,7 +295,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"중국보다 무려 7년 이상 뒤처져\"…미국의 충격 현실",
@@ -9881,24 +9893,24 @@
     "economy": {
       "publicationKey": "diem:2026-09-16:economy:35077209782",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "경제 살렸다며 자화자찬하더니...국민 30%가 우유·계란 할부로 사는 미국",
-        "url": "https://n.news.naver.com/article/009/0005735894?ntype=RANKING",
+        "title": "\"중국보다 무려 7년 이상 뒤처져\"…미국의 충격 현실",
+        "url": "https://n.news.naver.com/article/055/0001388664?ntype=RANKING",
         "publishedDate": "2026-09-16",
-        "publishedAt": "2026-09-16 10:16:25",
+        "publishedAt": "2026-09-16 10:55:13",
         "observedAt": "2026-09-16T09:05:53.474Z",
-        "popularityScore": 97.9796,
+        "popularityScore": 85.8571,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 85.99,
-          "popularityScore": 97.9796,
+          "score": 82.47,
+          "popularityScore": 85.8571,
           "freshnessScore": 70,
-          "editorialValueScore": 74,
-          "ageHours": 7.82,
-          "publishedAt": "2026-09-16 10:16:25",
+          "editorialValueScore": 95,
+          "ageHours": 7.19,
+          "publishedAt": "2026-09-16 10:55:13",
           "observedAt": "2026-09-16T09:05:53.474Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -9917,53 +9929,53 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 2,
-            "normalizedScore": 97.9796,
-            "title": "경제 살렸다며 자화자찬하더니...국민 30%가 우유·계란 할부로 사는 미국",
-            "url": "https://n.news.naver.com/article/009/0005735894?ntype=RANKING"
+            "rank": 8,
+            "normalizedScore": 85.8571,
+            "title": "\"중국보다 무려 7년 이상 뒤처져\"…미국의 충격 현실",
+            "url": "https://n.news.naver.com/article/055/0001388664?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "식료품값 급등에 ‘선구매후결제’ 급증달걀·채소 같은 생필품 구매까지 번져서비스 이용 늘면 수수료부담 소비자에 지난 10일(현지시간) 미국 일리노이주 시카고의 한 식료품점에서 고객들이 장을 보고 있다. [AFP 연합뉴스]미국에서 식료품값 부담이 커지면서 ‘선구매 후결제(BNPL·Buy Now, Pay Later)’로 장을 보는 소비자가 빠르게 늘고 있다. 원래는 옷이나 전자기기처럼 비교적 큰 소비에 쓰이던 결제 방식이 이제 우유와 달걀, 채소 같은 생필품 구매로까지 번지고 있는 것이다.15일(현지시간) 미국 대출중개업체 렌딩트리의 2026년 보고서에 따르면 BNPL 이용자 가운데 29%는 식료품을 살 때 이 서비스를 써봤다고 답했다. 이는 1년 전 25%, 2년 전 14%보다 크게 늘어난 수치다. 식료품은 의류·신발(39%), 전자기기(34%)에 이어 BNPL 사용 품목 3위로 올라섰다.이 같은 변화는 단순한 결제 습관의 변화라기보다 생활고의 징후에 가깝다. 같은 조사에서 BNPL 이용자의 54%는 “이 서비스 없이는 생계를 꾸리기 어렵다”고 답했다. 또 47%는 지난 1년 사이 BNPL 대금을 한 번 이상 연체했다고 밝혔고, 25%는 한때 3건 이상의 BNPL 대출을 동시에 안고 있었다고 답했다. 쉽게 쓰기 시작했지만, 그만큼 상환 부담도 커지고 있다는 얘기다. 도널드 트럼프 미국 대통령. [로이터 연합뉴스]문제는 이런 결제가 개인의 가계 사정에서 끝나지 않을 수 있다는 점이다. 미국 경제지 포춘은 워싱턴대 세인트루이스 캠퍼스의 파노스 쿠벨리스 교수 연구를 인용해 BNPL 이용이 늘수록 소매업체가 수수료 부담을 가격에 전가할 가능성이 있다고 보도했다. 특히 마진이 얇은 식료품점은 BNPL 수수료를 감당하기 어려워 가격을 올리거나 재고를 줄일 수 있다는 것이다.이 흐름대로라면 BNPL을 쓰지 않는 소비자도 영향을 받는다. 일부 소비자가 결제를 나눠 하는 대신 전체 소비자가 더 비싼 가격을 떠안을 수 있다는 의미다. 포춘은 이를 두고 “현금이나 카드로 바로 결제하는 사람들까지 사실상 비용을 나눠 부담하는 구조”가 될 수 있다고 전했다.렌딩트리는 BNPL이 인기를 끄는 가장 큰 이유로 무이자 보다 쉬운 사용과 접근성을 꼽았다. BNPL 이용자의 31%는 ‘쓰기 쉬워서’ 27%는 ‘승인받기 쉬워서’ 사용한다고 답했다. 당장 지갑 사정이 빠듯한 소비자에게는 부담을 뒤로 미루는 방식이 매력적으로 보일 수밖에 없다.",
-        "summary": "식료품값 급등에 ‘선구매후결제’ 급증달걀·채소 같은 생필품 구매까지 번져서비스 이용 늘면 수수료부담 소비자에 지난 10일(현지시간) 미국 일리노이주 시카고의 한 식료품점에서 고객들이 장을 보고 있다. [AFP 연합뉴스]미국에서 식료품값 부담이 커지면서 ‘선구매 후결제(BNPL·Buy Now, Pay Later)’로 장을 보는 소비자가 빠르게 늘고 있다. 원래는 옷이나 전자기기처럼 비교적 큰 소비에 쓰이던 결제 방식이 이제 우유와 달걀, 채소 같은 생필품 구매로까지 번지고 있는 것이다.15일(현지시간) 미국 대출중개업체 렌딩트리의 2",
+        "fullText": "미국과 중국의 기술 패권 경쟁에서 미국이 직면한 가장 큰 약점은 반도체도, 인공지능도 아닌 '교육'이라는 지적이 나왔습니다. 15살 학생들의 수학 성적을 비교했더니 중국 참여 지역과 미국의 격차가 149점까지 벌어졌습니다. 월스트리트저널은 이 격차를 학습량으로 환산하면 무려 7년 이상 차이에 해당한다고 분석했습니다. 최근 발표된 국제 학업성취도 평가, PISA 2025에서 중국 베이징과 상하이, 장쑤성과 저장성 등 4개 참여 지역의 수학 평균 점수는 612점으로 전체 참여국과 경제권 가운데 가장 높았습니다. 반면 미국은 463점에 그쳤습니다. 격차는 더 벌어지는 추세입니다. 2018년과 비교하면 중국 참여 지역의 수학 점수는 591점에서 612점으로 21점 올랐지만, 미국은 478점에서 463점으로 15점 떨어졌습니다. 월스트리트저널은 중국의 상승 폭은 약 1년 치 학습 진전에, 미국의 하락 폭은 약 9개월 치 후퇴에 해당한다고 덧붙였습니다. 최상위권에서는 격차가 더 두드러졌습니다. 수학에서 최고 수준인 레벨 5와 6에 해당하는 학생은 중국 참여 지역에서는 절반이 넘는 54%, 미국에서는 8%에 그쳤습니다. 과학에서도 중국 참여 지역은 평균 597점으로 가장 높았고, 미국은 502점이었습니다. 월스트리트저널은 미국 기업들이 해외에서 고숙련 인력을 찾는 이유도 미국 학교가 고급 수학과 공학 능력을 갖춘 학생들을 충분히 길러내지 못하기 때문이라고 지적했습니다. 그동안 미국은 중국과의 기술 경쟁에 대응해 반도체와 배터리 등 첨단산업에 막대한 자금을 투입해 왔지만, 산업정책만큼이나 미래의 기술 인력을 길러내는 교육 경쟁력이 중요하다는 겁니다. 한국의 성적은 중국 참여 지역보다는 낮았지만 미국보다는 높았습니다. 수학은 한국이 522점으로 중국 참여 지역보다 90점 낮았지만 미국보다는 59점 높았습니다. 과학에서도 한국은 526점으로 중국 참여 지역의 597점보다는 낮았지만 미국의 502점은 웃돌았습니다. 월스트리트저널은 교육 문제를 단순히 예산을 더 투입하는 방식으로 해결할 수 없다며, 중국과의 기술 경쟁에서 미국이 해결해야 할 근본적인 과제가 교실 안에 있다고 지적했습니다. (취재 : 김민정 / 영상편집 : 김나온 / 디자인 : 이정주 / 제작 : 디지털뉴스부)",
+        "summary": "미국과 중국의 기술 패권 경쟁에서 미국이 직면한 가장 큰 약점은 반도체도, 인공지능도 아닌 '교육'이라는 지적이 나왔습니다. 15살 학생들의 수학 성적을 비교했더니 중국 참여 지역과 미국의 격차가 149점까지 벌어졌습니다. 월스트리트저널은 이 격차를 학습량으로 환산하면 무려 7년 이상 차이에 해당한다고 분석했습니다. 최근 발표된 국제 학업성취도 평가, PISA 2025에서 중국 베이징과 상하이, 장쑤성과 저장성 등 4개 참여 지역의 수학 평균 점수는 612점으로 전체 참여국과 경제권 가운데 가장 높았습니다. 반면 미국은 463점에 ",
         "topicSignature": {
           "category": "economy",
-          "target": "경제 살렸다며",
-          "event": "국민 30 우유",
-          "entities": [
-            "30"
-          ],
+          "target": "반도체",
+          "event": "상승",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 경제 살렸다며 | 30"
+          "text": "economy | 반도체 | 상승"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "경제 살렸다며",
+          "subject": "반도체",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "경제",
-            "살렸다며"
+            "반도체"
           ],
-          "eventKind": "general",
-          "eventLabel": "",
-          "eventTerms": [],
+          "eventKind": "semiconductor",
+          "eventLabel": "상승",
+          "eventTerms": [
+            "상승"
+          ],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "10일",
+          "date": "",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "credit"
+          "readerNeed": "market"
         },
         "editorialValue": {
           "ok": true,
-          "score": 74,
+          "score": 95,
           "signals": [
             "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
@@ -9971,56 +9983,41 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "경제 살렸다며",
+            "subject": "반도체",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "경제",
-              "살렸다며"
+              "반도체"
             ],
-            "eventKind": "general",
-            "eventLabel": "",
-            "eventTerms": [],
+            "eventKind": "semiconductor",
+            "eventLabel": "상승",
+            "eventTerms": [
+              "상승"
+            ],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "10일",
+            "date": "",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "credit"
+            "readerNeed": "market"
           },
-          "baseScore": 70,
+          "baseScore": 95,
           "performancePrior": {
-            "adjustment": 4,
-            "window": "7d",
-            "matched": [
-              {
-                "feature": "public_decision",
-                "samples": 39,
-                "exposureMedian": 1206,
-                "lift": 3.195,
-                "signal": "winner"
-              }
-            ],
-            "reason": "bounded_evidence_prior"
+            "adjustment": 0,
+            "window": null,
+            "matched": [],
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
-          "adjustment": 4,
-          "window": "7d",
-          "matched": [
-            {
-              "feature": "public_decision",
-              "samples": 39,
-              "exposureMedian": 1206,
-              "lift": 3.195,
-              "signal": "winner"
-            }
-          ],
-          "reason": "bounded_evidence_prior"
+          "adjustment": 0,
+          "window": null,
+          "matched": [],
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -10039,7 +10036,7 @@
             "status": "classified",
             "category": "economy",
             "excluded": [],
-            "ambiguous": false
+            "ambiguous": true
           }
         }
       },
@@ -10047,30 +10044,2063 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.7374,
+        "score": 0.7734,
         "method": "embedding",
         "reason": "gray_distinct_event",
-        "matchedPublicationKey": "diem:2026-09-11:economy:34607743556",
+        "matchedPublicationKey": "diem:2026-09-13:economy:34748519086",
         "signature": {
           "category": "economy",
-          "target": "경제 살렸다며",
-          "event": "국민 30 우유",
-          "entities": [
-            "30"
-          ],
+          "target": "반도체",
+          "event": "상승",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 경제 살렸다며 | 30"
+          "text": "economy | 반도체 | 상승"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "미국 교육\n7년 차이",
+            "lines": [
+              "미국 교육",
+              "7년 차이"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "미국 교육\n7년 차이",
+          "lines": [
+            "미국 교육",
+            "7년 차이"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "월스트리트저널은 PISA 2025 수학 성적을 분석해 미국이 중국보다 학습량으로 7년 이상 뒤처졌다고 밝혔습니다.📰",
+            "중국 베이징·상하이·장쑤·저장 4개 지역 평균 612점에 비해 미국은 463점으로 149점 차이이며, 2018년 대비 중국은 21점 상승, 미국은 15점 하락했습니다.",
+            "미국이 반도체·배터리 등에 막대한 투자를 해도 고급 수학·공학 인재 양성이 부족하면 기술 패권을 유지하기 어렵다는 점을 WSJ가 강조했습니다.📰"
+          ],
+          "text": "월스트리트저널은 PISA 2025 수학 성적을 분석해 미국이 중국보다 학습량으로 7년 이상 뒤처졌다고 밝혔습니다.📰\n\n중국 베이징·상하이·장쑤·저장 4개 지역 평균 612점에 비해 미국은 463점으로 149점 차이이며, 2018년 대비 중국은 21점 상승, 미국은 15점 하락했습니다.\n\n미국이 반도체·배터리 등에 막대한 투자를 해도 고급 수학·공학 인재 양성이 부족하면 기술 패권을 유지하기 어렵다는 점을 WSJ가 강조했습니다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #미국교육 #중국교육 #PISA #기술경쟁 #반도체 #상승",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#미국교육",
+            "#중국교육",
+            "#PISA",
+            "#기술경쟁",
+            "#반도체",
+            "#상승"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#미국교육",
+              "#중국교육",
+              "#PISA",
+              "#기술경쟁",
+              "#반도체",
+              "#상승"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:technology-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-16T09:06:53.369Z",
+        "assetPath": "assets/fallback/generated/technology-01.png",
+        "sha256": "ab9154d390b9cea6da9175323b7f49e6701037be73ec2748701eba1cc8d52d46",
+        "localSha256": "ab9154d390b9cea6da9175323b7f49e6701037be73ec2748701eba1cc8d52d46",
+        "generatedTopic": "technology",
+        "generatedEnergy": "calm",
+        "description": "Generic semiconductor wafer and unbranded microchip.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 19,
+            "suitableCount": 0,
+            "suitabilityRejected": 19,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:28812520",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37827719",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7395908",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7396389",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7395462",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:12506803",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "education",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5428013",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36769588",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8617960",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37811262",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8423045",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32426220",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18734743",
+                "rankWithinQuery": 13,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5428145",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18931276",
+                "rankWithinQuery": 15,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35290769",
+                "rankWithinQuery": 16,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8363722",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5905923",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5905458",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.8375
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 20,
+            "suitableCount": 1,
+            "suitabilityRejected": 19,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:nw-viHamgmU",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:XrWlSSW4DNM",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:AB72uX50Njo",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:zLbYAAz6F4U",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:LYL31WBHynQ",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:gEnM-OAr0Rg",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:gElGkbMnyKE",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:MtcBG4y3JJ8",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:FoB-ImUjLqE",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:l8c46wvbEv8",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:xaWCjNBEu5w",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:sjkXYJYrU5g",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:Go8pYLUhGg0",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8VRKYQ_pVwo",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:VOUicg8Ejus",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:FPx5Bn6PnuM",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:sundi8vhoiY",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cDKou5SvVwQ",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:bN79-xSUPwQ",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 1,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.625
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 14,
+            "suitableCount": 0,
+            "suitabilityRejected": 14,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:125920265",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920266",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920267",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920269",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:125920270",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:145913471",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:30842420",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:86369215",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:80497442",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "school"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:137155751",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "education",
+                  "classroom"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:92751802",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school",
+                  "education"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:92751809",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school",
+                  "education"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:92751810",
+                "rankWithinQuery": 13,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "school",
+                  "education"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "wikimedia:109258585",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "students",
+                  "school",
+                  "education",
+                  "classroom"
+                ],
+                "matchedConcreteTokens": [
+                  "students",
+                  "education"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7875
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "students school education classroom",
+            "count": 1,
+            "error": "404 {\"error\":{\"message\":\"The model `qwen/qwen3.6-27b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 25,
+          "recentKeyCount": 48,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:technology-01",
+            "ab9154d390b9cea6da9175323b7f49e6701037be73ec2748701eba1cc8d52d46"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated technology asset technology-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-magpiemusic-action-trailer-promo-rock-513687",
+        "mood": "bright",
+        "title": "Action Trailer Promo Rock",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/rock-action-trailer-promo-rock-513687/",
+        "sha256": "250b00f625931e22732a4d62beb328e849b67283234b5edf5309e25ba1cbeb1d",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-16T09:07:01.111Z"
       },
       "story": {
         "status": "planned",
@@ -10146,6 +12176,80 @@
           "limit": 3,
           "remaining": 1
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-16/economy/economy-cover.png",
+        "coverSha256": "1ca491f9aeb92672dad1e1da9114d466d82d3a9fca7a99b58f9d3f88f23782dd",
+        "followCtaPath": ".diem-cache/2026-09-16/economy/economy-follow-cta.png",
+        "followCtaSha256": "3ef1ca5488cd71017d9e70f4f617bf28e477fe829a104b8cbd9e1e7a0a121c73",
+        "reelPath": ".diem-cache/2026-09-16/economy/economy-reel.mp4",
+        "reelSha256": "9399434b4196d38faeec3abf9e61e6c234e117301343151da98f5ae1ff2d1e10",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "경제 살렸다며 자화자찬하더니...국민 30%가 우유·계란 할부로 사는 미국",
+            "url": "https://n.news.naver.com/article/009/0005735894?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-120b/title_repair: title repair returned no valid title candidates for article frame | openai/gpt-oss-120b/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/title_generation: model returned no valid title candidates for article frame | openai/gpt-oss-20b/title_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: title repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected non-whitespace character after JSON at position 351"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "succeeded",
+                "error": null
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "title_generation",
+                "status": "failed",
+                "error": "model returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "title_repair",
+                "status": "failed",
+                "error": "title repair returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "title repair failed: title repair returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "title_generation",
+                "status": "failed",
+                "error": "model returned no valid title candidates for article frame"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "title_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "title repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-16T09:06:35.485Z"
+          }
+        ],
+        "updatedAt": "2026-09-16T09:06:46.103Z"
       }
     },
     "issue": {
