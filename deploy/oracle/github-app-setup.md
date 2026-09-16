@@ -27,12 +27,13 @@ replaced with a personal access token or a GitHub Action token stored on Oracle.
 ## Place secrets on Oracle
 
 Run only on Oracle, replacing the placeholder source path with the downloaded
-PEM's temporary location. The directory is root-owned; the container sees the
-PEM read-only.
+PEM's temporary location. The directory is root-owned; the PEM is readable
+only by root and the container's non-root `diem` group (gid 101), then mounted
+read-only into the container.
 
 ```bash
 sudo install -d -m 0700 -o root -g root /etc/diem-mcp
-sudo install -m 0600 -o root -g root /PATH/TO/DOWNLOADED.pem /etc/diem-mcp/github-app.pem
+sudo install -m 0640 -o root -g 101 /PATH/TO/DOWNLOADED.pem /etc/diem-mcp/github-app.pem
 sudo install -d -m 0700 -o 100 -g 101 /var/lib/diem-mcp
 ```
 
@@ -51,8 +52,9 @@ GITHUB_APP_PRIVATE_KEY_HOST_PATH=/etc/diem-mcp/github-app.pem
 DIEM_MCP_STATE_DIR=/var/lib/diem-mcp
 ```
 
-Generate the bearer value locally on Oracle without printing it to a terminal
-record that will be shared:
+Generate the operator-only bearer fallback locally on Oracle without printing it
+to a terminal record that will be shared. Generate a separate authorization
+password for the initial ChatGPT OAuth consent page; do not reuse either value:
 
 ```bash
 openssl rand -base64 48

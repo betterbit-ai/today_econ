@@ -5,11 +5,13 @@ const path = require('path');
 const { McpServer } = require('@modelcontextprotocol/sdk/server/mcp.js');
 const { StreamableHTTPServerTransport } = require('@modelcontextprotocol/sdk/server/streamableHttp.js');
 const { createMcpExpressApp } = require('@modelcontextprotocol/sdk/server/express.js');
+const express = require('express');
 const z = require('zod/v4');
 
 const { DiemMcpCore } = require('./core');
 const { GitHubAppClient } = require('./github-app');
 const { MCP_INSTRUCTIONS } = require('./instructions');
+const { OAuthStore, authorizationForm, isChatgptClientId, isChatgptRedirectUri } = require('./oauth');
 
 const JSON_OBJECT = z.record(z.string(), z.unknown());
 const REQUEST_ID = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9_-]{2,127}$/u);
@@ -106,6 +108,104 @@ function allowedHosts(hostname) {
   return [...new Set([hostname, '127.0.0.1', 'localhost'].filter(Boolean))];
 }
 
+function createOAuthConfig(environment = process.env) {
+  const hostname = String(environment.MCP_PUBLIC_HOSTNAME || '').trim();
+  const password = String(environment.MCP_AUTHORIZATION_PASSWORD || environment.MCP_BEARER_TOKEN || '');
+  if (!hostname || !password) throw new Error('[DIEM MCP] MCP_PUBLIC_HOSTNAME and MCP_AUTHORIZATION_PASSWORD are required for OAuth.');
+  return {
+    issuer: `https://${hostname}`,
+    resource: `https://${hostname}/mcp`,
+    password,
+    scopes: 'diem:read diem:write',
+    store: new OAuthStore(path.join(environment.DIEM_MCP_ASSET_ROOT || '/var/lib/diem-mcp', 'oauth-state.json')),
+  };
+}
+
+function oauthError(response, error, status = 400) {
+  response.status(status).json({ error });
+}
+
+function mountOAuthRoutes(app, oauth) {
+  app.use(express.urlencoded({ extended: false }));
+  app.get('/.well-known/oauth-protected-resource', (_request, response) => response.json({
+    resource: oauth.resource,
+    authorization_servers: [oauth.issuer],
+    scopes_supported: oauth.scopes.split(' '),
+    resource_documentation: `${oauth.issuer}/mcp`,
+  }));
+  app.get('/.well-known/oauth-authorization-server', (_request, response) => response.json({
+    issuer: oauth.issuer,
+    authorization_response_iss_parameter_supported: true,
+    authorization_endpoint: `${oauth.issuer}/oauth/authorize`,
+    token_endpoint: `${oauth.issuer}/oauth/token`,
+    client_id_metadata_document_supported: true,
+    token_endpoint_auth_methods_supported: ['none'],
+    grant_types_supported: ['authorization_code', 'refresh_token'],
+    response_types_supported: ['code'],
+    code_challenge_methods_supported: ['S256'],
+    scopes_supported: oauth.scopes.split(' '),
+  }));
+  app.get('/oauth/authorize', (request, response) => {
+    const query = request.query || {};
+    if (query.response_type !== 'code' || !isChatgptClientId(query.client_id) || !isChatgptRedirectUri(query.redirect_uri)
+      || query.code_challenge_method !== 'S256' || !query.code_challenge || query.resource !== oauth.resource) {
+      response.status(400).send('Invalid OAuth authorization request.');
+      return;
+    }
+    response.type('html').send(authorizationForm(query));
+  });
+  app.post('/oauth/authorize', (request, response) => {
+    const body = request.body || {};
+    if (body.response_type !== 'code' || !isChatgptClientId(body.client_id) || !isChatgptRedirectUri(body.redirect_uri)
+      || body.code_challenge_method !== 'S256' || !body.code_challenge || body.resource !== oauth.resource || !equalSecret(oauth.password, body.password)) {
+      response.status(400).send('Authorization failed.');
+      return;
+    }
+    const requestedScopes = String(body.scope || oauth.scopes).split(/\s+/u).filter(Boolean);
+    const supported = new Set(oauth.scopes.split(' '));
+    if (requestedScopes.some(scope => !supported.has(scope))) {
+      response.status(400).send('Unsupported scope.');
+      return;
+    }
+    const code = oauth.store.createCode({
+      clientId: body.client_id,
+      redirectUri: body.redirect_uri,
+      codeChallenge: body.code_challenge,
+      resource: body.resource,
+      scope: requestedScopes.join(' '),
+    });
+    const redirect = new URL(body.redirect_uri);
+    redirect.searchParams.set('code', code);
+    if (body.state) redirect.searchParams.set('state', body.state);
+    redirect.searchParams.set('iss', oauth.issuer);
+    response.redirect(302, redirect.toString());
+  });
+  app.post('/oauth/token', (request, response) => {
+    const body = request.body || {};
+    try {
+      if (body.grant_type === 'authorization_code') {
+        if (!isChatgptClientId(body.client_id) || !isChatgptRedirectUri(body.redirect_uri) || !body.code || !body.code_verifier || body.resource !== oauth.resource) {
+          oauthError(response, 'invalid_request');
+          return;
+        }
+        response.json(oauth.store.exchangeCode({ code: body.code, clientId: body.client_id, redirectUri: body.redirect_uri, codeVerifier: body.code_verifier, resource: body.resource }));
+        return;
+      }
+      if (body.grant_type === 'refresh_token') {
+        if (!isChatgptClientId(body.client_id) || !body.refresh_token || body.resource !== oauth.resource) {
+          oauthError(response, 'invalid_request');
+          return;
+        }
+        response.json(oauth.store.refresh({ refreshToken: body.refresh_token, clientId: body.client_id, resource: body.resource }));
+        return;
+      }
+      oauthError(response, 'unsupported_grant_type');
+    } catch (error) {
+      oauthError(response, error.message === 'invalid_grant' ? 'invalid_grant' : 'invalid_request');
+    }
+  });
+}
+
 function createActiveCore(environment = process.env) {
   const privateKey = readSecretFile(environment.GITHUB_APP_PRIVATE_KEY_FILE, 'GitHub App private key');
   const githubClient = new GitHubAppClient({
@@ -145,12 +245,17 @@ function createActiveApp({ core, environment = process.env } = {}) {
   const bearerToken = environment.MCP_BEARER_TOKEN;
   if (!hostname || !bearerToken) throw new Error('[DIEM MCP] MCP_PUBLIC_HOSTNAME and MCP_BEARER_TOKEN are required in active mode.');
   const app = createMcpExpressApp({ host: environment.HOST || '0.0.0.0', allowedHosts: allowedHosts(hostname) });
+  const oauth = createOAuthConfig(environment);
+  mountOAuthRoutes(app, oauth);
   app.get('/healthz', (_request, response) => {
     response.status(200).json({ status: 'ok', service: 'diem-mcp', mode: 'active', transport: 'streamable-http' });
   });
   app.use('/mcp', (request, response, next) => {
-    if (!equalSecret(bearerToken, suppliedCredential(request.headers))) {
-      response.status(401).set('WWW-Authenticate', 'Bearer').json({
+    const credential = suppliedCredential(request.headers);
+    const sharedSecretAuthenticated = equalSecret(bearerToken, credential);
+    const oauthAuthenticated = Boolean(oauth.store.access(credential, { resource: oauth.resource }));
+    if (!sharedSecretAuthenticated && !oauthAuthenticated) {
+      response.status(401).set('WWW-Authenticate', `Bearer resource_metadata="${oauth.issuer}/.well-known/oauth-protected-resource", scope="${oauth.scopes}"`).json({
         jsonrpc: '2.0', error: { code: -32001, message: 'Unauthorized' }, id: null,
       });
       return;
@@ -194,10 +299,12 @@ module.exports = {
   createActiveApp,
   createActiveCore,
   createDiemMcpServer,
+  createOAuthConfig,
   createConnectivityCanaryApp,
   createConnectivityCanaryServer,
   allowedHosts,
   equalSecret,
+  mountOAuthRoutes,
   suppliedCredential,
   runServer,
 };

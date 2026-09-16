@@ -156,4 +156,39 @@
 - 아직 **ChatGPT 계정 UI에서 이 endpoint를 custom app으로 등록해 호출한 증거는
   없다.** 이 작업이 단계 4-1의 남은 한 단계다.
 
+## 완료: ChatGPT custom MCP read gate와 GitHub App identity
+
+- ChatGPT personal Developer Mode를 활성화하고 no-auth `DIEM MCP Connectivity
+  Canary`를 등록했다. ChatGPT chat에서 실제 `get_mcp_canary_status` 호출이
+  성공했고 모든 접근 필드가 `none`으로 반환됐다.
+- GitHub App `bb-diem-oracle-mcp` (App ID `4960810`)을 생성하고
+  `betterbit-ai/today_econ` 한 저장소에만 설치했다 (Installation ID
+  `162089846`). 권한은 metadata read, Contents read/write, Pull requests
+  read/write뿐이다.
+- PEM은 Oracle `/etc/diem-mcp/github-app.pem`에 설치됐고, non-root Docker
+  process가 read-only mount를 읽을 수 있도록 host ownership을 `root:101`, mode
+  `0640`으로 조정한다. state dir는 uid 100/gid 101 전용이다.
+
+## 완료: ChatGPT OAuth + Oracle active transport
+
+- ChatGPT의 authenticated MCP는 static API key가 아니라 OAuth 2.1
+  authorization-code + PKCE를 요구한다는 공식 문서를 확인했다. static API-key
+  personal app은 tool invocation에 사용하지 않고 OAuth app으로 교체했다.
+- Oracle은 RFC 9728 protected-resource metadata, OAuth authorization-server
+  metadata, PKCE `S256` authorization-code, refresh-token rotation을 제공한다.
+  `authorization_response_iss_parameter_supported=true`를 광고해 ChatGPT의
+  stable callback URL과 issuer identification을 맞췄다.
+- ChatGPT `openai-connectors-oauth/1.0` token exchange가 `200`으로 완료됐고,
+  Oracle에는 access token과 refresh token이 각각 하나씩 (값은 노출하지 않음)
+  저장됐다. 이어진 authenticated MCP initialize/tool-list requests도 200으로
+  확인됐다.
+- Oracle active container는 `healthy`이며 anonymous `/mcp`는 401과
+  `resource_metadata` challenge로 fail-closed한다. OAuth password는 static
+  fallback key와 별도 random secret으로 회전했고, local temporary secret files는
+  삭제했다.
+- 아직 ChatGPT usage limit 때문에 authenticated candidate read의 UI 응답과
+  cloud scheduled write canary를 다시 실행하지 못했다. 이 두 항목은 external
+  capability gate의 남은 증거다. 기존 Instagram schedule은 여전히 변경하지
+  않았다.
+
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.

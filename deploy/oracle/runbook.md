@@ -40,7 +40,8 @@ but its default process stays in `mock` mode. It starts real transport only
 with the explicit `compose.active.yml` overlay and all of the following:
 
 - a repository-scoped GitHub App configuration;
-- a root-owned GitHub App PEM file mounted read-only;
+- a root-owned GitHub App PEM file mounted read-only and readable only by the
+  container's `diem` gid (101);
 - a high-entropy `MCP_BEARER_TOKEN` kept outside Git;
 - a host state directory owned by the container's `diem` user for idempotency
   results and short-lived image assets.
@@ -60,10 +61,12 @@ curl --fail --silent http://127.0.0.1:3000/healthz
 ```
 
 The real endpoint accepts only `POST /mcp` with the expected host header and
-`Authorization: Bearer …`; it has no shell, publish, workflow, or secret tool.
-The current persistent credential is a transport preflight, not evidence that
-ChatGPT scheduled tasks can authenticate. Do not call the capability gate
-passed until ChatGPT itself has completed an authenticated tool call.
+OAuth Bearer access token. It has no shell, publish, workflow, or secret tool.
+The server publishes protected-resource and OAuth authorization-server metadata
+at its exact allowlisted `/.well-known/` paths. A static bearer key exists only
+as an operator fallback; ChatGPT uses OAuth 2.1 authorization-code + PKCE and
+rotating refresh tokens. Do not call the capability gate passed until ChatGPT
+itself has completed an authenticated tool call.
 
 ## Read-only ChatGPT connector canary
 

@@ -11,9 +11,11 @@ Before production deployment:
 3. Keep the existing Nginx reverse proxy with a valid public TLS certificate.
    The compose service must bind only to `127.0.0.1:3000`.
 4. Store the GitHub App private key and MCP authentication material outside Git,
-   in OCI Vault or root-owned files with mode `0600`.
+   in OCI Vault or root-owned files. For this non-root container the PEM uses
+   `root:101` and mode `0640`, allowing only its `diem` gid to read a read-only
+   mount; keep every other secret at `0600`.
 5. Install the GitHub App only on `betterbit-ai/today_econ` with Metadata read,
-   Contents read/write, Pull requests read/write, and Actions read. Do not grant
+   Contents read/write, and Pull requests read/write. Do not grant Actions,
    Workflows, Administration, Secrets, or Instagram access.
 6. Keep the container non-root, read-only, capability-free, and restartable.
    The only writable mount is the dedicated `DIEM_MCP_STATE_DIR`; create it

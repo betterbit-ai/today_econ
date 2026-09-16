@@ -117,6 +117,7 @@ test('prepares a staged package with stored editorial content and never calls a 
   try {
     const prepared = await prepareDailyPackage(ledger, 'economy', {
       package: pack,
+      now: NOW,
       artifactRoot,
       callModel: async () => { modelCalls += 1; },
       renderCoverImpl: async ({ outputPath, followCtaOutputPath }) => {
