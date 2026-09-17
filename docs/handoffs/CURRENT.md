@@ -45,8 +45,11 @@ DIEM은 네이버 인기 경제·시사 후보를 수집하고, 분류·신선�
 ## 2026-09-17 클라우드 editorial 전환 상태
 
 ChatGPT OAuth MCP의 일반 write와 cloud Scheduled write canary는 실제 GitHub PR까지
-검증됐다 (각각 PR #80, #81). Oracle active service는 `mcp.talkwithme.r-e.kr`의
-TLS endpoint에서 건강하며 GitHub App은 canary path만 쓰도록 제한돼 있다.
+도달했다 (각각 PR #80, #81). 다만 #81은 처음 실행이 권한 대기 후 재개된 결과이므로,
+상시 권한 저장 뒤 browser interaction 없이 종료되는 새 Scheduled canary가 있어야
+무인/Mac-off gate를 통과로 선언할 수 있다. Oracle active service는
+`mcp.talkwithme.r-e.kr`의 TLS endpoint에서 건강하며 GitHub App은 canary path만 쓰도록
+제한돼 있다.
 
 남은 capability gate는 ImageGen의 실제 image bytes handoff다. `ingest_generated_image`
 → `write_image_canary_proof`는 SHA/MIME/asset-root를 재검증하고 canary image+manifest

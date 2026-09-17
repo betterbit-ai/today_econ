@@ -211,11 +211,14 @@
   merge하지 않았다.
 - one-time ChatGPT Scheduled task `DIEM Scheduled Canary`는 실행 위치가
   **클라우드**로 표시된 상태에서 `write_canary_proof`를 호출해 PR
-  [#81](https://github.com/betterbit-ai/today_econ/pull/81)을 만들었다. 이는 Mac이나
-  Codex desktop process에 의존하지 않는 scheduled-write 경로의 실제 실행 증거다.
+  [#81](https://github.com/betterbit-ai/today_econ/pull/81)을 만들었다. 이는 cloud
+  scheduled task가 Oracle MCP와 GitHub까지 도달한다는 실제 실행 증거다.
 - 처음 실행은 ChatGPT의 per-call approval에서 대기했다. 사용자 승인으로 이 MCP의
   제한된 canary write 도구만 상시 허용한 뒤 동일 task가 재개돼 성공했다. 이 권한은
   package/Instagram/workflow/secret/shell 도구를 추가하지 않는다.
+- 따라서 이 run 하나만으로는 **사람 개입 없는** scheduled-write gate를 통과로
+  선언하지 않는다. 상시 권한이 저장된 뒤 새 one-time task가 정해진 시각에 browser
+  interaction 없이 PR을 만드는 재실행이 필요하다.
 - 기존 Instagram production schedule과 workflow는 여전히 수정하지 않았다.
 
 ## 완료: stateless image-handoff canary 준비
@@ -231,13 +234,16 @@
 
 ## 다음 재개 작업
 
-1. 새 ChatGPT chat 또는 Scheduled task에서 ImageGen으로 사람·문자·로고 없는 세로
+1. 상시 권한이 저장된 상태로 새 one-time cloud Scheduled canary를 만들고, 지정 시각에
+   browser interaction 없이 PR을 생성하는지 확인한다. 이것이 Mac-off/unattended gate의
+   결정 증거다.
+2. 새 ChatGPT chat 또는 Scheduled task에서 ImageGen으로 사람·문자·로고 없는 세로
    PNG를 만들고, 그 **실제 bytes**를 `ingest_generated_image`에 넘긴 뒤
    `write_image_canary_proof`로 PR을 생성한다. ImageGen UI가 bytes 전달을 지원하지
    않으면 우회하지 않고 세 번째 gate를 실패 처리한다.
-2. 같은 image handoff를 cloud Scheduled task에서 한 번 더 실행해, on-device helper
+3. 같은 image handoff를 cloud Scheduled task에서 한 번 더 실행해, on-device helper
    없이 완료되는지 확인한다.
-3. 이 두 증거가 모두 기록되기 전에는 PR #77을 main에 merge하거나 기존 Instagram
+4. 이 세 증거가 모두 기록되기 전에는 PR #77을 main에 merge하거나 기존 Instagram
    schedule을 변경하지 않는다.
 
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.
