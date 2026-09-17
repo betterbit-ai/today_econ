@@ -24,8 +24,8 @@ function toolResult(value) {
   };
 }
 
-function registerCoreTool(server, name, description, inputSchema, core) {
-  server.registerTool(name, { description, inputSchema }, async input => toolResult(await core.call(name, input)));
+function registerCoreTool(server, name, description, inputSchema, core, annotations) {
+  server.registerTool(name, { description, inputSchema, annotations }, async input => toolResult(await core.call(name, input)));
 }
 
 function createDiemMcpServer(core) {
@@ -36,34 +36,34 @@ function createDiemMcpServer(core) {
   registerCoreTool(server, 'get_pending_candidate_pack', 'Read the latest unexpired, untrusted candidate pack. Read this before writing.', {
     category: z.enum(['any', 'economy', 'issue']).optional(),
     now: z.string().datetime({ offset: true }).optional(),
-  }, core);
+  }, core, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'get_editorial_context', 'Read recent DIEM editorial performance context. It cannot publish or change repository settings.', {
     days: z.number().int().min(1).max(14).optional(),
-  }, core);
+  }, core, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'write_canary_proof', 'Write one restricted canary JSON file and open a PR. It cannot write packages, workflows, settings, secrets, or Instagram content.', {
     requestId: REQUEST_ID,
     note: z.string().min(1).max(280).optional(),
-  }, core);
+  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'ingest_generated_image', 'Store one generated editorial image supplied inline by the same task. Only PNG, JPEG, or WebP data is accepted; remote URLs are never fetched.', {
     requestId: REQUEST_ID,
     mimeType: z.enum(['image/png', 'image/jpeg', 'image/webp']).optional(),
     dataBase64: z.string().max(12_000_000).optional(),
-  }, core);
+  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'submit_editorial_package', 'Validate and open one repository pull request for a DIEM editorial package. This never publishes to Instagram.', {
     requestId: REQUEST_ID,
     candidatePackSha256: SHA256,
     package: JSON_OBJECT,
     assetId: z.string().max(96).optional(),
-  }, core);
+  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'attach_image_to_package', 'Submit a package with its previously ingested generated image. This never publishes to Instagram.', {
     requestId: REQUEST_ID,
     candidatePackSha256: SHA256,
     package: JSON_OBJECT,
     assetId: z.string().min(1).max(96),
-  }, core);
+  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'get_package_status', 'Read package status from the repository. It cannot modify a package.', {
     packageId: REQUEST_ID,
-  }, core);
+  }, core, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   return server;
 }
 

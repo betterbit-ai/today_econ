@@ -22,6 +22,12 @@ test('registers the restricted MCP tool surface and uses constant-time bearer co
     'submit_editorial_package',
     'write_canary_proof',
   ]);
+  assert.deepEqual(server._registeredTools.write_canary_proof.annotations, {
+    readOnlyHint: false,
+    destructiveHint: false,
+    idempotentHint: true,
+    openWorldHint: false,
+  });
   assert.equal(equalSecret('secret', 'secret'), true);
   assert.equal(equalSecret('secret', 'different'), false);
   assert.equal(suppliedCredential({ authorization: 'Bearer secret' }), 'secret');
