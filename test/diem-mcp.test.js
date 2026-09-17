@@ -151,6 +151,38 @@ test('writes exactly one idempotent canary file on a dedicated branch', async ()
   }
 });
 
+test('persists an ingested image across stateless MCP calls before writing a restricted image canary', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-image-canary-'));
+  const github = new MockGitHubClient();
+  const png = Buffer.from('89504e470d0a1a0a', 'hex');
+  try {
+    const firstCall = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
+    const asset = await firstCall.call('ingest_generated_image', {
+      requestId: 'image-ingest-1',
+      mimeType: 'image/png',
+      dataBase64: png.toString('base64'),
+    });
+    const secondCall = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
+    const submitted = await secondCall.call('write_image_canary_proof', {
+      requestId: 'image-canary-1',
+      assetId: asset.assetId,
+    });
+    const replay = await secondCall.call('write_image_canary_proof', {
+      requestId: 'image-canary-1',
+      assetId: asset.assetId,
+    });
+    assert.equal(submitted.commitSha, replay.commitSha);
+    assert.equal(github.commits.length, 1);
+    assert.deepEqual(github.commits[0].files, [
+      'data/cloud-editorial/canary/image-canary-1.png',
+      'data/cloud-editorial/canary/image-canary-1.json',
+    ]);
+    assert.equal(github.pullRequests.length, 1);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('rejects unsupported tools and refuses image inputs without inline bytes', async () => {
   const core = new DiemMcpCore({ githubClient: new MockGitHubClient(), now: () => NOW });
   await assert.rejects(() => core.call('shell', {}), /Unsupported DIEM MCP tool/u);

@@ -135,6 +135,7 @@ class DiemMcpCore {
       'write_canary_proof',
       'submit_editorial_package',
       'ingest_generated_image',
+      'write_image_canary_proof',
       'attach_image_to_package',
       'get_package_status',
     ];
@@ -249,7 +250,73 @@ class DiemMcpCore {
       expiresAt: new Date(this.now().getTime() + ASSET_TTL_MS).toISOString(),
     };
     this.assets.set(assetId, { ...result, requestId: safeRequest });
+    this.rememberResult(`asset:${assetId}`, { ...result, requestId: safeRequest });
     return this.rememberResult(`image:${safeRequest}`, result);
+  }
+
+  assetFor(assetId) {
+    const safeAssetId = String(assetId || '').trim();
+    const inMemory = this.assets.get(safeAssetId);
+    const persisted = inMemory || this.requestStore.get(`asset:${safeAssetId}`);
+    if (!persisted || persisted.assetId !== safeAssetId) throw new Error('[DIEM MCP] Generated image asset was not found.');
+    if (new Date(persisted.expiresAt).getTime() <= this.now().getTime()) throw new Error('[DIEM MCP] Generated image asset expired.');
+    const assetPath = path.resolve(String(persisted.path || ''));
+    const rootPrefix = `${this.assetRoot}${path.sep}`;
+    if (!assetPath.startsWith(rootPrefix) || !fs.existsSync(assetPath)) throw new Error('[DIEM MCP] Generated image asset was not found.');
+    const buffer = fs.readFileSync(assetPath);
+    const mimeType = assertImageBuffer(buffer, persisted.mimeType);
+    if (sha256(buffer) !== persisted.sha256) throw new Error('[DIEM MCP] Generated image asset integrity check failed.');
+    const asset = { ...persisted, path: assetPath, mimeType };
+    this.assets.set(safeAssetId, asset);
+    return asset;
+  }
+
+  async write_image_canary_proof({ requestId, assetId } = {}) {
+    const safeRequest = safeRequestId(requestId);
+    const existing = this.resultFor(`image-canary:${safeRequest}`);
+    if (existing) return existing;
+    const asset = this.assetFor(assetId);
+    const extension = asset.mimeType === 'image/png' ? 'png' : asset.mimeType === 'image/jpeg' ? 'jpg' : 'webp';
+    const imagePath = safeRepositoryPath(`data/cloud-editorial/canary/${safeRequest}.${extension}`);
+    const manifestPath = safeRepositoryPath(`data/cloud-editorial/canary/${safeRequest}.json`);
+    const branch = `diem/canary/${safeRequest}`;
+    const manifest = {
+      schemaVersion: 1,
+      kind: 'chatgpt_image_handoff_canary',
+      requestId: safeRequest,
+      createdAt: this.now().toISOString(),
+      asset: {
+        assetId: asset.assetId,
+        mimeType: asset.mimeType,
+        bytes: asset.bytes,
+        sha256: asset.sha256,
+        path: imagePath,
+      },
+      writeScope: 'data/cloud-editorial/canary only',
+    };
+    const commit = await this.githubClient.commitFiles({
+      branch,
+      files: [
+        { path: imagePath, content: fs.readFileSync(asset.path) },
+        { path: manifestPath, content: `${JSON.stringify(manifest, null, 2)}\n` },
+      ],
+      message: `DIEM MCP image canary ${safeRequest}`,
+      requestId: safeRequest,
+    });
+    const pr = await this.githubClient.createPullRequest({
+      branch,
+      title: `DIEM image canary: ${safeRequest}`,
+      body: `Restricted ImageGen handoff canary. Allowed files: \`${imagePath}\` and \`${manifestPath}\`.\n\nRequest ID: ${safeRequest}`,
+    });
+    return this.rememberResult(`image-canary:${safeRequest}`, {
+      status: 'submitted',
+      requestId: safeRequest,
+      branch,
+      commitSha: commit.commitSha,
+      pullRequestUrl: pr.url,
+      paths: [imagePath, manifestPath],
+      sha256: asset.sha256,
+    });
   }
 
   async submit_editorial_package({ requestId, candidatePackSha256, package: item, assetId } = {}) {
@@ -261,9 +328,7 @@ class DiemMcpCore {
     }
     const packageCopy = structuredClone(item || {});
     if (assetId) {
-      const asset = this.assets.get(String(assetId));
-      if (!asset) throw new Error('[DIEM MCP] Generated image asset was not found.');
-      if (new Date(asset.expiresAt).getTime() <= this.now().getTime()) throw new Error('[DIEM MCP] Generated image asset expired.');
+      const asset = this.assetFor(assetId);
       packageCopy.visual ||= {};
       packageCopy.visual.kind = 'chatgpt-generated-editorial';
       packageCopy.visual.assetPath = 'background.png';
@@ -276,7 +341,7 @@ class DiemMcpCore {
     const paths = dailyPackagePaths(packageCopy);
     const files = [{ path: safeRepositoryPath(paths.packagePath), content: `${JSON.stringify(packageCopy, null, 2).normalize('NFC')}\n` }];
     if (assetId) {
-      const asset = this.assets.get(String(assetId));
+      const asset = this.assetFor(assetId);
       files.push({ path: safeRepositoryPath(paths.imagePath), content: fs.readFileSync(asset.path) });
     }
     const branch = `diem/editorial/${packageCopy.runId}/${packageCopy.category}`;

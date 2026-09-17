@@ -21,6 +21,7 @@ test('registers the restricted MCP tool surface and uses constant-time bearer co
     'ingest_generated_image',
     'submit_editorial_package',
     'write_canary_proof',
+    'write_image_canary_proof',
   ]);
   assert.deepEqual(server._registeredTools.write_canary_proof.annotations, {
     readOnlyHint: false,

@@ -49,6 +49,10 @@ function createDiemMcpServer(core) {
     mimeType: z.enum(['image/png', 'image/jpeg', 'image/webp']).optional(),
     dataBase64: z.string().max(12_000_000).optional(),
   }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
+  registerCoreTool(server, 'write_image_canary_proof', 'Write one generated-image handoff canary and manifest under the restricted canary path, then open a PR. It never publishes or writes packages, workflows, settings, or secrets.', {
+    requestId: REQUEST_ID,
+    assetId: z.string().min(1).max(96),
+  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'submit_editorial_package', 'Validate and open one repository pull request for a DIEM editorial package. This never publishes to Instagram.', {
     requestId: REQUEST_ID,
     candidatePackSha256: SHA256,
