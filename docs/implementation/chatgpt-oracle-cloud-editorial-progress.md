@@ -203,18 +203,41 @@
 - Oracle active 서비스에는 OAuth 2.1과 `write_canary_proof`가 배포됐고
   health는 `healthy`, anonymous `/mcp`는 401이다.
 
-### 다음 재개 작업 (ChatGPT usage reset 뒤)
+## 완료: ChatGPT OAuth live write와 cloud scheduled-write gate
 
-1. `DIEM Editorial OAuth MCP v2`를 선택한 새 web chat에서
-   `write_canary_proof`를 request ID `scheduled-canary-<KST date>-01`로
-   한 번 호출한다. PR의 경로가 canary JSON 한 개인지 확인한다.
-2. 같은 prompt를 ChatGPT Scheduled에서 one-time task로 생성하고, Mac/desktop
-   앱을 종료한 상태로 실행 결과와 PR을 확인한다. task가 approval 때문에
-   pause되면 gate는 실패다.
-3. 예약 run에서 ImageGen으로 사람·문자·로고 없는 세로 PNG를 만들고
-   `ingest_generated_image` → `attach_image_to_package`가 같은 run 안에서
-   GitHub SHA/MIME/size 검증을 통과하는지 확인한다.
-4. 세 결과가 모두 기록되기 전에는 PR #77을 main에 merge하거나 기존 Instagram
+- 일반 ChatGPT chat은 `write_canary_proof`를 호출해 PR
+  [#80](https://github.com/betterbit-ai/today_econ/pull/80)을 만들었다. 변경 파일은
+  `data/cloud-editorial/canary/chatgpt-live-20260917-01.json` 한 개뿐이며 main에는
+  merge하지 않았다.
+- one-time ChatGPT Scheduled task `DIEM Scheduled Canary`는 실행 위치가
+  **클라우드**로 표시된 상태에서 `write_canary_proof`를 호출해 PR
+  [#81](https://github.com/betterbit-ai/today_econ/pull/81)을 만들었다. 이는 Mac이나
+  Codex desktop process에 의존하지 않는 scheduled-write 경로의 실제 실행 증거다.
+- 처음 실행은 ChatGPT의 per-call approval에서 대기했다. 사용자 승인으로 이 MCP의
+  제한된 canary write 도구만 상시 허용한 뒤 동일 task가 재개돼 성공했다. 이 권한은
+  package/Instagram/workflow/secret/shell 도구를 추가하지 않는다.
+- 기존 Instagram production schedule과 workflow는 여전히 수정하지 않았다.
+
+## 완료: stateless image-handoff canary 준비
+
+- Streamable HTTP는 호출마다 core가 새로 만들어지므로 image asset을 process memory에만
+  두면 `ingest_generated_image` 다음 호출에서 asset을 찾을 수 없었다. asset metadata를
+  private state file에 유지하고 SHA-256·MIME·asset-root 검사를 다시 수행하도록 수정했다.
+- `write_image_canary_proof`는 이미지 한 장과 JSON manifest만
+  `data/cloud-editorial/canary/`에 쓰는 별도 tool이다. package, workflow, settings,
+  secret, Instagram에는 접근하지 않는다.
+- 이 코드는 Oracle active container에 배포됐고 health는 `healthy`다. 아직 ChatGPT
+  ImageGen의 실제 PNG bytes를 MCP input으로 넘긴 live proof는 실행 전이다.
+
+## 다음 재개 작업
+
+1. 새 ChatGPT chat 또는 Scheduled task에서 ImageGen으로 사람·문자·로고 없는 세로
+   PNG를 만들고, 그 **실제 bytes**를 `ingest_generated_image`에 넘긴 뒤
+   `write_image_canary_proof`로 PR을 생성한다. ImageGen UI가 bytes 전달을 지원하지
+   않으면 우회하지 않고 세 번째 gate를 실패 처리한다.
+2. 같은 image handoff를 cloud Scheduled task에서 한 번 더 실행해, on-device helper
+   없이 완료되는지 확인한다.
+3. 이 두 증거가 모두 기록되기 전에는 PR #77을 main에 merge하거나 기존 Instagram
    schedule을 변경하지 않는다.
 
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.

@@ -1,9 +1,9 @@
 # DIEM 현재 상태와 새 세션 시작점
 
-- 갱신일: 2026-09-15 KST
-- 최신 원격 기준: `74e4438 Retain Instagram growth evidence for editorial decisions`
-- 로컬 브랜치: `main`, 원격보다 1커밋 앞섬
-- 로컬 미배포 커밋: `60ac8eb Restore trustworthy web imagery before fallback`
+- 갱신일: 2026-09-17 KST
+- 활성 구현 브랜치: `codex/chatgpt-oracle-editorial` (PR #77은 draft이며 merge 금지)
+- 최신 활성 커밋: `c5c3505 Preserve image assets across stateless MCP calls`
+- production Instagram workflow와 예약 발행은 변경하지 않았다.
 - 상세 성과 진단: [`2026-09-15-performance-decline.md`](2026-09-15-performance-decline.md)
 - 생성 보고서: [`../../data/reports/diem-performance.md`](../../data/reports/diem-performance.md)
 - 활성 구현 계획: [`../implementation/chatgpt-oracle-cloud-editorial-plan.md`](../implementation/chatgpt-oracle-cloud-editorial-plan.md)
@@ -42,7 +42,19 @@ DIEM은 네이버 인기 경제·시사 후보를 수집하고, 분류·신선�
 - 테스트: `test/v2-*.test.js`
 - 전체 검증: `node .codex-harness/scripts/verify-project.mjs`
 
-## 2026-09-15 현재 판단
+## 2026-09-17 클라우드 editorial 전환 상태
+
+ChatGPT OAuth MCP의 일반 write와 cloud Scheduled write canary는 실제 GitHub PR까지
+검증됐다 (각각 PR #80, #81). Oracle active service는 `mcp.talkwithme.r-e.kr`의
+TLS endpoint에서 건강하며 GitHub App은 canary path만 쓰도록 제한돼 있다.
+
+남은 capability gate는 ImageGen의 실제 image bytes handoff다. `ingest_generated_image`
+→ `write_image_canary_proof`는 SHA/MIME/asset-root를 재검증하고 canary image+manifest
+PR만 만들도록 준비·배포됐다. ChatGPT ImageGen UI가 bytes를 MCP tool input으로 전달할
+수 있는지 normal chat과 cloud Scheduled 양쪽에서 아직 증명해야 한다. 실패하면
+fallback을 발명하지 않고 cloud ImageGen을 production flow에 연결하지 않는다.
+
+## 2026-09-15 성과 판단
 
 성과 하락은 확인됐다. 정시 수집된 24h 표본에서 2026-07-25~08-22 대비
 2026-09-09~15 조회 중앙값은 Economy 787→176(-77.6%), Issue
