@@ -1,14 +1,14 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 227편
-- 생성 시각: 2026-09-16T19:24:39.347Z
+- 발행 원장 Reel: 228편
+- 생성 시각: 2026-09-17T00:07:12.466Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
-- economy: 표본 63편 · 노출 중앙값 224 · 공유율 0% · 저장률 0%
+- economy: 표본 65편 · 노출 중앙값 224 · 공유율 0% · 저장률 0%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
-  - 특성 신호: housing_money winner×2.31, event:ipo insufficient_data×2.1, market_shock insufficient_data×1.88, event:housing_policy winner×1.73, event:insurance_premium insufficient_data×0.74, event:political_statement insufficient_data×0.7
+  - 특성 신호: housing_money winner×2.15, event:ipo insufficient_data×2.1, market_shock insufficient_data×1.88, event:housing_policy winner×1.73, event:insurance_premium insufficient_data×0.74, event:political_statement insufficient_data×0.7
 - issue: 표본 70편 · 노출 중앙값 484 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
   - 부진 후보: 모기 활동 / 주의 권고(24), 박선원 공개 / 공익제보자 위반(40), 네팔 대홍수 / 보도(73), 빌라 3채 / 도서관마을(141), 미국 대학 / 입학 러브콜(141)
@@ -38,9 +38,9 @@
 - 정시 비교에서 제외한 늦은 백필: 40편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 18.5%
-- 생성 배경 폴백률: 33.48% · 전체 폴백률: 51.98%
-- 이미지 공급원: pexels 98편, diem-generated 76편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 타이포그래피 폴백률: 18.42%
+- 생성 배경 폴백률: 33.77% · 전체 폴백률: 52.19%
+- 이미지 공급원: pexels 98편, diem-generated 77편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 95건, unknown 44건
