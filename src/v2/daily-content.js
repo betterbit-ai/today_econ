@@ -21,6 +21,7 @@ const { renderDiemCover } = require('./cover');
 const { buildTopicSignature, classifyCandidate } = require('./topic');
 const { validateEditorial } = require('./editorial');
 const { normalizeNfc } = require('./text');
+const { resolveVisualLibraryAsset } = require('./visual-library');
 
 const DAILY_CONTENT_TYPE = 'diem_daily';
 const DAILY_PACKAGE_SCHEMA_VERSION = 1;
@@ -97,6 +98,9 @@ function sourceArticle(item = {}) {
 }
 
 function visualFilePath(item = {}) {
+  if (item.visual?.kind === 'diem-library') {
+    return resolveVisualLibraryAsset(item.visual.assetId).assetPath;
+  }
   const relativePath = item.visual?.assetPath;
   if (!relativePath) return null;
   const base = path.resolve(item._directory || DAILY_CONTENT_ROOT);
@@ -141,6 +145,29 @@ function imageForPackage(item = {}) {
       peoplePolicy: visual.peoplePolicy,
       photorealisticNewsPolicy: visual.photorealisticNewsPolicy,
       visualRole: 'context',
+    };
+  }
+  if (visual.kind === 'diem-library') {
+    const asset = resolveVisualLibraryAsset(visual.assetId);
+    if (visual.sha256 !== asset.sha256) throw new Error('[DIEM Daily] visual library asset hash mismatch.');
+    return {
+      ...base,
+      kind: 'generated',
+      id: `diem-library:${asset.id}`,
+      source: 'diem-generated',
+      license: { name: 'Project-owned ChatGPT visual library asset', url: null },
+      assetPath: path.relative(process.cwd(), asset.assetPath),
+      localPath: asset.assetPath,
+      localSha256: asset.sha256,
+      generatedTopic: asset.topics[0],
+      generatedEnergy: asset.energy,
+      description: asset.description,
+      visualRole: 'context',
+      suitability: {
+        ok: true,
+        reason: 'chatgpt_selected_project_visual_library_asset',
+        personScreening: { detected: false, personFreeEvidence: true, requiredPersonFreeEvidence: true, safe: true },
+      },
     };
   }
   if (visual.kind === 'web') {
@@ -228,7 +255,11 @@ function validateDailyPackage(item = {}, {
         errors.push('generated editorial image needs assetPath and SHA-256');
       }
     }
-    if (verifyArtifact && visual.assetPath) {
+    if (visual.kind === 'diem-library') {
+      const asset = resolveVisualLibraryAsset(visual.assetId, { fsImpl });
+      if (visual.sha256 !== asset.sha256) errors.push('visual library asset hash mismatch');
+    }
+    if (verifyArtifact && (visual.assetPath || visual.kind === 'diem-library')) {
       const assetPath = visualFilePath(item);
       if (!fsImpl.existsSync(assetPath)) errors.push('visual asset is missing');
       else if (fsImpl.statSync(assetPath).size > MAX_DAILY_IMAGE_BYTES) errors.push('visual asset exceeds 8MB');
@@ -337,7 +368,9 @@ async function prepareDailyPackage(ledger, category, {
   fs.mkdirSync(outputDir, { recursive: true });
   const coverPath = path.join(outputDir, `${category}-cover.png`);
   const followCtaPath = path.join(outputDir, `${category}-follow-cta.png`);
-  const packageImagePath = item.visual?.assetPath ? visualFilePath(item) : null;
+  const packageImagePath = item.visual?.assetPath || item.visual?.kind === 'diem-library'
+    ? visualFilePath(item)
+    : null;
   await renderCoverImpl({
     editorial: publication.editorial,
     date: ledger.date,

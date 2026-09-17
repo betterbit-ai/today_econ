@@ -79,13 +79,21 @@ function validateSubmissionPackage(item = {}, { now = new Date() } = {}) {
 
   const visual = item.visual || {};
   if (!visual.visualFingerprint) errors.push('visual fingerprint is required');
-  if (!['typographic', 'chatgpt-generated-editorial', 'web'].includes(visual.kind)) errors.push('visual kind is unsupported');
+  if (!['typographic', 'chatgpt-generated-editorial', 'diem-library', 'web'].includes(visual.kind)) errors.push('visual kind is unsupported');
   if (visual.kind === 'chatgpt-generated-editorial') {
     if (visual.peoplePolicy !== 'prohibited' || visual.photorealisticNewsPolicy !== 'prohibited') {
       errors.push('generated image must prohibit people and photorealistic news depiction');
     }
     if (visual.assetPath !== 'background.png' || !/^[a-f0-9]{64}$/u.test(visual.sha256 || '')) {
       errors.push('generated image must use background.png and a SHA-256');
+    }
+  }
+  if (visual.kind === 'diem-library') {
+    if (!/^[a-z][a-z0-9-]{2,80}$/u.test(visual.assetId || '') || !/^[a-f0-9]{64}$/u.test(visual.sha256 || '')) {
+      errors.push('visual library needs an allowlisted assetId and SHA-256');
+    }
+    if (visual.peoplePolicy !== 'prohibited' || visual.photorealisticNewsPolicy !== 'prohibited') {
+      errors.push('visual library asset must prohibit people and photorealistic news depiction');
     }
   }
 

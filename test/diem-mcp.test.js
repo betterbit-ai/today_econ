@@ -8,6 +8,7 @@ const test = require('node:test');
 const { buildDeterministicEditorial } = require('../src/v2/editorial');
 const { buildNewsFrame } = require('../src/v2/topic');
 const { dailyPackageContentHash } = require('../src/v2/daily-content');
+const { validateSubmissionPackage } = require('../services/diem-mcp/src/package-contract');
 const {
   DiemMcpCore,
   MockGitHubClient,
@@ -74,6 +75,17 @@ function validPackage() {
   return pack;
 }
 
+function visualLibraryManifest() {
+  return JSON.stringify({
+    assets: Array.from({ length: 43 }, (_, index) => ({
+      id: `finance-${String(index + 100).padStart(3, '0')}`,
+      sha256: 'a'.repeat(64),
+      topics: ['finance'],
+      description: 'person-free editorial asset',
+    })),
+  });
+}
+
 test('returns the latest unexpired candidate pack and exposes only the requested category', async () => {
   const github = new MockGitHubClient({
     files: {
@@ -86,6 +98,73 @@ test('returns the latest unexpired candidate pack and exposes only the requested
   const result = await core.call('get_pending_candidate_pack', { category: 'economy' });
   assert.deepEqual(result.candidates, [{ id: 'fresh-e' }]);
   assert.equal(result.path.endsWith('/fresh.json'), true);
+});
+
+test('returns only pinned metadata from the reviewed visual library', async () => {
+  const github = new MockGitHubClient({
+    files: {
+      'assets/fallback/generated/manifest.json': visualLibraryManifest(),
+    },
+  });
+  const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
+  const result = await core.call('get_visual_library');
+  assert.equal(result.status, 'ready');
+  assert.equal(result.assetCount, 43);
+  assert.deepEqual(Object.keys(result.assets[0]).sort(), ['description', 'energy', 'id', 'sha256', 'topics']);
+});
+
+test('accepts only a pinned visual library reference in an editorial package', () => {
+  const pack = validPackage();
+  pack.visual = {
+    kind: 'diem-library',
+    assetId: 'finance-01',
+    sha256: 'c'.repeat(64),
+    visualFingerprint: 'diem-library:finance-01',
+    peoplePolicy: 'prohibited',
+    photorealisticNewsPolicy: 'prohibited',
+  };
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  assert.equal(validateSubmissionPackage(pack, { now: NOW }).ok, true);
+  pack.visual.assetId = '../unsafe';
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  assert.equal(validateSubmissionPackage(pack, { now: NOW }).ok, false);
+});
+
+test('refuses a library package before opening a PR when its asset is not allowlisted', async () => {
+  const github = new MockGitHubClient({
+    files: { 'assets/fallback/generated/manifest.json': visualLibraryManifest() },
+  });
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-library-'));
+  const core = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
+  const pack = validPackage();
+  pack.visual = {
+    kind: 'diem-library',
+    assetId: 'finance-100',
+    sha256: 'a'.repeat(64),
+    visualFingerprint: 'diem-library:finance-100',
+    peoplePolicy: 'prohibited',
+    photorealisticNewsPolicy: 'prohibited',
+  };
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  try {
+    await core.call('submit_editorial_package', {
+      requestId: 'library-package-1',
+      candidatePackSha256: 'b'.repeat(64),
+      package: pack,
+    });
+    assert.equal(github.pullRequests.length, 1);
+
+    pack.visual.assetId = 'finance-999';
+    pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+    await assert.rejects(() => core.call('submit_editorial_package', {
+      requestId: 'library-package-2',
+      candidatePackSha256: 'b'.repeat(64),
+      package: pack,
+    }), /not allowlisted/u);
+    assert.equal(github.pullRequests.length, 1);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
 });
 
 test('writes a package and generated image only through the allowlisted package path', async () => {

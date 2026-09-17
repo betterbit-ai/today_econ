@@ -13,6 +13,7 @@ const ALLOWED_WRITE_PREFIXES = Object.freeze([
 ]);
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
 const ASSET_TTL_MS = 2 * 60 * 60 * 1000;
+const VISUAL_LIBRARY_MANIFEST_PATH = 'assets/fallback/generated/manifest.json';
 
 function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
@@ -132,6 +133,7 @@ class DiemMcpCore {
     return [
       'get_pending_candidate_pack',
       'get_editorial_context',
+      'get_visual_library',
       'write_canary_proof',
       'submit_editorial_package',
       'ingest_generated_image',
@@ -189,6 +191,41 @@ class DiemMcpCore {
       try { performance = JSON.parse(await this.githubClient.readFile(performancePath)); } catch { performance = null; }
     }
     return { days: safeDays, performance, publicationContext: [] };
+  }
+
+  async readVisualLibrary() {
+    let manifest;
+    try {
+      manifest = JSON.parse(await this.githubClient.readFile(VISUAL_LIBRARY_MANIFEST_PATH));
+    } catch {
+      throw new Error('[DIEM MCP] Visual library manifest is unavailable.');
+    }
+    const assets = (manifest.assets || [])
+      .filter(asset => /^[a-z][a-z0-9-]{2,80}$/u.test(asset?.id || '')
+        && /^[a-f0-9]{64}$/u.test(asset?.sha256 || '')
+        && Array.isArray(asset.topics) && asset.topics.length > 0)
+      .map(asset => ({
+        id: asset.id,
+        sha256: asset.sha256,
+        topics: asset.topics,
+        energy: asset.energy || 'calm',
+        description: String(asset.description || '').slice(0, 280),
+      }));
+    if (assets.length < 43 || assets.length > 80) {
+      throw new Error('[DIEM MCP] Visual library must contain 43-80 allowlisted assets.');
+    }
+    return assets;
+  }
+
+  async get_visual_library() {
+    const assets = await this.readVisualLibrary();
+    return {
+      status: 'ready',
+      manifestPath: VISUAL_LIBRARY_MANIFEST_PATH,
+      assetCount: assets.length,
+      assetSelection: 'Choose one ID matching the candidate topic and energy. Pin its sha256 in visual.sha256. Never provide a URL or generated-image bytes.',
+      assets,
+    };
   }
 
   async write_canary_proof({ requestId, note = 'ChatGPT scheduled MCP canary' } = {}) {
@@ -336,6 +373,12 @@ class DiemMcpCore {
       packageCopy.integrity ||= {};
       packageCopy.integrity.contentSha256 = dailyPackageContentHash(packageCopy);
     }
+    if (packageCopy.visual?.kind === 'diem-library') {
+      const asset = (await this.readVisualLibrary()).find(entry => entry.id === packageCopy.visual.assetId);
+      if (!asset || asset.sha256 !== packageCopy.visual.sha256) {
+        throw new Error('[DIEM MCP] Visual library asset is not allowlisted or its SHA-256 is not pinned.');
+      }
+    }
     const validation = validateSubmissionPackage(packageCopy, { now: this.now() });
     if (!validation.ok) throw new Error(`[DIEM MCP] Package validation failed: ${validation.errors.join('; ')}`);
     const paths = dailyPackagePaths(packageCopy);
@@ -385,6 +428,7 @@ module.exports = {
   DiemMcpCore,
   MAX_IMAGE_BYTES,
   MockGitHubClient,
+  VISUAL_LIBRARY_MANIFEST_PATH,
   assertImageBuffer,
   imageMagicMime,
   instructions,

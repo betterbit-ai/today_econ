@@ -1,5 +1,75 @@
 # Feature: DIEM 성과 학습 루프와 편집 복구력 강화
 
+## 2026-09-17 approved amendment: ChatGPT-selected visual library
+
+### Outcome
+
+Mac이 꺼져 있어도 ChatGPT cloud scheduled task가 뉴스·카피와 함께 검증된
+프로젝트 소유 시각 자산 ID를 선택해 GitHub에 reviewable package로 저장한다.
+GitHub Actions는 선택된 로컬 자산의 해시와 세로 규격을 재검증한 뒤 기존 Reel
+렌더링 경로로만 사용한다.
+
+### User and context
+
+오늘경제의 일일 cloud editorial 경로다. ChatGPT Pro ImageGen은 매일 생성기가
+아니라, 사람이 Mac을 사용할 수 있는 때에만 라이브러리 변형을 보충하는 제작
+도구다. 일일 예약 실행은 로컬 Mac, 브라우저, 이미지 URL 또는 새 이미지 API에
+의존하지 않는다.
+
+### Required behavior
+
+1. `assets/fallback/generated/manifest.json`의 검증된 43개 이상, 80개 이하
+   프로젝트 소유 9:16 자산을 canonical visual library로 사용한다. 각 자산은
+   ID, SHA-256, 파일명, 주제, energy, 사람·문자·로고 금지 설명을 가진다.
+2. ChatGPT cloud MCP는 라이브러리의 허용 asset ID와 선택 규칙을 읽을 수 있고,
+   daily package에는 새 이미지를 업로드하지 않고 `diem-library` visual ID만
+   저장한다.
+3. package validate/prepare는 asset ID를 local manifest와 SHA-256로 해석한다.
+   파일·해시·9:16 규격·최근 7일 재사용 가드가 하나라도 실패하면 fail-closed한다.
+4. 기존 웹 이미지·생성 폴백·Reel 렌더링 경로와 production schedule은 이
+   amendment에서 변경하지 않는다. 첫 cloud library package는 `shadow`만 허용한다.
+5. 라이브러리 보충은 ChatGPT Pro ImageGen으로 사람이 생성한 asset을 명시적
+   manifest·hash 검증을 거쳐 추가할 때만 가능하다. 생성 이미지 URL 또는
+   ChatGPT 내부 파일의 daily handoff는 사용하지 않는다.
+
+### Acceptance criteria
+
+- [ ] MCP가 허용된 visual library asset ID만 반환한다.
+- [ ] `diem-library` package는 invalid/missing/tampered asset ID를 거부한다.
+- [ ] 유효한 `diem-library` shadow package는 existing 9:16 asset을 사용해
+  `daily-package-prepare`까지 통과한다.
+- [ ] 같은 asset이 최근 7일 내 사용됐으면 다른 안전한 variant를 선택하거나
+  명시적으로 실패한다.
+- [ ] production workflow 파일은 변경하지 않는다.
+- [ ] `npm run test`와 `git diff --check`가 통과한다.
+
+### Constraints
+
+- 일일 이미지 생성 API, 새 유료 서비스, 임의 원격 URL fetch, Mac-dependent
+  browser bridge를 추가하지 않는다.
+- ChatGPT native ImageGen의 file-to-MCP handoff는 제품상 불가능함이 확인됐으므로
+  이 범위에서 우회하지 않는다.
+- 사람·얼굴·읽을 수 있는 문자·로고·국기·특정 실제 현장 묘사는 계속 금지한다.
+
+### Verification
+
+- Automated: library resolver/MCP schema/daily package validator/prepare
+  regression tests, full `npm run test`, `git diff --check`.
+- Manual: ChatGPT cloud normal chat에서 library ID가 포함된 shadow package PR을
+  생성하고, GitHub Actions manual prepare가 local asset hash를 확인한다.
+
+### Out of scope
+
+- 기존 Instagram scheduled publish 변경 또는 자동 production enable.
+- 매일 ChatGPT ImageGen 새 파일 생성·업로드.
+- 새 image API 또는 GPU image-generation server 도입.
+
+### Risks and rollback
+
+- 라이브러리 주제·변형이 부족하면 package를 저장하지 않고 기존 path를 유지한다.
+- 문제 발생 시 `diem-library` package support만 제거하면 기존 image selection은
+  그대로 남는다.
+
 ## 2026-09-09 approved amendment: 웹 이미지 복구와 핵심 사건 잠금
 
 1. Groq Vision의 JSON object mode가 `json_validate_failed` 400을 반환하면

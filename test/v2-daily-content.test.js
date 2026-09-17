@@ -24,7 +24,7 @@ function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
 }
 
-function packageFixture({ mode = 'assisted' } = {}) {
+function packageFixture({ mode = 'assisted', visualKind = 'typographic' } = {}) {
   const evidenceText = [
     '한국은행은 9월 16일 기준금리를 연 2.50%로 동결했습니다.',
     '물가와 가계대출 흐름을 더 확인할 필요가 있다고 밝혔습니다.',
@@ -74,7 +74,7 @@ function packageFixture({ mode = 'assisted' } = {}) {
     })),
     editorial,
     visual: {
-      kind: 'typographic',
+      kind: visualKind,
       fallbackTheme: 'rate-reset',
       visualFingerprint: 'diem-cloud:rate-reset:2026-09-16',
       peoplePolicy: 'prohibited',
@@ -89,6 +89,13 @@ function packageFixture({ mode = 'assisted' } = {}) {
     review: { mode, status: 'model-reviewed', checks: [], qualityIncident: null },
     integrity: { contentSha256: '' },
   };
+  if (visualKind === 'diem-library') {
+    const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'fallback', 'generated', 'manifest.json'), 'utf8'));
+    const asset = manifest.assets.find(item => item.id === 'finance-01');
+    pack.visual.assetId = asset.id;
+    pack.visual.sha256 = asset.sha256;
+    pack.visual.visualFingerprint = `diem-library:${asset.id}`;
+  }
   pack.integrity.contentSha256 = dailyPackageContentHash(pack);
   return pack;
 }
@@ -105,6 +112,54 @@ test('validates and stages a cloud editorial package without Groq generation', (
   assert.equal(publication.editorial.generation.mode, 'chatgpt_cloud_scheduled');
   assert.equal(publication.image.kind, 'typographic');
   assert.equal(publication.reel.status, 'planned');
+});
+
+test('validates and stages a ChatGPT-selected local visual library asset', () => {
+  const pack = packageFixture({ visualKind: 'diem-library' });
+  const validation = validateDailyPackage(pack, { now: NOW, verifyArtifact: true });
+  assert.equal(validation.ok, true, validation.errors.join('; '));
+  const publication = stageDailyPackage(pack, { date: DATE, now: NOW });
+  assert.equal(publication.image.source, 'diem-generated');
+  assert.equal(publication.image.id, 'diem-library:finance-01');
+  assert.match(publication.image.localPath, /assets\/fallback\/generated\/finance-01\.png$/u);
+});
+
+test('rejects a visual library package whose pinned hash does not match the manifest', () => {
+  const pack = packageFixture({ visualKind: 'diem-library' });
+  pack.visual.sha256 = '0'.repeat(64);
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  const validation = validateDailyPackage(pack, { now: NOW, verifyArtifact: true });
+  assert.equal(validation.ok, false);
+  assert.match(validation.errors.join('; '), /visual library asset hash mismatch/u);
+});
+
+test('prepares an assisted library package with the committed visual asset', async () => {
+  const pack = packageFixture({ visualKind: 'diem-library' });
+  const ledger = createDailyLedger(DATE, NOW);
+  ledger.publications.economy = stageDailyPackage(pack, { date: DATE, now: NOW });
+  const artifactRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-daily-library-'));
+  let renderedImagePath = null;
+  try {
+    const prepared = await prepareDailyPackage(ledger, 'economy', {
+      package: pack,
+      now: NOW,
+      artifactRoot,
+      renderCoverImpl: async ({ imagePath, outputPath, followCtaOutputPath }) => {
+        renderedImagePath = imagePath;
+        fs.writeFileSync(outputPath, 'cover');
+        fs.writeFileSync(followCtaOutputPath, 'cta');
+      },
+      selectMusicImpl: () => ({ trackId: null, mode: 'silent', mood: 'serious' }),
+      createReelImpl: async ({ outputPath }) => {
+        fs.writeFileSync(outputPath, 'reel');
+        return { outputPath, audio: { trackId: null, mode: 'silent', mood: 'serious' } };
+      },
+    });
+    assert.equal(prepared.publications.economy.status, 'ready');
+    assert.match(renderedImagePath, /assets\/fallback\/generated\/finance-01\.png$/u);
+  } finally {
+    fs.rmSync(artifactRoot, { recursive: true, force: true });
+  }
 });
 
 test('prepares a staged package with stored editorial content and never calls a text model', async () => {

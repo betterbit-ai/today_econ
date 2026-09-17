@@ -18,6 +18,7 @@ test('registers the restricted MCP tool surface and uses constant-time bearer co
     'get_editorial_context',
     'get_package_status',
     'get_pending_candidate_pack',
+    'get_visual_library',
     'ingest_generated_image',
     'submit_editorial_package',
     'write_canary_proof',
