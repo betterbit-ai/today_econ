@@ -2,7 +2,7 @@
 
 - 갱신일: 2026-09-17 KST
 - 활성 구현 브랜치: `codex/chatgpt-oracle-editorial` (PR #77은 draft이며 merge 금지)
-- 최신 활성 커밋: `c5c3505 Preserve image assets across stateless MCP calls`
+- 구현 브랜치는 원격과 동기화 상태이며 최신 상태는 `git log -1`로 확인한다.
 - production Instagram workflow와 예약 발행은 변경하지 않았다.
 - 상세 성과 진단: [`2026-09-15-performance-decline.md`](2026-09-15-performance-decline.md)
 - 생성 보고서: [`../../data/reports/diem-performance.md`](../../data/reports/diem-performance.md)
@@ -45,17 +45,16 @@ DIEM은 네이버 인기 경제·시사 후보를 수집하고, 분류·신선�
 ## 2026-09-17 클라우드 editorial 전환 상태
 
 ChatGPT OAuth MCP의 일반 write와 cloud Scheduled write canary는 실제 GitHub PR까지
-도달했다 (각각 PR #80, #81). 다만 #81은 처음 실행이 권한 대기 후 재개된 결과이므로,
-상시 권한 저장 뒤 browser interaction 없이 종료되는 새 Scheduled canary가 있어야
-무인/Mac-off gate를 통과로 선언할 수 있다. Oracle active service는
-`mcp.talkwithme.r-e.kr`의 TLS endpoint에서 건강하며 GitHub App은 canary path만 쓰도록
-제한돼 있다.
+도달했다 (각각 PR #80, #81). 상시 권한 저장 뒤 새 cloud task가 browser interaction
+없이 PR #82를 만들었고, 변경 파일은 canary JSON 한 개뿐이어서 무인 scheduled-write
+gate도 통과했다. Oracle active service는 `mcp.talkwithme.r-e.kr`의 TLS endpoint에서
+건강하며 GitHub App은 canary path만 쓰도록 제한돼 있다.
 
-남은 capability gate는 ImageGen의 실제 image bytes handoff다. `ingest_generated_image`
-→ `write_image_canary_proof`는 SHA/MIME/asset-root를 재검증하고 canary image+manifest
-PR만 만들도록 준비·배포됐다. ChatGPT ImageGen UI가 bytes를 MCP tool input으로 전달할
-수 있는지 normal chat과 cloud Scheduled 양쪽에서 아직 증명해야 한다. 실패하면
-fallback을 발명하지 않고 cloud ImageGen을 production flow에 연결하지 않는다.
+ImageGen의 실제 image bytes handoff gate는 실패했다. ChatGPT는 1,804,029-byte PNG를
+생성했지만 현재 runtime에는 generated file을 MCP `dataBase64`로 넘기는 bridge가 없다고
+명시했고, ingest나 PR write를 호출하지 않았다. 따라서 fallback을 발명하지 않고
+PR #77은 draft, production schedule은 기존 상태로 유지한다. 제품이 file-to-MCP handoff를
+지원하기 전에는 text-only shadow 실험만 별도 승인 범위에서 가능하다.
 
 ## 2026-09-15 성과 판단
 

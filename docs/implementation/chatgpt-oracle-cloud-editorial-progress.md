@@ -203,7 +203,7 @@
 - Oracle active 서비스에는 OAuth 2.1과 `write_canary_proof`가 배포됐고
   health는 `healthy`, anonymous `/mcp`는 401이다.
 
-## 완료: ChatGPT OAuth live write와 cloud scheduled-write gate
+## 완료: ChatGPT OAuth live write와 무인 cloud scheduled-write gate
 
 - 일반 ChatGPT chat은 `write_canary_proof`를 호출해 PR
   [#80](https://github.com/betterbit-ai/today_econ/pull/80)을 만들었다. 변경 파일은
@@ -216,12 +216,14 @@
 - 처음 실행은 ChatGPT의 per-call approval에서 대기했다. 사용자 승인으로 이 MCP의
   제한된 canary write 도구만 상시 허용한 뒤 동일 task가 재개돼 성공했다. 이 권한은
   package/Instagram/workflow/secret/shell 도구를 추가하지 않는다.
-- 따라서 이 run 하나만으로는 **사람 개입 없는** scheduled-write gate를 통과로
-  선언하지 않는다. 상시 권한이 저장된 뒤 새 one-time task가 정해진 시각에 browser
-  interaction 없이 PR을 만드는 재실행이 필요하다.
+- 상시 권한을 저장한 뒤 새 one-time cloud task가 browser interaction 없이
+  `scheduled-unattended-20260917-02`를 실행해 PR
+  [#82](https://github.com/betterbit-ai/today_econ/pull/82)을 만들었다. 변경 파일은
+  `data/cloud-editorial/canary/scheduled-unattended-20260917-02.json` 한 개뿐이다.
+  이 결과로 무인 scheduled-write gate는 통과했다.
 - 기존 Instagram production schedule과 workflow는 여전히 수정하지 않았다.
 
-## 완료: stateless image-handoff canary 준비
+## 실패 판정: ChatGPT ImageGen-to-MCP byte handoff
 
 - Streamable HTTP는 호출마다 core가 새로 만들어지므로 image asset을 process memory에만
   두면 `ingest_generated_image` 다음 호출에서 asset을 찾을 수 없었다. asset metadata를
@@ -229,21 +231,33 @@
 - `write_image_canary_proof`는 이미지 한 장과 JSON manifest만
   `data/cloud-editorial/canary/`에 쓰는 별도 tool이다. package, workflow, settings,
   secret, Instagram에는 접근하지 않는다.
-- 이 코드는 Oracle active container에 배포됐고 health는 `healthy`다. 아직 ChatGPT
-  ImageGen의 실제 PNG bytes를 MCP input으로 넘긴 live proof는 실행 전이다.
+- 이 코드는 Oracle active container에 배포됐고 health는 `healthy`다.
+- ChatGPT는 실제 9:16 이미지를 생성했으며 파일 크기를 1,804,029 bytes로 확인했다.
+  그러나 현재 ChatGPT runtime에는 생성된 파일을 MCP의 `dataBase64` argument로
+  넘기는 file-to-MCP byte bridge가 없다고 명시했다. URL·placeholder·임의 asset ID를
+  사용하지 않았고 `ingest_generated_image`도 호출하지 않았다.
+- 연결된 OAuth v4 app의 cached tool list에는 새 `write_image_canary_proof`도 아직
+  노출되지 않았다. app을 재연결해 tool list를 갱신할 수는 있지만 byte bridge 부재가
+  선행 차단점이므로 gate 결과는 달라지지 않는다.
+- 따라서 세 번째 capability gate는 **실패**다. ChatGPT ImageGen을 production
+  pipeline에 연결하거나 PR #77을 main에 merge하지 않는다.
+
+## 운영 중 발견·복구: active Compose overlay 누락
+
+- image-canary 코드를 배포할 때 기본 `compose.yml`만 사용해 container가
+  `DIEM_MCP_MODE=mock`으로 되돌아갔다. health는 정상이라 단순 healthcheck로는
+  감지되지 않았고, 첫 무인 task의 refresh-token 요청이 `/oauth/token` HTTP 404로
+  실패했다.
+- `compose.yml`과 `compose.active.yml`을 함께 적용해 active mode를 복구했다.
+  이후 OAuth metadata 200, invalid token grant 400, anonymous `/mcp` 401,
+  container `healthy`를 확인했고 재실행한 무인 task가 PR #82를 만들었다.
 
 ## 다음 재개 작업
 
-1. 상시 권한이 저장된 상태로 새 one-time cloud Scheduled canary를 만들고, 지정 시각에
-   browser interaction 없이 PR을 생성하는지 확인한다. 이것이 Mac-off/unattended gate의
-   결정 증거다.
-2. 새 ChatGPT chat 또는 Scheduled task에서 ImageGen으로 사람·문자·로고 없는 세로
-   PNG를 만들고, 그 **실제 bytes**를 `ingest_generated_image`에 넘긴 뒤
-   `write_image_canary_proof`로 PR을 생성한다. ImageGen UI가 bytes 전달을 지원하지
-   않으면 우회하지 않고 세 번째 gate를 실패 처리한다.
-3. 같은 image handoff를 cloud Scheduled task에서 한 번 더 실행해, on-device helper
-   없이 완료되는지 확인한다.
-4. 이 세 증거가 모두 기록되기 전에는 PR #77을 main에 merge하거나 기존 Instagram
-   schedule을 변경하지 않는다.
+1. PR #77은 draft로 유지하고 기존 Instagram schedule을 변경하지 않는다.
+2. ChatGPT가 generated-file bytes 또는 file reference를 custom MCP tool에 전달하는
+   공식 기능을 제공할 때 image canary를 다시 실행한다.
+3. 그 전까지 cloud editorial을 계속 실험하려면 별도 승인된 scope에서 text-only
+   shadow package로 제한하고, 이미지는 기존 검증된 GitHub pipeline이 담당하게 한다.
 
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.

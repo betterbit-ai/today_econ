@@ -60,6 +60,18 @@ docker compose -f compose.yml -f compose.active.yml up --build -d
 curl --fail --silent http://127.0.0.1:3000/healthz
 ```
 
+Once an Oracle deployment is running in `active` mode, **every image rebuild or
+service update must include both Compose files**. Running only
+`docker compose -f compose.yml up ...` intentionally resets the container to
+`DIEM_MCP_MODE=mock`; OAuth routes then return 404 and a cloud scheduled task
+cannot refresh its token. After every update, verify all three boundaries:
+
+```bash
+docker inspect --format '{{range .Config.Env}}{{println .}}{{end}}' diem-mcp-mock-diem-mcp-mock-1 | grep '^DIEM_MCP_MODE=active$'
+curl --fail --silent https://mcp.talkwithme.r-e.kr/.well-known/oauth-authorization-server >/dev/null
+test "$(curl --silent --output /dev/null --write-out '%{http_code}' --request POST --data 'grant_type=unsupported' https://mcp.talkwithme.r-e.kr/oauth/token)" = 400
+```
+
 The real endpoint accepts only `POST /mcp` with the expected host header and
 OAuth Bearer access token. It has no shell, publish, workflow, or secret tool.
 The server publishes protected-resource and OAuth authorization-server metadata
