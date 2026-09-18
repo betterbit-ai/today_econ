@@ -15,6 +15,7 @@ packages must match a current unexpired candidate pack, including its computed
 content hash and the selected article's source, evidence hash, and core news
 frame; only `assisted` review mode is accepted. Packages select one SHA-pinned
 asset from the reviewed local visual library. Image-byte ingest and image-canary
-tools are not exposed to ChatGPT. Workflow
+tools are not exposed to ChatGPT. The MCP computes the package content hash
+before validating and writing it. Workflow
 changes, secret access, Instagram access, arbitrary fetches, file deletion,
 and shell commands are intentionally absent.

@@ -1,8 +1,8 @@
 # DIEM 현재 상태와 새 세션 시작점
 
 - 갱신일: 2026-09-18 KST
-- 활성 구현 브랜치: `codex/chatgpt-oracle-editorial` (PR #77 review/merge 전)
-- 구현 브랜치는 원격과 동기화 상태이며 최신 상태는 `git log -1`로 확인한다.
+- 활성 구현 브랜치: `codex/cloud-editorial-package-hash` (package SHA follow-up 검증 중)
+- PR #77은 main에 merge됐다. Checkout 상태와 ahead/behind는 `git status --short --branch`로 다시 확인한다.
 - production Instagram workflow와 예약 발행은 변경하지 않았다.
 - 상세 성과 진단: [`2026-09-15-performance-decline.md`](2026-09-15-performance-decline.md)
 - 생성 보고서: [`../../data/reports/diem-performance.md`](../../data/reports/diem-performance.md)
@@ -47,25 +47,35 @@ DIEM은 네이버 인기 경제·시사 후보를 수집하고, 분류·신선�
 ChatGPT OAuth MCP의 일반 write와 cloud Scheduled write canary는 실제 GitHub PR까지
 도달했다 (각각 PR #80, #81). 상시 권한 저장 뒤 새 cloud task가 browser interaction
 없이 PR #82를 만들었고, 변경 파일은 canary JSON 한 개뿐이어서 무인 scheduled-write
-gate도 통과했다. Oracle active service는 `mcp.talkwithme.r-e.kr`의 TLS endpoint에서
-건강하며 GitHub App은 canary path만 쓰도록 제한돼 있다.
+gate도 통과했다.
 
-ChatGPT ImageGen 파일을 MCP로 보내는 기능은 실패했지만, 사용자는 검증된 9:16 이미지
-라이브러리에서 ChatGPT가 매일 에셋 ID를 고르는 대안을 승인했다. 저장소에는 기존
-43개 자산과 시각 검수된 OpenAI ImageGen 시장 배경 1개, 총 44개가 있다. Oracle
-`get_visual_library`는 실제 ChatGPT MCP 호출에서 43개 main 자산을 읽었고, 새로운
-44번째 자산은 PR #77이 main에 반영된 뒤 목록에 나타난다.
+ChatGPT ImageGen 파일을 MCP로 보내는 방식은 폐기했다. 사용자는 검증된 9:16 이미지
+라이브러리에서 ChatGPT가 매일 에셋 ID를 고르는 대안을 승인했다. 현재 저장소에는
+43개 기본 자산과 시각 검수한 시장 배경 1개, 총 44개가 있다.
 
-PR #77에는 Economy workflow의 별도 6시간 candidate-only cron과 수동 package
+PR #77 (`94e624b`)에는 Economy workflow의 별도 6시간 candidate-only cron과 수동 package
 validate/prepare/publish Action이 추가됐다. production publisher cron 자체는 바뀌지
-않았다. 현재 다음 단계는 PR review/merge, candidate pack 자동 생성 확인, ChatGPT
-assisted package PR, 수동 prepare 검증 순이다. package PR merge와 Instagram publish는
-각각 사람의 명시적 조치가 필요하다.
+않았다. 수동 candidate-only Action run [#35298068245](https://github.com/betterbit-ai/today_econ/actions/runs/35298068245)이
+성공했으며 `data/cloud-editorial/inbox/2026/09/2026-09-18-35298068245.json`과
+`data/cloud-editorial/state.json`만 main에 추가·갱신했다. 모든 publisher, prepare,
+package Action job은 skipped였다.
 
-Oracle MCP는 이번 브랜치 코드로 재배포되어 `healthy`이며 OAuth 200/400 및 익명 MCP
-401 경계를 다시 통과했다. ChatGPT v4 action refresh 뒤 `get_visual_library`를 호출해
-main의 43개 자산 목록을 읽는 것도 확인했다. PR #77을 main에 반영하면 44번째
-`markets-04-openai-01` 에셋이 목록에 추가된다.
+Candidate SHA-256은 `8d444f248d93d175cda0a4bf41541d9db35e97ac42ab4ba4b2d9649c44bf1e97`이며
+만료는 `2026-09-18T14:08:59.003Z`다. ChatGPT web의 새 대화에서 `get_visual_library`가
+44개 자산을 반환했고, `get_pending_candidate_pack`을 `economy`와 `issue`로 나눠 읽어
+각각 1개와 2개 후보를 확인했다. `category=any` 응답은 tool-output 한도에서 잘렸으므로
+정기 작업에서도 카테고리별로 두 번 호출한다.
+
+Oracle MCP는 PR #77의 active 서비스 코드로 재빌드되어 `healthy`다. OAuth metadata
+HTTP 200, unsupported token grant HTTP 400, anonymous `/mcp` HTTP 401을 확인했다.
+다만 첫 assisted package submit 전에 모델이 `integrity.contentSha256`를 계산할 수
+있어야 한다는 점을 확인해 현재 follow-up branch에서 MCP 서버가 해당 derived hash를
+직접 계산하도록 보완 중이다. 그 후속 PR은 아직 merge·Oracle 배포 전이다.
+
+다음 순서: package-hash follow-up 검증·merge·Oracle 배포 → ChatGPT가 assisted package
+PR 생성 → 사람이 내용 검토 및 merge → `daily_package_validate` →
+`daily_package_prepare` → 별도 승인 뒤 `daily_package_publish`. Instagram publish는
+아직 실행하지 않았고 기존 production schedule도 변경하지 않았다.
 
 ## 2026-09-15 성과 판단
 

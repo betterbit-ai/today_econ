@@ -333,6 +333,31 @@ test('writes an idempotent package reference without uploading image bytes', asy
   }
 });
 
+test('computes the package content hash server-side instead of trusting the model input', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-content-hash-'));
+  const pack = validPackage();
+  pack.integrity.contentSha256 = '0'.repeat(64);
+  const github = new MockGitHubClient({
+    files: {
+      ...candidatePackFile(pack),
+      'assets/fallback/generated/manifest.json': visualLibraryManifest(),
+    },
+  });
+  const core = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
+  try {
+    const submitted = await core.call('submit_editorial_package', {
+      requestId: 'computed-content-hash-1',
+      candidatePackSha256: candidatePackContentHash(candidatePackFor(pack)),
+      package: pack,
+    });
+    const stored = JSON.parse(github.files.get(submitted.paths[0]));
+    assert.equal(stored.integrity.contentSha256, dailyPackageContentHash(stored));
+    assert.notEqual(stored.integrity.contentSha256, '0'.repeat(64));
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test('writes exactly one idempotent canary file on a dedicated branch', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-canary-'));
   const github = new MockGitHubClient();

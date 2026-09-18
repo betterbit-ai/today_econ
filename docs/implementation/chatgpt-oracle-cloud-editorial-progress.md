@@ -252,9 +252,9 @@
   보이며 941×1672 (9:16), SHA-256
   `bdb013482eca77c27940e96ee0288b71cd3463ddcc9c40e95558e855fb95b317`이다.
 - `get_visual_library`는 ID·topic·energy·description·SHA-256과 최근 7일 사용 여부를
-  반환한다. MCP package submit은 manifest allowlist, topic, SHA, 최근 7일 이력을
-  다시 검증하고, GitHub Actions prepare도 committed local file/hash/9:16/reuse를
-  fail-closed로 확인한다.
+  반환한다. MCP package submit은 manifest allowlist, SHA, 최신 candidate source/frame,
+  assisted mode, 최근 7일 이력을 다시 검증한다. GitHub Actions validate/prepare도
+  committed local file/hash/topic/9:16/reuse를 fail-closed로 확인한다.
 - GitHub workflow에 6시간 간격 candidate-only cron과 수동
   `daily_package_validate` → `daily_package_prepare` → `daily_package_publish` 단계를
   추가했다. candidate cron은 기존 publish job 조건에 매칭되지 않는다. daily
@@ -274,17 +274,34 @@
   이후 OAuth metadata 200, invalid token grant 400, anonymous `/mcp` 401,
   container `healthy`를 확인했고 재실행한 무인 task가 PR #82를 만들었다.
 
+## 2026-09-18 live workflow verification
+
+- PR #77은 main에 merge됐다 (`94e624b`). Oracle active MCP는 PR #77 코드로
+  재빌드했다. Health, OAuth metadata 200, unsupported token grant 400, 익명 MCP 401을
+  다시 확인했다.
+- Candidate-only Action run `35298068245`가 성공했다. Publisher, Basic publish,
+  prepare/publish, Insights, retry, token refresh 작업은 전부 skipped였다.
+- Action commit `63126cf`는 후보 팩
+  `data/cloud-editorial/inbox/2026/09/2026-09-18-35298068245.json`과
+  `data/cloud-editorial/state.json`만 변경했다. 팩의 expiresAt은
+  `2026-09-18T14:08:59.003Z`, content SHA-256은
+  `8d444f248d93d175cda0a4bf41541d9db35e97ac42ab4ba4b2d9649c44bf1e97`이다.
+- 새 ChatGPT web 대화에서 MCP v4의 visual-library read가 실제 호출돼 44개 에셋을
+  반환했다. `category=any`는 tool output에서 잘렸고, `economy` 1개와 `issue` 2개를
+  각각 조회하니 정상 응답했다. 정기 작업은 카테고리를 나눠 읽어야 한다.
+- 후속 branch `codex/cloud-editorial-package-hash`는 모델이 계산할 필요 없이 MCP가
+  `integrity.contentSha256`를 설정하도록 보완 중이다. 아직 commit/merge/Oracle 배포
+  전이며, 첫 assisted package PR과 Actions validate/prepare도 미수행이다.
+
 ## 다음 재개 작업
 
-1. PR #77의 workflow/static review를 수행한다. Economy scheduled publisher 조건이
-   기존 cron 외에는 실행되지 않는지 확인한 뒤 PR을 merge한다.
-2. main에서 candidate cron이 `data/cloud-editorial/inbox/`에 팩을 저장하는지 확인한다.
-3. ChatGPT OAuth v4 action refresh 뒤 visual-library read와 assisted package submit을
-   실제 실행하고 package PR의 source/hash/asset ID를 확인한다.
-4. package PR을 사람 검토·merge한 뒤 `daily_package_validate`,
-   `daily_package_prepare` dry run이 통과하는지 확인한다. 검토 이후에만 별도 수동
-   `daily_package_publish`를 사용한다.
-5. 위 package/prepare 검증이 끝날 때까지 기존 Instagram scheduled publisher는
-   그대로 유지한다.
-
-이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.
+1. `codex/cloud-editorial-package-hash`의 전체 테스트·diff review 후 commit/push하고
+   후속 PR을 merge한다.
+2. Oracle MCP를 후속 commit으로 다시 빌드하고 active/OAuth boundaries를 재확인한다.
+3. ChatGPT web 대화에서 candidate category별 read와 visual-library 결과를 사용해
+   하나의 `assisted` package PR을 만든다. source/evidence/frame/hash/asset을 검사한다.
+4. 사람의 PR merge 후 `daily_package_validate` 및 `daily_package_prepare`를 실행하고
+   렌더된 Reel과 ledger를 확인한다. 실제 Instagram 게시 전에는 별도 의도 확인이 필요하다.
+5. 정상적인 수동 ChatGPT package run이 확인되면 10:30 KST에 standalone cloud
+   Scheduled task를 설정한다. `daily_package_publish`는 그 task에 절대 포함하지 않는다.
+6. 기존 Instagram scheduled publisher는 별도 결정 전까지 그대로 유지한다.
