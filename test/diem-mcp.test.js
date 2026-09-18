@@ -6,9 +6,13 @@ const path = require('node:path');
 const test = require('node:test');
 
 const { buildDeterministicEditorial } = require('../src/v2/editorial');
+const { candidatePackHash } = require('../src/v2/cloud-candidate-pack');
 const { buildNewsFrame } = require('../src/v2/topic');
 const { dailyPackageContentHash } = require('../src/v2/daily-content');
-const { validateSubmissionPackage } = require('../services/diem-mcp/src/package-contract');
+const {
+  candidatePackContentHash,
+  validateSubmissionPackage,
+} = require('../services/diem-mcp/src/package-contract');
 const {
   DiemMcpCore,
   MockGitHubClient,
@@ -60,18 +64,18 @@ function validPackage() {
     claims: article.verifiedFacts.map((text, index) => ({ id: `claim-${index + 1}`, text, sourceSpans: [text] })),
     editorial: buildDeterministicEditorial(article, { handle: 'diem.magazine' }),
     visual: {
-      kind: 'chatgpt-generated-editorial',
-      assetPath: 'background.png',
-      sha256: '',
-      prompt: 'person-free editorial illustration',
+      kind: 'diem-library',
+      assetId: 'finance-100',
+      sha256: 'a'.repeat(64),
       peoplePolicy: 'prohibited',
       photorealisticNewsPolicy: 'prohibited',
-      visualFingerprint: 'diem-cloud:rate:001',
+      visualFingerprint: 'diem-library:finance-100',
     },
     generation: { provider: 'chatgpt-scheduled-task', model: 'gpt-5.6-terra', reasoningEffort: 'high', taskRunId: 'task-001' },
-    review: { mode: 'shadow', status: 'model-reviewed', checks: [], qualityIncident: null },
+    review: { mode: 'assisted', status: 'model-reviewed', checks: [], qualityIncident: null },
     integrity: { contentSha256: '' },
   };
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
   return pack;
 }
 
@@ -86,13 +90,54 @@ function visualLibraryManifest() {
   });
 }
 
+function candidatePackFor(item, candidates = null) {
+  const pack = {
+    schemaVersion: 1,
+    kind: 'diem-cloud-candidate-pack',
+    runId: item.runId,
+    date: '2026-09-16',
+    createdAt: NOW.toISOString(),
+    expiresAt: item.expiresAt,
+    candidates: candidates || {
+      economy: [{
+        candidate: { title: item.source.title, url: item.source.url, category: item.category, newsFrame: item.newsFrame },
+        article: { fullText: item.source.evidenceText, evidenceSha256: item.source.evidenceSha256, untrustedData: true },
+        newsFrame: item.newsFrame,
+      }],
+      issue: [],
+    },
+    rejections: { economy: [], issue: [] },
+    integrity: { contentSha256: '' },
+  };
+  pack.integrity.contentSha256 = candidatePackContentHash(pack);
+  return pack;
+}
+
+function candidatePackFile(item) {
+  return {
+    'data/cloud-editorial/inbox/2026/09/2026-09-16-0730.json': JSON.stringify(candidatePackFor(item)),
+  };
+}
+
+test('MCP candidate-pack integrity calculation matches the repository producer', () => {
+  const pack = candidatePackFor(validPackage());
+  assert.equal(candidatePackContentHash(pack), candidatePackHash(pack));
+});
+
 test('returns the latest unexpired candidate pack and exposes only the requested category', async () => {
+  const oldPack = candidatePackFor(validPackage(), { economy: [{ id: 'old' }], issue: [] });
+  oldPack.expiresAt = '2026-09-15T00:00:00.000Z';
+  oldPack.integrity.contentSha256 = candidatePackContentHash(oldPack);
   const github = new MockGitHubClient({
     files: {
-      'data/cloud-editorial/inbox/2026/09/old.json': JSON.stringify({ expiresAt: '2026-09-15T00:00:00.000Z', candidates: { economy: [{ id: 'old' }], issue: [] } }),
-      'data/cloud-editorial/inbox/2026/09/fresh.json': JSON.stringify({ expiresAt: '2026-09-16T12:00:00.000Z', candidates: { economy: [{ id: 'fresh-e' }], issue: [{ id: 'fresh-i' }] } }),
+      'data/cloud-editorial/inbox/2026/09/old.json': JSON.stringify(oldPack),
+      'data/cloud-editorial/inbox/2026/09/fresh.json': JSON.stringify(candidatePackFor(validPackage(), { economy: [{ id: 'fresh-e' }], issue: [{ id: 'fresh-i' }] })),
     },
   });
+  const freshPack = JSON.parse(github.files.get('data/cloud-editorial/inbox/2026/09/fresh.json'));
+  freshPack.expiresAt = '2026-09-16T12:00:00.000Z';
+  freshPack.integrity.contentSha256 = candidatePackContentHash(freshPack);
+  github.files.set('data/cloud-editorial/inbox/2026/09/fresh.json', JSON.stringify(freshPack));
   const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
 
   const result = await core.call('get_pending_candidate_pack', { category: 'economy' });
@@ -134,6 +179,27 @@ test('fails closed when a recent publication ledger is malformed', async () => {
   await assert.rejects(() => core.call('get_visual_library'), /history could not be verified/u);
 });
 
+test('ignores candidate packs whose content hash does not match their integrity field', async () => {
+  const pack = candidatePackFor(validPackage());
+  pack.integrity.contentSha256 = 'b'.repeat(64);
+  const github = new MockGitHubClient({
+    files: { 'data/cloud-editorial/inbox/2026/09/2026-09-16-0730.json': JSON.stringify(pack) },
+  });
+  const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
+  assert.equal((await core.call('get_pending_candidate_pack')).status, 'no_candidate_pack');
+});
+
+test('ignores files that do not use the cloud candidate-pack schema', async () => {
+  const pack = candidatePackFor(validPackage());
+  pack.kind = 'untrusted-data';
+  pack.integrity.contentSha256 = candidatePackContentHash(pack);
+  const github = new MockGitHubClient({
+    files: { 'data/cloud-editorial/inbox/2026/09/2026-09-16-0730.json': JSON.stringify(pack) },
+  });
+  const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
+  assert.equal((await core.call('get_pending_candidate_pack')).status, 'no_candidate_pack');
+});
+
 test('accepts only a pinned visual library reference in an editorial package', () => {
   const pack = validPackage();
   pack.visual = {
@@ -153,7 +219,10 @@ test('accepts only a pinned visual library reference in an editorial package', (
 
 test('refuses a library package before opening a PR when its asset is not allowlisted', async () => {
   const github = new MockGitHubClient({
-    files: { 'assets/fallback/generated/manifest.json': visualLibraryManifest() },
+    files: {
+      ...candidatePackFile(validPackage()),
+      'assets/fallback/generated/manifest.json': visualLibraryManifest(),
+    },
   });
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-library-'));
   const core = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
@@ -170,7 +239,7 @@ test('refuses a library package before opening a PR when its asset is not allowl
   try {
     await core.call('submit_editorial_package', {
       requestId: 'library-package-1',
-      candidatePackSha256: 'b'.repeat(64),
+      candidatePackSha256: candidatePackContentHash(candidatePackFor(pack)),
       package: pack,
     });
     assert.equal(github.pullRequests.length, 1);
@@ -179,7 +248,7 @@ test('refuses a library package before opening a PR when its asset is not allowl
     pack.integrity.contentSha256 = dailyPackageContentHash(pack);
     await assert.rejects(() => core.call('submit_editorial_package', {
       requestId: 'library-package-2',
-      candidatePackSha256: 'b'.repeat(64),
+      candidatePackSha256: candidatePackContentHash(candidatePackFor(pack)),
       package: pack,
     }), /not allowlisted/u);
     assert.equal(github.pullRequests.length, 1);
@@ -188,44 +257,74 @@ test('refuses a library package before opening a PR when its asset is not allowl
   }
 });
 
-test('writes a package and generated image only through the allowlisted package path', async () => {
+test('submits only an assisted package matching the latest candidate evidence, frame, hash, and expiry', async () => {
+  const original = validPackage();
+  const packFile = candidatePackFile(original);
+  const candidatePackSha256 = candidatePackContentHash(candidatePackFor(original));
+
+  for (const [label, mutate, expected] of [
+    ['mode', item => { item.review.mode = 'auto'; }, /must use assisted/u],
+    ['visual-kind', item => { item.visual.kind = 'chatgpt-generated-editorial'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /must use a reviewed visual-library/u],
+    ['source', item => { item.source.url = 'https://news.example/not-in-candidates'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /must match a candidate/u],
+    ['frame', item => { item.newsFrame.subject = '다른 주제'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /newsFrame.subject/u],
+    ['expiry', item => { item.expiresAt = '2026-09-17T12:35:00.000Z'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /must not extend/u],
+  ]) {
+    const github = new MockGitHubClient({ files: packFile });
+    const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
+    const item = structuredClone(original);
+    mutate(item);
+    await assert.rejects(() => core.call('submit_editorial_package', {
+      requestId: `reject-${label}-package`,
+      candidatePackSha256,
+      package: item,
+    }), expected);
+    assert.equal(github.pullRequests.length, 0, `${label} mismatch must be rejected before PR creation`);
+  }
+
+  const github = new MockGitHubClient({ files: packFile });
+  const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
+  await assert.rejects(() => core.call('submit_editorial_package', {
+    requestId: 'reject-stale-pack',
+    candidatePackSha256: 'b'.repeat(64),
+    package: original,
+  }), /missing, expired, changed, or no longer the latest/u);
+  assert.equal(github.pullRequests.length, 0);
+});
+
+test('writes an idempotent package reference without uploading image bytes', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-'));
-  const github = new MockGitHubClient();
+  const pack = validPackage();
+  const github = new MockGitHubClient({
+    files: {
+      ...candidatePackFile(pack),
+      'assets/fallback/generated/manifest.json': visualLibraryManifest(),
+    },
+  });
   const core = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
-  const png = Buffer.from('89504e470d0a1a0a', 'hex');
 
   try {
-    const asset = await core.call('ingest_generated_image', {
-      requestId: 'req-image-1',
-      mimeType: 'image/png',
-      dataBase64: png.toString('base64'),
-    });
-    const pack = validPackage();
     const submitted = await core.call('submit_editorial_package', {
       requestId: 'req-package-1',
-      candidatePackSha256: 'b'.repeat(64),
+      candidatePackSha256: candidatePackContentHash(candidatePackFor(pack)),
       package: pack,
-      assetId: asset.assetId,
     });
     const replay = await core.call('submit_editorial_package', {
       requestId: 'req-package-1',
-      candidatePackSha256: 'b'.repeat(64),
+      candidatePackSha256: candidatePackContentHash(candidatePackFor(pack)),
       package: pack,
-      assetId: asset.assetId,
     });
 
     assert.equal(submitted.commitSha, replay.commitSha);
     assert.equal(github.commits.length, 1);
     assert.equal(github.files.has('content/diem-daily/2026/09/16/2026-09-16-0730/economy/package.json'), true);
-    assert.equal(github.files.has('content/diem-daily/2026/09/16/2026-09-16-0730/economy/background.png'), true);
+    assert.equal(github.files.has('content/diem-daily/2026/09/16/2026-09-16-0730/economy/background.png'), false);
     assert.equal([...github.files.keys()].some(file => file.startsWith('.github/')), false);
 
     const restarted = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
     const afterRestart = await restarted.call('submit_editorial_package', {
       requestId: 'req-package-1',
-      candidatePackSha256: 'b'.repeat(64),
+      candidatePackSha256: candidatePackContentHash(candidatePackFor(pack)),
       package: pack,
-      assetId: asset.assetId,
     });
     assert.equal(afterRestart.commitSha, submitted.commitSha);
     assert.equal(github.commits.length, 1);
@@ -251,40 +350,10 @@ test('writes exactly one idempotent canary file on a dedicated branch', async ()
   }
 });
 
-test('persists an ingested image across stateless MCP calls before writing a restricted image canary', async () => {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-mcp-image-canary-'));
-  const github = new MockGitHubClient();
-  const png = Buffer.from('89504e470d0a1a0a', 'hex');
-  try {
-    const firstCall = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
-    const asset = await firstCall.call('ingest_generated_image', {
-      requestId: 'image-ingest-1',
-      mimeType: 'image/png',
-      dataBase64: png.toString('base64'),
-    });
-    const secondCall = new DiemMcpCore({ githubClient: github, assetRoot: root, now: () => NOW });
-    const submitted = await secondCall.call('write_image_canary_proof', {
-      requestId: 'image-canary-1',
-      assetId: asset.assetId,
-    });
-    const replay = await secondCall.call('write_image_canary_proof', {
-      requestId: 'image-canary-1',
-      assetId: asset.assetId,
-    });
-    assert.equal(submitted.commitSha, replay.commitSha);
-    assert.equal(github.commits.length, 1);
-    assert.deepEqual(github.commits[0].files, [
-      'data/cloud-editorial/canary/image-canary-1.png',
-      'data/cloud-editorial/canary/image-canary-1.json',
-    ]);
-    assert.equal(github.pullRequests.length, 1);
-  } finally {
-    fs.rmSync(root, { recursive: true, force: true });
-  }
-});
-
-test('rejects unsupported tools and refuses image inputs without inline bytes', async () => {
+test('does not expose image handoff tools in the visual-library workflow', async () => {
   const core = new DiemMcpCore({ githubClient: new MockGitHubClient(), now: () => NOW });
   await assert.rejects(() => core.call('shell', {}), /Unsupported DIEM MCP tool/u);
-  await assert.rejects(() => core.call('ingest_generated_image', { requestId: 'req-image-2' }), /inline dataBase64/u);
+  await assert.rejects(() => core.call('ingest_generated_image', { requestId: 'req-image-2' }), /Unsupported DIEM MCP tool/u);
+  await assert.rejects(() => core.call('write_image_canary_proof', { requestId: 'req-image-3' }), /Unsupported DIEM MCP tool/u);
+  await assert.rejects(() => core.call('attach_image_to_package', { requestId: 'req-image-4' }), /Unsupported DIEM MCP tool/u);
 });

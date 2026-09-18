@@ -356,6 +356,7 @@ async function prepareDailyPackage(ledger, category, {
   createReelImpl = createDiemReelWithMusic,
 } = {}) {
   if (item?.review?.mode === 'shadow') throw new Error('[DIEM Daily] shadow package cannot be prepared.');
+  if (item?.review?.mode !== 'assisted') throw new Error('[DIEM Daily] only assisted packages can be prepared.');
   const validation = validateDailyPackage(item, { now, verifyArtifact: Boolean(item?.visual?.assetPath) });
   if (!validation.ok) throw new Error(`[DIEM Daily] package cannot be prepared: ${validation.errors.join('; ')}`);
   const publication = ledger?.publications?.[category];
@@ -473,6 +474,7 @@ async function prepareDailyPackageFromFile({
   const validation = validateDailyPackage(item, { now, verifyArtifact: Boolean(item.visual?.assetPath) });
   if (!validation.ok) throw new Error(`[DIEM Daily] package validation failed: ${validation.errors.join('; ')}`);
   if (item.review?.mode === 'shadow') throw new Error('[DIEM Daily] shadow package cannot be prepared.');
+  if (item.review?.mode !== 'assisted') throw new Error('[DIEM Daily] only assisted packages can be prepared.');
   const known = existingDailyPackage(ledgers, item.packageId);
   if (known?.publication?.reel?.status === 'published') return known.ledger;
   const staged = stagePackageInLedger(ledger, item, { date, now });
@@ -508,6 +510,7 @@ async function publishDailyPackage({
   const validation = validateDailyPackage(item, { now, verifyArtifact: Boolean(item.visual?.assetPath) });
   if (!validation.ok) throw new Error(`[DIEM Daily] package validation failed: ${validation.errors.join('; ')}`);
   if (item.review?.mode === 'shadow') throw new Error('[DIEM Daily] shadow package cannot be published.');
+  if (item.review?.mode !== 'assisted') throw new Error('[DIEM Daily] only assisted packages can be published.');
   const known = existingDailyPackage(ledgers, item.packageId);
   if (known?.publication?.reel?.status === 'published') return known.ledger;
   const staged = stagePackageInLedger(ledger, item, { date, now });

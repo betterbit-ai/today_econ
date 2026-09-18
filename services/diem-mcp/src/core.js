@@ -2,7 +2,10 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const { dailyPackageContentHash, validateSubmissionPackage } = require('./package-contract');
+const {
+  candidatePackContentHash,
+  validateSubmissionPackage,
+} = require('./package-contract');
 const { MCP_INSTRUCTIONS } = require('./instructions');
 const { FileRequestStore } = require('./request-store');
 
@@ -11,9 +14,9 @@ const ALLOWED_WRITE_PREFIXES = Object.freeze([
   'data/cloud-editorial/decisions/',
   'data/cloud-editorial/canary/',
 ]);
+const VISUAL_LIBRARY_MANIFEST_PATH = 'assets/fallback/generated/manifest.json';
 const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
 const ASSET_TTL_MS = 2 * 60 * 60 * 1000;
-const VISUAL_LIBRARY_MANIFEST_PATH = 'assets/fallback/generated/manifest.json';
 
 function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
@@ -136,9 +139,6 @@ class DiemMcpCore {
       'get_visual_library',
       'write_canary_proof',
       'submit_editorial_package',
-      'ingest_generated_image',
-      'write_image_canary_proof',
-      'attach_image_to_package',
       'get_package_status',
     ];
   }
@@ -157,9 +157,13 @@ class DiemMcpCore {
     for (const filePath of paths) {
       try {
         const pack = JSON.parse(await this.githubClient.readFile(filePath));
+        if (pack?.schemaVersion !== 1 || pack?.kind !== 'diem-cloud-candidate-pack'
+          || !Array.isArray(pack.candidates?.economy) || !Array.isArray(pack.candidates?.issue)) continue;
         const expiry = new Date(pack.expiresAt);
         if (!Number.isFinite(expiry.getTime()) || expiry.getTime() <= at.getTime()) continue;
-        candidates.push({ path: filePath, pack, expiry });
+        const contentSha256 = candidatePackContentHash(pack);
+        if (pack.integrity?.contentSha256 !== contentSha256) continue;
+        candidates.push({ path: filePath, pack, expiry, contentSha256 });
       } catch {
         // A malformed inbox file must not stop the next valid package from being found.
       }
@@ -171,7 +175,7 @@ class DiemMcpCore {
       status: 'ready',
       path: selected.path,
       expiresAt: selected.pack.expiresAt,
-      contentSha256: selected.pack.integrity?.contentSha256 || null,
+      contentSha256: selected.contentSha256,
       candidates: category === 'any'
         ? selected.pack.candidates
         : (selected.pack.candidates?.[category] || []),
@@ -402,7 +406,7 @@ class DiemMcpCore {
     });
   }
 
-  async submit_editorial_package({ requestId, candidatePackSha256, package: item, assetId } = {}) {
+  async submit_editorial_package({ requestId, candidatePackSha256, package: item } = {}) {
     const safeRequest = safeRequestId(requestId);
     const existing = this.resultFor(`package:${safeRequest}`);
     if (existing) return existing;
@@ -410,14 +414,37 @@ class DiemMcpCore {
       throw new Error('[DIEM MCP] candidatePackSha256 must be a SHA-256 value.');
     }
     const packageCopy = structuredClone(item || {});
-    if (assetId) {
-      const asset = this.assetFor(assetId);
-      packageCopy.visual ||= {};
-      packageCopy.visual.kind = 'chatgpt-generated-editorial';
-      packageCopy.visual.assetPath = 'background.png';
-      packageCopy.visual.sha256 = asset.sha256;
-      packageCopy.integrity ||= {};
-      packageCopy.integrity.contentSha256 = dailyPackageContentHash(packageCopy);
+    if (packageCopy.review?.mode !== 'assisted') {
+      throw new Error('[DIEM MCP] Editorial package submissions must use assisted review mode.');
+    }
+    const candidatePack = await this.get_pending_candidate_pack({
+      category: packageCopy.category,
+      now: this.now().toISOString(),
+    });
+    if (candidatePack.status !== 'ready' || candidatePack.contentSha256 !== candidatePackSha256) {
+      throw new Error('[DIEM MCP] Candidate pack is missing, expired, changed, or no longer the latest pack.');
+    }
+    const selectedCandidate = candidatePack.candidates.find(entry => (
+      entry?.candidate?.title === packageCopy.source?.title
+      && entry?.candidate?.url === packageCopy.source?.url
+      && entry?.article?.evidenceSha256 === packageCopy.source?.evidenceSha256
+    ));
+    if (!selectedCandidate) {
+      throw new Error('[DIEM MCP] Package source must match a candidate and evidence hash in the selected pack.');
+    }
+    if (packageCopy.visual?.kind !== 'diem-library') {
+      throw new Error('[DIEM MCP] Editorial packages must use a reviewed visual-library asset.');
+    }
+    const candidateFrame = selectedCandidate.newsFrame || selectedCandidate.candidate.newsFrame || {};
+    for (const field of ['category', 'subject', 'eventKind', 'claimState']) {
+      if (packageCopy.newsFrame?.[field] !== candidateFrame[field]) {
+        throw new Error(`[DIEM MCP] Package newsFrame.${field} must match the selected candidate.`);
+      }
+    }
+    const packageExpiry = new Date(packageCopy.expiresAt);
+    const candidateExpiry = new Date(candidatePack.expiresAt);
+    if (!Number.isFinite(packageExpiry.getTime()) || packageExpiry > candidateExpiry) {
+      throw new Error('[DIEM MCP] Package expiry must not extend beyond the selected candidate pack.');
     }
     if (packageCopy.visual?.kind === 'diem-library') {
       const libraryAssets = await this.readVisualLibrary();
@@ -434,10 +461,6 @@ class DiemMcpCore {
     if (!validation.ok) throw new Error(`[DIEM MCP] Package validation failed: ${validation.errors.join('; ')}`);
     const paths = dailyPackagePaths(packageCopy);
     const files = [{ path: safeRepositoryPath(paths.packagePath), content: `${JSON.stringify(packageCopy, null, 2).normalize('NFC')}\n` }];
-    if (assetId) {
-      const asset = this.assetFor(assetId);
-      files.push({ path: safeRepositoryPath(paths.imagePath), content: fs.readFileSync(asset.path) });
-    }
     const branch = `diem/editorial/${packageCopy.runId}/${packageCopy.category}`;
     const commit = await this.githubClient.commitFiles({
       branch,

@@ -14,15 +14,12 @@ const { allowedHosts, createActiveApp, createConnectivityCanaryApp, createConnec
 test('registers the restricted MCP tool surface and uses constant-time bearer comparison', () => {
   const server = createDiemMcpServer(new DiemMcpCore({ githubClient: new MockGitHubClient() }));
   assert.deepEqual(Object.keys(server._registeredTools).sort(), [
-    'attach_image_to_package',
     'get_editorial_context',
     'get_package_status',
     'get_pending_candidate_pack',
     'get_visual_library',
-    'ingest_generated_image',
     'submit_editorial_package',
     'write_canary_proof',
-    'write_image_canary_proof',
   ]);
   assert.deepEqual(server._registeredTools.write_canary_proof.annotations, {
     readOnlyHint: false,

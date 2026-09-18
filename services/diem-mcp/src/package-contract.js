@@ -23,6 +23,14 @@ function dailyPackageContentHash(item = {}) {
   return sha256(JSON.stringify(packageContentShape(item)).normalize('NFC'));
 }
 
+function candidatePackContentHash(pack = {}) {
+  const content = structuredClone(pack);
+  delete content.createdAt;
+  delete content.expiresAt;
+  delete content.integrity;
+  return sha256(JSON.stringify(content).normalize('NFC'));
+}
+
 function isSafeId(value) {
   return /^[A-Za-z0-9][A-Za-z0-9_-]*$/u.test(String(value || ''));
 }
@@ -98,8 +106,8 @@ function validateSubmissionPackage(item = {}, { now = new Date() } = {}) {
   }
 
   if (!item.generation?.provider || !item.generation?.model) errors.push('generation provider and model are required');
-  if (!['shadow', 'assisted', 'auto'].includes(item.review?.mode) || item.review?.status !== 'model-reviewed') {
-    errors.push('review must be a model-reviewed shadow, assisted, or auto run');
+  if (item.review?.mode !== 'assisted' || item.review?.status !== 'model-reviewed') {
+    errors.push('review must be a model-reviewed assisted run');
   }
   if (!/^[a-f0-9]{64}$/u.test(item.integrity?.contentSha256 || '')
     || item.integrity.contentSha256 !== dailyPackageContentHash(item)) {
@@ -110,6 +118,7 @@ function validateSubmissionPackage(item = {}, { now = new Date() } = {}) {
 
 module.exports = {
   DAILY_PACKAGE_SCHEMA_VERSION,
+  candidatePackContentHash,
   dailyPackageContentHash,
   validateSubmissionPackage,
 };

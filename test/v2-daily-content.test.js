@@ -232,6 +232,14 @@ test('blocks shadow packages from preparation and packages with altered evidence
     /shadow package cannot be prepared/u
   );
 
+  const automatic = packageFixture({ mode: 'auto' });
+  const automaticLedger = createDailyLedger(DATE, NOW);
+  automaticLedger.publications.economy = stageDailyPackage(automatic, { date: DATE, now: NOW });
+  await assert.rejects(
+    () => prepareDailyPackage(automaticLedger, 'economy', { package: automatic }),
+    /only assisted packages can be prepared/u
+  );
+
   const altered = packageFixture();
   altered.source.evidenceText = '바뀐 근거';
   assert.equal(validateDailyPackage(altered, { now: NOW }).ok, false);

@@ -1,10 +1,10 @@
 # DIEM ChatGPT Cloud + Oracle MCP 편집 파이프라인 구현 계획
 
 - 작성일: 2026-09-15 KST
-- 상태: 구현 준비 완료, 아직 구현·배포·예약 생성 전
+- 상태: visual-library 구현이 PR #77에 반영됨; 첫 assisted package PR·Actions prepare canary·ChatGPT 반복 예약은 아직 미완료
 - 구현 세션 권장 모델: `gpt-5.6-terra`, reasoning `high`
 - 운영 예약 모델: `gpt-5.6-terra`, reasoning `high`
-- 목표: Mac이 꺼져 있어도 ChatGPT Pro의 웹 예약 작업이 편집하고,
+- 목표: Mac이 꺼져 있어도 ChatGPT 웹 클라우드 예약 작업이 편집하고,
   GitHub Actions가 검증·Reel 제작·Instagram 발행을 완료한다.
 
 ## 2026-09-18 approved architecture amendment: reviewed visual library
@@ -29,6 +29,71 @@ write and asset-library read; prove package prepare with a real merged assisted
 package before moving any existing publisher schedule. The native ImageGen
 file-handoff proof is no longer a prerequisite for this library-based path.
 
+## Current execution runbook — authoritative as of 2026-09-18
+
+This runbook supersedes the earlier ImageGen-byte-handoff assumptions below.
+Do not implement or retry the old daily `ingest_generated_image`/ImageGen
+handoff gate, and do not enable automatic Instagram publication. The detailed
+historical stages below explain how the first architecture was evaluated; for
+the current acceptance criteria, use this runbook and the amended `spec/spec.md`.
+
+### Current state
+
+- Oracle MCP OAuth and GitHub App access are live. The authenticated ChatGPT
+  cloud scheduled-write canary passed and opened PR #81; a later unattended
+  canary opened PR #82. These were canary JSON files only.
+- Oracle `get_visual_library` was called successfully from ChatGPT and returned
+  the 43 library assets currently on `main`. PR #77 adds the 44th reviewed
+  asset and the production visual-library package flow.
+- PR #77 is open and clean, with no required CI checks configured. Its changed
+  candidate cron is separate from the existing publisher cron; the existing
+  automatic publisher must remain unchanged. The latest diff also verifies each
+  package against the latest candidate hash/source/frame, exposes only assisted
+  visual-library package writes, and keeps publish on `main`; validate is
+  read-only and image-byte tools are not exposed to ChatGPT.
+- Full local verification passes: 379 tests passed, 3 loopback/network tests
+  skipped by the managed sandbox. A branch restriction for manual Instagram
+  publication is part of the reviewed final diff.
+- Still required: merge PR #77, run the candidate-only Action, create and review
+  one real assisted package PR through ChatGPT, then run manual package validate
+  and prepare Actions. Do not run `daily_package_publish` as a canary.
+
+### First end-to-end run
+
+1. Review and merge code PR #77. This activates the separate six-hour
+   `cloud_candidates` cron but does not publish Instagram content.
+2. In GitHub Actions, run **DIEM Economy → `cloud_candidates`** once on `main`
+   (or wait for its cron). Confirm only a new JSON file under
+   `data/cloud-editorial/inbox/` was committed and the publisher jobs were
+   skipped.
+3. In a normal ChatGPT web chat with **DIEM Editorial OAuth MCP v4** connected,
+   test the editorial instructions below (the local `.codex/skills/` file is for
+   Codex and is not automatically visible to ChatGPT web): read the latest
+   candidate pack, seven-day editorial context, and visual library; then submit
+   at most one safe Economy and one safe Issue package. Copy source title, URL,
+   evidence hash, and core newsFrame fields from the selected candidate exactly.
+   Each submission creates an `assisted` content PR; it cannot publish.
+4. Inspect the content PR(s) for source accuracy, claim status, Korean copy,
+   visual topic match and pinned hash. Merge only reviewed packages.
+5. On `main`, run **DIEM Economy → `daily_package_validate`** with the merged
+   `content/diem-daily/.../package.json` path. It has no Instagram secret.
+6. If validation passes, run **`daily_package_prepare`** with the same path and
+   inspect the committed cover/Reel and publication ledger state. It has no
+   Instagram secret and does not publish.
+7. `daily_package_publish` is a distinct, deliberate operator action. Run it
+   only when publication is explicitly intended; it is restricted to `main`.
+   ChatGPT's scheduled task must never invoke it.
+8. Only after the manual ChatGPT run successfully creates a valid assisted PR,
+   create the recurring ChatGPT web task. Use a standalone cloud task at 10:30
+   KST, after the 09:00 KST candidate collection; keep the MCP app enabled and
+   its saved narrow tool permissions. Review early runs and adjust if needed.
+
+If the latest pack is missing or expired, an asset is recently used, evidence
+is weak, validation fails, or the MCP is unavailable, create no package for
+that category and report the blocker. Never fall back to Groq for an assisted
+package. Never merge a content PR or publish an Instagram Reel merely to make a
+scheduled run look successful.
+
 ## 0. 이 문서 사용법
 
 다음 구현 세션은 아래 순서로 읽고 단계 0부터 실행한다.
@@ -40,14 +105,14 @@ file-handoff proof is no longer a prerequisite for this library-based path.
 5. 이 문서
 6. 관련 `decisions/`와 `learnings/`
 
-단계별 완료 조건을 통과하기 전에는 다음 단계로 넘어가지 않는다. 특히
-**단계 4의 웹 예약·무인 쓰기·ImageGen 전달 PoC가 끝나기 전에는 기존 자동
-발행을 중단하거나 ChatGPT 예약 작업에 실제 발행 권한을 주지 않는다.**
+단계별 완료 조건을 통과하기 전에는 다음 단계로 넘어가지 않는다. 2026-09-18
+visual-library amendment가 native ImageGen byte handoff를 대체했다. Existing
+automatic publisher는 assisted package PR와 manual prepare canary가 통과하기 전에는
+변경하지 않으며 ChatGPT 예약 작업에는 Instagram 권한을 주지 않는다.
 
-현재 작업 트리는 `main`이 `origin/main`보다 1커밋 앞서고 기존 문서·성과
-보고서 변경이 남아 있다. 구현자는 `git status --short --branch`와 `git diff`로
-이를 먼저 확인하고 사용자 변경을 초기화하지 않는다
-(`docs/handoffs/CURRENT.md:3-8`).
+실행 상태는 계속 바뀌므로 항상 `docs/handoffs/CURRENT.md`와
+`git status --short --branch`를 먼저 확인한다. 체크아웃, ahead/behind 개수,
+미커밋 변경을 문서만 보고 가정하지 않으며 사용자 변경을 초기화하지 않는다.
 
 ## 1. 요구사항
 

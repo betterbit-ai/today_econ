@@ -103,14 +103,16 @@ For the exact GitHub App creation and Oracle secret placement sequence, use
 requests write access on `betterbit-ai/today_econ` only, no webhook and no
 organization-wide installation.
 
-## Production gate
+## Production publishing boundary
 
-Do not replace the mock service until all conditions below are evidenced:
+The active Oracle MCP and scheduled-write canary are already deployed and
+verified. Daily ImageGen byte handoff is explicitly disabled; the reviewed
+GitHub visual library is the supported image path. ChatGPT can submit only an
+`assisted` content PR. It has no Instagram, Action, workflow, secret, or shell
+tool.
 
-- Streamable HTTP MCP transport is implemented with the official SDK and is
-  protected by an approved ChatGPT-compatible credential flow.
-- GitHub App is restricted to the one DIEM repository.
-- A web scheduled-task canary writes only the permitted canary path.
-- ImageGen handoff is either proven or explicitly disabled.
-- Existing production publishing schedules remain unchanged until those gates
-  have passed.
+Keep existing Instagram schedules unchanged until at least one real assisted
+package PR has passed repository validation and Reel preparation, then record a
+separate operator decision before changing any production publishing schedule.
+The final Instagram publish remains a distinct manual GitHub Action restricted
+to `main`.

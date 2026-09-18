@@ -262,12 +262,43 @@ jobs:
             git push origin "HEAD:${GITHUB_REF_NAME:-main}"
           fi
 
+  validate-cloud-daily-package:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      inputs.operation == 'daily_package_validate'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      DAILY_PACKAGE_PATH: ${{ inputs.package_path }}
+    steps:
+      - name: Require a package path
+        run: test -n "$DAILY_PACKAGE_PATH"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Validate ChatGPT daily package
+        run: node src/v2/index.js daily-package-validate --package "$DAILY_PACKAGE_PATH"
+
   run-cloud-daily-package:
     if: >-
       github.event_name == 'workflow_dispatch' &&
-      (inputs.operation == 'daily_package_validate' ||
-       inputs.operation == 'daily_package_prepare' ||
-       inputs.operation == 'daily_package_publish')
+      (inputs.operation == 'daily_package_prepare' ||
+       inputs.operation == 'daily_package_publish') &&
+      (inputs.operation != 'daily_package_publish' || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -302,10 +333,6 @@ jobs:
 
       - name: Install Node dependencies
         run: npm ci
-
-      - name: Validate ChatGPT daily package
-        if: inputs.operation == 'daily_package_validate'
-        run: node src/v2/index.js daily-package-validate --package "$DAILY_PACKAGE_PATH"
 
       - name: Install render dependencies
         if: inputs.operation == 'daily_package_prepare' || inputs.operation == 'daily_package_publish'

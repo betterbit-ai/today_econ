@@ -47,26 +47,10 @@ function createDiemMcpServer(core) {
     requestId: REQUEST_ID,
     note: z.string().min(1).max(280).optional(),
   }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
-  registerCoreTool(server, 'ingest_generated_image', 'Store one generated editorial image supplied inline by the same task. Only PNG, JPEG, or WebP data is accepted; remote URLs are never fetched.', {
-    requestId: REQUEST_ID,
-    mimeType: z.enum(['image/png', 'image/jpeg', 'image/webp']).optional(),
-    dataBase64: z.string().max(12_000_000).optional(),
-  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
-  registerCoreTool(server, 'write_image_canary_proof', 'Write one generated-image handoff canary and manifest under the restricted canary path, then open a PR. It never publishes or writes packages, workflows, settings, or secrets.', {
-    requestId: REQUEST_ID,
-    assetId: z.string().min(1).max(96),
-  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'submit_editorial_package', 'Validate and open one repository pull request for a DIEM editorial package. This never publishes to Instagram.', {
     requestId: REQUEST_ID,
     candidatePackSha256: SHA256,
     package: JSON_OBJECT,
-    assetId: z.string().max(96).optional(),
-  }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
-  registerCoreTool(server, 'attach_image_to_package', 'Submit a package with its previously ingested generated image. This never publishes to Instagram.', {
-    requestId: REQUEST_ID,
-    candidatePackSha256: SHA256,
-    package: JSON_OBJECT,
-    assetId: z.string().min(1).max(96),
   }, core, { readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'get_package_status', 'Read package status from the repository. It cannot modify a package.', {
     packageId: REQUEST_ID,

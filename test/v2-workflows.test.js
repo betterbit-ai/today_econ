@@ -71,13 +71,22 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
 
   const publishJob = economy.slice(economy.indexOf('  publish-economy:'), economy.indexOf('  build-cloud-candidate-pack:'));
   assert.doesNotMatch(publishJob, /0 0,6,12,18 \* \* \*/u);
+  const validatePackageJob = economy.slice(
+    economy.indexOf('  validate-cloud-daily-package:'),
+    economy.indexOf('  run-cloud-daily-package:'),
+  );
+  assert.match(validatePackageJob, /inputs\.operation == 'daily_package_validate'/u);
+  assert.match(validatePackageJob, /contents: read/u);
+  assert.match(validatePackageJob, /daily-package-validate/u);
+  assert.doesNotMatch(validatePackageJob, /INSTAGRAM_ACCESS_TOKEN|SLACK_BOT_TOKEN|PUBLISH_INSTAGRAM/u);
+
   const cloudPackageJob = economy.slice(
     economy.indexOf('  run-cloud-daily-package:'),
     economy.indexOf('  collect-performance-insights:'),
   );
-  assert.match(cloudPackageJob, /inputs\.operation == 'daily_package_validate'/u);
   assert.match(cloudPackageJob, /inputs\.operation == 'daily_package_prepare'/u);
   assert.match(cloudPackageJob, /inputs\.operation == 'daily_package_publish'/u);
+  assert.match(cloudPackageJob, /inputs\.operation != 'daily_package_publish' \|\| github\.ref == 'refs\/heads\/main'/u);
   assert.match(cloudPackageJob, /--publish/u);
   assert.ok(cloudPackageJob.indexOf('daily-package-prepare --package "$DAILY_PACKAGE_PATH"')
     < cloudPackageJob.indexOf('daily-package-publish --package "$DAILY_PACKAGE_PATH" --publish'));

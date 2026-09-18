@@ -40,21 +40,27 @@ GitHub Actions는 선택된 로컬 자산의 해시와 세로 규격을 재검�
 7. 기존 자동 publisher는 `contentType=diem_daily` 원장을 발견하면 선택·prepare·publish를
    하지 않는다. 이 guard로 기존 cron이 assisted package를 사람의 수동 실행 전에
    자동 발행하지 못하게 한다.
+8. MCP package 제출은 최신 미만료 candidate pack의 content SHA-256을 다시 계산하고,
+   선택 기사의 제목·URL·근거 본문 hash·핵심 newsFrame이 그 팩의 한 후보와 일치할
+   때만 허용한다. package expiry는 candidate pack보다 늦을 수 없고 제출 mode는
+   `assisted`만 허용한다.
 
 ### Acceptance criteria
 
-- [ ] MCP가 허용된 visual library asset ID만 반환한다.
-- [ ] `diem-library` package는 invalid/missing/tampered asset ID를 거부한다.
-- [ ] 유효한 `diem-library` assisted package는 existing 9:16 asset을 사용해
+- [x] MCP가 허용된 visual library asset ID만 반환한다.
+- [x] `diem-library` package는 invalid/missing/tampered asset ID를 거부한다.
+- [x] 유효한 `diem-library` assisted package는 existing 9:16 asset을 사용해
   `daily-package-prepare`까지 통과한다.
-- [ ] 같은 asset이 최근 7일 내 사용됐으면 다른 안전한 variant를 선택하거나
+- [x] 같은 asset이 최근 7일 내 사용됐으면 다른 안전한 variant를 선택하거나
   명시적으로 실패한다.
-- [ ] Economy/Issue production publisher cron과 publisher job 조건은 바뀌지 않는다.
+- [x] Economy/Issue production publisher cron과 publisher job 조건은 바뀌지 않는다.
 - [ ] 새 Economy cron은 candidate-pack job만 실행하고 기존 publish job에는 진입하지 않는다.
 - [ ] 새 Economy candidate cron은 candidate-pack job만 실행하고 publisher에는 진입하지 않는다.
-- [ ] daily package GitHub Action은 assisted package 경로에만 노출되며 publish는 수동 입력이다.
-- [ ] legacy scheduled publisher는 pending/ready/published daily package ledger를 자동 처리하지 않는다.
-- [ ] `npm run test`와 `git diff --check`가 통과한다.
+- [x] daily package GitHub Action은 assisted package 경로에만 노출되며 publish는 수동 입력이다.
+- [x] MCP package submit은 최신 candidate-pack hash와 선택 기사·근거·핵심 newsFrame을 일치시킨다.
+- [x] MCP는 `review.mode=assisted` 외 package, 만료 팩, 팩보다 긴 package expiry를 거부한다.
+- [x] legacy scheduled publisher는 pending/ready/published daily package ledger를 자동 처리하지 않는다.
+- [x] `npm run test`와 `git diff --check`가 통과한다.
 
 ### Constraints
 
