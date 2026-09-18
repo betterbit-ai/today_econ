@@ -224,6 +224,9 @@ async function planCategoryPhase({
   selectedCategories(category);
   const previousLedger = loadLedgerImpl(date) || createDailyLedger(date, now);
   const current = previousLedger.publications[category];
+  if (current.contentType === 'diem_daily') {
+    return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true, cloudPackageProtected: true };
+  }
   if (publicationNeedsRecovery(current)) {
     return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true };
   }
@@ -362,6 +365,7 @@ function candidatePreparationReason(error = {}) {
   if (/^\[DIEM Image\].*named-person identity could not be verified/iu.test(message)) {
     return 'image_identity_unverified';
   }
+  if (/^\[DIEM Image\]/u.test(message)) return 'image_context_unavailable';
   return null;
 }
 
@@ -455,7 +459,7 @@ function candidateFailure(publication, error, now = new Date()) {
       }))
       : [],
     reason,
-    stage: ['image_identity_unverified', 'quality_gate_failed'].includes(reason)
+    stage: ['image_identity_unverified', 'image_context_unavailable', 'quality_gate_failed'].includes(reason)
       ? 'quality_gate'
       : 'editorial_generation',
     rejectedAt: now.toISOString(),
@@ -558,6 +562,7 @@ async function runCategoryStep(ledger, category, {
 } = {}) {
   const publication = ledger.publications[category];
   if (!publication || publication.status === 'no_publish') return ledger;
+  if (publication.contentType === 'diem_daily') return ledger;
 
   if (phase === 'prepare') {
     if (['published', 'manual_action_required', 'no_publish'].includes(publication.status)) return ledger;

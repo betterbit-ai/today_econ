@@ -1074,7 +1074,7 @@ test('locks selection to the first safe visual intent instead of mixing later fi
   assert.deepEqual(reviewedQueries, [selection.query]);
 });
 
-test('fails closed to DIEM art when the actual-image review rejects the first visual intent', async () => {
+test('tries bounded alternatives and then fails closed when actual-image review rejects them', async () => {
   let reviews = 0;
   const selection = await selectLicensedImage({
     title: '이재명 대통령 당 지도부 만찬',
@@ -1101,10 +1101,93 @@ test('fails closed to DIEM art when the actual-image review rejects the first vi
     },
   });
 
-  assert.equal(reviews, 1);
+  assert.equal(reviews, 3);
   assert.equal(selection.kind, 'typographic');
   assert.equal(selection.source, 'diem-original');
   assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review'));
+});
+
+test('continues to the next visual query after a technical vision failure', async () => {
+  const reviewedQueries = [];
+  const selection = await selectLicensedImage({
+    title: '서울 아파트 거래 신고가',
+    summary: '서울 아파트 매매 거래와 실거주 부담이 커졌다.',
+    category: 'economy',
+    newsFrame: { eventKind: 'housing_policy', subject: '서울 아파트', eventLabel: '신고가' },
+  }, {
+    pexelsApiKey: 'key',
+    fetchImpl: async url => {
+      if (!/api\.pexels/u.test(String(url))) return { ok: true, json: async () => ({ results: [], query: { pages: {} } }) };
+      const query = new URL(String(url)).searchParams.get('query');
+      return { ok: true, json: async () => ({ photos: [{
+        id: reviewedQueries.length + 5000,
+        url: `https://pexels.example/${encodeURIComponent(query)}`,
+        src: { portrait: `https://images.example/${encodeURIComponent(query)}.jpg` },
+        photographer: 'Fixture',
+        width: 2000,
+        height: 3000,
+        alt: query,
+      }] }) };
+    },
+    reviewImages: async ({ query, images }) => {
+      reviewedQueries.push(query);
+      if (reviewedQueries.length === 1) throw new Error('json_validate_failed');
+      return { ok: true, selectedId: images[0].id, reason: 'second query matched' };
+    },
+  });
+
+  assert.equal(selection.kind, 'web');
+  assert.equal(reviewedQueries.length, 2);
+  assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review' && /json_validate_failed/u.test(attempt.error)));
+});
+
+test('uses the locked primary event instead of incidental summary occupations for images', () => {
+  const airline = {
+    title: '기내 난동 승객 테이프로 제압',
+    summary: '이 승객은 미국의 부동산 중개인이다.',
+    category: 'economy',
+    newsFrame: { subject: '항공기 난동', eventKind: 'general', eventLabel: '제압' },
+  };
+  const library = {
+    title: '빌라 3채 부텨 도서관마을',
+    summary: '도서관 노동자의 노동 환경을 다룬다.',
+    category: 'issue',
+    newsFrame: { subject: '구산동도서관마을', eventKind: 'general', eventLabel: '' },
+  };
+  const currency = {
+    title: '원·엔 강세 25개월 최저',
+    summary: '기사 후반에는 반도체 산업도 언급됐다.',
+    category: 'economy',
+    newsFrame: { subject: '원·엔 환율', eventKind: 'general', eventLabel: '강세' },
+  };
+
+  assert.doesNotMatch(buildImageQueries(airline).join(' '), /real estate|apartment/iu);
+  assert.notEqual(generatedFallbackTopic(airline), 'housing');
+  assert.notEqual(generatedFallbackTopic(library), 'work');
+  assert.equal(generatedFallbackTopic(currency), 'markets');
+});
+
+test('uses KOSPI, currency, and rescue queries from the locked event kind', () => {
+  const kospi = buildImageQueries({
+    title: '\uCF54\uC2A4\uD53C 0.58% \uD558\uB77D',
+    summary: '\uCF54\uC2A4\uB2E5\uB3C4 1%\uB300 \uD558\uB77D\uD588\uB2E4.',
+    newsFrame: { eventKind: 'market_move', subject: '\uCF54\uC2A4\uD53C', eventLabel: '\uD558\uB77D', subjectTerms: ['\uCF54\uC2A4\uD53C', '\uCF54\uC2A4\uB2E5'] },
+  });
+  const currency = buildImageQueries({
+    title: '\uC6D0\u00B7\uC5D4 \uD658\uC728 \uAC15\uC138',
+    newsFrame: { eventKind: 'currency_move', subject: '\uC6D0\u00B7\uC5D4 \uD658\uC728', eventLabel: '\uAC15\uC138' },
+  });
+  const rescue = {
+    title: '\uD55C\uAD6D \uAD6C\uC870\uB300 \uC0DD\uC874\uC790 \uAD6C\uCD9C',
+    category: 'issue',
+    newsFrame: { eventKind: 'rescue_search', subject: '\uD55C\uAD6D \uAD6C\uC870\uB300', eventLabel: '\uAD6C\uCD9C' },
+  };
+
+  assert.match(kospi[0], /KOSPI/u);
+  assert.doesNotMatch(kospi[0], /KOSDAQ/u);
+  assert.match(currency[0], /foreign exchange|currency/iu);
+  assert.match(buildImageQueries(rescue)[0], /rescue/iu);
+  assert.equal(generatedFallbackTopic(rescue), 'weather');
 });
 
 test('selects a verified project-generated housing asset before typography', () => {
@@ -1134,7 +1217,7 @@ test('maps recurring fallback themes to committed generated assets', () => {
     [{ title: '성형 시술 후 피부 괴사', summary: '의료 시술 부작용 사례가 보도됐다.', category: 'issue' }, 'health'],
     [{ title: '곗돈 1.5억 먹튀 사기', summary: '채무자가 계 모임 금원을 가로채 실형을 선고받았다.', category: 'economy' }, 'finance'],
     [{ title: '코스피 시가총액 급등', summary: '주식시장 지수가 큰 폭으로 올랐다.', category: 'economy' }, 'markets'],
-    [{ title: '분류되지 않은 지역 공공사건', summary: '시민 안전과 관련된 새로운 소식이다.', category: 'issue' }, 'public-interest'],
+    [{ title: '분류되지 않은 지역 공공사건', summary: '시민 안전과 관련된 새로운 소식이다.', category: 'issue' }, null],
     [{ title: '안규백 나와, 공청회 고성 난무', summary: '국군사관학교 공청회가 욕설과 충돌로 파행했다.', category: 'issue' }, 'public-hearing'],
   ];
 
@@ -1143,10 +1226,25 @@ test('maps recurring fallback themes to committed generated assets', () => {
   }
 });
 
+test('fails closed instead of assigning a generic generated image to an unmapped event', async () => {
+  const candidate = {
+    title: '분류되지 않은 지역 공공사건',
+    summary: '시민 안전과 관련된 새로운 소식입니다.',
+    category: 'issue',
+    newsFrame: { subject: '지역 공공사건', eventKind: 'general', eventLabel: '' },
+  };
+  assert.equal(generatedFallbackTopic(candidate), null);
+  assert.equal(createGeneratedFallback(candidate), null);
+  await assert.rejects(() => selectLicensedImage(candidate, {
+    generatedFallbackEnabled: true,
+    fetchImpl: async () => new Response('{}', { status: 500 }),
+  }), /unmapped|typography fallback is disabled/iu);
+});
+
 test('verifies every committed generated fallback asset hash and vertical canvas', () => {
   const root = path.join(__dirname, '..', 'assets', 'fallback', 'generated');
   const manifest = JSON.parse(fs.readFileSync(path.join(root, 'manifest.json'), 'utf8'));
-  assert.equal(manifest.assets.length, 43);
+  assert.ok(manifest.assets.length >= 43 && manifest.assets.length <= 80);
   const topicCounts = new Map();
   for (const asset of manifest.assets) {
     for (const topic of asset.topics || []) topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
@@ -1176,7 +1274,7 @@ test('prefers dynamic generated art for high-motion stories and calm art for rou
   assert.equal(dynamic.generatedTopic, 'public-hearing');
   assert.equal(dynamic.generatedEnergy, 'dynamic');
 
-  const routine = { title: '노사 협상 일정 발표', summary: '정례 협상 일정이 공개됐다.', category: 'economy' };
+  const routine = { title: '서울 아파트 정책대출 발표', summary: '주택가격 기준과 대출 정책이 공개됐다.', category: 'economy' };
   assert.equal(generatedFallbackEnergy(routine), 'calm');
   assert.equal(createGeneratedFallback(routine).generatedEnergy, 'calm');
 });

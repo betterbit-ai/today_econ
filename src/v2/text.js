@@ -25,6 +25,13 @@ const NUMERIC_TITLE_TOKEN = /\d+(?:[.,]\d+)?(?:\s*(?:%|퍼센트|조\s*원|억\s
 const STANDALONE_WEAK_TITLE_LINE = /^(?:오늘|내일|모레|어제|\d+(?:[.,]\d+)?(?:%|퍼센트|조원|억원|만원|원|만명|명|개|배|년|개월|월|일)?)$/iu;
 const INCOMPLETE_FRAGMENT_ENDING = /(다는|라는|이라는|했다는|됐다는|받았다는|나왔다는|있다는|없다는|한다는|추진한다는|허용한다는)[.!?。！？]?(?:\p{Extended_Pictographic})?$/u;
 
+const STANDALONE_EDITORIAL_FILLER = new Set([
+  '\uBCF4\uB3C4',
+  '\uB17C\uB780',
+  '\uC0C1\uD669',
+  '\uC18C\uC2DD',
+]);
+
 function normalizeNfc(value = '') {
   return String(value ?? '').normalize('NFC');
 }
@@ -82,6 +89,9 @@ function validateTitle(title) {
   if (lines.some(line => GENERIC_TITLE_LINE.test(line.replace(/\s+/gu, '').trim()))) {
     errors.push('title contains generic filler wording');
   }
+  if (lines.some(line => STANDALONE_EDITORIAL_FILLER.has(line.replace(/\s+/gu, '').trim()))) {
+    errors.push('title line cannot be a standalone editorial filler word');
+  }
   if (lines.some(line => STANDALONE_WEAK_TITLE_LINE.test(line.replace(/\s+/gu, '').trim()))) {
     errors.push('title line cannot be only a date, duration, or number');
   }
@@ -134,7 +144,7 @@ function validateTitleAgainstFrame(title, frame = {}) {
     errors.push(`title contains a tangential or contradicted event: ${forbiddenTerms.join(', ')}`);
   }
 
-  if (['asset_sale', 'gdp', 'market_move', 'legislation', 'earnings', 'medical_safety_advisory', 'political_statement', 'public_hearing_disruption'].includes(frame.eventKind)) {
+  if (['asset_sale', 'gdp', 'market_move', 'currency_move', 'rescue_search', 'legislation', 'earnings', 'medical_safety_advisory', 'political_statement', 'public_hearing_disruption'].includes(frame.eventKind)) {
     const lower = normalized.toLowerCase();
     const hasSubject = (frame.subjectTerms || []).some(term => lower.includes(String(term).toLowerCase()));
     const hasEvent = (frame.eventTerms || []).some(term => lower.includes(String(term).toLowerCase()));

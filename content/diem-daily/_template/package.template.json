@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "packageId": "YYYY-MM-DD-HHMM-category-sourcehash",
+  "runId": "YYYY-MM-DD-HHMM",
+  "status": "ready",
+  "category": "economy",
+  "createdAt": "YYYY-MM-DDTHH:MM:SS+09:00",
+  "expiresAt": "YYYY-MM-DDTHH:MM:SS+09:00",
+  "source": {
+    "title": "원문 제목",
+    "url": "https://example.com/article",
+    "publisher": "매체",
+    "publishedAt": "YYYY-MM-DDTHH:MM:SS+09:00",
+    "observedAt": "YYYY-MM-DDTHH:MM:SS+09:00",
+    "rank": 1,
+    "evidenceText": "정제된 원문 근거. 최소 세 문장으로 핵심 사실과 상태를 보존합니다.",
+    "evidenceSha256": ""
+  },
+  "selection": {
+    "whyNow": "지금 이 사건을 다룰 이유",
+    "readerConsequence": "독자가 확인해야 하는 구체적 변화",
+    "rejectedAlternatives": []
+  },
+  "newsFrame": {
+    "subject": "핵심 주체",
+    "eventKind": "interest_rate",
+    "eventLabel": "동결",
+    "claimState": "reported",
+    "readerNeed": "credit",
+    "subjectTerms": ["핵심 주체"],
+    "eventTerms": ["동결"],
+    "forbiddenTitleTerms": []
+  },
+  "claims": [
+    {
+      "id": "claim-1",
+      "text": "근거에 있는 정확한 주장",
+      "sourceSpans": ["근거에서 그대로 확인되는 문장"]
+    }
+  ],
+  "editorial": {
+    "titleCandidates": [],
+    "title": { "text": "첫 줄\n둘째 줄", "lines": ["첫 줄", "둘째 줄"] },
+    "caption": { "sentences": [], "text": "" },
+    "emojis": { "first": "📰", "third": "📰" },
+    "comments": { "first": "📰", "reply": "", "compactReply": "", "hashtags": [] }
+  },
+  "visual": {
+    "kind": "diem-library",
+    "assetId": "finance-01",
+    "sha256": "manifest에서 읽은 SHA-256",
+    "prompt": "선택한 프로젝트 소유 시각 자산을 고른 이유; 새 이미지·URL·파일 전달 금지",
+    "peoplePolicy": "prohibited",
+    "photorealisticNewsPolicy": "prohibited",
+    "visualFingerprint": "diem-library:finance-01"
+  },
+  "generation": {
+    "provider": "chatgpt-scheduled-task",
+    "model": "gpt-5.6-terra",
+    "reasoningEffort": "high",
+    "taskRunId": ""
+  },
+  "review": { "mode": "assisted", "status": "model-reviewed", "checks": [], "qualityIncident": null },
+  "integrity": { "contentSha256": "" }
+}

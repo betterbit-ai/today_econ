@@ -1,0 +1,7 @@
+# Temporary Step 4 connectivity proof. This overlay never mounts a GitHub App
+# key and registers one no-data tool only.
+services:
+  diem-mcp-mock:
+    environment:
+      DIEM_MCP_MODE: "canary_readonly"
+      MCP_PUBLIC_HOSTNAME: "${MCP_PUBLIC_HOSTNAME}"

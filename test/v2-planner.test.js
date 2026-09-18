@@ -443,3 +443,33 @@ test('requires independent evidence for extraordinary market and earnings claims
   assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/rate-safe');
   assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('extraordinary_claim_unverified')));
 });
+
+test('advances past an incidental-property airline spectacle to a real economy candidate', async () => {
+  const candidates = [
+    {
+      title: '기내서 난동 부리다 테이프로 제압당한 60대 남성',
+      url: 'https://n.news.naver.com/article/001/airline-spectacle',
+      popularityScore: 100,
+      sources: [{ portal: 'naver', title: '기내 난동 테이프로 제압', url: 'https://n.news.naver.com/article/001/airline-spectacle' }],
+    },
+    {
+      title: '한국은행 기준금리 2.50% 동결',
+      url: 'https://n.news.naver.com/article/001/rate-after-airline',
+      popularityScore: 90,
+      sources: [{ portal: 'naver', title: '한국은행 기준금리 2.50% 동결', url: 'https://n.news.naver.com/article/001/rate-after-airline' }],
+    },
+  ];
+  const result = await planDailyQueue({
+    date: '2026-09-08',
+    categories: ['economy'],
+    fetchPortalRankingsImpl: async () => ({ candidates, allFailed: false, errors: {} }),
+    fetchArticleBodyImpl: async url => (url.endsWith('airline-spectacle')
+      ? '기내 난동을 부린 승객이 테이프와 케이블타이로 제압됐다. 이 승객은 미국의 부동산 중개인으로 확인됐다.'
+      : articleBody('\uAE08\uB9AC')),
+    embedder: async () => [],
+  });
+
+  assert.equal(result.publications.economy.ok, true);
+  assert.equal(result.publications.economy.selected.url, 'https://n.news.naver.com/article/001/rate-after-airline');
+  assert.ok(result.candidates[0].rejectionReasons.some(reason => reason.includes('private_spectacle_without_public_value')));
+});

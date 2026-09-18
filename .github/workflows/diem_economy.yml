@@ -2,6 +2,8 @@ name: DIEM Economy
 
 on:
   schedule:
+    # Cloud candidates at 03:00, 09:00, 15:00, 21:00 KST; publish-economy skips this cron.
+    - cron: '0 0,6,12,18 * * *'
     # Every six hours: 01:00, 07:00, 13:00 and 19:00 Asia/Seoul
     - cron: '0 4,10,16,22 * * *'
     # Weekly encrypted Instagram token rotation (Monday 05:30 KST)
@@ -23,6 +25,14 @@ on:
           - reissue_news
           - record_moderation
           - collect_insights
+          - cloud_candidates
+          - daily_package_validate
+          - daily_package_prepare
+          - daily_package_publish
+      package_path:
+        description: 'content/diem-daily 아래 package.json 경로'
+        required: false
+        type: string
       content_id:
         description: 'publish_basic 대상 content_id (비우면 다음 ready 패키지)'
         required: false
@@ -176,6 +186,174 @@ jobs:
             git pull --rebase origin "${GITHUB_REF_NAME:-main}"
             git push origin "HEAD:${GITHUB_REF_NAME:-main}"
           fi
+
+  build-cloud-candidate-pack:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.operation == 'cloud_candidates') ||
+      (github.event_name == 'schedule' && github.event.schedule == '0 0,6,12,18 * * *')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GROQ_API_KEY: ''
+      PUBLISH_INSTAGRAM: 'false'
+      PEXELS_API_KEY: ''
+      UNSPLASH_ACCESS_KEY: ''
+      SLACK_BOT_TOKEN: ''
+      SLACK_CHANNEL_ID: ''
+      INSTAGRAM_ACCESS_TOKEN: ''
+      INSTAGRAM_TOKEN_ENCRYPTION_KEY: ''
+      INSTAGRAM_USER_ID: ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: requirements-v2.txt
+
+      - name: Cache multilingual embedding model
+        id: cloud-embedding-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: diem-minilm-${{ runner.os }}-${{ hashFiles('requirements-v2.txt', 'scripts/topic_similarity.py') }}
+
+      - name: Install candidate collection dependencies
+        run: |
+          npm ci
+          python -m pip install -r requirements-v2.txt
+
+      - name: Seed multilingual embedding model cache
+        if: steps.cloud-embedding-cache.outputs.cache-hit != 'true'
+        env:
+          HF_HUB_OFFLINE: '0'
+        run: python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')"
+
+      - name: Build cloud editorial candidate pack
+        run: node src/v2/index.js cloud-candidates --slot "$GITHUB_RUN_ID"
+
+      - name: Commit cloud candidate pack
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cloud-editorial
+          if ! git diff --cached --quiet; then
+            git commit -m "Prepare DIEM cloud editorial candidate pack" -m "Store candidates for ChatGPT cloud editorial review without preparing or publishing a Reel.
+
+          Constraint: Cloud candidate collection must not call Groq or Instagram
+          Confidence: high
+          Scope-risk: narrow
+          Tested: Candidate pack unit and workflow static tests
+          Not-tested: ChatGPT scheduled task and Oracle MCP handoff"
+            git pull --rebase origin "${GITHUB_REF_NAME:-main}"
+            git push origin "HEAD:${GITHUB_REF_NAME:-main}"
+          fi
+
+  validate-cloud-daily-package:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      inputs.operation == 'daily_package_validate'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      DAILY_PACKAGE_PATH: ${{ inputs.package_path }}
+    steps:
+      - name: Require a package path
+        run: test -n "$DAILY_PACKAGE_PATH"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Validate ChatGPT daily package
+        run: node src/v2/index.js daily-package-validate --package "$DAILY_PACKAGE_PATH"
+
+  run-cloud-daily-package:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      (inputs.operation == 'daily_package_prepare' ||
+       inputs.operation == 'daily_package_publish') &&
+      (inputs.operation != 'daily_package_publish' || github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GROQ_API_KEY: ''
+      PUBLISH_INSTAGRAM: ${{ inputs.operation == 'daily_package_publish' && 'true' || 'false' }}
+      PEXELS_API_KEY: ''
+      UNSPLASH_ACCESS_KEY: ''
+      SLACK_BOT_TOKEN: ${{ inputs.operation == 'daily_package_publish' && secrets.SLACK_BOT_TOKEN || '' }}
+      SLACK_CHANNEL_ID: ${{ inputs.operation == 'daily_package_publish' && secrets.SLACK_CHANNEL_ID || '' }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ inputs.operation == 'daily_package_publish' && secrets.INSTAGRAM_ACCESS_TOKEN || '' }}
+      INSTAGRAM_TOKEN_ENCRYPTION_KEY: ''
+      INSTAGRAM_USER_ID: ${{ inputs.operation == 'daily_package_publish' && vars.INSTAGRAM_USER_ID || '' }}
+      INSTAGRAM_USERNAME: ${{ vars.INSTAGRAM_USERNAME || 'diem.magazine' }}
+      INSTAGRAM_API_VERSION: v23.0
+      DAILY_PACKAGE_PATH: ${{ inputs.package_path }}
+    steps:
+      - name: Require a package path
+        run: test -n "$DAILY_PACKAGE_PATH"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install render dependencies
+        if: inputs.operation == 'daily_package_prepare' || inputs.operation == 'daily_package_publish'
+        run: |
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Prepare ChatGPT daily package
+        if: inputs.operation == 'daily_package_prepare'
+        run: |
+          node src/v2/index.js daily-package-prepare --package "$DAILY_PACKAGE_PATH"
+          bash scripts/commit-diem-state.sh "Prepare reviewed ChatGPT daily package"
+
+      - name: Publish ChatGPT daily package
+        if: inputs.operation == 'daily_package_publish'
+        run: |
+          node src/v2/index.js daily-package-prepare --package "$DAILY_PACKAGE_PATH"
+          bash scripts/commit-diem-state.sh "Prepare reviewed ChatGPT package for manual publish"
+          node src/v2/index.js daily-package-publish --package "$DAILY_PACKAGE_PATH" --publish
+          bash scripts/commit-diem-state.sh "Publish manually approved ChatGPT daily package"
 
   collect-performance-insights:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'collect_insights'

@@ -107,6 +107,21 @@ function articleSourceText(candidate = {}) {
   return `${title} ${lead}`.trim();
 }
 
+function primaryVisualText(candidate = {}) {
+  const frame = candidate.newsFrame || {};
+  const lockedFrame = [
+    frame.subject,
+    frame.eventLabel,
+    ...(frame.subjectTerms || []),
+    ...(frame.eventTerms || []),
+  ].filter(Boolean);
+  if (lockedFrame.length < 1) return articleSourceText(candidate);
+  return [candidate.title, candidate.editorialTitle, ...lockedFrame]
+    .map(value => normalizeNfc(value || '').trim())
+    .filter(Boolean)
+    .join(' ');
+}
+
 function isOccupationalHeatStory(text = '') {
   const normalized = normalizeNfc(text);
   const heat = /(폭염|고온|온열|열사병|체감온도|온도계|\d{2}(?:\.\d+)?\s*도)/u.test(normalized);
@@ -180,7 +195,7 @@ function eventVisualQueries(sourceText = '') {
 }
 
 function inferFallbackTheme(candidate = {}) {
-  const sourceText = articleSourceText(candidate);
+  const sourceText = primaryVisualText(candidate);
   if (/(공청회|토론회|설명회).{0,120}(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무)|(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무).{0,120}(공청회|토론회|설명회)/u.test(sourceText)) return 'public-hearing';
   if (/(폭우|집중호우|호우|침수|물폭탄|홍수)/u.test(sourceText)) return 'weather-emergency';
   if (/(배달기사|배달원).{0,40}(집|주택|아파트|현관|문|침입|무단출입)|(집|현관|문).{0,40}(배달기사|배달원)/u.test(sourceText)) return 'home-security';
@@ -201,7 +216,12 @@ function inferFallbackTheme(candidate = {}) {
 }
 
 function generatedFallbackTopic(candidate = {}) {
-  const text = articleSourceText(candidate);
+  const text = primaryVisualText(candidate);
+  if (candidate.newsFrame?.eventKind === 'rescue_search') return 'weather';
+  if (candidate.newsFrame?.eventKind === 'currency_move') return 'markets';
+  if (candidate.newsFrame?.eventKind === 'market_move') return 'markets';
+  if (candidate.newsFrame?.eventKind === 'housing_policy') return 'housing';
+  if (['interest_rate', 'insurance_premium', 'auto_insurance_loss'].includes(candidate.newsFrame?.eventKind)) return 'finance';
   if (/(공청회|토론회|설명회).{0,120}(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무)|(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무).{0,120}(공청회|토론회|설명회)/u.test(text)) return 'public-hearing';
   if (/(지지율|국정\s*(?:운영|수행)|여론조사).{0,80}(하락|최저|비판|경고|전망)|(대통령|정권).{0,80}(지지율|여론조사)/u.test(text)) return 'public-opinion';
   if (/(작업자|노동자|근로자|현장).{0,60}(폭염|온열|열사병|그늘|작업중지)|(폭염|온열|열사병).{0,60}(작업자|노동자|근로자|현장|그늘)/iu.test(text)) return 'work';
@@ -221,11 +241,11 @@ function generatedFallbackTopic(candidate = {}) {
   if (/(주식|증시|코스피|코스닥|나스닥|주가|시가총액|상장|IPO|GDP|성장률|환율|채권|ETF|ETN)/iu.test(text)) return 'markets';
   if (/(세금|과세|연금|금리|대출|보험료|지원금|소비쿠폰|물가|은행|ISA|예금|적금|사기|횡령|보이스피싱|채무|빚)/iu.test(text)) return 'finance';
   if (/((대통령|총리|장관|의원|정당)|국정|정책|선거|정치)/iu.test(text)) return 'legislation';
-  return candidate.category === 'economy' ? 'markets' : 'public-interest';
+  return null;
 }
 
 function generatedFallbackEnergy(candidate = {}) {
-  return /(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무|급등|급락|폭등|폭락|붕괴|폭발|화재|침수|태풍|긴급|대피|파업|시위|장애|중단)/u.test(articleSourceText(candidate))
+  return /(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무|급등|급락|폭등|폭락|붕괴|폭발|화재|침수|태풍|긴급|대피|파업|시위|장애|중단)/u.test(primaryVisualText(candidate))
     ? 'dynamic'
     : 'calm';
 }
@@ -497,7 +517,7 @@ function assessImageSuitability(image = {}, query = '', candidate = {}, {
 }
 
 function buildImageQueries(candidate = {}) {
-  const sourceText = articleSourceText(candidate);
+  const sourceText = primaryVisualText(candidate);
   const frame = candidate.newsFrame || {};
   const directArticleIsAboutParliament = /국회(?:의사당|본회의|상임위|청문회)|국회.{0,12}(?:발표|법안|표결|회의)|의회\s*(?:내부|본회의)|국회의사당/u.test(sourceText);
   const eventQueries = eventVisualQueries(sourceText);
@@ -510,8 +530,14 @@ function buildImageQueries(candidate = {}) {
       : 'GDP economic growth chart');
   } else if (eventQueries.length === 0 && (frame.eventKind === 'legislation' || directArticleIsAboutParliament) && /(대한민국|한국|국회|여의도|청와대|대통령실)/u.test(sourceText)) {
     frameQueries.push('Korean National Assembly Seoul');
+  } else if (frame.eventKind === 'housing_policy') {
+    frameQueries.push('South Korea apartment buildings city skyline', 'apartment sale contract house keys');
+  } else if (frame.eventKind === 'currency_move') {
+    frameQueries.push('foreign exchange currency rate board', 'currency exchange counter bank');
+  } else if (frame.eventKind === 'rescue_search') {
+    frameQueries.push('search rescue equipment disaster response', 'rescue helicopter emergency response');
   } else if (frame.eventKind === 'market_move') {
-    frameQueries.push(/코스닥/u.test(sourceText) ? 'KOSDAQ stock market chart' : 'KOSPI stock market chart');
+    frameQueries.push(/코스닥/u.test(normalizeNfc(candidate.title || '')) ? 'KOSDAQ stock market chart' : 'KOSPI stock market chart');
   } else if (frame.eventKind === 'asset_sale') {
     frameQueries.push(/반도체|칩|메모리/u.test(sourceText)
       ? 'semiconductor stock portfolio trading'
@@ -865,6 +891,7 @@ async function selectLicensedImage(candidate, {
   reuseWindowDays = 7,
   reviewPoolTarget = 8,
   reviewImages,
+  maxVisionReviews = 3,
   generatedFallbackEnabled = false,
 } = {}) {
   const queries = buildImageQueries(candidate);
@@ -905,6 +932,7 @@ async function selectLicensedImage(candidate, {
     }] : []),
   ];
 
+  let visionReviewCount = 0;
   for (const phase of phases) {
     let phaseBlockedCandidateCount = 0;
     for (const query of phase.queries) {
@@ -973,16 +1001,27 @@ async function selectLicensedImage(candidate, {
       let selected = shortlist[0];
       let visionReview = null;
       if (reviewImages) {
+        if (visionReviewCount >= maxVisionReviews) {
+          attempts.push({
+            provider: 'vision-review',
+            visualRole: phase.visualRole,
+            query,
+            count: shortlist.length,
+            error: `vision review budget exhausted after ${maxVisionReviews} attempts`,
+          });
+          continue;
+        }
+        visionReviewCount += 1;
         try {
           visionReview = await reviewImages({ candidate, query, images: shortlist.slice(0, 2) });
           selected = shortlist.find(image => image.id === visionReview?.selectedId);
           if (!visionReview?.ok || !selected) {
             attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: visionReview?.reason || 'no safe image selected' });
-            break;
+            continue;
           }
         } catch (error) {
           attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: error.message });
-          break;
+          continue;
         }
       }
       const suitabilityRejected = attempts.reduce((total, attempt) => total + (attempt.suitabilityRejected || 0), 0);

@@ -17,6 +17,12 @@ DIEM은 재테크 초보자가 지금 주목받는 경제·시사 뉴스를 짧�
 [`spec/spec.md`](spec/spec.md), 실제 설정·전환 절차는
 [`docs/diem-v2-operations.md`](docs/diem-v2-operations.md)에 있습니다.
 
+새 작업 세션은 [`docs/handoffs/CURRENT.md`](docs/handoffs/CURRENT.md)에서
+현재 운영 상태, 최근 성과 진단, 미배포 변경과 다음 우선순위를 먼저 확인합니다.
+ChatGPT 연결 gate의 계정 소유자 절차는
+[`docs/implementation/chatgpt-connectivity-canary.md`](docs/implementation/chatgpt-connectivity-canary.md)에
+있습니다.
+
 ## V2 흐름
 
 1. 현재 네이버 인기 뉴스 최대 50건을 수집하고, 수집 실패 시 기존 RSS는

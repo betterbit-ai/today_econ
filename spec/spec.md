@@ -1,5 +1,125 @@
 # Feature: DIEM 성과 학습 루프와 편집 복구력 강화
 
+## 2026-09-17 approved amendment: ChatGPT-selected visual library
+
+### Outcome
+
+Mac이 꺼져 있어도 ChatGPT cloud scheduled task가 뉴스·카피와 함께 검증된
+프로젝트 소유 시각 자산 ID를 선택해 GitHub에 reviewable package로 저장한다.
+GitHub Actions는 선택된 로컬 자산의 해시와 세로 규격을 재검증한 뒤 기존 Reel
+렌더링 경로로만 사용한다.
+
+### User and context
+
+오늘경제의 일일 cloud editorial 경로다. OpenAI ImageGen은 매일 생성기가
+아니라, 사람이 Mac을 사용할 수 있는 때에만 라이브러리 변형을 보충하는 제작
+도구다. 일일 예약 실행은 로컬 Mac, 브라우저, 이미지 URL 또는 새 이미지 API에
+의존하지 않는다.
+
+### Required behavior
+
+1. `assets/fallback/generated/manifest.json`의 검증된 43개 이상, 80개 이하
+   프로젝트 소유 9:16 자산을 canonical visual library로 사용한다. 각 자산은
+   ID, SHA-256, 파일명, 주제, energy, 사람·문자·로고 금지 설명을 가진다.
+2. ChatGPT cloud MCP는 라이브러리의 허용 asset ID와 선택 규칙을 읽을 수 있고,
+   daily package에는 새 이미지를 업로드하지 않고 `diem-library` visual ID만
+   저장한다.
+3. package validate/prepare는 asset ID를 local manifest와 SHA-256로 해석한다.
+   파일·해시·9:16 규격·최근 7일 재사용 가드가 하나라도 실패하면 fail-closed한다.
+4. 기존 웹 이미지·생성 폴백·Reel 렌더링 경로와 production publisher 조건은
+   유지한다. cloud package는 `assisted` review PR로 제출하고 사람의 merge와
+   수동 GitHub Action 실행을 거쳐야 한다.
+5. 라이브러리 보충은 OpenAI ImageGen으로 사람이 생성한 asset을 명시적
+   manifest·hash 검증을 거쳐 추가할 때만 가능하다. 생성 이미지 URL 또는
+   ChatGPT 내부 파일의 daily handoff는 사용하지 않는다.
+6. Economy workflow는 6시간마다 Groq/Instagram 없이 후보 팩만 저장한다. ChatGPT의
+   cloud task는 하루 한 번 최신 팩을 읽어 최대 Economy 1개, Issue 1개 assisted PR을
+   만든다. package PR 병합 뒤에는 GitHub Action에서 validate/prepare/publish를
+   각각 명시적으로 수동 실행한다. Publish action은 같은 runner 안에서 prepare 후
+   publish를 수행해 임시 Reel 파일을 보존한다.
+7. 기존 자동 publisher는 `contentType=diem_daily` 원장을 발견하면 선택·prepare·publish를
+   하지 않는다. 이 guard로 기존 cron이 assisted package를 사람의 수동 실행 전에
+   자동 발행하지 못하게 한다.
+8. MCP package 제출은 최신 미만료 candidate pack의 content SHA-256을 다시 계산하고,
+   선택 기사의 제목·URL·근거 본문 hash·핵심 newsFrame이 그 팩의 한 후보와 일치할
+   때만 허용한다. package expiry는 candidate pack보다 늦을 수 없고 제출 mode는
+   `assisted`만 허용한다.
+
+### Acceptance criteria
+
+- [x] MCP가 허용된 visual library asset ID만 반환한다.
+- [x] `diem-library` package는 invalid/missing/tampered asset ID를 거부한다.
+- [x] 유효한 `diem-library` assisted package는 existing 9:16 asset을 사용해
+  `daily-package-prepare`까지 통과한다.
+- [x] 같은 asset이 최근 7일 내 사용됐으면 다른 안전한 variant를 선택하거나
+  명시적으로 실패한다.
+- [x] Economy/Issue production publisher cron과 publisher job 조건은 바뀌지 않는다.
+- [ ] 새 Economy cron은 candidate-pack job만 실행하고 기존 publish job에는 진입하지 않는다.
+- [ ] 새 Economy candidate cron은 candidate-pack job만 실행하고 publisher에는 진입하지 않는다.
+- [x] daily package GitHub Action은 assisted package 경로에만 노출되며 publish는 수동 입력이다.
+- [x] MCP package submit은 최신 candidate-pack hash와 선택 기사·근거·핵심 newsFrame을 일치시킨다.
+- [x] MCP는 `review.mode=assisted` 외 package, 만료 팩, 팩보다 긴 package expiry를 거부한다.
+- [x] legacy scheduled publisher는 pending/ready/published daily package ledger를 자동 처리하지 않는다.
+- [x] `npm run test`와 `git diff --check`가 통과한다.
+
+### Constraints
+
+- 일일 이미지 생성 API, 새 유료 서비스, 임의 원격 URL fetch, Mac-dependent
+  browser bridge를 추가하지 않는다.
+- ChatGPT native ImageGen의 file-to-MCP handoff는 제품상 불가능함이 확인됐으므로
+  이 범위에서 우회하지 않는다.
+- 사람·얼굴·읽을 수 있는 문자·로고·국기·특정 실제 현장 묘사는 계속 금지한다.
+
+### Verification
+
+- Automated: library resolver/MCP schema/daily package validator/prepare
+  regression tests, full `npm run test`, `git diff --check`.
+- Manual: ChatGPT cloud task가 library ID를 포함한 assisted package PR을 만들고,
+  GitHub Actions manual validate/prepare가 local asset hash와 7일 reuse를 확인한다.
+
+### Out of scope
+
+- 기존 Instagram scheduled publish 변경 또는 자동 production enable.
+- 매일 ChatGPT ImageGen 새 파일 생성·업로드.
+- 새 image API 또는 GPU image-generation server 도입.
+
+### Risks and rollback
+
+- 라이브러리 주제·변형이 부족하면 package를 저장하지 않고 기존 path를 유지한다.
+- 문제 발생 시 `diem-library` package support만 제거하면 기존 image selection은
+  그대로 남는다.
+
+## 2026-09-09 approved amendment: 웹 이미지 복구와 핵심 사건 잠금
+
+1. Groq Vision의 JSON object mode가 `json_validate_failed` 400을 반환하면
+   같은 이미지와 프레임을 plain JSON으로 정확히 한 번 복구한다.
+2. Vision 모델이 외부 이미지 URL을 401·403으로 가져오지 못하면 GitHub
+   Actions가 해당 이미지를 최대 8MB까지 직접 내려받아 Base64 data URL로
+   다시 검수한다. 로컬 다운로드는 15초 안에 끝나야 한다.
+3. 한 이미지·검색어의 기술 장애나 문맥 거부로 즉시 생성 폴백으로 가지
+   않는다. 서로 다른 검색 의도를 최대 3회까지 순서대로 검수한 뒤 실패를
+   닫는다.
+4. 이미지 검색과 생성 폴백 주제는 기사 전체의 부수 키워드가 아니라 확정된
+   news frame의 주체·사건과 표지 제목만 사용한다. 환율·KOSPI·구조·수색·
+   주거는 각각 전용 검색 의도와 폴백 주제를 가진다.
+5. `보도·논란·상황·소식`만 한 줄에 놓는 표지 제목은 거부하고 제목 전용
+   재교정으로 보낸다.
+6. 기내 난동, 개인 해고, 해외 대학 홍보, 개인 은퇴 고민, 지역 생활 피처가
+   부동산·고용·교육 같은 부수 단어만으로 Economy·Issue를 통과하지 못하게
+   한다. 실패한 후보 다음의 정상 후보는 기존 파이프라인으로 계속 평가한다.
+
+### Acceptance criteria
+
+- [x] Vision JSON 400은 plain JSON 요청으로 한 번 복구된다.
+- [x] 외부 이미지 403은 로컬 Base64 이미지로 한 번 복구된다.
+- [x] 첫 Vision 후보 실패 뒤 두 번째 검색 의도의 안전한 웹 이미지를 선택한다.
+- [x] 최근 환율·KOSPI·구조 기사에 전용 검색어와 올바른 생성 주제가 배정된다.
+- [x] 항공기 난동을 부동산 Economy로, 도서관 노동자 표현을 직장 Issue로
+  오인하지 않는다.
+- [x] 저가치 후보가 탈락하면 다음 정상 경제 후보가 선택된다.
+- [x] `코스피 하락 / 보도`와 `네팔 대홍수 / 보도`가 제목 검사를 통과하지 않는다.
+- [x] `npm run test`와 `git diff --check`가 통과한다.
+
 ## 2026-08-27 approved amendment: Reel 연결형 Story 수동 공유 알림
 
 1. GitHub Actions의 자동 Instagram Story 업로드를 비활성화한다. 기존
@@ -42,7 +162,7 @@
 - [ ] 해당 공청회 기사의 frame은 subject `안규백`, event `공청회 파행`이다.
 - [ ] `규백이 오라 / 공청회 난무`는 거부되고 `안규백 나와 / 공청회 아수라장`은 통과한다.
 - [ ] 모델의 잘린 간접명령형 제목은 제목 재교정 단계에서 자연스러운 제목으로 복구된다.
-- [ ] manifest의 43개 자산과 14개 주제 해시·규격 검증이 통과한다.
+- [ ] manifest의 43개 이상, 최대 80개 자산과 14개 주제 해시·규격 검증이 통과한다.
 - [ ] 고에너지 기사는 dynamic 자산을, 정례 기사는 calm 자산을 우선한다.
 - [ ] `npm run test`와 `git diff --check`가 통과한다.
 

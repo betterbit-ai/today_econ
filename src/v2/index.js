@@ -12,13 +12,27 @@ const {
 const { publishBasicPackage } = require('./basic-content');
 const { recordModeration, saveExperimentReport } = require('./experiment-report');
 const { savePerformanceReport } = require('./performance-loop');
+const { buildCloudCandidatePack, saveCloudCandidatePack } = require('./cloud-candidate-pack');
 const {
+  loadDailyPackage,
+  prepareDailyPackageFromFile,
+  publishDailyPackage,
+  validateDailyPackage,
+} = require('./daily-content');
+const {
+  loadCloudEditorialState,
+  recordCandidatePack,
+  saveCloudEditorialState,
+} = require('./cloud-editorial-state');
+const {
+  historyFromLedgers,
+  listLedgers,
   rebuildEditorialHistory,
   saveLedger,
 } = require('./ledger');
 const { notifyTransitions } = require('./operations');
 const { planCategoryPhase, planPhase, runPersistedPhase, stageEditorialRetry } = require('./orchestrator');
-const { kstDate } = require('./time');
+const { kstDate, kstRunSlot } = require('./time');
 
 function parseArgs(argv = process.argv.slice(2)) {
   const [command = 'help', ...rest] = argv;
@@ -33,6 +47,7 @@ function parseArgs(argv = process.argv.slice(2)) {
     else if (token === '--publication-key') options.publicationKey = rest[++index];
     else if (token === '--generated-asset-id') options.generatedAssetId = rest[++index];
     else if (token === '--content-id') options.contentId = rest[++index];
+    else if (token === '--package') options.packagePath = rest[++index];
     else if (token === '--reason') options.reason = rest[++index];
     else if (token === '--action') options.action = rest[++index];
     else throw new Error(`[DIEM] Unknown option: ${token}`);
@@ -58,6 +73,10 @@ function helpText() {
     '  node src/v2/index.js basic-retry --publication-key KEY --publish',
     '  node src/v2/index.js basic-report',
     '  node src/v2/index.js performance-report',
+    '  node src/v2/index.js cloud-candidates [--date YYYY-MM-DD] [--slot RUN_ID]',
+    '  node src/v2/index.js daily-package-validate --package PATH',
+    '  node src/v2/index.js daily-package-prepare --package PATH [--date YYYY-MM-DD]',
+    '  node src/v2/index.js daily-package-publish --package PATH [--date YYYY-MM-DD] --publish',
     '  node src/v2/index.js moderate --publication-key KEY --action deleted|corrected --reason REASON',
     '',
     'Publishing requires PUBLISH_INSTAGRAM=true or --publish.',
@@ -81,6 +100,52 @@ async function runCommand({ command, options }) {
     const report = await saveExperimentReport();
     console.log(`[DIEM Basic] experiment report: ${report.status} (${report.completion.approvedBasicPublished}/4 published, ${report.completion.basicSevenDayObserved}/4 observed)`);
     return report;
+  }
+  if (command === 'cloud-candidates') {
+    const history = historyFromLedgers(
+      listLedgers(),
+      date,
+      config.maxHistoryDays,
+      { includeReferenceDate: true }
+    );
+    const pack = await buildCloudCandidatePack({
+      date,
+      slot: options.slot || config.githubRunId || kstRunSlot(),
+      history,
+      hotMode: true,
+    });
+    const saved = saveCloudCandidatePack(pack);
+    const state = recordCandidatePack(loadCloudEditorialState(), {
+      runId: pack.runId,
+      candidatePackSha256: pack.integrity.contentSha256,
+      createdAt: pack.createdAt,
+    });
+    saveCloudEditorialState(state);
+    console.log(`[DIEM Cloud] candidate pack saved: ${saved.path}`);
+    return pack;
+  }
+  if (command === 'daily-package-validate') {
+    if (!options.packagePath) throw new Error('[DIEM Daily] daily-package-validate requires --package PATH.');
+    const item = loadDailyPackage(options.packagePath);
+    const validation = validateDailyPackage(item);
+    if (!validation.ok) throw new Error(`[DIEM Daily] package validation failed: ${validation.errors.join('; ')}`);
+    console.log(`[DIEM Daily] package valid: ${item.packageId}`);
+    return item;
+  }
+  if (command === 'daily-package-prepare') {
+    if (!options.packagePath) throw new Error('[DIEM Daily] daily-package-prepare requires --package PATH.');
+    const ledger = await prepareDailyPackageFromFile({ packagePath: options.packagePath, date });
+    console.log(`[DIEM Daily] package prepared: ${ledger.publications.economy.dailyPackageId || ledger.publications.issue.dailyPackageId}`);
+    return ledger;
+  }
+  if (command === 'daily-package-publish') {
+    if (!options.packagePath) throw new Error('[DIEM Daily] daily-package-publish requires --package PATH.');
+    if (!(options.publish || config.publishInstagram)) {
+      throw new Error('[DIEM Daily] Publishing requires PUBLISH_INSTAGRAM=true or --publish.');
+    }
+    const ledger = await publishDailyPackage({ packagePath: options.packagePath, date });
+    console.log(`[DIEM Daily] package published: ${ledger.publications.economy.dailyPackageId || ledger.publications.issue.dailyPackageId}`);
+    return ledger;
   }
   if (command === 'moderate') {
     const ledger = recordModeration({

@@ -33,7 +33,6 @@ const SENSITIVE_LIFE_TERMS = Object.freeze([
   '\uB9E4\uBAB0',
   '\uC775\uC0AC',
   '\uD654\uC7AC',
-  '\uD3ED\uBC1C',
   '\uC0B0\uC0AC\uD0DC',
 ]);
 
@@ -44,16 +43,19 @@ const SENSITIVE_LIFE_PATTERNS = Object.freeze([
 ]);
 
 function topicText(input = {}) {
-  if (typeof input === 'string') return input;
-  return [
+  if (typeof input === 'string') return input.normalize('NFC');
+  const primary = [
     input?.title,
     input?.summary,
-    input?.fullText,
     input?.description,
     input?.context,
     ...(input?.tags || []),
-    ...(input?.verifiedFacts || []),
-  ].filter(Boolean).join(' ');
+  ].filter(Boolean).join(' ').normalize('NFC');
+  if (primary) return primary;
+  return [input?.fullText, ...(input?.verifiedFacts || [])]
+    .filter(Boolean)
+    .join(' ')
+    .normalize('NFC');
 }
 
 function loadMusicManifest({

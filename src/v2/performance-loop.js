@@ -197,6 +197,46 @@ function excludedByModeration(publication = {}) {
   );
 }
 
+function publicationKstDate(publication = {}) {
+  const match = String(publication.publicationKey || '').match(/^diem:(\d{4}-\d{2}-\d{2}):/u);
+  return match?.[1] || null;
+}
+
+function kstDateFor(instant = new Date()) {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(instant);
+}
+
+function subtractKstCalendarDays(dateString, days) {
+  const value = new Date(`${dateString}T12:00:00+09:00`);
+  value.setUTCDate(value.getUTCDate() - days);
+  return kstDateFor(value);
+}
+
+function visionFailureReason(error = '') {
+  const message = String(error || '');
+  if (/json_validate_failed|failed to validate json/iu.test(message)) return 'vision_json_validate_failed';
+  if (/failed to retrieve media|received status code:\s*40[13]|local image fetch failed/iu.test(message)) {
+    return 'vision_image_access_failed';
+  }
+  if (/no safe image selected|country mismatch|foreign flag|unrelated person|does not depict|neither image depicts/iu.test(message)) {
+    return 'vision_context_rejected';
+  }
+  if (/vision review budget exhausted/iu.test(message)) return 'vision_review_budget_exhausted';
+  return 'vision_other_failure';
+}
+
+function visionFailureDistribution(publications = []) {
+  return distribution(publications.flatMap(publication => (
+    publication.image?.attempts || []
+  )).filter(attempt => attempt.provider === 'vision-review' && attempt.error)
+    .map(attempt => visionFailureReason(attempt.error)));
+}
+
 function buildPerformanceReport(ledgers = [], now = new Date()) {
   const seenRecords = new Set();
   const records = ledgers.flatMap(allLedgerPublications).filter(publication => {
@@ -233,6 +273,15 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
     economy: chooseLearningWindow(windows, 'economy'),
     issue: chooseLearningWindow(windows, 'issue'),
   };
+  const currentKstDate = kstDateFor(now);
+  const recentStartDate = subtractKstCalendarDays(currentKstDate, 6);
+  const recentPublications = publications.filter(publication => {
+    const date = publicationKstDate(publication);
+    return date && date >= recentStartDate && date <= currentKstDate;
+  });
+  const recentFallbackCount = recentPublications.filter(publication => (
+    ['generated', 'typographic'].includes(publication.image?.kind)
+  )).length;
   return {
     schemaVersion: 1,
     generatedAt: now.toISOString(),
@@ -267,6 +316,17 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
       combinedFallbackRate: publications.length
         ? Number((publications.filter(publication => ['generated', 'typographic'].includes(publication.image?.kind)).length / publications.length * 100).toFixed(2))
         : null,
+      visionFailureDistribution: visionFailureDistribution(publications),
+      recentSevenDays: {
+        startDate: recentStartDate,
+        endDate: currentKstDate,
+        publishedCount: recentPublications.length,
+        fallbackCount: recentFallbackCount,
+        fallbackRate: recentPublications.length
+          ? Number(((recentFallbackCount / recentPublications.length) * 100).toFixed(2))
+          : null,
+        visionFailureDistribution: visionFailureDistribution(recentPublications),
+      },
     },
     music: {
       trackDistribution,
@@ -335,6 +395,10 @@ function performanceMarkdown(report) {
   lines.push(`- 타이포그래피 폴백률: ${display(report.image.typographyFallbackRate, '%')}`);
   lines.push(`- 생성 배경 폴백률: ${display(report.image.generatedFallbackRate, '%')} · 전체 폴백률: ${display(report.image.combinedFallbackRate, '%')}`);
   lines.push(`- 이미지 공급원: ${Object.entries(report.image.sourceDistribution).map(([key, value]) => `${key} ${value.count}편`).join(', ') || '기록 없음'}`);
+  const recentImage = report.image.recentSevenDays || {};
+  lines.push(`- 최근 7일 폴백률: ${display(recentImage.fallbackRate, '%')} (${recentImage.fallbackCount || 0}/${recentImage.publishedCount || 0}편, ${recentImage.startDate || '-'}~${recentImage.endDate || '-'})`);
+  const visionFailures = Object.entries(recentImage.visionFailureDistribution || {});
+  lines.push(`- 최근 7일 Vision 실패: ${visionFailures.map(([key, value]) => `${key} ${value.count}건`).join(', ') || '기록 없음'}`);
   lines.push(`- 음악: ${report.music.diversityWarning || '현재 20% 초과 단일 트랙 편중 경고 없음'}`);
   lines.push(`- 음악 판단 원칙: ${report.music.decisionRule}`);
   lines.push(`- 편집 후보 실패: ${Object.entries(report.operations.candidateFailureReasons).map(([key, value]) => `${key} ${value.count}건`).join(', ') || '기록 없음'}`);
