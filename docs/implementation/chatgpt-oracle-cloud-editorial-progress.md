@@ -289,19 +289,23 @@
 - 새 ChatGPT web 대화에서 MCP v4의 visual-library read가 실제 호출돼 44개 에셋을
   반환했다. `category=any`는 tool output에서 잘렸고, `economy` 1개와 `issue` 2개를
   각각 조회하니 정상 응답했다. 정기 작업은 카테고리를 나눠 읽어야 한다.
-- 후속 branch `codex/cloud-editorial-package-hash`는 모델이 계산할 필요 없이 MCP가
-  `integrity.contentSha256`를 설정하도록 보완 중이다. 아직 commit/merge/Oracle 배포
-  전이며, 첫 assisted package PR과 Actions validate/prepare도 미수행이다.
+- PR #84 (`ea152e8`)에서 MCP가 파생 `integrity.contentSha256`를 직접 계산하도록
+  보완했고, merge 후 Oracle active service를 재배포했다. Health, OAuth 200/400,
+  anonymous MCP 401 검증을 다시 통과했다.
+- 새 ChatGPT web 대화에서 candidate를 카테고리별로 읽고 visual ID 선택까지 성공했다.
+  첫 assisted package 제출은 editorial 필드 nesting 오류로 거부됐고, 모델이 shape를
+  수정했지만 두 번째 public-write는 ChatGPT safety inspection에서 차단됐다. GitHub
+  PR 목록과 `diem/editorial/*` branch 목록에서 해당 package 변경이 없음을 확인했다.
+- 같은 package write를 GitHub CLI/API로 우회하지 않는다. ChatGPT 지원 경로, 사용자
+  승인 또는 대체 설계를 확인하기 전에는 예약 task를 만들지 않는다.
 
 ## 다음 재개 작업
 
-1. `codex/cloud-editorial-package-hash`의 전체 테스트·diff review 후 commit/push하고
-   후속 PR을 merge한다.
-2. Oracle MCP를 후속 commit으로 다시 빌드하고 active/OAuth boundaries를 재확인한다.
-3. ChatGPT web 대화에서 candidate category별 read와 visual-library 결과를 사용해
-   하나의 `assisted` package PR을 만든다. source/evidence/frame/hash/asset을 검사한다.
-4. 사람의 PR merge 후 `daily_package_validate` 및 `daily_package_prepare`를 실행하고
-   렌더된 Reel과 ledger를 확인한다. 실제 Instagram 게시 전에는 별도 의도 확인이 필요하다.
-5. 정상적인 수동 ChatGPT package run이 확인되면 10:30 KST에 standalone cloud
-   Scheduled task를 설정한다. `daily_package_publish`는 그 task에 절대 포함하지 않는다.
-6. 기존 Instagram scheduled publisher는 별도 결정 전까지 그대로 유지한다.
+1. ChatGPT web의 public-write safety block이 사용자 승인으로 해소될 수 있는지 확인한다.
+   별도 승인이나 설정으로 해결되지 않으면 public GitHub package write를 하지 않는다.
+2. 안전하고 공식적으로 지원되는 쓰기 경로가 확인될 때만 새 ChatGPT 대화에서
+   assisted package PR을 다시 시험한다.
+3. 사람 검토·merge 후 GitHub Actions validate/prepare를 실행하고 artifact/ledger를 확인한다.
+4. 정상적인 수동 ChatGPT package run이 확인된 뒤에만 10:30 KST standalone cloud
+   Scheduled task를 설정한다. `daily_package_publish`는 task에 절대 포함하지 않는다.
+5. 기존 Instagram scheduled publisher는 별도 결정 전까지 그대로 유지한다.

@@ -1,7 +1,7 @@
 # DIEM ChatGPT Cloud + Oracle MCP 편집 파이프라인 구현 계획
 
 - 작성일: 2026-09-15 KST
-- 상태: PR #77 main 반영, candidate-only Action과 ChatGPT read canary 통과; package hash 후속 보완 PR과 첫 assisted package/prepare/task 설정은 미완료
+- 상태: PR #77/#84 main 반영, candidate-only Action 및 ChatGPT read canary 통과; ChatGPT public package write가 safety inspection에서 차단돼 assisted PR/prepare/task는 미완료
 - 구현 세션 권장 모델: `gpt-5.6-terra`, reasoning `high`
 - 운영 예약 모델: `gpt-5.6-terra`, reasoning `high`
 - 목표: Mac이 꺼져 있어도 ChatGPT 웹 클라우드 예약 작업이 편집하고,
@@ -52,21 +52,24 @@ the current acceptance criteria, use this runbook and the amended `spec/spec.md`
   (44 assets) and read the candidate pack. The combined `category=any` response
   was truncated, while separate `economy` and `issue` calls returned 1 and 2
   candidates respectively. Call per category in the recurring task.
-- Oracle active MCP has been rebuilt from merged PR #77; health, OAuth metadata
-  200, unsupported grant 400, and anonymous MCP 401 all passed. A follow-up
-  branch `codex/cloud-editorial-package-hash` makes the MCP compute the derived
-  package content SHA-256 server-side; this avoids requiring the model to hash
-  its own JSON and is not yet merged or deployed.
+- PR #84 (`ea152e8`) is merged and Oracle active MCP has been rebuilt with
+  server-computed `integrity.contentSha256`; health, OAuth metadata 200,
+  unsupported grant 400, and anonymous MCP 401 all passed after rebuild.
+- A manual ChatGPT web package attempt used the fresh candidate and library,
+  but after one schema correction the public `submit_editorial_package` write
+  was blocked by ChatGPT's safety inspection. GitHub PR listing confirms no
+  content PR was created. Do not bypass this with a CLI/API write or schedule a
+  task that will repeat the blocked action.
 - The existing automatic publisher must remain unchanged. PR #77 added a
   separate candidate cron; manual package validation is read-only, preparation
   is non-publishing, and the Instagram publish Action is main-only/manual.
 - Full local verification passes: 380 tests passed, 3 loopback/network tests
   skipped by the managed sandbox. A branch restriction for manual Instagram
   publication is part of the reviewed final diff.
-- Still required: merge/deploy the package-hash follow-up; create and inspect one
-  real assisted package PR through ChatGPT; run package validate and prepare;
-  then configure the recurring ChatGPT web task. Do not run
-  `daily_package_publish` as a canary.
+- Still required: resolve the ChatGPT public-write safety block using an
+  explicitly approved platform-supported path; create and inspect one real
+  assisted package PR; run package validate and prepare; then configure the
+  recurring ChatGPT web task. Do not run `daily_package_publish` as a canary.
 
 ### First end-to-end run
 
@@ -79,11 +82,11 @@ the current acceptance criteria, use this runbook and the amended `spec/spec.md`
    `issue` separately; the combined candidate response truncated. The local
    `.codex/skills/` file is for Codex and is not automatically visible to
    ChatGPT web.
-4. `[next]` After the package-hash follow-up is merged and deployed, ask ChatGPT
-   to create at most one safe package per category. Copy source title, URL,
-   evidence hash, and core newsFrame fields exactly. The MCP computes the
-   package content hash. Each submission creates an `assisted` PR, never a
-   publication.
+4. `[blocked]` A manual ChatGPT test selected one Economy candidate and a
+   topic-matched unused visual, but ChatGPT's safety inspection blocked the
+   `submit_editorial_package` public write after correcting a schema error. No
+   PR exists. Obtain a supported authorization/design decision before retrying;
+   do not route around this gate.
 5. Inspect the content PR(s) for source accuracy, claim status, Korean copy,
    visual topic match and pinned hash. Merge only reviewed packages.
 6. On `main`, run **DIEM Economy → `daily_package_validate`** with the merged

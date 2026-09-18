@@ -1,8 +1,8 @@
 # DIEM 현재 상태와 새 세션 시작점
 
 - 갱신일: 2026-09-18 KST
-- 활성 구현 브랜치: `codex/cloud-editorial-package-hash` (package SHA follow-up 검증 중)
-- PR #77은 main에 merge됐다. Checkout 상태와 ahead/behind는 `git status --short --branch`로 다시 확인한다.
+- 활성 구현 브랜치: `codex/chatgpt-public-write-handoff` (현재 ChatGPT public-write blocker 기록 중)
+- PR #77과 package-hash 보완 PR #84는 main에 merge됐다. Checkout 상태와 ahead/behind는 `git status --short --branch`로 다시 확인한다.
 - production Instagram workflow와 예약 발행은 변경하지 않았다.
 - 상세 성과 진단: [`2026-09-15-performance-decline.md`](2026-09-15-performance-decline.md)
 - 생성 보고서: [`../../data/reports/diem-performance.md`](../../data/reports/diem-performance.md)
@@ -66,11 +66,22 @@ Candidate SHA-256은 `8d444f248d93d175cda0a4bf41541d9db35e97ac42ab4ba4b2d9649c44
 각각 1개와 2개 후보를 확인했다. `category=any` 응답은 tool-output 한도에서 잘렸으므로
 정기 작업에서도 카테고리별로 두 번 호출한다.
 
-Oracle MCP는 PR #77의 active 서비스 코드로 재빌드되어 `healthy`다. OAuth metadata
-HTTP 200, unsupported token grant HTTP 400, anonymous `/mcp` HTTP 401을 확인했다.
-다만 첫 assisted package submit 전에 모델이 `integrity.contentSha256`를 계산할 수
-있어야 한다는 점을 확인해 현재 follow-up branch에서 MCP 서버가 해당 derived hash를
-직접 계산하도록 보완 중이다. 그 후속 PR은 아직 merge·Oracle 배포 전이다.
+PR #84가 MCP 서버에서 `integrity.contentSha256`를 계산하게 보완했다. Oracle active
+MCP는 이 코드로 다시 재빌드되어 `healthy`다. OAuth metadata HTTP 200, unsupported
+token grant HTTP 400, anonymous `/mcp` HTTP 401도 통과했다.
+
+ChatGPT web read 경로는 검증됐지만 package write는 아직 아니다. 새로운 대화에서
+candidate pack을 카테고리별로 읽고 44개 visual asset 중 topic-matched unused 자산도
+선택했다. 제출 도중 처음에는 package shape 검증 오류가 났고 모델이 이를 수정했으나,
+두 번째 `submit_editorial_package` public write가 ChatGPT safety inspection에서 차단됐다.
+`gh pr list`로 해당 실행의 content PR이 생성되지 않았음을 확인했다. 대체 CLI/API로
+우회하지 말고, ChatGPT가 허용하는 승인 경로 또는 안전한 대체 설계를 사용자와 정한다.
+
+아직 assisted package PR, GitHub Action validate/prepare, 반복 Scheduled task는 없다.
+이후 순서는 다음과 같다: 안전한 public-write 경로 확정 → 실제 assisted PR →
+사람 검토·merge → validate/prepare → 성공적인 수동 실행 후 10:30 KST cloud task.
+`daily_package_publish`는 별도 의도 확인 전까지 실행하지 않으며 기존 production
+Instagram schedule도 변경하지 않았다.
 
 다음 순서: package-hash follow-up 검증·merge·Oracle 배포 → ChatGPT가 assisted package
 PR 생성 → 사람이 내용 검토 및 merge → `daily_package_validate` →
