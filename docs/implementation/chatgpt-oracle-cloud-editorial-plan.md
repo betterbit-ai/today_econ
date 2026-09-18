@@ -1,7 +1,7 @@
 # DIEM ChatGPT Cloud + Oracle MCP 편집 파이프라인 구현 계획
 
 - 작성일: 2026-09-15 KST
-- 상태: visual-library 구현이 PR #77에 반영됨; 첫 assisted package PR·Actions prepare canary·ChatGPT 반복 예약은 아직 미완료
+- 상태: PR #77 main 반영, candidate-only Action과 ChatGPT read canary 통과; package hash 후속 보완 PR과 첫 assisted package/prepare/task 설정은 미완료
 - 구현 세션 권장 모델: `gpt-5.6-terra`, reasoning `high`
 - 운영 예약 모델: `gpt-5.6-terra`, reasoning `high`
 - 목표: Mac이 꺼져 있어도 ChatGPT 웹 클라우드 예약 작업이 편집하고,
@@ -42,48 +42,59 @@ the current acceptance criteria, use this runbook and the amended `spec/spec.md`
 - Oracle MCP OAuth and GitHub App access are live. The authenticated ChatGPT
   cloud scheduled-write canary passed and opened PR #81; a later unattended
   canary opened PR #82. These were canary JSON files only.
-- Oracle `get_visual_library` was called successfully from ChatGPT and returned
-  the 43 library assets currently on `main`. PR #77 adds the 44th reviewed
-  asset and the production visual-library package flow.
-- PR #77 is open and clean, with no required CI checks configured. Its changed
-  candidate cron is separate from the existing publisher cron; the existing
-  automatic publisher must remain unchanged. The latest diff also verifies each
-  package against the latest candidate hash/source/frame, exposes only assisted
-  visual-library package writes, and keeps publish on `main`; validate is
-  read-only and image-byte tools are not exposed to ChatGPT.
-- Full local verification passes: 379 tests passed, 3 loopback/network tests
+- PR #77 is merged (`94e624b`) and the candidate-only Action run
+  `35298068245` succeeded. Its only file changes were
+  `data/cloud-editorial/inbox/2026/09/2026-09-18-35298068245.json` and
+  `data/cloud-editorial/state.json`; all publisher/prepare/publish jobs were
+  skipped. The resulting candidate-pack SHA-256 is
+  `8d444f248d93d175cda0a4bf41541d9db35e97ac42ab4ba4b2d9649c44bf1e97`.
+- A fresh ChatGPT web conversation successfully called MCP `get_visual_library`
+  (44 assets) and read the candidate pack. The combined `category=any` response
+  was truncated, while separate `economy` and `issue` calls returned 1 and 2
+  candidates respectively. Call per category in the recurring task.
+- Oracle active MCP has been rebuilt from merged PR #77; health, OAuth metadata
+  200, unsupported grant 400, and anonymous MCP 401 all passed. A follow-up
+  branch `codex/cloud-editorial-package-hash` makes the MCP compute the derived
+  package content SHA-256 server-side; this avoids requiring the model to hash
+  its own JSON and is not yet merged or deployed.
+- The existing automatic publisher must remain unchanged. PR #77 added a
+  separate candidate cron; manual package validation is read-only, preparation
+  is non-publishing, and the Instagram publish Action is main-only/manual.
+- Full local verification passes: 380 tests passed, 3 loopback/network tests
   skipped by the managed sandbox. A branch restriction for manual Instagram
   publication is part of the reviewed final diff.
-- Still required: merge PR #77, run the candidate-only Action, create and review
-  one real assisted package PR through ChatGPT, then run manual package validate
-  and prepare Actions. Do not run `daily_package_publish` as a canary.
+- Still required: merge/deploy the package-hash follow-up; create and inspect one
+  real assisted package PR through ChatGPT; run package validate and prepare;
+  then configure the recurring ChatGPT web task. Do not run
+  `daily_package_publish` as a canary.
 
 ### First end-to-end run
 
-1. Review and merge code PR #77. This activates the separate six-hour
-   `cloud_candidates` cron but does not publish Instagram content.
-2. In GitHub Actions, run **DIEM Economy → `cloud_candidates`** once on `main`
-   (or wait for its cron). Confirm only a new JSON file under
-   `data/cloud-editorial/inbox/` was committed and the publisher jobs were
-   skipped.
-3. In a normal ChatGPT web chat with **DIEM Editorial OAuth MCP v4** connected,
-   test the editorial instructions below (the local `.codex/skills/` file is for
-   Codex and is not automatically visible to ChatGPT web): read the latest
-   candidate pack, seven-day editorial context, and visual library; then submit
-   at most one safe Economy and one safe Issue package. Copy source title, URL,
-   evidence hash, and core newsFrame fields from the selected candidate exactly.
-   Each submission creates an `assisted` content PR; it cannot publish.
-4. Inspect the content PR(s) for source accuracy, claim status, Korean copy,
+1. `[complete]` Merge code PR #77. This activated the separate six-hour
+   `cloud_candidates` cron without publishing Instagram content.
+2. `[complete]` Run **DIEM Economy → `cloud_candidates`** on `main`. It changed
+   only the candidate JSON and state cursor; every publisher job was skipped.
+3. `[complete]` A normal ChatGPT web chat with **DIEM Editorial OAuth MCP v4**
+   read the latest pack and all 44 library assets. Always read `economy` and
+   `issue` separately; the combined candidate response truncated. The local
+   `.codex/skills/` file is for Codex and is not automatically visible to
+   ChatGPT web.
+4. `[next]` After the package-hash follow-up is merged and deployed, ask ChatGPT
+   to create at most one safe package per category. Copy source title, URL,
+   evidence hash, and core newsFrame fields exactly. The MCP computes the
+   package content hash. Each submission creates an `assisted` PR, never a
+   publication.
+5. Inspect the content PR(s) for source accuracy, claim status, Korean copy,
    visual topic match and pinned hash. Merge only reviewed packages.
-5. On `main`, run **DIEM Economy → `daily_package_validate`** with the merged
+6. On `main`, run **DIEM Economy → `daily_package_validate`** with the merged
    `content/diem-daily/.../package.json` path. It has no Instagram secret.
-6. If validation passes, run **`daily_package_prepare`** with the same path and
+7. If validation passes, run **`daily_package_prepare`** with the same path and
    inspect the committed cover/Reel and publication ledger state. It has no
    Instagram secret and does not publish.
-7. `daily_package_publish` is a distinct, deliberate operator action. Run it
+8. `daily_package_publish` is a distinct, deliberate operator action. Run it
    only when publication is explicitly intended; it is restricted to `main`.
    ChatGPT's scheduled task must never invoke it.
-8. Only after the manual ChatGPT run successfully creates a valid assisted PR,
+9. Only after the manual ChatGPT run successfully creates a valid assisted PR,
    create the recurring ChatGPT web task. Use a standalone cloud task at 10:30
    KST, after the 09:00 KST candidate collection; keep the MCP app enabled and
    its saved narrow tool permissions. Review early runs and adjust if needed.

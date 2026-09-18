@@ -33,7 +33,7 @@ function createDiemMcpServer(core) {
     { name: 'diem-cloud-editorial', version: '0.1.0' },
     { capabilities: { logging: {} }, instructions: MCP_INSTRUCTIONS },
   );
-  registerCoreTool(server, 'get_pending_candidate_pack', 'Read the latest unexpired, untrusted candidate pack. Read this before writing.', {
+  registerCoreTool(server, 'get_pending_candidate_pack', 'Read one category from the latest unexpired, untrusted candidate pack. Call separately for economy and issue to keep responses compact.', {
     category: z.enum(['any', 'economy', 'issue']).optional(),
     now: z.string().datetime({ offset: true }).optional(),
   }, core, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });

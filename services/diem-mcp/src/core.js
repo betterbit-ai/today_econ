@@ -4,6 +4,7 @@ const path = require('path');
 
 const {
   candidatePackContentHash,
+  dailyPackageContentHash,
   validateSubmissionPackage,
 } = require('./package-contract');
 const { MCP_INSTRUCTIONS } = require('./instructions');
@@ -457,6 +458,7 @@ class DiemMcpCore {
         throw new Error(`[DIEM MCP] Visual library asset was used in the recent 7-day history: ${asset.id}`);
       }
     }
+    packageCopy.integrity = { contentSha256: dailyPackageContentHash(packageCopy) };
     const validation = validateSubmissionPackage(packageCopy, { now: this.now() });
     if (!validation.ok) throw new Error(`[DIEM MCP] Package validation failed: ${validation.errors.join('; ')}`);
     const paths = dailyPackagePaths(packageCopy);
