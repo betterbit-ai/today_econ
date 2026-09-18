@@ -133,6 +133,33 @@ test('rejects a visual library package whose pinned hash does not match the mani
   assert.match(validation.errors.join('; '), /visual library asset hash mismatch/u);
 });
 
+test('rejects a visual library asset whose topic does not match the article', () => {
+  const pack = packageFixture({ visualKind: 'diem-library' });
+  const manifest = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'assets', 'fallback', 'generated', 'manifest.json'), 'utf8'));
+  const housingAsset = manifest.assets.find(item => item.id === 'housing-01');
+  pack.visual.assetId = housingAsset.id;
+  pack.visual.sha256 = housingAsset.sha256;
+  pack.visual.visualFingerprint = `diem-library:${housingAsset.id}`;
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  const validation = validateDailyPackage(pack, { now: NOW, verifyArtifact: true });
+  assert.equal(validation.ok, false);
+  assert.match(validation.errors.join('; '), /does not match the article topic finance/u);
+});
+
+test('fails closed when a selected library asset was used in the recent publication history', async () => {
+  const pack = packageFixture({ visualKind: 'diem-library' });
+  const ledger = createDailyLedger(DATE, NOW);
+  ledger.publications.economy = stageDailyPackage(pack, { date: DATE, now: NOW });
+  let coverCalls = 0;
+  await assert.rejects(() => prepareDailyPackage(ledger, 'economy', {
+    package: pack,
+    now: NOW,
+    history: [{ image: { id: 'diem-library:finance-01' } }],
+    renderCoverImpl: async () => { coverCalls += 1; },
+  }), /used in the recent history/u);
+  assert.equal(coverCalls, 0);
+});
+
 test('prepares an assisted library package with the committed visual asset', async () => {
   const pack = packageFixture({ visualKind: 'diem-library' });
   const ledger = createDailyLedger(DATE, NOW);

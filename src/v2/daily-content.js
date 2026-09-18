@@ -19,6 +19,7 @@ const { selectMusic, getMood } = require('./music');
 const { createDiemReelWithMusic } = require('./reel');
 const { renderDiemCover } = require('./cover');
 const { buildTopicSignature, classifyCandidate } = require('./topic');
+const { generatedFallbackTopic, imageReuseKeys } = require('./image-selector');
 const { validateEditorial } = require('./editorial');
 const { normalizeNfc } = require('./text');
 const { resolveVisualLibraryAsset } = require('./visual-library');
@@ -150,6 +151,10 @@ function imageForPackage(item = {}) {
   if (visual.kind === 'diem-library') {
     const asset = resolveVisualLibraryAsset(visual.assetId);
     if (visual.sha256 !== asset.sha256) throw new Error('[DIEM Daily] visual library asset hash mismatch.');
+    const expectedTopic = generatedFallbackTopic(sourceArticle(item));
+    if (!expectedTopic || !asset.topics.includes(expectedTopic)) {
+      throw new Error(`[DIEM Daily] visual library asset does not match the article topic ${expectedTopic || '(unmapped)'}.`);
+    }
     return {
       ...base,
       kind: 'generated',
@@ -359,6 +364,12 @@ async function prepareDailyPackage(ledger, category, {
   if (publication.reel?.status === 'published') return ledger;
 
   const image = publication.image;
+  if (image.id?.startsWith('diem-library:')) {
+    const recentImageKeys = new Set((history || []).flatMap(imageReuseKeys));
+    if (imageReuseKeys(image).some(key => recentImageKeys.has(key))) {
+      throw new Error(`[DIEM Daily] visual library asset was used in the recent history: ${image.id}`);
+    }
+  }
   if (image.kind === 'chatgpt-generated-editorial') {
     throw new Error('[DIEM Daily] chatgpt-generated-editorial rendering is gated until ImageGen handoff is proven.');
   }

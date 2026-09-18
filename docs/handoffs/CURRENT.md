@@ -1,7 +1,7 @@
 # DIEM 현재 상태와 새 세션 시작점
 
-- 갱신일: 2026-09-17 KST
-- 활성 구현 브랜치: `codex/chatgpt-oracle-editorial` (PR #77은 draft이며 merge 금지)
+- 갱신일: 2026-09-18 KST
+- 활성 구현 브랜치: `codex/chatgpt-oracle-editorial` (PR #77 review/merge 전)
 - 구현 브랜치는 원격과 동기화 상태이며 최신 상태는 `git log -1`로 확인한다.
 - production Instagram workflow와 예약 발행은 변경하지 않았다.
 - 상세 성과 진단: [`2026-09-15-performance-decline.md`](2026-09-15-performance-decline.md)
@@ -42,7 +42,7 @@ DIEM은 네이버 인기 경제·시사 후보를 수집하고, 분류·신선�
 - 테스트: `test/v2-*.test.js`
 - 전체 검증: `node .codex-harness/scripts/verify-project.mjs`
 
-## 2026-09-17 클라우드 editorial 전환 상태
+## 2026-09-18 클라우드 editorial 전환 상태
 
 ChatGPT OAuth MCP의 일반 write와 cloud Scheduled write canary는 실제 GitHub PR까지
 도달했다 (각각 PR #80, #81). 상시 권한 저장 뒤 새 cloud task가 browser interaction
@@ -50,11 +50,22 @@ ChatGPT OAuth MCP의 일반 write와 cloud Scheduled write canary는 실제 GitH
 gate도 통과했다. Oracle active service는 `mcp.talkwithme.r-e.kr`의 TLS endpoint에서
 건강하며 GitHub App은 canary path만 쓰도록 제한돼 있다.
 
-ImageGen의 실제 image bytes handoff gate는 실패했다. ChatGPT는 1,804,029-byte PNG를
-생성했지만 현재 runtime에는 generated file을 MCP `dataBase64`로 넘기는 bridge가 없다고
-명시했고, ingest나 PR write를 호출하지 않았다. 따라서 fallback을 발명하지 않고
-PR #77은 draft, production schedule은 기존 상태로 유지한다. 제품이 file-to-MCP handoff를
-지원하기 전에는 text-only shadow 실험만 별도 승인 범위에서 가능하다.
+ChatGPT ImageGen 파일을 MCP로 보내는 기능은 실패했지만, 사용자는 검증된 9:16 이미지
+라이브러리에서 ChatGPT가 매일 에셋 ID를 고르는 대안을 승인했다. 저장소에는 기존
+43개 자산과 시각 검수된 OpenAI ImageGen 시장 배경 1개, 총 44개가 있다. Oracle
+`get_visual_library`는 실제 ChatGPT MCP 호출에서 43개 main 자산을 읽었고, 새로운
+44번째 자산은 PR #77이 main에 반영된 뒤 목록에 나타난다.
+
+PR #77에는 Economy workflow의 별도 6시간 candidate-only cron과 수동 package
+validate/prepare/publish Action이 추가됐다. production publisher cron 자체는 바뀌지
+않았다. 현재 다음 단계는 PR review/merge, candidate pack 자동 생성 확인, ChatGPT
+assisted package PR, 수동 prepare 검증 순이다. package PR merge와 Instagram publish는
+각각 사람의 명시적 조치가 필요하다.
+
+Oracle MCP는 이번 브랜치 코드로 재배포되어 `healthy`이며 OAuth 200/400 및 익명 MCP
+401 경계를 다시 통과했다. ChatGPT v4 action refresh 뒤 `get_visual_library`를 호출해
+main의 43개 자산 목록을 읽는 것도 확인했다. PR #77을 main에 반영하면 44번째
+`markets-04-openai-01` 에셋이 목록에 추가된다.
 
 ## 2026-09-15 성과 판단
 

@@ -79,7 +79,7 @@ function visualLibraryManifest() {
   return JSON.stringify({
     assets: Array.from({ length: 43 }, (_, index) => ({
       id: `finance-${String(index + 100).padStart(3, '0')}`,
-      sha256: 'a'.repeat(64),
+      sha256: String.fromCharCode(97 + (index % 6)).repeat(64),
       topics: ['finance'],
       description: 'person-free editorial asset',
     })),
@@ -104,13 +104,34 @@ test('returns only pinned metadata from the reviewed visual library', async () =
   const github = new MockGitHubClient({
     files: {
       'assets/fallback/generated/manifest.json': visualLibraryManifest(),
+      'data/publications/2026/09/2026-09-15.json': JSON.stringify({
+        date: '2026-09-15',
+        publications: {
+          economy: { status: 'published', image: { id: 'diem-generated:finance-100', localSha256: 'a'.repeat(64) } },
+          issue: { status: 'planned', image: { id: 'diem-library:finance-101' } },
+        },
+      }),
     },
   });
   const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
   const result = await core.call('get_visual_library');
   assert.equal(result.status, 'ready');
   assert.equal(result.assetCount, 43);
-  assert.deepEqual(Object.keys(result.assets[0]).sort(), ['description', 'energy', 'id', 'sha256', 'topics']);
+  assert.equal(result.assets[0].recentlyUsed, true);
+  assert.equal(result.assets[0].recentUseDates[0], '2026-09-15');
+  assert.equal(result.assets[1].recentlyUsed, false);
+  assert.deepEqual(Object.keys(result.assets[0]).sort(), ['description', 'energy', 'id', 'recentUseDates', 'recentlyUsed', 'sha256', 'topics']);
+});
+
+test('fails closed when a recent publication ledger is malformed', async () => {
+  const github = new MockGitHubClient({
+    files: {
+      'assets/fallback/generated/manifest.json': visualLibraryManifest(),
+      'data/publications/2026/09/2026-09-15.json': '{invalid',
+    },
+  });
+  const core = new DiemMcpCore({ githubClient: github, now: () => NOW });
+  await assert.rejects(() => core.call('get_visual_library'), /history could not be verified/u);
 });
 
 test('accepts only a pinned visual library reference in an editorial package', () => {

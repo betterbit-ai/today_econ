@@ -217,14 +217,60 @@ class DiemMcpCore {
     return assets;
   }
 
-  async get_visual_library() {
+  async recentVisualLibraryAssetIds(days = 7, assets) {
+    const safeDays = Number(days);
+    if (!Number.isInteger(safeDays) || safeDays < 1 || safeDays > 14) {
+      throw new Error('[DIEM MCP] visual library history days must be from 1 to 14.');
+    }
+    const libraryAssets = assets || await this.readVisualLibrary();
+    const now = this.now();
+    const dateParts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+      timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
+    }).formatToParts(now).map(part => [part.type, part.value]));
+    const cutoff = new Date(`${dateParts.year}-${dateParts.month}-${dateParts.day}T00:00:00+09:00`);
+    cutoff.setUTCDate(cutoff.getUTCDate() - (safeDays - 1));
+    const paths = await this.githubClient.listFiles('data/publications/');
+    const recentPaths = paths.filter(filePath => {
+      const match = /^data\/publications\/\d{4}\/\d{2}\/(\d{4}-\d{2}-\d{2})\.json$/u.exec(filePath);
+      if (!match) return false;
+      const ledgerDate = new Date(`${match[1]}T00:00:00+09:00`);
+      return Number.isFinite(ledgerDate.getTime()) && ledgerDate >= cutoff && ledgerDate <= now;
+    });
+    const recent = new Map();
+    const assetById = new Map(libraryAssets.map(asset => [asset.id, asset]));
+    const assetByHash = new Map(libraryAssets.map(asset => [asset.sha256, asset]));
+    for (const filePath of recentPaths) {
+      let ledger;
+      try {
+        ledger = JSON.parse(await this.githubClient.readFile(filePath));
+      } catch {
+        throw new Error(`[DIEM MCP] Recent publication history could not be verified: ${filePath}`);
+      }
+      for (const publication of Object.values(ledger.publications || {})) {
+        const image = publication?.image || {};
+        if (!(publication.status === 'published' || publication.reel?.status === 'published' || publication.reel?.externalId)) continue;
+        const assetId = String(image.id || '').match(/^(?:diem-library|diem-generated):([a-z][a-z0-9-]{2,80})$/u)?.[1];
+        const asset = assetById.get(assetId) || assetByHash.get(String(image.localSha256 || image.sha256 || ''));
+        if (asset) recent.set(asset.id, [...(recent.get(asset.id) || []), ledger.date || null]);
+      }
+    }
+    return recent;
+  }
+
+  async get_visual_library({ days = 7 } = {}) {
     const assets = await this.readVisualLibrary();
+    const recentAssets = await this.recentVisualLibraryAssetIds(days, assets);
     return {
       status: 'ready',
       manifestPath: VISUAL_LIBRARY_MANIFEST_PATH,
       assetCount: assets.length,
-      assetSelection: 'Choose one ID matching the candidate topic and energy. Pin its sha256 in visual.sha256. Never provide a URL or generated-image bytes.',
-      assets,
+      historyDays: Number(days),
+      assetSelection: 'Choose one ID matching the candidate topic and energy. Do not choose assets marked recentlyUsed. Pin the returned sha256 in visual.sha256. Never provide a URL or generated-image bytes.',
+      assets: assets.map(asset => ({
+        ...asset,
+        recentlyUsed: recentAssets.has(asset.id),
+        recentUseDates: recentAssets.get(asset.id) || [],
+      })),
     };
   }
 
@@ -374,9 +420,14 @@ class DiemMcpCore {
       packageCopy.integrity.contentSha256 = dailyPackageContentHash(packageCopy);
     }
     if (packageCopy.visual?.kind === 'diem-library') {
-      const asset = (await this.readVisualLibrary()).find(entry => entry.id === packageCopy.visual.assetId);
+      const libraryAssets = await this.readVisualLibrary();
+      const asset = libraryAssets.find(entry => entry.id === packageCopy.visual.assetId);
       if (!asset || asset.sha256 !== packageCopy.visual.sha256) {
         throw new Error('[DIEM MCP] Visual library asset is not allowlisted or its SHA-256 is not pinned.');
+      }
+      const recentAssets = await this.recentVisualLibraryAssetIds(7, libraryAssets);
+      if (recentAssets.has(asset.id)) {
+        throw new Error(`[DIEM MCP] Visual library asset was used in the recent 7-day history: ${asset.id}`);
       }
     }
     const validation = validateSubmissionPackage(packageCopy, { now: this.now() });

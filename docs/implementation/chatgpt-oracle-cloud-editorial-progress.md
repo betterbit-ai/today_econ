@@ -223,7 +223,7 @@
   이 결과로 무인 scheduled-write gate는 통과했다.
 - 기존 Instagram production schedule과 workflow는 여전히 수정하지 않았다.
 
-## 실패 판정: ChatGPT ImageGen-to-MCP byte handoff
+## 이전 방식 PoC 결과: ChatGPT ImageGen-to-MCP byte handoff 실패
 
 - Streamable HTTP는 호출마다 core가 새로 만들어지므로 image asset을 process memory에만
   두면 `ingest_generated_image` 다음 호출에서 asset을 찾을 수 없었다. asset metadata를
@@ -239,8 +239,30 @@
 - 연결된 OAuth v4 app의 cached tool list에는 새 `write_image_canary_proof`도 아직
   노출되지 않았다. app을 재연결해 tool list를 갱신할 수는 있지만 byte bridge 부재가
   선행 차단점이므로 gate 결과는 달라지지 않는다.
-- 따라서 세 번째 capability gate는 **실패**다. ChatGPT ImageGen을 production
-  pipeline에 연결하거나 PR #77을 main에 merge하지 않는다.
+- 따라서 native ImageGen 파일 전송 방식은 폐기했다. 아래의 승인된 visual-library
+  구조에서는 매일 생성 파일을 MCP로 전송하지 않는다.
+
+## 2026-09-18 approved replacement: reviewed visual library path
+
+- 사용자는 daily image file transfer 대신 기존 프로젝트 에셋 라이브러리에서
+  ChatGPT가 매일 asset ID를 선택하는 방식을 승인했다. 기존 라이브러리 43장/14개
+  주제에 시각 검수한 OpenAI ImageGen 보충 자산 1장을 추가해 총 44장이 됐다.
+- 첫 웹 ImageGen 시안은 대부분 비어 있는 검은 배경이어서 제외했다. 최종
+  `markets-04-openai-01` 자산은 전체 화면에 파란색·금색 시장 리본과 하단 제목 여백이
+  보이며 941×1672 (9:16), SHA-256
+  `bdb013482eca77c27940e96ee0288b71cd3463ddcc9c40e95558e855fb95b317`이다.
+- `get_visual_library`는 ID·topic·energy·description·SHA-256과 최근 7일 사용 여부를
+  반환한다. MCP package submit은 manifest allowlist, topic, SHA, 최근 7일 이력을
+  다시 검증하고, GitHub Actions prepare도 committed local file/hash/9:16/reuse를
+  fail-closed로 확인한다.
+- GitHub workflow에 6시간 간격 candidate-only cron과 수동
+  `daily_package_validate` → `daily_package_prepare` → `daily_package_publish` 단계를
+  추가했다. candidate cron은 기존 publish job 조건에 매칭되지 않는다. daily
+  ChatGPT package는 `assisted` PR로 제출되고, merge와 Action publish는 사람이
+  별도로 수동 실행한다.
+- 이 amendment에서는 기존 production publisher cron을 그대로 둔다. 새 구조의
+  실제 package PR→merge→prepare→single manual publish가 확인되면 별도 결정으로
+  기존 자동 publisher 전환을 검토한다.
 
 ## 운영 중 발견·복구: active Compose overlay 누락
 
@@ -254,10 +276,15 @@
 
 ## 다음 재개 작업
 
-1. PR #77은 draft로 유지하고 기존 Instagram schedule을 변경하지 않는다.
-2. ChatGPT가 generated-file bytes 또는 file reference를 custom MCP tool에 전달하는
-   공식 기능을 제공할 때 image canary를 다시 실행한다.
-3. 그 전까지 cloud editorial을 계속 실험하려면 별도 승인된 scope에서 text-only
-   shadow package로 제한하고, 이미지는 기존 검증된 GitHub pipeline이 담당하게 한다.
+1. PR #77의 workflow/static review를 수행한다. Economy scheduled publisher 조건이
+   기존 cron 외에는 실행되지 않는지 확인한 뒤 PR을 merge한다.
+2. main에서 candidate cron이 `data/cloud-editorial/inbox/`에 팩을 저장하는지 확인한다.
+3. ChatGPT OAuth v4 action refresh 뒤 visual-library read와 assisted package submit을
+   실제 실행하고 package PR의 source/hash/asset ID를 확인한다.
+4. package PR을 사람 검토·merge한 뒤 `daily_package_validate`,
+   `daily_package_prepare` dry run이 통과하는지 확인한다. 검토 이후에만 별도 수동
+   `daily_package_publish`를 사용한다.
+5. 위 package/prepare 검증이 끝날 때까지 기존 Instagram scheduled publisher는
+   그대로 유지한다.
 
 이 정보·권한이 오기 전에는 기존 scheduled publish를 절대 수정하지 않는다.

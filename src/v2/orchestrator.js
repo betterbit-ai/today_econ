@@ -224,6 +224,9 @@ async function planCategoryPhase({
   selectedCategories(category);
   const previousLedger = loadLedgerImpl(date) || createDailyLedger(date, now);
   const current = previousLedger.publications[category];
+  if (current.contentType === 'diem_daily') {
+    return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true, cloudPackageProtected: true };
+  }
   if (publicationNeedsRecovery(current)) {
     return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true };
   }
@@ -559,6 +562,7 @@ async function runCategoryStep(ledger, category, {
 } = {}) {
   const publication = ledger.publications[category];
   if (!publication || publication.status === 'no_publish') return ledger;
+  if (publication.contentType === 'diem_daily') return ledger;
 
   if (phase === 'prepare') {
     if (['published', 'manual_action_required', 'no_publish'].includes(publication.status)) return ledger;

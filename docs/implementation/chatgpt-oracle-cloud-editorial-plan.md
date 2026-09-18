@@ -7,6 +7,28 @@
 - 목표: Mac이 꺼져 있어도 ChatGPT Pro의 웹 예약 작업이 편집하고,
   GitHub Actions가 검증·Reel 제작·Instagram 발행을 완료한다.
 
+## 2026-09-18 approved architecture amendment: reviewed visual library
+
+This amendment supersedes the daily ImageGen byte-handoff requirement below.
+ChatGPT scheduled tasks select a verified asset ID from
+`assets/fallback/generated/manifest.json`; the committed PNG remains in GitHub
+and the renderer loads it by ID and SHA-256. Native ImageGen output is not sent
+from a scheduled run. Human-supervised OpenAI ImageGen may replenish the
+repository-owned library, which currently has 44 9:16 assets across 14 topics.
+
+The Economy workflow creates candidate packs every six hours under a separate
+`cloud_candidates` event condition. Those schedule events must skip the
+existing `publish-economy` job. ChatGPT creates at most one Economy and one Issue
+`review.mode=assisted` PR per daily cloud run. A person reviews and merges the
+package PR, then manually dispatches `daily_package_validate`,
+`daily_package_prepare`, and `daily_package_publish` in order. The existing
+scheduled Groq publication conditions are not changed by this amendment.
+
+The active saved approval constraints are therefore: prove the scheduled MCP
+write and asset-library read; prove package prepare with a real merged assisted
+package before moving any existing publisher schedule. The native ImageGen
+file-handoff proof is no longer a prerequisite for this library-based path.
+
 ## 0. 이 문서 사용법
 
 다음 구현 세션은 아래 순서로 읽고 단계 0부터 실행한다.

@@ -11,7 +11,7 @@ GitHub Actions는 선택된 로컬 자산의 해시와 세로 규격을 재검�
 
 ### User and context
 
-오늘경제의 일일 cloud editorial 경로다. ChatGPT Pro ImageGen은 매일 생성기가
+오늘경제의 일일 cloud editorial 경로다. OpenAI ImageGen은 매일 생성기가
 아니라, 사람이 Mac을 사용할 수 있는 때에만 라이브러리 변형을 보충하는 제작
 도구다. 일일 예약 실행은 로컬 Mac, 브라우저, 이미지 URL 또는 새 이미지 API에
 의존하지 않는다.
@@ -26,21 +26,34 @@ GitHub Actions는 선택된 로컬 자산의 해시와 세로 규격을 재검�
    저장한다.
 3. package validate/prepare는 asset ID를 local manifest와 SHA-256로 해석한다.
    파일·해시·9:16 규격·최근 7일 재사용 가드가 하나라도 실패하면 fail-closed한다.
-4. 기존 웹 이미지·생성 폴백·Reel 렌더링 경로와 production schedule은 이
-   amendment에서 변경하지 않는다. 첫 cloud library package는 `shadow`만 허용한다.
-5. 라이브러리 보충은 ChatGPT Pro ImageGen으로 사람이 생성한 asset을 명시적
+4. 기존 웹 이미지·생성 폴백·Reel 렌더링 경로와 production publisher 조건은
+   유지한다. cloud package는 `assisted` review PR로 제출하고 사람의 merge와
+   수동 GitHub Action 실행을 거쳐야 한다.
+5. 라이브러리 보충은 OpenAI ImageGen으로 사람이 생성한 asset을 명시적
    manifest·hash 검증을 거쳐 추가할 때만 가능하다. 생성 이미지 URL 또는
    ChatGPT 내부 파일의 daily handoff는 사용하지 않는다.
+6. Economy workflow는 6시간마다 Groq/Instagram 없이 후보 팩만 저장한다. ChatGPT의
+   cloud task는 하루 한 번 최신 팩을 읽어 최대 Economy 1개, Issue 1개 assisted PR을
+   만든다. package PR 병합 뒤에는 GitHub Action에서 validate/prepare/publish를
+   각각 명시적으로 수동 실행한다. Publish action은 같은 runner 안에서 prepare 후
+   publish를 수행해 임시 Reel 파일을 보존한다.
+7. 기존 자동 publisher는 `contentType=diem_daily` 원장을 발견하면 선택·prepare·publish를
+   하지 않는다. 이 guard로 기존 cron이 assisted package를 사람의 수동 실행 전에
+   자동 발행하지 못하게 한다.
 
 ### Acceptance criteria
 
 - [ ] MCP가 허용된 visual library asset ID만 반환한다.
 - [ ] `diem-library` package는 invalid/missing/tampered asset ID를 거부한다.
-- [ ] 유효한 `diem-library` shadow package는 existing 9:16 asset을 사용해
+- [ ] 유효한 `diem-library` assisted package는 existing 9:16 asset을 사용해
   `daily-package-prepare`까지 통과한다.
 - [ ] 같은 asset이 최근 7일 내 사용됐으면 다른 안전한 variant를 선택하거나
   명시적으로 실패한다.
-- [ ] production workflow 파일은 변경하지 않는다.
+- [ ] Economy/Issue production publisher cron과 publisher job 조건은 바뀌지 않는다.
+- [ ] 새 Economy cron은 candidate-pack job만 실행하고 기존 publish job에는 진입하지 않는다.
+- [ ] 새 Economy candidate cron은 candidate-pack job만 실행하고 publisher에는 진입하지 않는다.
+- [ ] daily package GitHub Action은 assisted package 경로에만 노출되며 publish는 수동 입력이다.
+- [ ] legacy scheduled publisher는 pending/ready/published daily package ledger를 자동 처리하지 않는다.
 - [ ] `npm run test`와 `git diff --check`가 통과한다.
 
 ### Constraints
@@ -55,8 +68,8 @@ GitHub Actions는 선택된 로컬 자산의 해시와 세로 규격을 재검�
 
 - Automated: library resolver/MCP schema/daily package validator/prepare
   regression tests, full `npm run test`, `git diff --check`.
-- Manual: ChatGPT cloud normal chat에서 library ID가 포함된 shadow package PR을
-  생성하고, GitHub Actions manual prepare가 local asset hash를 확인한다.
+- Manual: ChatGPT cloud task가 library ID를 포함한 assisted package PR을 만들고,
+  GitHub Actions manual validate/prepare가 local asset hash와 7일 reuse를 확인한다.
 
 ### Out of scope
 
@@ -143,7 +156,7 @@ GitHub Actions는 선택된 로컬 자산의 해시와 세로 규격을 재검�
 - [ ] 해당 공청회 기사의 frame은 subject `안규백`, event `공청회 파행`이다.
 - [ ] `규백이 오라 / 공청회 난무`는 거부되고 `안규백 나와 / 공청회 아수라장`은 통과한다.
 - [ ] 모델의 잘린 간접명령형 제목은 제목 재교정 단계에서 자연스러운 제목으로 복구된다.
-- [ ] manifest의 43개 자산과 14개 주제 해시·규격 검증이 통과한다.
+- [ ] manifest의 43개 이상, 최대 80개 자산과 14개 주제 해시·규격 검증이 통과한다.
 - [ ] 고에너지 기사는 dynamic 자산을, 정례 기사는 calm 자산을 우선한다.
 - [ ] `npm run test`와 `git diff --check`가 통과한다.
 

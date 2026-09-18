@@ -83,6 +83,35 @@ test('21:00 reuses the frozen queue without selecting new news', async () => {
   assert.equal(result.ledger.publications.issue.publicationKey, 'diem:2026-07-25:issue');
 });
 
+test('legacy scheduled selection and publishing leave assisted cloud daily packages for manual actions', async () => {
+  const ledger = createDailyLedger('2026-09-18');
+  ledger.publications.economy = updatePublication(ledger, 'economy', {
+    contentType: 'diem_daily',
+    dailyPackageId: 'cloud-economy-2026-09-18',
+    status: 'ready',
+    candidate: { title: 'ChatGPT assisted economy package' },
+    reel: { ...plannedStep(), status: 'ready' },
+  }).publications.economy;
+  let selectionCalls = 0;
+  const selection = await planCategoryPhase({
+    date: ledger.date,
+    category: 'economy',
+    loadLedgerImpl: () => ledger,
+    listLedgersImpl: () => [ledger],
+    planDailyQueueImpl: async () => { selectionCalls += 1; throw new Error('legacy selection must skip the cloud package'); },
+  });
+  let publishCalls = 0;
+  const published = await runCategoryStep(ledger, 'economy', {
+    phase: 'publish',
+    publishPublicationImpl: async () => { publishCalls += 1; throw new Error('legacy publisher must skip the cloud package'); },
+  });
+  assert.equal(selection.reused, true);
+  assert.equal(selection.cloudPackageProtected, true);
+  assert.equal(selectionCalls, 0);
+  assert.equal(publishCalls, 0);
+  assert.equal(published.publications.economy.dailyPackageId, 'cloud-economy-2026-09-18');
+});
+
 test('one field generation failure does not mutate the other field', async () => {
   const ledger = applyPlan(createDailyLedger('2026-07-25'), plannedResult());
   const failed = await runCategoryStep(ledger, 'economy', {

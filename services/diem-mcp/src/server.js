@@ -40,7 +40,9 @@ function createDiemMcpServer(core) {
   registerCoreTool(server, 'get_editorial_context', 'Read recent DIEM editorial performance context. It cannot publish or change repository settings.', {
     days: z.number().int().min(1).max(14).optional(),
   }, core, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });
-  registerCoreTool(server, 'get_visual_library', 'Read the reviewed DIEM visual-library asset IDs and pinned hashes. Choose an asset ID for a package; never supply an image URL or image bytes.', {}, core, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });
+  registerCoreTool(server, 'get_visual_library', 'Read reviewed DIEM visual-library asset IDs, pinned hashes, and recently used assets. Choose an unused ID for a package; never supply an image URL or image bytes.', {
+    days: z.number().int().min(1).max(14).optional(),
+  }, core, { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false });
   registerCoreTool(server, 'write_canary_proof', 'Write one restricted canary JSON file and open a PR. It cannot write packages, workflows, settings, secrets, or Instagram content.', {
     requestId: REQUEST_ID,
     note: z.string().min(1).max(280).optional(),
