@@ -4,7 +4,7 @@
   "date": "2026-09-22",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-21T16:14:34.779Z",
-  "updatedAt": "2026-09-21T16:14:44.291Z",
+  "updatedAt": "2026-09-21T16:15:29.796Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -1907,7 +1907,7 @@
     "economy": {
       "publicationKey": "diem:2026-09-22:economy:35623970971",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "\"또 사이드카 쏟아지나\"…한숨 돌리던 개미들 떨게 한 '경고' [분석+]",
         "url": "https://n.news.naver.com/article/015/0005334883?ntype=RANKING",
@@ -2110,15 +2110,1562 @@
           "text": "economy | 기준금리 | 증시 변동"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "BofA 경고\n한국증시변동",
+            "lines": [
+              "BofA 경고",
+              "한국증시변동"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "BofA 경고\n한국증시변동",
+          "lines": [
+            "BofA 경고",
+            "한국증시변동"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "미국 뱅크오브아메리카가 연 5%를 넘어설 가능성을 경고하며, 한국 증시 변동성에 대한 우려를 제기했다.📰",
+            "보고서에 따르면, 연방기금금리는 4.5~4.75%까지 상승할 것으로 예상되며, 2년 만기 국채 금리는 5.25%까지 오를 전망이다.",
+            "한국은행은 현재 기준금리를 3%로 유지 중이지만, 미국의 추가 긴축이 원화 약세와 물가 상승 압력을 가중시켜 한은의 금리 인상 가능성을 높이고 있다.📰"
+          ],
+          "text": "미국 뱅크오브아메리카가 연 5%를 넘어설 가능성을 경고하며, 한국 증시 변동성에 대한 우려를 제기했다.📰\n\n보고서에 따르면, 연방기금금리는 4.5~4.75%까지 상승할 것으로 예상되며, 2년 만기 국채 금리는 5.25%까지 오를 전망이다.\n\n한국은행은 현재 기준금리를 3%로 유지 중이지만, 미국의 추가 긴축이 원화 약세와 물가 상승 압력을 가중시켜 한은의 금리 인상 가능성을 높이고 있다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #미국금리 #한국은행 #증시변동성 #기준금리 #증시 #변동",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#미국금리",
+            "#한국은행",
+            "#증시변동성",
+            "#기준금리",
+            "#증시",
+            "#변동"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#미국금리",
+              "#한국은행",
+              "#증시변동성",
+              "#기준금리",
+              "#증시",
+              "#변동"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned invalid sentence structure"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "failed",
+              "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "failed",
+              "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "title_generation",
+              "status": "failed",
+              "error": "model returned no valid title candidates for article frame"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "title_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:markets-02",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-21T16:15:22.844Z",
+        "assetPath": "assets/fallback/generated/markets-02.png",
+        "sha256": "98ab2b7e8400752e07574ecefd32f7975fb999f1e163641ab1ab6c6861c0a453",
+        "localSha256": "98ab2b7e8400752e07574ecefd32f7975fb999f1e163641ab1ab6c6861c0a453",
+        "generatedTopic": "markets",
+        "generatedEnergy": "calm",
+        "description": "Burgundy investment folders with translucent market lines.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "KOSPI stock market chart",
+            "count": 20,
+            "suitableCount": 7,
+            "suitabilityRejected": 13,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:6771631",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5561917",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7108045",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8369653",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market",
+                  "chart"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7948045",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6120177",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876507",
+                "rankWithinQuery": 14,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876388",
+                "rankWithinQuery": 15,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7108043",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5717784",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6120182",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:6772076",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7948039",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 7,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.8375
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "KOSPI stock market chart",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "KOSPI stock market chart",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "KOSPI stock market chart",
+            "count": 1,
+            "suitableCount": 0,
+            "suitabilityRejected": 1,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:19456877",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "kospi",
+                  "stock",
+                  "market",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "kospi"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.4185
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "KOSPI stock market chart",
+            "count": 5,
+            "error": "404 {\"error\":{\"message\":\"The model `qwen/qwen3.6-27b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "stock market trading finance chart",
+            "count": 20,
+            "suitableCount": 9,
+            "suitabilityRejected": 11,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:30572289",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market",
+                  "trading"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32396570",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market",
+                  "trading"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6771631",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6801869",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6120177",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7948045",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [
+                  "stock"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35638668",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876507",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876388",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:21299740",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7108077",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "trading",
+                  "chart"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 9,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.87
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "stock market trading finance chart",
+            "count": 5,
+            "error": "404 {\"error\":{\"message\":\"The model `qwen/qwen3.6-27b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "stock market graph finance investment",
+            "count": 20,
+            "suitableCount": 8,
+            "suitabilityRejected": 12,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:7948072",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [
+                  "stock",
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32396570",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6120177",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7108043",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [
+                  "graph"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:30572289",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7108044",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [
+                  "market"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8919511",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [
+                  "investment"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6203470",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7108077",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876501",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:7876388",
+                "rankWithinQuery": 19,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:7876507",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "stock",
+                  "market",
+                  "graph",
+                  "investment"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 8,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.74
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "stock market graph finance investment",
+            "count": 5,
+            "error": "404 {\"error\":{\"message\":\"The model `qwen/qwen3.6-27b` does not exist or you do not have access to it.\",\"type\":\"invalid_request_error\",\"code\":\"model_not_found\"}}"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 14,
+          "recentKeyCount": 28,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:markets-02",
+            "98ab2b7e8400752e07574ecefd32f7975fb999f1e163641ab1ab6c6861c0a453"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated markets asset markets-02 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-dirty-thinkin-989",
+        "mood": "bright",
+        "title": "Dirty Thinkin",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-dirty-thinkin-989.mp3",
+        "sha256": "3688989a56484dd6a725710f920d3d6c058438112474de1db0d64d5bf9000362",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-21T16:15:29.787Z"
       },
       "story": {
         "status": "planned",
@@ -2193,6 +3740,15 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-22/economy/economy-cover.png",
+        "coverSha256": "69f0b2f16b5256cc15eb9dd0ca5cc255588f7e420c09aabd14763564e48ca3bb",
+        "followCtaPath": ".diem-cache/2026-09-22/economy/economy-follow-cta.png",
+        "followCtaSha256": "0021afc3470bc37b9e80c4e89349975e505a687e0639289600998707725d3482",
+        "reelPath": ".diem-cache/2026-09-22/economy/economy-reel.mp4",
+        "reelSha256": "c8340afafad2701a1334fad798262282fcb1a8e318d2c061430e63c2521cb6f7",
+        "temporary": true
       }
     },
     "issue": {
