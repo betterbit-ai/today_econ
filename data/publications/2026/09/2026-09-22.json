@@ -4,7 +4,7 @@
   "date": "2026-09-22",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-21T16:14:34.779Z",
-  "updatedAt": "2026-09-22T09:02:50.448Z",
+  "updatedAt": "2026-09-22T09:05:24.193Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -183,7 +183,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "\"다리·손 등 14곳 물렸다\"…풀숲서 튀어나와 공격",
@@ -221,7 +223,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "한국이 못 받은 돈 '5,600억'…이라크 적반하장 무슨 일",
@@ -259,7 +263,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "진료 대기 중 들린 '이상한 통화'…경찰관 놀라운 촉",
@@ -12309,24 +12315,24 @@
     "economy": {
       "publicationKey": "diem:2026-09-22:economy:35707841519",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "번번이 다시 살아나던 성착취물 사이트…돈줄 끊고 27억원 몰수",
-        "url": "https://n.news.naver.com/article/008/0005417371?ntype=RANKING",
+        "title": "진료 대기 중 들린 '이상한 통화'…경찰관 놀라운 촉",
+        "url": "https://n.news.naver.com/article/055/0001390331?ntype=RANKING",
         "publishedDate": "2026-09-22",
-        "publishedAt": "2026-09-22 15:00:00",
+        "publishedAt": "2026-09-22 14:20:12",
         "observedAt": "2026-09-22T09:02:38.934Z",
-        "popularityScore": 93.9388,
+        "popularityScore": 83.8367,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 88.27,
-          "popularityScore": 93.9388,
+          "score": 81.36,
+          "popularityScore": 83.8367,
           "freshnessScore": 90,
-          "editorialValueScore": 64,
-          "ageHours": 3.04,
-          "publishedAt": "2026-09-22 15:00:00",
+          "editorialValueScore": 55,
+          "ageHours": 3.73,
+          "publishedAt": "2026-09-22 14:20:12",
           "observedAt": "2026-09-22T09:02:38.934Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -12345,43 +12351,39 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 4,
-            "normalizedScore": 93.9388,
-            "title": "번번이 다시 살아나던 성착취물 사이트…돈줄 끊고 27억원 몰수",
-            "url": "https://n.news.naver.com/article/008/0005417371?ntype=RANKING"
+            "rank": 9,
+            "normalizedScore": 83.8367,
+            "title": "진료 대기 중 들린 '이상한 통화'…경찰관 놀라운 촉",
+            "url": "https://n.news.naver.com/article/055/0001390331?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "범정부 디지털성범죄 대응 협의체, 불법사이트 통합 대응 추진 실적 2023~2026년 성착취물 유포 사이트 단속 현황/그래픽=윤선정정부가 해외에 서버를 두고 성착취물을 유통하던 불법사이트 운영자 32명을 검거하고 범죄수익금 27억원을 환수했다. 이번 단속으로 활성화 상태의 음란 불법사이트는 29% 줄었다. 정부는 성착취물 사이트를 근절하려면 운영자 검거뿐 아니라 자금줄 차단이 필요하다고 보고 주요 수입원인 불법도박사이트까지 단속 대상을 넓혔다.성평등가족부는 22일 '범정부 디지털성범죄 대응 협의체'(범정부 협의체)의 불법사이트 통합 대응 추진 실적을 발표했다. 지난 14일 기준 활성화 상태의 음란 불법사이트는 4736개로, 기존 6683개보다 29% 감소했다.정부는 디지털 성범죄에 범정부 차원으로 대응하기 위해 지난 4월 '범정부 합동 디지털성범죄 피해 통합지원단'을 출범한 데 이어 6월에는 성평등가족부·방송통신위원회(방미통위)·경찰청·방송통신심의위원회(방미심위) 기관장이 참여하는 범정부 협의체를 구성했다.가장 큰 성과는 해외에 서버를 둔 불법사이트를 사실상 무력화한 점이다. 경찰청은 해외에 서버를 두고 임시 서버를 악용해 삭제 요청에 응하지 않으면서 불법촬영물을 반복 유포한 사이트 운영자 32명을 검거하고 66개 사이트의 운영을 중단시켰다. VPN(가상사설망)을 이용하더라도 서버가 복구되지 않는 이상 해당 사이트에 다시 접속할 수 없도록 조치했다.66개 사이트 가운데 16곳은 개발자까지 검거했다. 경찰은 운영자 계정의 ID와 비밀번호를 확보해 서버에 남아 있던 성착취물을 원격으로 압수·삭제했다. 또 66개 사이트의 운영자 중 32명을 검거한 뒤 계좌를 추적해 범죄수익금 27억원을 기소 전 몰수·추징했다. 지난해 운영 중단 조치가 6개 사이트, 운영자 검거가 9명에 그쳤던 것과 비교하면 단속 규모가 크게 됐다.또 다른 성과는 성착취물 사이트의 수익 구조를 밝혀낸 것이다. 범정부 협의체는 출범 당시 '삭제 지원' 중심의 기존 대응에서 벗어나 불법사이트 자체를 무력화하는 방향으로 전략을 전환했다. 수익을 끊어야 불법사이트를 무력화할 수 있다고 보고 자금 흐름을 추적한 결과, 유료회원 회비보다 불법도박사이트와 성매매 후기사이트 광고가 불법사이트의 핵심 수입원인 것으로 확인됐다.경찰청은 성착취물 사이트의 핵심 자금줄 역할을 한 불법도박사이트 236곳의 운영을 중단시켰다. 이 가운데 188곳은 서버 관리자 권한까지 확보해 유사 사이트를 다시 개설하지 못하도록 조치했다. 또 불법도박사이트 운영자 등 3663명을 검거하고 범죄수익금 1760억원도 기소 전 몰수·추징했다.이기범 경찰청 사이버수사과장은 \"검거한 성착취물 사이트 66개 가운데 유료 회원 수입으로 운영된 곳은 6개뿐이었다\"며 \"나머지 60개는 모두 불법도박사이트나 성매매 후기사이트 광고 수익으로 운영되는 구조였다\"고 말했다. 이어 \"이들 불법사이트의 수입은 대부분 월정액 광고 형태였고 사이트당 평균 20개 안팎의 광고가 연결돼 있었다\"며 \"광고 수익을 제공하는 불법도박사이트와 도메인을 바꿔가며 운영하는 사이트를 함께 추적해 집중 수사한 것이 성과로 이어졌다\"고 설명했다.방미심위는 활성화 상태의 음란 불법사이트 6683개 가운데 5077개(76%)에 대해 차단 시정요구를 의결했다. 나머지 1606개는 심의를 진행하고 있다. 방미통위는 불법 성범죄 사이트들이 콘텐츠전송네트워크(CDN)를 이용해 정부의 차단을 우회하는 사례가 늘자 CDN 사업자 15개를 현장 점검했다. 이후 방미심위가 심의한 디지털 성범죄 사이트 가운데 380곳에 대해 CDN 단계에서 접근 제한 조치를 완료했다.성평등부는 삭제 요청에 반복적으로 불응한 불법사이트를 호스팅 한 업체 5개에 68개 사이트의 서비스 중단을 요청하는 불법성 증명 공문을 방미통위, 경찰청과 공동으로 발송했다. 공문 발송 후 호스팅 중단 1건이 이뤄졌으며 아동·청소년 성착취물 3331건과 비동의 성착취물 1만2527건도 삭제됐다.원민경 성평등부 장관은 \"이번 성과는 해외에 서버를 둔 불법사이트도 실질적으로 무력화할 수 있다는 점을 입증했다는 데 의미가 있다\"며 \"정부가 힘을 모아 해외에 숨어도, 도메인을 바꾸거나 사칭해도 끝까지 추적해 디지털 성범죄 사이트를 뿌리 뽑겠다\"고 말했다.",
-        "summary": "범정부 디지털성범죄 대응 협의체, 불법사이트 통합 대응 추진 실적 2023~2026년 성착취물 유포 사이트 단속 현황/그래픽=윤선정정부가 해외에 서버를 두고 성착취물을 유통하던 불법사이트 운영자 32명을 검거하고 범죄수익금 27억원을 환수했다. 이번 단속으로 활성화 상태의 음란 불법사이트는 29% 줄었다. 정부는 성착취물 사이트를 근절하려면 운영자 검거뿐 아니라 자금줄 차단이 필요하다고 보고 주요 수입원인 불법도박사이트까지 단속 대상을 넓혔다.성평등가족부는 22일 '범정부 디지털성범죄 대응 협의체'(범정부 협의체)의 불법사이트 통합",
+        "fullText": "▲ 병원에서 들려온 수상한 통화로 보이스피싱 직감한 경찰관 업무 중 다쳐 병원을 찾은 경찰관이 진료 대기 중 들려온 수상한 통화 내용을 놓치지 않아 5천만 원대 보이스피싱 피해를 막아냈습니다. 오늘(22일) 강원 원주경찰서에 따르면, 단계지구대 소속 A경장은 지난 5월 술 취해 난폭 운전을 한 차량을 검거하다 상처를 입어 치료차 병원을 찾았습니다. 진료를 기다리던 A경장은 뒤편에 앉아 있던 60대 B씨가 누군가와 통화하며 대출과 카드 번호 등을 언급하는 것을 듣고 전화금융사기(보이스피싱)임을 직감했습니다. 그는 병원을 나서는 B씨를 뒤따라가 보이스피싱 범죄 수법을 설명하며, 휴대전화에 설치된 악성 앱을 차단하고 함께 지구대로 이동해 추가 피해를 막았습니다. 병원에서 뒤따라가 피해가 의심된다고 알리는 경찰관 (사진=강원경찰청 제공, 연합뉴스) B씨는 A경장의 발 빠른 대처로 5천만 원의 재산 피해를 막을 수 있었으며, 그는 상황을 수습한 뒤에야 다시 병원으로 돌아가 진료받았습니다. 이후 이튿날 B씨에게 안전조치 해제 방법까지 문자로 안내했습니다. B씨는 A경장의 연락처를 '고마운 경찰관 동생'으로 저장했다며 거듭 깊은 감사의 마음을 전했습니다. (사진=강원경찰청 제공, 연합뉴스)",
+        "summary": "▲ 병원에서 들려온 수상한 통화로 보이스피싱 직감한 경찰관 업무 중 다쳐 병원을 찾은 경찰관이 진료 대기 중 들려온 수상한 통화 내용을 놓치지 않아 5천만 원대 보이스피싱 피해를 막아냈습니다. 오늘(22일) 강원 원주경찰서에 따르면, 단계지구대 소속 A경장은 지난 5월 술 취해 난폭 운전을 한 차량을 검거하다 상처를 입어 치료차 병원을 찾았습니다. 진료를 기다리던 A경장은 뒤편에 앉아 있던 60대 B씨가 누군가와 통화하며 대출과 카드 번호 등을 언급하는 것을 듣고 전화금융사기(보이스피싱)임을 직감했습니다. 그는 병원을 나서는 B씨를",
         "topicSignature": {
           "category": "economy",
-          "target": "관세",
-          "event": "실적 발표",
-          "entities": [
-            "27억원",
-            "범정부"
-          ],
+          "target": "진료 대기",
+          "event": "이상한 통화 경찰관",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 관세 | 실적 발표 | 27억원 범정부"
+          "text": "economy | 진료 대기"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "관세",
+          "subject": "진료 대기",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "관세"
+            "진료",
+            "대기"
           ],
-          "eventKind": "earnings",
-          "eventLabel": "실적 발표",
-          "eventTerms": [
-            "실적"
-          ],
+          "eventKind": "general",
+          "eventLabel": "",
+          "eventTerms": [],
           "eventKey": null,
-          "claimState": "decided",
+          "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "22일",
+          "date": "오늘",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -12391,31 +12393,29 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 64,
+          "score": 55,
           "signals": [
-            "concrete_event_or_decision",
-            "broad_audience_or_market_scope",
+            "reader_money_work_life_impact",
             "economy_core_topic"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "관세",
+            "subject": "진료 대기",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "관세"
+              "진료",
+              "대기"
             ],
-            "eventKind": "earnings",
-            "eventLabel": "실적 발표",
-            "eventTerms": [
-              "실적"
-            ],
+            "eventKind": "general",
+            "eventLabel": "",
+            "eventTerms": [],
             "eventKey": null,
-            "claimState": "decided",
+            "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "22일",
+            "date": "오늘",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -12423,35 +12423,19 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 60,
+          "baseScore": 55,
           "performancePrior": {
-            "adjustment": 4,
-            "window": "7d",
-            "matched": [
-              {
-                "feature": "public_decision",
-                "samples": 43,
-                "exposureMedian": 676,
-                "lift": 2.012,
-                "signal": "winner"
-              }
-            ],
-            "reason": "bounded_evidence_prior"
+            "adjustment": 0,
+            "window": null,
+            "matched": [],
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
-          "adjustment": 4,
-          "window": "7d",
-          "matched": [
-            {
-              "feature": "public_decision",
-              "samples": 43,
-              "exposureMedian": 676,
-              "lift": 2.012,
-              "signal": "winner"
-            }
-          ],
-          "reason": "bounded_evidence_prior"
+          "adjustment": 0,
+          "window": null,
+          "matched": [],
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -12470,39 +12454,219 @@
             "status": "classified",
             "category": "economy",
             "excluded": [],
-            "ambiguous": true
+            "ambiguous": false
           }
         }
       },
       "corroboration": null,
       "duplicateCheck": {
         "duplicate": false,
-        "repeatOverride": true,
-        "score": 0.7978,
+        "repeatOverride": false,
+        "score": 0.6908,
         "method": "embedding",
-        "reason": "material_follow_up",
-        "matchedPublicationKey": "diem:2026-09-19:issue:35370410356",
+        "reason": "gray_distinct_event",
+        "matchedPublicationKey": "diem:2026-09-19:economy:35432171640",
         "signature": {
           "category": "economy",
-          "target": "관세",
-          "event": "실적 발표",
-          "entities": [
-            "27억원",
-            "범정부"
-          ],
+          "target": "진료 대기",
+          "event": "이상한 통화 경찰관",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 관세 | 실적 발표 | 27억원 범정부"
+          "text": "economy | 진료 대기"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "titleCandidates": [
+          {
+            "title": "경찰관\n보이스피싱 방지",
+            "lines": [
+              "경찰관",
+              "보이스피싱 방지"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "경찰관\n보이스피싱 방지",
+          "lines": [
+            "경찰관",
+            "보이스피싱 방지"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "경찰관이 병원 대기실에서 들은 수상한 통화로 보이스피싱을 직감해 피해를 막았다.📰",
+            "A경장은 60대 B씨가 대출과 카드 번호를 언급하는 걸 듣고 즉시 보이스피싱임을 판단했다.",
+            "B씨는 A경장의 조치로 큰 금액의 피해를 막았으며, 감사 인사를 전했다.📰"
+          ],
+          "text": "경찰관이 병원 대기실에서 들은 수상한 통화로 보이스피싱을 직감해 피해를 막았다.📰\n\nA경장은 60대 B씨가 대출과 카드 번호를 언급하는 걸 듣고 즉시 보이스피싱임을 판단했다.\n\nB씨는 A경장의 조치로 큰 금액의 피해를 막았으며, 감사 인사를 전했다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #보이스피싱 #경찰관 #병원 #진료 #대기 #이상한",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#보이스피싱",
+            "#경찰관",
+            "#병원",
+            "#진료",
+            "#대기",
+            "#이상한"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#보이스피싱",
+              "#경찰관",
+              "#병원",
+              "#진료",
+              "#대기",
+              "#이상한"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "Expected ',' or ']' after array element in JSON at position 60"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "failed",
+              "error": "[DIEM Editorial] caption contains source boilerplate or photo caption text"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "Unexpected end of JSON input"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:finance-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-22T09:05:17.418Z",
+        "assetPath": "assets/fallback/generated/finance-01.png",
+        "sha256": "9aedbde04a7ce4f871bb92d5896640f0789cb3427895ab739a26fe57720db5cf",
+        "localSha256": "9aedbde04a7ce4f871bb92d5896640f0789cb3427895ab739a26fe57720db5cf",
+        "generatedTopic": "finance",
+        "generatedEnergy": "calm",
+        "description": "Unmarked finance documents, calculator and neutral coins.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 16,
+          "recentKeyCount": 30,
+          "blockedCandidateCount": 1,
+          "selectedImageKeys": [
+            "diem-generated:finance-01",
+            "9aedbde04a7ce4f871bb92d5896640f0789cb3427895ab739a26fe57720db5cf"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated finance asset finance-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+        "mood": "serious",
+        "title": "Moment of Peace",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/solo-piano-moment-of-peace-mickeyscat-554494/",
+        "sha256": "2cbc249e7f038abbca64a6d849c0c37c29d132b2088171b715c0055d5339cfed",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-22T09:05:24.174Z"
       },
       "story": {
         "status": "planned",
@@ -12579,6 +12743,68 @@
           "limit": 3,
           "remaining": 2
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-22/economy/economy-cover.png",
+        "coverSha256": "958539423dcbcad7dba75feef21927037ca9c20e13c4a223229381394b312a9a",
+        "followCtaPath": ".diem-cache/2026-09-22/economy/economy-follow-cta.png",
+        "followCtaSha256": "4b8d7dabfb139f45dca1e21a5c0891fca81ec642e5625edacc1ad032516f0ba6",
+        "reelPath": ".diem-cache/2026-09-22/economy/economy-reel.mp4",
+        "reelSha256": "bd9e24e50e7c18fb858ceb5ced740a544c2efa8346498aef03320943ea2f4285",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "번번이 다시 살아나던 성착취물 사이트…돈줄 끊고 27억원 몰수",
+            "url": "https://n.news.naver.com/article/008/0005417371?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-22T09:04:10.262Z"
+          }
+        ],
+        "updatedAt": "2026-09-22T09:04:19.909Z"
       }
     },
     "issue": {
