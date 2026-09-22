@@ -4,7 +4,7 @@
   "date": "2026-09-23",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-22T17:27:31.860Z",
-  "updatedAt": "2026-09-22T17:27:42.040Z",
+  "updatedAt": "2026-09-22T17:28:25.874Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -140,7 +140,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"7일\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]},{\"index\":0,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial_repair: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}])"
+      ]
     },
     {
       "title": "\"우와!\" 닷새째 맴도는 상어…떠나지 않는 이유는",
@@ -178,7 +180,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] \"비교적 안전한 곳에서 폭발\"…'북 지뢰' 가능성 무게",
@@ -216,7 +220,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "유명 미용실서 머리 자른 13살 '눈물'…엄마가 공개한 사진보니",
@@ -254,7 +260,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:issue_low_value"
+      ]
     },
     {
       "title": "삼성이 찜했다더니…하루 만에 '34%' 폭등한 회사",
@@ -292,7 +300,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "'내가 오늘부터 퇴출이라니'…\"이런 수모는 처음\" 주가 폭락에 예외없다",
@@ -328,7 +338,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "\"앞으로 적당히 먹겠다\"…먹방 유튜버, 영상 줄삭제한다더니",
@@ -366,7 +378,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_mission_fit_anecdote"
+      ]
     },
     {
       "title": "\"30대 여성 속옷 안에서도 나왔다\"…흩어진 단서 끈질기게 쫓아 줄줄이 검거",
@@ -404,7 +418,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "이 대통령 \"반인권적 성착취물, 이제 대한민국에 발 붙이기 어렵게 될 것\"",
@@ -442,7 +458,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "'바쉐론 시계' 뒤집혔다…김건희 '매관매직' 2심서 징역 7년→5년(종합)",
@@ -480,7 +498,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "이 대통령, 민주당 의원 전원에 '노무현 평전' 선물",
@@ -518,7 +538,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "재정비상 대선용?…추미애 \"기가 차, 까발리기·배신아냐\"",
@@ -556,7 +578,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "李대통령, 정청래에 위로 전화…유시민은 “대통령, 국민 속여”",
@@ -594,7 +618,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "“응급실서 치료 못받는 아이들 찾아오면 달빛 포기할 수 없어”",
@@ -632,7 +658,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "與 “曺, 이 대통령 순방 중 기습 통보… 희대의 착란 진압해 국민주권 확립”",
@@ -670,7 +698,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "‘뇌물 혐의’ 文 前대통령 국민참여재판, 딸 다혜씨 증인으로",
@@ -708,7 +738,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "[단독] “회계부정, 김승원 의원에 3월 직접 보고… 몰랐다는 건 거짓말”",
@@ -746,7 +778,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "군 \"북한 지뢰매설 의심지대에 수색로 만들다 폭발\"",
@@ -784,7 +818,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "군 \"북 지뢰 매설 의심지대 확인 수색로 만들다 폭발\"",
@@ -822,7 +858,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "특검·김건희 측 \"판결 아쉽다\"...대법원으로 간다",
@@ -858,7 +896,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "경찰, '김승원 성추행 의혹' 고발장 접수...수사 착수 검토",
@@ -896,7 +936,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:narrow_or_local_issue"
+      ]
     },
     {
       "title": "이 대통령, 내일 새벽 유엔 연설...\"한반도 평화공존 청사진 제시\"",
@@ -934,7 +976,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "마사지 받은뒤 “나 미성년자야, 100만원 내놔”…업주 폭행-금품 훔친 10대들",
@@ -972,7 +1016,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "만취 10대女 집에 데려가 성관계…30대 경찰관 송치",
@@ -1010,7 +1056,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "‘뇌물혐의’ 文 국민참여재판…딸 다혜 증인 선다",
@@ -1048,7 +1096,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "이금희, 세상 떠난 어머니 뜻 기려 1000만원 기부",
@@ -1086,7 +1136,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“직원들 연애해야죠”…월급 그대로 주3.5일 근무하는 中회사",
@@ -1124,7 +1176,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "'1억 공천헌금' 강선우, 보석으로 석방…\"돈 받은 적 없다\"(종합)",
@@ -1170,7 +1224,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "“올 추석부턴 제사 없이 밥 먹자”던 엄마, 안녕…간 기증하고 떠난 78살",
@@ -1208,7 +1264,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "유재석, 고열로 당일 녹화 취소…데뷔 35년 만에 처음",
@@ -1246,7 +1304,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "이 대통령, 이소영 중기 장관·이정현 대검 차장 임명안 재가",
@@ -1282,7 +1342,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "엑소 카이가 ‘왕관 응원’한 우슈 소녀, 금메달 약속 지켰다",
@@ -1320,7 +1382,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "이 대통령 “달리는 차 세워야” 북핵 실용접근…‘핵보유국 인정’ 비칠 우려",
@@ -1358,7 +1422,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“암 걸릴 때까지 성폭력 당해라”…의사 커뮤니티 모욕 게시글 수사",
@@ -1396,7 +1462,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "이 대통령, 중기부 장관·검찰총장 대행 대검 차장 임명안 재가",
@@ -1432,7 +1500,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "‘국적 상실’ 외국인에 연금 오지급…20%는 환수도 못해",
@@ -1468,7 +1538,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "“한가위 보름달 보기 어려워”…추석 당일부터 ‘곳곳 비’",
@@ -1506,7 +1578,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“안에서 말하라” 경고한 김민석·“대통령이 속였다”는 유시민…검찰개혁 신경전 ‘진행중’",
@@ -1544,7 +1618,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "\"20주년 아이폰, 더 커지고 유리 면적 넓어진다\"",
@@ -1582,7 +1658,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "영화 '인턴' 속 럭셔리 SUV 눈길…한소희·최민식이 탄 제네시스 GV80",
@@ -1620,7 +1698,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"꿀꺽 삼키면 3일간 전력 공급\"…먹을 수 있는 ‘종이 배터리’ 나왔다",
@@ -1658,7 +1738,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "\"네팔 홍수는 시작일 뿐\"…다음 위험 지역은 어디",
@@ -1694,7 +1776,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "[유미's 픽] 구광모 美 출장 동행한 현신균…LG CNS, 그룹 AI 사업 핵심축 됐다",
@@ -1732,7 +1816,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "유시민, 李 향해 “국민 속였다… 검찰개혁 완전히 달라” 작심 비판",
@@ -1770,7 +1856,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "“1000만원 없으면 박탈”… 비자 연장 발목 잡는 ‘잔고 증명’ [심층기획-외국인유학 30만 시대의 그늘]",
@@ -1808,7 +1896,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "김치에 핀 ‘초록 반점’, 찌개로 끓여도 독소 그대로…통째 버려야",
@@ -1846,7 +1936,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "“분위기 좋게 차담 해놓고, 뒤통수 때리듯 발표”… ‘曺 발표’에 격앙된 청와대 [靑·대법, 초유의 정면충돌]",
@@ -1884,7 +1976,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     }
   ],
   "candidateRuns": [],
@@ -1933,7 +2027,7 @@
     "issue": {
       "publicationKey": "diem:2026-09-23:issue:35760484547",
       "category": "issue",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
         "title": "\"아예 없나\" 몽땅 매진…추석 앞두고 '줍줍 전쟁'",
         "url": "https://n.news.naver.com/article/055/0001390419?ntype=RANKING",
@@ -2118,35 +2212,45 @@
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"7일\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]},{\"index\":0,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial_repair: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}])",
+        "updatedAt": "2026-09-22T17:28:24.839Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-22T17:28:24.839Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-22T17:28:24.839Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-22T17:28:24.839Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-09-23:issue:35760484547:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-09-22T17:28:25.873Z",
+          "slackTs": "1790098104.912129",
+          "issueNumber": 104,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/104"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-09-22T17:27:42.038Z",
       "hotness": {
         "ok": true,
@@ -2198,6 +2302,60 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"7일\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]},{\"index\":0,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial_repair: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}])",
+        "candidateFailures": [
+          {
+            "title": "\"아예 없나\" 몽땅 매진…추석 앞두고 '줍줍 전쟁'",
+            "url": "https://n.news.naver.com/article/055/0001390419?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"7일\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]},{\"index\":0,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial_repair: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned a comparison basis that conflicts with article evidence: [{\"index\":0,\"number\":\"7일\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]},{\"index\":0,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned a comparison basis that conflicts with article evidence: [{\"index\":1,\"number\":\"84%\",\"generatedBases\":[\"year_on_year\"],\"evidenceBases\":[]}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-22T17:28:09.678Z"
+          }
+        ],
+        "updatedAt": "2026-09-22T17:28:24.839Z"
       }
     }
   },
