@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 239편
-- 생성 시각: 2026-09-22T19:37:27.027Z
+- 생성 시각: 2026-09-23T00:02:28.422Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -16,9 +16,9 @@
 - 정시 비교에서 제외한 늦은 백필: 90편
 
 ## 72h
-- economy: 표본 71편 · 노출 중앙값 237 · 공유율 0% · 저장률 0%
+- economy: 표본 72편 · 노출 중앙값 234 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(722,599), 비거주1주택 / 징벌과세 결정(148,114), 공무원 / 광고 사과(4,641), 보유세 개편 / 결정(2,297), 백악관 경고 / 중국 환적 우려(2,251)
-  - 특성 신호: market_shock insufficient_data×2.25, event:ipo insufficient_data×2.02, event:housing_policy winner×1.8, housing_money winner×1.6, public_decision winner×1.56, event:semiconductor winner×1.4, event:general winner×1.37, event:insurance_premium insufficient_data×0.75
+  - 특성 신호: event:ipo insufficient_data×2.05, event:housing_policy winner×1.82, housing_money winner×1.63, public_decision winner×1.53, event:general winner×1.39, event:insurance_premium insufficient_data×0.76, event:political_statement insufficient_data×0.7
 - issue: 표본 84편 · 노출 중앙값 512 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(32,963), 바이든 암 / 전이 확인(21,336), 선관위 / 서울시장 소청 기각(7,810), 북 미사일 발사 / 김여정 조롱(5,393), 한동훈 흉기 / 징역 1년 확정(3,959)
   - 부진 후보: 모기 활동 / 주의 권고(27), 박선원 공개 / 공익제보자 위반(42), 송지은 눈물 / 새롭게하소서(65), 네팔 대홍수 / 보도(81), 이재명 / 김승원 임명 미정(109)
@@ -26,10 +26,10 @@
 - 정시 비교에서 제외한 늦은 백필: 78편
 
 ## 7d
-- economy: 표본 80편 · 노출 중앙값 344 · 공유율 0% · 저장률 0%
+- economy: 표본 81편 · 노출 중앙값 336 · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 고정·변동 / 금리 차이(161)
-  - 특성 신호: housing_money winner×3.51, event:housing_policy winner×2.57, public_decision winner×2.04, market_shock insufficient_data×1.62, event:ipo insufficient_data×1.41, reader_need:housing underperformer×0.69, event:interest_rate underperformer×0.64, reader_need:credit underperformer×0.64
+  - 특성 신호: housing_money winner×2.88, event:housing_policy winner×2.16, public_decision winner×2.01, market_shock insufficient_data×1.66, event:ipo insufficient_data×1.44, reader_need:housing underperformer×0.7, event:interest_rate underperformer×0.65, reader_need:credit underperformer×0.65
 - issue: 표본 91편 · 노출 중앙값 1,132 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 모기 활동 / 주의 권고(29), 박선원 공개 / 공익제보자 위반(42), 네팔 대홍수 / 보도(84), 빌라 3채 / 도서관마을(145), 미국 대학 / 입학 러브콜(152)
@@ -44,8 +44,8 @@
 - 최근 7일 Vision 실패: vision_other_failure 15건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 113건, unknown 44건, image_context_unavailable 30건
-- 제목 재정제 실패: 21건
+- 편집 후보 실패: editorial_generation_failed 116건, unknown 44건, image_context_unavailable 32건
+- 제목 재정제 실패: 23건
 
 ## 해석 주의
 - 한 건의 바이럴이나 부진으로 주제를 금지하지 않습니다. 표본 하한과 중앙값을 함께 봅니다.
