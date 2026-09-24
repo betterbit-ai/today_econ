@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 241편
-- 생성 시각: 2026-09-24T09:02:06.821Z
+- 발행 원장 Reel: 242편
+- 생성 시각: 2026-09-24T14:42:28.391Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -37,14 +37,14 @@
 - 정시 비교에서 제외한 늦은 백필: 41편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 17.43%
-- 생성 배경 폴백률: 37.34% · 전체 폴백률: 54.77%
-- 이미지 공급원: pexels 98편, diem-generated 90편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
-- 최근 7일 폴백률: 100% (12/12편, 2026-09-18~2026-09-24)
-- 최근 7일 Vision 실패: vision_other_failure 13건
+- 타이포그래피 폴백률: 17.36%
+- 생성 배경 폴백률: 37.6% · 전체 폴백률: 54.96%
+- 이미지 공급원: pexels 98편, diem-generated 91편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 최근 7일 폴백률: 100% (13/13편, 2026-09-18~2026-09-24)
+- 최근 7일 Vision 실패: vision_other_failure 14건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 121건, unknown 44건, image_context_unavailable 39건
+- 편집 후보 실패: editorial_generation_failed 122건, unknown 44건, image_context_unavailable 39건
 - 제목 재정제 실패: 26건
 
 ## 해석 주의
