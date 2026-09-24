@@ -4,7 +4,7 @@
   "date": "2026-09-25",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-24T17:40:37.985Z",
-  "updatedAt": "2026-09-24T21:55:39.209Z",
+  "updatedAt": "2026-09-24T21:59:24.217Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -91,7 +91,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "최상의 대진운 받아든 이민성 호, ‘베트남 굴욕 씻어라’",
@@ -129,7 +131,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "여서정, 아버지 여홍철 이어 ‘한국 체조 새 역사 창조’",
@@ -167,7 +171,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "짧은 연휴 정체 극심…이 시각 고속도로",
@@ -205,7 +211,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "“믿기 힘들 정도” 9개월 바다에 갇힌 장병들…“죽고 싶어” 뛰어내렸다 [월드픽]",
@@ -243,7 +251,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "“매일 한 잔씩 마셨는데”…컴포즈·메가커피 무더기 적발",
@@ -281,7 +291,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:image_context_unavailable:[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled"
+      ]
     },
     {
       "title": "“비둘기 볼래?” 14살 끌고가 성폭행… 체액 묻혀놓고도 잡아뗀 인도 남성의 최후 [월드픽]",
@@ -319,7 +331,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:image_context_unavailable:[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled"
+      ]
     },
     {
       "title": "이 대통령 “북한 포로 송환, 우크라 비공개 합의 어기고 공개”",
@@ -6299,24 +6313,24 @@
     "issue": {
       "publicationKey": "diem:2026-09-25:issue:36064152867",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "젤렌스키 “북한 포로 2명 한국 보내”…정부, 사실상 확인",
-        "url": "https://n.news.naver.com/article/056/0012263056?ntype=RANKING",
+        "title": "이 대통령 “북한 포로 송환, 우크라 비공개 합의 어기고 공개”",
+        "url": "https://n.news.naver.com/article/081/0003683437?ntype=RANKING",
         "publishedDate": "2026-09-25",
-        "publishedAt": "2026-09-24 21:17:49",
+        "publishedAt": "2026-09-25 00:17:12",
         "observedAt": "2026-09-24T21:55:29.561Z",
-        "popularityScore": 97.9796,
+        "popularityScore": 83.8367,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 86.14,
-          "popularityScore": 97.9796,
+          "score": 74.61,
+          "popularityScore": 83.8367,
           "freshnessScore": 70,
-          "editorialValueScore": 75,
-          "ageHours": 9.63,
-          "publishedAt": "2026-09-24 21:17:49",
+          "editorialValueScore": 50,
+          "ageHours": 6.69,
+          "publishedAt": "2026-09-25 00:17:12",
           "observedAt": "2026-09-24T21:55:29.561Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -6335,60 +6349,41 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 2,
-            "normalizedScore": 97.9796,
-            "title": "젤렌스키 “북한 포로 2명 한국 보내”…정부, 사실상 확인",
-            "url": "https://n.news.naver.com/article/056/0012263056?ntype=RANKING"
+            "rank": 9,
+            "normalizedScore": 83.8367,
+            "title": "이 대통령 “북한 포로 송환, 우크라 비공개 합의 어기고 공개”",
+            "url": "https://n.news.naver.com/article/081/0003683437?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "[앵커]지난해 우크라이나군에 생포된 북한군 포로 2명이 한국으로 송환됐다고 젤렌스키 대통령이 전격 발표했습니다.정부는 신변 문제를 이유로 신중한 분위기지만 사실상 이를 인정했습니다.베를린 송영석 특파원입니다. [리포트] 지난해 1월, 러시아 쿠르스크 전선에서 생포된 북한군 병사 2명은 전쟁터에 온지도 몰랐다고 했습니다.[북한군 포로 A/지난해 1월 : \"(그러면 여기 지휘관들은 뭐라고 했어? 누구랑 싸운다고 했어?) 훈련을 실전처럼 해본다고 했어요.\"] 젤렌스키 우크라이나 대통령이 이들 2명을 최근 한국으로 보냈다고 전격 발표했습니다. 한 명은 붙잡히게 되자 스스로 목숨을 끊으려 했다며, 생포하기 쉽지 않았다고 했습니다. 북한은 군인들에게 포로가 되는 걸 반역 행위라고 가르치는 것으로 전해졌습니다. [볼로디미르 젤렌스키/우크라이나 대통령 : \"왜 북한 사람들이 우크라이나와의 전쟁에서 목숨을 바쳐야 합니까? 김정은은 그들을 화폐처럼 이용하고 있습니다.\"] 두 북한군 포로는 한국행을 원한다는 뜻을 밝혀 왔고, 우리 정부는 헌법상 한국 국민인 북한 포로를 수용하겠다는 입장을 갖고 우크라이나와 협의해 왔습니다. 젤렌스키 대통령의 주장에 대해 정부는 확인이 어렵다는 입장이지만 명확히 부인하지 않으면서 사실상 인정하는 모양샙니다. 북한군 포로들이 한국에 이미 도착한 것으로 파악됐다는 구체적인 설명도 나왔습니다. [유용원/국회 국방위 소속 국민의힘 의원 : \"지난 주말에 우크라이나를 출발해서 제3국을 경유해 3~4일 전에 한국에 도착한 것으로 알고 있습니다.\"] 젤렌스키 대통령은 북한군이 러시아를 위해 희생되는 동안, 북한의 탄도미사일과 드론 역량은 크게 향상됐다고 경고했습니다. 베를린에서 KBS 뉴스 송영석입니다. 촬영:김영환/화면출처:UN Web TV/그래픽:최창준/자료조사:김민규■ 제보하기▷ 전화 : 02-781-1234, 4444▷ 이메일 : kbs1234@kbs.co.kr▷ 카카오톡 : 'KBS제보' 검색, 채널 추가▷ 유튜브, 다음에서도 KBS뉴스를 구독해주세요!",
-        "summary": "[앵커]지난해 우크라이나군에 생포된 북한군 포로 2명이 한국으로 송환됐다고 젤렌스키 대통령이 전격 발표했습니다.정부는 신변 문제를 이유로 신중한 분위기지만 사실상 이를 인정했습니다.베를린 송영석 특파원입니다. [리포트] 지난해 1월, 러시아 쿠르스크 전선에서 생포된 북한군 병사 2명은 전쟁터에 온지도 몰랐다고 했습니다.[북한군 포로 A/지난해 1월 : \"(그러면 여기 지휘관들은 뭐라고 했어? 누구랑 싸운다고 했어?) 훈련을 실전처럼 해본다고 했어요.\"] 젤렌스키 우크라이나 대통령이 이들 2명을 최근 한국으로 보냈다고 전격 발표했습니",
+        "fullText": "“누군가 생명 생각하면 이처럼 잔인할 수 없다”“자신 이익 위해 누군가 생명 해치면 매국노라 불러” 이재명 대통령, 유엔 총회 기조연설 - [뉴욕=뉴시스] 김진아 기자 = 이재명 대통령이 22일(현지 시간) 미국 뉴욕 유엔 본부에서 열린 제81차 유엔 총회에서 기조연설을 하고 있다. (공동취재) 2026.09.23. bluesoda@newsis.com 이재명 대통령은 23일(현지시간) 우크라이나 측이 북한군 전쟁 포로 2명을 한국으로 송환한 사실을 공개한 데 대해 “비공개 합의를 어기고 공개한 우크라이나 측에 무슨 사정이 있는지는 모르나 많이 아쉽다”고 유감의 뜻을 밝혔다.멕시코를 국빈 방문 중인 이 대통령은 이날 엑스에 “국정은 국가와 국민을 위해 하는 것이지 정권과 집권자의 이익이나 인기를 위해 해서는 안 된다”며 이같이 말했다.앞서 볼로디미르 젤렌스키 우크라이나 대통령이 유엔 총회 연설에서 “최근 북한군 전쟁 포로 2명을 대한민국으로 보냈다”고 공개했다. 그러자 국민의힘에서는 이 대통령이 왜 이 사실을 숨겼냐며 비판했다.이 대통령은 북한 포로 국내 송환 문제는 외교와 안보 한반도 정세에 크게 영향을 미치는 매우 예민한 의제라고 지적했다. 그러면서 “남북 관계가 어떻게 되든 누군가 죽어 나가든 국익이 손상되든 개의치 않고 성과를 생색내느라 포로 송환 사실을 징치고 춤추며 온 세상에 광고했을 그들 입장에서는 우리 정부의 비공개 노력이 이해가 안 될 뿐 아니라 심지어 뭔가 문제될 게 있나 싶을 것”이라며 비판했다.비공개를 비판한 이들에 대해 이 대통령은 “누군가의 생명, 국가안보 등 국익을 생각하면 이처럼 잔인하고 무책임할 수는 없는 노릇”이라며 “국정 지지율 만회에 명백히 도움될 북한 포로 국내 송환 사실을 공개하자는 내부 주장이 왜 없었겠나”라고 했다. 이어 “그러나 공개로 생길 여러 문제를 생각할 때 비공개하는 것이 모든 면에서 타당했고 그렇게 합의했다”고 덧붙였다.이 대통령은 “소소한 자신의 이익을 위해 누군가의 생명과 국익 안보를 해치는 사람을 살인자나 매국노라 부른다”며 “타당하고 정당한 비공개 조치를 비난하는 것은 옳지 않다”고 했다. 우크라이나 측이 이러한 사실을 공개한 것에 유감의 뜻을 밝힌 이 대통령은 “무수한 사람들이 죽거나 다치고 모든 것이 파괴되는 반인륜적 전쟁들이 조기에 종식되기를 간절하게 기원한다”고 밝혔다.",
+        "summary": "“누군가 생명 생각하면 이처럼 잔인할 수 없다”“자신 이익 위해 누군가 생명 해치면 매국노라 불러” 이재명 대통령, 유엔 총회 기조연설 - [뉴욕=뉴시스] 김진아 기자 = 이재명 대통령이 22일(현지 시간) 미국 뉴욕 유엔 본부에서 열린 제81차 유엔 총회에서 기조연설을 하고 있다. (공동취재) 2026.09.23. bluesoda@newsis.com 이재명 대통령은 23일(현지시간) 우크라이나 측이 북한군 전쟁 포로 2명을 한국으로 송환한 사실을 공개한 데 대해 “비공개 합의를 어기고 공개한 우크라이나 측에 무슨 사정이 있는지는 ",
         "topicSignature": {
           "category": "issue",
-          "target": "젤렌스키",
-          "event": "정치 발언",
+          "target": "대통령 북한",
+          "event": "합의",
           "entities": [],
           "eventKey": null,
-          "text": "issue | 젤렌스키 | 정치 발언"
+          "text": "issue | 대통령 북한 | 합의"
         },
         "newsFrame": {
           "category": "issue",
-          "subject": "젤렌스키",
-          "primaryActor": "젤렌스키",
-          "attributionMode": "single_speaker_quote",
+          "subject": "대통령 북한",
+          "primaryActor": null,
+          "attributionMode": null,
           "subjectTerms": [
-            "젤렌스키"
+            "대통령",
+            "북한"
           ],
-          "eventKind": "political_statement",
-          "eventLabel": "정치 발언",
+          "eventKind": "general",
+          "eventLabel": "합의",
           "eventTerms": [
-            "언급",
-            "발언",
-            "주장",
-            "말해",
-            "말했",
-            "라고 했다",
-            "밝혔",
-            "전했",
-            "호소",
-            "강조",
-            "비판",
-            "평가",
-            "전망",
-            "지적",
-            "진단",
-            "예상",
-            "내다",
-            "꼬집",
-            "경고",
-            "설명",
-            "분석"
+            "합의"
           ],
           "eventKey": null,
           "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "4일",
+          "date": "22일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -6398,51 +6393,31 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 75,
+          "score": 50,
           "signals": [
             "reader_money_work_life_impact",
-            "concrete_event_or_decision",
             "broad_audience_or_market_scope"
           ],
           "penalties": [],
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "issue",
-            "subject": "젤렌스키",
-            "primaryActor": "젤렌스키",
-            "attributionMode": "single_speaker_quote",
+            "subject": "대통령 북한",
+            "primaryActor": null,
+            "attributionMode": null,
             "subjectTerms": [
-              "젤렌스키"
+              "대통령",
+              "북한"
             ],
-            "eventKind": "political_statement",
-            "eventLabel": "정치 발언",
+            "eventKind": "general",
+            "eventLabel": "합의",
             "eventTerms": [
-              "언급",
-              "발언",
-              "주장",
-              "말해",
-              "말했",
-              "라고 했다",
-              "밝혔",
-              "전했",
-              "호소",
-              "강조",
-              "비판",
-              "평가",
-              "전망",
-              "지적",
-              "진단",
-              "예상",
-              "내다",
-              "꼬집",
-              "경고",
-              "설명",
-              "분석"
+              "합의"
             ],
             "eventKey": null,
             "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "4일",
+            "date": "22일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -6450,30 +6425,32 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 75,
+          "baseScore": 50,
           "performancePrior": {
             "adjustment": 0,
-            "window": "7d",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "7d",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
-            "status": "classified",
-            "category": "issue",
-            "excluded": [],
+            "status": "uncertain",
+            "category": null,
+            "excluded": [
+              "category_not_allowed"
+            ],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "verify_primary_article"
+            "reason": "uncertain_initial_classification"
           },
           "final": {
             "status": "classified",
@@ -6487,28 +6464,2053 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.299,
+        "score": 0.3448,
         "method": "embedding",
         "reason": "below_threshold",
         "matchedPublicationKey": "diem:2026-09-19:issue:35370410356",
         "signature": {
           "category": "issue",
-          "target": "젤렌스키",
-          "event": "정치 발언",
+          "target": "대통령 북한",
+          "event": "합의",
           "entities": [],
           "eventKey": null,
-          "text": "issue | 젤렌스키 | 정치 발언"
+          "text": "issue | 대통령 북한 | 합의"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "issue",
+        "titleCandidates": [
+          {
+            "title": "이재명\n포로 공개 비판",
+            "lines": [
+              "이재명",
+              "포로 공개 비판"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "이재명\n포로 공개 비판",
+          "lines": [
+            "이재명",
+            "포로 공개 비판"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "이재명 대통령은 22일 우크라이나가 북한군 전쟁 포로 2명을 공개한 것을 비공개 합의 위반이라 비판했다.📰",
+            "그는 뉴욕 제81차 유엔 총회 기조연설에서 이 사안을 언급하며 비밀 유지 필요성을 강조했다.",
+            "이 대통령은 멕시코 국빈 방문 중에도 비공개 조치가 안보와 남북 관계에 중요하다고 주장했다.📰"
+          ],
+          "text": "이재명 대통령은 22일 우크라이나가 북한군 전쟁 포로 2명을 공개한 것을 비공개 합의 위반이라 비판했다.📰\n\n그는 뉴욕 제81차 유엔 총회 기조연설에서 이 사안을 언급하며 비밀 유지 필요성을 강조했다.\n\n이 대통령은 멕시코 국빈 방문 중에도 비공개 조치가 안보와 남북 관계에 중요하다고 주장했다.📰"
+        },
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #정치 #북한 #우크라이나 #인권 #대통령 #합의",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#정치",
+            "#북한",
+            "#우크라이나",
+            "#인권",
+            "#대통령",
+            "#합의"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#정치",
+              "#북한",
+              "#우크라이나",
+              "#인권",
+              "#대통령",
+              "#합의"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 9월 in \"이 발언은 9월 22일 뉴욕 유엔 본부에서 열린 제81차 유엔 총회 기조연설 중에 이루어졌으며, 우크라이나 대통령 젤렌스키가 포로 송환을 공개한\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:geopolitics-02",
+        "source": "diem-generated",
+        "selectedAt": "2026-09-24T21:59:17.190Z",
+        "assetPath": "assets/fallback/generated/geopolitics-02.png",
+        "sha256": "5542e920c1c74fcd4866dd31ce8ef152da9e7d8141e8e4822e2bfd7a0af71368",
+        "localSha256": "5542e920c1c74fcd4866dd31ce8ef152da9e7d8141e8e4822e2bfd7a0af71368",
+        "generatedTopic": "geopolitics",
+        "generatedEnergy": "calm",
+        "description": "Sandstone diplomatic roundtable with an unmarked globe relief.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:22682007",
+                "rankWithinQuery": 1,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:29404698",
+                "rankWithinQuery": 2,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:22682005",
+                "rankWithinQuery": 3,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "korea",
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33577981",
+                "rankWithinQuery": 4,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:26319168",
+                "rankWithinQuery": 5,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18910447",
+                "rankWithinQuery": 6,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37323645",
+                "rankWithinQuery": 7,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38333372",
+                "rankWithinQuery": 8,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18401987",
+                "rankWithinQuery": 9,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33795178",
+                "rankWithinQuery": 10,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20949044",
+                "rankWithinQuery": 11,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37384706",
+                "rankWithinQuery": 12,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38279173",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:31872697",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:32536911",
+                "rankWithinQuery": 15,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33019198",
+                "rankWithinQuery": 16,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:25587793",
+                "rankWithinQuery": 17,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:23499392",
+                "rankWithinQuery": 18,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20837361",
+                "rankWithinQuery": 19,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:35396694",
+                "rankWithinQuery": 20,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.7833
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 20,
+            "suitableCount": 0,
+            "suitabilityRejected": 20,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:fEyw6zOKGSo",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:5Pv3rWXMc3w",
+                "rankWithinQuery": 2,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:SbVwB1cDyj4",
+                "rankWithinQuery": 3,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:O5dcl9yej8Y",
+                "rankWithinQuery": 4,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:-Duj098aGXQ",
+                "rankWithinQuery": 5,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:eF6JSsU3t2k",
+                "rankWithinQuery": 6,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:ioE6hpvgiXQ",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "seoul"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:7myNldve8vE",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [
+                  "building"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:_lbntKP8Z2I",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cBkYnWvRq30",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:OGB_kCvpHBo",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8tLJYfeF7r8",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:XKG6usnQXgU",
+                "rankWithinQuery": 13,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:z1ExbRI13No",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:PsA_BJ_fhBg",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:VaKf8BY8rng",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:8qviRbngB24",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:HpXbH9guhVc",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:rkqtJhyjmgQ",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:AXjmlRbgVwA",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.4083
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "South Korea presidential office building Seoul",
+            "count": 10,
+            "suitableCount": 0,
+            "suitabilityRejected": 10,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:23375520",
+                "rankWithinQuery": 1,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375524",
+                "rankWithinQuery": 2,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375532",
+                "rankWithinQuery": 3,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375537",
+                "rankWithinQuery": 4,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375542",
+                "rankWithinQuery": 5,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375549",
+                "rankWithinQuery": 6,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375554",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375556",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375562",
+                "rankWithinQuery": 9,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23375585",
+                "rankWithinQuery": 10,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "building",
+                  "seoul"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "이재명",
+                  "role": "대통령",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.3
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 10,
+          "recentKeyCount": 20,
+          "blockedCandidateCount": 1,
+          "selectedImageKeys": [
+            "diem-generated:geopolitics-02",
+            "5542e920c1c74fcd4866dd31ce8ef152da9e7d8141e8e4822e2bfd7a0af71368"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated geopolitics asset geopolitics-02 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-serene-view-443",
+        "mood": "serious",
+        "title": "Serene View",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-serene-view-443.mp3",
+        "sha256": "93baae1bea4748b0a36d8a8b2d2af1c9391d3abb5e18f2bff270ea91d9a0fd31",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-24T21:59:24.207Z"
       },
       "story": {
         "status": "planned",
@@ -6584,6 +8586,86 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-09-25/issue/issue-cover.png",
+        "coverSha256": "d974b73bc67ebc9ef9af42fb6195c518d56409b1a190db26ad053a49a66e3077",
+        "followCtaPath": ".diem-cache/2026-09-25/issue/issue-follow-cta.png",
+        "followCtaSha256": "62b907c64c67c92b77e5c321fd665e54edac7947de877361244476b00043b603",
+        "reelPath": ".diem-cache/2026-09-25/issue/issue-reel.mp4",
+        "reelSha256": "1a10ebcd7ec6ec9cc56c48b6b5422764dc1d3e518905a7b19b98754b8fff8204",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 3,
+        "candidateFailures": [
+          {
+            "title": "젤렌스키 “북한 포로 2명 한국 보내”…정부, 사실상 확인",
+            "url": "https://n.news.naver.com/article/056/0012263056?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-24T21:56:26.964Z"
+          },
+          {
+            "title": "“매일 한 잔씩 마셨는데”…컴포즈·메가커피 무더기 적발",
+            "url": "https://n.news.naver.com/article/081/0003683426?ntype=RANKING",
+            "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+            "modelAttempts": [],
+            "reason": "image_context_unavailable",
+            "stage": "quality_gate",
+            "rejectedAt": "2026-09-24T21:58:19.861Z"
+          },
+          {
+            "title": "“비둘기 볼래?” 14살 끌고가 성폭행… 체액 묻혀놓고도 잡아뗀 인도 남성의 최후 [월드픽]",
+            "url": "https://n.news.naver.com/article/081/0003683434?ntype=RANKING",
+            "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+            "modelAttempts": [],
+            "reason": "image_context_unavailable",
+            "stage": "quality_gate",
+            "rejectedAt": "2026-09-24T21:58:31.314Z"
+          }
+        ],
+        "updatedAt": "2026-09-24T21:58:37.124Z"
       }
     }
   },
