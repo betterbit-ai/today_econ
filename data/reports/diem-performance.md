@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 246편
-- 생성 시각: 2026-09-25T15:02:22.097Z
+- 생성 시각: 2026-09-25T19:53:30.111Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -30,10 +30,10 @@
   - 반복 후보: 이재명 / ISA 개편 중단(730,307), 비거주1주택 / 징벌과세 결정(161,647), 이재명 대통령 / 휴가 권고(126,102), 공무원 / 광고 사과(4,696), 청년 퇴사 / 실업급여 추진(3,285)
   - 부진 후보: 남대문시장 / 2030 핫플(129), ETF·ETN / 핵심 차이(137), 서울 아파트값 / 16억 돌파(152), 삼성 / LPDDR5X 공개(157), 고정·변동 / 금리 차이(161)
   - 특성 신호: housing_money winner×2.21, event:housing_policy winner×2.13, public_decision winner×1.93, market_shock insufficient_data×1.7, event:ipo insufficient_data×1.47, event:interest_rate underperformer×0.67, reader_need:credit underperformer×0.67, macro_indicator underperformer×0.63
-- issue: 표본 97편 · 노출 중앙값 1,071 · 공유율 0% · 저장률 0%
+- issue: 표본 98편 · 노출 중앙값 1,001 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(38,433), 바이든 암 / 전이 확인(21,605), 국방부 / 1군단장 직무배제(18,351), 태풍 돌핀 / 한반도 영향예상(11,389), 선관위 / 서울시장 소청 기각(7,870)
   - 부진 후보: 모기 활동 / 주의 권고(29), 박선원 공개 / 공익제보자 위반(42), 송지은 눈물 / 새롭게하소서(68), 네팔 대홍수 / 보도(84), 이재명 / 김승원 임명 미정(111)
-  - 특성 신호: housing_money winner×1.39, market_shock insufficient_data×1.39, event:legislation underperformer×0.45, event:interest_rate insufficient_data×0.26, macro_indicator insufficient_data×0.26, reader_need:credit insufficient_data×0.26, reader_need:public_interest underperformer×0.23, household_money insufficient_data×0.2
+  - 특성 신호: housing_money winner×1.49, market_shock insufficient_data×1.49, event:legislation underperformer×0.48, event:interest_rate insufficient_data×0.28, macro_indicator insufficient_data×0.28, reader_need:credit insufficient_data×0.28, reader_need:public_interest underperformer×0.24, household_money insufficient_data×0.22
 - 정시 비교에서 제외한 늦은 백필: 41편
 
 ## 이미지·음악 운영
@@ -44,8 +44,8 @@
 - 최근 7일 Vision 실패: vision_other_failure 10건, vision_review_budget_exhausted 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 123건, unknown 44건, image_context_unavailable 44건
-- 제목 재정제 실패: 26건
+- 편집 후보 실패: editorial_generation_failed 126건, unknown 44건, image_context_unavailable 44건
+- 제목 재정제 실패: 28건
 
 ## 해석 주의
 - 한 건의 바이럴이나 부진으로 주제를 금지하지 않습니다. 표본 하한과 중앙값을 함께 봅니다.
