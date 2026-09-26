@@ -1,49 +1,49 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-26T14:07:24.672Z",
+  "generatedAt": "2026-09-26T19:03:46.194Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.",
   "publishedCount": 247,
   "operations": {
-    "totalRuns": 464,
+    "totalRuns": 466,
     "noPublishReasons": {
       "no_candidate_passed_hotness_gate": {
-        "count": 70,
-        "share": 37.43
+        "count": 71,
+        "share": 37.57
       },
       "no_candidate_passed_editorial_generation": {
         "count": 70,
-        "share": 37.43
+        "share": 37.04
       },
       "no_candidate_passed_preparation": {
-        "count": 27,
-        "share": 14.44
+        "count": 28,
+        "share": 14.81
       },
       "daily_publication_budget_exhausted": {
         "count": 14,
-        "share": 7.49
+        "share": 7.41
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 4,
-        "share": 2.14
+        "share": 2.12
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
-        "share": 1.07
+        "share": 1.06
       }
     },
     "candidateFailureReasons": {
       "editorial_generation_failed": {
-        "count": 129,
-        "share": 57.85
+        "count": 130,
+        "share": 57.78
       },
       "image_context_unavailable": {
-        "count": 50,
-        "share": 22.42
+        "count": 51,
+        "share": 22.67
       },
       "unknown": {
         "count": 44,
-        "share": 19.73
+        "share": 19.56
       }
     },
     "titleRepairFailures": 31,
@@ -798,7 +798,7 @@
       }
     },
     "72h": {
-      "sampleCount": 160,
+      "sampleCount": 161,
       "excludedLateBackfills": 79,
       "categories": {
         "economy": {
@@ -1119,16 +1119,16 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 85,
+          "samples": 86,
           "minimumSamples": 5,
           "metrics": {
-            "exposureMedian": 493,
-            "viewsMedian": 493,
-            "reachMedian": 412,
+            "exposureMedian": 486,
+            "viewsMedian": 486,
+            "reachMedian": 399.5,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "engagementRateMedian": 2.45,
-            "averageWatchTimeMedian": 3773,
+            "engagementRateMedian": 2.4450000000000003,
+            "averageWatchTimeMedian": 3768.5,
             "followerDeltaEstimateMedian": 1
           },
           "winners": [
@@ -1421,48 +1421,48 @@
               "feature": "event:housing_policy",
               "samples": 3,
               "exposureMedian": 1575,
-              "lift": 3.195,
+              "lift": 3.241,
               "signal": "winner"
             },
             {
               "feature": "housing_money",
               "samples": 7,
               "exposureMedian": 1487,
-              "lift": 3.016,
+              "lift": 3.06,
               "signal": "winner"
             },
             {
               "feature": "market_shock",
               "samples": 1,
               "exposureMedian": 1487,
-              "lift": 3.016,
+              "lift": 3.06,
               "signal": "insufficient_data"
             },
             {
               "feature": "public_decision",
               "samples": 40,
               "exposureMedian": 1002,
-              "lift": 2.032,
+              "lift": 2.062,
               "signal": "winner"
             },
             {
               "feature": "event:political_statement",
               "samples": 5,
               "exposureMedian": 929,
-              "lift": 1.884,
+              "lift": 1.912,
               "signal": "winner"
             },
             {
               "feature": "event:general",
-              "samples": 74,
-              "exposureMedian": 512,
-              "lift": 1.039,
+              "samples": 75,
+              "exposureMedian": 493,
+              "lift": 1.014,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
-              "samples": 84,
-              "exposureMedian": 486,
+              "samples": 85,
+              "exposureMedian": 479,
               "lift": 0.986,
               "signal": "neutral"
             },
@@ -1470,63 +1470,63 @@
               "feature": "event:interest_rate",
               "samples": 2,
               "exposureMedian": 275,
-              "lift": 0.558,
+              "lift": 0.566,
               "signal": "insufficient_data"
             },
             {
               "feature": "macro_indicator",
               "samples": 2,
               "exposureMedian": 275,
-              "lift": 0.558,
+              "lift": 0.566,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:credit",
               "samples": 2,
               "exposureMedian": 275,
-              "lift": 0.558,
+              "lift": 0.566,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:public_interest",
-              "samples": 37,
-              "exposureMedian": 237,
-              "lift": 0.481,
+              "samples": 38,
+              "exposureMedian": 239,
+              "lift": 0.492,
               "signal": "underperformer"
             },
             {
               "feature": "household_money",
               "samples": 2,
               "exposureMedian": 213,
-              "lift": 0.432,
+              "lift": 0.438,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:housing",
               "samples": 4,
               "exposureMedian": 213,
-              "lift": 0.432,
+              "lift": 0.438,
+              "signal": "underperformer"
+            },
+            {
+              "feature": "work_life",
+              "samples": 4,
+              "exposureMedian": 177.5,
+              "lift": 0.365,
               "signal": "underperformer"
             },
             {
               "feature": "reader_need:work",
               "samples": 3,
               "exposureMedian": 169,
-              "lift": 0.343,
-              "signal": "underperformer"
-            },
-            {
-              "feature": "work_life",
-              "samples": 3,
-              "exposureMedian": 169,
-              "lift": 0.343,
+              "lift": 0.348,
               "signal": "underperformer"
             },
             {
               "feature": "event:insurance_premium",
               "samples": 1,
               "exposureMedian": 169,
-              "lift": 0.343,
+              "lift": 0.348,
               "signal": "insufficient_data"
             }
           ],
@@ -2487,19 +2487,19 @@
       }
     },
     "recentSevenDays": {
-      "startDate": "2026-09-20",
-      "endDate": "2026-09-26",
-      "publishedCount": 13,
-      "fallbackCount": 13,
+      "startDate": "2026-09-21",
+      "endDate": "2026-09-27",
+      "publishedCount": 12,
+      "fallbackCount": 12,
       "fallbackRate": 100,
       "visionFailureDistribution": {
         "vision_other_failure": {
-          "count": 10,
-          "share": 90.91
+          "count": 8,
+          "share": 88.89
         },
         "vision_review_budget_exhausted": {
           "count": 1,
-          "share": 9.09
+          "share": 11.11
         }
       }
     }
