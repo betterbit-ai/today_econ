@@ -2,17 +2,17 @@
 
 - 상태: ready
 - 발행 원장 Reel: 247편
-- 생성 시각: 2026-09-26T00:24:38.469Z
+- 생성 시각: 2026-09-26T09:09:04.316Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
 - economy: 표본 71편 · 노출 중앙값 205 · 공유율 0% · 저장률 0%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
   - 특성 신호: event:ipo insufficient_data×2.29, housing_money winner×1.82, company_event winner×1.38, event:insurance_premium insufficient_data×0.81, event:political_statement insufficient_data×0.76
-- issue: 표본 82편 · 노출 중앙값 392.5 · 공유율 0% · 저장률 0%
+- issue: 표본 83편 · 노출 중앙값 383 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
   - 부진 후보: 모기 활동 / 주의 권고(24), 박선원 공개 / 공익제보자 위반(40), 배현진 비판 / 이재명 물(46), 송지은 눈물 / 새롭게하소서(54), 네팔 대홍수 / 보도(73)
-  - 특성 신호: event:housing_policy winner×5.4, housing_money winner×3.77, market_shock insufficient_data×3.77, event:political_statement winner×2.36, public_decision winner×1.73, event:interest_rate insufficient_data×0.69, macro_indicator insufficient_data×0.69, reader_need:credit insufficient_data×0.69
+  - 특성 신호: event:housing_policy winner×5.54, housing_money winner×3.86, market_shock insufficient_data×3.86, event:political_statement winner×1.55, event:interest_rate insufficient_data×0.71, macro_indicator insufficient_data×0.71, reader_need:credit insufficient_data×0.71, reader_need:public_interest underperformer×0.59
 - 정시 비교에서 제외한 늦은 백필: 90편
 
 ## 72h
@@ -44,8 +44,8 @@
 - 최근 7일 Vision 실패: vision_other_failure 10건, vision_review_budget_exhausted 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 127건, image_context_unavailable 45건, unknown 44건
-- 제목 재정제 실패: 30건
+- 편집 후보 실패: editorial_generation_failed 129건, image_context_unavailable 48건, unknown 44건
+- 제목 재정제 실패: 31건
 
 ## 해석 주의
 - 한 건의 바이럴이나 부진으로 주제를 금지하지 않습니다. 표본 하한과 중앙값을 함께 봅니다.
