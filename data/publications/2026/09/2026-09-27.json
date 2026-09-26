@@ -4,7 +4,7 @@
   "date": "2026-09-27",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-09-26T16:51:16.092Z",
-  "updatedAt": "2026-09-26T19:01:33.284Z",
+  "updatedAt": "2026-09-26T19:03:36.180Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -306,7 +306,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 5대 시중은행이 1년 정기예금 금리를 최고 3.4%와 3.6%로 올렸다.\"; 3.4% in \"KB국민·신한·하나·우리·NH농협이 1년 만기 정기예금에 3.4%·3.6% 금리를 적용했다는 은행권 발표가 있다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 5대 시중은행이 1년 정기예금 금리를 최고 3.4%와 3.6%로 올렸다.\"; 3.4% in \"KB국민·신한·하나·우리·NH농협이 1년 만기 정기예금에 3.4%·3.6% 금리를 적용했다는 은행권 발표가 있다.\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 시중은행 예적금 금리가 3.4%에서 3.6%까지 상승했다\" | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "캠핑장 가족모임서 아내 친오빠 살해한 40대…징역 16년 확정",
@@ -344,7 +346,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "‘마지막 1분 남기고 역전’···맏언니 박지희의 눈물, 최강 일본 상대로 ‘대선전’ 여자 플뢰레의 은메달",
@@ -382,7 +386,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "1점만 내주면 끝나는 상황, 오상욱이 4연속 득점으로 뒤집었다···사브르 AG 단체 4연패 “금메달 따니까 맛있네요”",
@@ -420,7 +426,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "이미 1000명 검사 받았다 '발칵'…\"군대 안 간다는데 왜?\" 학생들 '우르르' 거리로",
@@ -458,7 +466,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "'대기업 그만둘 만하네' 억대 연봉에 해외여행…고학력자 몰린 '이 직업'",
@@ -496,7 +506,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:image_context_unavailable:[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled"
+      ]
     },
     {
       "title": "'설마 진짜 있었나'…투탕카멘 무덤 뒤 비밀 통로에 고고학계 '주목'",
@@ -534,7 +546,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "현대차 사랑하던 미스 자메이카, 어쩌다…무대 추락 뒤 뇌손상",
@@ -572,7 +586,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"지방 내려가면 '2억2000만원'?\" 무슨 제도길래…파격 지원 꺼낸 日",
@@ -610,7 +626,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "한국 꺾은 일본 ‘직장인 선수’…일 실업야구는 동호인 수준이 아니다",
@@ -648,7 +666,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "한국 야구, 중국에 9-2 승리…결승서 다시 일본 만난다",
@@ -686,7 +706,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "여자농구 일본 꺾고 12년 만에 ‘아시아 정상’…맏언니 강이슬, 끝내기 자유투",
@@ -724,7 +746,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“승리 100% 확신”…승부처엔 오상욱이 있다 [인터뷰]",
@@ -762,7 +786,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "조희대 ‘재제청 거부’ 파장…민주 “사법부 망가뜨려” 국힘 “겁박 중단”",
@@ -800,7 +826,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "“혼수 상태로 실려온다” 당뇨 의사가 질색하는 과일 2가지",
@@ -838,7 +866,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "이광수와 열애설 난 비구니…“나 이대 나온 여자” 그 원조다",
@@ -876,7 +906,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "하늘이 도왔다…일본에 패한 韓야구, 비 그쳐 중국전 진행될 듯",
@@ -914,7 +946,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "멕시코 K팝 공연 중 “방버지” 말한 김 여사…박진영도 놀랐다",
@@ -952,7 +986,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "“99.9% 서울시장 보궐선거” 장담했지만…與, 속은 타들어간다",
@@ -988,7 +1024,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "“아버지 빚 상속포기했는데”…2년 전 응급실비는 왜 내가 내야 하나 [상속리포트]",
@@ -1026,7 +1064,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "600원 아이스크림 팔아 얼마 남나…무인점포 ‘싼 창업’의 계산법 [자영업 리포트]",
@@ -1064,7 +1104,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“외도 의심해서”…아내 차에 녹음기 설치한 30대 집행유예",
@@ -1102,7 +1144,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "나나 집 침입 강도, ‘살인미수 역고소’했다 무고 혐의로 추가 재판행",
@@ -1140,7 +1184,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "한국 야구, 슈퍼라운드 2위로 AG 결승 진출…0-5 완패 안겼던 일본과 27일 결승전",
@@ -1178,7 +1224,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "정수기 빌려주던 코웨이, 中 로봇청소기로 출격…보안도 관리해주나요?",
@@ -1216,7 +1264,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“명절에 전화도 안 한 딸들, 유산 못 나눠줘”... 법원 “재산 나눠야”",
@@ -1254,7 +1304,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "야구, 다시 일본과 붙는다... 오늘 결승전서 설욕의 기회",
@@ -1292,7 +1344,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] 한국예탁결제원도 단일종목 레버리지 ETF 제안 안 했다",
@@ -1330,7 +1384,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "軍·유엔사, DMZ 현장조사 준비... 폭발 사고 닷새 만에 진입",
@@ -1368,7 +1424,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[아시안게임] 한국 야구, 중국 꺾고 결승 진출…27일 일본과 금메달 결정전",
@@ -1406,7 +1464,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[아시안게임] 펜싱·e스포츠·여자 농구 한일전 승리로 '금메달 3개 합창'(종합)",
@@ -1444,7 +1504,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "추석 연휴 남양주 별장서 70대 여성 흉기 피습…운전기사 체포",
@@ -1482,7 +1544,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "부산역서 이동하던 무궁화호 열차 궤도 이탈…인명피해 없어",
@@ -1520,7 +1584,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "軍·유엔사, DMZ에 인력 투입해 현장조사 준비…기동로 확보",
@@ -1558,7 +1624,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "침대에서 충전?…보조배터리 깔고 자다 ‘저온화상’ [의학:너머]",
@@ -1596,7 +1664,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "한국형 구축함 KDDX 전투체계 실물 최초 공개…‘미 이지스급’ 성능 목표",
@@ -1634,7 +1704,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:editorial_value_below_daily_floor"
+      ]
     },
     {
       "title": "군·유엔사, ‘DMZ 폭발’ 현장 조사 착수…여야는 “은폐” “음모론” 설전",
@@ -1672,7 +1744,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "펜싱 남자 사브르 단체전 극적인 금메달…맏형 오상욱이 해냈다",
@@ -1710,7 +1784,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "여자 농구, 일본 꺾고 12년 만에 금메달",
@@ -1748,7 +1824,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“대게 2마리 37만원, 꽃게 다리는 1개”…소래포구 ‘바가지 근절’, 이번엔 성공할까",
@@ -1786,7 +1864,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“빤히 쳐다보는 남자들, 전부 안경 썼어요”…스마트안경 사생활 논란",
@@ -1824,7 +1904,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“가장 큰 버팀목이자 전부였던 분”…배우 최수종, 25일 모친상",
@@ -1862,7 +1944,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“‘노 제사’라더니 식탁엔 남자만?”…김대호, 추석 인증샷에 ‘갑론을박’",
@@ -1900,7 +1984,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“손주 데리고 또 와야죠”…100m 옆에서 미리 자보고 1억원 결제한다는데",
@@ -1938,7 +2024,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     }
   ],
   "candidateRuns": [
@@ -4068,24 +4156,24 @@
     "economy": {
       "publicationKey": "diem:2026-09-27:economy:36264413618",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
-        "title": "‘예테크’ 시대 돌아왔다···연 8% 파킹통장까지 등장",
-        "url": "https://n.news.naver.com/article/032/0003472543?ntype=RANKING",
+        "title": "'대기업 그만둘 만하네' 억대 연봉에 해외여행…고학력자 몰린 '이 직업'",
+        "url": "https://n.news.naver.com/article/277/0005821028?ntype=RANKING",
         "publishedDate": "2026-09-27",
-        "publishedAt": "2026-09-26 19:37:00",
+        "publishedAt": "2026-09-26 18:50:13",
         "observedAt": "2026-09-26T19:01:23.054Z",
-        "popularityScore": 87.8776,
+        "popularityScore": 77.7755,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "daily_floor_candidate",
-          "score": 83.73,
-          "popularityScore": 87.8776,
+          "score": 74.28,
+          "popularityScore": 77.7755,
           "freshnessScore": 70,
-          "editorialValueScore": 96,
-          "ageHours": 8.41,
-          "publishedAt": "2026-09-26 19:37:00",
+          "editorialValueScore": 70,
+          "ageHours": 9.2,
+          "publishedAt": "2026-09-26 18:50:13",
           "observedAt": "2026-09-26T19:01:23.054Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -4105,44 +4193,37 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 7,
-            "normalizedScore": 87.8776,
-            "title": "‘예테크’ 시대 돌아왔다···연 8% 파킹통장까지 등장",
-            "url": "https://n.news.naver.com/article/032/0003472543?ntype=RANKING"
+            "rank": 12,
+            "normalizedScore": 77.7755,
+            "title": "'대기업 그만둘 만하네' 억대 연봉에 해외여행…고학력자 몰린 '이 직업'",
+            "url": "https://n.news.naver.com/article/277/0005821028?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "5대 시중은행, 연 3.4~3.6%은행권 정기예금 최고 연 3.92%연 10% 금리 주는 한달짜리 적금도금리인상기엔 만기 짧게 연합뉴스한국은행이 기준금리를 올리며 통화정책 전환에 나서자 주요 시중은행들도 예적금 금리를 속속 인상하고 있다. 저축은행은 연 7%대 금리를 제공하는 상품을 선보이는 등 ‘예테크(예금+재테크)’ 족의 관심을 끌고 있다.23일 은행권에 따르면 5대 시중은행(KB국민·신한·하나·우리·NH농협)은 이날 현재 자사 1년 만기 정기예금에 최고 연 3.4~3.6% 금리를 적용하고 있다. 지난 6월 말(2.9~3.1%)과 비교하면 은행별로 0.5%포인트 안팎 올랐다.인터넷은행인 카카오뱅크는 이날 우대금리 조건이 없는 정기예금 금리를 0.1%포인트 인상해 연 3.7%를 적용한다. 기본금리는 물론 최고금리 기준으로도 은행권 최고 수준이다. BNK부산은행의 ‘더(THE) 특판 정기예금’은 은행권에서 가장 높은 최고 연 3.92% 금리를 제공한다.2금융권에선 연 4% 초중반대 금리의 정기예금도 나왔다. 남대전신협(최고 연 4.3%), 대구대서신협과 부산원광신협(각 최고 연 4.2%) 등이 4%를 훌쩍 넘는 금리를 적용하고 있다. 이들 신협 상품은 방문 없이 온라인으로도 가입할 수 있다.자취를 감췄던 고금리 적금 상품도 나오고 있다. 우리은행은 ‘아이치·나고야 아시안게임’을 맞이해 최고 연 7.5% 금리(1년 만기)를 적용하는 ‘우리 Team Korea 적금2’를 최근 선보였다. 국민은행은 지난달 말 국민카드와 함께 카드 이용 실적과 은행 거래 실적에 따라 우대금리를 제공해 최고 연 12.0% 금리를 주는 ‘KB카드쓰담적금’을 내놨다.금리 인상기엔 만기를 짧게 운용하는 게 유리하다. 이에 하루만 맡겨도 이자가 나오는 수시입출금식 파킹통장, 한달 동안 매일 납입하는 적금 등에 관심이 모이고 있다.신한은행이 지난 4월 출시한 파킹통장인 ‘올리브영 SOL 통장’은 최고 연 4.5% 금리가 적용된다. 매달 올리브영에서 5000원 이상 결제 등의 우대조건이 있지만 은행권 파킹통장 중에선 금리가 가장 높은 수준이다.카카오뱅크의 ‘한달적금’은 최고 연 6.0% 금리를 제공한다. 2023년 10월 출시 후 올해 상반기까지 누적 1500만좌가 개설돼 대표적인 단기 적금 상품으로 자리잡았다. 카카오뱅크의 한달적금은 매일 100원부터 3만원까지 납입할 수 있다.최고 연 10% 금리를 주는 토스뱅크의 ‘키워봐요 31일 적금’도 지난달 출시 후 한달 만에 30만 계좌를 돌파했다. 토스뱅크 31일적금은 최대 5000원까지 납입 가능하다.저축은행들도 고금리 파킹통장을 내놓으며 고객 유치에 뛰어들었다. SBI저축은행이 지난달 출시한 ‘생활파킹통장’은 최고 연 7.7% 금리를 준다. OK저축은행의 ‘OK짠테크통장Ⅱ’는 기본 연 5.0%, 최고 연 7.0%, KB저축은행의 ‘KB팡팡mini통장’은 최고 연 8.0% 금리가 적용된다.국내 증시가 조정받는 사이 예적금 금리가 오르면서 증시 대기 자금이 예적금으로 옮겨가는 ‘역머니무브’ 현상은 뚜렷해지는 분위기다. 5대 은행의 요구불예금과 정기예금 잔액은 이달 들어 보름 만에 각각 5조원씩 늘었다. 지난 1월 말과 비교하면 총 100조원 넘게 증가했다.",
-        "summary": "5대 시중은행, 연 3.4~3.6%은행권 정기예금 최고 연 3.92%연 10% 금리 주는 한달짜리 적금도금리인상기엔 만기 짧게 연합뉴스한국은행이 기준금리를 올리며 통화정책 전환에 나서자 주요 시중은행들도 예적금 금리를 속속 인상하고 있다. 저축은행은 연 7%대 금리를 제공하는 상품을 선보이는 등 ‘예테크(예금+재테크)’ 족의 관심을 끌고 있다.23일 은행권에 따르면 5대 시중은행(KB국민·신한·하나·우리·NH농협)은 이날 현재 자사 1년 만기 정기예금에 최고 연 3.4~3.6% 금리를 적용하고 있다. 지난 6월 말(2.9~3.1%)",
+        "fullText": "억대 연봉 받는 초부유층 전담 보모명문대 학위에 외국어…까다로운 채용 조건초고액 자산가의 자녀를 돌보는 보모가 새로운 고소득 직업으로 주목받고 있다. 사진은 기사의 특정 내용과 관련 없음. 픽셀스23일(현지시간) 이코노미스트, 파이낸셜리뷰 등 외신에 따르면 초부유층 자녀를 돌보는 보모에 대한 수요가 늘고 있다.캐시디 오헤이건은 미국 뉴욕의 한 고액 자산가 가정에서 일한다. 고용주 가족과 함께 몰디브와 두바이, 유럽 등 세계 각지를 오가며 자녀를 '밀착 케어'한다. 그의 연봉은 20만 달러(약 2억7000만원)에 달한다. 시간당 임금으로 따지면 사모펀드 운용사 직원과 맞먹는 수준이다.초부유층 전담 인력 시장은 빠르게 커지고 있다. 2007년 당시만 해도 초부유층 전담 인력 에이전시는 소수에 불과했지만, 현재는 전 세계에 약 1000곳이 있는 것으로 추산된다.관련 시장이 커진 배경에는 초부유층의 증가가 있다. 포브스에 따르면 세계 억만장자 수는 2000년 470명에서 올해 3428명으로 증가했다. 코로나19 이후 채용 수요가 늘면서 보모들의 몸값도 올랐다.고용 조건도 까다롭다. 이들은 명문대 학위는 물론 여러 언어를 구사할 수 있는 '엘리트' 보모를 찾는다. 비밀유지계약은 필수다. 잦은 여행에 동행하고 장시간 근무할 의향도 있어야 한다.하루 12시간 이상 주 7일 근무하고, 이후 일주일을 쉬는 방식이 일반적이다. 정규 근무시간이 아니더라도 언제든 대기해야 한다.그럼에도 많은 사람이 초고급 돌봄 시장에 뛰어드는 것은 회사에 취업하는 것보다 낫다고 여기기 때문이다. 오헤이건은 \"대기업에서 의료영업을 했지만 낮은 연봉과 성과 경쟁에 지쳤다\"고 말했다. 회사 생활에 지친 젊은 고학력자들이 높은 소득을 기대하며 돌봄 시장으로 옮겨가고 있다는 분석이 나온다.초부유층 가족의 여행에 동행하며 초호화 생활을 경험할 수 있다는 점도 매력으로 꼽힌다. 지난 6월에는 미국에서 부유층 보모들의 생활을 다룬 리얼리티 프로그램 '밀리언 달러 내니스'가 방영되기도 했다. 이코노미스트는 \"부자가 되는 삶이 아니라 부자에게 고용되는 삶까지 사람들의 선망 대상이 되고 있다\"고 짚었다.",
+        "summary": "억대 연봉 받는 초부유층 전담 보모명문대 학위에 외국어…까다로운 채용 조건초고액 자산가의 자녀를 돌보는 보모가 새로운 고소득 직업으로 주목받고 있다. 사진은 기사의 특정 내용과 관련 없음. 픽셀스23일(현지시간) 이코노미스트, 파이낸셜리뷰 등 외신에 따르면 초부유층 자녀를 돌보는 보모에 대한 수요가 늘고 있다.캐시디 오헤이건은 미국 뉴욕의 한 고액 자산가 가정에서 일한다. 고용주 가족과 함께 몰디브와 두바이, 유럽 등 세계 각지를 오가며 자녀를 '밀착 케어'한다. 그의 연봉은 20만 달러(약 2억7000만원)에 달한다. 시간당 임금",
         "topicSignature": {
           "category": "economy",
-          "target": "기준금리",
-          "event": "실적 발표",
-          "entities": [
-            "5대",
-            "시중은행",
-            "은행권",
-            "92",
-            "10"
-          ],
+          "target": "대기업 그만둘",
+          "event": "억대 연봉에 해외여행",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 기준금리 | 실적 발표 | 5대 시중은행 은행권 92 10"
+          "text": "economy | 대기업 그만둘"
         },
         "newsFrame": {
           "category": "economy",
-          "subject": "기준금리",
+          "subject": "대기업 그만둘",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "기준금리"
+            "대기업",
+            "그만둘"
           ],
-          "eventKind": "earnings",
-          "eventLabel": "실적 발표",
-          "eventTerms": [
-            "실적"
-          ],
+          "eventKind": "general",
+          "eventLabel": "",
+          "eventTerms": [],
           "eventKey": null,
-          "claimState": "decided",
+          "claimState": "reported",
           "evidenceState": "established_or_not_stated",
           "date": "23일",
           "requiredTitleTerms": [],
@@ -4150,14 +4231,13 @@
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "credit"
+          "readerNeed": "public_interest"
         },
         "editorialValue": {
           "ok": true,
-          "score": 96,
+          "score": 70,
           "signals": [
             "reader_money_work_life_impact",
-            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
@@ -4165,19 +4245,18 @@
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "subject": "기준금리",
+            "subject": "대기업 그만둘",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "기준금리"
+              "대기업",
+              "그만둘"
             ],
-            "eventKind": "earnings",
-            "eventLabel": "실적 발표",
-            "eventTerms": [
-              "실적"
-            ],
+            "eventKind": "general",
+            "eventLabel": "",
+            "eventTerms": [],
             "eventKey": null,
-            "claimState": "decided",
+            "claimState": "reported",
             "evidenceState": "established_or_not_stated",
             "date": "23일",
             "requiredTitleTerms": [],
@@ -4185,51 +4264,21 @@
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "credit"
+            "readerNeed": "public_interest"
           },
-          "baseScore": 95,
+          "baseScore": 70,
           "performancePrior": {
-            "adjustment": 1,
-            "window": "7d",
-            "matched": [
-              {
-                "feature": "public_decision",
-                "samples": 46,
-                "exposureMedian": 635,
-                "lift": 1.93,
-                "signal": "winner"
-              },
-              {
-                "feature": "macro_indicator",
-                "samples": 12,
-                "exposureMedian": 205.5,
-                "lift": 0.625,
-                "signal": "underperformer"
-              }
-            ],
-            "reason": "bounded_evidence_prior"
+            "adjustment": 0,
+            "window": null,
+            "matched": [],
+            "reason": "insufficient_performance_samples"
           }
         },
         "performancePrior": {
-          "adjustment": 1,
-          "window": "7d",
-          "matched": [
-            {
-              "feature": "public_decision",
-              "samples": 46,
-              "exposureMedian": 635,
-              "lift": 1.93,
-              "signal": "winner"
-            },
-            {
-              "feature": "macro_indicator",
-              "samples": 12,
-              "exposureMedian": 205.5,
-              "lift": 0.625,
-              "signal": "underperformer"
-            }
-          ],
-          "reason": "bounded_evidence_prior"
+          "adjustment": 0,
+          "window": null,
+          "matched": [],
+          "reason": "insufficient_performance_samples"
         },
         "classificationTrace": {
           "initial": {
@@ -4256,58 +4305,62 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.407,
+        "score": 0.5173,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-09-22:issue:35725670156",
+        "matchedPublicationKey": "diem:2026-09-22:economy:35707841519",
         "signature": {
           "category": "economy",
-          "target": "기준금리",
-          "event": "실적 발표",
-          "entities": [
-            "5대",
-            "시중은행",
-            "은행권",
-            "92",
-            "10"
-          ],
+          "target": "대기업 그만둘",
+          "event": "억대 연봉에 해외여행",
+          "entities": [],
           "eventKey": null,
-          "text": "economy | 기준금리 | 실적 발표 | 5대 시중은행 은행권 92 10"
+          "text": "economy | 대기업 그만둘"
         }
       },
       "editorial": null,
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+        "updatedAt": "2026-09-26T19:03:34.953Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-26T19:03:34.953Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-26T19:03:34.953Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-09-26T19:03:34.953Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-09-27:economy:36264413618:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-09-26T19:03:36.179Z",
+          "slackTs": "1790449415.162359",
+          "issueNumber": 121,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/121"
+        }
+      ],
+      "reason": "no_candidate_passed_preparation",
       "plannedAt": "2026-09-26T19:01:33.279Z",
       "hotness": {
         "ok": true,
@@ -4364,6 +4417,70 @@
           "limit": 3,
           "remaining": 3
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "no_publish",
+        "attempts": 2,
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+        "candidateFailures": [
+          {
+            "title": "‘예테크’ 시대 돌아왔다···연 8% 파킹통장까지 등장",
+            "url": "https://n.news.naver.com/article/032/0003472543?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 5대 시중은행이 1년 정기예금 금리를 최고 3.4%와 3.6%로 올렸다.\"; 3.4% in \"KB국민·신한·하나·우리·NH농협이 1년 만기 정기예금에 3.4%·3.6% 금리를 적용했다는 은행권 발표가 있다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 5대 시중은행이 1년 정기예금 금리를 최고 3.4%와 3.6%로 올렸다.\"; 3.4% in \"KB국민·신한·하나·우리·NH농협이 1년 만기 정기예금에 3.4%·3.6% 금리를 적용했다는 은행권 발표가 있다.\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 시중은행 예적금 금리가 3.4%에서 3.6%까지 상승했다\" | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 5대 시중은행이 1년 정기예금 금리를 최고 3.4%와 3.6%로 올렸다.\"; 3.4% in \"KB국민·신한·하나·우리·NH농협이 1년 만기 정기예금에 3.4%·3.6% 금리를 적용했다는 은행권 발표가 있다.\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 5대 시중은행이 1년 정기예금 금리를 최고 3.4%와 3.6%로 올렸다.\"; 3.4% in \"KB국민·신한·하나·우리·NH농협이 1년 만기 정기예금에 3.4%·3.6% 금리를 적용했다는 은행권 발표가 있다.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 3.4% in \"한국은행 기준금리 인상에 따라 시중은행 예적금 금리가 3.4%에서 3.6%까지 상승했다\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-09-26T19:02:15.682Z"
+          },
+          {
+            "title": "'대기업 그만둘 만하네' 억대 연봉에 해외여행…고학력자 몰린 '이 직업'",
+            "url": "https://n.news.naver.com/article/277/0005821028?ntype=RANKING",
+            "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+            "modelAttempts": [],
+            "reason": "image_context_unavailable",
+            "stage": "quality_gate",
+            "rejectedAt": "2026-09-26T19:03:25.023Z"
+          }
+        ],
+        "updatedAt": "2026-09-26T19:03:34.953Z"
       }
     },
     "issue": {
