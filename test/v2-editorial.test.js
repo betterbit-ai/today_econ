@@ -108,7 +108,7 @@ test('deterministic fallback produces five short titles and the exact DIEM capti
     const validation = validateTitle(candidate.title);
     assert.equal(validation.ok, true, validation.errors.join('; '));
     assert.equal(validation.lines.length, 2);
-    assert.ok(validation.graphemeCount <= 14);
+    assert.ok(validation.graphemeCount <= 26);
   });
 
   const caption = validateCaption(editorial.caption.text);
@@ -265,7 +265,7 @@ test('does not widen one politician quote into a shared claim by several candida
   assert.match(result.caption.sentences[0], /^김민석 후보가/u);
 });
 
-test('repairs only an overlong title while preserving a valid apartment-news caption', async () => {
+test('uses a valid expanded title while preserving a valid apartment-news caption', async () => {
   const article = {
     category: CATEGORIES.ECONOMY,
     title: '수도권 15억~20억 아파트, 거래 절반 이상이 신고가',
@@ -288,7 +288,7 @@ test('repairs only an overlong title while preserving a valid apartment-news cap
         return { titleCandidates: [{ title: '수도권 아파트\n신고가 절반' }] };
       }
       return {
-        titleCandidates: [{ title: '수도권 15억~20억 아파트\n거래 절반 이상이 신고가' }],
+        titleCandidates: [{ title: '수도권 아파트\n15억~20억\n절반이 신고가' }],
         sentences,
         emojis: { first: '🏠', third: '📊' },
         topicTags: ['수도권아파트', '신고가', '부동산', '주택시장'],
@@ -296,13 +296,13 @@ test('repairs only an overlong title while preserving a valid apartment-news cap
     },
   });
 
-  assert.equal(calls.length, 2);
-  assert.equal(result.title.text, '수도권 아파트\n신고가 절반');
+  assert.equal(calls.length, 1);
+  assert.equal(result.title.text, '수도권 아파트\n15억~20억\n절반이 신고가');
   assert.deepEqual(
     result.caption.sentences.map(sentence => sentence.replace(/[🏠📊]$/u, '')),
     sentences
   );
-  assert.ok(result.generation.attempts.some(attempt => attempt.stage === 'title_repair' && attempt.status === 'succeeded'));
+  assert.equal(result.generation.attempts.some(attempt => attempt.stage === 'title_repair'), false);
 });
 
 test('does not spend a title repair on a caption that copied raw source wording', async () => {
@@ -711,7 +711,7 @@ test('fails closed when model output is unusable and deterministic evidence cann
 
 test('rejects malformed title, caption, comment, and hashtag reply contracts', () => {
   assert.equal(validateTitle('한 줄뿐').ok, false);
-  assert.equal(validateTitle('일이삼사오육칠팔\n구십일이삼사오육').ok, false);
+  assert.equal(validateTitle('일이삼사오육칠팔구십일\n구십일이삼사오육').ok, false);
   assert.equal(validateTitle('일이삼사오육\n칠팔구십일이').ok, true);
   assert.equal(validateTitle('일이삼사오육칠팔구십일이삼사\n오육칠팔구십일이삼사오육칠팔').ok, false);
   assert.equal(validateCaption('첫 문장📊\n둘째 문장\n셋째 문장📊').ok, false);

@@ -4,6 +4,7 @@ const test = require('node:test');
 const {
   PRIOR_MAX,
   buildPerformanceReport,
+  followerSnapshotSummary,
   performancePrior,
   windowTimingStatus,
 } = require('../src/v2/performance-loop');
@@ -32,6 +33,7 @@ function publication(index, {
     category,
     candidate: { title, summary: `${title}에 관한 구체적인 설명입니다.` },
     reel: { status: 'published', externalId: `ig-${index}`, permalink: `https://instagram.com/reel/${index}` },
+    analytics: { featureSchemaVersion: 2 },
     image: { kind: imageKind, source: imageSource },
     audio: { mode: 'track', trackId, mood: category === 'economy' ? 'steady' : 'serious' },
     insights: {
@@ -97,9 +99,13 @@ test('learns repeated feature lift only after the category sample floor and caps
       publication(0, { title: '서울 아파트 신고가 20억원', exposure: 2000 }),
       publication(1, { title: '수도권 아파트 신고가 18억원', exposure: 1800 }),
       publication(2, { title: '아파트 거래 신고가 15억원', exposure: 1600 }),
-      publication(3, { title: '기준금리 동결', exposure: 300 }),
-      publication(4, { title: '환율 보합', exposure: 250 }),
-      publication(5, { title: 'GDP 성장률', exposure: 200 }),
+      publication(3, { title: '서울 아파트 거래 14억원', exposure: 1500 }),
+      publication(4, { title: '아파트 가격 13억원', exposure: 1400 }),
+      publication(5, { title: '기준금리 동결', exposure: 300 }),
+      publication(6, { title: '환율 보합', exposure: 250 }),
+      publication(7, { title: 'GDP 성장률', exposure: 200 }),
+      publication(8, { title: '수출 증가', exposure: 180 }),
+      publication(9, { title: '기업 실적', exposure: 160 }),
     ],
     publications: {},
   };
@@ -154,9 +160,9 @@ test('reports recent Vision transport and JSON failures separately from semantic
   assert.equal(report.image.recentSevenDays.publishedCount, 3);
   assert.equal(report.image.recentSevenDays.fallbackCount, 2);
   assert.equal(report.image.recentSevenDays.fallbackRate, 66.67);
-  assert.equal(report.image.visionFailureDistribution.vision_json_validate_failed.count, 1);
-  assert.equal(report.image.visionFailureDistribution.vision_image_access_failed.count, 1);
-  assert.equal(report.image.visionFailureDistribution.vision_context_rejected.count, 1);
+  assert.equal(report.image.visionFailureDistribution.json_error.count, 1);
+  assert.equal(report.image.visionFailureDistribution.image_access.count, 1);
+  assert.equal(report.image.visionFailureDistribution.context_rejected.count, 1);
 });
 
 test('records reader-need features for later growth comparisons', () => {
@@ -182,4 +188,23 @@ test('keeps operator-deleted publications out of performance learning while pres
   assert.equal(report.windows['7d'].sampleCount, 1);
   assert.equal(report.windows['7d'].categories.economy.metrics.exposureMedian, 300);
   assert.equal(report.operations.moderatedPublications, 1);
+});
+
+test('deduplicates overlapping account follower snapshots instead of summing post deltas', () => {
+  const first = publication(0);
+  const second = publication(1);
+  for (const item of [first, second]) {
+    item.insights.windows['7d'].collectedAt = '2026-09-29T00:00:00.000Z';
+    item.insights.windows['7d'].account = { follower_count: metric(334) };
+  }
+  const latest = publication(2);
+  latest.insights.windows['7d'].collectedAt = '2026-09-30T00:00:00.000Z';
+  latest.insights.windows['7d'].account = { follower_count: metric(337) };
+  assert.deepEqual(followerSnapshotSummary([first, second, latest]), {
+    snapshots: 2,
+    first: { collectedAt: '2026-09-29T00:00:00.000Z', followers: 334 },
+    latest: { collectedAt: '2026-09-30T00:00:00.000Z', followers: 337 },
+    netChange: 3,
+    attribution: 'deduplicated_account_snapshots_not_summed_post_deltas',
+  });
 });

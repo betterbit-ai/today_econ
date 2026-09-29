@@ -4,6 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 
+const acceptFirstVisionCandidate = async ({ images }) => ({ ok: true, selectedId: images[0].id });
+
 const {
   isLikelySyndicatedCopy,
   verifyCoreClaims,
@@ -376,6 +378,7 @@ test('skips licensed images used in the recent seven-day image history', async (
     { title: '정부 정책 국회 발표', category: 'issue' },
     {
       pexelsApiKey: 'pexels-key',
+      reviewImages: acceptFirstVisionCandidate,
       recentImages: [{ id: 'pexels:15476105' }],
       fetchImpl: async () => ({
         ok: true,
@@ -466,6 +469,7 @@ test('selects a licensed occupational heat photo before unrelated apartment imag
     category: 'issue',
   }, {
     pexelsApiKey: 'pexels-key',
+    reviewImages: acceptFirstVisionCandidate,
     fetchImpl: async () => ({ ok: true, json: async () => ({ photos }) }),
   });
 
@@ -683,6 +687,7 @@ test('reviews multiple contextual candidates and rejects an American ballot box 
   ];
   const selection = await selectLicensedImage(candidate, {
     pexelsApiKey: 'pexels-key',
+    reviewImages: acceptFirstVisionCandidate,
     fetchImpl: async url => {
       if (/api\.pexels/u.test(String(url))) return { ok: true, json: async () => ({ photos }) };
       if (/api\.unsplash/u.test(String(url))) return { ok: true, json: async () => ({ results: [] }) };
@@ -776,6 +781,7 @@ test('rejects generic keyword matches and selects the next person-free image wit
     imageKeyword: 'government childcare support',
   }, {
     pexelsApiKey: 'pexels-key',
+    reviewImages: acceptFirstVisionCandidate,
     fetchImpl: async () => ({
       ok: true,
       json: async () => ({ photos }),
@@ -851,6 +857,7 @@ test('uses a person-free contextual image before looking up a named subject port
     category: 'issue',
   }, {
     pexelsApiKey: 'pexels-key',
+    reviewImages: acceptFirstVisionCandidate,
     fetchImpl: async url => {
       requestedUrls.push(String(url));
       return {
@@ -922,6 +929,7 @@ test('resolves an exact Korean Wikipedia person page to its freely licensed Comm
     editorialTitle: '이재명 대통령\n휴가 권고',
     category: 'issue',
   }, {
+    reviewImages: acceptFirstVisionCandidate,
     fetchImpl: async url => {
       requestedUrls.push(String(url));
       if (String(url).includes('ko.wikipedia.org')) {

@@ -14,6 +14,7 @@ const {
 } = require('../src/v2/music');
 const {
   DIEM_BASIC_REEL,
+  DIEM_EXPLAIN_REEL,
   DIEM_REEL,
   buildDiemBasicReelArgs,
   buildDiemReelArgs,
@@ -114,24 +115,20 @@ test('falls back to silence rather than a bright track when somber audio is unav
   assert.match(selection.reason, /no verified somber audio/);
 });
 
-test('builds a seven-second Reel with a soft fade into the final follow sticker', () => {
+test('builds a six-second flash Reel without a follow end card', () => {
   const args = buildDiemReelArgs({
     imagePath: '/tmp/cover.png',
-    followCtaImagePath: '/tmp/follow-cta.png',
     audioPath: '/tmp/music.wav',
     outputPath: '/tmp/reel.mp4',
   });
   const filter = args[args.indexOf('-filter_complex') + 1];
-  assert.equal(args.filter(value => value === '-i').length, 3);
+  assert.equal(args.filter(value => value === '-i').length, 2);
   assert.doesNotMatch(buildDiemVideoFilter(), /zoompan|cos\(2\*PI\*on/u);
   assert.match(filter, /scale=1080:1920/);
-  assert.match(filter, /trim=duration=5\.35/u);
-  assert.match(filter, /trim=duration=2/u);
-  assert.match(filter, /xfade=transition=fade:duration=0\.35:offset=5/u);
-  assert.doesNotMatch(filter, /\[content\]\[cta\]concat=/u);
-  assert.match(filter, /\[2:a\]/u);
+  assert.doesNotMatch(filter, /xfade|cta/u);
+  assert.match(filter, /\[1:a\]/u);
   assert.match(filter, /volume=0\.3/);
-  assert.ok(args.includes('210'));
+  assert.ok(args.includes('180'));
   assert.ok(args.includes('libx264'));
   assert.ok(args.includes('yuv420p'));
   assert.ok(args.includes('aac'));
@@ -141,10 +138,26 @@ test('builds a seven-second Reel with a soft fade into the final follow sticker'
 
   const silentArgs = buildDiemReelArgs({
     imagePath: '/tmp/cover.png',
-    followCtaImagePath: '/tmp/follow-cta.png',
     outputPath: '/tmp/silent.mp4',
   });
   assert.ok(silentArgs.includes('anullsrc=channel_layout=stereo:sample_rate=48000'));
+});
+
+test('builds a thirteen-second three-scene explain Reel', () => {
+  const args = buildDiemReelArgs({
+    format: 'explain',
+    sceneImagePaths: ['/tmp/1.png', '/tmp/2.png', '/tmp/3.png'],
+    audioPath: '/tmp/music.wav',
+    outputPath: '/tmp/explain.mp4',
+  });
+  const filter = args[args.indexOf('-filter_complex') + 1];
+  assert.equal(DIEM_EXPLAIN_REEL.durationSeconds, 13);
+  assert.equal(args.filter(value => value === '-i').length, 4);
+  assert.equal((filter.match(/xfade=transition=fade:duration=0\.5/g) || []).length, 2);
+  assert.match(filter, /offset=3\.5/u);
+  assert.match(filter, /offset=8/u);
+  assert.match(filter, /\[3:a\]/u);
+  assert.ok(args.includes('390'));
 });
 
 test('builds a five-card nineteen-second educational Reel with only static fades', () => {
@@ -225,10 +238,8 @@ const hasMediaTools = ['ffmpeg', 'ffprobe'].every(command => (
 test('creates a Reel that passes ffprobe media requirements', { skip: !hasMediaTools }, async () => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-v2-media-'));
   const imagePath = path.join(directory, 'cover.ppm');
-  const followCtaImagePath = path.join(directory, 'follow-cta.ppm');
   const outputPath = path.join(directory, 'reel.mp4');
   fs.writeFileSync(imagePath, Buffer.from('P6\n1 1\n255\n\x08\x0c\x16', 'binary'));
-  fs.writeFileSync(followCtaImagePath, Buffer.from('P6\n1 1\n255\n\x08\x0c\x16', 'binary'));
   const music = selectMusic({
     category: 'economy',
     mood: 'steady',
@@ -237,7 +248,6 @@ test('creates a Reel that passes ffprobe media requirements', { skip: !hasMediaT
 
   await createDiemReelVideo({
     imagePath,
-    followCtaImagePath,
     audioPath: music.path,
     outputPath,
   });
@@ -259,5 +269,5 @@ test('creates a Reel that passes ffprobe media requirements', { skip: !hasMediaT
   assert.equal(audio.codec_name, 'aac');
   assert.equal(audio.sample_rate, '48000');
   assert.equal(audio.channels, 2);
-  assert.ok(Math.abs(Number(media.format.duration) - 7) < 0.08, media.format.duration);
+  assert.ok(Math.abs(Number(media.format.duration) - 6) < 0.08, media.format.duration);
 });

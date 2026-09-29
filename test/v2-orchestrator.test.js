@@ -332,7 +332,7 @@ test('published history is rebuilt against the next KST day', () => {
   assert.equal(nextDate('2026-12-31'), '2027-01-01');
 });
 
-test('category polling archives the first completed run and selects a second daily article', async () => {
+test('category polling closes after the first completed daily article', async () => {
   let existing = createDailyLedger('2026-07-29');
   existing.publications.economy = {
     ...existing.publications.economy,
@@ -375,12 +375,11 @@ test('category polling archives the first completed run and selects a second dai
     },
   });
 
-  assert.deepEqual(plannerOptions.categories, ['economy']);
-  assert.equal(plannerOptions.hotMode, true);
-  assert.equal(plannerOptions.history[0].publicationKey, 'diem:2026-07-29:economy');
-  assert.equal(result.ledger.publicationHistory.length, 1);
-  assert.equal(result.ledger.publications.economy.publicationKey, 'diem:2026-07-29:economy:run-1300');
-  assert.equal(result.ledger.publications.economy.candidate.title, '오후 경제 기사');
+  assert.equal(plannerOptions, null);
+  assert.equal(result.ledger.publications.economy.status, 'no_publish');
+  assert.equal(result.ledger.publications.economy.reason, 'daily_publication_budget_exhausted');
+  assert.equal(result.ledger.publications.economy.publicationBudget.published, 1);
+  assert.equal(result.ledger.publicationHistory.at(-1).candidate.title, '오전 경제 기사');
   assert.equal(result.ledger.publications.issue.candidate, null);
 });
 
@@ -694,7 +693,7 @@ test('refreshes stale news-frame rules before retrying a political statement', (
   assert.ok(terms.includes('전망'));
 });
 
-test('stages an operator-deleted news Reel only with an explicit reviewed generated asset', () => {
+test('does not bypass the daily cap for an operator-deleted news Reel', () => {
   let source = createDailyLedger('2026-08-25');
   source = updatePublication(source, 'issue', {
     publicationKey: 'diem:2026-08-25:issue:deleted-news',
@@ -720,7 +719,7 @@ test('stages an operator-deleted news Reel only with an explicit reviewed genera
     loadLedgerImpl: () => source,
     listLedgersImpl: () => [source],
   }), /requires a story-specific generated asset/u);
-  const staged = stageEditorialRetry({
+  assert.throws(() => stageEditorialRetry({
     publicationKey: source.publications.issue.publicationKey,
     date: '2026-08-25',
     now: new Date('2026-08-25T04:00:00.000Z'),
@@ -729,11 +728,7 @@ test('stages an operator-deleted news Reel only with an explicit reviewed genera
     generatedAssetId: 'public-opinion-01',
     loadLedgerImpl: () => source,
     listLedgersImpl: () => [source],
-  });
-  assert.equal(staged.publications.issue.status, 'planned');
-  assert.equal(staged.publications.issue.candidate.generatedAssetId, 'public-opinion-01');
-  assert.equal(staged.publications.issue.newsReissue.sourcePublicationKey, source.publications.issue.publicationKey);
-  assert.equal(staged.publicationHistory.at(-1).moderation.action, 'deleted');
+  }), /daily publication budget is exhausted/u);
 });
 
 test('refuses editorial retry for an old article or a non-editorial failure', () => {

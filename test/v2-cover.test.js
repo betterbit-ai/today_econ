@@ -7,26 +7,13 @@ const { BRAND, CATEGORIES } = require('../src/v2/constants');
 const {
   COVER_HEIGHT,
   COVER_WIDTH,
-  FOLLOW_CTA,
   buildCoverHtml,
-  buildFollowCtaHtml,
   coverMeta,
   escapeHtml,
   renderDiemCover,
   resolveImageData,
   validateCoverLayout,
 } = require('../src/v2/cover');
-
-test('builds a truthful Korean follow sticker without inventing a fixed briefing time', () => {
-  const html = buildFollowCtaHtml({ coverImageDataUri: 'data:image/png;base64,AAAA' });
-  assert.match(html, /data-follow-cta="true"/u);
-  assert.match(html, /중요한 경제·시사만 골라/u);
-  assert.match(html, /매일 짧고 쉽게 전해드려요/u);
-  assert.match(html, /\+ 팔로우/u);
-  assert.match(html, /@diem\.magazine/u);
-  assert.doesNotMatch(html, /아침|8시|놓치면|무조건/u);
-  assert.equal(FOLLOW_CTA.action, '+ 팔로우');
-});
 
 test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () => {
   const html = buildCoverHtml({
@@ -42,7 +29,7 @@ test('builds one DIEM 9:16 cover with fixed meta and explicit line colors', () =
   assert.match(html, new RegExp(`--diem-blue: ${BRAND.colors.blue}`, 'u'));
   assert.match(html, new RegExp(`--diem-white: ${BRAND.colors.white}`, 'u'));
   assert.match(html, /title-line-1 \{ color: var\(--diem-blue\)/u);
-  assert.match(html, /title-line-2 \{ color: var\(--diem-white\)/u);
+  assert.match(html, /title-line:not\(:first-child\) \{ color: var\(--diem-white\)/u);
   assert.match(html, /data-no-photo="true"/u);
   assert.match(html, /data-typographic-art="markets"/u);
   assert.match(html, /data-typographic-variant="0"/u);
@@ -161,25 +148,35 @@ test('only accepts local or base64 image data and otherwise selects typography f
   assert.match(resolveImageData({ imageDataUri: 'data:image/png;base64,AAAA' }), /^data:image\/png/u);
 });
 
-test('validates 1080x1920, two-line, blue-white cover layout', () => {
+test('validates 1080x1920, two-or-three-line, blue-white cover layout', () => {
   assert.equal(validateCoverLayout({
     width: COVER_WIDTH,
     height: COVER_HEIGHT,
     lineCount: 2,
     firstLineColor: 'rgb(77, 124, 254)',
-    secondLineColor: 'rgb(247, 249, 252)',
+    remainingLineColors: ['rgb(247, 249, 252)'],
     overflow: false,
   }).ok, true);
   const invalid = validateCoverLayout({
     width: 1080,
     height: 1350,
-    lineCount: 3,
+    lineCount: 4,
     firstLineColor: 'rgb(255, 255, 255)',
-    secondLineColor: 'rgb(255, 255, 255)',
+    remainingLineColors: ['rgb(255, 255, 255)'],
     overflow: true,
   });
   assert.equal(invalid.ok, false);
-  assert.equal(invalid.errors.length, 4);
+  assert.equal(invalid.errors.length, 5);
+});
+
+test('uses the compact font tier for an explicit three-line title', () => {
+  const html = buildCoverHtml({
+    title: '서울 아파트\n거래량 다시\n늘었습니다',
+    date: '2026-09-29',
+    category: CATEGORIES.ECONOMY,
+  });
+  assert.equal((html.match(/data-title-line=/g) || []).length, 3);
+  assert.match(html, /data-initial-font-size="92"/u);
 });
 
 test('renders a real 1080x1920 PNG and falls back safely when an image path is broken', {

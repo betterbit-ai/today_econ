@@ -42,7 +42,7 @@ function validPackage() {
   };
   article.newsFrame = buildNewsFrame(article, article.category);
   const pack = {
-    schemaVersion: 1,
+    schemaVersion: 2,
     packageId: '2026-09-16-0730-economy-rate',
     runId: '2026-09-16-0730',
     status: 'ready',
@@ -63,6 +63,7 @@ function validPackage() {
     newsFrame: article.newsFrame,
     claims: article.verifiedFacts.map((text, index) => ({ id: `claim-${index + 1}`, text, sourceSpans: [text] })),
     editorial: buildDeterministicEditorial(article, { handle: 'diem.magazine' }),
+    analytics: { featureSchemaVersion: 2 },
     visual: {
       kind: 'diem-library',
       assetId: 'finance-100',

@@ -7,8 +7,9 @@ const { normalizeNfc } = require('./text');
 const REPORT_JSON = path.join(process.cwd(), 'data', 'reports', 'diem-performance.json');
 const REPORT_MARKDOWN = path.join(process.cwd(), 'data', 'reports', 'diem-performance.md');
 const OBSERVATION_WINDOWS = Object.freeze(['24h', '72h', '7d']);
-const MIN_CATEGORY_SAMPLES = 5;
-const MIN_FEATURE_SAMPLES = 3;
+const FEATURE_SCHEMA_VERSION = 2;
+const MIN_CATEGORY_SAMPLES = 10;
+const MIN_FEATURE_SAMPLES = 5;
 const PRIOR_MIN = -6;
 const PRIOR_MAX = 8;
 const WINDOW_HOURS = Object.freeze({ '24h': 24, '72h': 72, '7d': 168 });
@@ -97,6 +98,7 @@ function sampleFor(publication = {}, windowLabel) {
     engagementRate: metricNumber(window.engagementRate),
     averageWatchTime: metricNumber(media.ig_reels_avg_watch_time),
     followerDeltaEstimate: metricNumber(window.followerDeltaEstimate),
+    featureSchemaVersion: publication.analytics?.featureSchemaVersion || 0,
     features: featureSet(publication),
     image: {
       kind: publication.image?.kind || 'unknown',
@@ -141,11 +143,15 @@ function featureSignals(samples = [], baselineExposure) {
 
 function summarizeCategory(samples = []) {
   const exposureMedian = median(samples.map(sample => sample.exposure));
-  const enough = samples.length >= MIN_CATEGORY_SAMPLES;
+  const learningSamples = samples.filter(sample => sample.featureSchemaVersion === FEATURE_SCHEMA_VERSION);
+  const learningExposureMedian = median(learningSamples.map(sample => sample.exposure));
+  const enough = learningSamples.length >= MIN_CATEGORY_SAMPLES;
   const ranked = [...samples].sort((left, right) => right.exposure - left.exposure);
   return {
     status: enough ? 'ready' : 'insufficient_data',
     samples: samples.length,
+    learningSamples: learningSamples.length,
+    legacyReportOnlySamples: samples.length - learningSamples.length,
     minimumSamples: MIN_CATEGORY_SAMPLES,
     metrics: {
       exposureMedian,
@@ -163,7 +169,7 @@ function summarizeCategory(samples = []) {
     underperformers: enough && exposureMedian
       ? ranked.filter(sample => sample.exposure <= exposureMedian * 0.5).slice(-5).reverse()
       : [],
-    featureSignals: enough ? featureSignals(samples, exposureMedian) : [],
+    featureSignals: enough ? featureSignals(learningSamples, learningExposureMedian) : [],
     caveat: '같은 관찰 구간의 표본만 비교하며 계정 팔로워 증분은 단일 Reel 확정 기여가 아닙니다.',
   };
 }
@@ -219,15 +225,17 @@ function subtractKstCalendarDays(dateString, days) {
 
 function visionFailureReason(error = '') {
   const message = String(error || '');
-  if (/json_validate_failed|failed to validate json/iu.test(message)) return 'vision_json_validate_failed';
+  if (/429|rate.?limit|too many requests/iu.test(message)) return 'rate_limit';
+  if (/model unavailable|model error|failed to call|upstream/iu.test(message)) return 'model_error';
+  if (/json_validate_failed|failed to validate json|json parse/iu.test(message)) return 'json_error';
   if (/failed to retrieve media|received status code:\s*40[13]|local image fetch failed/iu.test(message)) {
-    return 'vision_image_access_failed';
+    return 'image_access';
   }
   if (/no safe image selected|country mismatch|foreign flag|unrelated person|does not depict|neither image depicts/iu.test(message)) {
-    return 'vision_context_rejected';
+    return 'context_rejected';
   }
-  if (/vision review budget exhausted/iu.test(message)) return 'vision_review_budget_exhausted';
-  return 'vision_other_failure';
+  if (/vision review budget exhausted/iu.test(message)) return 'budget_exhausted';
+  return 'model_error';
 }
 
 function visionFailureDistribution(publications = []) {
@@ -235,6 +243,27 @@ function visionFailureDistribution(publications = []) {
     publication.image?.attempts || []
   )).filter(attempt => attempt.provider === 'vision-review' && attempt.error)
     .map(attempt => visionFailureReason(attempt.error)));
+}
+
+function followerSnapshotSummary(publications = []) {
+  const snapshots = new Map();
+  for (const publication of publications) {
+    for (const window of Object.values(publication.insights?.windows || {})) {
+      const collectedAt = window?.collectedAt;
+      const followers = metricNumber(window?.account?.follower_count)
+        ?? metricNumber(window?.account?.followers_count);
+      if (!collectedAt || followers === null) continue;
+      snapshots.set(`${collectedAt}|${followers}`, { collectedAt, followers });
+    }
+  }
+  const ordered = [...snapshots.values()].sort((left, right) => left.collectedAt.localeCompare(right.collectedAt));
+  return {
+    snapshots: ordered.length,
+    first: ordered[0] || null,
+    latest: ordered.at(-1) || null,
+    netChange: ordered.length > 1 ? ordered.at(-1).followers - ordered[0].followers : null,
+    attribution: 'deduplicated_account_snapshots_not_summed_post_deltas',
+  };
 }
 
 function buildPerformanceReport(ledgers = [], now = new Date()) {
@@ -283,10 +312,11 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
     ['generated', 'typographic'].includes(publication.image?.kind)
   )).length;
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
+    featureSchemaVersion: FEATURE_SCHEMA_VERSION,
     generatedAt: now.toISOString(),
     status: Object.values(learningWindows).some(Boolean) ? 'ready' : 'insufficient_data',
-    observationRule: '24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.',
+    observationRule: '24h, 72h, 7d 지표를 섞지 않고 feature schema v2 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.',
     publishedCount: publications.length,
     operations: {
       totalRuns: records.length,
@@ -304,6 +334,7 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
     },
     windows,
     learningWindows,
+    followers: followerSnapshotSummary(publications),
     image: {
       kindDistribution: distribution(publications.map(publication => publication.image?.kind)),
       sourceDistribution: distribution(publications.map(publication => publication.image?.source)),
@@ -340,6 +371,9 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
 }
 
 function performancePrior(candidate = {}, report = {}, { category = candidate.category } = {}) {
+  if (report.featureSchemaVersion !== FEATURE_SCHEMA_VERSION) {
+    return { adjustment: 0, window: null, matched: [], reason: 'legacy_feature_schema_report_only' };
+  }
   const windowLabel = report.learningWindows?.[category];
   const categoryReport = windowLabel ? report.windows?.[windowLabel]?.categories?.[category] : null;
   if (!categoryReport || categoryReport.status !== 'ready') {
@@ -392,6 +426,7 @@ function performanceMarkdown(report) {
     lines.push('');
   }
   lines.push('## 이미지·음악 운영');
+  lines.push(`- 계정 팔로워 순변화: ${display(report.followers?.netChange)} (중복 제거 스냅샷 ${report.followers?.snapshots || 0}개; 게시물별 추정치 합산 금지)`);
   lines.push(`- 타이포그래피 폴백률: ${display(report.image.typographyFallbackRate, '%')}`);
   lines.push(`- 생성 배경 폴백률: ${display(report.image.generatedFallbackRate, '%')} · 전체 폴백률: ${display(report.image.combinedFallbackRate, '%')}`);
   lines.push(`- 이미지 공급원: ${Object.entries(report.image.sourceDistribution).map(([key, value]) => `${key} ${value.count}편`).join(', ') || '기록 없음'}`);
@@ -436,6 +471,7 @@ function loadPerformanceReport(filePath = REPORT_JSON) {
 }
 
 module.exports = {
+  FEATURE_SCHEMA_VERSION,
   MIN_CATEGORY_SAMPLES,
   MIN_FEATURE_SAMPLES,
   OBSERVATION_WINDOWS,
@@ -445,6 +481,7 @@ module.exports = {
   REPORT_MARKDOWN,
   buildPerformanceReport,
   featureSet,
+  followerSnapshotSummary,
   loadPerformanceReport,
   performanceMarkdown,
   performancePrior,

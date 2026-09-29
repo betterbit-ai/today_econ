@@ -6,14 +6,6 @@ const { normalizeNfc, validateTitle } = require('./text');
 
 const COVER_WIDTH = 1080;
 const COVER_HEIGHT = 1920;
-const FOLLOW_CTA = Object.freeze({
-  eyebrow: 'DIEM DAILY BRIEF',
-  headline: '중요한 경제·시사만 골라',
-  promise: '매일 짧고 쉽게 전해드려요',
-  action: '+ 팔로우',
-  handle: '@diem.magazine',
-});
-
 function escapeHtml(value = '') {
   return normalizeNfc(value)
     .replace(/&/g, '&amp;')
@@ -253,6 +245,11 @@ function buildCoverHtml({
   const titleText = Array.isArray(title) ? title.join('\n') : String(title || '');
   const validation = validateTitle(titleText);
   if (!validation.ok) throw new Error(`[DIEM Cover] ${validation.errors.join('; ')}`);
+  const titleFontSize = validation.lines.length === 3 || validation.graphemeCount > 20
+    ? 92
+    : validation.graphemeCount > 14
+      ? 104
+      : 118;
   const meta = coverMeta(date, category, contentType, seriesNumber);
   const hasPhoto = /^data:image\//i.test(imageDataUri);
   const background = hasPhoto
@@ -293,10 +290,10 @@ function buildCoverHtml({
       background-size: 120px 120px; mask-image: linear-gradient(to bottom, transparent 6%, #000 38%, transparent 92%); }
     .content { position: absolute; inset: 0; padding: 140px 92px 240px; display: flex; flex-direction: column; justify-content: flex-end; }
     .meta { color: #b8c6e2; font-size: 32px; line-height: 1; font-weight: 600; letter-spacing: .12em; white-space: nowrap; margin-bottom: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
-    .title { margin: 0 0 36px 0; font-size: 118px; line-height: 1.05; font-weight: 900; letter-spacing: -.035em; text-shadow: 0 4px 24px rgba(0,0,0,0.85); }
+    .title { margin: 0 0 36px 0; font-size: ${titleFontSize}px; line-height: 1.05; font-weight: 900; letter-spacing: -.035em; text-shadow: 0 4px 24px rgba(0,0,0,0.85); }
     .title-line { display: block; width: max-content; max-width: 896px; white-space: pre-wrap; word-break: keep-all; overflow: visible; }
     .title-line-1 { color: var(--diem-blue); }
-    .title-line-2 { color: var(--diem-white); margin-top: 20px; }
+    .title-line:not(:first-child) { color: var(--diem-white); margin-top: 20px; }
     .brand { color: #ffffff; opacity: 0.95; font-size: 32px; font-weight: 600; letter-spacing: 0.05em; text-shadow: 0 2px 12px rgba(0,0,0,0.8); }
   </style>
 </head>
@@ -307,9 +304,8 @@ function buildCoverHtml({
     <div class="grid"></div>
     <div class="content">
       <div class="meta" data-cover-meta>${escapeHtml(meta)}</div>
-      <h1 class="title" aria-label="${escapeHtml(validation.lines.join(' '))}">
-        <span class="title-line title-line-1" data-title-line="1">${escapeHtml(validation.lines[0])}</span>
-        <span class="title-line title-line-2" data-title-line="2">${escapeHtml(validation.lines[1])}</span>
+      <h1 class="title" data-initial-font-size="${titleFontSize}" aria-label="${escapeHtml(validation.lines.join(' '))}">
+        ${validation.lines.map((line, index) => `<span class="title-line title-line-${index + 1}" data-title-line="${index + 1}">${escapeHtml(line)}</span>`).join('\n        ')}
       </h1>
       <div class="brand" data-cover-brand>@diem.magazine</div>
     </div>
@@ -318,55 +314,65 @@ function buildCoverHtml({
 </html>`;
 }
 
-function buildFollowCtaHtml({ coverImageDataUri = '' } = {}) {
-  if (!/^data:image\//iu.test(coverImageDataUri)) {
-    throw new Error('[DIEM Cover] follow CTA requires a rendered cover image.');
-  }
-  return `<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
+function buildSceneHtml({ scene = {}, imageDataUri = '', index = 0 } = {}) {
+  const hasPhoto = /^data:image\//iu.test(imageDataUri);
+  const background = hasPhoto
+    ? `<img class="background" alt="" src="${escapeHtml(imageDataUri)}">`
+    : '<div class="background fallback"></div>';
+  return `<!doctype html><html lang="ko"><head><meta charset="utf-8">
   <meta name="viewport" content="width=${COVER_WIDTH}, initial-scale=1">
-  <title>DIEM Follow CTA</title>
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css">
   <style>
-    * { box-sizing: border-box; }
-    html, body { width: ${COVER_WIDTH}px; height: ${COVER_HEIGHT}px; margin: 0; overflow: hidden; }
-    body { font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; background: #080c16; }
-    .frame { position: relative; width: ${COVER_WIDTH}px; height: ${COVER_HEIGHT}px; overflow: hidden; display: grid; place-items: center; }
-    .cover { position: absolute; inset: -32px; width: calc(100% + 64px); height: calc(100% + 64px); object-fit: cover; filter: blur(18px) brightness(.38) saturate(.78); transform: scale(1.04); }
-    .veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,12,22,.38), rgba(8,12,22,.82)); }
-    .sticker { position: relative; width: 874px; padding: 72px 66px 66px; border: 1px solid rgba(255,255,255,.17); border-radius: 56px; background: rgba(12,19,35,.92); box-shadow: 0 34px 90px rgba(0,0,0,.46); text-align: center; }
-    .eyebrow { margin-bottom: 34px; color: #91acff; font-size: 27px; line-height: 1; font-weight: 800; letter-spacing: .18em; }
-    .headline { margin: 0; color: #f7f9fc; font-size: 76px; line-height: 1.2; font-weight: 900; letter-spacing: -.04em; word-break: keep-all; }
-    .promise { margin: 22px 0 46px; color: #c7d1e6; font-size: 43px; line-height: 1.35; font-weight: 650; letter-spacing: -.025em; }
-    .action { display: inline-flex; min-width: 310px; height: 94px; padding: 0 52px; align-items: center; justify-content: center; border-radius: 999px; background: #4d7cfe; color: white; font-size: 42px; font-weight: 850; box-shadow: 0 16px 40px rgba(77,124,254,.34); }
-    .handle { margin-top: 31px; color: #f7f9fc; opacity: .86; font-size: 29px; font-weight: 650; letter-spacing: .03em; }
-  </style>
-</head>
-<body>
-  <main class="frame" data-follow-cta="true">
-    <img class="cover" alt="" src="${escapeHtml(coverImageDataUri)}">
-    <div class="veil"></div>
-    <section class="sticker" aria-label="DIEM 팔로우 안내">
-      <div class="eyebrow">${escapeHtml(FOLLOW_CTA.eyebrow)}</div>
-      <h1 class="headline">${escapeHtml(FOLLOW_CTA.headline)}</h1>
-      <p class="promise">${escapeHtml(FOLLOW_CTA.promise)}</p>
-      <div class="action">${escapeHtml(FOLLOW_CTA.action)}</div>
-      <div class="handle">${escapeHtml(FOLLOW_CTA.handle)}</div>
-    </section>
-  </main>
-</body>
-</html>`;
+  *{box-sizing:border-box}html,body{width:${COVER_WIDTH}px;height:${COVER_HEIGHT}px;margin:0;overflow:hidden}
+  body{font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif;background:#080c16;color:#f7f9fc}
+  main{position:relative;width:100%;height:100%;overflow:hidden;isolation:isolate}.background{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3}.fallback{background:radial-gradient(circle at 75% 20%,#284b9b 0,transparent 38%),#080c16}
+  .veil{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(8,12,22,.25),rgba(8,12,22,.76) 48%,rgba(8,12,22,.97))}
+  .content{position:absolute;left:84px;right:84px;bottom:150px;padding:62px 58px 58px;border:1px solid rgba(255,255,255,.16);border-radius:38px;background:rgba(8,12,22,.83);backdrop-filter:blur(16px)}
+  .step{color:#91acff;font-size:26px;font-weight:800;letter-spacing:.14em}.title{margin:25px 0 28px;color:#4d7cfe;font-size:74px;line-height:1.08;font-weight:900;letter-spacing:-.04em}.body{margin:0;font-size:48px;line-height:1.45;font-weight:650;letter-spacing:-.025em;word-break:keep-all}.handle{margin-top:38px;font-size:27px;font-weight:650;opacity:.78}
+  </style></head><body><main data-scene="${index + 1}">${background}<div class="veil"></div><section class="content"><div class="step">DIEM BRIEF · ${index + 1}/3</div><h1 class="title">${escapeHtml(scene.title)}</h1><p class="body">${escapeHtml(scene.body)}</p><div class="handle">@diem.magazine</div></section></main></body></html>`;
+}
+
+async function renderDiemScenes({
+  scenes = [],
+  imagePath,
+  imageDataUri,
+  outputDir,
+  chromiumImpl = chromium,
+} = {}) {
+  if (!Array.isArray(scenes) || scenes.length !== 3) throw new Error('[DIEM Cover] Explain Reel requires three scenes.');
+  const resolvedImage = resolveImageData({ imagePath, imageDataUri });
+  fs.mkdirSync(outputDir, { recursive: true });
+  const browser = await chromiumImpl.launch({ headless: true });
+  try {
+    const page = await browser.newPage({ viewport: { width: COVER_WIDTH, height: COVER_HEIGHT } });
+    const paths = [];
+    for (let index = 0; index < scenes.length; index += 1) {
+      await page.setContent(buildSceneHtml({ scene: scenes[index], imageDataUri: resolvedImage, index }), { waitUntil: 'load' });
+      await page.evaluate(() => document.fonts.ready);
+      const overflow = await page.evaluate(() => {
+        const content = document.querySelector('.content').getBoundingClientRect();
+        return content.top < 80 || content.bottom > 1840;
+      });
+      if (overflow) throw new Error(`[DIEM Cover] Scene ${index + 1} exceeds the text safe area.`);
+      const outputPath = path.join(outputDir, `scene-${index + 1}.png`);
+      await page.screenshot({ path: outputPath, type: 'png' });
+      paths.push(outputPath);
+    }
+    return paths;
+  } finally {
+    await browser.close();
+  }
 }
 
 function validateCoverLayout(layout = {}) {
   const errors = [];
   if (layout.width !== COVER_WIDTH || layout.height !== COVER_HEIGHT) errors.push('cover must be exactly 1080x1920');
-  if (layout.lineCount !== 2) errors.push('cover must render exactly two explicit title lines');
+  if (layout.lineCount < 2 || layout.lineCount > 3) errors.push('cover must render two or three explicit title lines');
   if (layout.firstLineColor !== 'rgb(77, 124, 254)') errors.push('first title line must use DIEM blue');
-  if (layout.secondLineColor !== 'rgb(247, 249, 252)') errors.push('second title line must use DIEM white');
-  if (layout.overflow) console.warn('[DIEM Cover] Warning: cover title or meta exceeds the text safe area');
+  if ((layout.remainingLineColors || []).some(color => color !== 'rgb(247, 249, 252)')) {
+    errors.push('title lines after the first must use DIEM white');
+  }
+  if (layout.overflow) errors.push('cover title or meta exceeds the text safe area');
   return { ok: errors.length === 0, errors };
 }
 
@@ -382,7 +388,6 @@ async function renderDiemCover({
   fallbackTheme,
   fallbackVariant,
   visualFingerprint,
-  followCtaOutputPath,
   outputPath = path.resolve('diem-cover.png'),
   chromiumImpl = chromium,
 } = {}) {
@@ -408,13 +413,13 @@ async function renderDiemCover({
     const layout = await page.evaluate(() => {
       const cover = document.querySelector('[data-cover]');
       const lines = [...document.querySelectorAll('[data-title-line]')];
-      lines.forEach(line => {
-        let fontSize = 118;
-        while (line.getBoundingClientRect().height > fontSize * 1.2 && fontSize > 60) {
-          fontSize -= 2;
-          line.style.fontSize = `${fontSize}px`;
-        }
-      });
+      const title = document.querySelector('.title');
+      let fontSize = Number(title.dataset.initialFontSize || 118);
+      const titleOverflows = () => lines.some(line => line.getBoundingClientRect().width > 896.5);
+      while (titleOverflows() && fontSize > 78) {
+        fontSize -= 2;
+        title.style.fontSize = `${fontSize}px`;
+      }
       const meta = document.querySelector('[data-cover-meta]');
       const brand = document.querySelector('[data-cover-brand]');
       const coverRect = cover.getBoundingClientRect();
@@ -431,21 +436,15 @@ async function renderDiemCover({
         height: Math.round(coverRect.height),
         lineCount: lines.length,
         firstLineColor: getComputedStyle(lines[0]).color,
-        secondLineColor: getComputedStyle(lines[1]).color,
+        remainingLineColors: lines.slice(1).map(line => getComputedStyle(line).color),
+        fontSize,
         overflow,
       };
     });
     const validation = validateCoverLayout(layout);
     if (!validation.ok) throw new Error(`[DIEM Cover] ${validation.errors.join('; ')}`);
     await page.screenshot({ path: outputPath, type: 'png' });
-    if (followCtaOutputPath) {
-      fs.mkdirSync(path.dirname(followCtaOutputPath), { recursive: true });
-      const coverImageDataUri = `data:image/png;base64,${fs.readFileSync(outputPath).toString('base64')}`;
-      await page.setContent(buildFollowCtaHtml({ coverImageDataUri }), { waitUntil: 'load' });
-      await page.evaluate(() => document.fonts.ready);
-      await page.screenshot({ path: followCtaOutputPath, type: 'png' });
-    }
-    return { outputPath, followCtaOutputPath: followCtaOutputPath || null, usedPhoto: Boolean(resolvedImage), layout };
+    return { outputPath, usedPhoto: Boolean(resolvedImage), layout };
   } finally {
     await browser.close();
   }
@@ -454,12 +453,12 @@ async function renderDiemCover({
 module.exports = {
   COVER_HEIGHT,
   COVER_WIDTH,
-  FOLLOW_CTA,
   buildCoverHtml,
-  buildFollowCtaHtml,
+  buildSceneHtml,
   coverMeta,
   escapeHtml,
   renderDiemCover,
+  renderDiemScenes,
   resolveImageData,
   validateCoverLayout,
 };
