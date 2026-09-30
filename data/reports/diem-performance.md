@@ -1,14 +1,14 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 253편
-- 생성 시각: 2026-09-29T20:30:37.311Z
+- 발행 원장 Reel: 255편
+- 생성 시각: 2026-09-30T01:06:25.865Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 카테고리별 표본 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
-- economy: 표본 74편 · 노출 중앙값 211 · 공유율 0% · 저장률 0%
+- economy: 표본 75편 · 노출 중앙값 205 · 공유율 0% · 저장률 0%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(91,127), 공무원 / 광고 사과(4,413), 백악관 경고 / 중국 환적 우려(2,226), 미국 관세 압박 / 한국 대응(2,018), 김민석 / 압승 확정(1,969)
-  - 특성 신호: event:ipo insufficient_data×2.23, event:insurance_premium insufficient_data×0.78, event:political_statement insufficient_data×0.74
+  - 특성 신호: event:ipo insufficient_data×2.29, company_event winner×1.38, event:insurance_premium insufficient_data×0.81, event:political_statement insufficient_data×0.76
 - issue: 표본 87편 · 노출 중앙값 325 · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(23,904), 선관위 / 서울시장 소청 기각(7,617), 북 미사일 발사 / 김여정 조롱(5,362), 한동훈 흉기 / 징역 1년 확정(3,867), 트럼프 분노 / 한국 희생양(3,691)
   - 부진 후보: 모기 활동 / 주의 권고(24), 박선원 공개 / 공익제보자 위반(40), 지뢰조사 지연 / 정치 대립(42), 배현진 비판 / 이재명 물(46), 송지은 눈물 / 새롭게하소서(54)
@@ -37,14 +37,14 @@
 - 정시 비교에서 제외한 늦은 백필: 42편
 
 ## 이미지·음악 운영
-- 타이포그래피 폴백률: 16.6%
-- 생성 배경 폴백률: 40.32% · 전체 폴백률: 56.92%
-- 이미지 공급원: diem-generated 102편, pexels 98편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
-- 최근 7일 폴백률: 100% (14/14편, 2026-09-24~2026-09-30)
-- 최근 7일 Vision 실패: vision_other_failure 11건, vision_review_budget_exhausted 1건
+- 타이포그래피 폴백률: 16.47%
+- 생성 배경 폴백률: 40.78% · 전체 폴백률: 57.25%
+- 이미지 공급원: diem-generated 104편, pexels 98편, diem-original 42편, unsplash 6편, wikimedia 4편, openverse 1편
+- 최근 7일 폴백률: 100% (16/16편, 2026-09-24~2026-09-30)
+- 최근 7일 Vision 실패: vision_other_failure 13건, vision_review_budget_exhausted 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 138건, image_context_unavailable 70건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 138건, image_context_unavailable 71건, unknown 44건
 - 제목 재정제 실패: 36건
 
 ## 해석 주의
