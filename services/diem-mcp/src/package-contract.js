@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const DAILY_PACKAGE_SCHEMA_VERSION = 1;
+const DAILY_PACKAGE_SCHEMA_VERSION = 2;
 const MAX_EVIDENCE_CHARS = 12_000;
 
 function normalizeNfc(value = '') {
@@ -46,7 +46,7 @@ function normalizeEvidence(value = '') {
 
 function validateSubmissionPackage(item = {}, { now = new Date() } = {}) {
   const errors = [];
-  if (item.schemaVersion !== DAILY_PACKAGE_SCHEMA_VERSION) errors.push('schemaVersion must be 1');
+  if (item.schemaVersion !== DAILY_PACKAGE_SCHEMA_VERSION) errors.push('schemaVersion must be 2');
   if (!isSafeId(item.packageId)) errors.push('packageId is invalid');
   if (!isSafeId(item.runId)) errors.push('runId is invalid');
   if (item.status !== 'ready') errors.push('package status must be ready');
@@ -80,10 +80,15 @@ function validateSubmissionPackage(item = {}, { now = new Date() } = {}) {
   const frame = item.newsFrame || {};
   if (!frame.subject || !frame.eventKind || !frame.claimState) errors.push('newsFrame needs subject, eventKind, and claimState');
   const editorial = item.editorial || {};
-  if (!editorial.title?.text || !Array.isArray(editorial.title?.lines) || editorial.title.lines.length !== 2) {
-    errors.push('editorial needs a two-line title');
+  if (!editorial.title?.text || !Array.isArray(editorial.title?.lines) || ![2, 3].includes(editorial.title.lines.length)) {
+    errors.push('editorial needs a two-or-three-line title');
   }
-  if (!normalizeNfc(editorial.caption).trim()) errors.push('editorial caption is required');
+  if (!normalizeNfc(editorial.caption?.text || editorial.caption).trim()) errors.push('editorial caption is required');
+  if (!['flash', 'explain'].includes(editorial.reelFormat)) errors.push('editorial reelFormat must be flash or explain');
+  if (editorial.reelFormat === 'explain' && (!Array.isArray(editorial.scenes) || editorial.scenes.length !== 3)) {
+    errors.push('explain editorial needs three scenes');
+  }
+  if (item.analytics?.featureSchemaVersion !== 2) errors.push('analytics.featureSchemaVersion must be 2');
 
   const visual = item.visual || {};
   if (!visual.visualFingerprint) errors.push('visual fingerprint is required');

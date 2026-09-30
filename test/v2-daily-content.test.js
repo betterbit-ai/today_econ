@@ -24,7 +24,7 @@ function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
 }
 
-function packageFixture({ mode = 'assisted', visualKind = 'typographic' } = {}) {
+function packageFixture({ mode = 'assisted', visualKind = 'typographic', schemaVersion = 1 } = {}) {
   const evidenceText = [
     '한국은행은 9월 16일 기준금리를 연 2.50%로 동결했습니다.',
     '물가와 가계대출 흐름을 더 확인할 필요가 있다고 밝혔습니다.',
@@ -44,7 +44,7 @@ function packageFixture({ mode = 'assisted', visualKind = 'typographic' } = {}) 
   article.newsFrame = buildNewsFrame(article, article.category);
   const editorial = buildDeterministicEditorial(article, { handle: 'diem.magazine' });
   const pack = {
-    schemaVersion: 1,
+    schemaVersion,
     packageId: '2026-09-16-0730-economy-rate',
     runId: '2026-09-16-0730',
     status: 'ready',
@@ -73,6 +73,7 @@ function packageFixture({ mode = 'assisted', visualKind = 'typographic' } = {}) 
       sourceSpans: [fact],
     })),
     editorial,
+    analytics: schemaVersion === 2 ? { featureSchemaVersion: 2 } : undefined,
     visual: {
       kind: visualKind,
       fallbackTheme: 'rate-reset',
@@ -112,6 +113,16 @@ test('validates and stages a cloud editorial package without Groq generation', (
   assert.equal(publication.editorial.generation.mode, 'chatgpt_cloud_scheduled');
   assert.equal(publication.image.kind, 'typographic');
   assert.equal(publication.reel.status, 'planned');
+});
+
+test('accepts v1 packages while requiring the v2 analytics contract', () => {
+  const legacy = packageFixture();
+  assert.equal(validateDailyPackage(legacy, { now: NOW }).ok, true);
+  const current = packageFixture({ schemaVersion: 2 });
+  assert.equal(validateDailyPackage(current, { now: NOW }).ok, true);
+  current.analytics.featureSchemaVersion = 1;
+  current.integrity.contentSha256 = dailyPackageContentHash(current);
+  assert.match(validateDailyPackage(current, { now: NOW }).errors.join('; '), /featureSchemaVersion/u);
 });
 
 test('validates and stages a ChatGPT-selected local visual library asset', () => {
@@ -171,10 +182,9 @@ test('prepares an assisted library package with the committed visual asset', asy
       package: pack,
       now: NOW,
       artifactRoot,
-      renderCoverImpl: async ({ imagePath, outputPath, followCtaOutputPath }) => {
+      renderCoverImpl: async ({ imagePath, outputPath }) => {
         renderedImagePath = imagePath;
         fs.writeFileSync(outputPath, 'cover');
-        fs.writeFileSync(followCtaOutputPath, 'cta');
       },
       selectMusicImpl: () => ({ trackId: null, mode: 'silent', mood: 'serious' }),
       createReelImpl: async ({ outputPath }) => {
@@ -202,9 +212,8 @@ test('prepares a staged package with stored editorial content and never calls a 
       now: NOW,
       artifactRoot,
       callModel: async () => { modelCalls += 1; },
-      renderCoverImpl: async ({ outputPath, followCtaOutputPath }) => {
+      renderCoverImpl: async ({ outputPath }) => {
         fs.writeFileSync(outputPath, 'cover');
-        fs.writeFileSync(followCtaOutputPath, 'cta');
       },
       selectMusicImpl: () => ({ trackId: null, mode: 'silent', mood: 'serious' }),
       createReelImpl: async ({ outputPath }) => {
@@ -262,9 +271,8 @@ test('stages, prepares, and publishes one assisted package without re-running ed
   };
   const prepareOptions = {
     artifactRoot,
-    renderCoverImpl: async ({ outputPath, followCtaOutputPath }) => {
+    renderCoverImpl: async ({ outputPath }) => {
       fs.writeFileSync(outputPath, 'cover');
-      fs.writeFileSync(followCtaOutputPath, 'cta');
     },
     selectMusicImpl: () => ({ trackId: null, mode: 'silent', mood: 'serious' }),
     createReelImpl: async ({ outputPath }) => {

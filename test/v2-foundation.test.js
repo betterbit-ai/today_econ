@@ -70,7 +70,7 @@ test('validates a two-line DIEM title by grapheme count', () => {
   const valid = validateTitle('금리 다시\n내려간다');
   assert.equal(valid.ok, true);
   assert.equal(valid.lines.length, 2);
-  assert.ok(valid.graphemeCount <= 14);
+  assert.ok(valid.graphemeCount <= 26);
   assert.equal(validateTitle('모르면 손해\n금리 비밀').ok, false);
   assert.equal(validateTitle('한 줄뿐인 제목').ok, false);
   assert.equal(validateTitle('자동차보험 6년\n6년 적자').ok, false);

@@ -937,7 +937,7 @@ async function selectLicensedImage(candidate, {
     let phaseBlockedCandidateCount = 0;
     for (const query of phase.queries) {
       const queryPool = [];
-      for (const provider of phase.providers) {
+      for (const [providerIndex, provider] of phase.providers.entries()) {
         try {
           const images = (await provider.search(query)).slice(0, 20);
           const scored = images
@@ -994,35 +994,43 @@ async function selectLicensedImage(candidate, {
         } catch (error) {
           attempts.push({ provider: provider.name, visualRole: phase.visualRole, query, count: 0, error: error.message });
         }
-        if (reviewImagePool(queryPool, reviewPoolTarget).length >= reviewPoolTarget) break;
+        if (providerIndex >= 1 && reviewImagePool(queryPool, reviewPoolTarget).length >= reviewPoolTarget) break;
       }
       const shortlist = reviewImagePool(queryPool, 5);
       if (shortlist.length < 1) continue;
+      if (!reviewImages) {
+        attempts.push({
+          provider: 'vision-review',
+          visualRole: phase.visualRole,
+          query,
+          count: shortlist.length,
+          error: 'model error: Vision reviewer unavailable; unreviewed web images are blocked',
+        });
+        continue;
+      }
       let selected = shortlist[0];
       let visionReview = null;
-      if (reviewImages) {
-        if (visionReviewCount >= maxVisionReviews) {
-          attempts.push({
-            provider: 'vision-review',
-            visualRole: phase.visualRole,
-            query,
-            count: shortlist.length,
-            error: `vision review budget exhausted after ${maxVisionReviews} attempts`,
-          });
+      if (visionReviewCount >= maxVisionReviews) {
+        attempts.push({
+          provider: 'vision-review',
+          visualRole: phase.visualRole,
+          query,
+          count: shortlist.length,
+          error: `vision review budget exhausted after ${maxVisionReviews} attempts`,
+        });
+        continue;
+      }
+      visionReviewCount += 1;
+      try {
+        visionReview = await reviewImages({ candidate, query, images: shortlist.slice(0, 2) });
+        selected = shortlist.find(image => image.id === visionReview?.selectedId);
+        if (!visionReview?.ok || !selected) {
+          attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: visionReview?.reason || 'no safe image selected' });
           continue;
         }
-        visionReviewCount += 1;
-        try {
-          visionReview = await reviewImages({ candidate, query, images: shortlist.slice(0, 2) });
-          selected = shortlist.find(image => image.id === visionReview?.selectedId);
-          if (!visionReview?.ok || !selected) {
-            attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: visionReview?.reason || 'no safe image selected' });
-            continue;
-          }
-        } catch (error) {
-          attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: error.message });
-          continue;
-        }
+      } catch (error) {
+        attempts.push({ provider: 'vision-review', visualRole: phase.visualRole, query, count: shortlist.length, error: error.message });
+        continue;
       }
       const suitabilityRejected = attempts.reduce((total, attempt) => total + (attempt.suitabilityRejected || 0), 0);
       return {
@@ -1035,7 +1043,7 @@ async function selectLicensedImage(candidate, {
         selectionPoolSize: shortlist.length,
         finalReview: {
           ok: true,
-          method: reviewImages ? 'vision_context_shortlist' : 'deterministic_context_shortlist',
+          method: 'vision_context_shortlist',
           candidateCount: reviewImagePool(queryPool, Number.MAX_SAFE_INTEGER).length,
           selectedId: selected.id,
           selectedScore: selected.finalReviewScore,

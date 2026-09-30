@@ -8,12 +8,21 @@ const execFileAsync = promisify(execFile);
 const DIEM_REEL = Object.freeze({
   width: 1080,
   height: 1920,
-  durationSeconds: 7,
-  contentSeconds: 5,
-  followCtaSeconds: 2,
-  transitionSeconds: 0.35,
+  durationSeconds: 6,
+  transitionSeconds: 0,
   fps: 30,
-  frameCount: 210,
+  frameCount: 180,
+  audioSampleRate: 48_000,
+  audioVolume: 0.3,
+});
+const DIEM_EXPLAIN_REEL = Object.freeze({
+  width: 1080,
+  height: 1920,
+  durationSeconds: 13,
+  sceneDurations: Object.freeze([4, 5, 5]),
+  transitionSeconds: 0.5,
+  fps: 30,
+  frameCount: 390,
   audioSampleRate: 48_000,
   audioVolume: 0.3,
 });
@@ -57,30 +66,21 @@ function buildDiemVideoFilter() {
 
 function buildDiemReelArgs({
   imagePath,
-  followCtaImagePath,
+  sceneImagePaths = [],
+  format = 'flash',
   audioPath,
   outputPath,
 } = {}) {
-  const {
-    durationSeconds,
-    contentSeconds,
-    followCtaSeconds,
-    transitionSeconds,
-    fps,
-    frameCount,
-    audioSampleRate,
-    audioVolume,
-  } = DIEM_REEL;
-  const args = [
-    '-y',
-    '-loop', '1',
-    '-framerate', String(fps),
-    '-t', String(followCtaImagePath ? contentSeconds + transitionSeconds : durationSeconds),
-    '-i', imagePath,
-  ];
-  if (followCtaImagePath) {
-    args.push('-loop', '1', '-framerate', String(fps), '-t', String(followCtaSeconds), '-i', followCtaImagePath);
-  }
+  if (!['flash', 'explain'].includes(format)) throw new Error(`[DIEM Reel] Unsupported format: ${format}`);
+  const spec = format === 'explain' ? DIEM_EXPLAIN_REEL : DIEM_REEL;
+  const { durationSeconds, fps, frameCount, audioSampleRate, audioVolume } = spec;
+  const images = format === 'explain' ? sceneImagePaths : [imagePath];
+  if (format === 'explain' && images.length !== 3) throw new Error('[DIEM Reel] Explain format requires exactly three scene images.');
+  const args = ['-y'];
+  images.forEach((source, index) => {
+    const sceneDuration = format === 'explain' ? spec.sceneDurations[index] : durationSeconds;
+    args.push('-loop', '1', '-framerate', String(fps), '-t', String(sceneDuration), '-i', source);
+  });
   if (audioPath) {
     args.push('-stream_loop', '-1', '-i', audioPath);
   } else {
@@ -90,13 +90,18 @@ function buildDiemReelArgs({
       '-i', `anullsrc=channel_layout=stereo:sample_rate=${audioSampleRate}`,
     );
   }
-  const audioIndex = followCtaImagePath ? 2 : 1;
-  const video = followCtaImagePath
-    ? `[0:v]${buildDiemVideoFilter()},trim=duration=${contentSeconds + transitionSeconds},setpts=PTS-STARTPTS[content];[1:v]${buildDiemVideoFilter()},trim=duration=${followCtaSeconds},setpts=PTS-STARTPTS[cta];[content][cta]xfade=transition=fade:duration=${transitionSeconds}:offset=${contentSeconds}[v]`
+  const audioIndex = images.length;
+  const video = format === 'explain'
+    ? [
+      ...images.map((_, index) => `[${index}:v]${buildDiemVideoFilter()},setpts=PTS-STARTPTS[v${index}]`),
+      `[v0][v1]xfade=transition=fade:duration=${spec.transitionSeconds}:offset=3.5[x1]`,
+      `[x1][v2]xfade=transition=fade:duration=${spec.transitionSeconds}:offset=8[v]`,
+    ].join(';')
     : `[0:v]${buildDiemVideoFilter()}[v]`;
+  const fadeOutStart = Math.max(0, durationSeconds - 0.45);
   args.push(
     '-filter_complex',
-    `${video};[${audioIndex}:a]atrim=duration=${durationSeconds},asetpts=N/SR/TB,volume=${audioVolume},afade=t=in:st=0:d=0.18,afade=t=out:st=6.55:d=0.45,aresample=${audioSampleRate}[a]`,
+    `${video};[${audioIndex}:a]atrim=duration=${durationSeconds},asetpts=N/SR/TB,volume=${audioVolume},afade=t=in:st=0:d=0.18,afade=t=out:st=${fadeOutStart}:d=0.45,aresample=${audioSampleRate}[a]`,
     '-map', '[v]',
     '-map', '[a]',
     '-frames:v', String(frameCount),
@@ -186,24 +191,26 @@ function buildDiemBasicReelArgs({
 
 async function createDiemReelVideo({
   imagePath,
-  followCtaImagePath,
+  sceneImagePaths = [],
+  format = 'flash',
   outputPath = path.join(os.tmpdir(), `diem-reel-${Date.now()}.mp4`),
   audioPath = null,
   execFileImpl,
   fsImpl = fs,
   ffmpegPath,
 } = {}) {
-  if (!imagePath || !fsImpl.existsSync(imagePath)) {
-    throw new Error(`[DIEM Reel] Image not found: ${imagePath || '(missing)'}`);
+  const requiredImages = format === 'explain' ? sceneImagePaths : [imagePath];
+  if (format === 'explain' && requiredImages.length !== 3) {
+    throw new Error('[DIEM Reel] Explain format requires exactly three scene images.');
   }
-  if (followCtaImagePath && !fsImpl.existsSync(followCtaImagePath)) {
-    throw new Error(`[DIEM Reel] Follow CTA image not found: ${followCtaImagePath}`);
+  for (const source of requiredImages) {
+    if (!source || !fsImpl.existsSync(source)) throw new Error(`[DIEM Reel] Image not found: ${source || '(missing)'}`);
   }
   if (audioPath && !fsImpl.existsSync(audioPath)) {
     throw new Error(`[DIEM Reel] Audio not found: ${audioPath}`);
   }
   fsImpl.mkdirSync(path.dirname(outputPath), { recursive: true });
-  const args = buildDiemReelArgs({ imagePath, followCtaImagePath, audioPath, outputPath });
+  const args = buildDiemReelArgs({ imagePath, sceneImagePaths, format, audioPath, outputPath });
   await runFfmpeg(args, { execFileImpl, ffmpegPath });
   return outputPath;
 }
@@ -230,7 +237,8 @@ async function createDiemBasicReelVideo({
 
 async function createDiemReelWithMusic({
   imagePath,
-  followCtaImagePath,
+  sceneImagePaths = [],
+  format = 'flash',
   outputPath,
   music,
   execFileImpl,
@@ -247,7 +255,8 @@ async function createDiemReelWithMusic({
     try {
       const renderedPath = await createVideoImpl({
         imagePath,
-        followCtaImagePath,
+        sceneImagePaths,
+        format,
         outputPath,
         audioPath: candidate.path,
         execFileImpl,
@@ -285,7 +294,8 @@ async function createDiemReelWithMusic({
 
   const silentPath = await createVideoImpl({
     imagePath,
-    followCtaImagePath,
+    sceneImagePaths,
+    format,
     outputPath,
     audioPath: null,
     execFileImpl,
@@ -358,6 +368,7 @@ async function createDiemBasicReelWithMusic({
 
 module.exports = {
   DIEM_BASIC_REEL,
+  DIEM_EXPLAIN_REEL,
   DIEM_REEL,
   buildDiemBasicReelArgs,
   buildDiemReelArgs,

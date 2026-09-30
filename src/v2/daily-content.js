@@ -17,7 +17,7 @@ const {
 const { publishPreparedPublication } = require('./publisher');
 const { selectMusic, getMood } = require('./music');
 const { createDiemReelWithMusic } = require('./reel');
-const { renderDiemCover } = require('./cover');
+const { renderDiemCover, renderDiemScenes } = require('./cover');
 const { buildTopicSignature, classifyCandidate } = require('./topic');
 const { generatedFallbackTopic, imageReuseKeys } = require('./image-selector');
 const { validateEditorial } = require('./editorial');
@@ -25,7 +25,7 @@ const { normalizeNfc } = require('./text');
 const { resolveVisualLibraryAsset } = require('./visual-library');
 
 const DAILY_CONTENT_TYPE = 'diem_daily';
-const DAILY_PACKAGE_SCHEMA_VERSION = 1;
+const DAILY_PACKAGE_SCHEMA_VERSION = 2;
 const DAILY_CONTENT_ROOT = path.join(process.cwd(), 'content', 'diem-daily');
 const MAX_DAILY_IMAGE_BYTES = 8 * 1024 * 1024;
 
@@ -204,7 +204,7 @@ function validateDailyPackage(item = {}, {
   handle = config.instagramUsername,
 } = {}) {
   const errors = [];
-  if (item.schemaVersion !== DAILY_PACKAGE_SCHEMA_VERSION) errors.push('schemaVersion must be 1');
+  if (![1, DAILY_PACKAGE_SCHEMA_VERSION].includes(item.schemaVersion)) errors.push('schemaVersion must be 1 or 2');
   try { safeId(item.packageId, 'packageId'); } catch (error) { errors.push(error.message); }
   try { safeId(item.runId, 'runId'); } catch (error) { errors.push(error.message); }
   if (item.status !== 'ready') errors.push('package status must be ready');
@@ -247,6 +247,13 @@ function validateDailyPackage(item = {}, {
   }
   const editorialResult = validateEditorial(item.editorial || {}, { article, handle });
   if (!editorialResult.ok) errors.push(...editorialResult.errors.map(error => `editorial: ${error}`));
+  if (item.schemaVersion === 2) {
+    if (!['flash', 'explain'].includes(item.editorial?.reelFormat)) errors.push('v2 editorial reelFormat must be flash or explain');
+    if (!Array.isArray(item.editorial?.title?.lines) || ![2, 3].includes(item.editorial.title.lines.length)) {
+      errors.push('v2 editorial title.lines must contain two or three lines');
+    }
+    if (item.analytics?.featureSchemaVersion !== 2) errors.push('v2 analytics.featureSchemaVersion must be 2');
+  }
 
   let image = null;
   try {
@@ -295,7 +302,7 @@ function stageDailyPackage(item, {
   const image = imageForPackage(item);
   return {
     ...base,
-    schemaVersion: DAILY_PACKAGE_SCHEMA_VERSION,
+    schemaVersion: item.schemaVersion,
     contentType: DAILY_CONTENT_TYPE,
     dailyPackageId: item.packageId,
     status: 'planned',
@@ -318,6 +325,10 @@ function stageDailyPackage(item, {
         reasoningEffort: item.generation.reasoningEffort || null,
         taskRunId: item.generation.taskRunId || null,
       },
+    },
+    analytics: {
+      ...(item.analytics || {}),
+      featureSchemaVersion: item.schemaVersion === 2 ? 2 : (item.analytics?.featureSchemaVersion || 0),
     },
     image,
     source: {
@@ -352,6 +363,7 @@ async function prepareDailyPackage(ledger, category, {
   artifactRoot,
   history = [],
   renderCoverImpl = renderDiemCover,
+  renderScenesImpl = renderDiemScenes,
   selectMusicImpl = selectMusic,
   createReelImpl = createDiemReelWithMusic,
 } = {}) {
@@ -379,7 +391,6 @@ async function prepareDailyPackage(ledger, category, {
   const outputDir = artifactDirectory(ledger, category, artifactRoot);
   fs.mkdirSync(outputDir, { recursive: true });
   const coverPath = path.join(outputDir, `${category}-cover.png`);
-  const followCtaPath = path.join(outputDir, `${category}-follow-cta.png`);
   const packageImagePath = item.visual?.assetPath || item.visual?.kind === 'diem-library'
     ? visualFilePath(item)
     : null;
@@ -392,12 +403,15 @@ async function prepareDailyPackage(ledger, category, {
     fallbackTheme: image.fallbackTheme,
     fallbackVariant: image.fallbackVariant,
     visualFingerprint: image.visualFingerprint,
-    followCtaOutputPath: followCtaPath,
     outputPath: coverPath,
   });
-  if (!fs.existsSync(coverPath) || !fs.existsSync(followCtaPath)) {
-    throw new Error('[DIEM Daily] Cover or follow CTA artifact was not rendered.');
-  }
+  if (!fs.existsSync(coverPath)) throw new Error('[DIEM Daily] Cover artifact was not rendered.');
+  const reelFormat = publication.editorial.reelFormat || 'flash';
+  const sceneImagePaths = reelFormat === 'explain'
+    ? (renderCoverImpl === renderDiemCover
+      ? await renderScenesImpl({ scenes: publication.editorial.scenes, imagePath: packageImagePath, outputDir })
+      : [coverPath, coverPath, coverPath])
+    : [];
   const music = selectMusicImpl({
     history,
     publicationKey: publication.publicationKey,
@@ -407,7 +421,8 @@ async function prepareDailyPackage(ledger, category, {
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,
-    followCtaImagePath: followCtaPath,
+    sceneImagePaths,
+    format: reelFormat,
     outputPath: reelPath,
     music,
   });
@@ -419,8 +434,7 @@ async function prepareDailyPackage(ledger, category, {
     artifacts: {
       coverPath: path.relative(process.cwd(), coverPath),
       coverSha256: sha256File(coverPath),
-      followCtaPath: path.relative(process.cwd(), followCtaPath),
-      followCtaSha256: sha256File(followCtaPath),
+      scenePaths: sceneImagePaths.map(scenePath => path.relative(process.cwd(), scenePath)),
       reelPath: path.relative(process.cwd(), reelResult.outputPath || reelPath),
       reelSha256: sha256File(reelResult.outputPath || reelPath),
       temporary: true,

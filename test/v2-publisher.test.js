@@ -366,7 +366,6 @@ test('renders a generated fallback asset as the reel background', async () => {
     renderCoverImpl: async options => {
       rendered = options;
       fs.writeFileSync(options.outputPath, 'cover');
-      fs.writeFileSync(options.followCtaOutputPath, 'follow-cta');
     },
     selectMusicImpl: () => ({ trackId: 'mock-track', filePath: null, title: 'Mock' }),
     createReelImpl: async options => {
@@ -378,10 +377,10 @@ test('renders a generated fallback asset as the reel background', async () => {
   });
 
   assert.equal(rendered.imagePath, generated.localPath);
-  assert.equal(reelInput.followCtaImagePath, rendered.followCtaOutputPath);
-  assert.equal(fs.existsSync(reelInput.followCtaImagePath), true);
+  assert.equal(reelInput.format, 'flash');
   assert.equal(result.publications.economy.image.kind, 'generated');
-  assert.match(result.publications.economy.artifacts.followCtaPath, /economy-follow-cta\.png$/u);
+  assert.equal(result.publications.economy.analytics.featureSchemaVersion, 2);
+  assert.deepEqual(result.publications.economy.artifacts.scenePaths, []);
 });
 
 test('replaces a failed web download with reviewed generated art instead of typography', async () => {

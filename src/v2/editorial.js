@@ -480,9 +480,21 @@ function assembleEditorial({
     ? requested
     : validTitleCandidates[0];
   const comments = buildCommentChain(article, emojis.first, handle);
+  const explainEventKinds = new Set([
+    'legislation',
+    'housing_policy',
+    'public_hearing_disruption',
+    'medical_safety_advisory',
+    'rescue_search',
+    'political_statement',
+  ]);
+  const reelFormat = explainEventKinds.has(frame.eventKind) ? 'explain' : 'flash';
+  const sceneRoles = ['what_happened', 'reader_impact', 'what_to_watch'];
+  const sceneTitles = ['무슨 일', '내게 미치는 영향', '앞으로 확인할 사실'];
   const editorial = {
     schemaVersion: 2,
     category: article.category,
+    reelFormat,
     titleCandidates: validTitleCandidates,
     title: {
       text: selected.title,
@@ -491,6 +503,14 @@ function assembleEditorial({
       selectionReason: 'accuracy_format_clarity_curiosity',
     },
     caption: { sentences, text: caption },
+    scenes: reelFormat === 'explain'
+      ? sentences.map((body, index) => ({
+        role: sceneRoles[index],
+        title: sceneTitles[index],
+        body,
+        factRefs: [index],
+      }))
+      : [],
     emojis,
     imageKeyword,
     comments,
@@ -578,7 +598,7 @@ function modelPrompt(article) {
       '- IPO/상장 기사라면 제목에 반드시 IPO, 기업공개, 상장, 첫 거래, 증시 데뷔 중 하나를 넣으세요.',
       '- 알파벳 약어만 쓰지 말고 사건어 또는 쉬운 설명어를 함께 넣으세요. 날짜만 반복하는 제목은 금지합니다.',
       '- 선두·추격·우위가 핵심이면 누가 현재 앞서는지 명시하고, 이미 선두인 주체를 추격한다고 뒤집거나 추격 주체를 모호하게 쓰지 마세요.',
-      '- 각 title은 줄바꿈(\'\\n\') 1개를 포함한 정확히 2줄이어야 하며, 두 줄 합계 공백 포함 최대 14자입니다.',
+      '- 각 title은 줄바꿈으로 나눈 2~3줄이며, 전체 공백 포함 최대 26자, 각 줄 최대 10자입니다.',
       '- 절망 시대, 완전 통과, 대박, 환호 터졌다 같은 과장어와 ↑·↓ 기호를 쓰지 마세요.',
       '- 제목·요약·본문 도입부가 말하는 하나의 주요 사건만 제목으로 삼고, 본문 뒤쪽의 이력·예정·부수 키워드를 주제로 바꾸지 마세요.',
       '- 둘째 줄을 "보도", "논란", "상황", "소식" 같은 편집용 빈말 하나로 채우지 말고 실제 사건·수치·결과를 적으세요.',
@@ -636,7 +656,7 @@ function editorialRepairPrompt(article = {}, error = {}) {
       'sentences는 정확히 3개입니다: 사건 요약, 핵심 근거, 기사에 명시된 맥락 또는 다음 핵심 사실.',
       '각 문장은 하나의 완결문이며 120자 이내입니다. 기사에 없는 숫자·원인·전망·조언은 금지합니다.',
       '숫자는 user JSON의 allowedNumbers에 있는 표기만 그대로 쓸 수 있습니다. 필요한 숫자가 없으면 숫자를 쓰지 마세요.',
-      'titleCandidates는 1개 이상이며 각 title은 줄바꿈 1개, 정확히 2줄, 두 줄 합계 14자 이내입니다.',
+      'titleCandidates는 1개 이상이며 각 title은 2~3줄, 전체 26자 이내, 각 줄 10자 이내입니다.',
       '제목은 주체·사건·보도 상태를 보존합니다. 발언은 발언, 전망은 전망, 잠정합의는 합의로 적습니다.',
       '"오라 그래", "하라 그래" 같은 간접명령형은 그대로 잘라 쓰지 말고 전체 이름과 자연스러운 직접화법으로 고치세요.',
       politicalAttributionRule,
@@ -689,7 +709,7 @@ function titleRepairPrompt(article = {}, parsed = {}) {
   return {
     systemPrompt: [
       '당신은 DIEM 표지 제목 교정기입니다. 본문이나 사실을 다시 쓰지 말고 제목 후보만 교정하세요.',
-      '각 후보는 줄바꿈 1개가 있는 정확히 2줄이며, 두 줄 합계 공백 포함 최대 14자입니다.',
+      '각 후보는 줄바꿈으로 나눈 2~3줄이며, 전체 공백 포함 최대 26자, 각 줄 최대 10자입니다.',
       '짧게 만들더라도 핵심 주체와 실제 사건, 확정·예정·부인 같은 기사 상태를 반드시 보존하세요.',
       '표지만 읽고도 누구의 어떤 발언·결정·사건인지 이해돼야 하며, 해석이 필요한 압축 명사구는 다시 쓰세요.',
       '"보도", "논란", "상황", "소식"을 한 줄 전체로 쓰지 말고 실제 사건·수치·결과로 교체하세요.',
@@ -831,6 +851,21 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   if (!titleValidation.ok) errors.push(...titleValidation.errors.map(error => `selected ${error}`));
   if (!editorial?.titleCandidates?.some(candidate => candidate.title === editorial?.title?.text)) {
     errors.push('selected title must be one of the title candidates');
+  }
+  if (editorial?.reelFormat != null && !['flash', 'explain'].includes(editorial.reelFormat)) {
+    errors.push('reelFormat must be flash or explain');
+  }
+  if (editorial?.reelFormat === 'explain') {
+    const expectedRoles = ['what_happened', 'reader_impact', 'what_to_watch'];
+    if (!Array.isArray(editorial.scenes) || editorial.scenes.length !== 3) {
+      errors.push('explain Reel requires exactly three scenes');
+    } else {
+      editorial.scenes.forEach((scene, index) => {
+        if (scene.role !== expectedRoles[index]) errors.push(`scene ${index + 1} has an invalid role`);
+        if (!scene.title || !scene.body) errors.push(`scene ${index + 1} needs title and body`);
+        if (!Array.isArray(scene.factRefs) || scene.factRefs.length < 1) errors.push(`scene ${index + 1} needs factRefs`);
+      });
+    }
   }
   const captionValidation = validateCaption(editorial?.caption?.text || '');
   if (!captionValidation.ok) errors.push(...captionValidation.errors);

@@ -26,7 +26,7 @@ const {
 const { allLedgerPublications, imageRecordFromPublication, updatePublication } = require('./ledger');
 const { selectMusic, getMood } = require('./music');
 const { createDiemReelWithMusic } = require('./reel');
-const { renderDiemCover } = require('./cover');
+const { renderDiemCover, renderDiemScenes } = require('./cover');
 const { isSensitiveTopic } = require('./topic');
 const { MANUAL_REEL_STORY_SHARE_REASON } = require('./constants');
 
@@ -92,6 +92,7 @@ async function preparePublication(ledger, category, {
   selectImageImpl = selectLicensedImage,
   downloadImageImpl = downloadSelectedImage,
   renderCoverImpl = renderDiemCover,
+  renderScenesImpl = renderDiemScenes,
   selectMusicImpl = selectMusic,
   createReelImpl = createDiemReelWithMusic,
   reviewImages,
@@ -198,22 +199,24 @@ async function preparePublication(ledger, category, {
   }
 
   const coverPath = path.join(outputDir, `${category}-cover.png`);
-  const followCtaPath = path.join(outputDir, `${category}-follow-cta.png`);
+  const sourceImagePath = downloaded.localPath || (imageSelection.kind === 'generated' ? imageSelection.localPath : null);
   await renderCoverImpl({
     editorial,
     date: ledger.date,
     category,
     contentType: editorial.contentType || article.contentType || publication.contentType || 'hot_news',
-    imagePath: downloaded.localPath || (imageSelection.kind === 'generated' ? imageSelection.localPath : null),
+    imagePath: sourceImagePath,
     fallbackTheme: imageSelection.fallbackTheme,
     fallbackVariant: imageSelection.fallbackVariant,
     visualFingerprint: imageSelection.visualFingerprint,
-    followCtaOutputPath: followCtaPath,
     outputPath: coverPath,
   });
-  if (renderCoverImpl === renderDiemCover && !fs.existsSync(followCtaPath)) {
-    throw new Error('[DIEM Publisher] Follow CTA frame was not rendered; automatic publication is blocked.');
-  }
+  const reelFormat = editorial.reelFormat || 'flash';
+  const sceneImagePaths = reelFormat === 'explain'
+    ? (renderCoverImpl === renderDiemCover
+      ? await renderScenesImpl({ scenes: editorial.scenes, imagePath: sourceImagePath, outputDir })
+      : [coverPath, coverPath, coverPath])
+    : [];
 
   const articleText = `${article.title} ${article.summary} ${article.fullText}`;
   const mood = getMood(articleText);
@@ -227,7 +230,8 @@ async function preparePublication(ledger, category, {
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,
-    followCtaImagePath: followCtaPath,
+    sceneImagePaths,
+    format: reelFormat,
     outputPath: reelPath,
     music,
   });
@@ -236,6 +240,10 @@ async function preparePublication(ledger, category, {
   return updatePublication(ledger, category, {
     status: 'ready',
     editorial,
+    analytics: {
+      ...(publication.analytics || {}),
+      featureSchemaVersion: 2,
+    },
     image: {
       ...stripEphemeralImageFields(imageSelection),
       localSha256: downloaded.sha256 || sha256File(coverPath),
@@ -244,8 +252,7 @@ async function preparePublication(ledger, category, {
     artifacts: {
       coverPath: path.relative(process.cwd(), coverPath),
       coverSha256: sha256File(coverPath),
-      followCtaPath: path.relative(process.cwd(), followCtaPath),
-      followCtaSha256: fs.existsSync(followCtaPath) ? sha256File(followCtaPath) : null,
+      scenePaths: sceneImagePaths.map(scenePath => path.relative(process.cwd(), scenePath)),
       reelPath: path.relative(process.cwd(), reelResult.outputPath),
       reelSha256: sha256File(reelResult.outputPath),
       temporary: true,

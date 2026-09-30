@@ -81,8 +81,11 @@ function validateTitle(title) {
   const lines = normalized.split('\n');
   const visible = lines.join('');
   const errors = [];
-  if (lines.length !== 2 || lines.some(line => !line.trim())) errors.push('title must contain exactly two non-empty lines');
-  if (graphemeCount(visible) > 14) errors.push('title must be at most 14 graphemes including spaces');
+  if (lines.length < 2 || lines.length > 3 || lines.some(line => !line.trim())) {
+    errors.push('title must contain two or three non-empty lines');
+  }
+  if (graphemeCount(visible) > 26) errors.push('title must be at most 26 graphemes including spaces');
+  if (lines.some(line => graphemeCount(line) > 10)) errors.push('each title line must be at most 10 graphemes');
   if (CLICKBAIT_PATTERNS.some(pattern => pattern.test(normalized))) errors.push('title contains prohibited clickbait wording');
   if (SENSATIONAL_TITLE_PATTERN.test(normalized)) errors.push('title contains sensational or mechanical shorthand');
   if (/["“”‘’!?]{2,}|[!?]$/u.test(normalized)) errors.push('title contains unnecessary punctuation');

@@ -373,6 +373,12 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);
   let score = 0;
+  const contentValueSignals = [];
+  if (/(원|달러|금리|세금|보험료|연금|임금|소득|물가|가격|요금|주가|환율|매출|이익|적자|흑자)/u.test(text)) contentValueSignals.push('money_impact');
+  if (/(정책|법안|규제|시행|폐지|개편|지원|판결|의결|통과)/u.test(text)) contentValueSignals.push('policy_change');
+  if (/(증시|코스피|코스닥|주가|환율|금리|GDP|성장률|IPO|상장|실적)/iu.test(text)) contentValueSignals.push('market_movement');
+  if (/(파업|운행s*중단|결항|휴교|대중교통|철도|KTX|SRT|공공서비스|공청회s*(?:파행|중단))/iu.test(text)) contentValueSignals.push('public_service_disruption');
+  if (/(사망|실종|구조|수색|화재|산불|홍수|침수|붕괴|폭발|경보|안전|의약품.{0,20}(?:경고|주의|권고))/u.test(text)) contentValueSignals.push('safety');
 
   if (BROAD_LIFE_IMPACT.test(text)) {
     score += 35;
@@ -396,6 +402,22 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   }
 
   let hardReject = '';
+  const impossibleFrame = (
+    frame.eventKind === 'housing_policy' && frame.readerNeed !== 'housing'
+  ) || (
+    ['market_move', 'currency_move', 'gdp', 'ipo', 'asset_sale', 'earnings'].includes(frame.eventKind)
+      && frame.readerNeed !== 'market'
+  );
+  if (impossibleFrame) {
+    score -= 100;
+    penalties.push('inconsistent_reader_need_event_kind');
+    hardReject = 'inconsistent_reader_need_event_kind';
+  }
+  if (contentValueSignals.length === 0) {
+    score -= 100;
+    penalties.push('missing_content_value_signal');
+    hardReject ||= 'missing_content_value_signal';
+  }
   if ((PRIVATE_SPECTACLE_NFC.test(primaryLead) || ADDITIONAL_PRIVATE_SPECTACLE.test(primaryLead))
     && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
     score -= 80;
@@ -460,6 +482,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     score,
     signals,
     penalties,
+    contentValueSignals,
     reason: ok ? 'passes_editorial_value_gate' : (hardReject || 'insufficient_reader_value'),
     frame,
   };

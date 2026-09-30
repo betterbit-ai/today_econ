@@ -415,6 +415,9 @@ class DiemMcpCore {
       throw new Error('[DIEM MCP] candidatePackSha256 must be a SHA-256 value.');
     }
     const packageCopy = structuredClone(item || {});
+    if (packageCopy.schemaVersion !== 2 || packageCopy.analytics?.featureSchemaVersion !== 2) {
+      throw new Error('[DIEM MCP] New editorial submissions require daily package schema v2 and feature schema v2.');
+    }
     if (packageCopy.review?.mode !== 'assisted') {
       throw new Error('[DIEM MCP] Editorial package submissions must use assisted review mode.');
     }
