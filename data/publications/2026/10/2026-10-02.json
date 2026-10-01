@@ -4,7 +4,7 @@
   "date": "2026-10-02",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-01T20:49:35.301Z",
-  "updatedAt": "2026-10-01T20:49:45.272Z",
+  "updatedAt": "2026-10-01T20:50:23.407Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -268,7 +268,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)"
+      ]
     },
     {
       "title": "밥 위에 달랑 연어 가루…'품절 대란' 2000원짜리 日 편의점 '자린고비 도시락'",
@@ -306,7 +308,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "\"살 게 없어 시큰둥하네요\" 하품…백화점서 '부잣집 딸' 연기하는 '현백코어'",
@@ -344,7 +348,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_mission_fit_anecdote"
+      ]
     },
     {
       "title": "\"전 정부 때 더 걷힌 돈 돌려드려요\"…68만원씩 지급, 95만명 환급받는 美",
@@ -380,7 +386,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "\"한 달 걸리던 작업이 단 8시간\"…중국 추격에 삼성·LG가 꺼낸 카드",
@@ -418,7 +426,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "영제협 “‘암살자(들)’ 창작자 향한 과한 비난 우려…비판은 사실 근거해야”",
@@ -456,7 +466,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“부가티급 스펙, 2억에 탄다”…韓 상륙한 포르쉐 카이엔 일렉트릭[이자Car야]",
@@ -494,7 +506,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "임은정 눈물의 퇴임식…“속상하지만, 검사 이름두고 떠난다”",
@@ -532,7 +546,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "마이크론이 보여줬다…다음은 삼전닉스 ‘190조’",
@@ -570,7 +586,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:extraordinary_claim_unverified"
+      ]
     },
     {
       "title": "‘창고형 약국’ 들여다본다…복지부, 비정상·가짜진료 합동조사",
@@ -606,7 +624,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "'재입대' 하겠다던 송민호, 1심 판결 나오자 반응이‥",
@@ -642,7 +662,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "\"못 살겠다 갈아보자\" 미친 임대료에 87살 할머니 쫓겨나자 스페인 '발칵'",
@@ -680,7 +702,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "코넬대 집단 성폭행 의혹 재수사‥가해자에는 한국계 학생도 포함",
@@ -718,7 +742,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "1년 2개월 만에 타결된 대미투자‥'터프한 협상가' 김정관 장관에게 물어보니",
@@ -756,7 +782,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "'내란우두머리' 재판장 지귀연, '술접대 기소'로 결국 재판 배제",
@@ -794,7 +822,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "우울증 아내 돌보려 명예 전역했는데… 간병 끝에 살해한 남편 징역형",
@@ -832,7 +862,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "이 대통령, 정청래와 청와대서 4시간 만찬 회동… 퇴원 위로차 초청",
@@ -870,7 +902,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "'암살자(들)' 역사 왜곡 논란에… 대통령실·장관 등 무더기 고발",
@@ -908,7 +942,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"고령 여성으로 보내달라\"… 파주 냉동창고 살해, 한 달 전부터 준비",
@@ -946,7 +982,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "\"한국 선수로 뛰는 모습 보고 싶다\" 할머니 유언대로…허미미, 금빛 약속 지켰다",
@@ -984,7 +1022,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "백종원 매장 줄줄이 폐점…주가 40% 급락에 꺼낸 승부수",
@@ -1020,7 +1060,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:inconsistent_reader_need_event_kind"
+      ]
     },
     {
       "title": "\"복숭아 한 알이 1만9000원?\"…요즘 뜨는 한국판 '부자마트'",
@@ -1058,7 +1100,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "'암살자(들)' 논란 여기까지…이민호, 부국제 행사 돌연 취소",
@@ -1094,7 +1138,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "\"AI인 줄 알았는데 진짜였다\"…공무원 60명 군무에 SNS '폭발'",
@@ -1132,7 +1178,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"10년 절친이 中 스파이였다\"…27년 베테랑 파멸 부른 우정",
@@ -1170,7 +1218,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "[단독] 정부, 호남 반도체 입주 삼성·SK 직원 주거비 2000억 지원 논란",
@@ -1206,7 +1256,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "김민석 수첩 또 포착… ‘한동훈 file·박시영 시사타파’",
@@ -1244,7 +1296,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] ‘역사 왜곡’ 암살자(들) 단체 관람, 문체·국토 장관 등 경찰 고발돼",
@@ -1282,7 +1336,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "폭풍 SNS로 돌아온 李 “많이들 함께 해주세요, 좌아하게”",
@@ -1320,7 +1376,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "무인기 땐 北 요구에 즉각 “유감”... 北의 지뢰 도발엔 신중한 정부",
@@ -1356,7 +1414,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "검찰청 폐지 앞둔 마지막 기소, 왜 매출 1위 업체는 담합에서 빠졌나",
@@ -1394,7 +1454,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "'월 500만원' 유연석도 미리 땄다…인생 2막 준비 '이것' 눈길",
@@ -1432,7 +1494,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_mission_fit_anecdote"
+      ]
     },
     {
       "title": "뒤집힌 엘리엇 '삼성합병' 판정, 정부 이대로 1500억 혈세 지급?",
@@ -1468,7 +1532,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "'첫 손님 여자, 재수없다' 아직도 미신을?…거스름돈 반환 거부 주유소 '황당 사연'",
@@ -1506,7 +1572,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "스포티지 앞세운 기아 ‘신기록’…현대차·기아 9월 59만대 판매",
@@ -1544,7 +1612,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "“조건 없이 퍼주시던 사장님”…고대 첫 ‘영철버거 장학생’들 손편지",
@@ -1582,7 +1652,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "조희대, 靑이 초대장 보냈지만 국군의날 행사 불참",
@@ -1620,7 +1692,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "김민석 수첩, 이번엔 ‘한동훈 file’ 포착…김승원 낙마 관련?",
@@ -1658,7 +1732,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "백발노인 변신한 톰 크루즈…“한국에 서른 번은 더 올것”",
@@ -1696,7 +1772,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "120년 역사 ‘뷰익’ 한국 첫 상륙… 4300만 원대 PHEV로 승부수",
@@ -1734,7 +1812,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "부산으로 번진 ‘암살자(들)’ 논란... 시사회 취소까지",
@@ -1770,7 +1850,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "“애국가 불렀어요”, 일본에서 금빛 매치기 성공한 독립운동가 후손 허미미 [여기는 나고야]",
@@ -1808,7 +1890,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "부담 확 낮췄다… 가벼워진 외국인 '부산행’",
@@ -1846,7 +1930,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"자수했는데 추격 체포라고?\"… 뺑소니 수사 조작한 경찰 간부 '철퇴'",
@@ -1884,7 +1970,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "[영상] 물대포 안 통한 '부캉이' 구조, 2일은 그물로 도전",
@@ -1922,7 +2010,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     }
   ],
   "candidateRuns": [],
@@ -1931,7 +2021,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-02:economy:36924046101",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
         "title": "\"180석에 달랑 3명 탔다\"…충격에 빠진 '신혼여행 성지' 근황",
         "url": "https://n.news.naver.com/article/277/0005823782?ntype=RANKING",
@@ -2111,35 +2201,45 @@
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+        "updatedAt": "2026-10-01T20:50:21.822Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-01T20:50:21.822Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-01T20:50:21.822Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-01T20:50:21.822Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-10-02:economy:36924046101:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-01T20:50:23.406Z",
+          "slackTs": "1790887822.006299",
+          "issueNumber": 133,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/133"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-01T20:49:45.269Z",
       "hotness": {
         "ok": true,
@@ -2194,6 +2294,60 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+        "candidateFailures": [
+          {
+            "title": "\"180석에 달랑 3명 탔다\"…충격에 빠진 '신혼여행 성지' 근황",
+            "url": "https://n.news.naver.com/article/277/0005823782?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_repair: Unexpected end of JSON input | openai/gpt-oss-20b/editorial: editorial repair failed: Unexpected end of JSON input)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: Unexpected end of JSON input"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-01T20:50:03.201Z"
+          }
+        ],
+        "updatedAt": "2026-10-01T20:50:21.822Z"
       }
     },
     "issue": {
