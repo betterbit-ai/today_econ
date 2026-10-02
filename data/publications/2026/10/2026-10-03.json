@@ -4,7 +4,7 @@
   "date": "2026-10-03",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-02T20:23:30.121Z",
-  "updatedAt": "2026-10-02T20:23:42.627Z",
+  "updatedAt": "2026-10-02T20:23:57.363Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -1970,7 +1970,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-03:economy:37059905182",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "\"찾을 때까지 뚫고 들어와\"…은행권 줄줄이 '비상'",
         "url": "https://n.news.naver.com/article/055/0001392791?ntype=RANKING",
@@ -2141,15 +2141,175 @@
           "text": "economy | 찾을 때까지 | 은행권 신한은행에"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 2,
+        "category": "economy",
+        "reelFormat": "flash",
+        "titleCandidates": [
+          {
+            "title": "은행권 해킹\n고객 정보 유출",
+            "lines": [
+              "은행권 해킹",
+              "고객 정보 유출"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "은행권 해킹\n고객 정보 유출",
+          "lines": [
+            "은행권 해킹",
+            "고객 정보 유출"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity"
+        },
+        "caption": {
+          "sentences": [
+            "신한·KB·하나·부산 등 4곳 은행에서 AI 활용 해킹으로 고객·직원 개인정보가 유출됐습니다.📰",
+            "KB국민은행은 119명의 고객 정보가, 하나은행은 89명의 고객 정보가, BNK부산은행은 11명의 외주 직원 정보가 유출됐다고 밝혔습니다.",
+            "금융당국은 긴급 대응 회의를 열어 외부 노출 시스템을 점검하고 경위 파악에 나섰습니다.📰"
+          ],
+          "text": "신한·KB·하나·부산 등 4곳 은행에서 AI 활용 해킹으로 고객·직원 개인정보가 유출됐습니다.📰\n\nKB국민은행은 119명의 고객 정보가, 하나은행은 89명의 고객 정보가, BNK부산은행은 11명의 외주 직원 정보가 유출됐다고 밝혔습니다.\n\n금융당국은 긴급 대응 회의를 열어 외부 노출 시스템을 점검하고 경위 파악에 나섰습니다.📰"
+        },
+        "scenes": [],
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #은행 #해킹 #개인정보유출 #AI #은행권 #신한은행에",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#은행",
+            "#해킹",
+            "#개인정보유출",
+            "#AI",
+            "#은행권",
+            "#신한은행에"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#은행",
+              "#해킹",
+              "#개인정보유출",
+              "#AI",
+              "#은행권",
+              "#신한은행에"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 4개 in \"신한·KB·하나·부산 등 4개 은행이 AI 활용 해킹으로 고객·직원 개인정보가 대규모 유출돼 총 25,219건이 확인됐습니다\"; 25,219 in \"신한·KB·하나·부산 등 4개 은행이 AI 활용 해킹으로 고객·직원 개인정보가 대규모 유출돼 총 25,219건이 확인됐습니다\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:markets-04-openai-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-10-02T20:23:52.110Z",
+        "assetPath": "assets/fallback/generated/markets-04-openai-01.png",
+        "sha256": "bdb013482eca77c27940e96ee0288b71cd3463ddcc9c40e95558e855fb95b317",
+        "localSha256": "bdb013482eca77c27940e96ee0288b71cd3463ddcc9c40e95558e855fb95b317",
+        "generatedTopic": "finance",
+        "generatedEnergy": "dynamic",
+        "description": "Luminous cobalt and gold market ribbons sweep past abstract glass financial architecture with a dark title-safe lower area.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          }
+        },
+        "attempts": [],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 12,
+          "recentKeyCount": 24,
+          "blockedCandidateCount": 3,
+          "selectedImageKeys": [
+            "diem-generated:markets-04-openai-01",
+            "bdb013482eca77c27940e96ee0288b71cd3463ddcc9c40e95558e855fb95b317"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated finance asset markets-04-openai-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "bright3",
+        "mood": "bright",
+        "sha256": "820dddc19847024530e690bfb86c33a50a2024f72f88a95c43c761516d913d5c",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-02T20:23:57.356Z"
       },
       "story": {
         "status": "planned",
@@ -2230,6 +2390,17 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "analytics": {
+        "featureSchemaVersion": 2
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-10-03/economy/economy-cover.png",
+        "coverSha256": "57edf6ff4a0670a8725022f1fa3d2b840fe550d43aeaf67d99fde5e6204f4f4b",
+        "scenePaths": [],
+        "reelPath": ".diem-cache/2026-10-03/economy/economy-reel.mp4",
+        "reelSha256": "5f819bda69661a514154b69e9053bbc907f6482bc52882bb9a998723ccc6ed93",
+        "temporary": true
       }
     },
     "issue": {
