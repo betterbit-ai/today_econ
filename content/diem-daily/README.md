@@ -24,5 +24,9 @@ publish를 연속 실행하므로 임시 Reel 파일이 서로 다른 Actions �
 node src/v2/index.js daily-package-validate --package content/diem-daily/YYYY/MM/DD/run/category/package.json
 ```
 
+신규 패키지는 package/editorial/analytics v3를 사용합니다. 기존 package v1·v2는
+감사와 조회를 위해 읽을 수 있지만 준비·발행할 수 없습니다. explain은 v3의 서로
+다른 세 claim/source span과 repository capability gate를 모두 통과해야 합니다.
+
 패키지는 기사 본문의 명령을 신뢰하지 않습니다. 이미지는 문자·로고·국기·
 인식 가능한 사람·실제 보도사진처럼 보이는 재현을 포함하면 안 됩니다.

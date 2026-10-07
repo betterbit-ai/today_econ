@@ -1,11 +1,11 @@
 # DIEM 현재 상태와 새 세션 시작점
 
-- 갱신일: 2026-09-18 KST
-- 활성 구현 브랜치: `codex/chatgpt-public-write-handoff` (현재 ChatGPT public-write blocker 기록 중)
-- PR #77과 package-hash 보완 PR #84는 main에 merge됐다. Checkout 상태와 ahead/behind는 `git status --short --branch`로 다시 확인한다.
-- production Instagram workflow와 예약 발행은 변경하지 않았다.
+- 갱신일: 2026-10-07 KST
+- 활성 구현 브랜치: `codex/merge-growth-funnel`. 시작 기준 HEAD `93df240e`는 `origin/main`과 일치했고, 아래 회복 변경은 검증 완료 후 로컬 작업 트리에 있다.
+- production 발행 시각·음악·카테고리당 일일 1편 제한은 유지했다. 두 production Action에는 `EXPLAIN_REELS_ENABLED=false`를 명시했다.
 - 상세 성과 진단: [`2026-09-15-performance-decline.md`](2026-09-15-performance-decline.md)
 - 생성 보고서: [`../../data/reports/diem-performance.md`](../../data/reports/diem-performance.md)
+- 현재 회복 구현·운영 가이드: [`../implementation/diem-reach-conversion-recovery.md`](../implementation/diem-reach-conversion-recovery.md)
 - 활성 구현 계획: [`../implementation/chatgpt-oracle-cloud-editorial-plan.md`](../implementation/chatgpt-oracle-cloud-editorial-plan.md)
 - 구현 진행 기록: [`../implementation/chatgpt-oracle-cloud-editorial-progress.md`](../implementation/chatgpt-oracle-cloud-editorial-progress.md)
 
@@ -23,7 +23,7 @@
 ## 프로젝트 한눈에 보기
 
 DIEM은 네이버 인기 경제·시사 후보를 수집하고, 분류·신선도·중복·편집·이미지
-안전 게이트를 통과한 기사만 7초 Instagram Reel로 발행하는 GitHub Actions
+안전 게이트를 통과한 기사만 기본 6초 Instagram Reel로 발행하는 GitHub Actions
 파이프라인이다. 별도 DB 대신 날짜별 Git 원장을 단일 진실 원천으로 사용한다.
 
 핵심 흐름은 다음과 같다.
@@ -41,6 +41,35 @@ DIEM은 네이버 인기 경제·시사 후보를 수집하고, 분류·신선�
 - 운영 보고서: `data/reports/diem-performance.{md,json}`
 - 테스트: `test/v2-*.test.js`
 - 전체 검증: `node .codex-harness/scripts/verify-project.mjs`
+
+## 2026-10-07 도달·전환 회복 v3 상태
+
+승인된 회복 계획은 코드와 회귀 테스트에 반영됐다. 부분 문자열 오분류를 제거하고,
+지역 범죄의 공익성·전국성 근거가 없으면 Economy와 Issue 모두에서 탈락시킨다.
+`housing_policy`는 주거 대상과 가격·거래·대출·정책 행동의 복합 신호를 요구하며,
+금액은 숫자+원 단위 또는 명시적 금융 용어로만 인정한다.
+
+신규 publication과 daily package는 analytics schema v3 및
+`strategyVersion: discovery-funnel-v3`를 사용한다. 대표 성과는 reach이며 views로
+대체하지 않는다. format/category/image-kind/strategy cohort와 영상 길이 대비 평균
+시청 비율을 별도로 계산하고, 팔로워는 중복 제거한 계정 스냅샷의 14일 순변화로
+평가한다. 현재 보고서 판정은 v3 정시 표본이 없으므로 `insufficient_data`다.
+
+Vision 기본 모델과 두 Action은 `qwen/qwen3.8-27b`로 바뀌었다. 모델 전송 전에
+Models API로 정확한 ID를 검사하고 `model_not_found`를 별도 기록한다. 두 장을 한
+번만 검수하며 URL 전송 실패에 한해 동일 이미지를 Base64로 재전송한다. 이후에는
+주제가 일치하는 검수 라이브러리 또는 `no_publish`로만 닫는다.
+
+explain은 사건 종류가 아니라 서로 다른 세 claim과 원문 span으로
+`what_happened`, `reader_impact`, `what_to_watch`를 모두 입증해야 한다. 그러나 운영
+재개에는 별도 증거 파일이 필요하다. `npm run diem:explain-gates`가 최근 후보 40건,
+explain 초안 10건, 실제 Vision shadow 5회 및 사고 0건을 모두 통과했다고 판정하기
+전에는 환경변수를 true로 바꾸지 않는다. 현재는 증거 미충족으로 의도적으로
+fail-closed 상태다.
+
+검증된 프로필 전환용 PNG 3장은 `content/profile-funnel/`에 생성했다. Instagram의
+실제 고정 게시물·하이라이트 적용은 Graph API 경로가 없어 계정 UI에서 확인·적용할
+운영 단계로 남아 있다.
 
 ## 2026-09-18 클라우드 editorial 전환 상태
 

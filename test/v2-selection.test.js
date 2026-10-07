@@ -1082,7 +1082,7 @@ test('locks selection to the first safe visual intent instead of mixing later fi
   assert.deepEqual(reviewedQueries, [selection.query]);
 });
 
-test('tries bounded alternatives and then fails closed when actual-image review rejects them', async () => {
+test('uses one two-image Vision review and then fails closed when actual-image review rejects it', async () => {
   let reviews = 0;
   const selection = await selectLicensedImage({
     title: '이재명 대통령 당 지도부 만찬',
@@ -1109,13 +1109,13 @@ test('tries bounded alternatives and then fails closed when actual-image review 
     },
   });
 
-  assert.equal(reviews, 3);
+  assert.equal(reviews, 1);
   assert.equal(selection.kind, 'typographic');
   assert.equal(selection.source, 'diem-original');
   assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review'));
 });
 
-test('continues to the next visual query after a technical vision failure', async () => {
+test('does not spend a second Vision request after a technical failure', async () => {
   const reviewedQueries = [];
   const selection = await selectLicensedImage({
     title: '서울 아파트 거래 신고가',
@@ -1139,13 +1139,12 @@ test('continues to the next visual query after a technical vision failure', asyn
     },
     reviewImages: async ({ query, images }) => {
       reviewedQueries.push(query);
-      if (reviewedQueries.length === 1) throw new Error('json_validate_failed');
-      return { ok: true, selectedId: images[0].id, reason: 'second query matched' };
+      throw new Error('json_validate_failed');
     },
   });
 
-  assert.equal(selection.kind, 'web');
-  assert.equal(reviewedQueries.length, 2);
+  assert.equal(selection.kind, 'typographic');
+  assert.equal(reviewedQueries.length, 1);
   assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review' && /json_validate_failed/u.test(attempt.error)));
 });
 

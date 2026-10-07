@@ -363,8 +363,16 @@ async function planDailyQueue({
 
   for (const category of categories) {
     let selected = null;
-    for (let candidateIndex = 0; candidateIndex < candidates.length; candidateIndex += 1) {
-      const candidate = candidates[candidateIndex];
+    const orderedCandidates = candidates.map((candidate, candidateIndex) => ({
+      candidate,
+      candidateIndex,
+      prior: performancePrior(candidate, resolvedPerformanceReport || {}, { category }),
+    })).sort((left, right) => (
+      right.prior.adjustment - left.prior.adjustment
+      || left.candidateIndex - right.candidateIndex
+    ));
+    for (const entry of orderedCandidates) {
+      const { candidate, candidateIndex } = entry;
       const record = results.candidates.find(item => item.url === candidate.url);
       if (usedUrls.has(candidate.url)) {
         record.rejectionReasons.push(`${category}:same_event_already_selected`);

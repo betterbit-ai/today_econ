@@ -213,6 +213,13 @@ function historyFromLedgers(ledgers = [], referenceDate = kstDate(), days = 7, {
       title: publication.candidate?.title || '',
       signature: publication.duplicateCheck?.signature || null,
       audioTrackId: publication.audio?.trackId || null,
+      reelFormat: publication.editorial?.reelFormat || 'flash',
+      strategyVersion: publication.analytics?.strategyVersion || 'legacy',
+      qualityIncident: Boolean(
+        publication.qualityIncident
+        || publication.review?.qualityIncident
+        || publication.quality?.incident
+      ),
       image: imageRecordFromPublication(publication, ledgerDate)?.image || null,
     }));
 }

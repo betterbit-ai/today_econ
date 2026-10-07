@@ -24,7 +24,7 @@ function sha256(value) {
   return crypto.createHash('sha256').update(value).digest('hex');
 }
 
-function packageFixture({ mode = 'assisted', visualKind = 'typographic', schemaVersion = 1 } = {}) {
+function packageFixture({ mode = 'assisted', visualKind = 'typographic', schemaVersion = 3 } = {}) {
   const evidenceText = [
     '한국은행은 9월 16일 기준금리를 연 2.50%로 동결했습니다.',
     '물가와 가계대출 흐름을 더 확인할 필요가 있다고 밝혔습니다.',
@@ -73,7 +73,9 @@ function packageFixture({ mode = 'assisted', visualKind = 'typographic', schemaV
       sourceSpans: [fact],
     })),
     editorial,
-    analytics: schemaVersion === 2 ? { featureSchemaVersion: 2 } : undefined,
+    analytics: schemaVersion === 3
+      ? { featureSchemaVersion: 3, strategyVersion: 'discovery-funnel-v3', reelDurationSeconds: 6 }
+      : schemaVersion === 2 ? { featureSchemaVersion: 2 } : undefined,
     visual: {
       kind: visualKind,
       fallbackTheme: 'rate-reset',
@@ -101,6 +103,17 @@ function packageFixture({ mode = 'assisted', visualKind = 'typographic', schemaV
   return pack;
 }
 
+test('ships a v3 daily-package template for new cloud submissions', () => {
+  const templatePath = path.join(__dirname, '..', 'content', 'diem-daily', '_template', 'package.template.json');
+  const template = JSON.parse(fs.readFileSync(templatePath, 'utf8'));
+  assert.equal(template.schemaVersion, 3);
+  assert.equal(template.editorial.schemaVersion, 3);
+  assert.equal(template.analytics.featureSchemaVersion, 3);
+  assert.equal(template.analytics.strategyVersion, 'discovery-funnel-v3');
+  assert.equal(template.analytics.reelDurationSeconds, 6);
+  assert.equal(template.newsFrame.rejectionReason, null);
+});
+
 test('validates and stages a cloud editorial package without Groq generation', () => {
   const pack = packageFixture();
   const validation = validateDailyPackage(pack, { now: NOW });
@@ -111,18 +124,31 @@ test('validates and stages a cloud editorial package without Groq generation', (
   assert.equal(publication.contentType, 'diem_daily');
   assert.equal(publication.candidate.url, pack.source.url);
   assert.equal(publication.editorial.generation.mode, 'chatgpt_cloud_scheduled');
+  assert.equal(publication.analytics.featureSchemaVersion, 3);
+  assert.equal(publication.analytics.strategyVersion, 'discovery-funnel-v3');
+  assert.equal(publication.analytics.reelDurationSeconds, 6);
   assert.equal(publication.image.kind, 'typographic');
   assert.equal(publication.reel.status, 'planned');
 });
 
-test('accepts v1 packages while requiring the v2 analytics contract', () => {
-  const legacy = packageFixture();
+test('keeps v1 and v2 packages readable while only v3 is publishable', () => {
+  const legacy = packageFixture({ schemaVersion: 1 });
   assert.equal(validateDailyPackage(legacy, { now: NOW }).ok, true);
   const current = packageFixture({ schemaVersion: 2 });
   assert.equal(validateDailyPackage(current, { now: NOW }).ok, true);
   current.analytics.featureSchemaVersion = 1;
   current.integrity.contentSha256 = dailyPackageContentHash(current);
   assert.match(validateDailyPackage(current, { now: NOW }).errors.join('; '), /featureSchemaVersion/u);
+  assert.throws(() => stageDailyPackage(legacy, { date: DATE, now: NOW }), /read-only/u);
+});
+
+test('blocks cloud explain packages while explain publishing is paused', () => {
+  const pack = packageFixture();
+  pack.editorial.reelFormat = 'explain';
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  const validation = validateDailyPackage(pack, { now: NOW, explainEnabled: false });
+  assert.equal(validation.ok, false);
+  assert.match(validation.errors.join('; '), /explain Reels are disabled/u);
 });
 
 test('validates and stages a ChatGPT-selected local visual library asset', () => {

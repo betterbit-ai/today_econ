@@ -5,6 +5,7 @@ const config = require('../../config');
 const { cleanupExpiredReleases, createTemporaryRelease } = require('../github-assets');
 const { publishReel, publishStory, searchInstagramAudio } = require('../instagram');
 const { generateEditorial } = require('./editorial');
+const { evaluateExplainRollout, loadExplainCapabilityEvidence } = require('./explain-policy');
 const { createGroqCaller, createGroqVisionReviewer } = require('./groq');
 const {
   createGeneratedFallback,
@@ -25,7 +26,7 @@ const {
 } = require('./instagram');
 const { allLedgerPublications, imageRecordFromPublication, updatePublication } = require('./ledger');
 const { selectMusic, getMood } = require('./music');
-const { createDiemReelWithMusic } = require('./reel');
+const { DIEM_EXPLAIN_REEL, DIEM_REEL, createDiemReelWithMusic } = require('./reel');
 const { renderDiemCover, renderDiemScenes } = require('./cover');
 const { isSensitiveTopic } = require('./topic');
 const { MANUAL_REEL_STORY_SHARE_REASON } = require('./constants');
@@ -107,12 +108,23 @@ async function preparePublication(ledger, category, {
   fs.mkdirSync(outputDir, { recursive: true });
 
   const modelCaller = callModel || (config.groqApiKey ? createGroqCaller({ apiKey: config.groqApiKey }) : undefined);
+  const explainPolicy = evaluateExplainRollout({
+    configured: config.explainReelsEnabled,
+    category,
+    date: ledger.date,
+    history,
+    evidence: loadExplainCapabilityEvidence(config.explainCapabilityEvidenceFile),
+    minIntervalDays: config.explainMinIntervalDays,
+    maxPerCategory: config.explainCanaryMaxPerCategory,
+  });
   const editorial = await generateEditorialImpl(article, {
     callModel: modelCaller,
     primaryModel: config.groqPrimaryModel,
     fallbackModel: config.groqFallbackModel,
     handle: config.instagramUsername,
+    explainEnabled: explainPolicy.enabled,
   });
+  editorial.formatRollout = explainPolicy;
 
   const recentImages = recentImagesForSelection(ledger, publication, history);
   const imageCandidate = {
@@ -242,7 +254,11 @@ async function preparePublication(ledger, category, {
     editorial,
     analytics: {
       ...(publication.analytics || {}),
-      featureSchemaVersion: 2,
+      featureSchemaVersion: 3,
+      strategyVersion: 'discovery-funnel-v3',
+      reelDurationSeconds: reelFormat === 'explain'
+        ? DIEM_EXPLAIN_REEL.durationSeconds
+        : DIEM_REEL.durationSeconds,
     },
     image: {
       ...stripEphemeralImageFields(imageSelection),

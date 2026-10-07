@@ -12,6 +12,7 @@ const {
 const { publishBasicPackage } = require('./basic-content');
 const { recordModeration, saveExperimentReport } = require('./experiment-report');
 const { savePerformanceReport } = require('./performance-loop');
+const { evaluateCapabilityGates, loadExplainCapabilityEvidence } = require('./explain-policy');
 const { buildCloudCandidatePack, saveCloudCandidatePack } = require('./cloud-candidate-pack');
 const {
   loadDailyPackage,
@@ -73,6 +74,7 @@ function helpText() {
     '  node src/v2/index.js basic-retry --publication-key KEY --publish',
     '  node src/v2/index.js basic-report',
     '  node src/v2/index.js performance-report',
+    '  node src/v2/index.js explain-gates',
     '  node src/v2/index.js cloud-candidates [--date YYYY-MM-DD] [--slot RUN_ID]',
     '  node src/v2/index.js daily-package-validate --package PATH',
     '  node src/v2/index.js daily-package-prepare --package PATH [--date YYYY-MM-DD]',
@@ -95,6 +97,16 @@ async function runCommand({ command, options }) {
     const report = savePerformanceReport();
     console.log(`[DIEM] performance report: ${report.status} (${report.publishedCount} published ledgers)`);
     return report;
+  }
+  if (command === 'explain-gates') {
+    const evidence = loadExplainCapabilityEvidence(config.explainCapabilityEvidenceFile);
+    const result = evaluateCapabilityGates(evidence);
+    console.log(JSON.stringify({
+      configured: config.explainReelsEnabled,
+      evidenceFile: config.explainCapabilityEvidenceFile,
+      ...result,
+    }, null, 2));
+    return result;
   }
   if (command === 'basic-report') {
     const report = await saveExperimentReport();

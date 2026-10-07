@@ -454,6 +454,80 @@ function frameAlignmentViolations(sentences = [], frame = {}) {
   return violations;
 }
 
+const SCENE_ROLES = Object.freeze(['what_happened', 'reader_impact', 'what_to_watch']);
+const SCENE_TITLES = Object.freeze(['무슨 일', '내게 미치는 영향', '앞으로 확인할 사실']);
+const READER_IMPACT = /(부담|지원|지급|환급|세금|보험료|임금|월급|소득|금리|대출|예금|적금|전세|월세|주거|고용|해고|근로|통근|안전|위험|권리|신청|대상|자격|이용|생활비|가격|비용)/u;
+const WHAT_TO_WATCH = /(예정|앞으로|다음|향후|시행|적용|결정일|발표일|투표|심사|확정|조건|남은|불확실|여부|까지|부터|후속|추가|재개|확인해야)/u;
+
+function evidenceTokens(value = '') {
+  return cleanVisibleText(value)
+    .replace(/[^0-9A-Za-z가-힣.%\s]/gu, ' ')
+    .split(/\s+/u)
+    .map(token => token.trim())
+    .filter(token => token.length >= 2 && !TOPIC_STOPWORDS.has(token));
+}
+
+function claimOverlapScore(sentence, claim) {
+  const sentenceTokens = evidenceTokens(sentence);
+  const claimTokens = evidenceTokens(claim);
+  const overlap = sentenceTokens.filter(token => (
+    claimTokens.some(sourceToken => sourceToken.includes(token) || token.includes(sourceToken))
+  ));
+  return new Set(overlap).size;
+}
+
+function roleMatches(role, value = '') {
+  const text = cleanVisibleText(value);
+  if (role === 'reader_impact') return READER_IMPACT.test(text);
+  if (role === 'what_to_watch') return WHAT_TO_WATCH.test(text);
+  return EVENT_WORDS.test(text);
+}
+
+function explainEvidence(article = {}, sentences = []) {
+  if (!Array.isArray(sentences) || sentences.length !== 3) {
+    return { eligible: false, reason: 'requires_three_editorial_sentences', assignments: [] };
+  }
+  const sourceClaims = sourceSentences(article).map((text, index) => ({ id: `claim-${index + 1}`, text }));
+  const usedSentenceIndexes = new Set();
+  const usedClaimIds = new Set();
+  const assignments = [];
+  for (const role of SCENE_ROLES) {
+    const candidates = [];
+    sentences.forEach((sentence, sentenceIndex) => {
+      if (usedSentenceIndexes.has(sentenceIndex) || !roleMatches(role, sentence)) return;
+      sourceClaims.forEach(claim => {
+        if (usedClaimIds.has(claim.id) || !roleMatches(role, claim.text)) return;
+        const score = claimOverlapScore(sentence, claim.text);
+        if (score > 0) candidates.push({ role, sentenceIndex, claim, score });
+      });
+    });
+    candidates.sort((a, b) => b.score - a.score || a.sentenceIndex - b.sentenceIndex);
+    const selected = candidates[0];
+    if (!selected) {
+      return { eligible: false, reason: `missing_grounded_${role}`, assignments: [] };
+    }
+    usedSentenceIndexes.add(selected.sentenceIndex);
+    usedClaimIds.add(selected.claim.id);
+    assignments.push(selected);
+  }
+  return { eligible: true, reason: 'three_distinct_grounded_scene_claims', assignments };
+}
+
+function chooseReelFormat({ article = {}, sentences = [], explainEnabled = false } = {}) {
+  const evidence = explainEvidence(article, sentences);
+  if (!explainEnabled) {
+    return {
+      format: 'flash',
+      reason: 'explain_disabled',
+      eligible: evidence.eligible,
+      assignments: evidence.assignments,
+    };
+  }
+  return evidence.eligible
+    ? { format: 'explain', reason: evidence.reason, eligible: true, assignments: evidence.assignments }
+    : { format: 'flash', reason: evidence.reason, eligible: false, assignments: [] };
+}
+
 function assembleEditorial({
   article,
   titleCandidates,
@@ -463,6 +537,7 @@ function assembleEditorial({
   imageKeyword,
   handle,
   generation,
+  explainEnabled = false,
 }) {
   const frame = articleFrame(article);
   const sentences = [
@@ -480,21 +555,17 @@ function assembleEditorial({
     ? requested
     : validTitleCandidates[0];
   const comments = buildCommentChain(article, emojis.first, handle);
-  const explainEventKinds = new Set([
-    'legislation',
-    'housing_policy',
-    'public_hearing_disruption',
-    'medical_safety_advisory',
-    'rescue_search',
-    'political_statement',
-  ]);
-  const reelFormat = explainEventKinds.has(frame.eventKind) ? 'explain' : 'flash';
-  const sceneRoles = ['what_happened', 'reader_impact', 'what_to_watch'];
-  const sceneTitles = ['무슨 일', '내게 미치는 영향', '앞으로 확인할 사실'];
+  const formatDecision = chooseReelFormat({ article, sentences, explainEnabled });
+  const reelFormat = formatDecision.format;
   const editorial = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     category: article.category,
     reelFormat,
+    formatDecision: {
+      format: reelFormat,
+      reason: formatDecision.reason,
+      eligible: formatDecision.eligible,
+    },
     titleCandidates: validTitleCandidates,
     title: {
       text: selected.title,
@@ -504,11 +575,13 @@ function assembleEditorial({
     },
     caption: { sentences, text: caption },
     scenes: reelFormat === 'explain'
-      ? sentences.map((body, index) => ({
-        role: sceneRoles[index],
-        title: sceneTitles[index],
-        body,
-        factRefs: [index],
+      ? formatDecision.assignments.map((assignment, index) => ({
+        role: SCENE_ROLES[index],
+        title: SCENE_TITLES[index],
+        body: sentences[assignment.sentenceIndex],
+        factRefs: [assignment.sentenceIndex],
+        claimRefs: [assignment.claim.id],
+        sourceSpans: [assignment.claim.text],
       }))
       : [],
     emojis,
@@ -521,7 +594,7 @@ function assembleEditorial({
   return editorial;
 }
 
-function buildDeterministicEditorial(article = {}, { handle } = {}) {
+function buildDeterministicEditorial(article = {}, { handle, explainEnabled = false } = {}) {
   if (!Object.values(CATEGORIES).includes(article.category)) {
     throw new Error('[DIEM Editorial] Article category must be economy or issue');
   }
@@ -539,6 +612,7 @@ function buildDeterministicEditorial(article = {}, { handle } = {}) {
     titleCandidates: buildDeterministicTitleCandidates(article),
     sentenceDrafts,
     handle,
+    explainEnabled,
     generation: { method: 'deterministic_fallback', model: null, attempts: [] },
   });
 }
@@ -746,9 +820,10 @@ async function generateEditorial(article = {}, {
   handle,
   allowDeterministicFallback = false,
   promptBuilder = modelPrompt,
+  explainEnabled = false,
 } = {}) {
   if (typeof callModel !== 'function') {
-    if (allowDeterministicFallback) return buildDeterministicEditorial(article, { handle });
+    if (allowDeterministicFallback) return buildDeterministicEditorial(article, { handle, explainEnabled });
     throw new Error('[DIEM Editorial] LLM generation is required; deterministic fallback is disabled for automatic publishing');
   }
   const attempts = [];
@@ -808,6 +883,7 @@ async function generateEditorial(article = {}, {
         sentenceDrafts: parsed.sentences,
         emojis: (parsed.emojis && parsed.emojis.first && parsed.emojis.third) ? parsed.emojis : undefined,
         handle,
+        explainEnabled,
         generation: { method: 'model', model, attempts },
       });
     } catch (error) {
@@ -822,7 +898,7 @@ async function generateEditorial(article = {}, {
   }
   if (allowDeterministicFallback) {
     try {
-      const fallback = buildDeterministicEditorial(article, { handle });
+      const fallback = buildDeterministicEditorial(article, { handle, explainEnabled });
       fallback.generation.attempts = attempts;
       return fallback;
     } catch (error) {
@@ -855,6 +931,14 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   if (editorial?.reelFormat != null && !['flash', 'explain'].includes(editorial.reelFormat)) {
     errors.push('reelFormat must be flash or explain');
   }
+  if (Number(editorial?.schemaVersion) >= 3) {
+    if (!editorial?.formatDecision || editorial.formatDecision.format !== editorial.reelFormat) {
+      errors.push('schema v3 editorial requires a matching formatDecision');
+    }
+    if (editorial?.reelFormat === 'explain' && editorial?.formatDecision?.eligible !== true) {
+      errors.push('explain Reel requires an eligible formatDecision');
+    }
+  }
   if (editorial?.reelFormat === 'explain') {
     const expectedRoles = ['what_happened', 'reader_impact', 'what_to_watch'];
     if (!Array.isArray(editorial.scenes) || editorial.scenes.length !== 3) {
@@ -865,6 +949,28 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
         if (!scene.title || !scene.body) errors.push(`scene ${index + 1} needs title and body`);
         if (!Array.isArray(scene.factRefs) || scene.factRefs.length < 1) errors.push(`scene ${index + 1} needs factRefs`);
       });
+      if (Number(editorial?.schemaVersion) >= 3) {
+        const evidenceSpans = sourceSentences(article);
+        const claimRefs = new Set();
+        editorial.scenes.forEach((scene, index) => {
+          if (!Array.isArray(scene.claimRefs) || scene.claimRefs.length !== 1) {
+            errors.push(`scene ${index + 1} needs exactly one claimRef`);
+          }
+          if (!Array.isArray(scene.sourceSpans) || scene.sourceSpans.length !== 1) {
+            errors.push(`scene ${index + 1} needs exactly one sourceSpan`);
+          }
+          const claimRef = scene.claimRefs?.[0];
+          const span = scene.sourceSpans?.[0];
+          if (!claimRef || !span) return;
+          if (claimRefs.has(claimRef)) errors.push('explain scenes require three distinct claimRefs');
+          claimRefs.add(claimRef);
+          const grounded = evidenceSpans.some(evidence => comparableNewsText(evidence) === comparableNewsText(span));
+          if (!grounded) errors.push(`scene ${index + 1} sourceSpan is absent from article evidence`);
+          if (!roleMatches(scene.role, scene.body) || !roleMatches(scene.role, span)) {
+            errors.push(`scene ${index + 1} does not satisfy its semantic role`);
+          }
+        });
+      }
     }
   }
   const captionValidation = validateCaption(editorial?.caption?.text || '');
@@ -910,6 +1016,7 @@ module.exports = {
   DEFAULT_MODELS,
   buildCommentChain,
   buildDeterministicEditorial,
+  chooseReelFormat,
   editorialRepairPrompt,
   buildDeterministicTitleCandidates,
   generateEditorial,

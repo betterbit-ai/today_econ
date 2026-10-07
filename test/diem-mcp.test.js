@@ -42,7 +42,7 @@ function validPackage() {
   };
   article.newsFrame = buildNewsFrame(article, article.category);
   const pack = {
-    schemaVersion: 2,
+    schemaVersion: 3,
     packageId: '2026-09-16-0730-economy-rate',
     runId: '2026-09-16-0730',
     status: 'ready',
@@ -63,7 +63,11 @@ function validPackage() {
     newsFrame: article.newsFrame,
     claims: article.verifiedFacts.map((text, index) => ({ id: `claim-${index + 1}`, text, sourceSpans: [text] })),
     editorial: buildDeterministicEditorial(article, { handle: 'diem.magazine' }),
-    analytics: { featureSchemaVersion: 2 },
+    analytics: {
+      featureSchemaVersion: 3,
+      strategyVersion: 'discovery-funnel-v3',
+      reelDurationSeconds: 6,
+    },
     visual: {
       kind: 'diem-library',
       assetId: 'finance-100',
@@ -79,6 +83,35 @@ function validPackage() {
   pack.integrity.contentSha256 = dailyPackageContentHash(pack);
   return pack;
 }
+
+function explainPackage() {
+  const pack = validPackage();
+  pack.editorial.reelFormat = 'explain';
+  pack.editorial.formatDecision = {
+    format: 'explain',
+    reason: 'three_distinct_grounded_scene_claims',
+    eligible: true,
+  };
+  pack.editorial.scenes = [
+    { role: 'what_happened', title: '무슨 일', body: pack.claims[1].text, factRefs: [1], claimRefs: ['claim-2'], sourceSpans: pack.claims[1].sourceSpans },
+    { role: 'reader_impact', title: '내게 미치는 영향', body: pack.claims[2].text, factRefs: [2], claimRefs: ['claim-3'], sourceSpans: pack.claims[2].sourceSpans },
+    { role: 'what_to_watch', title: '앞으로 확인할 사실', body: pack.claims[3].text, factRefs: [3], claimRefs: ['claim-4'], sourceSpans: pack.claims[3].sourceSpans },
+  ];
+  pack.analytics.reelDurationSeconds = 13;
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  return pack;
+}
+
+test('requires three distinct grounded semantic claims for submitted explain packages', () => {
+  const pack = explainPackage();
+  const accepted = validateSubmissionPackage(pack, { now: NOW });
+  assert.equal(accepted.ok, true, accepted.errors.join('; '));
+  pack.editorial.scenes[1].claimRefs = ['claim-2'];
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  const validation = validateSubmissionPackage(pack, { now: NOW });
+  assert.equal(validation.ok, false);
+  assert.match(validation.errors.join('; '), /distinct claimRefs/u);
+});
 
 function visualLibraryManifest() {
   return JSON.stringify({
@@ -268,6 +301,7 @@ test('submits only an assisted package matching the latest candidate evidence, f
     ['visual-kind', item => { item.visual.kind = 'chatgpt-generated-editorial'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /must use a reviewed visual-library/u],
     ['source', item => { item.source.url = 'https://news.example/not-in-candidates'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /must match a candidate/u],
     ['frame', item => { item.newsFrame.subject = '다른 주제'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /newsFrame.subject/u],
+    ['classification-reasons', item => { item.newsFrame.classificationReasons = ['category:issue']; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /newsFrame.classificationReasons/u],
     ['expiry', item => { item.expiresAt = '2026-09-17T12:35:00.000Z'; item.integrity.contentSha256 = dailyPackageContentHash(item); }, /must not extend/u],
   ]) {
     const github = new MockGitHubClient({ files: packFile });

@@ -5,6 +5,7 @@ const { buildNewsFrame } = require('../src/v2/topic');
 const {
   DEFAULT_MODELS,
   buildDeterministicEditorial,
+  chooseReelFormat,
   editorialRepairPrompt,
   generateEditorial,
   sourceSentences,
@@ -99,6 +100,21 @@ function politicalQuoteArticle() {
   };
 }
 
+function groundedExplainArticle() {
+  return {
+    category: CATEGORIES.ECONOMY,
+    title: '정부, 근로자 통근비 지원법 통과',
+    verifiedFacts: [
+      '정부는 근로자 통근비 지원 법안을 통과시켰습니다.',
+      '근로자는 매달 3만원의 통근 비용을 돌려받습니다.',
+    ],
+    context: '지원금은 내년 1월부터 온라인으로 신청할 수 있습니다.',
+    entities: ['정부', '근로자', '통근비'],
+    target: '근로자 통근비',
+    event: '지원법 통과',
+  };
+}
+
 test('deterministic fallback produces five short titles and the exact DIEM caption contract', () => {
   const editorial = buildDeterministicEditorial(economyArticle());
 
@@ -128,6 +144,61 @@ test('deterministic fallback produces five short titles and the exact DIEM capti
     '#데일리이슈앤이코노미',
   ]);
   assert.equal(validateEditorial(editorial, { article: economyArticle() }).ok, true);
+});
+
+test('keeps explain paused by default even when three grounded scene roles exist', () => {
+  const article = groundedExplainArticle();
+  const sentences = [...article.verifiedFacts, article.context];
+  const decision = chooseReelFormat({ article, sentences });
+
+  assert.deepEqual(
+    { format: decision.format, reason: decision.reason, eligible: decision.eligible },
+    { format: 'flash', reason: 'explain_disabled', eligible: true }
+  );
+  const editorial = buildDeterministicEditorial(article);
+  assert.equal(editorial.reelFormat, 'flash');
+  assert.deepEqual(editorial.scenes, []);
+});
+
+test('creates explain only from three distinct grounded claims with semantic roles', () => {
+  const article = groundedExplainArticle();
+  const editorial = buildDeterministicEditorial(article, { explainEnabled: true });
+
+  assert.equal(editorial.reelFormat, 'explain');
+  assert.deepEqual(editorial.scenes.map(scene => scene.role), [
+    'what_happened',
+    'reader_impact',
+    'what_to_watch',
+  ]);
+  assert.equal(new Set(editorial.scenes.flatMap(scene => scene.claimRefs)).size, 3);
+  assert.equal(new Set(editorial.scenes.flatMap(scene => scene.sourceSpans)).size, 3);
+  assert.equal(validateEditorial(editorial, { article }).ok, true);
+
+  editorial.scenes[1].claimRefs = editorial.scenes[0].claimRefs;
+  const invalid = validateEditorial(editorial, { article });
+  assert.equal(invalid.ok, false);
+  assert.match(invalid.errors.join('; '), /distinct claimRefs/u);
+});
+
+test('does not call a crime recap reader impact when no direct reader effect is sourced', () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '경찰, 지역 패싸움 가담자 추적',
+    verifiedFacts: [
+      '경찰은 공원에서 벌어진 패싸움 수사를 확대했습니다.',
+      '현장에서 세 명이 폭행 혐의로 체포됐습니다.',
+    ],
+    context: '경찰은 목격자 진술을 추가로 확인할 예정입니다.',
+  };
+  const decision = chooseReelFormat({
+    article,
+    sentences: [...article.verifiedFacts, article.context],
+    explainEnabled: true,
+  });
+
+  assert.equal(decision.format, 'flash');
+  assert.equal(decision.eligible, false);
+  assert.match(decision.reason, /reader_impact/u);
 });
 
 test('normalizes decomposed Korean and keeps emojis only at sentence one and three endings', () => {

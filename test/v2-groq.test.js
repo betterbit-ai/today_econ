@@ -1,7 +1,13 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
 
-const { createGroqCaller, createGroqVisionReviewer, isJsonValidationFailure, retryAfterMs } = require('../src/v2/groq');
+const {
+  classifyVisionError,
+  createGroqCaller,
+  createGroqVisionReviewer,
+  isJsonValidationFailure,
+  retryAfterMs,
+} = require('../src/v2/groq');
 
 test('uses retry-after for a bounded free-tier 429 retry', async () => {
   const waits = [];
@@ -64,7 +70,11 @@ test('recovers a rejected Groq JSON-mode generation as plain JSON text once', as
 
 test('vision review rejects foreign political symbols and selects only a safe article image', async () => {
   let request;
-  const client = { chat: { completions: { create: async params => {
+  let modelChecks = 0;
+  const client = { models: { retrieve: async model => {
+    modelChecks += 1;
+    return { id: model, active: true };
+  } }, chat: { completions: { create: async params => {
     request = params;
     return { choices: [{ message: { content: JSON.stringify({
       ok: true,
@@ -85,7 +95,8 @@ test('vision review rejects foreign political symbols and selects only a safe ar
       { id: 'safe-office', downloadUrl: 'https://example.com/office.jpg' },
     ],
   });
-  assert.equal(request.model, 'qwen/qwen3.6-27b');
+  assert.equal(request.model, 'qwen/qwen3.8-27b');
+  assert.equal(modelChecks, 1);
   assert.equal(request.messages[0].content.filter(item => item.type === 'image_url').length, 2);
   assert.equal(result.ok, true);
   assert.equal(result.selectedId, 'safe-office');
@@ -93,7 +104,7 @@ test('vision review rejects foreign political symbols and selects only a safe ar
 
 test('vision review recovers a JSON-mode validation failure as plain JSON once', async () => {
   const requests = [];
-  const client = { chat: { completions: { create: async params => {
+  const client = { models: { retrieve: async model => ({ id: model, active: true }) }, chat: { completions: { create: async params => {
     requests.push(params);
     if (params.response_format) {
       const error = new Error('400 {"error":{"code":"json_validate_failed","message":"Failed to validate JSON"}}');
@@ -125,7 +136,7 @@ test('vision review recovers a JSON-mode validation failure as plain JSON once',
 
 test('vision review retries an inaccessible remote image as a local base64 data URL', async () => {
   const requests = [];
-  const client = { chat: { completions: { create: async params => {
+  const client = { models: { retrieve: async model => ({ id: model, active: true }) }, chat: { completions: { create: async params => {
     requests.push(params);
     const imageUrl = params.messages[0].content.find(item => item.type === 'image_url').image_url.url;
     if (!imageUrl.startsWith('data:image/jpeg;base64,')) {
@@ -161,4 +172,23 @@ test('vision review retries an inaccessible remote image as a local base64 data 
   assert.equal(result.ok, true);
   assert.equal(requests.length, 2);
   assert.match(requests[1].messages[0].content.find(item => item.type === 'image_url').image_url.url, /^data:image\/jpeg;base64,/u);
+});
+
+test('fails before image transmission when the exact Vision model is unavailable', async () => {
+  let transmitted = false;
+  const client = {
+    models: { retrieve: async () => {
+      const error = new Error('model does not exist');
+      error.status = 404;
+      throw error;
+    } },
+    chat: { completions: { create: async () => { transmitted = true; } } },
+  };
+  const review = createGroqVisionReviewer({ client });
+  await assert.rejects(review({
+    images: [{ id: 'blocked', downloadUrl: 'https://images.example/blocked.jpg' }],
+  }), /model_not_found/u);
+  assert.equal(transmitted, false);
+  assert.equal(classifyVisionError(Object.assign(new Error('missing'), { status: 404 })), 'model_not_found');
+  assert.equal(classifyVisionError(new Error('temporary service failure')), 'model_error');
 });

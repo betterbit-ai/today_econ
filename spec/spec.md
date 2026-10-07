@@ -583,3 +583,31 @@ DIEM의 과거·신규 Reel 성과를 같은 관찰 구간끼리 비교해 잘�
 - v1 호환과 v2 스키마·성과 표본 하한 테스트
 - Vision 미가용 시 미검수 웹 이미지 차단 테스트
 - `node .codex-harness/scripts/verify-project.mjs`
+
+---
+
+# 2026-10-06 도달·전환 회복 v3
+
+## Goal
+
+부분일치 오분류, 근거 없는 explain 장면, 폐기 Vision 모델, views/reach 혼용을
+제거한 뒤에만 포맷 실험을 재개한다. production은 capability gate가 증명될 때까지
+flash-only로 유지한다.
+
+## Approved scope
+
+- 지역 개인 범죄, 금액 단위, 주거 정책을 복합 신호로 분류한다.
+- editorial v3는 formatDecision과 장면별 claimRefs/sourceSpans를 요구한다.
+- Vision 기본 모델은 `qwen/qwen3.8-27b`이고 실행 전에 Models API로 확인한다.
+- analytics v3는 reach, views, watch ratio, 저장·공유, 이미지·포맷·전략 cohort를
+  분리한다.
+- explain 재개에는 분류 40건, 초안 10건, Vision 5회 무사고 증거가 필요하다.
+- 신규 daily package는 v3만 준비·발행한다. v1·v2는 읽기 전용이다.
+- 예약 시각, 음악, 카테고리별 하루 1편 제한은 유지한다.
+
+## Verification
+
+- `npm test`
+- `git diff --check`
+- `node .codex-harness/scripts/verify-project.mjs`
+- `npm run diem:explain-gates`가 증거 전 `passed: false`인지 확인

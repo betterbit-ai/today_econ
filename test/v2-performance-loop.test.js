@@ -20,10 +20,12 @@ function publication(index, {
   imageKind = 'web',
   imageSource = 'pexels',
   trackId = `track-${index % 5}`,
+  format = 'flash',
+  strategyVersion = 'discovery-funnel-v3',
 } = {}) {
   const media = {
-    views: metric(exposure),
-    reach: metric(Math.round(exposure * 0.8)),
+    views: metric(Math.round(exposure * 1.25)),
+    reach: metric(exposure),
     saved: metric(Math.max(1, Math.round(exposure * 0.02))),
     shares: metric(Math.max(1, Math.round(exposure * 0.03))),
     ig_reels_avg_watch_time: metric(8000 + index),
@@ -32,8 +34,13 @@ function publication(index, {
     publicationKey: `diem:2026-08-${String(index + 1).padStart(2, '0')}:${category}:run-${index}`,
     category,
     candidate: { title, summary: `${title}에 관한 구체적인 설명입니다.` },
+    editorial: { reelFormat: format },
     reel: { status: 'published', externalId: `ig-${index}`, permalink: `https://instagram.com/reel/${index}` },
-    analytics: { featureSchemaVersion: 2 },
+    analytics: {
+      featureSchemaVersion: 3,
+      strategyVersion,
+      reelDurationSeconds: format === 'explain' ? 13 : 6,
+    },
     image: { kind: imageKind, source: imageSource },
     audio: { mode: 'track', trackId, mood: category === 'economy' ? 'steady' : 'serious' },
     insights: {
@@ -90,7 +97,7 @@ test('keeps late historical backfills visible but out of comparable performance 
   assert.equal(windowTimingStatus(late, '24h', late.insights.windows['24h']), 'late_backfill');
   assert.equal(report.windows['24h'].sampleCount, 1);
   assert.equal(report.windows['24h'].excludedLateBackfills, 1);
-  assert.equal(report.windows['24h'].categories.economy.metrics.exposureMedian, 500);
+  assert.equal(report.windows['24h'].categories.economy.metrics.reachMedian, 500);
 });
 
 test('learns repeated feature lift only after the category sample floor and caps its prior', () => {
@@ -165,6 +172,33 @@ test('reports recent Vision transport and JSON failures separately from semantic
   assert.equal(report.image.visionFailureDistribution.context_rejected.count, 1);
 });
 
+test('keeps model_not_found distinct from other Vision model errors', () => {
+  const missing = publication(0, { imageKind: 'generated', imageSource: 'diem-generated' });
+  missing.image.attempts = [{ provider: 'vision-review', error: '[DIEM Vision] model_not_found: qwen/qwen3.8-27b' }];
+  const generic = publication(1, { imageKind: 'generated', imageSource: 'diem-generated' });
+  generic.image.attempts = [{ provider: 'vision-review', error: '[DIEM Vision] model_error: upstream failed' }];
+  const report = buildPerformanceReport([{ publicationHistory: [missing, generic], publications: {} }]);
+  assert.equal(report.image.visionFailureDistribution.model_not_found.count, 1);
+  assert.equal(report.image.visionFailureDistribution.model_error.count, 1);
+});
+
+test('does not substitute views when reach is unavailable and reports format cohorts', () => {
+  const flash = publication(0, { exposure: 400, format: 'flash' });
+  const explain = publication(1, { exposure: 320, format: 'explain', imageKind: 'generated', imageSource: 'diem-generated' });
+  const viewsOnly = publication(2, { exposure: 10000 });
+  viewsOnly.insights.windows['7d'].media.reach = { value: null, status: 'unavailable' };
+
+  const report = buildPerformanceReport([{ publicationHistory: [flash, explain, viewsOnly], publications: {} }]);
+  const window = report.windows['7d'];
+  assert.equal(window.sampleCount, 2);
+  assert.equal(window.categories.economy.metrics.reachMedian, 360);
+  assert.equal(window.cohorts.format.flash.samples, 1);
+  assert.equal(window.cohorts.format.explain.samples, 1);
+  assert.equal(window.cohorts.image.library.samples, 1);
+  assert.equal(window.cohorts.strategyVersion['discovery-funnel-v3'].samples, 2);
+  assert.equal(window.cohorts.format.flash.normalizedWatchRatioMedian, 1.3333);
+});
+
 test('records reader-need features for later growth comparisons', () => {
   const { featureSet } = require('../src/v2/performance-loop');
   assert.ok(featureSet({ candidate: {
@@ -186,8 +220,19 @@ test('keeps operator-deleted publications out of performance learning while pres
 
   assert.equal(report.publishedCount, 1);
   assert.equal(report.windows['7d'].sampleCount, 1);
-  assert.equal(report.windows['7d'].categories.economy.metrics.exposureMedian, 300);
+  assert.equal(report.windows['7d'].categories.economy.metrics.reachMedian, 300);
   assert.equal(report.operations.moderatedPublications, 1);
+  assert.equal(report.successCriteria.qualityIncidents.value, 1);
+});
+
+test('keeps legacy quality incidents in the audit without failing the v3 success target', () => {
+  const legacyDeleted = publication(0, { strategyVersion: 'legacy' });
+  legacyDeleted.analytics.featureSchemaVersion = 2;
+  legacyDeleted.moderation = { action: 'deleted', reason: 'legacy correction' };
+  const report = buildPerformanceReport([{ publicationHistory: [legacyDeleted], publications: {} }]);
+  assert.equal(report.operations.qualityIncidentCount, 1);
+  assert.equal(report.operations.strategyQualityIncidentCount, 0);
+  assert.equal(report.successCriteria.qualityIncidents.value, 0);
 });
 
 test('deduplicates overlapping account follower snapshots instead of summing post deltas', () => {
@@ -201,10 +246,24 @@ test('deduplicates overlapping account follower snapshots instead of summing pos
   latest.insights.windows['7d'].collectedAt = '2026-09-30T00:00:00.000Z';
   latest.insights.windows['7d'].account = { follower_count: metric(337) };
   assert.deepEqual(followerSnapshotSummary([first, second, latest]), {
+    periodDays: 14,
     snapshots: 2,
     first: { collectedAt: '2026-09-29T00:00:00.000Z', followers: 334 },
     latest: { collectedAt: '2026-09-30T00:00:00.000Z', followers: 337 },
     netChange: 3,
-    attribution: 'deduplicated_account_snapshots_not_summed_post_deltas',
+    attribution: 'deduplicated_14d_account_snapshots_not_summed_post_deltas',
   });
+});
+
+test('evaluates final reach targets only from strategy v3 on-time samples', () => {
+  const current = Array.from({ length: 10 }, (_, index) => publication(index, { exposure: 300 + index }));
+  const legacy = publication(99, { exposure: 100000, strategyVersion: 'legacy' });
+  legacy.analytics.featureSchemaVersion = 2;
+  for (const item of [...current, legacy]) {
+    item.insights.windows['24h'] = item.insights.windows['7d'];
+  }
+  const report = buildPerformanceReport([{ publicationHistory: [...current, legacy], publications: {} }]);
+  assert.equal(report.windows['24h'].categories.economy.samples, 11);
+  assert.equal(report.successCriteria.economyReachMedian.samples, 10);
+  assert.equal(report.successCriteria.economyReachMedian.value, 304.5);
 });

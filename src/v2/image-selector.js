@@ -891,7 +891,7 @@ async function selectLicensedImage(candidate, {
   reuseWindowDays = 7,
   reviewPoolTarget = 8,
   reviewImages,
-  maxVisionReviews = 3,
+  maxVisionReviews = 1,
   generatedFallbackEnabled = false,
 } = {}) {
   const queries = buildImageQueries(candidate);

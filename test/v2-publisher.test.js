@@ -379,7 +379,9 @@ test('renders a generated fallback asset as the reel background', async () => {
   assert.equal(rendered.imagePath, generated.localPath);
   assert.equal(reelInput.format, 'flash');
   assert.equal(result.publications.economy.image.kind, 'generated');
-  assert.equal(result.publications.economy.analytics.featureSchemaVersion, 2);
+  assert.equal(result.publications.economy.analytics.featureSchemaVersion, 3);
+  assert.equal(result.publications.economy.analytics.strategyVersion, 'discovery-funnel-v3');
+  assert.equal(result.publications.economy.analytics.reelDurationSeconds, 6);
   assert.deepEqual(result.publications.economy.artifacts.scenePaths, []);
 });
 

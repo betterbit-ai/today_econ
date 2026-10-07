@@ -30,6 +30,10 @@ const STANDALONE_EDITORIAL_FILLER = new Set([
   '\uB17C\uB780',
   '\uC0C1\uD669',
   '\uC18C\uC2DD',
+  '\uC804\uB9DD\uBC1C\uD45C',
+  '\uC790\uB8CC\uACF5\uAC1C',
+  '\uACF5\uAC1C',
+  '\uC774\uC720',
 ]);
 
 function normalizeNfc(value = '') {
