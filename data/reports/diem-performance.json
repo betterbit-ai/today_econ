@@ -1,32 +1,32 @@
 {
   "schemaVersion": 2,
   "featureSchemaVersion": 2,
-  "generatedAt": "2026-10-12T01:00:44.790Z",
+  "generatedAt": "2026-10-12T11:41:39.302Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 feature schema v2 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.",
-  "publishedCount": 277,
+  "publishedCount": 278,
   "operations": {
-    "totalRuns": 553,
+    "totalRuns": 555,
     "noPublishReasons": {
       "no_candidate_passed_hotness_gate": {
         "count": 80,
-        "share": 32.52
+        "share": 32.39
       },
       "no_candidate_passed_editorial_generation": {
         "count": 75,
-        "share": 30.49
+        "share": 30.36
       },
       "no_candidate_passed_preparation": {
         "count": 48,
-        "share": 19.51
+        "share": 19.43
       },
       "daily_publication_budget_exhausted": {
-        "count": 37,
-        "share": 15.04
+        "count": 38,
+        "share": 15.38
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 4,
-        "share": 1.63
+        "share": 1.62
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
@@ -36,15 +36,15 @@
     "candidateFailureReasons": {
       "editorial_generation_failed": {
         "count": 146,
-        "share": 50.17
+        "share": 49.83
       },
       "image_context_unavailable": {
-        "count": 101,
-        "share": 34.71
+        "count": 103,
+        "share": 35.15
       },
       "unknown": {
         "count": 44,
-        "share": 15.12
+        "share": 15.02
       }
     },
     "titleRepairFailures": 41,
@@ -52,7 +52,7 @@
   },
   "windows": {
     "24h": {
-      "sampleCount": 185,
+      "sampleCount": 186,
       "excludedLateBackfills": 90,
       "categories": {
         "economy": {
@@ -334,30 +334,381 @@
           "caveat": "같은 관찰 구간의 표본만 비교하며 계정 팔로워 증분은 단일 Reel 확정 기여가 아닙니다."
         },
         "issue": {
-          "status": "insufficient_data",
-          "samples": 97,
-          "learningSamples": 9,
+          "status": "ready",
+          "samples": 98,
+          "learningSamples": 10,
           "legacyReportOnlySamples": 88,
           "minimumSamples": 10,
           "metrics": {
-            "exposureMedian": 308,
-            "viewsMedian": 308,
-            "reachMedian": 223,
+            "exposureMedian": 299,
+            "viewsMedian": 299,
+            "reachMedian": 219.5,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "engagementRateMedian": 2.53,
-            "averageWatchTimeMedian": 3421,
+            "engagementRateMedian": 2.54,
+            "averageWatchTimeMedian": 3470,
             "followerDeltaEstimateMedian": 0
           },
-          "winners": [],
-          "underperformers": [],
-          "featureSignals": [],
+          "winners": [
+            {
+              "publicationKey": "diem:2026-08-12:issue:31605450490",
+              "category": "issue",
+              "title": "주진우 증언 / 우원식표결지연",
+              "permalink": "https://www.instagram.com/reel/Db8WvFLidaR/",
+              "exposure": 23904,
+              "views": 23904,
+              "reach": 12743,
+              "savedRate": 0.126,
+              "shareRate": 0.471,
+              "engagementRate": 2.79,
+              "averageWatchTime": 9109,
+              "followerDeltaEstimate": 1,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "pixabay-bransboynd-night-summer-lounge-473222",
+                "mood": "serious"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-08-12:issue:31530100592",
+              "category": "issue",
+              "title": "선관위 / 서울시장 소청 기각",
+              "permalink": "https://www.instagram.com/reel/Db6Y5pqlhca/",
+              "exposure": 7617,
+              "views": 7617,
+              "reach": 4775,
+              "savedRate": 0.042,
+              "shareRate": 0.147,
+              "engagementRate": 1.03,
+              "averageWatchTime": 6066,
+              "followerDeltaEstimate": 5,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "typographic",
+                "source": "diem-original"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "serious4",
+                "mood": "serious"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-08-21:issue:32408276164",
+              "category": "issue",
+              "title": "북 미사일 발사 / 김여정 조롱",
+              "permalink": "https://www.instagram.com/reel/DcRgoRkjWcl/",
+              "exposure": 5362,
+              "views": 5362,
+              "reach": 3258,
+              "savedRate": 0.092,
+              "shareRate": 0.706,
+              "engagementRate": 1.72,
+              "averageWatchTime": 6940,
+              "followerDeltaEstimate": 1,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "typographic",
+                "source": "diem-original"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "serious1",
+                "mood": "serious"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-08-11:issue:31471395092",
+              "category": "issue",
+              "title": "한동훈 흉기 / 징역 1년 확정",
+              "permalink": "https://www.instagram.com/reel/Db5HnexgGBP/",
+              "exposure": 3867,
+              "views": 3867,
+              "reach": 2700,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 0.93,
+              "averageWatchTime": 5671,
+              "followerDeltaEstimate": null,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:housing_policy",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "pixabay-bransboynd-night-summer-lounge-473222",
+                "mood": "serious"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-08-19:issue:32207606275",
+              "category": "issue",
+              "title": "트럼프 분노 / 한국 희생양",
+              "permalink": "https://www.instagram.com/reel/DcNGVDegAFI/",
+              "exposure": 3691,
+              "views": 3691,
+              "reach": 2363,
+              "savedRate": 0.127,
+              "shareRate": 0.508,
+              "engagementRate": 2.79,
+              "averageWatchTime": 6045,
+              "followerDeltaEstimate": 8,
+              "featureSchemaVersion": 0,
+              "features": [
+                "event:general",
+                "public_decision"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "wikimedia"
+              },
+              "audio": {
+                "mode": "silent",
+                "trackId": null,
+                "mood": null
+              }
+            }
+          ],
+          "underperformers": [
+            {
+              "publicationKey": "diem:2026-09-15:issue:34968169395",
+              "category": "issue",
+              "title": "모기 활동 / 주의 권고",
+              "permalink": "https://www.instagram.com/reel/DdTtCKiD44N/",
+              "exposure": 24,
+              "views": 24,
+              "reach": 22,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 13.64,
+              "averageWatchTime": 2497,
+              "followerDeltaEstimate": 0,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "generated",
+                "source": "diem-generated"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "bright1",
+                "mood": "bright"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-10-09:issue:37895978918",
+              "category": "issue",
+              "title": "이재명 대통령 / 검찰개혁 발언",
+              "permalink": "https://www.instagram.com/reel/DeQ617ICaMv/",
+              "exposure": 36,
+              "views": 36,
+              "reach": 20,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 15,
+              "averageWatchTime": 2659,
+              "followerDeltaEstimate": 1,
+              "featureSchemaVersion": 2,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "generated",
+                "source": "diem-generated"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "serious4",
+                "mood": "serious"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-09-11:issue:34565704168",
+              "category": "issue",
+              "title": "박선원 공개 / 공익제보자 위반",
+              "permalink": "https://www.instagram.com/reel/DdIqHQDD9nI/",
+              "exposure": 40,
+              "views": 40,
+              "reach": 29,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 6.9,
+              "averageWatchTime": 3421,
+              "followerDeltaEstimate": -1,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "generated",
+                "source": "diem-generated"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "pixabay-alexguz-funk-amp-breakbeat-541097",
+                "mood": "bright"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-09-26:issue:36193928673",
+              "category": "issue",
+              "title": "지뢰조사 지연 / 정치 대립",
+              "permalink": "https://www.instagram.com/reel/DduefRsAXQ0/",
+              "exposure": 42,
+              "views": 42,
+              "reach": 34,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 8.82,
+              "averageWatchTime": 2058,
+              "followerDeltaEstimate": 0,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "generated",
+                "source": "diem-generated"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "bright2",
+                "mood": "bright"
+              }
+            },
+            {
+              "publicationKey": "diem:2026-09-22:issue:35725670156",
+              "category": "issue",
+              "title": "배현진 비판 / 이재명 물",
+              "permalink": "https://www.instagram.com/reel/DdltlVmCA7O/",
+              "exposure": 46,
+              "views": 46,
+              "reach": 37,
+              "savedRate": 0,
+              "shareRate": 0,
+              "engagementRate": 10.81,
+              "averageWatchTime": 3309,
+              "followerDeltaEstimate": 1,
+              "featureSchemaVersion": 0,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "public_decision",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "generated",
+                "source": "diem-generated"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "serious2",
+                "mood": "serious"
+              }
+            }
+          ],
+          "featureSignals": [
+            {
+              "feature": "company_event",
+              "samples": 1,
+              "exposureMedian": 1247,
+              "lift": 6.633,
+              "signal": "insufficient_data"
+            },
+            {
+              "feature": "event:political_statement",
+              "samples": 2,
+              "exposureMedian": 733.5,
+              "lift": 3.902,
+              "signal": "insufficient_data"
+            },
+            {
+              "feature": "reader_need:public_interest",
+              "samples": 9,
+              "exposureMedian": 194,
+              "lift": 1.032,
+              "signal": "neutral"
+            },
+            {
+              "feature": "concrete_number",
+              "samples": 10,
+              "exposureMedian": 188,
+              "lift": 1,
+              "signal": "neutral"
+            },
+            {
+              "feature": "event:general",
+              "samples": 8,
+              "exposureMedian": 180.5,
+              "lift": 0.96,
+              "signal": "neutral"
+            },
+            {
+              "feature": "public_decision",
+              "samples": 6,
+              "exposureMedian": 174.5,
+              "lift": 0.928,
+              "signal": "neutral"
+            },
+            {
+              "feature": "household_money",
+              "samples": 1,
+              "exposureMedian": 160,
+              "lift": 0.851,
+              "signal": "insufficient_data"
+            },
+            {
+              "feature": "reader_need:household_cost",
+              "samples": 1,
+              "exposureMedian": 160,
+              "lift": 0.851,
+              "signal": "insufficient_data"
+            }
+          ],
           "caveat": "같은 관찰 구간의 표본만 비교하며 계정 팔로워 증분은 단일 Reel 확정 기여가 아닙니다."
         }
       }
     },
     "72h": {
-      "sampleCount": 192,
+      "sampleCount": 193,
       "excludedLateBackfills": 79,
       "categories": {
         "economy": {
@@ -383,18 +734,18 @@
         },
         "issue": {
           "status": "insufficient_data",
-          "samples": 102,
-          "learningSamples": 7,
+          "samples": 103,
+          "learningSamples": 8,
           "legacyReportOnlySamples": 95,
           "minimumSamples": 10,
           "metrics": {
-            "exposureMedian": 363,
-            "viewsMedian": 363,
-            "reachMedian": 272,
+            "exposureMedian": 355,
+            "viewsMedian": 355,
+            "reachMedian": 264,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "engagementRateMedian": 2.37,
-            "averageWatchTimeMedian": 3479,
+            "engagementRateMedian": 2.44,
+            "averageWatchTimeMedian": 3444,
             "followerDeltaEstimateMedian": 0
           },
           "winners": [],
@@ -455,16 +806,16 @@
   },
   "learningWindows": {
     "economy": "24h",
-    "issue": null
+    "issue": "24h"
   },
   "followers": {
-    "snapshots": 214,
+    "snapshots": 215,
     "first": {
       "collectedAt": "2026-08-11T16:58:12.535Z",
       "followers": 301
     },
     "latest": {
-      "collectedAt": "2026-10-12T01:00:40.698Z",
+      "collectedAt": "2026-10-12T11:41:33.576Z",
       "followers": 335
     },
     "netChange": 34,
@@ -473,34 +824,34 @@
   "image": {
     "kindDistribution": {
       "generated": {
-        "count": 126,
-        "share": 45.49
+        "count": 127,
+        "share": 45.68
       },
       "web": {
         "count": 109,
-        "share": 39.35
+        "share": 39.21
       },
       "typographic": {
         "count": 42,
-        "share": 15.16
+        "share": 15.11
       }
     },
     "sourceDistribution": {
       "diem-generated": {
-        "count": 126,
-        "share": 45.49
+        "count": 127,
+        "share": 45.68
       },
       "pexels": {
         "count": 98,
-        "share": 35.38
+        "share": 35.25
       },
       "diem-original": {
         "count": 42,
-        "share": 15.16
+        "share": 15.11
       },
       "unsplash": {
         "count": 6,
-        "share": 2.17
+        "share": 2.16
       },
       "wikimedia": {
         "count": 4,
@@ -511,44 +862,44 @@
         "share": 0.36
       }
     },
-    "typographyFallbackRate": 15.16,
-    "generatedFallbackRate": 45.49,
-    "combinedFallbackRate": 60.65,
+    "typographyFallbackRate": 15.11,
+    "generatedFallbackRate": 45.68,
+    "combinedFallbackRate": 60.79,
     "visionFailureDistribution": {
       "model_error": {
-        "count": 54,
-        "share": 49.09
+        "count": 55,
+        "share": 49.55
       },
       "json_error": {
         "count": 46,
-        "share": 41.82
+        "share": 41.44
       },
       "image_access": {
         "count": 6,
-        "share": 5.45
+        "share": 5.41
       },
       "context_rejected": {
         "count": 2,
-        "share": 1.82
+        "share": 1.8
       },
       "rate_limit": {
         "count": 1,
-        "share": 0.91
+        "share": 0.9
       },
       "budget_exhausted": {
         "count": 1,
-        "share": 0.91
+        "share": 0.9
       }
     },
     "recentSevenDays": {
       "startDate": "2026-10-06",
       "endDate": "2026-10-12",
-      "publishedCount": 13,
-      "fallbackCount": 13,
+      "publishedCount": 14,
+      "fallbackCount": 14,
       "fallbackRate": 100,
       "visionFailureDistribution": {
         "model_error": {
-          "count": 8,
+          "count": 9,
           "share": 100
         }
       }
@@ -558,85 +909,85 @@
     "trackDistribution": {
       "mixkit-tech-house-vibes-130": {
         "count": 24,
-        "share": 9.16
+        "share": 9.13
       },
       "mixkit-driving-ambition-32": {
         "count": 22,
-        "share": 8.4
+        "share": 8.37
       },
       "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494": {
         "count": 21,
-        "share": 8.02
+        "share": 7.98
       },
       "serious1": {
         "count": 20,
-        "share": 7.63
+        "share": 7.6
+      },
+      "mixkit-serene-view-443": {
+        "count": 20,
+        "share": 7.6
       },
       "pixabay-magpiemusic-action-trailer-promo-rock-513687": {
         "count": 19,
-        "share": 7.25
+        "share": 7.22
       },
       "bright2": {
         "count": 19,
-        "share": 7.25
-      },
-      "mixkit-serene-view-443": {
-        "count": 19,
-        "share": 7.25
+        "share": 7.22
       },
       "bright3": {
         "count": 17,
-        "share": 6.49
+        "share": 6.46
       },
       "bright1": {
         "count": 16,
-        "share": 6.11
+        "share": 6.08
       },
       "pixabay-alexguz-funk-amp-breakbeat-541097": {
         "count": 15,
-        "share": 5.73
+        "share": 5.7
       },
       "mixkit-dirty-thinkin-989": {
         "count": 14,
-        "share": 5.34
+        "share": 5.32
       },
       "pixabay-bransboynd-night-summer-lounge-473222": {
         "count": 11,
-        "share": 4.2
+        "share": 4.18
       },
       "serious2": {
         "count": 11,
-        "share": 4.2
+        "share": 4.18
       },
       "serious3": {
         "count": 11,
-        "share": 4.2
+        "share": 4.18
       },
       "pixabay-sonican-lo-fi-music-loop-sentimental-jazzy-love-473154": {
         "count": 9,
-        "share": 3.44
+        "share": 3.42
       },
       "serious4": {
         "count": 8,
-        "share": 3.05
+        "share": 3.04
       },
       "mixkit-fright-night-871": {
         "count": 6,
-        "share": 2.29
+        "share": 2.28
       }
     },
     "moodDistribution": {
       "bright": {
         "count": 146,
-        "share": 52.71
+        "share": 52.52
       },
       "serious": {
-        "count": 116,
-        "share": 41.88
+        "count": 117,
+        "share": 42.09
       },
       "unknown": {
         "count": 15,
-        "share": 5.42
+        "share": 5.4
       }
     },
     "diversityWarning": null,
