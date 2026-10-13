@@ -4,7 +4,7 @@
   "date": "2026-10-13",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-12T16:17:21.698Z",
-  "updatedAt": "2026-10-13T11:26:52.391Z",
+  "updatedAt": "2026-10-13T11:27:01.709Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -8329,7 +8329,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-13:economy:38389900466",
       "category": "economy",
-      "status": "ready",
+      "status": "retry_pending",
       "candidate": {
         "title": "이재용, 홍라희로부터 삼전 2.6조 증여받아…올들어 총 5조 달해",
         "url": "https://n.news.naver.com/article/082/0001402322?ntype=RANKING",
@@ -9906,11 +9906,11 @@
         "fallback": false
       },
       "reel": {
-        "status": "ready",
-        "attempts": 0,
+        "status": "retry_pending",
+        "attempts": 1,
         "externalId": null,
-        "error": null,
-        "updatedAt": "2026-10-13T11:26:52.379Z"
+        "error": "[Instagram] 400: User access is restricted",
+        "updatedAt": "2026-10-13T11:27:00.268Z"
       },
       "story": {
         "status": "planned",
@@ -9933,7 +9933,17 @@
         "error": null,
         "updatedAt": null
       },
-      "notifications": [],
+      "notifications": [
+        {
+          "key": "diem:2026-10-13:economy:38389900466:reel:retry_pending",
+          "status": "retry_pending",
+          "stage": "reel",
+          "sentAt": "2026-10-13T11:27:01.706Z",
+          "slackTs": "1791890820.501599",
+          "issueNumber": 149,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/149"
+        }
+      ],
       "reason": null,
       "plannedAt": "2026-10-13T11:26:25.034Z",
       "hotness": {
@@ -9998,6 +10008,13 @@
         "reelPath": ".diem-cache/2026-10-13/economy/economy-reel.mp4",
         "reelSha256": "8483ea381becb5d3fb75df8e500417e947815d948ebdbf0cdac318ee810049e2",
         "temporary": true
+      },
+      "release": {
+        "id": 411599473,
+        "tag": "instagram-assets-diem-2026-10-13-economy-38389900466-1791890818249",
+        "videoUrl": "https://github.com/betterbit-ai/today_econ/releases/download/instagram-assets-diem-2026-10-13-economy-38389900466-1791890818249/diem-2026-10-13-economy-38389900466.mp4",
+        "createdAt": "2026-10-13T01:04:46Z",
+        "deleteAfter": "2026-10-16T11:27:00.014Z"
       }
     },
     "issue": {
