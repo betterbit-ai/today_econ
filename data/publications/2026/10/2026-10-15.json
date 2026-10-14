@@ -4,7 +4,7 @@
   "date": "2026-10-15",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-14T17:43:00.476Z",
-  "updatedAt": "2026-10-14T17:43:41.239Z",
+  "updatedAt": "2026-10-14T17:43:46.112Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -1985,7 +1985,7 @@
     "issue": {
       "publicationKey": "diem:2026-10-15:issue:38608567772",
       "category": "issue",
-      "status": "ready",
+      "status": "manual_action_required",
       "candidate": {
         "title": "\"정치 검사 공범\"·\"소신 갖춘 반윤\"…김지용 놓고 與與 대립(종합2보)",
         "url": "https://n.news.naver.com/article/001/0016377691?ntype=RANKING",
@@ -2338,11 +2338,19 @@
         "fallback": false
       },
       "reel": {
-        "status": "ready",
-        "attempts": 0,
+        "status": "manual_action_required",
+        "attempts": 1,
         "externalId": null,
-        "error": null,
-        "updatedAt": "2026-10-14T17:43:41.232Z"
+        "error": "[Instagram] 401: Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
+        "updatedAt": "2026-10-14T17:43:44.466Z",
+        "errorDetails": {
+          "httpStatus": 401,
+          "code": 190,
+          "subcode": 0,
+          "userMessage": "Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
+          "traceId": "A9_GJLOxRwjrK7mY78bT2cH"
+        },
+        "errorCode": 190
       },
       "story": {
         "status": "planned",
@@ -2365,7 +2373,17 @@
         "error": null,
         "updatedAt": null
       },
-      "notifications": [],
+      "notifications": [
+        {
+          "key": "diem:2026-10-15:issue:38608567772:reel:manual_action_required",
+          "status": "manual_action_required",
+          "stage": "reel",
+          "sentAt": "2026-10-14T17:43:46.111Z",
+          "slackTs": "1791999824.651619",
+          "issueNumber": 159,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/159"
+        }
+      ],
       "reason": null,
       "plannedAt": "2026-10-14T17:43:29.906Z",
       "hotness": {
