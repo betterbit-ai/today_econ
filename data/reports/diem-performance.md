@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 278편
-- 생성 시각: 2026-10-13T21:02:56.472Z
+- 생성 시각: 2026-10-14T00:54:06.786Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 feature schema v2 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 
 ## 24h
@@ -36,8 +36,8 @@
 - 최근 7일 Vision 실패: model_error 6건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 147건, image_context_unavailable 105건, unknown 44건
-- 제목 재정제 실패: 42건
+- 편집 후보 실패: editorial_generation_failed 148건, image_context_unavailable 107건, unknown 44건
+- 제목 재정제 실패: 44건
 
 ## 해석 주의
 - 한 건의 바이럴이나 부진으로 주제를 금지하지 않습니다. 표본 하한과 중앙값을 함께 봅니다.
