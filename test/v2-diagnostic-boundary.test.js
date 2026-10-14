@@ -21,5 +21,9 @@ test('manual diagnostic job has read permissions and cannot publish, commit ledg
   assert.match(job, /PUBLISH_INSTAGRAM: 'false'/);
   assert.match(job, /diagnose --read-only/);
   assert.match(job, /upload-artifact@v4/);
-  assert.doesNotMatch(job, /--publish|commit-diem-state|collect-insights|sendAnalyticsReport|SLACK_/);
+  assert.doesNotMatch(job, /--publish|commit-diem-state|collect-insights|sendAnalyticsReport/);
+  // Removing credentials from mock tests is allowed; supplying Slack credentials is not.
+  assert.doesNotMatch(job.replace(/-u SLACK_(?:BOT_TOKEN|CHANNEL_ID)/gu, ''), /SLACK_/);
+  assert.match(job, /-u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY/);
+  assert.match(job, /-u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE/);
 });

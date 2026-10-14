@@ -411,7 +411,13 @@ jobs:
           npm ci --prefix services/diem-mcp --ignore-scripts
 
       - name: Verify recovery on the production Node.js runtime
-        run: node .codex-harness/scripts/verify-project.mjs
+        # Unit tests exercise mock publishing, including Story-enabled defaults.
+        # Production credentials and switches belong only to the diagnostic step.
+        run: |
+          env -u GROQ_API_KEY -u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY \
+            -u SLACK_BOT_TOKEN -u SLACK_CHANNEL_ID -u GITHUB_TOKEN \
+            -u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE \
+            node .codex-harness/scripts/verify-project.mjs
 
       - name: Read account and review five shadow image pairs without publishing
         run: node src/v2/index.js diagnose --read-only --output .diem-cache/diagnostics/report.json
