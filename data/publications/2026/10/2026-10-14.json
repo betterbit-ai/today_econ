@@ -4,7 +4,7 @@
   "date": "2026-10-14",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-13T21:01:00.626Z",
-  "updatedAt": "2026-10-14T14:54:56.106Z",
+  "updatedAt": "2026-10-14T14:56:56.721Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -44,7 +44,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:primary_article_inaccessible"
       ]
     },
     {
@@ -89,7 +90,8 @@
         }
       },
       "rejectionReasons": [
-        "issue:not_hot:article_too_old"
+        "issue:not_hot:article_too_old",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -132,7 +134,8 @@
         }
       },
       "rejectionReasons": [
-        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 53% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 73% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 25% in \"2021년부터 9월까지 중증·후유장애 사건 조정 성공률은 53.4%, 사망 사건은 52.2%였으며, 전체 조정 신청은 전년 대비 25% 증가한 \" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"51.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 53% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 73% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 25% in \"2021년부터 9월까지 중증·후유장애 사건 조정 성공률은 53.4%, 사망 사건은 52.2%였으며, 전체 조정 신청은 전년 대비 25% 증가한 \" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"51.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "economy:same_event_already_selected_or_attempted"
       ]
     },
     {
@@ -172,7 +175,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:category_not_allowed_after_hydration"
+        "issue:category_not_allowed_after_hydration",
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
@@ -212,7 +216,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -252,7 +257,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:not_hot:article_too_old"
+        "issue:not_hot:article_too_old",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -290,7 +296,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy"
+        "issue:assigned_to_economy",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -330,7 +337,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
@@ -370,7 +378,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:local_private_crime_without_public_value"
+        "issue:local_private_crime_without_public_value",
+        "economy:local_private_crime_without_public_value"
       ]
     },
     {
@@ -410,7 +419,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:low_editorial_value:missing_content_value_signal"
       ]
     },
     {
@@ -450,7 +460,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
@@ -490,7 +501,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:narrow_private_crime_story"
+        "issue:narrow_private_crime_story",
+        "economy:primary_article_inaccessible"
       ]
     },
     {
@@ -530,7 +542,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:economy_low_value"
+        "issue:economy_low_value",
+        "economy:economy_low_value"
       ]
     },
     {
@@ -570,7 +583,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
@@ -610,7 +624,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:narrow_private_crime_story"
+        "issue:narrow_private_crime_story",
+        "economy:narrow_private_crime_story"
       ]
     },
     {
@@ -650,7 +665,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:issue_low_value"
+        "issue:issue_low_value",
+        "economy:issue_low_value"
       ]
     },
     {
@@ -690,7 +706,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -728,7 +745,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy"
+        "issue:assigned_to_economy",
+        "economy:primary_article_inaccessible"
       ]
     },
     {
@@ -768,7 +786,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:category_not_allowed_after_hydration"
+        "issue:category_not_allowed_after_hydration",
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
@@ -808,7 +827,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:low_mission_fit_anecdote"
+        "issue:low_mission_fit_anecdote",
+        "economy:low_mission_fit_anecdote"
       ]
     },
     {
@@ -848,7 +868,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
+        "issue:assigned_to_economy_after_hydration",
+        "economy:low_editorial_value:missing_content_value_signal"
       ]
     },
     {
@@ -888,7 +909,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:low_editorial_value:missing_content_value_signal"
+        "issue:low_editorial_value:missing_content_value_signal",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -928,7 +950,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -968,7 +991,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:not_hot:article_too_old"
       ]
     },
     {
@@ -1006,7 +1030,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue"
       ]
     },
     {
@@ -1046,7 +1071,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:not_hot:article_too_old"
+        "issue:not_hot:article_too_old",
+        "economy:primary_article_inaccessible"
       ]
     },
     {
@@ -1100,7 +1126,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:not_hot:popularity_below_threshold"
+        "issue:not_hot:popularity_below_threshold",
+        "economy:assigned_to_issue"
       ]
     },
     {
@@ -1140,7 +1167,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:category_not_allowed_after_hydration"
+        "issue:category_not_allowed_after_hydration",
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
@@ -1180,7 +1208,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
@@ -1220,7 +1249,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
+        "issue:assigned_to_economy_after_hydration",
+        "economy:not_hot:popularity_below_threshold"
       ]
     },
     {
@@ -1260,7 +1290,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:economy_low_value"
+        "issue:economy_low_value",
+        "economy:primary_article_inaccessible"
       ]
     },
     {
@@ -1308,7 +1339,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:low_editorial_value:missing_content_value_signal"
+        "issue:low_editorial_value:missing_content_value_signal",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -1348,7 +1380,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -1386,7 +1419,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:not_hot:article_too_old"
+        "issue:not_hot:article_too_old",
+        "economy:assigned_to_issue"
       ]
     },
     {
@@ -1426,7 +1460,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:not_hot:popularity_below_threshold"
+        "issue:not_hot:popularity_below_threshold",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -1466,7 +1501,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:not_hot:article_too_old"
+        "issue:not_hot:article_too_old",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -1514,7 +1550,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -1554,7 +1591,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -1594,7 +1632,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:primary_article_inaccessible"
       ]
     },
     {
@@ -1634,7 +1673,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     },
     {
@@ -1674,7 +1714,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
+        "issue:assigned_to_economy_after_hydration",
+        "economy:low_editorial_value:insufficient_reader_value"
       ]
     },
     {
@@ -1714,7 +1755,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
+        "issue:assigned_to_economy_after_hydration",
+        "economy:low_editorial_value:insufficient_reader_value"
       ]
     },
     {
@@ -1754,7 +1796,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:issue_low_value"
+        "issue:issue_low_value",
+        "economy:issue_low_value"
       ]
     },
     {
@@ -1794,7 +1837,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
+        "issue:assigned_to_economy_after_hydration",
+        "economy:low_editorial_value:insufficient_reader_value"
       ]
     },
     {
@@ -1834,7 +1878,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
+        "issue:assigned_to_economy_after_hydration",
+        "economy:primary_article_inaccessible"
       ]
     },
     {
@@ -1874,7 +1919,8 @@
         "final": null
       },
       "rejectionReasons": [
-        "issue:primary_article_inaccessible"
+        "issue:primary_article_inaccessible",
+        "economy:assigned_to_issue_after_hydration"
       ]
     }
   ],
@@ -8238,7 +8284,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-14:economy:38492439627",
       "category": "economy",
-      "status": "retry_pending",
+      "status": "no_publish",
       "candidate": {
         "title": "“월 8만 원 넣으면 1300만 원 돌려받는다”…전국 최초 시행된 제도 가입자 무려",
         "url": "https://n.news.naver.com/article/011/0004670900?ntype=RANKING",
@@ -8574,32 +8620,32 @@
         "fallback": false
       },
       "reel": {
-        "status": "retry_pending",
+        "status": "no_publish",
         "attempts": 2,
         "externalId": null,
-        "error": "[Instagram] 401: Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
-        "updatedAt": "2026-10-14T09:18:31.679Z"
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 40 in \"가입 대상은 40~55세 경남 주민으로 연소득 9,352만원 이하이며, 4050세대의 소득 공백 우려가 반영된 결과로 다른 지자체에서도 유사 제\" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "updatedAt": "2026-10-14T14:56:55.032Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T14:56:55.032Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T14:56:55.032Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T14:56:55.032Z"
       },
       "notifications": [
         {
@@ -8610,9 +8656,18 @@
           "slackTs": "1791939236.877439",
           "issueNumber": 153,
           "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/153"
+        },
+        {
+          "key": "diem:2026-10-14:economy:38492439627:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-14T14:56:56.719Z",
+          "slackTs": "1791989815.211059",
+          "issueNumber": 158,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/158"
         }
       ],
-      "reason": null,
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-14T00:53:37.787Z",
       "hotness": {
         "ok": true,
@@ -8676,6 +8731,60 @@
         "reelPath": ".diem-cache/2026-10-14/economy/economy-reel.mp4",
         "reelSha256": "088417d898a0da7ee82e66d0a8564b71fe2976daaf99ac6e5d0e4de5ed3e757d",
         "temporary": true
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 40 in \"가입 대상은 40~55세 경남 주민으로 연소득 9,352만원 이하이며, 4050세대의 소득 공백 우려가 반영된 결과로 다른 지자체에서도 유사 제\" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "candidateFailures": [
+          {
+            "title": "“월 8만 원 넣으면 1300만 원 돌려받는다”…전국 최초 시행된 제도 가입자 무려",
+            "url": "https://n.news.naver.com/article/011/0004670900?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 40 in \"가입 대상은 40~55세 경남 주민으로 연소득 9,352만원 이하이며, 4050세대의 소득 공백 우려가 반영된 결과로 다른 지자체에서도 유사 제\" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 40 in \"가입 대상은 40~55세 경남 주민으로 연소득 9,352만원 이하이며, 4050세대의 소득 공백 우려가 반영된 결과로 다른 지자체에서도 유사 제\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"10년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"8만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"1300만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-14T14:55:34.293Z"
+          }
+        ],
+        "updatedAt": "2026-10-14T14:56:55.032Z"
       }
     },
     "issue": {
