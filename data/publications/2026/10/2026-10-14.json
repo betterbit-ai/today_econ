@@ -4,7 +4,7 @@
   "date": "2026-10-14",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-13T21:01:00.626Z",
-  "updatedAt": "2026-10-14T12:34:59.626Z",
+  "updatedAt": "2026-10-14T12:38:04.897Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -131,7 +131,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 53% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 73% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 25% in \"2021년부터 9월까지 중증·후유장애 사건 조정 성공률은 53.4%, 사망 사건은 52.2%였으며, 전체 조정 신청은 전년 대비 25% 증가한 \" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"51.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+      ]
     },
     {
       "title": "“전날 9시부터 기다렸어요”…두쫀쿠 이어 떡까지, 오픈런은 놀이가 됐다 [르포]",
@@ -169,7 +171,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] 李대통령 ‘쓴소리’ 류덕현 재정보좌관에 깜짝 선물…“신하와 참모는 다릅니다”",
@@ -207,7 +211,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "주한美사령관 “지도서 베이징~서울 선 그어보라”…주한미군, 中견제 확대 시사",
@@ -245,7 +251,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "[단독]국민연금, 내년 17% 손실나도 성과급 230억 받는다",
@@ -281,7 +289,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "독감 조퇴 엄마 울렸다…미역국 끓여놓고 등교한 초4 아들",
@@ -319,7 +329,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "일산 빌라서 외국인 4명 술마시다 성폭행…1명 구속, 2명 입건",
@@ -357,7 +369,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:local_private_crime_without_public_value"
+      ]
     },
     {
       "title": "“내 자리야”…주차칸 막고 진입차량 내리친 여성",
@@ -395,7 +409,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "죽은 줄 알았는데…장례 도중 관 속에서 일어난 15살 소녀, 당국 조사 [잇슈 SNS]",
@@ -433,7 +449,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "[단독] “제발 하지말라” 해도…병원 동료 성추행한 40대 남성 불구속기소",
@@ -471,7 +489,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "김지용 인사청문회 여야 모두 질타…“검찰 개혁 의지 있나”·“여권도 반대한다”",
@@ -509,7 +529,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "전 연인 살해 60대 뒤늦게 중환자실 입원…“체포 당시 이미 음독 상태”",
@@ -547,7 +569,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "‘인천 흉기난동’ 심정지 20대女, 맥박 회복했지만 의식은 아직",
@@ -585,7 +609,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "“제발 애 좀 그만 낳아” 집집마다 콘돔배달 ‘이 나라’",
@@ -623,7 +649,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:issue_low_value"
+      ]
     },
     {
       "title": "“당장 살 집도, 사무실도 없다” 1만 공무원 ‘멘붕’…‘묻지마 세종 이전’",
@@ -661,7 +689,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“대통령처럼 아파트 거래했더니 세무조사 받았다” 국세청장의 답변은",
@@ -697,7 +727,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "현직 강서구의원, 만취해 운전석에서 자다 입건‥'면허취소' 수치",
@@ -735,7 +767,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "곳곳에 '지드래곤'‥\"한국 연예인 광고 이례적\"",
@@ -773,7 +807,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_mission_fit_anecdote"
+      ]
     },
     {
       "title": "'나주 부부 살해' 피의자는 53살 박용수",
@@ -811,7 +847,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "복면 쓴 러 요원들 호텔 급습 \"스파이다!\"‥日기자 체포 영상 공개",
@@ -849,7 +887,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "[속보] 청와대 새 비서실장에 임광현 국세청장",
@@ -887,7 +927,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "나주 부부 결박·살해 피의자 신상공개… 53세 박용수",
@@ -925,7 +967,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "강경화 발언에 해명 급급한 정부…한동훈 “찌질하게 압박 말라”",
@@ -961,7 +1005,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“취업 사기 당한 느낌”… 중앙행정기관 세종 대이동에 ‘술렁’",
@@ -999,7 +1045,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "[속보] 이 대통령, 신임 비서실장에 임광현 국세청장 임명",
@@ -1051,7 +1099,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "제주 ‘스토킹 살인’ 피의자 음독, 중환자실서 치료 중",
@@ -1089,7 +1139,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "울산 온산 화학업체 화재…인근 공사장 7000명 대피",
@@ -1127,7 +1179,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "주행 중 뒷바퀴 2개가 통째로 빠져… 중국산 SUV '안전성 논란'",
@@ -1165,7 +1219,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "[속보] '나주 부부' 살해 뒤 600만 원 인출… 52세 박용수 신상 공개",
@@ -1203,7 +1259,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "[속보]대통령지지 34.9% 최저…전연령대 ‘부정’ 과반-KSOI",
@@ -1249,7 +1307,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "김민석 \"신천지, 집단 가입 확인\"... 친청 \"3자 비밀연합 근거 대라\"",
@@ -1287,7 +1347,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "안철수, 외교·통일·국방부 ‘세종 이전’ 발표에 “북한에 수도 헌납할 건가”",
@@ -1323,7 +1385,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "김지용, ‘한동훈도 정치검사인가?’ 질문에 “부정하긴 어려울 것 같다”",
@@ -1361,7 +1425,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "황영조 ‘죽음에 이르는 러닝’ 경고···“욕심 부리지 말고, 필요하면 포기할 줄 알아야”",
@@ -1399,7 +1465,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "김지용 \"정치검사 1호는 윤석열\"… '한동훈 포함' 묻자 \"부정 어려워\"",
@@ -1445,7 +1513,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "중학생까지 도박판 동원하고 호화 생활···UAE와 수사 공조, 3조원대 불법 도박 총책 검거",
@@ -1483,7 +1553,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "[속보] 하정우♥차정원, 부부 된다…12월 13일 결혼",
@@ -1521,7 +1593,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"남사스럽다, 누가 쓰겠냐\"…망사 팬티 모양 파우치 홍보했다가 '뭇매'",
@@ -1559,7 +1633,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"아이스크림이 묵은지냐\"…1박 40만원인데 3년 지난 나뚜루 판 호텔",
@@ -1597,7 +1673,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "나주 강도살인 박용수, 범행 후 성인오락실서 1100만원 탕진",
@@ -1635,7 +1713,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“尹, 감옥서 20억” 지적에…김민전 “부러우면 가보세요” 국힘 폭소",
@@ -1673,7 +1753,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:issue_low_value"
+      ]
     },
     {
       "title": "\"삼전 바닥 찍었나?\"…홍라희, 이재용에 주식 4.5조 넘긴다",
@@ -1711,7 +1793,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“똑같이 주식 샀는데 수수료 13배?”…증권계좌 어디서 만들었길래",
@@ -1749,7 +1833,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "\"팬티에 화장품을?\"…여성 소비자들 분노 부른 파우치 정체",
@@ -1787,7 +1873,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     }
   ],
   "candidateRuns": [
@@ -8593,7 +8681,7 @@
     "issue": {
       "publicationKey": "diem:2026-10-14:issue:38517383435",
       "category": "issue",
-      "status": "retry_pending",
+      "status": "no_publish",
       "candidate": {
         "title": "[단독] “수면내시경 중 심정지까지”…중대한 의료사고, 조정 성공률 절반 수준 [오늘의 국감]",
         "url": "https://n.news.naver.com/article/016/0002709188?ntype=RANKING",
@@ -11036,32 +11124,32 @@
         "fallback": false
       },
       "reel": {
-        "status": "retry_pending",
+        "status": "no_publish",
         "attempts": 1,
         "externalId": null,
-        "error": "[Instagram] 401: Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
-        "updatedAt": "2026-10-14T05:38:32.353Z"
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 53% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 73% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 25% in \"2021년부터 9월까지 중증·후유장애 사건 조정 성공률은 53.4%, 사망 사건은 52.2%였으며, 전체 조정 신청은 전년 대비 25% 증가한 \" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"51.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "updatedAt": "2026-10-14T12:38:03.435Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T12:38:03.435Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T12:38:03.435Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T12:38:03.435Z"
       },
       "notifications": [
         {
@@ -11072,9 +11160,18 @@
           "slackTs": "1791956312.558909",
           "issueNumber": 154,
           "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/154"
+        },
+        {
+          "key": "diem:2026-10-14:issue:38517383435:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-14T12:38:04.894Z",
+          "slackTs": "1791981483.552749",
+          "issueNumber": 157,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/157"
         }
       ],
-      "reason": null,
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-14T05:38:07.633Z",
       "hotness": {
         "ok": true,
@@ -11138,6 +11235,60 @@
         "reelPath": ".diem-cache/2026-10-14/issue/issue-reel.mp4",
         "reelSha256": "d36314bb75e6440616df9c6fc4bbefdebb869f1d0756734041cb59bc88f1da0a",
         "temporary": true
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 53% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 73% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 25% in \"2021년부터 9월까지 중증·후유장애 사건 조정 성공률은 53.4%, 사망 사건은 52.2%였으며, 전체 조정 신청은 전년 대비 25% 증가한 \" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"51.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "candidateFailures": [
+          {
+            "title": "[단독] “수면내시경 중 심정지까지”…중대한 의료사고, 조정 성공률 절반 수준 [오늘의 국감]",
+            "url": "https://n.news.naver.com/article/016/0002709188?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 53% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 73% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 25% in \"2021년부터 9월까지 중증·후유장애 사건 조정 성공률은 53.4%, 사망 사건은 52.2%였으며, 전체 조정 신청은 전년 대비 25% 증가한 \" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"51.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 53% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 73% in \"수면내시경 중 심정지 등 중대한 의료사고의 조정 성공률이 53% 수준으로, 일반 상해 73%에 비해 절반에 머물고 있다\"; 25% in \"2021년부터 9월까지 중증·후유장애 사건 조정 성공률은 53.4%, 사망 사건은 52.2%였으며, 전체 조정 신청은 전년 대비 25% 증가한 \""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"73.1%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2605\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"51.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"53.4%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"19.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-14T12:35:13.802Z"
+          }
+        ],
+        "updatedAt": "2026-10-14T12:38:03.435Z"
       }
     }
   },
