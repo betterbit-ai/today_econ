@@ -4,7 +4,7 @@
   "date": "2026-10-15",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-14T17:43:00.476Z",
-  "updatedAt": "2026-10-14T20:00:28.948Z",
+  "updatedAt": "2026-10-14T20:03:42.494Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -487,7 +487,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 400 in \"올해만 400여 건이 같은 방식으로 납품돼 최저가 대비 약 6천만 원을 추가 지출했으며, 전체 2만 건이 시중가보다 비싸 전체 세금 손실은 최소\" | openai/gpt-oss-120b/editorial_repair: model returned invalid sentence structure | openai/gpt-oss-120b/editorial: editorial repair failed: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"20만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5천만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"20만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5천만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+      ]
     },
     {
       "title": "[단독] 창고에서 잠자는 4백억 원 무전기…“선이 짧아서”",
@@ -525,7 +527,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“친윤” “반윤” “여당도 반대”…여-여·여-야 충돌한 청문회",
@@ -563,7 +567,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "관심 끌려 흉기난동…‘약한 사람’ 범행 대상 삼았다",
@@ -601,7 +607,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:local_private_crime_without_public_value"
+      ]
     },
     {
       "title": "[단독] ‘흉기난동’ 재난문자 발송한다더니…감감무소식",
@@ -637,7 +645,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "서영교 \"윤, 20억 영치금\" 지적에…김민전 \"부러우면 가보세요\"",
@@ -675,7 +685,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"여기 사장님 불쌍하다\"…'쓰레기장' 된 광안리 식당 앞, 무슨 일?",
@@ -713,7 +725,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] 현직 서울 강서구의원 식당 난동..만취운전 뒤 덜미",
@@ -751,7 +765,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "아파트 입주 없는데 내년만 3천 명 세종으로 \"잘 곳은 있나\" 뒤숭숭",
@@ -787,7 +803,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 3,000명 in \"세종시로 3,000명의 공무원이 내년에 이주 예정이며, 세종시에는 입주 예정 아파트가 없고 전·월세 매물도 거의 없어 주거 확보가 시급하다.\"; 10,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\"; 3,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\" | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\")"
+      ]
     },
     {
       "title": "\"눈 마주치면 시비 걸었다\" 이상 징후에도 범행 못 막은 보호관찰",
@@ -825,7 +843,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "26세 '220cm 엄마'의 비극적 결말...출산 1년 만에 목숨 앗아간 숨은 질환 [헬스톡]",
@@ -863,7 +883,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"월 8만원 넣으면 1300만원 돌려받는다\"…전국 최초 시행된 '이 연금', 가입자 우르르",
@@ -899,7 +921,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"삼성전자 7만원, 하이닉스 20만원\"…반도체주 전망에 무슨 일이",
@@ -935,7 +959,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:hot_score_below_threshold"
+      ]
     },
     {
       "title": "\"부모 욕해서...\" 여친 살해한 20대, 알고 보니 '퇴직금' 노린 계획 범행",
@@ -973,7 +999,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "\"김승규, 세금 10배로 내라\"… 열도 홀린 '톱모델 아내' 김진경 경기장 등판에 일본 넷심 '발칵'",
@@ -1009,7 +1037,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:editorial_value_below_daily_floor"
+      ]
     },
     {
       "title": "넷플릭스, 직원 1000명 감원… 성장 정체에 2022년 이후 최대 구조조정",
@@ -1047,7 +1077,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "“차별받았다”… 아시아나항공, 러시아 여성에 2.3조원 손배소 피소",
@@ -1085,7 +1117,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "임광현 대통령 비서실장 아내는 美 휴스턴 총영사·처남은 李 대통령 변호인",
@@ -1123,7 +1157,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "美 물가 예상 웃돌자 뉴욕증시 혼조… 다우 상승·나스닥 하락",
@@ -1159,7 +1195,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:inconsistent_reader_need_event_kind"
+      ]
     },
     {
       "title": "국산 비만약 ‘에페’ 月 13만원 전망",
@@ -1197,7 +1235,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "[단독] 흉기 난동 최 씨 30년 친구 통화‥\"최 씨, 과거 전과 억울해했다\"",
@@ -1235,7 +1275,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "순대국밥 먹고 학교 들렀다, 흉기 묶고 돌변‥\"약한 사람 노렸다\"",
@@ -1273,7 +1315,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"신천지 집단가입 확인\" 파문‥친청계 격앙 \"누가 흘렸나\"",
@@ -1311,7 +1355,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"살 빼려다가 췌장염?\"‥마운자로·위고비 맞고 병원행 1만 3천여 건",
@@ -1349,7 +1395,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "'전 남편 위험성' 호소했는데‥4살 딸 주검으로",
@@ -1387,7 +1435,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[속보]서울 동대문구청 소속 30대 직원, 구청 옥상서 추락해 사망",
@@ -1425,7 +1475,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“우리 부모님 돈 떼먹은 초등 동창이 유명 연애예능에…” 폭로글 올라와 갑론을박",
@@ -1463,7 +1515,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "‘인천 흉기난동’ 심정지 20대女, 맥박 회복했지만 의식은 아직",
@@ -1501,7 +1555,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "[속보]제주서 30대 여성 숨진 채 발견…평상복 차림",
@@ -1539,7 +1595,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "‘한국이 1등이 아니라니…’ 베트남보다 낮은 22위로 추락한 유선인터넷 속도",
@@ -1577,7 +1635,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“삼전 부진에도 납품사는 질주”…두 달 반 만에 3배 뛴 이 회사[종목e슈]",
@@ -1615,7 +1675,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:editorial_value_below_daily_floor"
+      ]
     },
     {
       "title": "\"전 남편, 4살 딸 어찌할지 몰라\"...열흘 뒤 끝내 비극",
@@ -1653,7 +1715,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "한동훈, 與 '딸 허위스펙 의혹' 제기에…\"정치깡패식 행태\"",
@@ -1691,7 +1755,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"부모 일하러 나가면…\" 9살 조카 성폭행한 60대 이모부",
@@ -1729,7 +1795,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "\"계단서 굴러도 맞서\"…흉기난동범 제압 당시 CCTV엔 (영상)",
@@ -1767,7 +1835,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"한국 잘 사니깐 일본 재산 돌려줘\"…와세다대 교수 '적반하장' 궤변",
@@ -1805,7 +1875,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "은현장 \"김수현, 아는 척 안 했으면…행복하게 돈 많이 버시길\"",
@@ -1843,7 +1915,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "우크라 매체 \"한국과 외교 갈등? 원인은 韓 내부 정치 문제 탓\"",
@@ -1879,7 +1953,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "생활비 끊고 '졸혼' 선언한 남편, 딴 여자까지?…35년 내조 뒤통수",
@@ -1917,7 +1993,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "'마약왕' 조카와 탈옥하더니…국내 마약 밀반입 노린 40대 실형",
@@ -1955,7 +2033,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     }
   ],
   "candidateRuns": [
@@ -3903,24 +3983,24 @@
     "economy": {
       "publicationKey": "diem:2026-10-15:economy:38627971342",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
-        "title": "5만 원짜리 멀티탭이 20만 원…시중보다 비싼 ‘조달청 나라장터’",
-        "url": "https://n.news.naver.com/article/056/0012273838?ntype=RANKING",
+        "title": "아파트 입주 없는데 내년만 3천 명 세종으로 \"잘 곳은 있나\" 뒤숭숭",
+        "url": "https://n.news.naver.com/article/057/0001973477?ntype=RANKING",
         "publishedDate": "2026-10-15",
-        "publishedAt": "2026-10-14 21:20:54",
+        "publishedAt": "2026-10-14 19:47:06",
         "observedAt": "2026-10-14T19:59:47.724Z",
-        "popularityScore": 79.7959,
+        "popularityScore": 63.6327,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "daily_floor_candidate",
-          "score": 79.14,
-          "popularityScore": 79.7959,
+          "score": 70.25,
+          "popularityScore": 63.6327,
           "freshnessScore": 70,
           "editorialValueScore": 95,
-          "ageHours": 7.65,
-          "publishedAt": "2026-10-14 21:20:54",
+          "ageHours": 9.23,
+          "publishedAt": "2026-10-14 19:47:06",
           "observedAt": "2026-10-14T19:59:47.724Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -3940,25 +4020,25 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 11,
-            "normalizedScore": 79.7959,
-            "title": "5만 원짜리 멀티탭이 20만 원…시중보다 비싼 ‘조달청 나라장터’",
-            "url": "https://n.news.naver.com/article/056/0012273838?ntype=RANKING"
+            "rank": 19,
+            "normalizedScore": 63.6327,
+            "title": "아파트 입주 없는데 내년만 3천 명 세종으로 \"잘 곳은 있나\" 뒤숭숭",
+            "url": "https://n.news.naver.com/article/057/0001973477?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "[앵커]시중에서 5만 원인 제품을 20만 원에 파는 곳이 있습니다.정부나 공공기관이 국민 세금으로 물건을 사는 조달청 나라장터입니다.먼저 박효빈 기자가 보도합니다. [리포트] 공원에 설치된 '다기능 그늘막'입니다. 전광판에 가로등, CCTV 거치대 등의 역할까지 하는 이 그늘막, 시청이 조달청 '나라장터'에서 구매해 설치했습니다. 이 대형 시설물의 납품가는 5천만 원가량, 고급 승용차 한 대와 맞먹는 금액인데요. 비슷한 제품들 가격은 어떨지 한 번 찾아보겠습니다. 온라인상에서는 주요 기능과 규격이 유사한 3천8백만 원짜리 제품이 나옵니다. 최근 1년간 전국에 8개가 설치됐으니, '나라장터' 대신 시중에서 구매했더라면 1억 원 가까이 세금을 아낄 수 있었던 셈입니다. 온라인 쇼핑몰에서 5만 원대인 이 멀티탭도 마찬가지, 기능에 제조사까지, 사실상 같은 제품으로 보이는데, '나라장터' 납품가는 4배 가까운 20만 원입니다. 올해만 4백여 개가 '나라장터'를 통해 납품돼 최저가 대비 6천만 원을 더 쓴 셈입니다. [이준석/국회 재정경제기획위원/개혁신당 : \"우리 국민들은 물건 살 때 100원이라도 아끼려고…. 정작 우리 정부에서 조달할 때는 굉장히 이걸 방만하게….\"] 이 밖에도 하드디스크나 가구 등, AI로 '나라장터' 계약 물품을 전수 조사했더니 2만 건 가까이가 시중가보다 비쌌다고 의원실은 밝혔습니다. '바가지 가격'에 정부 기관이 더 쓴 세금, 최근 1년간만 최소 5천억 원으로 추산됩니다. KBS 뉴스 박효빈입니다. 촬영기자:방세준 유현우/영상편집:신남규/그래픽:김지훈 여현수■ 제보하기▷ 전화 : 02-781-1234, 4444▷ 이메일 : kbs1234@kbs.co.kr▷ 카카오톡 : 'KBS제보' 검색, 채널 추가▷ 유튜브, 다음에서도 KBS뉴스를 구독해주세요!",
-        "summary": "[앵커]시중에서 5만 원인 제품을 20만 원에 파는 곳이 있습니다.정부나 공공기관이 국민 세금으로 물건을 사는 조달청 나라장터입니다.먼저 박효빈 기자가 보도합니다. [리포트] 공원에 설치된 '다기능 그늘막'입니다. 전광판에 가로등, CCTV 거치대 등의 역할까지 하는 이 그늘막, 시청이 조달청 '나라장터'에서 구매해 설치했습니다. 이 대형 시설물의 납품가는 5천만 원가량, 고급 승용차 한 대와 맞먹는 금액인데요. 비슷한 제품들 가격은 어떨지 한 번 찾아보겠습니다. 온라인상에서는 주요 기능과 규격이 유사한 3천8백만 원짜리 제품이 나",
+        "fullText": "【 앵커멘트 】 정부가 수도권에 남아 있는 중앙행정기관 44곳의 세종 이전을 발표하자, 후폭풍이 거셉니다. 모두 1만 명, 내년에만 공무원 3천 명이 짐을 싸고 세종시로 내려가야 하는데요. 이들이 근무해야 할 사무실도 문제고, 당장 머무를 집 구하기도 만만치가 않아서 비상입니다. 이혁근 기자입니다.【 기자 】 세종시의 11층짜리 복합상가건물. 수도권에 있는 행정기관이 이사 간다면 이곳에 일단 자리 잡을 가능성이 큽니다. 정부가 임차를 검토 중으로 알려졌는데, 이전기관들은 이렇게 세종청사가 있는 어진동 근처 건물들을 물색하는 것으로 파악됐습니다. 하지만, 사무실 마련보다 더 큰 문제가 있습니다.▶ 스탠딩 : 이혁근 / 기자- \"정부는 2031년까지 공무원 만 명이 세종으로 이전한다고 밝혔습니다. 당장 내년에만 3천 명이 이동하는데 주거 문제 해결이 가장 시급합니다.\" 세종시에는 내년까지 입주가 예정된 아파트가 단 한 채도 없기 때문입니다. 기존 아파트에서도 전·월세 물건은 찾아보기 힘들 지경입니다.▶ 인터뷰 : 정진숙 / 세종시 공인중개사- \"(직원) 마흔 분한테 오피스텔 하나씩 구해달라 요청이 들어왔는데, 한 세대도 못 구해 드렸습니다. 그만큼 오피스텔이든 아파트든 전·월세 매물이 거의 씨가 말라서….\" 이전이 결정된 기관의 공무원들 사이에선 한숨이 터져 나옵니다.▶ 인터뷰(☎) : 내년 세종 이전 대상 행정기관 관계자- \"휴직해야 하나, 다른 기관 가야 하나, 그만둬야 하나 지금 이런 상태입니다. 자녀 교육, 맞벌이 문제, 부모 봉양 이런 다양한 어려움이 있는데 의견 수렴 없이 일방적으로….\" 정부는 일단, 세종으로 가는 공무원에게 이사비와 이주지원비를 주겠다는 계획입니다. 공무원 3천 명이 내년 세종에서 근무할 사무실과 숙소가 제때 마련되는지가 2차 행정기관 이전의 성패를 좌우할 전망입니다. MBN뉴스 이혁근입니다. 영상취재 : 변성중 기자 영상편집 : 김민지 그래픽 : 김은진",
+        "summary": "【 앵커멘트 】 정부가 수도권에 남아 있는 중앙행정기관 44곳의 세종 이전을 발표하자, 후폭풍이 거셉니다. 모두 1만 명, 내년에만 공무원 3천 명이 짐을 싸고 세종시로 내려가야 하는데요. 이들이 근무해야 할 사무실도 문제고, 당장 머무를 집 구하기도 만만치가 않아서 비상입니다. 이혁근 기자입니다.【 기자 】 세종시의 11층짜리 복합상가건물. 수도권에 있는 행정기관이 이사 간다면 이곳에 일단 자리 잡을 가능성이 큽니다. 정부가 임차를 검토 중으로 알려졌는데, 이전기관들은 이렇게 세종청사가 있는 어진동 근처 건물들을 물색하는 것으로 ",
         "topicSignature": {
           "category": "economy",
-          "target": "5만 원짜리",
-          "event": "20만 시중보다 비싼",
+          "target": "주거 정책",
+          "event": "내년만 3천 세종으로",
           "entities": [
-            "5만",
-            "20만"
+            "3천",
+            "정부가"
           ],
           "eventKey": null,
-          "text": "economy | 5만 원짜리 | 5만 20만"
+          "text": "economy | 주거 정책 | 3천 정부가"
         },
         "newsFrame": {
           "category": "economy",
@@ -3967,14 +4047,14 @@
             "category:economy",
             "ambiguous"
           ],
-          "publicInterestAnchor": "국민",
+          "publicInterestAnchor": null,
           "rejectionReason": null,
-          "subject": "5만 원짜리",
+          "subject": "주거 정책",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "5만",
-            "원짜리"
+            "주거",
+            "정책"
           ],
           "eventKind": "general",
           "eventLabel": "",
@@ -3988,7 +4068,7 @@
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "public_interest"
+          "readerNeed": "housing"
         },
         "editorialValue": {
           "ok": true,
@@ -4001,7 +4081,8 @@
           ],
           "penalties": [],
           "contentValueSignals": [
-            "money_impact"
+            "money_impact",
+            "market_movement"
           ],
           "reason": "passes_editorial_value_gate",
           "frame": {
@@ -4011,14 +4092,14 @@
               "category:economy",
               "ambiguous"
             ],
-            "publicInterestAnchor": "국민",
+            "publicInterestAnchor": null,
             "rejectionReason": null,
-            "subject": "5만 원짜리",
+            "subject": "주거 정책",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "5만",
-              "원짜리"
+              "주거",
+              "정책"
             ],
             "eventKind": "general",
             "eventLabel": "",
@@ -4032,34 +4113,32 @@
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "public_interest"
+            "readerNeed": "housing"
           },
           "baseScore": 95,
           "performancePrior": {
             "adjustment": 0,
             "window": null,
             "matched": [],
-            "reason": "insufficient_performance_samples"
+            "reason": "legacy_feature_schema_report_only"
           }
         },
         "performancePrior": {
           "adjustment": 0,
           "window": null,
           "matched": [],
-          "reason": "insufficient_performance_samples"
+          "reason": "legacy_feature_schema_report_only"
         },
         "classificationTrace": {
           "initial": {
-            "status": "uncertain",
-            "category": null,
-            "excluded": [
-              "category_not_allowed"
-            ],
+            "status": "classified",
+            "category": "economy",
+            "excluded": [],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "uncertain_initial_classification"
+            "reason": "verify_primary_article"
           },
           "final": {
             "status": "classified",
@@ -4073,55 +4152,65 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.6752,
+        "score": 0.5615,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-10-12:economy:38189953082",
+        "matchedPublicationKey": "diem:2026-10-11:economy:38099169366",
         "signature": {
           "category": "economy",
-          "target": "5만 원짜리",
-          "event": "20만 시중보다 비싼",
+          "target": "주거 정책",
+          "event": "내년만 3천 세종으로",
           "entities": [
-            "5만",
-            "20만"
+            "3천",
+            "정부가"
           ],
           "eventKey": null,
-          "text": "economy | 5만 원짜리 | 5만 20만"
+          "text": "economy | 주거 정책 | 3천 정부가"
         }
       },
       "editorial": null,
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 3,000명 in \"세종시로 3,000명의 공무원이 내년에 이주 예정이며, 세종시에는 입주 예정 아파트가 없고 전·월세 매물도 거의 없어 주거 확보가 시급하다.\"; 10,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\"; 3,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\" | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\")",
+        "updatedAt": "2026-10-14T20:03:41.110Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T20:03:41.110Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T20:03:41.110Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-14T20:03:41.110Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-10-15:economy:38627971342:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-14T20:03:42.493Z",
+          "slackTs": "1792008221.250059",
+          "issueNumber": 160,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/160"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-14T20:00:28.944Z",
       "hotness": {
         "ok": true,
@@ -4178,6 +4267,107 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "no_publish",
+        "attempts": 2,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 3,000명 in \"세종시로 3,000명의 공무원이 내년에 이주 예정이며, 세종시에는 입주 예정 아파트가 없고 전·월세 매물도 거의 없어 주거 확보가 시급하다.\"; 10,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\"; 3,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\" | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\")",
+        "candidateFailures": [
+          {
+            "title": "5만 원짜리 멀티탭이 20만 원…시중보다 비싼 ‘조달청 나라장터’",
+            "url": "https://n.news.naver.com/article/056/0012273838?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 400 in \"올해만 400여 건이 같은 방식으로 납품돼 최저가 대비 약 6천만 원을 추가 지출했으며, 전체 2만 건이 시중가보다 비싸 전체 세금 손실은 최소\" | openai/gpt-oss-120b/editorial_repair: model returned invalid sentence structure | openai/gpt-oss-120b/editorial: editorial repair failed: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"20만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5천만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"20만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5천만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 400 in \"올해만 400여 건이 같은 방식으로 납품돼 최저가 대비 약 6천만 원을 추가 지출했으며, 전체 2만 건이 시중가보다 비싸 전체 세금 손실은 최소\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned invalid sentence structure"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"20만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5천만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"20만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5천만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-14T20:01:05.932Z"
+          },
+          {
+            "title": "아파트 입주 없는데 내년만 3천 명 세종으로 \"잘 곳은 있나\" 뒤숭숭",
+            "url": "https://n.news.naver.com/article/057/0001973477?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 3,000명 in \"세종시로 3,000명의 공무원이 내년에 이주 예정이며, 세종시에는 입주 예정 아파트가 없고 전·월세 매물도 거의 없어 주거 확보가 시급하다.\"; 10,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\"; 3,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\" | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\")",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3천 명\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 3,000명 in \"세종시로 3,000명의 공무원이 내년에 이주 예정이며, 세종시에는 입주 예정 아파트가 없고 전·월세 매물도 거의 없어 주거 확보가 시급하다.\"; 10,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\"; 3,000명 in \"정부는 2031년까지 총 10,000명의 공무원을 세종으로 이전할 계획이며, 내년에는 3,000명이 이주한다.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an ungrounded numeric claim: 44개 in \"정부가 수도권에 남은 44개 중앙행정기관을 세종으로 이전한다고 발표해 3천 명이 내년에 이주할 예정.\""
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-14T20:02:31.969Z"
+          }
+        ],
+        "updatedAt": "2026-10-14T20:03:41.110Z"
       }
     },
     "issue": {
