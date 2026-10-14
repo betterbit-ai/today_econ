@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-14T11:30:58.040Z",
+  "codeDeployment": {
+    "pullRequest": "https://github.com/betterbit-ai/today_econ/pull/155",
+    "mainSha": "7a2cb7c4e60f26eac934b1f490edf7fbd85e132d",
+    "mergedAt": "2026-10-14T11:24:57Z"
+  },
+  "verification": {
+    "local": {
+      "runtime": "Node.js 25",
+      "tests": 454,
+      "pass": 453,
+      "skip": 1,
+      "fail": 0
+    },
+    "production": {
+      "runtime": "Node.js 20",
+      "tests": 454,
+      "pass": 451,
+      "skip": 3,
+      "fail": 0
+    },
+    "independentReview": "green"
+  },
+  "diagnostic": {
+    "runId": "38556283382",
+    "url": "https://github.com/betterbit-ai/today_econ/actions/runs/38556283382",
+    "githubSha": "fe11c1793cd52181609cf6586433f6509059f891",
+    "readOnly": true,
+    "status": "failed",
+    "instagram": {
+      "status": "failed",
+      "message": "[Instagram] 401: Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
+      "disposition": "manual_action_required",
+      "errorDetails": {
+        "httpStatus": 401,
+        "code": 190,
+        "subcode": 0,
+        "userMessage": "Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
+        "traceId": "AqH2uUbqztQeqG-CkcrpwYq"
+      }
+    },
+    "model": {
+      "status": "ok",
+      "id": "qwen/qwen3.8-27b"
+    },
+    "vision": {
+      "probeType": "project_owned_fixture",
+      "consecutiveSuccesses": 5,
+      "successfulRunIds": [
+        "38556283382:vision:1",
+        "38556283382:vision:2",
+        "38556283382:vision:3",
+        "38556283382:vision:4",
+        "38556283382:vision:5"
+      ],
+      "runs": [
+        {
+          "id": "38556283382:vision:1",
+          "collectedAt": "2026-10-14T11:24:31.999Z",
+          "status": "ok",
+          "selectedId": "finance-01"
+        },
+        {
+          "id": "38556283382:vision:2",
+          "collectedAt": "2026-10-14T11:25:38.331Z",
+          "status": "ok",
+          "selectedId": "finance-01"
+        },
+        {
+          "id": "38556283382:vision:3",
+          "collectedAt": "2026-10-14T11:26:47.482Z",
+          "status": "ok",
+          "selectedId": "finance-01"
+        },
+        {
+          "id": "38556283382:vision:4",
+          "collectedAt": "2026-10-14T11:27:53.796Z",
+          "status": "ok",
+          "selectedId": "finance-01"
+        },
+        {
+          "id": "38556283382:vision:5",
+          "collectedAt": "2026-10-14T11:29:02.798Z",
+          "status": "ok",
+          "selectedId": "finance-01"
+        }
+      ]
+    }
+  },
+  "operationalRecovery": {
+    "status": "requires_account_reauthentication",
+    "d0": null,
+    "successfulScheduledPublication": null,
+    "analyticsSchema3Publication": null,
+    "experimentsEnabled": false
+  }
+}
