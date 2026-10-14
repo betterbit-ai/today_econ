@@ -20,8 +20,9 @@
 - [x] 부분 수집과 관측 이력 보존, 정시 단일 관측 선택, unknown/early/late 비교 제외를 구현했다.
 - [x] 최종 전체 harness 454건: 453 통과·1 skip·0 실패 및 diff-check 통과. 최신 main 통합 후 재검증했다.
 - [x] 독립 리뷰의 제목 의미·고정 incident fixture·측정 타이밍 지적을 수정하고 Green을 확인했다.
-- [ ] 공개 저장소 푸시·PR·main 반영과 production Node 20 진단.
-- [ ] production 자격 증명의 Models API 및 실제 Vision 5회 검수.
+- [x] 공개 저장소 푸시·PR #155·main `7a2cb7c4` 반영과 production Node 20 전체 검사 통과.
+- [x] production 자격 증명의 Models API 및 실제 Vision 5회 연속 성공: Action `38556283382`.
+- [x] production 읽기 API 실패의 상세 근거 확인: HTTP 401 / code 190 / subcode 0 / manual_action_required.
 - [ ] 계정 인증 복구 후 정상 예약 발행의 실행 SHA·media ID·permalink·analytics schema3 확인.
 
 최신 원장은 경제·시사 모두 401 세션 무효화 오류다. 계정 UI 정상 여부와 별도로 인증 확인이 필요하며 아직 D0를 잡지 않는다.

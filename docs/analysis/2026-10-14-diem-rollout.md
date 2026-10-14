@@ -18,13 +18,23 @@
 
 2026-10-14 19:43 KST에 최신 main `9bab59c0`의 원장을 다시 읽었다. 경제 `diem:2026-10-14:economy:38492439627`과 시사 `diem:2026-10-14:issue:38517383435` 모두 실제 media ID 없이 `retry_pending`이다. API 오류는 401이며, 계정 비밀번호 변경 또는 보안 사유로 세션이 무효화됐다는 메시지다. 성공으로 표시된 Actions 실행이 실제 발행 성공을 뜻하지 않는 사례다.
 
-읽기 진단 결과와 최종 merge SHA는 실행 후 이 문서에 기록한다. **아직 D0를 정하지 않는다.** 계정 읽기 접근과 실제 정상 예약 발행이 확인돼야 운영 복구 완료로 판단한다. 정상 계정 UI와 API 인증 결과를 별도로 기록한다.
+**아직 D0를 정하지 않는다.** 계정 읽기 접근과 실제 정상 예약 발행이 확인돼야 운영 복구 완료로 판단한다. 정상 계정 UI와 API 인증 결과를 별도로 기록한다.
 
 코드 통합 커밋은 `5ca56ec9`, 최신 원장 보존 merge는 `282fe21d`다. merge 후 publication/cloud 데이터는 origin/main `9bab59c0`와 동일함을 diff로 확인했다. 보고서만 재생성했다. 통합 후 전체 harness도 454건 중 453 통과·1 skip·0 실패다. 첫 실행의 stdin helper 2초 시간 제한 실패는 단독 재현에서는 통과했고, 전체 재실행도 통과했다.
 
 2026-10-14 19:53~19:58 KST 로컬 읽기 진단에서 Models API와 실제 `qwen/qwen3.8-27b` 요청을 확인했다. 프로젝트 소유 `finance-01`/`finance-02` 픽셀을 실제로 전송한 5회 모두 `finance-01`을 승인했다. 실행 ID는 `local-recovery-2026-10-14:vision:1`~`:5`이며 연속 성공은 5다. 원본 증거는 로컬 `.diem-cache/diagnostics/local-report.json`에 보관한다. 로컬 Instagram 토큰은 없어 계정 조회는 실패했으므로 진단 전체 결과는 failed다. 이 결과는 **production 자격 증명 검증을 대신하지 않는다.**
 
-GitHub 공개 저장소 푸시는 자동 승인 검토가 운영 원장·분석 자료의 공개 범위에 대한 명시적 승인을 요구하여 거절했다. 아직 브랜치 푸시·PR·main 반영·production 진단을 실행하지 못했다. 승인 질문은 사용자에게 전달했으며 응답 전 우회 푸시는 하지 않는다.
+공개 범위에 대한 첫 푸시의 자동 승인 검토 거절 이후, 사용자가 “배포하고 마저 쭉 진행해줘”로 명시 승인했다. 브랜치를 푸시하고 [PR #155](https://github.com/betterbit-ai/today_econ/pull/155)를 정상 merge했다. 코드 배포 main SHA는 `7a2cb7c4e60f26eac934b1f490edf7fbd85e132d`, 병합 시각은 2026-10-14 20:24:57 KST다. 새 자동 후보 팩도 merge에서 보존했다.
+
+첫 production 진단 [38555933792](https://github.com/betterbit-ai/today_econ/actions/runs/38555933792)는 Node 20 검사에 운영 Story 비활성 설정이 전달돼 모의 Story 테스트 7건이 실패하고 실제 요청은 실행되지 않았다. `fe11c179`에서 검사 subprocess의 운영 자격 증명·Story 설정을 제거했다. production 진단 단계의 원래 자격 증명과 발행 비활성은 그대로 유지한다. 회귀·전체 검사와 독립 Green을 확인했다.
+
+수정 후 [production 진단 38556283382](https://github.com/betterbit-ai/today_econ/actions/runs/38556283382)는 Node 20 전체 harness를 통과했다. 실행 SHA는 `fe11c1793cd52181609cf6586433f6509059f891`이며 배포 main과 source/config/test/workflow 차이가 없음을 확인했다. 계정·Models API·실제 Vision 결과는 진단 artifact로 별도 기록한다.
+
+최종 production 진단(20:24~20:29 KST): Models API `qwen/qwen3.8-27b` 접근 성공, 실제 두 이미지 검수 5회 연속 성공. 실행 ID는 `38556283382:vision:1`~`:5`이며 모두 `finance-01`을 선택했다. 계정 조회는 HTTP 401 / code 190 / subcode 0으로 실패했고 disposition은 `manual_action_required`다. 메시지는 비밀번호 변경 또는 보안 사유의 세션 무효화이며 trace ID는 `AqH2uUbqztQeqG-CkcrpwYq`다. 진단 전체 Action은 이 인증 실패를 숨기지 않고 failure로 종료했다. 게시물·댓글·Slack·원장 변경은 실행하지 않았다.
+
+production Node 20 검사는 454건 중 451 통과·3 skip·0 실패이며 diff-check도 통과했다. 로컬의 453 통과·1 skip과 환경별 skip 수를 구분한다.
+
+진단 artifact 이름은 `diem-diagnostics-38556283382`(14일 보존), 내려받은 로컬 원본은 `/tmp/diem-production-38556283382/report.json`이다. 장기 보존할 비밀값 없는 핵심 결과는 `data/reports/2026-10-14-diem-recovery-verification.json`에 기록한다. production Vision 증거는 explain 분류·초안 증거를 대신하지 않는다. 다음 작업의 구체 조건과 Basic 수정 사항은 `2026-10-14-next-slices-brief.md`에 준비했다.
 
 ## 인증 조치의 정확한 범위
 
