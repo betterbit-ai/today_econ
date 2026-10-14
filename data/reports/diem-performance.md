@@ -2,7 +2,7 @@
 
 - 상태: insufficient_data
 - 발행 원장 Reel: 274편
-- 생성 시각: 2026-10-14T14:57:05.794Z
+- 생성 시각: 2026-10-14T20:03:53.511Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
@@ -35,11 +35,11 @@
 - 타이포그래피 폴백률: 13.87%
 - 생성 배경 폴백률: 46.35% · 전체 폴백률: 60.22%
 - 이미지 공급원: diem-generated 127편, pexels 98편, diem-original 38편, unsplash 6편, wikimedia 4편, openverse 1편
-- 최근 7일 폴백률: 100% (10/10편, 2026-10-08~2026-10-14)
-- 최근 7일 Vision 실패: model_not_found 6건
+- 최근 7일 폴백률: 100% (8/8편, 2026-10-09~2026-10-15)
+- 최근 7일 Vision 실패: model_not_found 3건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 150건, image_context_unavailable 107건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 152건, image_context_unavailable 107건, unknown 44건
 - 제목 재정제 실패: 44건
 
 ## 해석 주의
