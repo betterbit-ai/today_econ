@@ -25,6 +25,7 @@ on:
           - reissue_news
           - record_moderation
           - collect_insights
+          - diagnose
           - cloud_candidates
           - daily_package_validate
           - daily_package_prepare
@@ -383,6 +384,45 @@ jobs:
 
       - name: Commit measurement snapshots
         run: bash scripts/commit-diem-state.sh "Refresh DIEM performance evidence without publishing"
+
+  read-only-diagnostics:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'diagnose'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      PUBLISH_INSTAGRAM: 'false'
+    steps:
+      - name: Checkout diagnostic revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install diagnostic dependencies
+        run: |
+          npm ci
+          npm ci --prefix services/diem-mcp --ignore-scripts
+
+      - name: Verify recovery on the production Node.js runtime
+        run: node .codex-harness/scripts/verify-project.mjs
+
+      - name: Read account and review five shadow image pairs without publishing
+        run: node src/v2/index.js diagnose --read-only --output .diem-cache/diagnostics/report.json
+
+      - name: Preserve secret-free diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diem-diagnostics-${{ github.run_id }}
+          path: .diem-cache/diagnostics/report.json
+          retention-days: 14
 
   retry-editorial-publication:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'retry_editorial'

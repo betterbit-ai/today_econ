@@ -39,7 +39,7 @@ function packageFixture({ mode = 'assisted', visualKind = 'typographic', schemaV
     target: '한국은행',
     event: '기준금리 동결',
     entities: ['한국은행', '기준금리'],
-    verifiedFacts: evidenceText.split('.').filter(Boolean).map(text => `${text}.`),
+    verifiedFacts: evidenceText.split(/(?<=[.!?。！？])\s+/u).filter(Boolean),
   };
   article.newsFrame = buildNewsFrame(article, article.category);
   const editorial = buildDeterministicEditorial(article, { handle: 'diem.magazine' });

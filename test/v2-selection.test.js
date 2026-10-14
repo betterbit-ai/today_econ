@@ -234,7 +234,7 @@ test('builds concrete event-first queries for recent production image failures',
     title: '김민석, 호남 순회경선에서 압승…누적 과반 1위',
     summary: '민주당 당대표 후보 경선에서 김민석 후보가 과반을 기록했다. 기사 후반에는 호남 반도체 산업 기대도 언급됐다.',
     category: 'issue',
-    newsFrame: { eventKind: 'semiconductor', subject: '반도체' },
+    newsFrame: { eventKind: 'general', subject: '김민석 당대표 경선', eventLabel: '순회경선 과반' },
   });
   const historicalRemarks = buildImageQueries({
     title: '이병태 "국민이 왜 5·18에 죄의식 갖나" 작심 발언',
@@ -636,7 +636,7 @@ test('treats a presidential dinner as a meeting instead of an incidental party e
     summary: '이재명 대통령이 당 지도부와 만찬을 함께했다. 참석자들은 전당대회 이후 당의 단합과 국정 협력을 논의했다.',
     editorialTitle: '이재명\n당 지도부 식사',
     category: 'issue',
-    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령' },
+    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령', eventLabel: '화합 만찬' },
   });
 
   assert.match(queries[0], /presidential office|meeting room|conference table/i);
@@ -654,7 +654,7 @@ test('reviews multiple contextual candidates and rejects an American ballot box 
     summary: '이재명 대통령이 당 지도부와 만찬을 함께하며 국정 협력을 당부했다.',
     editorialTitle: '이재명\n당 지도부 식사',
     category: 'issue',
-    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령' },
+    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령', eventLabel: '화합 만찬' },
   };
   const photos = [
     {

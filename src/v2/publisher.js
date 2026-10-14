@@ -22,7 +22,7 @@ const {
   reconcileExactComment,
   reconcileRecentReel,
   replyToComment,
-  instagramErrorDisposition,
+  nextFailedStep,
 } = require('./instagram');
 const { allLedgerPublications, imageRecordFromPublication, updatePublication } = require('./ledger');
 const { selectMusic, getMood } = require('./music');
@@ -331,6 +331,8 @@ async function publishCommentChain(publication, {
         status: 'published',
         externalId: String(reconciled.match.id),
         error: null,
+        errorDetails: null,
+        errorCode: null,
         updatedAt: new Date().toISOString(),
       };
     } else {
@@ -343,7 +345,7 @@ async function publishCommentChain(publication, {
         });
         next = applyIndependentStepOutcome(next, 'comment', { result });
       } catch (error) {
-        return applyIndependentStepOutcome(next, 'comment', { error });
+        return applyIndependentStepOutcome(next, 'comment', { error, secrets: [token] });
       }
     }
   }
@@ -366,6 +368,8 @@ async function publishCommentChain(publication, {
       status: 'published',
       externalId: String(reconciledReply.match.id),
       error: null,
+      errorDetails: null,
+      errorCode: null,
       updatedAt: new Date().toISOString(),
     };
     return next;
@@ -393,10 +397,10 @@ async function publishCommentChain(publication, {
         compact.reply.originalHashtags = next.editorial.comments.hashtags;
         return compact;
       } catch (compactError) {
-        return applyIndependentStepOutcome(next, 'reply', { error: compactError });
+        return applyIndependentStepOutcome(next, 'reply', { error: compactError, secrets: [token] });
       }
     }
-    return applyIndependentStepOutcome(next, 'reply', { error });
+    return applyIndependentStepOutcome(next, 'reply', { error, secrets: [token] });
   }
 }
 
@@ -507,22 +511,15 @@ async function publishIndependentStory(publication, {
         containerId: result.containerId || null,
         permalink: result.permalink || null,
         error: null,
+        errorDetails: null,
+        errorCode: null,
         updatedAt: new Date().toISOString(),
       },
     };
   } catch (error) {
-    const requiresManualAction = error.ambiguousExternalState
-      || instagramErrorDisposition(error) === 'manual_action_required';
-    return {
-      ...publication,
-      story: {
-        ...story,
-        status: requiresManualAction || attempts >= 3 ? 'manual_action_required' : 'retry_pending',
-        attempts,
-        error: error.message,
-        updatedAt: new Date().toISOString(),
-      },
-    };
+    const failed = nextFailedStep(story, error, { secrets: [token] });
+    if (error.ambiguousExternalState) failed.status = 'manual_action_required';
+    return { ...publication, story: failed };
   }
 }
 
@@ -546,13 +543,20 @@ async function publishPreparedPublication(ledger, category, token, {
       throw new Error(`[DIEM Publisher] Prepared Reel is missing and no recorded Release asset is available: ${reelPath}`);
     }
 
-    const reconciliation = await reconcileReelImpl({
-      userId: config.instagramUserId,
-      token,
-      version: config.instagramApiVersion,
-      expectedCaption: publication.editorial.caption.text,
-      publicationDate: ledger.date,
-    });
+    let reconciliation;
+    try {
+      reconciliation = await reconcileReelImpl({
+        userId: config.instagramUserId,
+        token,
+        version: config.instagramApiVersion,
+        expectedCaption: publication.editorial.caption.text,
+        publicationDate: ledger.date,
+      });
+    } catch (error) {
+      publication.reel = nextFailedStep(publication.reel, error, { secrets: [token] });
+      publication.status = publication.reel.status;
+      return updatePublication(ledger, category, publication);
+    }
     if (reconciliation.status === 'ambiguous') {
       publication.reel = {
         ...publication.reel,
@@ -571,6 +575,8 @@ async function publishPreparedPublication(ledger, category, token, {
         publishedAt: reconciliation.match.timestamp || reconciliation.match.publishedAt || new Date().toISOString(),
         reconciled: true,
         error: null,
+        errorDetails: null,
+        errorCode: null,
         updatedAt: new Date().toISOString(),
       };
       publication.status = 'published';
@@ -597,18 +603,13 @@ async function publishPreparedPublication(ledger, category, token, {
           permalink: result.permalink || null,
           publishedAt: result.timestamp || new Date().toISOString(),
           error: null,
+          errorDetails: null,
+          errorCode: null,
           updatedAt: new Date().toISOString(),
         };
         publication.status = 'published';
       } catch (error) {
-        const attempts = (publication.reel.attempts || 0) + 1;
-        publication.reel = {
-          ...publication.reel,
-          status: attempts >= 3 ? 'manual_action_required' : 'retry_pending',
-          attempts,
-          error: error.message,
-          updatedAt: new Date().toISOString(),
-        };
+        publication.reel = nextFailedStep(publication.reel, error, { secrets: [token] });
         publication.status = publication.reel.status;
         return updatePublication(ledger, category, publication);
       }
@@ -628,14 +629,7 @@ async function publishPreparedPublication(ledger, category, token, {
         });
       } catch (error) {
         releaseReady = false;
-        const attempts = (publication.story?.attempts || 0) + 1;
-        publication.story = {
-          ...pendingStoryStep(publication.story),
-          status: attempts >= 3 ? 'manual_action_required' : 'retry_pending',
-          attempts,
-          error: error.message,
-          updatedAt: new Date().toISOString(),
-        };
+        publication.story = nextFailedStep(pendingStoryStep(publication.story), error, { secrets: [token] });
       }
       if (releaseReady) {
         publication = await publishIndependentStory(publication, {

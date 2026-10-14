@@ -1,11 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('../config');
-const { getAccountInsights, getMediaInsights } = require('./instagram');
+const { DEFAULT_METRICS, getAccountInsights, getMediaInsights } = require('./instagram');
 const { calculateEngagementRate, metricNumber, metricRecord } = require('./post-store');
 const { sendAnalyticsReport } = require('./slack');
 const { resolveInstagramToken } = require('./token-vault');
 const { allLedgerPublications, listLedgers, saveLedger } = require('./v2/ledger');
+const { excludedByModeration, selectWindowObservation } = require('./v2/performance-loop');
 
 const WINDOWS = Object.freeze([
   { label: '24h', hours: 24 },
@@ -106,46 +107,50 @@ function contentType(post = {}) {
 
 function buildWeeklyReport(posts, now = new Date()) {
   const since = now.getTime() - 7 * 24 * 3600000;
-  const recent = posts.filter(post => new Date(post.publishedAt).getTime() >= since && latestMetrics(post));
-  if (recent.length === 0) return '📊 DIEM 주간 리포트\n이번 주에는 집계 가능한 게시물이 아직 없어요.';
-
-  const ranked = recent
-    .map(post => ({ post, metrics: latestMetrics(post) }))
-    .sort((a, b) => (metricNumber(b.metrics.engagementRate) ?? -1) - (metricNumber(a.metrics.engagementRate) ?? -1));
-  const reachMedian = median(ranked.map(item => metricNumber(item.metrics.reach)));
-  const savedRateMedian = medianRate(ranked, 'saved');
-  const shareRateMedian = medianRate(ranked, 'shares');
-  const missingCount = ranked.filter(item => (
-    metricNumber(item.metrics.reach) === null
-    || metricNumber(item.metrics.saved) === null
-    || metricNumber(item.metrics.shares) === null
-  )).length;
-  const top = ranked[0];
-  const topMeta = top.post.contentMetadata || {};
-  const formatSummary = [...ranked.reduce((groups, item) => {
-    const format = contentType(item.post);
-    const current = groups.get(format) || { count: 0, reach: 0, saved: 0, shares: 0 };
-    current.count += 1;
-    current.reach += metricNumber(item.metrics.reach) ?? 0;
-    current.saved += metricNumber(item.metrics.saved) ?? 0;
-    current.shares += metricNumber(item.metrics.shares) ?? 0;
-    groups.set(format, current);
-    return groups;
-  }, new Map()).entries()]
-    .map(([format, metrics]) => `${format}: ${metrics.count}개 · 도달 ${metrics.reach.toLocaleString()} · 저장 ${metrics.saved.toLocaleString()} · 공유 ${metrics.shares.toLocaleString()}`)
-    .join('\n');
-
-  return [
-    '📊 *DIEM 주간 품질·성장 리포트*',
-    `게시물 ${ranked.length}개 · 7일 도달 중앙값 ${displayNumber(reachMedian)} · 저장률 ${displayNumber(savedRateMedian)}% · 공유율 ${displayNumber(shareRateMedian)}%`,
-    missingCount ? `⚠️ 일부 지표 누락 ${missingCount}개 · 누락값은 0으로 계산하지 않았습니다.` : '✅ 핵심 지표 누락 없음',
-    formatSummary ? `\n*콘텐츠 유형별 성과*\n${formatSummary}` : '',
-    '',
-    `🏆 *반응 1위*: <${top.post.permalink}|${top.post.articleTitle}>`,
-    `참여율 ${displayRate(top.metrics.engagementRate)} · 형식 ${contentType(top.post)} · 주제 ${topMeta.topic || '미분류'} · 채널 ${topMeta.money_channel || '미분류'} · 훅 ${topMeta.hook_type || '미분류'}`,
-    '',
-    '판단 원칙: 최고 조회수 한 건이 아니라 중앙값·저장·공유와 표본 수를 함께 봅니다.',
-  ].join('\n');
+  const recent = posts.filter(post => (
+    new Date(post.publishedAt).getTime() >= since
+    && new Date(post.publishedAt).getTime() <= now.getTime()
+    && !excludedByModeration(post.publication || post)
+  ));
+  const lines = ['📊 *DIEM 주간 품질·성장 리포트*'];
+  for (const window of WINDOWS) {
+    const observed = recent.map(post => ({
+      post, metrics: selectWindowObservation(post.publication || post, window.label, post.metrics?.[window.label]),
+    }))
+      .filter(({ post, metrics }) => (
+        metrics
+        && (!metrics.status || ['ok', 'unavailable', 'retry_pending'].includes(metrics.status))
+      ))
+      .map(item => ({ ...item, metrics: { ...item.metrics, ...(item.metrics.media || {}) } }));
+    const groups = new Map();
+    for (const item of observed) {
+      const type = contentType(item.post);
+      if (!groups.has(type)) groups.set(type, []);
+      groups.get(type).push(item);
+    }
+    for (const [type, items] of groups) {
+      const ranked = [...items].sort((a, b) => (metricNumber(b.metrics.engagementRate) ?? -1) - (metricNumber(a.metrics.engagementRate) ?? -1));
+      const reachMedian = median(items.map(item => metricNumber(item.metrics.reach)));
+      const missingCount = items.filter(item => ['reach', 'saved', 'shares'].some(key => metricNumber(item.metrics[key]) === null)).length;
+      lines.push(`\n*${window.label} · ${type}*`);
+      lines.push(`게시물 ${items.length}개 · 도달 중앙값 ${displayNumber(reachMedian)} · 저장률 ${displayNumber(medianRate(items, 'saved'))}% · 공유율 ${displayNumber(medianRate(items, 'shares'))}%`);
+      lines.push(missingCount ? `⚠️ 일부 지표 누락 ${missingCount}개 · 누락값은 0으로 계산하지 않았습니다.` : '✅ 핵심 지표 누락 없음');
+      const sum = key => {
+        const values = items.map(item => metricNumber(item.metrics[key]));
+        return values.every(Number.isFinite) ? displayNumber(values.reduce((total, value) => total + value, 0)) : '집계 불가';
+      };
+      lines.push(`${type}: ${items.length}개 · 도달 ${sum('reach')} · 저장 ${sum('saved')} · 공유 ${sum('shares')}`);
+      const top = ranked.find(item => metricNumber(item.metrics.engagementRate) !== null);
+      if (top) {
+        const metadata = top.post.contentMetadata || {};
+        lines.push(`🏆 *반응 1위*: <${top.post.permalink}|${top.post.articleTitle}>`);
+        lines.push(`참여율 ${displayRate(top.metrics.engagementRate)} · 형식 ${contentType(top.post)} · 주제 ${metadata.topic || '미분류'} · 채널 ${metadata.money_channel || '미분류'} · 훅 ${metadata.hook_type || '미분류'}`);
+      }
+    }
+  }
+  if (lines.length === 1) lines.push('이번 주에는 집계 가능한 게시물이 아직 없어요.');
+  lines.push('판단 원칙: 관찰창과 콘텐츠 유형을 분리하고 중앙값·저장·공유와 표본 수를 함께 봅니다.');
+  return lines.join('\n');
 }
 
 function kstWeekKey(now = new Date()) {
@@ -295,26 +300,51 @@ async function collectInsights({
           'ig_reels_avg_watch_time', 'ig_reels_video_view_total_time',
         ], error.message);
       }
-      const previous = publication.insights.windows[window.label] || {};
-      const attempts = (previous.attempts || 0) + 1;
-      const status = hasAnyMetric(media)
+      const previous = publication.insights.windows[window.label];
+      const attempts = (previous?.attempts || 0) + 1;
+      const missingMetrics = DEFAULT_METRICS.filter(key => metricNumber(media[key]) === null);
+      const collectionStatus = !hasAnyMetric(media) ? 'unavailable' : missingMetrics.length ? 'partial' : 'complete';
+      const status = collectionStatus === 'complete'
         ? 'ok'
-        : (attempts >= MAX_WINDOW_ATTEMPTS ? 'unavailable' : 'retry_pending');
-      const record = {
+        : attempts < MAX_WINDOW_ATTEMPTS ? 'retry_pending' : hasAnyMetric(media) ? 'ok' : 'unavailable';
+      const observation = {
         ...media,
         media,
         account: accountMetrics,
         followerDeltaEstimate: followerDeltaEstimate(publication.insights.baseline.account, accountMetrics),
         engagementRate: calculateEngagementRate(media),
-        status,
-        attempts,
+        status: hasAnyMetric(media) ? 'ok' : 'unavailable',
+        collectionStatus,
+        missingMetrics,
+        attempt: attempts,
         collectedAt: now.toISOString(),
         ...timing,
-        ...(status === 'retry_pending' ? { nextRetryAt: nextRetryAt(now) } : { nextRetryAt: null }),
+      };
+      // Never combine individual metric fields from separate cumulative observations.
+      // Keep the first usable on-time snapshot; a later valid snapshot can replace
+      // an entirely unavailable first attempt only while still on time.
+      const preservePrimary = previous && (
+        hasAnyMetric(previous.media || previous)
+        || !hasAnyMetric(media)
+        || timing.timingStatus !== 'on_time'
+      );
+      const primary = preservePrimary ? previous : observation;
+      const previousObservations = previous?.observations || (previous ? [{
+        ...previous,
+        observations: undefined,
+      }] : []);
+      const record = {
+        ...primary,
+        status: status === 'retry_pending' ? status : hasAnyMetric(primary.media || primary) ? 'ok' : 'unavailable',
+        attempts,
+        firstCollectedAt: previous?.firstCollectedAt || previous?.collectedAt || now.toISOString(),
+        lastAttemptAt: now.toISOString(),
+        observations: [...previousObservations, observation],
+        nextRetryAt: status === 'retry_pending' ? nextRetryAt(now) : null,
       };
       publication.insights.windows[window.label] = record;
       changedLedgers.add(post.ledger);
-      collected.push({ post, window: window.label, metrics: record });
+      collected.push({ post, window: window.label, metrics: observation });
     }
   }
 

@@ -1,5 +1,5 @@
 const { validateEditorial } = require('./editorial');
-const { assessImageSuitability } = require('./image-selector');
+const { assessGeneratedImageSuitability, assessImageSuitability } = require('./image-selector');
 
 function validateImageQuality(image = {}) {
   const errors = [];
@@ -46,7 +46,9 @@ function validateImageQuality(image = {}) {
 function validatePreparedQuality({ article = {}, editorial = {}, image = {}, handle } = {}) {
   const editorialResult = validateEditorial(editorial, { article, handle });
   const imageResult = validateImageQuality(image);
-  const finalImageReview = image.kind === 'web' && image.query && image.description
+  const finalImageReview = image.kind === 'generated'
+    ? assessGeneratedImageSuitability(image, article)
+    : image.kind === 'web' && image.query && image.description
     ? assessImageSuitability(image, image.query, {
       ...article,
       editorialTitle: editorial.title?.text || editorial.title || '',

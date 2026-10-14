@@ -21,6 +21,7 @@ function publication({ key, type, reach, saved, shares, watchTime, status = 'pub
       windows: {
         '7d': {
           status: 'ok',
+          collectedAt: '2026-08-08T00:00:00.000Z',
           reach: metric(reach),
           saved: metric(saved),
           shares: metric(shares),

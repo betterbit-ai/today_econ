@@ -1,5 +1,30 @@
 # Feature: DIEM 성과 학습 루프와 편집 복구력 강화
 
+## 2026-10-14 approved amendment: 자동 운영 복구와 콘텐츠 재시험
+
+사용자가 승인한 3단계 실행 계약이다. 자동발행·무료 인프라·기존 의존성·분야별 하루1편·기존 cron을 유지한다. 주간5~7편은 권장치이며 약한 후보로 채우지 않는다.
+
+### Slice 1 — 먼저 검증·리뷰·배포
+
+1. 최신 main 원장을 보존하며 로컬 v3를 통합한다. main SHA, Action SHA, 신규 schema3 원장과 실제 Reel을 연결한다.
+2. Reel 오류는 기존 분류를 적용한다. 접근·권한·인증은 즉시 manual_action_required, 429·5xx는 기존 재시도. error 문자열과 함께 HTTP status/code/subcode/user message/trace ID만 보존하고 비밀값·전체 응답은 저장하지 않는다.
+3. 읽기 전용 diagnose 명령과 수동 Action을 추가한다. Instagram 읽기·Models API·실제2장 Vision shadow5회 결과와 실행ID를 artifact로 기록하며 게시물 발행·원장 재작성·Slack 전송은 하지 않는다.
+4. Vision 모델 qwen/qwen3.8-27b를 실제 production 자격증명으로 확인한다. 매핑과 생성자산 topic은 확정 frame을 사용한다. unmapped·돈 후보 탈락·영화/정치의 교통 오매핑 회귀를 보호한다. 무관 이미지로 우회하지 않는다.
+5. 제목 숫자의 단위·분모·기간·비교 대상·조건·확정성을 원문에 대조한다. 3년9개월→9개월, 미신청가구 중 청년비중→청년미신청률을 차단한다. 증명 실패는 숫자 제거 재교정 또는 다음 후보다.
+6. 뉴스/Basic·reach/views·24h/72h/7d를 분리한다. 부분수집 재시도는 최대3회/6시간. 최초 관측·재수집 시점을 보존하고 늦은 누적값으로 정시 관측을 덮어쓰지 않는다. 주간/Basic 보고서에도 동일 규칙을 적용한다. flash-only explain 목표는 not_applicable다.
+
+### Slice 2 — Slice1 운영 증거 확인 후
+
+flash 핵심사실1개는 기존 claim·원문 참조, 최대32grapheme·2줄·최소44px다. overflow는 차단한다. 동일 적합성 통과 후 기사ID hash로 control/fact_line을 절반 배정하며 실험ID·군을 analytics에 기록한다. 길이6초·음악·시각 유지, 동일 사건 중복발행 금지. 각군 정시24h10편 및 분야별 표본 전에는 insufficient_data이고 v3학습 하한10/5는 유지한다.
+
+### Slice 3 — 운영 복구 후
+
+기존4 Basic 주제를 새로운 고유ID와 originalContentId로 연결하고 원본 기록을 보존한다. 기관2곳 공식근거 재검증, 질문+짧은답→정의→작동→주의→정리, 5장19초, bright 검수음원, 파생artifact·해시·시각·청취·규격 검증 후 ready다. 예약 Action은 검증·발행만 한다. 고정게시물3개·하이라이트 준비와 실제UI 적용완료를 분리한다.
+
+### Acceptance and verification
+
+각 slice 회귀 테스트·harness·독립리뷰·배포를 직렬 수행한다. explain은 분류40/초안10/Vision5/사고0까지 비활성이다. 신규 API·DB·의존성·검수 일일승인 운영은 도입하지 않는다. 품질 사고 시 실험을 끄고 flash 안전상태 복구. 운영 증거 확인일 D0, D14 도달200방향, D28 분야별10편/도달300/flash시청50%/뉴스20편효용20%, D56 도달400~500. 표본 부족은 판정 연장, Basic7d는 마지막 발행+7일이다. 상세 근거·운영목록은 docs/analysis/2026-10-13-diem-recovery.md와 diem-checklist.md다.
+
 ## 2026-09-17 approved amendment: ChatGPT-selected visual library
 
 ### Outcome

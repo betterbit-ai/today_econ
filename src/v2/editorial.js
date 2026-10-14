@@ -20,7 +20,7 @@ const DEFAULT_MODELS = Object.freeze({
 
 const SENTENCE_ENDING = /[.!?。！？]$/u;
 const EVENT_WORDS = /(인상|인하|상승|하락|급등|급락|확대|축소|시행|폐지|확정|결정|발표|판결|규제|지원|증가|감소|돌파|합의|통과|전환)/u;
-const NUMBER_TOKEN = /\d[\d,.]*(?:\s*(?:%|퍼센트|조\s*원|억\s*원|만\s*원|원|만\s*명|명|개|배|년|월|일))?/gu;
+const NUMBER_TOKEN = /\d[\d,.]*(?:\s*[조억만천]\s*\d*)*(?:\s*(?:%\s*포인트|퍼센트\s*포인트|%|퍼센트|원|위안|달러|유로|엔|명|가구|개월|분기|개|배|년|월|일|대|세))?/gu;
 const COMPARISON_BASES = Object.freeze([
   { id: 'year_on_year', pattern: /전년(?:\s*동기)?\s*대비|전년보다|1년\s*전보다|지난해보다|작년보다/u },
   { id: 'quarter_on_quarter', pattern: /전기\s*대비|전\s*분기\s*대비|전분기보다|직전\s*분기보다/u },
@@ -330,18 +330,183 @@ function buildCommentChain(article, firstEmoji, handle = BRAND.primaryHandle) {
   };
 }
 
+function numericSourceSentences(article = {}) {
+  return [article.title, ...(article.verifiedFacts || article.facts || []),
+    article.context, article.fullText, article.body, article.summary]
+    .filter(Boolean).flatMap(value => splitSourceSentences(normalizeNfc(value).replace(/(\d)\.(?=\d)/gu, '$1§')))
+    .map(value => cleanVisibleText(value.replace(/§/gu, '.'))).filter(Boolean);
+}
+
+function normalizedNumber(value = '') {
+  return value.replace(/[\s,]/gu, '').replace(/퍼센트/gu, '%')
+    .replace(/(조|억|만)$/u, '$1원');
+}
+
+function numberOccurrences(value = '') {
+  return [...cleanVisibleText(value).matchAll(NUMBER_TOKEN)].map(match => ({
+    number: match[0], key: normalizedNumber(match[0]), start: match.index,
+    end: match.index + match[0].length,
+  }));
+}
+
 function ungroundedNumericClaims(sentences, article) {
-  const evidence = sourceText(article).replace(/[\s,]/gu, '');
-  return sentences.flatMap(sentence => {
-    const numbers = sentence.match(NUMBER_TOKEN) || [];
-    return numbers
-      .filter(number => !evidence.includes(number.replace(/[\s,]/gu, '')))
-      .map(number => ({ number, sentence: cleanVisibleText(sentence).slice(0, 80) }));
-  });
+  const available = new Set(numericSourceSentences(article).flatMap(numberOccurrences).map(item => item.key));
+  return sentences.flatMap(sentence => numberOccurrences(sentence)
+    .filter(item => !available.has(item.key))
+    .map(item => ({ number: item.number, sentence: cleanVisibleText(sentence).slice(0, 80) })));
 }
 
 function numericClaimsAreGrounded(sentences, article) {
   return ungroundedNumericClaims(sentences, article).length === 0;
+}
+
+function semanticText(value = '') {
+  return cleanVisibleText(value).replace(/주택담보대출/gu, '주담대').replace(/기업공개|첫\s*거래|증시\s*데뷔|상장/gu, 'IPO')
+    .replace(/신청하지\s*않은/gu, '미신청').replace(/미신청자/gu, '미신청 가구')
+    .replace(/[은는이가을를의]\b/gu, '').replace(/\s+/gu, ' ').trim();
+}
+
+function compactSemanticText(value = '') {
+  return semanticText(value).replace(/[^0-9A-Za-z가-힣%]/gu, '').toLowerCase();
+}
+
+function numericFocusTerms(value = '') {
+  let prefix = semanticText(value).split(NUMBER_TOKEN)[0];
+  for (const { pattern } of COMPARISON_BASES) {
+    prefix = prefix.replace(new RegExp(pattern.source, 'gu'), ' ');
+  }
+  return prefix.split(/\s+/u)
+    .map(term => term.replace(/(?:에서는|에서|에게|으로|부터|까지|은|는|이|가|의|을|를)$/u, ''))
+    .filter(term => term.length >= 2 && !TOPIC_STOPWORDS.has(term)
+      && !/^(전체|지난달|지난해|올해|이번달|신규취급액|기준|최대|최소|이상|이하|가운데|대비|연율|소득분|귀속)$/u.test(term));
+}
+
+function ratioScope(value, occurrence) {
+  if (!/%$|퍼센트$/u.test(occurrence.number.replace(/\s+/gu, ''))) return null;
+  const prefix = semanticText(value.slice(0, occurrence.start));
+  const groups = [...prefix.matchAll(/([^,.;!?]+?)\s*(?:중|가운데)\s*/gu)];
+  const last = groups.at(-1);
+  if (last) {
+    const denominator = last[1].trim().split(/\s+/u).slice(-2).join(' ');
+    const numerator = prefix.slice(last.index + last[0].length).replace(/[이가은는]$/u, '').trim();
+    return { denominator: compactSemanticText(denominator), numerator: compactSemanticText(numerator) };
+  }
+  // Source headlines may say "미신청자, 20대 이하가 45%" without the word 중.
+  const implicit = prefix.match(/(미신청\s*가구)\s*,\s*(.+)$/u);
+  return implicit ? { denominator: compactSemanticText(implicit[1]), numerator: compactSemanticText(implicit[2].replace(/[이가은는]$/u, '')) } : null;
+}
+
+function numericClause(value, occurrence) {
+  const boundaries = [...value.matchAll(/,(?=\s*[가-힣A-Za-z\s]{2,40}(?:은|는|이|가)\s+\d)|;|반면/gu)];
+  const left = boundaries.filter(match => match.index < occurrence.start).at(-1);
+  const right = boundaries.find(match => match.index >= occurrence.end);
+  const start = left ? left.index + left[0].length : 0;
+  return {
+    text: value.slice(start, right ? right.index : value.length),
+    occurrence: { ...occurrence, start: occurrence.start - start, end: occurrence.end - start },
+  };
+}
+
+const MONEY_ROLES = Object.freeze([
+  { id: 'payment', pattern: /납부|지불|지출|부담|상환|내(?:는|고|며|면|야|겠|었다|었습니다)|냈/u },
+  { id: 'support', pattern: /지원|지급|수령|수급|보조|환급|받(?:는|고|았|을|는다)/u },
+  { id: 'borrowing', pattern: /대출|빌(?:리는|린|렸)/u },
+  { id: 'fundraising', pattern: /조달|모금/u },
+]);
+
+function monetaryRole(value, occurrence) {
+  if (!/(?:원|위안|달러|유로|엔)$/u.test(occurrence.key)) return null;
+  const occurrences = numberOccurrences(value);
+  const next = occurrences.find(item => item.start > occurrence.start);
+  const previous = occurrences.filter(item => item.end <= occurrence.start).at(-1);
+  // Stop at the next amount: its predicate must never describe this amount.
+  const suffix = value.slice(occurrence.end, next ? next.start : value.length);
+  const suffixRoles = MONEY_ROLES.flatMap(({ id, pattern }) => {
+    const match = suffix.match(pattern);
+    return match ? [{ id, index: match.index }] : [];
+  }).sort((a, b) => a.index - b.index);
+  if (suffixRoles.length > 0) return suffixRoles[0].id;
+  const prefix = value.slice(previous ? previous.end : 0, occurrence.start);
+  return MONEY_ROLES.find(({ pattern }) => pattern.test(prefix))?.id || null;
+}
+
+function numericOccurrenceSupported(sentence, generated, source, original) {
+  const sourceClause = numericClause(source, original);
+  const generatedClause = numericClause(sentence, generated);
+  source = sourceClause.text;
+  original = sourceClause.occurrence;
+  sentence = generatedClause.text;
+  generated = generatedClause.occurrence;
+  const generatedCompact = compactSemanticText(sentence);
+  const sourceCompact = compactSemanticText(source);
+  const generatedRole = monetaryRole(sentence, generated);
+  if (generatedRole && generatedRole !== monetaryRole(source, original)) return false;
+  if (!numericFocusTerms(sentence).every(term => sourceCompact.includes(compactSemanticText(term)))) return false;
+  const generatedBases = comparisonBases(sentence);
+  const sourceBases = comparisonBases(source);
+  if (generatedBases.length !== sourceBases.length || generatedBases.some(base => !sourceBases.includes(base))) return false;
+
+  // A component cannot stand in for a compound duration, even when the digits occur in the article.
+  const durations = [...source.matchAll(/(?:\d+\s*(?:년|개월|월|일)\s*){2,}/gu)];
+  const duration = durations.find(match => original.start >= match.index && original.end <= match.index + match[0].length);
+  if (duration && !generatedCompact.includes(compactSemanticText(duration[0]))) return false;
+
+  const sourceScope = ratioScope(source, original);
+  if (sourceScope) {
+    const generatedScope = ratioScope(sentence, generated);
+    if (!generatedScope || generatedScope.denominator !== sourceScope.denominator
+      || generatedScope.numerator !== sourceScope.numerator) return false;
+  }
+  const prefix = source.slice(Math.max(0, original.start - 15), original.start);
+  const suffix = source.slice(original.end, original.end + 10);
+  const before = prefix.match(/(최대|최소|약|최고|예상|추정|잠정)\s*$/u)?.[1];
+  const after = suffix.match(/^\s*(이상|이하|초과|미만|한도)/u)?.[1];
+  const generatedPrefix = sentence.slice(Math.max(0, generated.start - 15), generated.start);
+  const generatedSuffix = sentence.slice(generated.end, generated.end + 10);
+  const generatedBefore = generatedPrefix.match(/(최대|최소|약|최고|예상|추정|잠정)\s*$/u)?.[1];
+  if ((before !== generatedBefore && !(before == null && generatedBefore === '약'))
+    || after !== generatedSuffix.match(/^\s*(이상|이하|초과|미만|한도)/u)?.[1]) return false;
+
+  // An amount restricted to an age group or a stated assessment period is not unconditional.
+  const conditions = source.match(/(?:만\s*)?\d+\s*세\s*(?:이상|이하|초과|미만)|\d+년\s*(?:귀속|소득분|기준)/gu) || [];
+  if (!conditions.every(condition => generatedCompact.includes(compactSemanticText(condition)))) return false;
+  return true;
+}
+
+function numericEvidence(sentences = [], article = {}) {
+  const sources = numericSourceSentences(article);
+  const bodySources = numericSourceSentences({ ...article, title: undefined });
+  const violations = [];
+  const assignments = [];
+  sentences.forEach((sentence, index) => {
+    const clean = cleanVisibleText(sentence);
+    numberOccurrences(clean).forEach(generated => {
+      const bodyMatches = bodySources.filter(source => numberOccurrences(source).some(original => original.key === generated.key));
+      const supportingSource = (bodyMatches.length > 0 ? bodyMatches : sources).find(source => numberOccurrences(source).some(original => (
+        generated.key === original.key && numericOccurrenceSupported(clean, generated, source, original)
+      )));
+      if (supportingSource) assignments.push({ index, number: generated.number, sourceSpan: supportingSource });
+      else violations.push({ index, number: generated.number, reason: 'numeric meaning lacks a supporting source sentence' });
+    });
+  });
+  return { violations, assignments };
+}
+
+function numericSemanticViolations(sentences = [], article = {}) {
+  return numericEvidence(sentences, article).violations;
+}
+
+function titleEvidenceViolations(title, article, frame) {
+  const errors = [...validateTitleAgainstFrame(title, frame).errors];
+  if (numericSemanticViolations([title], article).length > 0) errors.push('title numeric meaning is unsupported by source evidence');
+  const primary = cleanVisibleText(article.title || splitSourceSentences(article.summary || article.fullText || '')[0] || '');
+  const tentative = /(계획|검토|추진|예정|잠정)/u.test(primary) || ['tentative', 'scheduled'].includes(frame.claimState);
+  const alleged = /(의혹|혐의|주장)/u.test(primary) && frame.claimState === 'reported';
+  if ((tentative || alleged) && /(확정|결정|시행|완료|도입)/u.test(title)
+    && !/(계획|검토|추진|예정|잠정|의혹|혐의|주장)/u.test(title)) {
+    errors.push('title cannot strengthen the source claim state');
+  }
+  return errors;
 }
 
 function comparisonBases(value = '') {
@@ -350,26 +515,14 @@ function comparisonBases(value = '') {
 }
 
 function numericContextViolations(sentences = [], article = {}) {
-  const evidenceSentences = [
-    ...(article.verifiedFacts || article.facts || []),
-    article.context,
-    article.fullText,
-    article.body,
-    article.summary,
-  ]
-    .filter(Boolean)
-    .flatMap(splitSourceSentences)
-    .map(cleanVisibleText)
-    .filter(Boolean);
+  const evidenceSentences = numericSourceSentences({ ...article, title: undefined });
   return sentences.flatMap((sentence, index) => {
     const cleanSentence = cleanVisibleText(sentence);
     const generatedBases = comparisonBases(cleanSentence);
     const numbers = cleanSentence.match(NUMBER_TOKEN) || [];
     return numbers.flatMap(number => {
-      const normalizedNumber = number.replace(/[\s,]/gu, '');
-      const matchingEvidence = evidenceSentences.filter(evidence => (
-        evidence.replace(/[\s,]/gu, '').includes(normalizedNumber)
-      ));
+      const normalized = normalizedNumber(number);
+      const matchingEvidence = evidenceSentences.filter(evidence => numberOccurrences(evidence).some(item => item.key === normalized));
       if (matchingEvidence.length === 0) return [];
       const evidenceBases = matchingEvidence.map(comparisonBases);
       const preservesBasis = evidenceBases.some(bases => (
@@ -392,17 +545,7 @@ function numericContextViolations(sentences = [], article = {}) {
 }
 
 function numericBundleViolations(sentences = [], article = {}) {
-  const evidenceSentences = [
-    ...(article.verifiedFacts || article.facts || []),
-    article.context,
-    article.fullText,
-    article.body,
-    article.summary,
-  ]
-    .filter(Boolean)
-    .flatMap(splitSourceSentences)
-    .map(cleanVisibleText)
-    .filter(Boolean);
+  const evidenceSentences = numericSourceSentences({ ...article, title: undefined });
   return sentences.flatMap((sentence, index) => {
     const cleanSentence = cleanVisibleText(sentence);
     if (!/(같은|동일(?:한|하게)?|모두.{0,20}적용)/u.test(cleanSentence)) return [];
@@ -546,12 +689,12 @@ function assembleEditorial({
     ensureSentence(sentenceDrafts[2], emojis.third),
   ];
   const caption = sentences.join('\n\n').normalize('NFC');
-  const validTitleCandidates = titleCandidates.filter(candidate => validateTitleAgainstFrame(candidate.title, frame).ok);
+  const validTitleCandidates = titleCandidates.filter(candidate => titleEvidenceViolations(candidate.title, article, frame).length === 0);
   if (validTitleCandidates.length < 1) {
     throw new Error('[DIEM Editorial] No title candidate matches the article claim state and event.');
   }
   const requested = titleCandidates[selectedTitleIndex] || titleCandidates[0];
-  const selected = validateTitleAgainstFrame(requested.title, frame).ok
+  const selected = validTitleCandidates.includes(requested)
     ? requested
     : validTitleCandidates[0];
   const comments = buildCommentChain(article, emojis.first, handle);
@@ -572,6 +715,7 @@ function assembleEditorial({
       lines: selected.lines,
       selectedIndex: validTitleCandidates.indexOf(selected),
       selectionReason: 'accuracy_format_clarity_curiosity',
+      sourceSpans: [...new Set(numericEvidence([selected.title], article).assignments.map(item => item.sourceSpan))],
     },
     caption: { sentences, text: caption },
     scenes: reelFormat === 'explain'
@@ -764,6 +908,8 @@ function validateModelBody(parsed = {}, article = {}, frame = {}) {
       .join('; ');
     throw new Error(`model returned an ungrounded numeric claim: ${ungrounded}`);
   }
+  const semanticViolations = numericSemanticViolations(parsed.sentences, article);
+  if (semanticViolations.length > 0) throw new Error(`model returned an unsupported numeric meaning: ${JSON.stringify(semanticViolations.slice(0, 3))}`);
   const contextViolations = numericContextViolations(parsed.sentences, article);
   if (contextViolations.length > 0) {
     throw new Error(`model returned a comparison basis that conflicts with article evidence: ${JSON.stringify(contextViolations.slice(0, 3))}`);
@@ -789,13 +935,15 @@ function titleRepairPrompt(article = {}, parsed = {}) {
       '"보도", "논란", "상황", "소식"을 한 줄 전체로 쓰지 말고 실제 사건·수치·결과로 교체하세요.',
       '간접명령형 "오라 그래", "하라 그래"를 표지에 그대로 잘라 쓰지 말고, 전체 이름과 자연스러운 직접화법으로 교정하세요.',
       '"미확정"은 공식 부인·반박 프레임에만 허용합니다. 확정된 경고·권고와 제한적인 의학 근거를 혼동하지 마세요.',
-      '숫자를 쓰면 기사 근거에 있는 숫자만 사용하세요. 과장, 날짜만 있는 제목, 약어만 있는 제목은 금지합니다.',
+      '숫자를 쓰면 원문 한 문장에서 값·단위·분모·전체 기간·비교 기준·조건을 모두 보존하세요. 입증할 수 없거나 길면 숫자 훅을 빼세요. 과장, 날짜만 있는 제목, 약어만 있는 제목은 금지합니다.',
       '오직 {"titleCandidates":[{"title":"첫줄\\n둘째줄","score":100}]} JSON만 출력하세요.',
     ].join('\n'),
     userPrompt: JSON.stringify({
       sourceTitle: article.title,
       newsFrame: frame,
       verifiedFacts: article.verifiedFacts || article.facts || [],
+      sourceSentences: numericSourceSentences(article),
+      rejectedTitleReasons: (parsed.titleCandidates || []).map(candidate => titleEvidenceViolations(Array.isArray(candidate.lines) ? candidate.lines.join('\n') : String(candidate.title || candidate), article, frame)),
       acceptedCaptionSentences: parsed.sentences,
       rejectedTitleCandidates: parsed.titleCandidates || [],
     }).normalize('NFC'),
@@ -848,18 +996,18 @@ async function generateEditorial(article = {}, {
           throw new Error(`editorial repair failed: ${repairError.message}`);
         }
       }
-      let candidates = normalizeModelCandidates(parsed.titleCandidates, frame).filter(c => c.valid);
+      let candidates = normalizeModelCandidates(parsed.titleCandidates, frame).filter(c => c.valid && titleEvidenceViolations(c.title, article, frame).length === 0);
       if (candidates.length < 1) {
         attempts.push({
           model,
           stage: 'title_generation',
           status: 'failed',
-          error: 'model returned no valid title candidates for article frame',
+          error: 'model returned no valid title candidates for article frame or numeric meaning',
         });
         try {
           const repairedRaw = await callModel({ model, ...titleRepairPrompt(article, parsed) });
           const repaired = parseModelResult(repairedRaw);
-          candidates = normalizeModelCandidates(repaired.titleCandidates, frame).filter(candidate => candidate.valid);
+          candidates = normalizeModelCandidates(repaired.titleCandidates, frame).filter(candidate => candidate.valid && titleEvidenceViolations(candidate.title, article, frame).length === 0);
           if (candidates.length < 1) throw new Error('title repair returned no valid title candidates for article frame');
           attempts.push({ model, stage: 'title_repair', status: 'succeeded' });
         } catch (repairError) {
@@ -916,8 +1064,8 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   } else {
     const titles = editorial.titleCandidates.map(candidate => candidate.title);
     titles.forEach((title, index) => {
-      const validation = validateTitleAgainstFrame(title, frame);
-      if (!validation.ok) errors.push(`title candidate ${index + 1}: ${validation.errors.join(', ')}`);
+      const titleErrors = titleEvidenceViolations(title, article, frame);
+      if (titleErrors.length > 0) errors.push(`title candidate ${index + 1}: ${titleErrors.join(', ')}`);
     });
     if (new Set(titles.map(title => normalizeNfc(title).replace(/\s+/gu, ''))).size !== titles.length) {
       errors.push('title candidates must be unique');
@@ -925,6 +1073,14 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   }
   const titleValidation = validateTitleAgainstFrame(editorial?.title?.text || '', frame);
   if (!titleValidation.ok) errors.push(...titleValidation.errors.map(error => `selected ${error}`));
+  if (editorial?.title?.sourceSpans != null) {
+    const expectedSpans = [...new Set(numericEvidence([editorial.title.text], article).assignments.map(item => item.sourceSpan))];
+    const storedSpans = editorial.title.sourceSpans;
+    if (!Array.isArray(storedSpans) || storedSpans.length !== expectedSpans.length
+      || expectedSpans.some(span => !storedSpans.includes(span))) {
+      errors.push('title sourceSpans must preserve the actual supporting numeric source sentences');
+    }
+  }
   if (!editorial?.titleCandidates?.some(candidate => candidate.title === editorial?.title?.text)) {
     errors.push('selected title must be one of the title candidates');
   }
@@ -998,6 +1154,9 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   if (article && !numericClaimsAreGrounded(editorial?.caption?.sentences || [], article)) {
     errors.push('caption contains numeric claims absent from article evidence');
   }
+  numericSemanticViolations(editorial?.caption?.sentences || [], article).forEach(({ index, number }) => {
+    errors.push(`caption sentence ${index + 1} has unsupported numeric meaning for ${number}`);
+  });
   numericContextViolations(editorial?.caption?.sentences || [], article).forEach(({ index, number }) => {
     errors.push(`caption sentence ${index + 1} has a comparison basis unsupported for ${number}`);
   });
@@ -1027,5 +1186,6 @@ module.exports = {
   articleFrame,
   sourceSentences,
   numericContextViolations,
+  numericSemanticViolations,
   validateEditorial,
 };

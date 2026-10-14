@@ -176,6 +176,8 @@ function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   if (/(최저임금)/u.test(normalized)) return '최저임금';
   if (/(기준금리|한국은행)/u.test(normalized)) return '기준금리';
   if (/(전세|월세|주거|주택)/u.test(housingText)) return '주거 정책';
+  if (/카드사/u.test(normalized)) return '카드사';
+  if (/신용카드|카드결제/u.test(normalized)) return '신용카드';
   if (/(국민연금|연금)/u.test(normalized)) return '연금 개편';
   if (/(개인정보|정보인권|프라이버시|피지컬AI|특별법)/u.test(normalized)) return 'AI 개인정보';
   if (/(CXMT|창신메모리)/iu.test(normalized)) return 'CXMT';

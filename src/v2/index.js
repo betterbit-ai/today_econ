@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 const config = require('../../config');
+const fs = require('fs');
+const path = require('path');
+const { diagnoseDiem } = require('./diagnostics');
 const { sendAnalyticsReport } = require('../slack');
 const {
   findBasicPublication,
@@ -41,6 +44,8 @@ function parseArgs(argv = process.argv.slice(2)) {
   for (let index = 0; index < rest.length; index += 1) {
     const token = rest[index];
     if (token === '--force') options.force = true;
+    else if (token === '--read-only') options.readOnly = true;
+    else if (token === '--output') options.output = rest[++index];
     else if (token === '--publish') options.publish = true;
     else if (token === '--date') options.date = rest[++index];
     else if (token === '--category') options.category = rest[++index];
@@ -75,6 +80,7 @@ function helpText() {
     '  node src/v2/index.js basic-report',
     '  node src/v2/index.js performance-report',
     '  node src/v2/index.js explain-gates',
+    '  node src/v2/index.js diagnose --read-only [--output .diem-cache/diagnostics/report.json]',
     '  node src/v2/index.js cloud-candidates [--date YYYY-MM-DD] [--slot RUN_ID]',
     '  node src/v2/index.js daily-package-validate --package PATH',
     '  node src/v2/index.js daily-package-prepare --package PATH [--date YYYY-MM-DD]',
@@ -93,6 +99,23 @@ function nextDate(date) {
 
 async function runCommand({ command, options }) {
   const date = options.date || kstDate();
+  if (command === 'diagnose') {
+    if (!options.readOnly || options.publish) throw new Error('[DIEM Diagnose] requires --read-only and prohibits --publish');
+    let output;
+    if (options.output) {
+      output = path.resolve(options.output);
+      const directory = path.resolve('.diem-cache', 'diagnostics');
+      if (!output.startsWith(directory + path.sep)) throw new Error('[DIEM Diagnose] output must be under .diem-cache/diagnostics');
+    }
+    const report = await diagnoseDiem();
+    if (output) {
+      fs.mkdirSync(path.dirname(output), { recursive: true });
+      fs.writeFileSync(output, JSON.stringify(report, null, 2) + '\n');
+    }
+    console.log(JSON.stringify(report, null, 2));
+    if (report.status !== 'ok') process.exitCode = 1;
+    return report;
+  }
   if (command === 'performance-report') {
     const report = savePerformanceReport();
     console.log(`[DIEM] performance report: ${report.status} (${report.publishedCount} published ledgers)`);
