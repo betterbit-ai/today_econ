@@ -210,6 +210,7 @@ test('publishing selects one stored package, preserves the hot-news slot, and re
 
   const result = await publishBasicPackage({
     date: '2026-08-17',
+    now: new Date('2026-08-17T00:30:00.000Z'),
     contentId: 'isa-tax',
     contentRoot: CONTENT_ROOT,
     ledgers: [current],
@@ -250,6 +251,7 @@ test('publishing selects one stored package, preserves the hot-news slot, and re
 
   await assert.rejects(() => publishBasicPackage({
     date: '2026-08-18',
+    now: new Date('2026-08-18T00:30:00.000Z'),
     contentId: 'isa-tax',
     contentRoot: CONTENT_ROOT,
     ledgers: [result],
@@ -275,6 +277,7 @@ test('an operator-deleted DIEM Basic Reel can be reissued without overwriting it
 
   const result = await publishBasicPackage({
     date: '2026-08-16',
+    now: new Date('2026-08-16T00:30:00.000Z'),
     contentId: 'isa-tax',
     contentRoot: CONTENT_ROOT,
     ledgers: [ledger],

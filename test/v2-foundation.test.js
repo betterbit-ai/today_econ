@@ -154,6 +154,60 @@ test('does not confuse personal income with trade imports or publish a private c
   assert.equal(editorialValue.reason, 'narrow_private_crime_story');
 });
 
+test('rejects a local brawl instead of treating 주택가 and 공원 as housing money signals', () => {
+  const localBrawl = {
+    title: '한밤중 주택가 공원서 외국인 패싸움...경찰 추적 중',
+    summary: '주택가 공원에서 남성들이 집단으로 몸싸움을 벌여 경찰이 일부를 체포하고 나머지를 추적하고 있습니다.',
+    fullText: '경찰은 공원 인근 CCTV를 확인해 러시아와 키르기스스탄 국적의 20대 남성들을 특정하고 폭행 혐의를 조사하고 있습니다.',
+  };
+
+  const classification = classifyCandidate(localBrawl);
+  assert.equal(classification.category, null);
+  assert.ok(classification.excluded.includes('local_private_crime_without_public_value'));
+
+  const frame = buildNewsFrame({ ...localBrawl, category: CATEGORIES.ISSUE }, CATEGORIES.ISSUE);
+  assert.notEqual(frame.eventKind, 'housing_policy');
+  assert.notEqual(frame.readerNeed, 'housing');
+
+  for (const category of [CATEGORIES.ECONOMY, CATEGORIES.ISSUE]) {
+    const value = assessDiemEditorialValue(localBrawl, category, frame);
+    assert.equal(value.ok, false);
+    assert.equal(value.reason, 'local_private_crime_without_public_value');
+    assert.ok(!value.contentValueSignals.includes('money_impact'));
+  }
+});
+
+test('requires an actual amount or explicit financial term for money impact', () => {
+  const falseSignals = ['공원 안전 대책', '병원 응급실 점검', '원정 경기 일정'];
+  for (const title of falseSignals) {
+    const candidate = { title, summary: '지역 현장을 점검한 소식입니다.' };
+    const value = assessDiemEditorialValue(candidate, CATEGORIES.ISSUE, buildNewsFrame(candidate, CATEGORIES.ISSUE));
+    assert.ok(!value.contentValueSignals.includes('money_impact'), title);
+  }
+
+  for (const title of ['지원금 3만원 지급 확정', '피해액 1억원 확인', '한국은행 기준금리 인하']) {
+    const candidate = { title, summary: `${title}에 관한 공식 발표입니다.` };
+    const value = assessDiemEditorialValue(candidate, CATEGORIES.ECONOMY, buildNewsFrame(candidate, CATEGORIES.ECONOMY));
+    assert.ok(value.contentValueSignals.includes('money_impact'), title);
+  }
+});
+
+test('keeps a real housing-policy event while excluding lexical compounds', () => {
+  const housingPolicy = {
+    title: '청년 월세 지원 정책 다음 달 시행',
+    summary: '정부가 청년 가구의 월세 부담을 줄이기 위한 주거 지원 제도를 다음 달 시행합니다.',
+  };
+  const frame = buildNewsFrame(housingPolicy, CATEGORIES.ISSUE);
+  assert.equal(frame.eventKind, 'housing_policy');
+  assert.equal(frame.readerNeed, 'housing');
+
+  for (const title of ['주택가 공원 폭행', '주거침입 혐의 경찰 추적']) {
+    const incidentFrame = buildNewsFrame({ title }, CATEGORIES.ISSUE);
+    assert.notEqual(incidentFrame.eventKind, 'housing_policy');
+    assert.notEqual(incidentFrame.readerNeed, 'housing');
+  }
+});
+
 test('still recognizes import news when the word is used in a trade context', () => {
   assert.equal(classifyCandidate({
     title: '원유 수입액 20% 증가…무역수지 다시 적자',
@@ -586,6 +640,14 @@ test('locks reader need and general event labels to the headline event', () => {
 test('rejects standalone report filler in a two-line cover title', () => {
   assert.equal(validateTitle('코스피 하락\n보도').ok, false);
   assert.equal(validateTitle('네팔 대홍수\n보도').ok, false);
+});
+
+test('rejects low-information cover lines that omit the actual change or outcome', () => {
+  for (const title of ['한국은행\n전망 발표', '정부 자료\n공개', '금리 인하\n이유']) {
+    const result = validateTitle(title);
+    assert.equal(result.ok, false, title);
+    assert.match(result.errors.join('; '), /filler/u);
+  }
 });
 
 test('frames currency movement and rescue as their primary events', () => {

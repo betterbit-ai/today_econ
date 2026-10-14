@@ -32,6 +32,42 @@ function isMediaRetrievalFailure(error = {}) {
       .test(String(error.message || error.payload?.error?.message || ''));
 }
 
+function isModelNotFound(error = {}) {
+  const message = String(error.message || error.payload?.error?.message || '');
+  const code = String(error.code || error.payload?.error?.code || '');
+  return Number(error.status) === 404
+    || /model_not_found/iu.test(code)
+    || /model[_ -]?(?:not[_ -]?found|decommissioned|deprecated)|does not exist/iu.test(message);
+}
+
+function classifyVisionError(error = {}) {
+  return isModelNotFound(error) ? 'model_not_found' : 'model_error';
+}
+
+async function assertVisionModelAvailable(client, model) {
+  try {
+    const details = await client.models.retrieve(model);
+    if (!details || details.id !== model || details.active === false) {
+      const error = new Error(`[DIEM Vision] model_not_found: ${model} is not active`);
+      error.code = 'model_not_found';
+      throw error;
+    }
+    return details;
+  } catch (error) {
+    if (classifyVisionError(error) === 'model_not_found') {
+      const unavailable = new Error(`[DIEM Vision] model_not_found: ${model}`);
+      unavailable.code = 'model_not_found';
+      unavailable.status = error.status;
+      unavailable.cause = error;
+      throw unavailable;
+    }
+    const unavailable = new Error(`[DIEM Vision] model_error: failed to verify ${model}: ${error.message}`);
+    unavailable.code = 'model_error';
+    unavailable.cause = error;
+    throw unavailable;
+  }
+}
+
 function parseJsonObject(value = '') {
   let text = String(value || '').trim();
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/iu);
@@ -121,14 +157,20 @@ function createGroqCaller({
 function createGroqVisionReviewer({
   apiKey,
   client,
-  model = 'qwen/qwen3.6-27b',
+  model = 'qwen/qwen3.8-27b',
   fetchImpl = fetch,
   maxImageBytes = 8 * 1024 * 1024,
 } = {}) {
   const groq = client || (apiKey ? new Groq({ apiKey }) : null);
   if (!groq) throw new Error('[DIEM Vision] GROQ_API_KEY is required for image review.');
+  let modelAvailability;
+  const ensureModelAvailable = () => {
+    modelAvailability ||= assertVisionModelAvailable(groq, model);
+    return modelAvailability;
+  };
   return async function reviewImages({ candidate = {}, query = '', images = [] } = {}) {
     if (images.length < 1 || images.length > 3) throw new Error('[DIEM Vision] image shortlist must contain 1-3 candidates.');
+    await ensureModelAvailable();
     const contentFor = (requestImages, { jsonMode = true } = {}) => {
       const content = [{
         type: 'text',
@@ -200,11 +242,14 @@ function createGroqVisionReviewer({
 }
 
 module.exports = {
+  assertVisionModelAvailable,
+  classifyVisionError,
   createGroqCaller,
   createGroqVisionReviewer,
   headerValue,
   inlineVisionImages,
   isMediaRetrievalFailure,
+  isModelNotFound,
   isRetryable,
   isJsonValidationFailure,
   retryAfterMs,

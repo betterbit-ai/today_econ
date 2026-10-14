@@ -3,6 +3,7 @@ const path = require('path');
 const { sendAnalyticsReport } = require('../slack');
 const { metricNumber } = require('../post-store');
 const { allLedgerPublications, listLedgers, saveLedger } = require('./ledger');
+const { excludedByModeration, sampleFor, selectWindowObservation } = require('./performance-loop');
 
 const REPORT_JSON = path.join(process.cwd(), 'data', 'reports', 'diem-basic-experiment.json');
 const REPORT_MARKDOWN = path.join(process.cwd(), 'data', 'reports', 'diem-basic-experiment.md');
@@ -15,8 +16,8 @@ function median(values = []) {
 }
 
 function windowMetrics(publication = {}) {
-  const window = publication.insights?.windows?.['7d'];
-  if (!window) return null;
+  const window = selectWindowObservation(publication, '7d');
+  if (!sampleFor(publication, '7d')) return null;
   return { window, media: window.media || window };
 }
 
@@ -27,8 +28,7 @@ function rate(media, key) {
 }
 
 function isActivePublished(publication = {}) {
-  const deleted = publication.moderation?.action === 'deleted' || Boolean(publication.moderation?.deletedAt);
-  return publication.reel?.status === 'published' && !deleted;
+  return publication.reel?.status === 'published' && !excludedByModeration(publication);
 }
 
 function groupSummary(publications = [], allPublications = []) {
@@ -46,10 +46,10 @@ function groupSummary(publications = [], allPublications = []) {
     count + (publication.generation?.candidateFailures || []).filter(failure => failure.reason === 'quality_gate_failed').length
   ), 0);
   const moderationReasons = publications
-    .filter(publication => publication.moderation?.deletedAt || publication.moderation?.correction)
+    .filter(excludedByModeration)
     .map(publication => ({
       publicationKey: publication.publicationKey,
-      action: publication.moderation.deletedAt ? 'deleted' : 'corrected',
+      action: publication.moderation.deletedAt || publication.moderation.action === 'deleted' ? 'deleted' : 'corrected',
       reason: publication.moderation.reason || publication.moderation.correction || '사유 미기록',
     }));
   return {
@@ -73,13 +73,17 @@ function groupSummary(publications = [], allPublications = []) {
 }
 
 function buildExperimentReport(ledgers = [], now = new Date()) {
-  const all = ledgers.flatMap(ledger => allLedgerPublications(ledger));
+  const seen = new Set();
+  const all = ledgers.flatMap(ledger => allLedgerPublications(ledger)).filter(publication => {
+    if (!publication.publicationKey || seen.has(publication.publicationKey)) return false;
+    seen.add(publication.publicationKey);
+    return true;
+  });
   const hot = all.filter(publication => (publication.contentType || 'hot_news') === 'hot_news');
   const basics = all.filter(publication => publication.contentType === 'diem_basic');
   const publishedBasics = basics.filter(isActivePublished);
   const basicsObserved = publishedBasics.filter(publication => {
-    const status = publication.insights?.windows?.['7d']?.status;
-    return ['ok', 'unavailable'].includes(status);
+    return Boolean(windowMetrics(publication));
   });
   return {
     schemaVersion: 1,

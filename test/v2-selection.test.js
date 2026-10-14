@@ -234,7 +234,7 @@ test('builds concrete event-first queries for recent production image failures',
     title: '김민석, 호남 순회경선에서 압승…누적 과반 1위',
     summary: '민주당 당대표 후보 경선에서 김민석 후보가 과반을 기록했다. 기사 후반에는 호남 반도체 산업 기대도 언급됐다.',
     category: 'issue',
-    newsFrame: { eventKind: 'semiconductor', subject: '반도체' },
+    newsFrame: { eventKind: 'general', subject: '김민석 당대표 경선', eventLabel: '순회경선 과반' },
   });
   const historicalRemarks = buildImageQueries({
     title: '이병태 "국민이 왜 5·18에 죄의식 갖나" 작심 발언',
@@ -636,7 +636,7 @@ test('treats a presidential dinner as a meeting instead of an incidental party e
     summary: '이재명 대통령이 당 지도부와 만찬을 함께했다. 참석자들은 전당대회 이후 당의 단합과 국정 협력을 논의했다.',
     editorialTitle: '이재명\n당 지도부 식사',
     category: 'issue',
-    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령' },
+    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령', eventLabel: '화합 만찬' },
   });
 
   assert.match(queries[0], /presidential office|meeting room|conference table/i);
@@ -654,7 +654,7 @@ test('reviews multiple contextual candidates and rejects an American ballot box 
     summary: '이재명 대통령이 당 지도부와 만찬을 함께하며 국정 협력을 당부했다.',
     editorialTitle: '이재명\n당 지도부 식사',
     category: 'issue',
-    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령' },
+    newsFrame: { eventKind: 'political_statement', subject: '이재명 대통령', eventLabel: '화합 만찬' },
   };
   const photos = [
     {
@@ -1082,7 +1082,7 @@ test('locks selection to the first safe visual intent instead of mixing later fi
   assert.deepEqual(reviewedQueries, [selection.query]);
 });
 
-test('tries bounded alternatives and then fails closed when actual-image review rejects them', async () => {
+test('uses one two-image Vision review and then fails closed when actual-image review rejects it', async () => {
   let reviews = 0;
   const selection = await selectLicensedImage({
     title: '이재명 대통령 당 지도부 만찬',
@@ -1109,13 +1109,13 @@ test('tries bounded alternatives and then fails closed when actual-image review 
     },
   });
 
-  assert.equal(reviews, 3);
+  assert.equal(reviews, 1);
   assert.equal(selection.kind, 'typographic');
   assert.equal(selection.source, 'diem-original');
   assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review'));
 });
 
-test('continues to the next visual query after a technical vision failure', async () => {
+test('does not spend a second Vision request after a technical failure', async () => {
   const reviewedQueries = [];
   const selection = await selectLicensedImage({
     title: '서울 아파트 거래 신고가',
@@ -1139,13 +1139,12 @@ test('continues to the next visual query after a technical vision failure', asyn
     },
     reviewImages: async ({ query, images }) => {
       reviewedQueries.push(query);
-      if (reviewedQueries.length === 1) throw new Error('json_validate_failed');
-      return { ok: true, selectedId: images[0].id, reason: 'second query matched' };
+      throw new Error('json_validate_failed');
     },
   });
 
-  assert.equal(selection.kind, 'web');
-  assert.equal(reviewedQueries.length, 2);
+  assert.equal(selection.kind, 'typographic');
+  assert.equal(reviewedQueries.length, 1);
   assert.ok(selection.attempts.some(attempt => attempt.provider === 'vision-review' && /json_validate_failed/u.test(attempt.error)));
 });
 

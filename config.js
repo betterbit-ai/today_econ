@@ -38,5 +38,10 @@ module.exports = {
   instagramTokenFile: process.env.INSTAGRAM_TOKEN_FILE || path.join(__dirname, 'data', 'instagram-token.enc'),
   maxHistoryDays: parseInt(process.env.MAX_HISTORY_DAYS || '7', 10),
   maxDailyPublicationsPerCategory: Math.max(1, parseInt(process.env.MAX_DAILY_PUBLICATIONS_PER_CATEGORY || '1', 10)),
-  groqVisionModel: process.env.GROQ_VISION_MODEL || 'qwen/qwen3.6-27b',
+  groqVisionModel: process.env.GROQ_VISION_MODEL || 'qwen/qwen3.8-27b',
+  explainReelsEnabled: process.env.EXPLAIN_REELS_ENABLED === 'true',
+  explainCapabilityEvidenceFile: process.env.EXPLAIN_CAPABILITY_EVIDENCE_FILE
+    || path.join(__dirname, 'data', 'reports', 'diem-explain-capability-gates.json'),
+  explainMinIntervalDays: Math.max(3, parseInt(process.env.EXPLAIN_MIN_INTERVAL_DAYS || '3', 10)),
+  explainCanaryMaxPerCategory: Math.min(5, Math.max(1, parseInt(process.env.EXPLAIN_CANARY_MAX_PER_CATEGORY || '5', 10))),
 };

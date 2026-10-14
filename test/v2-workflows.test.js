@@ -28,7 +28,8 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
     assert.match(content, /PUBLISH_INSTAGRAM_STORY:\s*'false'/u);
     assert.match(content, /MANUAL_REEL_STORY_SHARE:\s*'true'/u);
     assert.match(content, /MAX_DAILY_PUBLICATIONS_PER_CATEGORY:\s*'1'/u);
-    assert.match(content, /GROQ_VISION_MODEL:\s*qwen\/qwen3\.6-27b/u);
+    assert.match(content, /GROQ_VISION_MODEL:\s*qwen\/qwen3\.8-27b/u);
+    assert.match(content, /EXPLAIN_REELS_ENABLED:\s*'false'/u);
     assert.doesNotMatch(content, /retry-all|inputs:\s*\n\s+phase:/u);
     assert.doesNotMatch(content, /DIEM_PIPELINE_ENABLED/u);
   }

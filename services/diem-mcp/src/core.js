@@ -415,8 +415,8 @@ class DiemMcpCore {
       throw new Error('[DIEM MCP] candidatePackSha256 must be a SHA-256 value.');
     }
     const packageCopy = structuredClone(item || {});
-    if (packageCopy.schemaVersion !== 2 || packageCopy.analytics?.featureSchemaVersion !== 2) {
-      throw new Error('[DIEM MCP] New editorial submissions require daily package schema v2 and feature schema v2.');
+    if (packageCopy.schemaVersion !== 3 || packageCopy.analytics?.featureSchemaVersion !== 3) {
+      throw new Error('[DIEM MCP] New editorial submissions require daily package schema v3 and feature schema v3.');
     }
     if (packageCopy.review?.mode !== 'assisted') {
       throw new Error('[DIEM MCP] Editorial package submissions must use assisted review mode.');
@@ -440,8 +440,19 @@ class DiemMcpCore {
       throw new Error('[DIEM MCP] Editorial packages must use a reviewed visual-library asset.');
     }
     const candidateFrame = selectedCandidate.newsFrame || selectedCandidate.candidate.newsFrame || {};
-    for (const field of ['category', 'subject', 'eventKind', 'claimState']) {
-      if (packageCopy.newsFrame?.[field] !== candidateFrame[field]) {
+    for (const field of [
+      'category',
+      'classificationConfidence',
+      'classificationReasons',
+      'publicInterestAnchor',
+      'rejectionReason',
+      'subject',
+      'eventKind',
+      'eventLabel',
+      'claimState',
+      'readerNeed',
+    ]) {
+      if (JSON.stringify(packageCopy.newsFrame?.[field]) !== JSON.stringify(candidateFrame[field])) {
         throw new Error(`[DIEM MCP] Package newsFrame.${field} must match the selected candidate.`);
       }
     }

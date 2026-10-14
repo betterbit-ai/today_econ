@@ -24,9 +24,10 @@ const KOR_TO_ENG_VISUALS = [
   { match: /자동차보험|차보험|교통사고|차량수리/u, english: 'car insurance accident repair' },
   { match: /국민연금|퇴직연금|연금개혁|노후/u, english: 'retirement pension senior finance' },
   { match: /반도체|칩|웨이퍼|설계|메모리/u, english: 'semiconductor microchip processor' },
-  { match: /인공지능|AI|데이터센터|머신러닝/ui, english: 'artificial intelligence server data center' },
+  { match: /인공지능|\bAI\b|데이터센터|머신러닝/ui, english: 'artificial intelligence server data center' },
   { match: /부동산|주택|아파트|전세|월세/u, english: 'real estate modern apartment building' },
   { match: /금리|환율|물가|인플레이션|디플레이션|금융|대출/u, english: 'stock market trading finance chart' },
+  { match: /카드사|신용카드|카드결제/u, english: 'credit card payment finance document' },
   { match: /배터리|전기차|EV|이차전지/ui, english: 'electric vehicle EV battery charging' },
   { match: /수출|수입|관세|무역|항만/u, english: 'cargo ship container port trade' },
   { match: /소비|유통|마트|백화점|쇼핑/u, english: 'retail shopping mall consumer' },
@@ -116,7 +117,7 @@ function primaryVisualText(candidate = {}) {
     ...(frame.eventTerms || []),
   ].filter(Boolean);
   if (lockedFrame.length < 1) return articleSourceText(candidate);
-  return [candidate.title, candidate.editorialTitle, ...lockedFrame]
+  return lockedFrame
     .map(value => normalizeNfc(value || '').trim())
     .filter(Boolean)
     .join(' ');
@@ -207,12 +208,14 @@ function inferFallbackTheme(candidate = {}) {
   if (LEGAL_JUDGMENT_CONTEXT.test(sourceText)) return 'legislation';
   if (/(보완수사권|형사소송법|법안|개정안|본회의|국회|청와대|대통령실|정치|선거)/u.test(sourceText)) return 'legislation';
   if (/(주식|증시|코스피|코스닥|나스닥|주가|투자|금리|환율|GDP|성장률|물가|대출)/iu.test(sourceText)) return 'markets';
-  if (/(반도체|칩|웨이퍼|AI|인공지능|데이터센터|배터리|전기차)/iu.test(sourceText)) return 'technology';
+  if (/(반도체|칩|웨이퍼|\bAI\b|인공지능|데이터센터|배터리|전기차)/iu.test(sourceText)) return 'technology';
   if (/(부동산|주택|아파트|전세|월세)/u.test(sourceText)) return 'housing';
   if (/(의료|병원|건강|환자|보험|복지)/u.test(sourceText)) return 'health';
   if (/(기후|폭염|한파|홍수|가뭄|산불|탄소)/u.test(sourceText)) return 'climate';
   if (/(고용|취업|일자리|노동|근로)/u.test(sourceText)) return 'work';
-  return candidate.category === 'economy' ? 'markets' : 'public-interest';
+  const topic = generatedFallbackTopic(candidate);
+  return ({ finance: 'markets', weather: 'weather-emergency', geopolitics: 'public-interest' })[topic]
+    || topic || 'unmapped';
 }
 
 function generatedFallbackTopic(candidate = {}) {
@@ -221,6 +224,12 @@ function generatedFallbackTopic(candidate = {}) {
   if (candidate.newsFrame?.eventKind === 'currency_move') return 'markets';
   if (candidate.newsFrame?.eventKind === 'market_move') return 'markets';
   if (candidate.newsFrame?.eventKind === 'housing_policy') return 'housing';
+  if (['gdp', 'ipo', 'asset_sale'].includes(candidate.newsFrame?.eventKind)) return 'markets';
+  if (candidate.newsFrame?.eventKind === 'semiconductor') return 'technology';
+  if (candidate.newsFrame?.eventKind === 'medical_safety_advisory') return 'health';
+  if (candidate.newsFrame?.eventKind === 'public_hearing_disruption') return 'public-hearing';
+  if (candidate.newsFrame?.eventKind === 'legislation') return 'legislation';
+  if (candidate.newsFrame?.eventKind === 'earnings') return /반도체|삼성전자|칩|메모리/iu.test(text) ? 'technology' : 'markets';
   if (['interest_rate', 'insurance_premium', 'auto_insurance_loss'].includes(candidate.newsFrame?.eventKind)) return 'finance';
   if (/(공청회|토론회|설명회).{0,120}(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무)|(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무).{0,120}(공청회|토론회|설명회)/u.test(text)) return 'public-hearing';
   if (/(지지율|국정\s*(?:운영|수행)|여론조사).{0,80}(하락|최저|비판|경고|전망)|(대통령|정권).{0,80}(지지율|여론조사)/u.test(text)) return 'public-opinion';
@@ -230,18 +239,33 @@ function generatedFallbackTopic(candidate = {}) {
   if (/(교도소|교정|수용자|교도관)/u.test(text)) return 'legislation';
   if (/(의료|병원|건강|질병|환자|시술|약국|보험료)/iu.test(text)) return 'health';
   if (/(곗돈|계\s*모임|사기|횡령|보이스피싱|채무|빚)/iu.test(text)) return 'finance';
-  if (/(지하철|철도|KTX|SRT|역사|무정차|전장연|교통약자|장애인\s*이동)/iu.test(text)) return 'transit';
+  if (/(지하철|철도|KTX|SRT|기차역|철도역|무정차|전장연|교통약자|장애인\s*이동)/iu.test(text)) return 'transit';
   if (/(폭우|집중호우|호우|침수|물폭탄|홍수|태풍|폭염|한파|산불|지진|재난|기후)/u.test(text)) return 'weather';
   if (/(외교|전쟁|미사일|군사|안보|국방부|북한|이란|러시아|우크라이나|이스라엘|정상회담)/u.test(text)) return 'geopolitics';
   if (/(법원|재판|판결|선고|징역|법안|국회|형사소송법|보완수사권|선관위|정치자금법|조세심판)/u.test(text)) return 'legislation';
-  if (/(반도체|칩|웨이퍼|D램|HBM|AI|인공지능|데이터센터|배터리|전기차)/iu.test(text)) return 'technology';
+  if (/(반도체|칩|웨이퍼|D램|HBM|\bAI\b|인공지능|데이터센터|배터리|전기차)/iu.test(text)) return 'technology';
   if (/(부동산|주택|아파트|전세|월세|청약|보증금|재건축|PF|공매)/iu.test(text)) return 'housing';
   if (/(고용|취업|퇴사|이직|실업급여|구직급여|노동|근로|직장|정년|공무원)/u.test(text)) return 'work';
   if (/(의료|병원|건강|질병|환자|시술|약국)/iu.test(text)) return 'health';
   if (/(주식|증시|코스피|코스닥|나스닥|주가|시가총액|상장|IPO|GDP|성장률|환율|채권|ETF|ETN)/iu.test(text)) return 'markets';
-  if (/(세금|과세|연금|금리|대출|보험료|지원금|소비쿠폰|물가|은행|ISA|예금|적금|사기|횡령|보이스피싱|채무|빚)/iu.test(text)) return 'finance';
-  if (/((대통령|총리|장관|의원|정당)|국정|정책|선거|정치)/iu.test(text)) return 'legislation';
+  if (/(세금|과세|연금|금리|대출|보험료|지원금|소비쿠폰|물가|은행|\bISA\b|예금|적금|카드사|신용카드|카드결제|사기|횡령|보이스피싱|채무|빚)/iu.test(text)) return 'finance';
+  if (candidate.newsFrame?.eventKind === 'political_statement'
+    || /((대통령|총리|장관|의원|정당)|국정|정책|선거|정치)/iu.test(text)) return 'legislation';
   return null;
+}
+
+function assessGeneratedImageSuitability(image = {}, candidate = {}) {
+  const expectedTopic = generatedFallbackTopic(candidate);
+  const asset = (GENERATED_FALLBACK_MANIFEST.assets || [])
+    .find(item => [`diem-generated:${item.id}`, `diem-library:${item.id}`].includes(image.id));
+  const reason = !asset
+    ? 'generated_asset_not_in_manifest'
+    : !expectedTopic || !asset.topics?.includes(expectedTopic) || !asset.topics?.includes(image.generatedTopic)
+      ? 'generated_asset_topic_mismatch'
+      : image.localSha256 !== asset.sha256 || (image.sha256 && image.sha256 !== asset.sha256)
+        ? 'generated_asset_hash_mismatch'
+        : 'project_generated_topic_match';
+  return { ok: reason === 'project_generated_topic_match', reason, expectedTopic, assetTopics: asset?.topics || [] };
 }
 
 function generatedFallbackEnergy(candidate = {}) {
@@ -268,8 +292,8 @@ function createGeneratedFallback(candidate = {}, {
   const requestedAsset = requestedAssetId
     ? (GENERATED_FALLBACK_MANIFEST.assets || []).find(asset => asset.id === requestedAssetId)
     : null;
-  const topic = requestedAsset?.topics?.[0] || generatedFallbackTopic(candidate);
-  if (!topic) return null;
+  const topic = generatedFallbackTopic(candidate);
+  if (!topic || (requestedAssetId && (!requestedAsset || !requestedAsset.topics?.includes(topic)))) return null;
   const recentKeys = recentImageKeySet(recentImages);
   const matchingAssets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => (
     requestedAssetId ? asset.id === requestedAssetId : asset.topics?.includes(topic)
@@ -314,6 +338,9 @@ function createGeneratedFallback(candidate = {}, {
         personScreening: { detected: false, personFreeEvidence: true, requiredPersonFreeEvidence: true, safe: true },
       },
     };
+    const topicMatch = assessGeneratedImageSuitability(selection, candidate);
+    if (!topicMatch.ok) continue;
+    selection.suitability.topicMatch = topicMatch;
     const keys = imageReuseKeys(selection);
     if (keys.some(key => recentKeys.has(key))) {
       blockedCandidateCount += 1;
@@ -555,8 +582,11 @@ function buildImageQueries(candidate = {}) {
   const concreteVisuals = visualKeywords.filter(keyword => !/government parliament policy law/i.test(keyword));
   const governmentVisuals = visualKeywords.filter(keyword => /government parliament policy law/i.test(keyword));
   const requestedKeyword = isSpecificImageKeyword(candidate.imageKeyword) ? candidate.imageKeyword : '';
-  const frameTokenSet = new Set(frameQueries.flatMap(query => extractSignatureTokens(query).map(token => token.toLowerCase())));
-  const explicitKeyword = requestedKeyword && (
+  const frameTokenSet = new Set([...frameQueries, ...eventQueries, ...visualKeywords]
+    .flatMap(query => extractSignatureTokens(query).map(token => token.toLowerCase()))
+    .filter(token => !GENERIC_VISUAL_TOKENS.has(token) && !LOW_INFORMATION_VISUAL_TOKENS.has(token)));
+  const hasLockedFrame = [frame.subject, frame.eventLabel, ...(frame.subjectTerms || []), ...(frame.eventTerms || [])].some(Boolean);
+  const explicitKeyword = !hasLockedFrame && requestedKeyword && (
     frameQueries.length === 0
     || extractSignatureTokens(requestedKeyword).some(token => frameTokenSet.has(token.toLowerCase()))
   ) ? requestedKeyword : '';
@@ -891,7 +921,7 @@ async function selectLicensedImage(candidate, {
   reuseWindowDays = 7,
   reviewPoolTarget = 8,
   reviewImages,
-  maxVisionReviews = 3,
+  maxVisionReviews = 1,
   generatedFallbackEnabled = false,
 } = {}) {
   const queries = buildImageQueries(candidate);
@@ -903,7 +933,7 @@ async function selectLicensedImage(candidate, {
       reuseWindowDays,
       reason: 'operator-selected story-specific generated image',
     });
-    if (!generated) throw new Error(`[DIEM Image] requested generated asset is unavailable or recently used: ${candidate.generatedAssetId}`);
+    if (!generated) throw new Error(`[DIEM Image] requested generated asset is unmapped, topic-mismatched, unavailable or recently used: ${candidate.generatedAssetId}`);
     return generated;
   }
   const recentKeys = recentImageKeySet(recentImages);
@@ -1115,6 +1145,7 @@ async function downloadSelectedImage(selection, { fetchImpl = fetch, outputDir =
 module.exports = {
   LICENSES,
   assessImageSuitability,
+  assessGeneratedImageSuitability,
   buildImageQueries,
   createTypographyFallback,
   createGeneratedFallback,

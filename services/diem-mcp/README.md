@@ -13,7 +13,8 @@ Allowed operations are candidate/context/visual-library reads, restricted
 canary PR writes, package PR writes, and package status. Daily editorial
 packages must match a current unexpired candidate pack, including its computed
 content hash and the selected article's source, evidence hash, and core news
-frame; only `assisted` review mode is accepted. Packages select one SHA-pinned
+frame. New submissions require package/editorial/analytics schema v3; v1 and v2
+remain read-only in the repository. Only `assisted` review mode is accepted. Packages select one SHA-pinned
 asset from the reviewed local visual library. Image-byte ingest and image-canary
 tools are not exposed to ChatGPT. The MCP computes the package content hash
 before validating and writing it. Workflow

@@ -10,6 +10,8 @@ const {
   reconcileExactComment,
   reconcileExactReel,
   replyToComment,
+  instagramErrorDisposition,
+  serializeInstagramError,
 } = require('../src/v2/instagram');
 
 test('uses the professional-account comment and reply endpoints', async () => {
@@ -180,4 +182,68 @@ test('a successful reply updates only the reply step', () => {
   assert.equal(next.reply.attempts, 2);
   assert.deepEqual(next.reel, publication.reel);
   assert.deepEqual(next.comment, publication.comment);
+});
+
+
+test('restricted access and authentication errors require immediate manual action', () => {
+  for (const fields of [
+    { status: 400, payload: { error: { message: 'User access is restricted', code: 4 } } },
+    { status: 400, payload: { error: { message: 'Session expired', code: 190 } } },
+    { status: 400, payload: { error: { message: 'Invalid OAuth access token', code: 102 } } },
+  ]) {
+    const error = Object.assign(new Error(fields.payload.error.message), fields);
+    assert.equal(instagramErrorDisposition(error), 'manual_action_required');
+    assert.equal(nextFailedStep({ attempts: 0 }, error).status, 'manual_action_required');
+  }
+});
+
+test('HTTP 429 and 5xx retain transient retry handling even with OAuth type text', () => {
+  for (const status of [429, 500, 503]) {
+    const error = Object.assign(new Error('OAuthException: temporary failure'), {
+      status, payload: { error: { code: 100 } },
+    });
+    assert.equal(instagramErrorDisposition(error), 'retry_pending');
+    assert.equal(nextFailedStep({ attempts: 0 }, error).status, 'retry_pending');
+    assert.equal(nextFailedStep({ attempts: 2 }, error).status, 'manual_action_required');
+  }
+});
+
+test('serializes allowlisted Instagram evidence and redacts credentials and URLs', () => {
+  const error = Object.assign(new Error('Bearer very-secret https://graph.instagram.com/me?access_token=very-secret'), {
+    status: 400,
+    payload: { error: {
+      code: 190, error_subcode: 463,
+      error_user_msg: 'access_token=very-secret expired', fbtrace_id: 'trace-1',
+      message: 'very-secret', secret: 'very-secret',
+    }, access_token: 'very-secret' },
+    requestUrl: 'https://graph.instagram.com/me?access_token=very-secret',
+  });
+  const details = serializeInstagramError(error, { secrets: ['very-secret'] });
+  assert.deepEqual(details, {
+    httpStatus: 400, code: 190, subcode: 463,
+    userMessage: 'access_token=[REDACTED] expired', traceId: 'trace-1',
+  });
+  const step = nextFailedStep({ attempts: 0 }, error, { secrets: ['very-secret'] });
+  assert.deepEqual(step.errorDetails, details);
+  assert.equal(step.errorCode, 190);
+  assert.doesNotMatch(JSON.stringify(step), /very-secret|graph.instagram.com|payload|requestUrl/);
+});
+
+
+test('account restriction and suspected spam subcodes require manual action regardless of message', () => {
+  for (const subcode of [2207050, 2207051]) {
+    const error = Object.assign(new Error('Request cannot be completed'), {
+      status: 400, payload: { error: { code: 9007, error_subcode: subcode } },
+    });
+    assert.equal(instagramErrorDisposition(error), 'manual_action_required');
+    assert.equal(nextFailedStep({ attempts: 0 }, error).status, 'manual_action_required');
+    for (const status of [429, 503]) {
+      assert.equal(instagramErrorDisposition({ ...error, status }), 'retry_pending');
+    }
+  }
+});
+
+test('account is restricted message requires manual action without API codes', () => {
+  const error = Object.assign(new Error('The Instagram account is restricted'), { status: 400 });
+  assert.equal(nextFailedStep({ attempts: 0 }, error).status, 'manual_action_required');
 });

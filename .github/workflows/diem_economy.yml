@@ -25,6 +25,7 @@ on:
           - reissue_news
           - record_moderation
           - collect_insights
+          - diagnose
           - cloud_candidates
           - daily_package_validate
           - daily_package_prepare
@@ -70,7 +71,8 @@ env:
   GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
   GROQ_PRIMARY_MODEL: openai/gpt-oss-120b
   GROQ_FALLBACK_MODEL: openai/gpt-oss-20b
-  GROQ_VISION_MODEL: qwen/qwen3.6-27b
+  GROQ_VISION_MODEL: qwen/qwen3.8-27b
+  EXPLAIN_REELS_ENABLED: 'false'
   MAX_DAILY_PUBLICATIONS_PER_CATEGORY: '1'
   PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
   UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
@@ -382,6 +384,51 @@ jobs:
 
       - name: Commit measurement snapshots
         run: bash scripts/commit-diem-state.sh "Refresh DIEM performance evidence without publishing"
+
+  read-only-diagnostics:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'diagnose'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      PUBLISH_INSTAGRAM: 'false'
+    steps:
+      - name: Checkout diagnostic revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install diagnostic dependencies
+        run: |
+          npm ci
+          npm ci --prefix services/diem-mcp --ignore-scripts
+
+      - name: Verify recovery on the production Node.js runtime
+        # Unit tests exercise mock publishing, including Story-enabled defaults.
+        # Production credentials and switches belong only to the diagnostic step.
+        run: |
+          env -u GROQ_API_KEY -u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY \
+            -u SLACK_BOT_TOKEN -u SLACK_CHANNEL_ID -u GITHUB_TOKEN \
+            -u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE \
+            node .codex-harness/scripts/verify-project.mjs
+
+      - name: Read account and review five shadow image pairs without publishing
+        run: node src/v2/index.js diagnose --read-only --output .diem-cache/diagnostics/report.json
+
+      - name: Preserve secret-free diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diem-diagnostics-${{ github.run_id }}
+          path: .diem-cache/diagnostics/report.json
+          retention-days: 14
 
   retry-editorial-publication:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'retry_editorial'

@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const config = require('../../config');
+const { DEFAULT_METRICS } = require('../instagram');
 const { metricNumber } = require('../post-store');
 const { allLedgerPublications, listLedgers } = require('./ledger');
 const { normalizeNfc } = require('./text');
@@ -7,7 +9,8 @@ const { normalizeNfc } = require('./text');
 const REPORT_JSON = path.join(process.cwd(), 'data', 'reports', 'diem-performance.json');
 const REPORT_MARKDOWN = path.join(process.cwd(), 'data', 'reports', 'diem-performance.md');
 const OBSERVATION_WINDOWS = Object.freeze(['24h', '72h', '7d']);
-const FEATURE_SCHEMA_VERSION = 2;
+const FEATURE_SCHEMA_VERSION = 3;
+const STRATEGY_VERSION = 'discovery-funnel-v3';
 const MIN_CATEGORY_SAMPLES = 10;
 const MIN_FEATURE_SAMPLES = 5;
 const PRIOR_MIN = -6;
@@ -68,21 +71,49 @@ function windowTimingStatus(publication = {}, windowLabel, window = {}) {
     - publishedAt.getTime()
     - targetHours * 3600000
   ) / 3600000;
+  if (latenessHours < 0) return 'early_collection';
   return latenessHours > (MAX_WINDOW_LATENESS_HOURS[windowLabel] ?? 12)
     ? 'late_backfill'
     : 'on_time';
 }
 
+function selectWindowObservation(publication = {}, windowLabel, record = publication.insights?.windows?.[windowLabel]) {
+  if (!record) return null;
+  const usable = observation => (
+    observation
+    && (!observation.status || ['ok', 'unavailable', 'retry_pending'].includes(observation.status))
+  );
+  const primary = usable(record) && windowTimingStatus(publication, windowLabel, record) === 'on_time'
+    ? record : null;
+  const completeness = observation => {
+    const media = observation.media || observation;
+    if (metricNumber(media.reach) === null) return -1;
+    return DEFAULT_METRICS.filter(key => metricNumber(media[key]) !== null).length;
+  };
+  // Select a single coherent cumulative snapshot. Keep the original on a tie;
+  // a retry must be demonstrably on time and more complete to replace it in reports.
+  return (record.observations || []).filter(observation => (
+    usable(observation) && windowTimingStatus(publication, windowLabel, observation) === 'on_time'
+  )).reduce((selected, observation) => (
+    completeness(observation) > (selected ? completeness(selected) : -1) ? observation : selected
+  ), primary);
+}
+
 function sampleFor(publication = {}, windowLabel) {
   if (publication.reel?.status !== 'published') return null;
-  const window = publication.insights?.windows?.[windowLabel];
-  if (!window || !['ok', 'unavailable'].includes(window.status)) return null;
-  if (windowTimingStatus(publication, windowLabel, window) === 'late_backfill') return null;
+  const window = selectWindowObservation(publication, windowLabel);
+  if (!window || !['ok', 'unavailable', 'retry_pending'].includes(window.status)) return null;
+  if (windowTimingStatus(publication, windowLabel, window) !== 'on_time') return null;
   const media = window.media || window;
   const views = metricNumber(media.views);
   const reach = metricNumber(media.reach);
-  const exposure = views ?? reach;
-  if (exposure === null) return null;
+  if (reach === null) return null;
+  const averageWatchTime = metricNumber(media.ig_reels_avg_watch_time);
+  const reelDurationSeconds = metricNumber(publication.analytics?.reelDurationSeconds);
+  const normalizedWatchRatio = averageWatchTime !== null && reelDurationSeconds > 0
+    ? Number((averageWatchTime / 1000 / reelDurationSeconds).toFixed(4))
+    : null;
+  const imageKind = publication.image?.kind || 'unknown';
   return {
     publicationKey: publication.publicationKey,
     category: publication.category,
@@ -90,19 +121,28 @@ function sampleFor(publication = {}, windowLabel) {
       || publication.candidate?.title
       || '제목 미정',
     permalink: publication.reel?.permalink || null,
-    exposure,
     views,
     reach,
+    saved: metricNumber(media.saved),
+    shares: metricNumber(media.shares),
     savedRate: rate(media, 'saved'),
     shareRate: rate(media, 'shares'),
     engagementRate: metricNumber(window.engagementRate),
-    averageWatchTime: metricNumber(media.ig_reels_avg_watch_time),
-    followerDeltaEstimate: metricNumber(window.followerDeltaEstimate),
+    averageWatchTime,
+    reelDurationSeconds,
+    normalizedWatchRatio,
+    format: publication.editorial?.reelFormat || 'unknown',
+    strategyVersion: publication.analytics?.strategyVersion || 'legacy',
     featureSchemaVersion: publication.analytics?.featureSchemaVersion || 0,
     features: featureSet(publication),
     image: {
-      kind: publication.image?.kind || 'unknown',
+      kind: imageKind,
       source: publication.image?.source || 'unknown',
+      cohort: imageKind === 'web'
+        ? 'web'
+        : ['generated', 'diem-library', 'chatgpt-generated-editorial'].includes(imageKind)
+          ? 'library'
+          : 'other',
     },
     audio: {
       mode: publication.audio?.mode || (publication.audio?.trackId ? 'track' : 'unknown'),
@@ -112,25 +152,25 @@ function sampleFor(publication = {}, windowLabel) {
   };
 }
 
-function featureSignals(samples = [], baselineExposure) {
+function featureSignals(samples = [], baselineReach) {
   const groups = new Map();
   for (const sample of samples) {
     for (const feature of sample.features) {
       if (!groups.has(feature)) groups.set(feature, []);
-      groups.get(feature).push(sample.exposure);
+      groups.get(feature).push(sample.reach);
     }
   }
-  return [...groups.entries()].map(([feature, exposures]) => {
-    const featureMedian = median(exposures);
-    const lift = baselineExposure && featureMedian !== null
-      ? Number((featureMedian / baselineExposure).toFixed(3))
+  return [...groups.entries()].map(([feature, reaches]) => {
+    const featureMedian = median(reaches);
+    const lift = baselineReach && featureMedian !== null
+      ? Number((featureMedian / baselineReach).toFixed(3))
       : null;
     return {
       feature,
-      samples: exposures.length,
-      exposureMedian: featureMedian,
+      samples: reaches.length,
+      reachMedian: featureMedian,
       lift,
-      signal: exposures.length < MIN_FEATURE_SAMPLES || lift === null
+      signal: reaches.length < MIN_FEATURE_SAMPLES || lift === null
         ? 'insufficient_data'
         : lift >= 1.35
           ? 'winner'
@@ -142,11 +182,16 @@ function featureSignals(samples = [], baselineExposure) {
 }
 
 function summarizeCategory(samples = []) {
-  const exposureMedian = median(samples.map(sample => sample.exposure));
-  const learningSamples = samples.filter(sample => sample.featureSchemaVersion === FEATURE_SCHEMA_VERSION);
-  const learningExposureMedian = median(learningSamples.map(sample => sample.exposure));
+  const reachMedian = median(samples.map(sample => sample.reach));
+  const learningSamples = samples.filter(sample => (
+    sample.featureSchemaVersion === FEATURE_SCHEMA_VERSION
+    && sample.strategyVersion === STRATEGY_VERSION
+  ));
+  const learningReachMedian = median(learningSamples.map(sample => sample.reach));
   const enough = learningSamples.length >= MIN_CATEGORY_SAMPLES;
-  const ranked = [...samples].sort((left, right) => right.exposure - left.exposure);
+  const ranked = [...samples].sort((left, right) => right.reach - left.reach);
+  const utilitySamples = samples.filter(sample => sample.saved !== null && sample.shares !== null);
+  const useful = utilitySamples.filter(sample => sample.saved > 0 || sample.shares > 0).length;
   return {
     status: enough ? 'ready' : 'insufficient_data',
     samples: samples.length,
@@ -154,23 +199,46 @@ function summarizeCategory(samples = []) {
     legacyReportOnlySamples: samples.length - learningSamples.length,
     minimumSamples: MIN_CATEGORY_SAMPLES,
     metrics: {
-      exposureMedian,
       viewsMedian: median(samples.map(sample => sample.views)),
-      reachMedian: median(samples.map(sample => sample.reach)),
+      reachMedian,
       savedRateMedian: median(samples.map(sample => sample.savedRate)),
       shareRateMedian: median(samples.map(sample => sample.shareRate)),
+      positiveSaveOrShareRate: utilitySamples.length ? Number((useful / utilitySamples.length * 100).toFixed(2)) : null,
+      utilitySamples: utilitySamples.length,
       engagementRateMedian: median(samples.map(sample => sample.engagementRate)),
       averageWatchTimeMedian: median(samples.map(sample => sample.averageWatchTime)),
-      followerDeltaEstimateMedian: median(samples.map(sample => sample.followerDeltaEstimate)),
+      normalizedWatchRatioMedian: median(samples.map(sample => sample.normalizedWatchRatio)),
     },
-    winners: enough && exposureMedian
-      ? ranked.filter(sample => sample.exposure >= exposureMedian * 1.5).slice(0, 5)
+    winners: enough && reachMedian
+      ? ranked.filter(sample => sample.reach >= reachMedian * 1.5).slice(0, 5)
       : [],
-    underperformers: enough && exposureMedian
-      ? ranked.filter(sample => sample.exposure <= exposureMedian * 0.5).slice(-5).reverse()
+    underperformers: enough && reachMedian
+      ? ranked.filter(sample => sample.reach <= reachMedian * 0.5).slice(-5).reverse()
       : [],
-    featureSignals: enough ? featureSignals(learningSamples, learningExposureMedian) : [],
-    caveat: '같은 관찰 구간의 표본만 비교하며 계정 팔로워 증분은 단일 Reel 확정 기여가 아닙니다.',
+    featureSignals: enough ? featureSignals(learningSamples, learningReachMedian) : [],
+    caveat: '같은 관찰 구간의 reach만 비교하며 views는 reach 대체값으로 쓰지 않습니다.',
+  };
+}
+
+function cohortBreakdown(samples = []) {
+  const summarize = values => ({
+    samples: values.length,
+    reachMedian: median(values.map(sample => sample.reach)),
+    normalizedWatchRatioMedian: median(values.map(sample => sample.normalizedWatchRatio)),
+    savedRateMedian: median(values.map(sample => sample.savedRate)),
+    shareRateMedian: median(values.map(sample => sample.shareRate)),
+  });
+  const groupBy = keyFor => Object.fromEntries([...samples.reduce((groups, sample) => {
+    const key = keyFor(sample) || 'unknown';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(sample);
+    return groups;
+  }, new Map())].map(([key, values]) => [key, summarize(values)]));
+  return {
+    format: groupBy(sample => sample.format),
+    category: groupBy(sample => sample.category),
+    image: groupBy(sample => sample.image.cohort),
+    strategyVersion: groupBy(sample => sample.strategyVersion),
   };
 }
 
@@ -225,6 +293,7 @@ function subtractKstCalendarDays(dateString, days) {
 
 function visionFailureReason(error = '') {
   const message = String(error || '');
+  if (/model_not_found|model not found|does not exist|decommissioned/iu.test(message)) return 'model_not_found';
   if (/429|rate.?limit|too many requests/iu.test(message)) return 'rate_limit';
   if (/model unavailable|model error|failed to call|upstream/iu.test(message)) return 'model_error';
   if (/json_validate_failed|failed to validate json|json parse/iu.test(message)) return 'json_error';
@@ -245,10 +314,13 @@ function visionFailureDistribution(publications = []) {
     .map(attempt => visionFailureReason(attempt.error)));
 }
 
-function followerSnapshotSummary(publications = []) {
+function followerSnapshotSummary(publications = [], now) {
   const snapshots = new Map();
   for (const publication of publications) {
-    for (const window of Object.values(publication.insights?.windows || {})) {
+    const observations = Object.values(publication.insights?.windows || {}).flatMap(window => (
+      window?.observations?.length ? window.observations : [window]
+    ));
+    for (const window of observations) {
       const collectedAt = window?.collectedAt;
       const followers = metricNumber(window?.account?.follower_count)
         ?? metricNumber(window?.account?.followers_count);
@@ -256,17 +328,21 @@ function followerSnapshotSummary(publications = []) {
       snapshots.set(`${collectedAt}|${followers}`, { collectedAt, followers });
     }
   }
-  const ordered = [...snapshots.values()].sort((left, right) => left.collectedAt.localeCompare(right.collectedAt));
+  const all = [...snapshots.values()].sort((left, right) => left.collectedAt.localeCompare(right.collectedAt));
+  const anchor = now ? new Date(now) : new Date(all.at(-1)?.collectedAt || Number.NaN);
+  const cutoff = Number.isFinite(anchor.getTime()) ? anchor.getTime() - 14 * 86400000 : Number.NEGATIVE_INFINITY;
+  const ordered = all.filter(snapshot => new Date(snapshot.collectedAt).getTime() >= cutoff);
   return {
+    periodDays: 14,
     snapshots: ordered.length,
     first: ordered[0] || null,
     latest: ordered.at(-1) || null,
     netChange: ordered.length > 1 ? ordered.at(-1).followers - ordered[0].followers : null,
-    attribution: 'deduplicated_account_snapshots_not_summed_post_deltas',
+    attribution: 'deduplicated_14d_account_snapshots_not_summed_post_deltas',
   };
 }
 
-function buildPerformanceReport(ledgers = [], now = new Date()) {
+function buildPerformanceReport(ledgers = [], now = new Date(), { explainReelsEnabled = config.explainReelsEnabled } = {}) {
   const seenRecords = new Set();
   const records = ledgers.flatMap(allLedgerPublications).filter(publication => {
     if (!publication.publicationKey || seenRecords.has(publication.publicationKey)) return false;
@@ -277,7 +353,8 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
   const publications = records.filter(publication => {
     if (!publication.publicationKey || seen.has(publication.publicationKey)) return false;
     seen.add(publication.publicationKey);
-    return publication.reel?.status === 'published' && !excludedByModeration(publication);
+    return publication.reel?.status === 'published' && !excludedByModeration(publication)
+      && (publication.contentType || publication.editorial?.contentType || 'hot_news') !== 'diem_basic';
   });
   const windows = Object.fromEntries(OBSERVATION_WINDOWS.map(windowLabel => {
     const samples = publications.map(publication => sampleFor(publication, windowLabel)).filter(Boolean);
@@ -292,6 +369,7 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
         economy: summarizeCategory(samples.filter(sample => sample.category === 'economy')),
         issue: summarizeCategory(samples.filter(sample => sample.category === 'issue')),
       },
+      cohorts: cohortBreakdown(samples),
     }];
   }));
   const trackDistribution = distribution(publications
@@ -311,13 +389,95 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
   const recentFallbackCount = recentPublications.filter(publication => (
     ['generated', 'typographic'].includes(publication.image?.kind)
   )).length;
+  const qualityIncidentCount = records.filter(publication => (
+    excludedByModeration(publication)
+    || publication.qualityIncident
+    || publication.review?.qualityIncident
+    || publication.quality?.incident
+  )).length;
+  const strategyQualityIncidentCount = records.filter(publication => (
+    publication.analytics?.featureSchemaVersion === FEATURE_SCHEMA_VERSION
+    && publication.analytics?.strategyVersion === STRATEGY_VERSION
+    && (
+      excludedByModeration(publication)
+      || publication.qualityIncident
+      || publication.review?.qualityIncident
+      || publication.quality?.incident
+    )
+  )).length;
+  const onTime24hSamples = publications
+    .map(publication => sampleFor(publication, '24h'))
+    .filter(sample => (
+      sample
+      && sample.featureSchemaVersion === FEATURE_SCHEMA_VERSION
+      && sample.strategyVersion === STRATEGY_VERSION
+    ));
+  const economy24h = onTime24hSamples.filter(sample => sample.category === 'economy');
+  const issue24h = onTime24hSamples.filter(sample => sample.category === 'issue');
+  const flash24h = onTime24hSamples.filter(sample => sample.format === 'flash');
+  const explain24h = onTime24hSamples.filter(sample => sample.format === 'explain');
+  const utility24h = onTime24hSamples.filter(sample => sample.saved !== null && sample.shares !== null);
+  const useful24h = utility24h.filter(sample => sample.saved > 0 || sample.shares > 0);
+  const followerSummary = followerSnapshotSummary(publications, now);
+  const successCriteria = {
+    status: 'insufficient_data',
+    economyReachMedian: {
+      target: 300,
+      minimumSamples: 10,
+      samples: economy24h.length,
+      value: median(economy24h.map(sample => sample.reach)),
+    },
+    issueReachMedian: {
+      target: 300,
+      minimumSamples: 10,
+      samples: issue24h.length,
+      value: median(issue24h.map(sample => sample.reach)),
+    },
+    flashWatchRatio: {
+      target: 0.5,
+      minimumSamples: 10,
+      samples: flash24h.filter(sample => sample.normalizedWatchRatio !== null).length,
+      value: median(flash24h.map(sample => sample.normalizedWatchRatio)),
+    },
+    explainWatchRatio: {
+      status: explainReelsEnabled ? 'applicable' : 'not_applicable',
+      target: 0.4,
+      minimumSamples: 5,
+      samples: explain24h.filter(sample => sample.normalizedWatchRatio !== null).length,
+      value: median(explain24h.map(sample => sample.normalizedWatchRatio)),
+    },
+    positiveSaveOrShareRate: {
+      target: 20,
+      minimumSamples: 20,
+      samples: utility24h.length,
+      value: utility24h.length ? Number((useful24h.length / utility24h.length * 100).toFixed(2)) : null,
+    },
+    followerNetChange14d: { target: 1, value: followerSummary.netChange },
+    qualityIncidents: { target: 0, value: strategyQualityIncidentCount },
+  };
+  const measurableCriteria = Object.values(successCriteria).filter(value => (
+    value && typeof value === 'object' && value.status !== 'not_applicable'
+  ));
+  const enoughData = measurableCriteria.every(criterion => (
+    criterion.minimumSamples == null || criterion.samples >= criterion.minimumSamples
+  )) && followerSummary.snapshots >= 2;
+  if (enoughData) {
+    successCriteria.status = measurableCriteria.every(criterion => (
+      criterion.value !== null
+      && (criterion.target === 0 ? criterion.value === 0 : criterion.value >= criterion.target)
+    )) ? 'achieved' : 'not_achieved';
+  }
   return {
-    schemaVersion: 2,
+    schemaVersion: 3,
     featureSchemaVersion: FEATURE_SCHEMA_VERSION,
     generatedAt: now.toISOString(),
     status: Object.values(learningWindows).some(Boolean) ? 'ready' : 'insufficient_data',
-    observationRule: '24h, 72h, 7d 지표를 섞지 않고 feature schema v2 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.',
+    observationRule: '24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.',
     publishedCount: publications.length,
+    basicPublishedCount: records.filter(publication => (
+      (publication.contentType || publication.editorial?.contentType) === 'diem_basic'
+      && publication.reel?.status === 'published' && !excludedByModeration(publication)
+    )).length,
     operations: {
       totalRuns: records.length,
       noPublishReasons: distribution(records
@@ -331,10 +491,13 @@ function buildPerformanceReport(ledgers = [], now = new Date()) {
       )).flatMap(failure => failure.modelAttempts || [])
         .filter(attempt => attempt.stage === 'title_repair' && attempt.status === 'failed').length,
       moderatedPublications: records.filter(excludedByModeration).length,
+      qualityIncidentCount,
+      strategyQualityIncidentCount,
     },
     windows,
     learningWindows,
-    followers: followerSnapshotSummary(publications),
+    followers: followerSummary,
+    successCriteria,
     image: {
       kindDistribution: distribution(publications.map(publication => publication.image?.kind)),
       sourceDistribution: distribution(publications.map(publication => publication.image?.source)),
@@ -408,25 +571,30 @@ function performanceMarkdown(report) {
     `- 발행 원장 Reel: ${report.publishedCount}편`,
     `- 생성 시각: ${report.generatedAt}`,
     `- 원칙: ${report.observationRule}`,
+    `- 최종 목표 판정: ${report.successCriteria?.status || 'insufficient_data'}`,
     '',
   ];
   for (const windowLabel of OBSERVATION_WINDOWS) {
     lines.push(`## ${windowLabel}`);
     for (const category of ['economy', 'issue']) {
       const summary = report.windows[windowLabel].categories[category];
-      lines.push(`- ${category}: 표본 ${summary.samples}편 · 노출 중앙값 ${display(summary.metrics.exposureMedian)} · 공유율 ${display(summary.metrics.shareRateMedian, '%')} · 저장률 ${display(summary.metrics.savedRateMedian, '%')}`);
-      if (summary.winners.length) lines.push(`  - 반복 후보: ${summary.winners.map(item => `${item.title}(${display(item.exposure)})`).join(', ')}`);
-      if (summary.underperformers.length) lines.push(`  - 부진 후보: ${summary.underperformers.map(item => `${item.title}(${display(item.exposure)})`).join(', ')}`);
+      lines.push(`- ${category}: 표본 ${summary.samples}편 · reach 중앙값 ${display(summary.metrics.reachMedian)} · 시청 비율 ${display(summary.metrics.normalizedWatchRatioMedian == null ? null : summary.metrics.normalizedWatchRatioMedian * 100, '%')} · 공유율 ${display(summary.metrics.shareRateMedian, '%')} · 저장률 ${display(summary.metrics.savedRateMedian, '%')}`);
+      if (summary.winners.length) lines.push(`  - 반복 후보: ${summary.winners.map(item => `${item.title}(${display(item.reach)})`).join(', ')}`);
+      if (summary.underperformers.length) lines.push(`  - 부진 후보: ${summary.underperformers.map(item => `${item.title}(${display(item.reach)})`).join(', ')}`);
       const signals = summary.featureSignals.filter(signal => signal.signal !== 'neutral').slice(0, 8);
       if (signals.length) lines.push(`  - 특성 신호: ${signals.map(signal => `${signal.feature} ${signal.signal}×${display(signal.lift)}`).join(', ')}`);
     }
     if (report.windows[windowLabel].excludedLateBackfills) {
       lines.push(`- 정시 비교에서 제외한 늦은 백필: ${report.windows[windowLabel].excludedLateBackfills}편`);
     }
+    const cohorts = report.windows[windowLabel].cohorts || {};
+    lines.push(`- 포맷 코호트: ${Object.entries(cohorts.format || {}).map(([key, value]) => `${key} ${value.samples}편/reach ${display(value.reachMedian)}`).join(' · ') || '표본 없음'}`);
+    lines.push(`- 이미지 코호트: ${Object.entries(cohorts.image || {}).map(([key, value]) => `${key} ${value.samples}편/reach ${display(value.reachMedian)}`).join(' · ') || '표본 없음'}`);
+    lines.push(`- 전략 코호트: ${Object.entries(cohorts.strategyVersion || {}).map(([key, value]) => `${key} ${value.samples}편`).join(' · ') || '표본 없음'}`);
     lines.push('');
   }
   lines.push('## 이미지·음악 운영');
-  lines.push(`- 계정 팔로워 순변화: ${display(report.followers?.netChange)} (중복 제거 스냅샷 ${report.followers?.snapshots || 0}개; 게시물별 추정치 합산 금지)`);
+  lines.push(`- 최근 14일 계정 팔로워 순변화: ${display(report.followers?.netChange)} (중복 제거 스냅샷 ${report.followers?.snapshots || 0}개; 게시물별 추정치 합산 금지)`);
   lines.push(`- 타이포그래피 폴백률: ${display(report.image.typographyFallbackRate, '%')}`);
   lines.push(`- 생성 배경 폴백률: ${display(report.image.generatedFallbackRate, '%')} · 전체 폴백률: ${display(report.image.combinedFallbackRate, '%')}`);
   lines.push(`- 이미지 공급원: ${Object.entries(report.image.sourceDistribution).map(([key, value]) => `${key} ${value.count}편`).join(', ') || '기록 없음'}`);
@@ -472,6 +640,7 @@ function loadPerformanceReport(filePath = REPORT_JSON) {
 
 module.exports = {
   FEATURE_SCHEMA_VERSION,
+  STRATEGY_VERSION,
   MIN_CATEGORY_SAMPLES,
   MIN_FEATURE_SAMPLES,
   OBSERVATION_WINDOWS,
@@ -480,6 +649,7 @@ module.exports = {
   REPORT_JSON,
   REPORT_MARKDOWN,
   buildPerformanceReport,
+  cohortBreakdown,
   featureSet,
   followerSnapshotSummary,
   loadPerformanceReport,
@@ -487,4 +657,7 @@ module.exports = {
   performancePrior,
   savePerformanceReport,
   windowTimingStatus,
+  excludedByModeration,
+  sampleFor,
+  selectWindowObservation,
 };

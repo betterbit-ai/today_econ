@@ -21,11 +21,12 @@ const { renderDiemCover, renderDiemScenes } = require('./cover');
 const { buildTopicSignature, classifyCandidate } = require('./topic');
 const { generatedFallbackTopic, imageReuseKeys } = require('./image-selector');
 const { validateEditorial } = require('./editorial');
+const { evaluateExplainRollout, loadExplainCapabilityEvidence } = require('./explain-policy');
 const { normalizeNfc } = require('./text');
 const { resolveVisualLibraryAsset } = require('./visual-library');
 
 const DAILY_CONTENT_TYPE = 'diem_daily';
-const DAILY_PACKAGE_SCHEMA_VERSION = 2;
+const DAILY_PACKAGE_SCHEMA_VERSION = 3;
 const DAILY_CONTENT_ROOT = path.join(process.cwd(), 'content', 'diem-daily');
 const MAX_DAILY_IMAGE_BYTES = 8 * 1024 * 1024;
 
@@ -202,9 +203,10 @@ function validateDailyPackage(item = {}, {
   verifyArtifact = false,
   fsImpl = fs,
   handle = config.instagramUsername,
+  explainEnabled = config.explainReelsEnabled,
 } = {}) {
   const errors = [];
-  if (![1, DAILY_PACKAGE_SCHEMA_VERSION].includes(item.schemaVersion)) errors.push('schemaVersion must be 1 or 2');
+  if (![1, 2, DAILY_PACKAGE_SCHEMA_VERSION].includes(item.schemaVersion)) errors.push('schemaVersion must be 1, 2, or 3');
   try { safeId(item.packageId, 'packageId'); } catch (error) { errors.push(error.message); }
   try { safeId(item.runId, 'runId'); } catch (error) { errors.push(error.message); }
   if (item.status !== 'ready') errors.push('package status must be ready');
@@ -247,12 +249,34 @@ function validateDailyPackage(item = {}, {
   }
   const editorialResult = validateEditorial(item.editorial || {}, { article, handle });
   if (!editorialResult.ok) errors.push(...editorialResult.errors.map(error => `editorial: ${error}`));
+  if (item.editorial?.reelFormat === 'explain' && !explainEnabled) {
+    errors.push('explain Reels are disabled');
+  }
   if (item.schemaVersion === 2) {
     if (!['flash', 'explain'].includes(item.editorial?.reelFormat)) errors.push('v2 editorial reelFormat must be flash or explain');
     if (!Array.isArray(item.editorial?.title?.lines) || ![2, 3].includes(item.editorial.title.lines.length)) {
       errors.push('v2 editorial title.lines must contain two or three lines');
     }
     if (item.analytics?.featureSchemaVersion !== 2) errors.push('v2 analytics.featureSchemaVersion must be 2');
+  }
+  if (item.schemaVersion === 3) {
+    for (const field of ['classificationConfidence', 'classificationReasons', 'publicInterestAnchor', 'rejectionReason']) {
+      if (!Object.hasOwn(item.newsFrame || {}, field)) errors.push(`v3 newsFrame.${field} is required`);
+    }
+    if (!['high', 'medium'].includes(item.newsFrame?.classificationConfidence)) {
+      errors.push('v3 newsFrame.classificationConfidence must be high or medium');
+    }
+    if (!Array.isArray(item.newsFrame?.classificationReasons) || item.newsFrame.classificationReasons.length < 1) {
+      errors.push('v3 newsFrame.classificationReasons must contain at least one reason');
+    }
+    if (item.newsFrame?.rejectionReason !== null) errors.push('v3 publishable newsFrame.rejectionReason must be null');
+    if (item.editorial?.schemaVersion !== 3) errors.push('v3 package requires editorial schemaVersion 3');
+    if (item.analytics?.featureSchemaVersion !== 3) errors.push('v3 analytics.featureSchemaVersion must be 3');
+    if (item.analytics?.strategyVersion !== 'discovery-funnel-v3') errors.push('v3 analytics.strategyVersion must be discovery-funnel-v3');
+    const expectedDuration = item.editorial?.reelFormat === 'explain' ? 13 : 6;
+    if (item.analytics?.reelDurationSeconds !== expectedDuration) {
+      errors.push(`v3 analytics.reelDurationSeconds must be ${expectedDuration}`);
+    }
   }
 
   let image = null;
@@ -294,6 +318,9 @@ function stageDailyPackage(item, {
   date,
   now = new Date(),
 } = {}) {
+  if (item.schemaVersion !== DAILY_PACKAGE_SCHEMA_VERSION) {
+    throw new Error('[DIEM Daily] package schemas v1 and v2 are read-only; create a v3 package for staging.');
+  }
   const safeDate = String(date || '').trim();
   if (!/^\d{4}-\d{2}-\d{2}$/u.test(safeDate)) throw new Error('[DIEM Daily] date must be YYYY-MM-DD.');
   const base = emptyPublication(safeDate, item.category, `daily-${safeId(item.packageId, 'packageId')}`);
@@ -328,7 +355,9 @@ function stageDailyPackage(item, {
     },
     analytics: {
       ...(item.analytics || {}),
-      featureSchemaVersion: item.schemaVersion === 2 ? 2 : (item.analytics?.featureSchemaVersion || 0),
+      featureSchemaVersion: 3,
+      strategyVersion: 'discovery-funnel-v3',
+      reelDurationSeconds: item.editorial?.reelFormat === 'explain' ? 13 : 6,
     },
     image,
     source: {
@@ -375,6 +404,18 @@ async function prepareDailyPackage(ledger, category, {
   if (!publication) throw new Error(`[DIEM Daily] Missing ${category} publication.`);
   if (publication.dailyPackageId !== item.packageId) throw new Error('[DIEM Daily] Ledger publication does not match package ID.');
   if (publication.reel?.status === 'published') return ledger;
+  if (publication.editorial?.reelFormat === 'explain') {
+    const policy = evaluateExplainRollout({
+      configured: config.explainReelsEnabled,
+      category,
+      date: ledger.date,
+      history,
+      evidence: loadExplainCapabilityEvidence(config.explainCapabilityEvidenceFile),
+      minIntervalDays: config.explainMinIntervalDays,
+      maxPerCategory: config.explainCanaryMaxPerCategory,
+    });
+    if (!policy.enabled) throw new Error(`[DIEM Daily] explain package blocked: ${policy.reason}`);
+  }
 
   const image = publication.image;
   if (image.id?.startsWith('diem-library:')) {

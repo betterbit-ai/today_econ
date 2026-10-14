@@ -14,6 +14,21 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Error text is propagated to logs and ledgers; credentials and request URLs are never evidence.
+function sanitizeInstagramErrorMessage(value, { secrets = [] } = {}) {
+  let message = String(value || '').normalize('NFC');
+  for (const secret of secrets.filter(Boolean)) {
+    for (const encoded of new Set([String(secret), encodeURIComponent(String(secret))])) {
+      message = message.split(encoded).join('[REDACTED]');
+    }
+  }
+  return message
+    .replace(/https?:\/\/[^\s<>"']+/giu, '[URL REDACTED]')
+    .replace(/\bBearer\s+[^\s,;"']+/giu, 'Bearer [REDACTED]')
+    .replace(/((?:access_token|refresh_token|client_secret|authorization)["']?\s*[:=]\s*["']?)[^\s,;"'&}]+/giu, '$1[REDACTED]')
+    .slice(0, 1200);
+}
+
 async function instagramRequest({
   path,
   token,
@@ -50,7 +65,7 @@ async function instagramRequest({
     }
     if (response.ok) return payload;
 
-    const message = payload.error?.message || payload.raw || response.statusText;
+    const message = sanitizeInstagramErrorMessage(payload.error?.message || response.statusText, { secrets: [token] });
     const retryable = response.status === 429 || response.status >= 500;
     if (!retryable || attempt === retries) {
       const error = new Error(`[Instagram] ${response.status}: ${message}`);
@@ -354,6 +369,7 @@ module.exports = {
   getAccountInsights,
   getMediaInsights,
   instagramRequest,
+  sanitizeInstagramErrorMessage,
   publishCarousel,
   publishReel,
   publishStory,

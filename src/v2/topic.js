@@ -29,11 +29,16 @@ const NARROW_OR_LOCAL = /(과수원|농가|농민|농촌|꽃눈|냉해|작물|�
 const LOW_SIGNAL_NEWS = /(해프닝|온라인\s*화제|누리꾼|커뮤니티|목격담|인증샷|사진\s*한\s*장)/u;
 const SENSATIONAL_ANECDOTE = /(귀신|분장|경악|황당|기이한|엽기|반전|정체|진풍경|SNS|온라인\s*화제|누리꾼|사진이?\s*퍼|응급\s*이송|긴급\s*이송|복통을?\s*호소|구조대가?\s*(?:출동|이송))/iu;
 const SINGLE_PERSON_INCIDENT = /(\d{1,2}세|여학생|남학생|고등학생|중학생|초등학생|미성년|한\s*(?:남성|여성|학생|환자)|개인\s*(?:사연|사건))/u;
-const PUBLIC_INTEREST_ANCHOR = /(법안|법률|정책|제도|규제|판결|정부.{0,24}(?:발표|결정|시행|확대|축소|지원)|국회|전국|국민|다수|집단|공중보건|감염병|유행|안전\s*(?:기준|대책|규정)|권리|차별|복지\s*(?:정책|제도)|교육\s*(?:정책|제도|과정)|한국\s*(?:사회|정부|국민)|중앙재난안전대책본부|재난\s*(?:대응|대책|경보)|대중교통|철도)/u;
+const PUBLIC_INTEREST_ANCHOR = /(법안|법률|정책|제도|규제|판결|정부.{0,24}(?:발표|결정|시행|확대|축소|지원)|국회|전국|국민|다수\s*(?:피해|국민|가구|사업자)|집단\s*(?:피해|감염|휴업)|공중보건|감염병|유행|안전\s*(?:기준|대책|규정)|권리|차별|복지\s*(?:정책|제도)|교육\s*(?:정책|제도|과정)|한국\s*(?:사회|정부|국민)|중앙재난안전대책본부|재난\s*(?:대응|대책|경보)|대중교통|철도)/u;
 const PRIVATE_PERSON_MARKER = /(?:\d{1,3}세\s*(?:여성|남성)|(?:여성|남성)\s*[A-Z]|[A-Z]\s*씨|피고인\s*[A-Z]?)/u;
 const PRIVATE_CRIME_EVENT = /(계모임|곗돈|먹튀|사기|편취|횡령|절도|폭행|협박|성범죄|징역|실형|구속|범행|혐의)/u;
 const PRIVATE_CRIME_OUTCOME = /(지방법원|지법|고등법원|고법|재판부|법정|판결|선고|징역|실형|유죄|무죄|구속)/u;
 const SYSTEMIC_CRIME_ANCHOR = /((?<!의)정부|국회|법안|법률\s*개정|정책|제도|규제|대법원|헌법재판소|전원합의체|공직자|대통령|장관|국회의원|대규모|전국|다수\s*피해자|피해자\s*\d{2,}\s*명|집단\s*피해)/u;
+const LOCAL_INCIDENT_CONTEXT = /(주택가|공원|골목|술집|주점|번화가|거리|상가|아파트\s*(?:단지|주차장))/u;
+const LOCAL_VIOLENCE_EVENT = /(패싸움|난투(?:극)?|몸싸움|집단\s*폭행|폭행|흉기\s*난동)/u;
+const POLICE_INCIDENT_RESPONSE = /(경찰.{0,60}(?:추적|체포|수사|입건)|(?:추적|체포|수사|입건).{0,60}경찰)/u;
+const MONEY_AMOUNT = /\d[\d,.]*\s*(?:조|억|만|천)?원/u;
+const MONEY_CONTEXT = /(달러|금리|세금|보험료|연금|임금|소득|물가|가격|요금|주가|환율|매출|이익|적자|흑자|지원금|보조금)/u;
 const LOW_MISSION_FIT = /(주차\s*빌런|택시\s*승객.{0,20}알고\s*보니|성기\s*필러|음경.{0,12}(?:필러|확대)|연예인|유튜버.{0,30}(?:영상|사과|후폭풍)|CCTV\s*공개\s*후폭풍|북극곰.{0,30}(?:뱃고동|벌금)|재산분할.{0,16}(?:될까|상담|문의)|변호사에게\s*상담)/iu;
 const LOW_MISSION_PUBLIC_OVERRIDE = /(정부.{0,24}(?:발표|결정|시행)|국회|법안|법률\s*개정|정책|제도\s*개편|규제|대법원|헌법재판소|공중보건|안전\s*(?:기준|대책|규정))/u;
 const DISASTER_PRIMARY_EVENT = /(산사태|폭우|집중호우|침수|도로\s*붕괴|토사\s*붕괴|사망|재난|태풍|지진)/u;
@@ -81,9 +86,14 @@ function normalizeTopicAliases(value = '') {
   );
 }
 
+function withoutHousingLexicalCompounds(value = '') {
+  return normalizeTopicAliases(value).replace(/(주택가|주거침입)/gu, ' ');
+}
+
 function inferReaderNeed(value = '') {
   const text = normalizeTopicAliases(value);
-  if (/(아파트|주택|부동산|전세|월세|청약|보증금|주거)/u.test(text)) return 'housing';
+  const housingText = withoutHousingLexicalCompounds(text);
+  if (/(아파트|주택|부동산|전세|월세|청약|보증금|주거)/u.test(housingText)) return 'housing';
   if (/(세금|과세|소득세|종부세|재산세|연말정산|세액공제)/u.test(text)) return 'tax';
   if (/(대출|금리|주담대|보금자리론|디딤돌|신용점수)/u.test(text)) return 'credit';
   if (/(월급|임금|퇴사|이직|실업급여|고용|일자리|노동|근로)/u.test(text)) return 'work';
@@ -105,6 +115,17 @@ function isNarrowPrivateCrimeStory(candidate = {}) {
   return PRIVATE_PERSON_MARKER.test(text)
     && PRIVATE_CRIME_EVENT.test(text)
     && PRIVATE_CRIME_OUTCOME.test(text)
+    && !SYSTEMIC_CRIME_ANCHOR.test(text);
+}
+
+function isLocalPrivateCrimeStory(candidate = {}) {
+  const text = primaryCandidateText(candidate);
+  const localOrPrivate = LOCAL_INCIDENT_CONTEXT.test(text)
+    || PRIVATE_PERSON_MARKER.test(text)
+    || /\d{1,2}대\s*(?:남성|여성|외국인)?/u.test(text);
+  return localOrPrivate
+    && LOCAL_VIOLENCE_EVENT.test(text)
+    && POLICE_INCIDENT_RESPONSE.test(text)
     && !SYSTEMIC_CRIME_ANCHOR.test(text);
 }
 
@@ -131,6 +152,7 @@ function canonicalEventKey(text = '') {
 
 function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   const normalized = normalizeTopicAliases(text);
+  const housingText = withoutHousingLexicalCompounds(normalized);
   if (CURRENCY_MOVE_CONTEXT.test(normalized)) {
     return /\uC5D4(?:\uD654|\uB2F9)/u.test(normalized) ? '\uC6D0\u00B7\uC5D4 \uD658\uC728' : '\uC6D0\uD654 \uD658\uC728';
   }
@@ -153,7 +175,9 @@ function compactSubject(text = '', category = CATEGORIES.ISSUE) {
   if (/(손해보험|손보사|손해율)/u.test(normalized)) return '손해보험';
   if (/(최저임금)/u.test(normalized)) return '최저임금';
   if (/(기준금리|한국은행)/u.test(normalized)) return '기준금리';
-  if (/(전세|월세|주거|주택)/u.test(normalized)) return '주거 정책';
+  if (/(전세|월세|주거|주택)/u.test(housingText)) return '주거 정책';
+  if (/카드사/u.test(normalized)) return '카드사';
+  if (/신용카드|카드결제/u.test(normalized)) return '신용카드';
   if (/(국민연금|연금)/u.test(normalized)) return '연금 개편';
   if (/(개인정보|정보인권|프라이버시|피지컬AI|특별법)/u.test(normalized)) return 'AI 개인정보';
   if (/(CXMT|창신메모리)/iu.test(normalized)) return 'CXMT';
@@ -200,6 +224,7 @@ function claimState(candidate = {}, text = primaryCandidateText(candidate), kind
 
 function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
   const title = normalizeNfc(candidate.title || '');
+  const housingText = withoutHousingLexicalCompounds(text);
   const politicalSpeaker = primaryPoliticalSpeaker(candidate);
   if (PUBLIC_HEARING_DISRUPTION.test(text)) return 'public_hearing_disruption';
   if (MEDICAL_SAFETY_SUBJECT.test(text)
@@ -216,7 +241,7 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
   if (MARKET_MOVE_HEADLINE_CONTEXT.test(text)) return 'market_move';
   if (CURRENCY_MOVE_CONTEXT.test(text)) return 'currency_move';
   if (RESCUE_SEARCH_CONTEXT.test(text) && !/(\uC555\uC218(?:\u00B7|\s)*\uC218\uC0C9|\uC218\uC0C9\uC601\uC7A5)/u.test(text)) return 'rescue_search';
-  if (HOUSING_MARKET_CONTEXT.test(text)) return 'housing_policy';
+  if (HOUSING_MARKET_CONTEXT.test(housingText)) return 'housing_policy';
   if (/(국내총생산|\bGDP\b|성장률)/iu.test(text)) return 'gdp';
   if (/(코스피|코스닥|증시|주가)/u.test(text) && /(급등|급락|폭등|폭락|상승|하락|반등|반전)/u.test(text)) return 'market_move';
   if (/(형사소송법|형소법|보완수사권|법안|개정안)/u.test(text) && /(통과|개정|폐지|의결)/u.test(text)) return 'legislation';
@@ -224,7 +249,6 @@ function eventKind(candidate = {}, text = primaryCandidateText(candidate)) {
   if (/(자동차보험|손해보험|손보사|손해율)/u.test(text) && /(적자|손해율|과잉진료|과잉수리)/u.test(text)) return 'auto_insurance_loss';
   if (/(건강보험료|건보료|보험료)/u.test(text)) return 'insurance_premium';
   if (/(기준금리|금리)/u.test(text)) return 'interest_rate';
-  if (/(주거|전세|월세|주택)/u.test(text)) return 'housing_policy';
   if (/(반도체|D램|HBM|메모리)/iu.test(text)) return 'semiconductor';
   return 'general';
 }
@@ -322,6 +346,11 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
   const eventLabel = headlineEventLabel || (kind === 'general' ? '' : frameEventLabel(text, kind));
   const { subjectTerms, eventTerms } = frameTerms(subject, eventLabel, kind, text);
   const date = dateLabel(text);
+  const classification = classifyCandidate(candidate);
+  const publicInterestAnchor = text.match(PUBLIC_INTEREST_ANCHOR)?.[0] || null;
+  const classificationReasons = classification.category
+    ? [`category:${classification.category}`, ...(classification.ambiguous ? ['ambiguous'] : [])]
+    : [...(classification.excluded || [])];
   const requiredTitleTerms = [];
   const forbiddenTitleTerms = [];
   const chinaLeadsBatteryShipbuilding = /(배터리|이차전지|전기차).{0,80}(조선)|조선.{0,80}(배터리|이차전지|전기차)/iu.test(text)
@@ -342,6 +371,12 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
 
   return {
     category,
+    classificationConfidence: classification.category && !classification.ambiguous
+      ? 'high'
+      : classification.category ? 'medium' : 'rejected',
+    classificationReasons,
+    publicInterestAnchor,
+    rejectionReason: classification.category ? null : classification.excluded?.[0] || 'category_not_allowed',
     subject,
     primaryActor,
     attributionMode: primaryActor ? 'single_speaker_quote' : null,
@@ -364,17 +399,18 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
 
 function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(candidate).category, frame = buildNewsFrame(candidate, category)) {
   const text = candidateText(candidate);
+  const classificationText = withoutHousingLexicalCompounds(text);
   const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || '').slice(0, 420)}`);
   const signals = [];
   const penalties = [];
-  const hasEconomyCore = ECONOMY_CORE_TOPIC.test(text)
+  const hasEconomyCore = ECONOMY_CORE_TOPIC.test(classificationText)
     || ECONOMY_HEADLINE_CONTEXT.test(primaryLead)
     || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text);
   let score = 0;
   const contentValueSignals = [];
-  if (/(원|달러|금리|세금|보험료|연금|임금|소득|물가|가격|요금|주가|환율|매출|이익|적자|흑자)/u.test(text)) contentValueSignals.push('money_impact');
+  if (MONEY_AMOUNT.test(text) || MONEY_CONTEXT.test(text)) contentValueSignals.push('money_impact');
   if (/(정책|법안|규제|시행|폐지|개편|지원|판결|의결|통과)/u.test(text)) contentValueSignals.push('policy_change');
   if (/(증시|코스피|코스닥|주가|환율|금리|GDP|성장률|IPO|상장|실적)/iu.test(text)) contentValueSignals.push('market_movement');
   if (/(파업|운행s*중단|결항|휴교|대중교통|철도|KTX|SRT|공공서비스|공청회s*(?:파행|중단))/iu.test(text)) contentValueSignals.push('public_service_disruption');
@@ -402,6 +438,11 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   }
 
   let hardReject = '';
+  if (isLocalPrivateCrimeStory(candidate)) {
+    score -= 100;
+    penalties.push('local_private_crime_without_public_value');
+    hardReject = 'local_private_crime_without_public_value';
+  }
   const impossibleFrame = (
     frame.eventKind === 'housing_policy' && frame.readerNeed !== 'housing'
   ) || (
@@ -457,7 +498,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   if (category === CATEGORIES.ISSUE && NARROW_OR_LOCAL.test(text) && !NARROW_POLICY_CONTEXT_NFC.test(text)) {
     score -= 40;
     penalties.push('narrow_or_local_issue');
-    hardReject ||= 'narrow_or_local_issue';
+    hardReject = 'narrow_or_local_issue';
   }
   if (LOW_SIGNAL_NEWS.test(text)) {
     score -= 35;
@@ -490,6 +531,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
 
 function classifyCandidate(candidate = {}) {
   const text = primaryCandidateText(candidate);
+  const classificationText = withoutHousingLexicalCompounds(text);
   const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 420)}`);
   if ((PRIVATE_SPECTACLE_NFC.test(primaryLead) || ADDITIONAL_PRIVATE_SPECTACLE.test(primaryLead))
     && !LOW_MISSION_PUBLIC_OVERRIDE.test(primaryLead)) {
@@ -501,16 +543,19 @@ function classifyCandidate(candidate = {}) {
   if (isNarrowPrivateCrimeStory(candidate)) {
     return { category: null, excluded: ['narrow_private_crime_story'] };
   }
+  if (isLocalPrivateCrimeStory(candidate)) {
+    return { category: null, excluded: ['local_private_crime_without_public_value'] };
+  }
   const excluded = [];
   if (ECONOMY_EXCLUDE.test(text)) excluded.push('economy_low_value');
   if (ISSUE_EXCLUDE.test(text)) excluded.push('issue_low_value');
-  const economy = (ECONOMY_INCLUDE.test(text)
+  const economy = (ECONOMY_INCLUDE.test(classificationText)
     || ECONOMY_HEADLINE_CONTEXT.test(primaryLead)
     || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)
     || PUBLIC_TRANSPORT_ECONOMY_CONTEXT.test(text))
     && !ECONOMY_EXCLUDE.test(text);
-  const issue = ISSUE_INCLUDE.test(text) && !ISSUE_EXCLUDE.test(text);
+  const issue = ISSUE_INCLUDE.test(classificationText) && !ISSUE_EXCLUDE.test(text);
   if (DISASTER_PRIMARY_EVENT.test(primaryLead) && issue) {
     return { category: CATEGORIES.ISSUE, excluded: [], primaryEvent: 'public_safety' };
   }
@@ -528,7 +573,7 @@ function classifyCandidate(candidate = {}) {
     return { category: CATEGORIES.ISSUE, excluded: [], ambiguous: true };
   }
 
-  const directEconomy = ECONOMY_CORE_TOPIC.test(text)
+  const directEconomy = ECONOMY_CORE_TOPIC.test(classificationText)
     || ECONOMY_HEADLINE_CONTEXT.test(primaryLead)
     || TRADE_ECONOMY_CONTEXT.test(text)
     || AI_ECONOMY_CONTEXT.test(text)

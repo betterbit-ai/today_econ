@@ -299,7 +299,7 @@ DIEM Basic은 사전 제작 원고·출처·artifact hash를 검증한 뒤 저�
 
 ```json
 {
-  "schemaVersion": 1,
+  "schemaVersion": 3,
   "packageId": "2026-09-16-0730-economy-<source-hash>",
   "runId": "2026-09-16-0730",
   "status": "ready",
@@ -321,6 +321,10 @@ DIEM Basic은 사전 제작 원고·출처·artifact hash를 검증한 뒤 저�
     "rejectedAlternatives": []
   },
   "newsFrame": {
+    "classificationConfidence": "high",
+    "classificationReasons": ["category:economy"],
+    "publicInterestAnchor": null,
+    "rejectionReason": null,
     "subject": "핵심 주체",
     "eventKind": "housing_policy",
     "eventLabel": "발표",
@@ -334,6 +338,9 @@ DIEM Basic은 사전 제작 원고·출처·artifact hash를 검증한 뒤 저�
     { "id": "claim-1", "text": "검증된 주장", "sourceSpans": ["원문 근거"] }
   ],
   "editorial": {
+    "schemaVersion": 3,
+    "reelFormat": "flash",
+    "formatDecision": { "format": "flash", "reason": "explain_disabled", "eligible": false },
     "titleCandidates": [],
     "title": { "text": "첫 줄\n둘째 줄", "lines": ["첫 줄", "둘째 줄"] },
     "caption": { "sentences": [], "text": "" },
@@ -341,13 +348,17 @@ DIEM Basic은 사전 제작 원고·출처·artifact hash를 검증한 뒤 저�
     "comments": { "first": "", "reply": "", "compactReply": "", "hashtags": [] }
   },
   "visual": {
-    "kind": "chatgpt-generated-editorial",
-    "assetPath": "background.png",
+    "kind": "diem-library",
+    "assetId": "finance-01",
     "sha256": "64-hex",
-    "prompt": "생성 프롬프트",
     "peoplePolicy": "prohibited",
     "photorealisticNewsPolicy": "prohibited",
     "visualFingerprint": "sha256-based-id"
+  },
+  "analytics": {
+    "featureSchemaVersion": 3,
+    "strategyVersion": "discovery-funnel-v3",
+    "reelDurationSeconds": 6
   },
   "generation": {
     "provider": "chatgpt-scheduled-task",

@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { getAccountInsights, publishCarousel, publishReel, publishStory, getMediaInsights } = require('../src/instagram');
+const { getAccountInsights, publishCarousel, publishReel, publishStory, getMediaInsights, instagramRequest } = require('../src/instagram');
 
 function jsonResponse(payload, status = 200) {
   return new Response(JSON.stringify(payload), { status, headers: { 'Content-Type': 'application/json' } });
@@ -178,4 +178,22 @@ test('falls back to followers_count when the Instagram profile rejects follower_
   assert.deepEqual(fields, ['follower_count', 'followers_count']);
   assert.equal(metrics.follower_count.value, 321);
   assert.equal(metrics.profile_views.value, 17);
+});
+
+
+test('Instagram request error masks tokens before logging or propagation', async () => {
+  let calls = 0;
+  await assert.rejects(instagramRequest({
+    path: 'me', token: 'secret-token',
+    fetchImpl: async () => {
+      calls += 1;
+      return jsonResponse({ error: { code: 190, message: 'Invalid secret-token https://graph.instagram.com/me?access_token=secret-token', fbtrace_id: 'trace-request' } }, 400);
+    },
+  }), error => {
+    assert.equal(error.status, 400);
+    assert.match(error.message, /Invalid/);
+    assert.doesNotMatch(error.message, /secret-token|graph.instagram.com/);
+    return true;
+  });
+  assert.equal(calls, 1);
 });

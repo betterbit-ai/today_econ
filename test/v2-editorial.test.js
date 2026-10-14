@@ -5,8 +5,10 @@ const { buildNewsFrame } = require('../src/v2/topic');
 const {
   DEFAULT_MODELS,
   buildDeterministicEditorial,
+  chooseReelFormat,
   editorialRepairPrompt,
   generateEditorial,
+  numericSemanticViolations,
   sourceSentences,
   validateEditorial,
 } = require('../src/v2/editorial');
@@ -99,6 +101,21 @@ function politicalQuoteArticle() {
   };
 }
 
+function groundedExplainArticle() {
+  return {
+    category: CATEGORIES.ECONOMY,
+    title: '정부, 근로자 통근비 지원법 통과',
+    verifiedFacts: [
+      '정부는 근로자 통근비 지원 법안을 통과시켰습니다.',
+      '근로자는 매달 3만원의 통근 비용을 돌려받습니다.',
+    ],
+    context: '지원금은 내년 1월부터 온라인으로 신청할 수 있습니다.',
+    entities: ['정부', '근로자', '통근비'],
+    target: '근로자 통근비',
+    event: '지원법 통과',
+  };
+}
+
 test('deterministic fallback produces five short titles and the exact DIEM caption contract', () => {
   const editorial = buildDeterministicEditorial(economyArticle());
 
@@ -128,6 +145,61 @@ test('deterministic fallback produces five short titles and the exact DIEM capti
     '#데일리이슈앤이코노미',
   ]);
   assert.equal(validateEditorial(editorial, { article: economyArticle() }).ok, true);
+});
+
+test('keeps explain paused by default even when three grounded scene roles exist', () => {
+  const article = groundedExplainArticle();
+  const sentences = [...article.verifiedFacts, article.context];
+  const decision = chooseReelFormat({ article, sentences });
+
+  assert.deepEqual(
+    { format: decision.format, reason: decision.reason, eligible: decision.eligible },
+    { format: 'flash', reason: 'explain_disabled', eligible: true }
+  );
+  const editorial = buildDeterministicEditorial(article);
+  assert.equal(editorial.reelFormat, 'flash');
+  assert.deepEqual(editorial.scenes, []);
+});
+
+test('creates explain only from three distinct grounded claims with semantic roles', () => {
+  const article = groundedExplainArticle();
+  const editorial = buildDeterministicEditorial(article, { explainEnabled: true });
+
+  assert.equal(editorial.reelFormat, 'explain');
+  assert.deepEqual(editorial.scenes.map(scene => scene.role), [
+    'what_happened',
+    'reader_impact',
+    'what_to_watch',
+  ]);
+  assert.equal(new Set(editorial.scenes.flatMap(scene => scene.claimRefs)).size, 3);
+  assert.equal(new Set(editorial.scenes.flatMap(scene => scene.sourceSpans)).size, 3);
+  assert.equal(validateEditorial(editorial, { article }).ok, true);
+
+  editorial.scenes[1].claimRefs = editorial.scenes[0].claimRefs;
+  const invalid = validateEditorial(editorial, { article });
+  assert.equal(invalid.ok, false);
+  assert.match(invalid.errors.join('; '), /distinct claimRefs/u);
+});
+
+test('does not call a crime recap reader impact when no direct reader effect is sourced', () => {
+  const article = {
+    category: CATEGORIES.ISSUE,
+    title: '경찰, 지역 패싸움 가담자 추적',
+    verifiedFacts: [
+      '경찰은 공원에서 벌어진 패싸움 수사를 확대했습니다.',
+      '현장에서 세 명이 폭행 혐의로 체포됐습니다.',
+    ],
+    context: '경찰은 목격자 진술을 추가로 확인할 예정입니다.',
+  };
+  const decision = chooseReelFormat({
+    article,
+    sentences: [...article.verifiedFacts, article.context],
+    explainEnabled: true,
+  });
+
+  assert.equal(decision.format, 'flash');
+  assert.equal(decision.eligible, false);
+  assert.match(decision.reason, /reader_impact/u);
 });
 
 test('normalizes decomposed Korean and keeps emojis only at sentence one and three endings', () => {
@@ -747,4 +819,150 @@ test('rejects a numeric sentence when its comparison basis contradicts the sourc
       topicTags: ['미국GDP', '성장률', '개인소비', '미국경제'],
     }),
   }), /comparison basis|evidence|next candidate/i);
+});
+
+
+function mortgageDurationArticle() {
+  return {
+    category: CATEGORIES.ECONOMY,
+    title: '주담대 금리 넉 달째 올라...3년 9개월 만에 최고',
+    url: 'https://n.news.naver.com/article/052/0002413143?ntype=RANKING',
+    target: '주담대 금리',
+    event: '금리 상승',
+    verifiedFacts: [
+      '지난달 주담대 금리가 3년 9개월 만에 최고 수준을 기록했습니다.',
+      '단기 지표금리 상승이 주담대 금리에 영향을 미쳤습니다.',
+      '한국은행은 주담대 금리의 추가 상승 가능성을 설명했습니다.',
+    ],
+  };
+}
+
+test('protects the full compound duration from the October 1 mortgage title', () => {
+  const article = mortgageDurationArticle();
+  assert.ok(numericSemanticViolations(['주담대 금리\n9개월 만에 최고'], article).length > 0);
+  assert.deepEqual(numericSemanticViolations(['주담대 금리\n3년 9개월\n만에 최고'], article), []);
+  assert.deepEqual(numericSemanticViolations(['주담대 금리\n최고 수준'], article), []);
+});
+
+test('protects the denominator from the October 4 unclaimed-benefit title', () => {
+  const article = {
+    title: '[단독] 근로장려금 미신청자, 20대 이하가 45%… 주인 못 찾은 2220억',
+    verifiedFacts: ['근로장려금 신청 안내를 받고도 신청하지 않은 가구 중 20대 이하가 45%에 달하는 것으로 나타났다.'],
+  };
+  assert.ok(numericSemanticViolations(['근로장려금\n청년 45% 미신청'], article).length > 0);
+  assert.deepEqual(numericSemanticViolations(['미신청 가구 중\n20대 이하 45%'], article), []);
+  assert.ok(numericSemanticViolations(['전체 청년 중 45%가 근로장려금을 신청하지 않았다.'], article).length > 0);
+  assert.ok(numericSemanticViolations(['20대 이하 비중은 45%였다.'], article).length > 0);
+});
+
+test('keeps legitimate rates while protecting units, scope and comparison basis', () => {
+  const cases = [
+    { source: '한국은행은 기준금리를 0.25%포인트 인하했습니다.', good: '기준금리 0.25%포인트 인하', bad: '기준금리 0.25% 인하' },
+    { source: '미국 GDP 성장률은 전기 대비 연율 1.5%로 둔화했습니다.', good: '미국 GDP 전기 대비 연율 1.5%', bad: '미국 GDP 전년 대비 1.5%' },
+    { source: '만 19세 이상 청년에게 최대 100만원을 지급할 계획입니다.', good: '만 19세 이상 청년 최대 100만원 지급 계획', bad: '청년 100만원 지급' },
+    { source: '서울 가구의 미신청률은 45%로 집계됐습니다.', good: '서울 가구 미신청률 45%', bad: '부산 가구 미신청률 45%' },
+    { source: '주담대 금리는 3년 9개월 만에 최고였습니다. 신용대출 금리는 9개월 만에 최고였습니다.', good: '신용대출 금리 9개월 만에 최고', bad: '주담대 금리 9개월 만에 최고' },
+  ];
+  for (const { source, good, bad } of cases) {
+    const article = { fullText: source };
+    assert.deepEqual(numericSemanticViolations([good], article), [], good);
+    assert.ok(numericSemanticViolations([bad], article).length > 0, bad);
+  }
+});
+
+test('repairs a numeric title with lost duration without rewriting the accepted caption', async () => {
+  const article = mortgageDurationArticle();
+  const requests = [];
+  const result = await generateEditorial(article, {
+    callModel: async request => {
+      requests.push(request);
+      if (/표지 제목 교정기/u.test(request.systemPrompt)) {
+        return { titleCandidates: [{ title: '주담대 금리\n상승세 지속' }] };
+      }
+      return {
+        titleCandidates: [{ title: '주담대 금리\n9개월 만에 최고' }],
+        sentences: article.verifiedFacts,
+        topicTags: ['주담대', '은행금리', '한국은행', '대출금리'],
+      };
+    },
+  });
+  assert.equal(requests.length, 2);
+  assert.equal(result.title.text, '주담대 금리\n상승세 지속');
+  assert.match(requests[1].systemPrompt, /분모|기간/u);
+  assert.deepEqual(result.caption.sentences.map(sentence => sentence.replace(/\p{Extended_Pictographic}$/u, '')), article.verifiedFacts);
+  assert.ok(result.generation.attempts.some(attempt => attempt.stage === 'title_repair' && attempt.status === 'succeeded'));
+});
+
+test('fails closed after title repairs still change the numeric meaning', async () => {
+  const article = mortgageDurationArticle();
+  await assert.rejects(generateEditorial(article, {
+    callModel: async request => /표지 제목 교정기/u.test(request.systemPrompt)
+      ? { titleCandidates: [{ title: '주담대 금리\n9개월 만에 최고' }] }
+      : { titleCandidates: [{ title: '주담대 금리\n9개월 만에 최고' }], sentences: article.verifiedFacts },
+  }), /title repair|numeric|next candidate/u);
+});
+
+
+test('does not borrow a neighboring clause with the same value but a different subject', () => {
+  const article = { fullText: '주담대 금리는 3년 9개월 만에 최고였고, 신용대출 금리는 9개월 만에 최고였습니다.' };
+  assert.ok(numericSemanticViolations(['주담대 금리 9개월 만에 최고'], article).length > 0);
+  assert.deepEqual(numericSemanticViolations(['신용대출 금리 9개월 만에 최고'], article), []);
+});
+
+test('keeps decimal values intact and cannot use a contextless headline to drop their basis', () => {
+  const article = {
+    title: '미국 GDP 성장률 1.5% 둔화',
+    fullText: '미국 GDP 성장률은 전기 대비 연율 1.5%로 둔화했습니다.',
+  };
+  assert.deepEqual(numericSemanticViolations(['미국 GDP 전기 대비 연율 1.5%'], article), []);
+  assert.ok(numericSemanticViolations(['미국 GDP 1.5% 둔화'], article).length > 0);
+  assert.ok(numericSemanticViolations(['미국 GDP 전년 대비 1.5%'], article).length > 0);
+});
+
+test('records the actual numeric title source span and repairs a tentative decision title', async () => {
+  const article = economyArticle();
+  const result = await generateEditorial(article, {
+    callModel: async () => ({
+      titleCandidates: [{ title: '기준금리\n0.25%포인트\n인하' }],
+      sentences: article.verifiedFacts.concat(article.context),
+    }),
+  });
+  assert.deepEqual(result.title.sourceSpans, [article.verifiedFacts[0]]);
+  result.title.sourceSpans = ['한국은행은 물가 둔화를 설명했습니다.'];
+  assert.match(validateEditorial(result, { article }).errors.join('; '), /title sourceSpans/u);
+  const planned = {
+    category: CATEGORIES.ECONOMY,
+    title: '정부, 청년 지원금 도입 검토',
+    target: '청년 지원금', event: '도입 검토',
+    verifiedFacts: ['정부가 청년 지원금 도입을 검토하고 있습니다.', '지원 대상과 지급 기준은 아직 정해지지 않았습니다.', '부처 협의를 거쳐 구체적인 방안을 마련할 계획입니다.'],
+  };
+  let repairs = 0;
+  const repaired = await generateEditorial(planned, {
+    callModel: async request => {
+      if (/표지 제목 교정기/u.test(request.systemPrompt)) {
+        repairs += 1;
+        return { titleCandidates: [{ title: '청년 지원금\n도입 검토' }] };
+      }
+      return { titleCandidates: [{ title: '청년 지원금\n도입 확정' }], sentences: planned.verifiedFacts };
+    },
+  });
+  assert.equal(repairs, 1);
+  assert.equal(repaired.title.text, '청년 지원금\n도입 검토');
+});
+
+
+test('normalizes equivalent comparison phrases without losing the comparison basis', () => {
+  const article = { fullText: '물가는 지난해보다 2.1% 상승했다.' };
+  assert.deepEqual(numericSemanticViolations(['물가 전년 대비 2.1% 상승'], article), []);
+  assert.deepEqual(numericSemanticViolations(['물가 작년보다 2.1% 상승'], article), []);
+  assert.ok(numericSemanticViolations(['물가 전월 대비 2.1% 상승'], article).length > 0);
+  assert.ok(numericSemanticViolations(['물가 2.1% 상승'], article).length > 0);
+});
+
+test('binds each monetary amount to its payment or support role', () => {
+  const article = { fullText: '월세 50만원을 내는 청년에게 20만원을 지원한다.' };
+  assert.ok(numericSemanticViolations(['월세 50만원 지원'], article).length > 0);
+  assert.ok(numericSemanticViolations(['청년 지원 50만원'], article).length > 0);
+  assert.deepEqual(numericSemanticViolations(['청년에게 20만원 지원'], article), []);
+  assert.deepEqual(numericSemanticViolations(['월세 50만원을 내는 청년에게 20만원을 지원한다.'], article), []);
 });

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "packageId": "YYYY-MM-DD-HHMM-category-sourcehash",
   "runId": "YYYY-MM-DD-HHMM",
   "status": "ready",
@@ -22,6 +22,10 @@
     "rejectedAlternatives": []
   },
   "newsFrame": {
+    "classificationConfidence": "high",
+    "classificationReasons": ["후보 팩에서 그대로 복사한 분류 근거"],
+    "publicInterestAnchor": "후보 팩에서 그대로 복사한 공익 근거",
+    "rejectionReason": null,
     "subject": "핵심 주체",
     "eventKind": "interest_rate",
     "eventLabel": "동결",
@@ -39,7 +43,13 @@
     }
   ],
   "editorial": {
+    "schemaVersion": 3,
     "reelFormat": "flash",
+    "formatDecision": {
+      "format": "flash",
+      "reason": "explain_disabled",
+      "eligible": false
+    },
     "titleCandidates": [],
     "title": { "text": "첫 줄\n둘째 줄", "lines": ["첫 줄", "둘째 줄"] },
     "caption": { "sentences": [], "text": "" },
@@ -47,7 +57,11 @@
     "emojis": { "first": "📰", "third": "📰" },
     "comments": { "first": "📰", "reply": "", "compactReply": "", "hashtags": [] }
   },
-  "analytics": { "featureSchemaVersion": 2 },
+  "analytics": {
+    "featureSchemaVersion": 3,
+    "strategyVersion": "discovery-funnel-v3",
+    "reelDurationSeconds": 6
+  },
   "visual": {
     "kind": "diem-library",
     "assetId": "finance-01",

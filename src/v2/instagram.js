@@ -1,4 +1,4 @@
-const { instagramRequest } = require('../instagram');
+const { instagramRequest, sanitizeInstagramErrorMessage } = require('../instagram');
 const { normalizeNfc } = require('./text');
 const { isSameKstDate } = require('./time');
 
@@ -158,23 +158,42 @@ async function reconcileRecentReel(options = {}) {
   return reconcileExactReel(reels, options);
 }
 
+function serializeInstagramError(error = {}, { secrets = [] } = {}) {
+  const apiError = error.payload?.error || {};
+  const numeric = value => value !== undefined && value !== null && value !== '' && Number.isFinite(Number(value))
+    ? Number(value) : null;
+  const text = value => value == null ? null : sanitizeInstagramErrorMessage(value, { secrets });
+  return {
+    httpStatus: numeric(error.status),
+    code: numeric(apiError.code),
+    subcode: numeric(apiError.error_subcode),
+    userMessage: text(apiError.error_user_msg || apiError.message),
+    traceId: text(apiError.fbtrace_id)?.slice(0, 200) ?? null,
+  };
+}
+
 function instagramErrorDisposition(error = {}) {
-  const message = normalizeNfc(error.message || error.payload?.error?.message || '');
+  const status = Number(error.status);
+  // Meta also uses OAuthException for transient responses; HTTP retry status takes precedence.
+  if (status === 429 || status >= 500) return 'retry_pending';
+  const message = normalizeNfc(`${error.message || ''} ${error.payload?.error?.message || ''}`);
   const code = Number(error.payload?.error?.code);
   const subcode = Number(error.payload?.error?.error_subcode);
-  const permissionOrUnsupported = [401, 403].includes(Number(error.status))
-    || [10, 100, 200, 294].includes(code)
-    || [33, 2108006].includes(subcode)
-    || /(permission|권한|unsupported|not supported|does not support|cannot access|OAuthException)/iu.test(message);
+  const permissionOrUnsupported = [401, 403].includes(status)
+    || [10, 100, 102, 190, 200, 294].includes(code)
+    || [33, 2108006, 2207050, 2207051].includes(subcode)
+    || /(permission|권한|unsupported|not supported|does not support|cannot access|access is restricted|access restricted|account (?:is )?restricted|OAuthException|invalid.*(?:access )?token|(?:access )?token.*expired|session.*expired)/iu.test(message);
   return permissionOrUnsupported ? 'manual_action_required' : 'retry_pending';
 }
 
 function nextFailedStep(step = {}, error = {}, {
   maxAttempts = MAX_STEP_ATTEMPTS,
   now = new Date(),
+  secrets = [],
 } = {}) {
   const attempts = Math.max(0, Number(step.attempts) || 0) + 1;
   const disposition = instagramErrorDisposition(error);
+  const errorDetails = serializeInstagramError(error, { secrets });
   const status = disposition === 'manual_action_required' || attempts >= maxAttempts
     ? 'manual_action_required'
     : 'retry_pending';
@@ -182,8 +201,9 @@ function nextFailedStep(step = {}, error = {}, {
     ...step,
     status,
     attempts,
-    error: normalizeNfc(error.message || 'Instagram request failed').slice(0, 1200),
-    errorCode: error.payload?.error?.code ?? error.status ?? null,
+    error: sanitizeInstagramErrorMessage(error.message || 'Instagram request failed', { secrets }),
+    errorDetails,
+    errorCode: errorDetails.code ?? errorDetails.httpStatus,
     updatedAt: now.toISOString(),
   };
 }
@@ -201,6 +221,7 @@ function applyIndependentStepOutcome(publication, stepName, outcome = {}, now = 
     next[stepName] = nextFailedStep(current, outcome.error, {
       maxAttempts: outcome.maxAttempts,
       now,
+      secrets: outcome.secrets,
     });
     return next;
   }
@@ -212,6 +233,7 @@ function applyIndependentStepOutcome(publication, stepName, outcome = {}, now = 
     externalId: id,
     error: null,
     errorCode: null,
+    errorDetails: null,
     updatedAt: now.toISOString(),
   };
   return next;
@@ -233,4 +255,5 @@ module.exports = {
   reconcileExactReel,
   reconcileRecentReel,
   replyToComment,
+  serializeInstagramError,
 };

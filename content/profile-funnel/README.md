@@ -7,7 +7,8 @@
 3. `03-weekly-top3.svg` — 이번 주 꼭 볼 뉴스 3개
 
 주간 Top 3는 조회수가 아니라 저장·공유와 생활 관련성을 우선해 매주 문구를
-교체한다. SVG는 1080×1350 원본이며 Instagram 업로드 전 PNG로 내보낸다.
+교체한다. SVG는 1080×1350 원본이고 같은 이름의 PNG가 실제 업로드 파일이다.
+SVG를 수정한 뒤 `npm run diem:profile-funnel:export`로 PNG를 다시 만든다.
 
 ## 하이라이트
 

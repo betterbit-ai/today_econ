@@ -379,7 +379,9 @@ test('renders a generated fallback asset as the reel background', async () => {
   assert.equal(rendered.imagePath, generated.localPath);
   assert.equal(reelInput.format, 'flash');
   assert.equal(result.publications.economy.image.kind, 'generated');
-  assert.equal(result.publications.economy.analytics.featureSchemaVersion, 2);
+  assert.equal(result.publications.economy.analytics.featureSchemaVersion, 3);
+  assert.equal(result.publications.economy.analytics.strategyVersion, 'discovery-funnel-v3');
+  assert.equal(result.publications.economy.analytics.reelDurationSeconds, 6);
   assert.deepEqual(result.publications.economy.artifacts.scenePaths, []);
 });
 
@@ -538,4 +540,66 @@ test('uses the compact five-tag reply once after a hashtag-count rejection', asy
   assert.equal(result.reply.status, 'published');
   assert.equal(result.reply.usedCompactHashtags, true);
   assert.deepEqual(result.reply.originalHashtags, ['#경제']);
+});
+
+
+test('records restricted Reel publish errors immediately with safe API evidence', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-restricted-reel-'));
+  try {
+    const error = Object.assign(new Error('User access is restricted secret-token'), {
+      status: 400,
+      payload: { error: { code: 4, error_subcode: 99, error_user_msg: 'Contact account owner', fbtrace_id: 'trace-publish' } },
+    });
+    let reelCalls = 0;
+    let commentCalls = 0;
+    const result = await publishPreparedPublication(readyLedger(root), 'economy', 'secret-token', {
+      cleanupReleasesImpl: async () => [],
+      createReleaseImpl: async () => ({ releaseId: 1, tag: 'temp', createdAt: new Date().toISOString(), videoUrl: 'https://example.com/reel.mp4' }),
+      reconcileReelImpl: async () => ({ status: 'not_found', shouldPublish: true }),
+      publishReelImpl: async () => { reelCalls += 1; throw error; },
+      publishCommentsImpl: async publication => { commentCalls += 1; return publication; },
+    });
+    const publication = result.publications.economy;
+    assert.equal(publication.status, 'manual_action_required');
+    assert.equal(publication.reel.status, 'manual_action_required');
+    assert.equal(publication.reel.attempts, 1);
+    assert.equal(publication.reel.errorDetails.traceId, 'trace-publish');
+    assert.match(publication.reel.error, /User access is restricted/);
+    assert.doesNotMatch(JSON.stringify(publication), /secret-token/);
+    assert.equal(reelCalls, 1);
+    assert.equal(commentCalls, 0);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
+test('records reconciliation access failure without creating release or publishing', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-restricted-read-'));
+  try {
+    let publishCalls = 0;
+    const error = Object.assign(new Error('User access is restricted'), { status: 400, payload: { error: { code: 4 } } });
+    const result = await publishPreparedPublication(readyLedger(root), 'economy', 'token', {
+      createReleaseImpl: async () => { publishCalls += 1; },
+      reconcileReelImpl: async () => { throw error; },
+      publishReelImpl: async () => { publishCalls += 1; },
+    });
+    assert.equal(result.publications.economy.reel.status, 'manual_action_required');
+    assert.equal(result.publications.economy.reel.errorDetails.httpStatus, 400);
+    assert.equal(publishCalls, 0);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
+test('transient Reel failures keep retry pending before the third attempt', async () => {
+  for (const status of [429, 503]) {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-transient-reel-'));
+    try {
+      const error = Object.assign(new Error('temporary upstream failure'), { status });
+      const result = await publishPreparedPublication(readyLedger(root), 'economy', 'token', {
+        cleanupReleasesImpl: async () => [],
+        createReleaseImpl: async () => ({ releaseId: 1, tag: 'temp', createdAt: new Date().toISOString(), videoUrl: 'https://example.com/reel.mp4' }),
+        reconcileReelImpl: async () => ({ status: 'not_found', shouldPublish: true }),
+        publishReelImpl: async () => { throw error; },
+      });
+      assert.equal(result.publications.economy.status, 'retry_pending');
+      assert.equal(result.publications.economy.reel.errorDetails.httpStatus, status);
+    } finally { fs.rmSync(root, { recursive: true, force: true }); }
+  }
 });
