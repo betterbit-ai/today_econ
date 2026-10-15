@@ -400,12 +400,42 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
   };
 }
 
+function observedMarketEvidence(candidate, category, frame) {
+  if (category !== CATEGORIES.ECONOMY || frame.eventKind !== 'market_move' || frame.readerNeed !== 'market') return null;
+  const headline = normalizeNfc(candidate.title || '');
+  const speculative = /(전망|가능|가정|루머|소문|추천|예측|예상|만약|한다면|할\s*경우|하면|(?:할|될)\s*(?:수|것|듯|때))/u;
+  const hearsay = /(SNS|게시글|전언|(?:했|됐|되었)다(?:는|고|며))/iu;
+  const negatedEvent = /(상승|하락|급등|급락|폭등|폭락|발동).{0,30}(?:하지\s*않|되지\s*않|사실(?:이|은)?\s*아니|없었|없다|아니었|아니다)/u;
+  const broadIndex = /(코스피|코스닥|국내\s*(?:증시|주식시장)|한국\s*증시)/u;
+  // A stock-specific headline cannot borrow aggregate figures mentioned later.
+  if (speculative.test(headline) || negatedEvent.test(headline) || hearsay.test(headline)
+    || !/(코스피|코스닥|증시|주식시장|양대\s*시장|개미|서킷브레이커|사이드카)/u.test(headline)
+    || (/(주가|종목)/u.test(headline) && !broadIndex.test(headline))) return null;
+
+  const lead = normalizeNfc(String(candidate.summary || candidate.fullText || '').slice(0, 900));
+  for (const [source, text] of [['title', headline], [candidate.summary ? 'summary' : 'fullText', lead]]) {
+    for (const sentence of text.split(/(?<=[.!?。！？])\s+|\n+/u)) {
+      if (LOW_SIGNAL_NEWS.test(sentence) || speculative.test(sentence) || negatedEvent.test(sentence) || hearsay.test(sentence)) continue;
+      for (const sourceSpan of sentence.split(/이지만|지만|반면|으나|그러나|이고|이며|가운데|[,，](?!\d)|[;；]/u).map(clause => clause.trim()).filter(Boolean)) {
+        if (!broadIndex.test(sourceSpan) || /(주가|종목)/u.test(sourceSpan)) continue;
+        const numericChange = /\d[\d,.]*\s*(?:%|퍼센트|포인트).{0,25}(?:(?:상승|하락|급등|급락|폭등|폭락)\s*(?:했|한(?=\s)|중)|올랐|내렸|떨어졌|줄었|늘었)/u.test(sourceSpan);
+        const capitalizationChange = /(시총|시가총액)/u.test(sourceSpan)
+          && /\d[\d,.]*\s*(?:조|억)\s*원?.{0,25}(?:사라졌|증발했|증가했|감소했|줄었|늘었)/u.test(sourceSpan);
+        const tradingInterruption = /(서킷브레이커|사이드카).{0,40}발동(?:됐|되었|했다|했|\s*중)/u.test(sourceSpan);
+        if (numericChange || capitalizationChange || tradingInterruption) return { source, sourceSpan };
+      }
+    }
+  }
+  return null;
+}
+
 function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(candidate).category, frame = buildNewsFrame(candidate, category)) {
   const text = candidateText(candidate);
   const classificationText = withoutHousingLexicalCompounds(text);
   const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || '').slice(0, 420)}`);
   const signals = [];
   const penalties = [];
+  const marketEvidence = observedMarketEvidence(candidate, category, frame);
   const hasEconomyCore = ECONOMY_CORE_TOPIC.test(classificationText)
     || ECONOMY_HEADLINE_CONTEXT.test(primaryLead)
     || TRADE_ECONOMY_CONTEXT.test(text)
@@ -419,11 +449,11 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
   if (/(파업|운행s*중단|결항|휴교|대중교통|철도|KTX|SRT|공공서비스|공청회s*(?:파행|중단))/iu.test(text)) contentValueSignals.push('public_service_disruption');
   if (/(사망|실종|구조|수색|화재|산불|홍수|침수|붕괴|폭발|경보|안전|의약품.{0,20}(?:경고|주의|권고))/u.test(text)) contentValueSignals.push('safety');
 
-  if (BROAD_LIFE_IMPACT.test(text)) {
+  if (BROAD_LIFE_IMPACT.test(text) || marketEvidence) {
     score += 35;
     signals.push('reader_money_work_life_impact');
   }
-  if (DECIDED.test(text) || IPO_EVENT.test(text)) {
+  if (DECIDED.test(text) || IPO_EVENT.test(text) || marketEvidence) {
     score += 25;
     signals.push('concrete_event_or_decision');
   }
@@ -504,8 +534,12 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     hardReject = 'narrow_or_local_issue';
   }
   if (LOW_SIGNAL_NEWS.test(text)) {
-    score -= 35;
-    penalties.push('low_signal_click_story');
+    if (marketEvidence && !LOW_SIGNAL_NEWS.test(normalizeNfc(candidate.title || ''))) {
+      signals.push('incidental_reaction_not_primary');
+    } else {
+      score -= 35;
+      penalties.push('low_signal_click_story');
+    }
   }
   if (category === CATEGORIES.ISSUE
     && SENSATIONAL_ANECDOTE.test(text)
@@ -527,6 +561,7 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
     signals,
     penalties,
     contentValueSignals,
+    observedMarketEvidence: marketEvidence,
     reason: ok ? 'passes_editorial_value_gate' : (hardReject || 'insufficient_reader_value'),
     frame,
   };

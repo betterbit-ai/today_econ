@@ -37,3 +37,21 @@ production Node 20 전체 검사는 457건 중 454 통과·3 skip·0 실패다. 
 `INSTAGRAM_TOKEN_SOURCE=repository_secret`은 검증된 환경 Secret을 직접 읽는다. 양 workflow는 이 모드를 기본으로 사용한다. 기존 encrypted_vault 모드는 명시적 설정에서만 유지하고 그때만 주간 암호화 회전을 실행한다. Secret 모드 refresh는 API·파일 작업 전 skipped로 종료한다. 장기 토큰 자동 연장은 별도 미완료이며 현재 발행 복구와 구분한다.
 
 공개 암호화 파일 갱신에 대한 이전 승인 질문은 이 발행 경로의 필수 조건이 아니다. 새 Secret으로 일반 핫뉴스 발행을 실행하고 콘텐츠 검수·실제 Reel 결과를 기록한다. 품질 gate를 우회하거나 테스트 게시물을 만들지 않는다.
+
+## Secret 직접 사용과 실발행 전 회귀 확인
+
+[진단 38689473718](https://github.com/betterbit-ai/today_econ/actions/runs/38689473718)에서 실제 요청 경로 `repository_secret`, 기대 계정·사용자명 일치, Models API와 실제 이미지 두 장 검수 5회 연속 성공을 확인했다. 진단 SHA는 `6794e266ff16d074879a4899e77cac800e2c3710`이고 같은 코드가 PR #165 / main `15020436569e9c4070287d58224e976c6cbc0a8b`에 반영됐다.
+
+첫 정상 경제 실행 [38689576201](https://github.com/betterbit-ai/today_econ/actions/runs/38689576201)은 결혼상담 일침을 소득 통계 때문에 경제로 선정했고, `결정사`를 `확정사`로 바꿔 확정 사건으로 해석했다. 게시 단계 전에 취소했다. 외부 발행 시도·media ID는 없다. 이 미발행 이력과 후보 원장은 보존한다.
+
+PR #166 / main `4cb72a4d41c40ffb33a34710e40f652593352d50`에서 해당 관계일침 제외와 약어 경계 회귀를 수정했다. 미시도 planned 상태만 사유를 남겨 보관 후 새 후보를 선정한다. 외부 ID·시도·모호한 상태는 기존 복구 경로를 유지한다. 로컬 harness 466건 중 465 통과·1 skip·0 실패, 독립 관련 검사 33건 통과·Green이다.
+
+[38691409601](https://github.com/betterbit-ai/today_econ/actions/runs/38691409601)의 production Node 20 전체 검사도 통과했다. 변경이 없는 Vision의 반복 점검을 기다리느라 정상 발행을 지연시키지 않도록, 전체 검사 통과 후 이 읽기 전용 실행을 취소했다. 이 실행을 Vision 5회 완료 증거로 사용하지 않으며 위 `38689473718`의 완료 증거를 유지한다.
+
+정상 재실행은 [38691494873](https://github.com/betterbit-ai/today_econ/actions/runs/38691494873), 실행 SHA `4cb72a4d41c40ffb33a34710e40f652593352d50`다. 실제 Reel이 확인되기 전에는 발행 성공이나 D0를 선언하지 않는다.
+
+이 실행은 `no_candidate_passed_daily_floor_gates`로 미발행 종료했다. 48후보 중 본문 확인 제한 19건, 원문 접근 실패 9건 등이 있었다. 제한에 걸린 19건은 모두 기존 인기도 하한 50 미만이어서, 검토 순서 변경만으로 이번 발행이 살아난다고 판단하지 않았다.
+
+별도 정상 시사 실행 [38692313650](https://github.com/betterbit-ai/today_econ/actions/runs/38692313650)은 `no_candidate_passed_preparation`으로 종료했다. 비급여 진료비 기사는 숫자·의미 근거 검수, 정치 발언 후보는 관련 이미지 부재로 탈락했다. 두 실행 모두 Reel attempts 0 / externalId null이며 실제 업로드 API 검증 증거는 아니다.
+
+경제의 광범위 지수 급락 기사를 동일 원문으로 재현한 결과, 실제 시장 관측에 대한 구체 사건 점수가 없고 부수 커뮤니티 반응 때문에 감점돼 편집 가치 35로 탈락했다. 이를 전망·가정·소문·개별종목과 구분하는 제한된 관측 근거 보완을 회귀 검사 후 배포한다. 인기·시의성·일일 floor·숫자·이미지 하한은 유지한다.

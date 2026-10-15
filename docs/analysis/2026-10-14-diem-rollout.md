@@ -38,6 +38,8 @@ production Node 20 검사는 454건 중 451 통과·3 skip·0 실패이며 diff-
 
 ## 인증 조치의 정확한 범위
 
+아래는 10월 14일 vault-first 당시의 기록이다. 10월 15일 PR #165에서 자동 운영을 검증된 GitHub Secret 직접 사용으로 전환했다. 현재 발행을 위해 공개 암호화 파일 교체 승인을 기다릴 필요는 없다. 최신 경로와 증거는 [재인증 기록의 현재 진행](2026-10-15-instagram-reauthentication.md#현재-진행-공개-파일-교체와-발행을-분리)을 따른다.
+
 기존 계정 소유자가 정상 연결/인증 절차로 유효한 Instagram 토큰을 다시 발급해야 한다. 무효화된 토큰을 주간 refresh로 되살렸다고 판단하지 않는다. 토큰은 채팅·PR·로그에 붙이지 않고 기존 비밀값 저장 경로로 전달한다.
 
 `resolveInstagramToken()`은 암호화 키가 있으면 `data/instagram-token.enc`를 먼저 사용하고 환경의 `INSTAGRAM_ACCESS_TOKEN`은 그 다음이다. 현재 vault 기록 시각은 `2026-10-11T23:46:45.920Z`다. GitHub Secret만 변경해도 이전 vault가 계속 우선할 수 있으므로, 운영 담당이 기존 `writeEncryptedToken` 경로로 새 유효 토큰과 vault를 함께 맞춰야 한다. 암호화 키와 원문 토큰은 공개 저장소에 넣지 않는다.
