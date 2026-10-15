@@ -45,7 +45,10 @@ const DISASTER_PRIMARY_EVENT = /(산사태|폭우|집중호우|침수|도로\s*�
 const PUBLIC_HEARING_DISRUPTION = /(공청회|토론회|설명회).{0,120}(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무)|(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무).{0,120}(공청회|토론회|설명회)/u;
 const OFFICIAL_ACTOR = /(정부|부처|복지부|보건복지부|기획재정부|금융위원회|금융감독원|국토교통부|고용노동부|교육부|대통령실|국회|공단|공사|위원회|당국|관계자)/u;
 const OFFICIAL_RESPONSE = /(설명자료|해명자료|보도\s*설명|보도\s*해명|반박|부인|해명|오보|허위|사실\s*무근|보도와\s*관련|기사에서\s*언급된\s*내용)/u;
+const MATCHMAKER_ABBREVIATION = /(?<![가-힣])결정사(?=$|[^가-힣]|대표|업계|에서|에게|에는|에|은|는|이|가|을|를|의)/gu;
 const TOPIC_ALIASES = Object.freeze([
+  // Expand the company abbreviation before the generic decision synonym.
+  [MATCHMAKER_ABBREVIATION, '결혼정보회사'],
   [/마통/gu, '마이너스통장 대출'],
   [/주담대/gu, '주택담보대출 대출'],
   [/\bKTX\b(?!\s*고속철도)/giu, 'KTX 고속철도'],
@@ -530,6 +533,15 @@ function assessDiemEditorialValue(candidate = {}, category = classifyCandidate(c
 }
 
 function classifyCandidate(candidate = {}) {
+  const headline = normalizeNfc(candidate.title || '');
+  const companyHeadline = headline.replace(MATCHMAKER_ABBREVIATION, '결혼정보회사');
+  if (/결혼정보회사/u.test(companyHeadline)
+    && /(남편|아내|배우자|이상형|눈높이)/u.test(headline)
+    && /(일침|눈높이|원해|이상형|조건)/u.test(headline)
+    && !LOW_MISSION_PUBLIC_OVERRIDE.test(headline)
+    && !/(?:공정위|공정거래위원회|소비자원|고용부|고용노동부).{0,60}(?:조사|제재|과징금|시정명령|근로감독)/u.test(headline)) {
+    return { category: null, excluded: ['personal_relationship_commentary'] };
+  }
   const text = primaryCandidateText(candidate);
   const classificationText = withoutHousingLexicalCompounds(text);
   const primaryLead = normalizeTopicAliases(`${candidate.title || ''} ${String(candidate.summary || candidate.fullText || '').slice(0, 420)}`);

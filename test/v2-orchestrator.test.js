@@ -518,6 +518,78 @@ test('category polling recovers an unfinished run before selecting another artic
   assert.equal(result.ledger.publications.issue.candidate.title, '복구할 시사 기사');
 });
 
+test('category polling archives unattempted planned relationship commentary before fresh selection', async () => {
+  const date = '2026-10-15';
+  const existing = updatePublication(createDailyLedger(date), 'economy', {
+    status: 'planned',
+    candidate: { title: '“연봉 1억인 남편 원해요”…20대 여성에 결정사 대표 일침', url: 'https://example.com/commentary' },
+  });
+  const original = structuredClone(existing);
+  let plannerCalls = 0;
+  const result = await planCategoryPhase({
+    date, category: 'economy', slot: 'fresh-after-commentary',
+    loadLedgerImpl: () => existing,
+    listLedgersImpl: () => [existing],
+    planDailyQueueImpl: async () => { plannerCalls += 1; return plannedResult(date); },
+  });
+  assert.equal(plannerCalls, 1);
+  assert.equal(result.reused, false);
+  assert.equal(result.recovery, false);
+  assert.equal(result.ledger.publications.economy.candidate.url, 'https://example.com/economy');
+  const archived = result.ledger.publicationHistory.find(item => item.publicationKey === original.publications.economy.publicationKey);
+  assert.equal(archived.status, 'no_publish');
+  assert.equal(archived.reason, 'personal_relationship_commentary');
+  assert.equal(archived.reel.status, 'no_publish');
+  assert.equal(archived.candidate.url, original.publications.economy.candidate.url);
+  assert.deepEqual(result.ledger.publications.issue, original.publications.issue);
+  assert.deepEqual(result.previousLedger, original);
+  assert.deepEqual(existing, original);
+});
+
+test('commentary retirement never discards attempted, externally identified or ambiguous recovery work', async () => {
+  for (const patch of [
+    { status: 'retry_pending' },
+    { status: 'ready' },
+    { status: 'publishing' },
+    { status: 'published', reel: { ...plannedStep(), status: 'published', attempts: 1, externalId: 'published-reel' } },
+    { reel: { ...plannedStep(), attempts: 1 } },
+    { reel: { ...plannedStep(), containerId: 'container' } },
+    { reel: { ...plannedStep(), externalId: 'external-reel' } },
+    { reel: { ...plannedStep(), status: 'retry_pending' } },
+    { reel: { ...plannedStep(), status: 'manual_action_required' } },
+    { reel: { ...plannedStep(), ambiguousExternalState: true } },
+    { ambiguousExternalState: true },
+    { comment: { ...plannedStep(), attempts: 1 } },
+  ]) {
+    const existing = updatePublication(createDailyLedger('2026-10-15'), 'economy', {
+      candidate: { title: '결혼정보회사 대표, 배우자 눈높이에 일침', url: 'https://example.com/commentary' },
+      ...patch,
+    });
+    const result = await planCategoryPhase({
+      date: existing.date, category: 'economy', slot: 'must-recover',
+      loadLedgerImpl: () => existing,
+      listLedgersImpl: () => [existing],
+      planDailyQueueImpl: async () => assert.fail('must preserve existing recovery work'),
+    });
+    assert.equal(result.recovery, true, JSON.stringify(patch));
+    assert.deepEqual(result.ledger, existing);
+  }
+});
+
+test('category polling does not retire planned candidates for other classification exclusions', async () => {
+  const existing = updatePublication(createDailyLedger('2026-10-15'), 'economy', {
+    candidate: { title: '새 지역 개인 소식', url: 'https://example.com/unclassified' },
+  });
+  const result = await planCategoryPhase({
+    date: existing.date, category: 'economy',
+    loadLedgerImpl: () => existing,
+    listLedgersImpl: () => [existing],
+    planDailyQueueImpl: async () => assert.fail('only explicit relationship commentary may be retired'),
+  });
+  assert.equal(result.recovery, true);
+  assert.deepEqual(result.ledger, existing);
+});
+
 test('category polling repairs pending comments after the Reel was published', async () => {
   let existing = createDailyLedger('2026-07-29');
   existing = updatePublication(existing, 'economy', {
