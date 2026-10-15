@@ -30,6 +30,7 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
     assert.match(content, /MAX_DAILY_PUBLICATIONS_PER_CATEGORY:\s*'1'/u);
     assert.match(content, /GROQ_VISION_MODEL:\s*qwen\/qwen3\.8-27b/u);
     assert.match(content, /EXPLAIN_REELS_ENABLED:\s*'false'/u);
+    assert.match(content, /INSTAGRAM_TOKEN_SOURCE: \$\{\{ vars.INSTAGRAM_TOKEN_SOURCE \|\| 'repository_secret' \}\}/u);
     assert.doesNotMatch(content, /retry-all|inputs:\s*\n\s+phase:/u);
     assert.doesNotMatch(content, /DIEM_PIPELINE_ENABLED/u);
   }
@@ -41,6 +42,8 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
   assert.match(economy, /editorial-retry --publication-key "\$EDITORIAL_PUBLICATION_KEY" --publish/u);
   assert.doesNotMatch(economy, /- prepare_basic|- reject_basic/u);
   assert.match(economy, /collect_insights/u);
+  const rotation = economy.slice(economy.indexOf('  refresh-token:'));
+  assert.match(rotation, /vars.INSTAGRAM_TOKEN_SOURCE == 'encrypted_vault'/u);
   assert.match(economy, /cron:\s*['"]0 0,6,12,18 \* \* \*['"]/u);
   assert.match(economy, /inputs\.operation == 'collect_insights'/u);
   assert.match(economy, /node src\/v2\/index\.js performance-report/u);

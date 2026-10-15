@@ -29,3 +29,11 @@ production Node 20 전체 검사는 457건 중 454 통과·3 skip·0 실패다. 
 승인 후에는 새 Secret의 계정 읽기 검증 성공 → 암호화 임시 파일 작성·복호화 확인 → atomic replace → 암호화 파일만 커밋 → 기존 `diagnose`로 production 경로 확인 → 다음 정상 예약 발행의 media ID/permalink/schema3 확인 순서로 진행한다. 계정 ID·사용자명 불일치나 인증 실패면 기존 vault를 보존한다.
 
 이 기록만으로 D0·실제 발행 복구·첫 화면/Basic 실험 시작을 표시하지 않는다.
+
+## 현재 진행: 공개 파일 교체와 발행을 분리
+
+사용자가 발행 진행을 재요청해 기존 daily-package와 같은 Secret 직접 사용 방식을 자동 운영에도 적용한다. 공개 vault 갱신 승인이 있어야만 현재 발행할 수 있다는 이전 안내를 정정한다. 공개 파일은 보존하고 새로운 credential 값은 여기에 쓰지 않는다.
+
+`INSTAGRAM_TOKEN_SOURCE=repository_secret`은 검증된 환경 Secret을 직접 읽는다. 양 workflow는 이 모드를 기본으로 사용한다. 기존 encrypted_vault 모드는 명시적 설정에서만 유지하고 그때만 주간 암호화 회전을 실행한다. Secret 모드 refresh는 API·파일 작업 전 skipped로 종료한다. 장기 토큰 자동 연장은 별도 미완료이며 현재 발행 복구와 구분한다.
+
+공개 암호화 파일 갱신에 대한 이전 승인 질문은 이 발행 경로의 필수 조건이 아니다. 새 Secret으로 일반 핫뉴스 발행을 실행하고 콘텐츠 검수·실제 Reel 결과를 기록한다. 품질 gate를 우회하거나 테스트 게시물을 만들지 않는다.

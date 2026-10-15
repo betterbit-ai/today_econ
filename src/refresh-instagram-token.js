@@ -2,6 +2,10 @@ const config = require('../config');
 const { resolveInstagramToken, writeEncryptedToken } = require('./token-vault');
 
 async function refreshInstagramToken({ fetchImpl = fetch } = {}) {
+  if (config.instagramTokenSource === 'repository_secret') {
+    console.log('[Token Refresh] Repository Secret mode: encrypted vault rotation is skipped.');
+    return { skipped: true, reason: 'repository_secret_mode' };
+  }
   const currentToken = resolveInstagramToken();
   const url = new URL('https://graph.instagram.com/refresh_access_token');
   url.searchParams.set('grant_type', 'ig_refresh_token');

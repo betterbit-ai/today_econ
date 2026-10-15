@@ -43,6 +43,7 @@ async function diagnoseDiem({
   const report = {
     schemaVersion: 1, readOnly: true, runId: String(runId), collectedAt: now.toISOString(),
     githubSha: process.env.GITHUB_SHA || null,
+    credentialSource: settings.instagramTokenSource || 'encrypted_vault',
     instagram: { status: 'unavailable' },
     model: { status: 'unavailable', id: settings.groqVisionModel },
     vision: { probeType: 'project_owned_fixture', consecutiveSuccesses: 0, successfulRunIds: [], runs: [] },
