@@ -19,7 +19,7 @@ const { assessPublicationHealth } = require('./publication-health');
 const { assessDailyPublicationBudget } = require('./publication-policy');
 const { preparePublication, publishPreparedPublication } = require('./publisher');
 const { kstDate, kstRunSlot } = require('./time');
-const { buildNewsFrame } = require('./topic');
+const { buildNewsFrame, classifyCandidate } = require('./topic');
 
 const CATEGORY_ORDER = [CATEGORIES.ECONOMY, CATEGORIES.ISSUE];
 
@@ -227,11 +227,29 @@ async function planCategoryPhase({
   if (current.contentType === 'diem_daily') {
     return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true, cloudPackageProtected: true };
   }
-  if (publicationNeedsRecovery(current)) {
+  const retireUnattemptedCommentary = current.status === 'planned'
+    && !current.ambiguousExternalState
+    && ['reel', 'story', 'comment', 'reply'].every(name => {
+      const step = current[name];
+      return (!step && name !== 'reel') || (step?.status === 'planned'
+        && step.attempts === 0
+        && !step.containerId && !step.externalId && !step.publishedAt
+        && !step.ambiguousExternalState);
+    })
+    && classifyCandidate(current.candidate || {}).excluded?.includes('personal_relationship_commentary');
+  const planningLedger = retireUnattemptedCommentary ? updatePublication(previousLedger, category, {
+    status: 'no_publish',
+    reason: 'personal_relationship_commentary',
+    reel: { ...current.reel, status: 'no_publish' },
+    story: { ...(current.story || emptyStep()), status: 'no_publish' },
+    comment: { ...current.comment, status: 'no_publish' },
+    reply: { ...current.reply, status: 'no_publish' },
+  }) : previousLedger;
+  if (publicationNeedsRecovery(planningLedger.publications[category])) {
     return { ledger: previousLedger, previousLedger: structuredClone(previousLedger), reused: true, recovery: true };
   }
 
-  const publicationBudget = assessDailyPublicationBudget(previousLedger, category, {
+  const publicationBudget = assessDailyPublicationBudget(planningLedger, category, {
     limit: config.maxDailyPublicationsPerCategory,
   });
   if (!publicationBudget.allowed) {
@@ -244,7 +262,7 @@ async function planCategoryPhase({
         budgetExhausted: true,
       };
     }
-    let ledger = archivePublication(previousLedger, category);
+    let ledger = archivePublication(planningLedger, category);
     ledger = startPublicationRun(ledger, category, slot || config.githubRunId || kstRunSlot(now));
     ledger = updatePublication(ledger, category, {
       status: 'no_publish',
@@ -265,11 +283,11 @@ async function planCategoryPhase({
     };
   }
 
-  const sourceLedgers = replaceLedgerForDate(listLedgersImpl(), previousLedger);
+  const sourceLedgers = replaceLedgerForDate(listLedgersImpl(), planningLedger);
   const publicationHealth = assessPublicationHealth(sourceLedgers, { now });
   const dailyFloorMode = category === CATEGORIES.ECONOMY && publicationHealth.dailyFloorDue;
 
-  let ledger = archivePublication(previousLedger, category);
+  let ledger = archivePublication(planningLedger, category);
   if ((ledger.candidates || []).length > 0 && ledger.candidatePublicationKey) {
     ledger.candidateRuns = Array.isArray(ledger.candidateRuns) ? ledger.candidateRuns : [];
     if (!ledger.candidateRuns.some(run => run.publicationKey === ledger.candidatePublicationKey)) {
