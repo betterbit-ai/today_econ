@@ -13,6 +13,7 @@ module.exports = {
   slackBotToken: process.env.SLACK_BOT_TOKEN,
   slackChannelId: process.env.SLACK_CHANNEL_ID,
   instagramAccessToken: process.env.INSTAGRAM_ACCESS_TOKEN,
+  instagramTokenSource: process.env.INSTAGRAM_TOKEN_SOURCE || 'encrypted_vault',
   instagramTokenEncryptionKey: process.env.INSTAGRAM_TOKEN_ENCRYPTION_KEY,
   instagramUserId: process.env.INSTAGRAM_USER_ID,
   instagramUsername: process.env.INSTAGRAM_USERNAME || 'diem.magazine',

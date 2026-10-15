@@ -15,6 +15,8 @@
 
 2026-10-15 새 Secret 점검: `diagnose_new_token` 수동 입력은 읽기 진단 subprocess에서만 암호화 키를 unset해 갱신된 환경 Secret을 검증한다. 기존 vault·원장·설정은 변경하지 않으며 기존 diagnose는 vault-first 점검을 유지한다. 새 토큰의 암호화 파일 공개 저장 갱신은 명시적 승인 확인 전 수행하지 않는다.
 
+2026-10-15 즉시 발행 복구: 사용자가 정상 발행 진행을 다시 요청했다. 기존 daily-package 경로와 동일하게 GitHub Secret을 직접 사용하는 `repository_secret` 모드를 경제·시사 자동 운영 기본값으로 적용한다. 공개 credential 파일의 쓰기·삭제·우회 갱신은 하지 않는다. 기존 encrypted_vault 모드는 명시적 설정으로만 유지하며 해당 모드일 때만 주간 암호화 회전을 실행한다. Secret 모드에서는 refresh 명령도 파일을 쓰지 않고 skipped를 반환한다. Secret의 장기 자동 회전은 미해결 상태로 구분하고, 현재 유효한 Secret으로 정상 품질 gate를 통과한 콘텐츠 발행과 기존 예약 운영을 복구한다.
+
 ### Slice 2 — Slice1 운영 증거 확인 후
 
 flash 핵심사실1개는 기존 claim·원문 참조, 최대32grapheme·2줄·최소44px다. overflow는 차단한다. 동일 적합성 통과 후 기사ID hash로 control/fact_line을 절반 배정하며 실험ID·군을 analytics에 기록한다. 길이6초·음악·시각 유지, 동일 사건 중복발행 금지. 각군 정시24h10편 및 분야별 표본 전에는 insufficient_data이고 v3학습 하한10/5는 유지한다.

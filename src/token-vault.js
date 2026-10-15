@@ -50,6 +50,14 @@ function writeEncryptedToken(token, filePath = config.instagramTokenFile, encode
 }
 
 function resolveInstagramToken() {
+  const source = config.instagramTokenSource || 'encrypted_vault';
+  if (!['repository_secret', 'encrypted_vault'].includes(source)) {
+    throw new Error('[Token Vault] Unsupported credential source.');
+  }
+  if (source === 'repository_secret') {
+    if (!config.instagramAccessToken) throw new Error('[Token Vault] No Instagram access token is available.');
+    return config.instagramAccessToken;
+  }
   const encrypted = config.instagramTokenEncryptionKey
     ? readEncryptedToken(config.instagramTokenFile, config.instagramTokenEncryptionKey)
     : null;

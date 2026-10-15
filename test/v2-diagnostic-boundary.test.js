@@ -25,6 +25,7 @@ test('manual diagnostic job has read permissions and cannot publish, commit ledg
   // Removing credentials from mock tests is allowed; supplying Slack credentials is not.
   assert.doesNotMatch(job.replace(/-u SLACK_(?:BOT_TOKEN|CHANNEL_ID)/gu, ''), /SLACK_/);
   assert.match(job, /-u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY/);
+  assert.match(job, /-u INSTAGRAM_TOKEN_SOURCE/);
   assert.match(job, /-u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE/);
 });
 

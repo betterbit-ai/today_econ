@@ -80,6 +80,7 @@ env:
   SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
   SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
   INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+  INSTAGRAM_TOKEN_SOURCE: ${{ vars.INSTAGRAM_TOKEN_SOURCE || 'repository_secret' }}
   INSTAGRAM_TOKEN_ENCRYPTION_KEY: ${{ secrets.INSTAGRAM_TOKEN_ENCRYPTION_KEY }}
   INSTAGRAM_USER_ID: ${{ vars.INSTAGRAM_USER_ID }}
   INSTAGRAM_USERNAME: ${{ vars.INSTAGRAM_USERNAME || 'diem.magazine' }}
@@ -418,6 +419,7 @@ jobs:
         # Production credentials and switches belong only to the diagnostic step.
         run: |
           env -u GROQ_API_KEY -u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY \
+            -u INSTAGRAM_TOKEN_SOURCE \
             -u SLACK_BOT_TOKEN -u SLACK_CHANNEL_ID -u GITHUB_TOKEN \
             -u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE \
             node .codex-harness/scripts/verify-project.mjs
@@ -632,7 +634,9 @@ jobs:
         run: bash scripts/commit-diem-state.sh "Preserve an operator deletion or correction reason"
 
   refresh-token:
-    if: github.event_name == 'schedule' && github.event.schedule == '30 20 * * 0'
+    if: >-
+      github.event_name == 'schedule' && github.event.schedule == '30 20 * * 0' &&
+      vars.INSTAGRAM_TOKEN_SOURCE == 'encrypted_vault'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
