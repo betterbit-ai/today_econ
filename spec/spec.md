@@ -13,6 +13,8 @@
 5. 제목 숫자의 단위·분모·기간·비교 대상·조건·확정성을 원문에 대조한다. 3년9개월→9개월, 미신청가구 중 청년비중→청년미신청률을 차단한다. 증명 실패는 숫자 제거 재교정 또는 다음 후보다.
 6. 뉴스/Basic·reach/views·24h/72h/7d를 분리한다. 부분수집 재시도는 최대3회/6시간. 최초 관측·재수집 시점을 보존하고 늦은 누적값으로 정시 관측을 덮어쓰지 않는다. 주간/Basic 보고서에도 동일 규칙을 적용한다. flash-only explain 목표는 not_applicable다.
 
+2026-10-15 새 Secret 점검: `diagnose_new_token` 수동 입력은 읽기 진단 subprocess에서만 암호화 키를 unset해 갱신된 환경 Secret을 검증한다. 기존 vault·원장·설정은 변경하지 않으며 기존 diagnose는 vault-first 점검을 유지한다. 새 토큰의 암호화 파일 공개 저장 갱신은 명시적 승인 확인 전 수행하지 않는다.
+
 ### Slice 2 — Slice1 운영 증거 확인 후
 
 flash 핵심사실1개는 기존 claim·원문 참조, 최대32grapheme·2줄·최소44px다. overflow는 차단한다. 동일 적합성 통과 후 기사ID hash로 control/fact_line을 절반 배정하며 실험ID·군을 analytics에 기록한다. 길이6초·음악·시각 유지, 동일 사건 중복발행 금지. 각군 정시24h10편 및 분야별 표본 전에는 insufficient_data이고 v3학습 하한10/5는 유지한다.
