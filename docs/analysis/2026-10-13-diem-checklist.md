@@ -33,10 +33,12 @@
 - [x] 새 Secret 읽기 진단 성공: Action `38661135531`, 기대 전문 계정 ID와 `diem.magazine` 사용자명 일치.
 - [x] production Node 20 검사 457건: 454 통과·3 skip·0 실패 및 Models API·실제 Vision 5회 연속 성공.
 - [x] 앱 범위 id와 전문 계정 user_id의 진단 비교 오류를 회귀로 수정하고 main에 반영했다.
-- [ ] 기존 공개 암호화 vault 갱신의 명시적 승인 및 새 Secret으로 파일 교체.
-- [ ] vault-first production 경로 읽기 진단과 정상 예약 발행 확인.
+- [x] 공개 vault 교체 없이 Secret을 직접 사용하는 자동 운영 배포: PR #165 / main `15020436`.
+- [x] 실제 production 경로 Secret 읽기·계정 일치·Models API·Vision 5회 확인: Action `38689473718`.
+- [x] 관계일침 경제 오분류 및 결정사→확정사 오류 차단, 미시도 planned 재선정 보호: PR #166 / main `4cb72a4d`.
+- [ ] 정상 발행 실행 `38691494873`의 실제 media ID·permalink 확인.
 
-새 Secret은 정상이며 이전 암호화 파일은 그대로다. 두 상태를 구분한다. 근거는 [재인증 기록](2026-10-15-instagram-reauthentication.md)과 `data/reports/2026-10-15-instagram-reauthentication.json`이다.
+새 Secret을 자동 운영에서 직접 사용한다. 공개 암호화 파일 갱신의 이전 승인 질문은 현재 발행의 필수 조건이 아니다. 장기 Secret 자동 연장은 별도 미완료다. 근거는 [재인증 기록](2026-10-15-instagram-reauthentication.md), `data/reports/2026-10-15-instagram-reauthentication.json`, [발행 안내](../diem-publishing-quickstart-ko.md)다.
 
 ## 0. 이번 분석에서 완료한 확인
 

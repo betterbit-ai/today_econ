@@ -51,6 +51,21 @@ GitHub 수동 실행 절차의 공식 근거: [Manually running a workflow](http
 
 계정 재인증 후에도 문제가 있으면 토큰 대신 Action 링크와 오류 문구만 전달한다. 기사·이미지·문구 품질 문제는 개발/편집 담당이 수정한다.
 
+## 인증 오류가 다시 나왔을 때만 하는 순서
+
+지금은 새 토큰의 계정 연결이 검증돼 이 단계를 반복할 필요가 없다.
+
+1. 실패한 실행을 열고 왼쪽 `publish-economy` 또는 `publish-issue`를 누른다.
+2. 빨간 단계 또는 발행 결과의 오류 코드를 확인한다. 기사·이미지 검수 실패라면 토큰을 바꾸지 않는다.
+3. 실제 `401 / 190`이면 기존 Meta 앱에서 `diem.magazine` 계정으로 정상 재인증한다. 권한 오류라면 앱의 Instagram 콘텐츠 게시 권한도 확인한다. 계정 조회 성공만으로 게시 권한까지 증명되지는 않는다.
+4. 새 토큰을 얻었으면 [저장소 Actions Secrets](https://github.com/betterbit-ai/today_econ/settings/secrets/actions)를 연다.
+5. `INSTAGRAM_ACCESS_TOKEN`의 수정 버튼을 누르고 Value에 새 토큰을 넣어 `Update secret`을 누른다. 항목이 없다면 `New repository secret`에서 같은 이름으로 만든다. `Variables` 탭에 저장하지 않는다.
+6. [경제 Actions](https://github.com/betterbit-ai/today_econ/actions/workflows/diem_economy.yml) → `Run workflow` → `main` → operation `diagnose`로 한 번 실행한다. 이 작업은 실제 게시물을 올리지 않는다.
+7. 계정 일치·접근 성공을 확인한 뒤 operation `hot_news`로 정상 발행을 실행한다.
+8. 같은 오류가 남으면 Action 링크와 코드만 전달한다. 토큰 값을 보내지 않는다.
+
+GitHub 설정 위치는 [공식 Secrets 안내](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)를 따른다. Instagram Login의 게시 권한은 Meta의 [Instagram API 안내](https://www.postman.com/meta/instagram/documentation/6yqw8pt/instagram-api)에 명시돼 있다.
+
 ## 별도로 남은 운영 항목
 
 현재 유효한 Secret으로 자동 뉴스 발행은 진행하지만, Secret의 장기 자동 연장은 완료되지 않았다. 공개 암호화 파일 회전은 repository variable `INSTAGRAM_TOKEN_SOURCE=encrypted_vault`에 명시적으로 전환한 때만 실행된다. 이 저장 경로를 승인·검증하기 전에는 전환하지 않는다. 현재 토큰의 만료일은 발급 정보로 관리하고, 필요한 재발급은 같은 Secret을 갱신한다.
