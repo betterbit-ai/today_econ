@@ -48,6 +48,7 @@ async function diagnoseDiem({
     vision: { probeType: 'project_owned_fixture', consecutiveSuccesses: 0, successfulRunIds: [], runs: [] },
   };
   let token;
+  let observedAccount;
   const secrets = [settings.groqApiKey, settings.instagramAccessToken, settings.instagramTokenEncryptionKey];
   const safeMessage = error => sanitizeInstagramErrorMessage(error.message || String(error), { secrets });
   try {
@@ -55,15 +56,25 @@ async function diagnoseDiem({
     secrets.push(token);
     if (!settings.instagramUserId) throw new Error('[DIEM Diagnose] INSTAGRAM_USER_ID is unavailable');
     const account = await instagramRequestImpl({
-      path: settings.instagramUserId, token, version: settings.instagramApiVersion,
-      method: 'GET', params: { fields: 'id,username,media_count' },
+      path: 'me', token, version: settings.instagramApiVersion,
+      method: 'GET', params: { fields: 'id,user_id,username,media_count' },
     });
-    if (String(account.id) !== String(settings.instagramUserId)) throw new Error('[DIEM Diagnose] connected account mismatch');
-    report.instagram = { status: 'ok', accountId: String(account.id), username: account.username || null };
+    // user_id is the professional account; id may instead be app-scoped.
+    // Match the established check-instagram connection check before trusting a new token.
+    observedAccount = {
+      accountId: String(account.user_id || account.id || ''),
+      appScopedId: account.id == null ? null : String(account.id),
+      username: account.username || null,
+    };
+    if (observedAccount.accountId !== String(settings.instagramUserId)
+      || (settings.instagramUsername && observedAccount.username !== settings.instagramUsername)) {
+      throw Object.assign(new Error('[DIEM Diagnose] connected account mismatch'), { accountMismatch: true });
+    }
+    report.instagram = { status: 'ok', ...observedAccount };
   } catch (error) {
     report.instagram = {
-      status: 'failed', message: safeMessage(error),
-      disposition: instagramErrorDisposition(error),
+      status: 'failed', ...observedAccount, message: safeMessage(error),
+      disposition: error.accountMismatch ? 'manual_action_required' : instagramErrorDisposition(error),
       errorDetails: serializeInstagramError(error, { secrets }),
     };
   }
