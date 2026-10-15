@@ -4,7 +4,7 @@
   "date": "2026-10-16",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-15T17:29:30.467Z",
-  "updatedAt": "2026-10-15T19:44:58.265Z",
+  "updatedAt": "2026-10-15T19:47:27.297Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -411,7 +411,9 @@
           "ambiguous": true
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 30 in \"농림축산식품부는 브라질산 달걀 30알 한 판을 수입하는 데 약 4만 4천 원이 든다고 밝혀, 일반 특란 가격을 크게 웃도는 고비용 논란을 일으켰\"; 30 in \"정부는 겨울철 조류인플루엔자 발생으로 국내 산란계 13.7%를 살처분한 뒤 공급 부족을 메우기 위해 수입을 결정했으며, 정책 가격을 30알당 3\" | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 30 in \"정부는 브라질산 달걀을 한 판(30알)당 약 4만 4천원에 수입해 가격 논란을 일으켰다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 30 in \"정부는 브라질산 달걀을 한 판(30알)당 약 4만 4천원에 수입해 가격 논란을 일으켰다.\" | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"4만 4천원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"14억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"13.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"4만 4천원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"14억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"13.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+      ]
     },
     {
       "title": "\"국중박 전시 나온 친일파 유묵, 유홍준 관장이 주인\"",
@@ -449,7 +451,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "'정이품송' 있는 속리산에 첫 재선충병...방제 비상",
@@ -487,7 +491,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "'인천 흉기난동범' 50대 최 모 씨 오늘 구속영장 심사",
@@ -525,7 +531,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "한미, 전작권 충돌?...\"조건 변화\" vs \"골대 놔둬야\"",
@@ -563,7 +571,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“그 돈이 전재산이란 말이에요”…하락장 못 견딘 이들, 20대가 가장 많았다",
@@ -601,7 +611,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "“친구 얼굴 다 나왔네”…SNS 올린 운동회 사진에 일본 ‘발칵’",
@@ -639,7 +651,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“조작 아닌 실제 사진”…남성 키 맞먹는 압도적 다리길이, 여성의 정체",
@@ -677,7 +691,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“100일 된 딸 있는데 살려달라고”…이성미, 고 임윤택과 애틋한 인연",
@@ -715,7 +731,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“가슴에 5cm 종양 발견”…한고은, 수술 후 응급실 간 사연은",
@@ -753,7 +771,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "TSMC, 3분기 매출 62조5000억원·영업익 36조7000억원… 역대 최대 실적",
@@ -791,7 +811,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:hot_score_below_threshold"
+      ]
     },
     {
       "title": "오세훈, 정원오 ‘칸쿤 출장’ 감사 중단 요구에 “시장 권한 아니다”",
@@ -829,7 +851,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] “주가 10만원까지 떨어져라”… 삼성전자 직원 글에 주주들 분통",
@@ -873,7 +897,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "첫 전기차 ‘토르칼’ 공개한 벤틀리… “한국은 트렌드 만드는 시장”",
@@ -911,7 +937,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3억3000만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5008\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"2025\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 0 in \"토르칼은 5008mm 전장, 2025mm 전폭, 1677mm 전고, 3023mm 휠베이스를 갖고 2.9초 0-100km/h 가속을 기록한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+      ]
     },
     {
       "title": "경찰, '암살자(들)' 배우 유해진 측 요청 따라 신변보호 해제",
@@ -965,7 +993,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"폭락 전 93조 팔아치웠다\" 허탈…남은 개미들만 '피눈물' [분석+]",
@@ -1003,7 +1033,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_urgent_threshold"
+      ]
     },
     {
       "title": "\"문신 멋있어 보이긴 처음\"…칼부림 막아낸 31세 청년의 반전",
@@ -1041,7 +1073,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"오늘부터는 튀르키예인\"…한국인 '국적 세탁' 나선 이유",
@@ -1079,7 +1113,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] 金 3700만원어치 카드 긁더니…\"안 갚을래요\" 황당",
@@ -1117,7 +1153,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "서울 전역 토허제 1년…사상초유 강수 뒤 부동산 시장은?",
@@ -1153,7 +1191,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "친일파 유묵 소장자는 유홍준 관장…개인소장품 2점 전시",
@@ -1191,7 +1231,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "코스피·코스닥 동반 서킷브레이커…미국발 충격에 ‘검은 목요일’",
@@ -1227,7 +1269,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_urgent_threshold"
+      ]
     },
     {
       "title": "“인적 끊겨 적막감만”…‘무차별 흉기 난동’에 커지는 시민 불안",
@@ -1265,7 +1309,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "전남광주 길거리서 흉기 들고 상인 위협한 50대 입건",
@@ -1303,7 +1349,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[속보] 승객 146명 싣고 베트남 가던 대한항공 여객기, 엔진 이상에 회항…“적절 보상”",
@@ -1341,7 +1389,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[속보] 70대 운전자, 어린이보호구역서 초등 2년생 들이받아…결국 사망",
@@ -1379,7 +1429,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "추미애 “소방은 골치 아픈 재정 빨대” 발언에 양대 노총 소방노조 격앙",
@@ -1417,7 +1469,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "17년만 풀려난 우즈벡 무기수…“‘창원 택시기사 살인’ 억울함 풀고, 고향 가고 싶어”",
@@ -1455,7 +1509,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "“조선은 대대로 중국의 속국”…국가공인 관광통역사 역사 왜곡 논란",
@@ -1493,7 +1549,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[속보] 19세 여성 여전히 의식불명…인천 흉기난동범, 살인미수에도 '집유' 후환 키웠다",
@@ -1531,7 +1589,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:narrow_private_crime_story"
+      ]
     },
     {
       "title": "광안대교 AI 끼어들기 단속 카메라, 한 번도 단속 못하고 3년 만에 철거",
@@ -1569,7 +1629,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "盧 열고 ‘부캉이’ 띄운 북항… 5만 석 돔 결실 맺자",
@@ -1607,7 +1669,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value,issue_low_value"
+      ]
     },
     {
       "title": "아파트만 덩그러니 선 에코델타시티… ‘자족도시’ 포기했나",
@@ -1643,7 +1707,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "도시계획 중심에 ‘강’을 뒀더니 관광객까지 모여들었다 [백년하천 동천으로]",
@@ -1681,7 +1747,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "'창원 택시기사 살인 사건' 진실 다시 밝힌다... 19세 아크말, 37세로 풀려났다",
@@ -1719,7 +1787,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "어린이보호구역서 건넜는데… 우회전 차량에 치여 숨진 초등 2학년",
@@ -1757,7 +1827,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "칼 휘두를 때 '현금 680만원' 메고 있었다… 흉기 난동범, 도피 계획 세웠나",
@@ -1795,7 +1867,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:local_private_crime_without_public_value"
+      ]
     },
     {
       "title": "'한동훈 딸=천재' 배현진 주장에… 혁신당 \"그럼 수사 필요 없나?\"",
@@ -1833,7 +1907,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     }
   ],
   "candidateRuns": [
@@ -3854,24 +3930,24 @@
     "economy": {
       "publicationKey": "diem:2026-10-16:economy:38795845431",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
-        "title": "'한 판 4만 4천원' 브라질산 달걀...배보다 더 커진 배꼽 [앵커리포트]",
-        "url": "https://n.news.naver.com/article/052/0002419363?ntype=RANKING",
+        "title": "첫 전기차 ‘토르칼’ 공개한 벤틀리… “한국은 트렌드 만드는 시장”",
+        "url": "https://n.news.naver.com/article/366/0001198257?ntype=RANKING",
         "publishedDate": "2026-10-16",
-        "publishedAt": "2026-10-15 22:56:39",
+        "publishedAt": "2026-10-15 17:36:14",
         "observedAt": "2026-10-15T19:43:18.019Z",
-        "popularityScore": 79.7959,
+        "popularityScore": 51.5102,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "daily_floor_candidate",
-          "score": 78.39,
-          "popularityScore": 79.7959,
-          "freshnessScore": 80,
-          "editorialValueScore": 70,
-          "ageHours": 5.78,
-          "publishedAt": "2026-10-15 22:56:39",
+          "score": 63.58,
+          "popularityScore": 51.5102,
+          "freshnessScore": 70,
+          "editorialValueScore": 95,
+          "ageHours": 11.17,
+          "publishedAt": "2026-10-15 17:36:14",
           "observedAt": "2026-10-15T19:43:18.019Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -3891,48 +3967,47 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 11,
-            "normalizedScore": 79.7959,
-            "title": "'한 판 4만 4천원' 브라질산 달걀...배보다 더 커진 배꼽 [앵커리포트]",
-            "url": "https://n.news.naver.com/article/052/0002419363?ntype=RANKING"
+            "rank": 25,
+            "normalizedScore": 51.5102,
+            "title": "첫 전기차 ‘토르칼’ 공개한 벤틀리… “한국은 트렌드 만드는 시장”",
+            "url": "https://n.news.naver.com/article/366/0001198257?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "달걀 한 판 가격이 '4만 4천원'이라고 하면 평소 장 보는 분들 아니더라도 왜 이렇게 비싸 싶으실 겁니다.최근 정부가 브라질에서 달걀 한 판을 수입하는 데 든 비용이 약 4만 4,000원 꼴이 되는 것으로 나타났는데요.어떻게 된 일인지 함께 보시죠.농림축산식품부에 따르면요, 올해 수입된 브라질산 달걀은 약 112만 개로 수입에 총 16억 원이 쓰였습니다.달걀을 사 오는 데 든 현지 비용은 2억 원인데, 장거리 항공 운송비와 관세 등으로 무려 14억 원이 들어갔습니다.그러니까 배보다 배꼽이 더 큰 셈인데요.이를 달걀 한 판, 서른 알 기준으로 환산해 보면 수입 단가는 무려 4만 3,923원에 달합니다.현재 마트에서 일반 특란 한 판이 7천원대, 많이들 선호하는 난각번호 1번 달걀도 한 판 가격이 1만원 초중반대인 것과 비교하면, 4만 원이 훌쩍 넘는 브라질 달걀, 많이 비싸긴 합니다.농식품부는 다만 정부 예산이 투입되면서 수입 원가와 상관없이 정책적으로 30개 한 판당 3,930원꼴로 공급해 소비자 가격 부담을 낮췄다고 설명했는데요.그렇다면 브라질산 달걀을 수입한 이유는 뭘까요.농식품부는 지난 겨울 고병원성 조류인플루엔자가 발생하면서 전체 산란계 사육 마릿수의 13.7% 정도가 살처분된 점을 이유로 꼽았습니다.이와 함께 수입선 다변화도 이유로 들었는데요.당초 미국 등에서 수입을 추진했지만 현지 AI 확산으로 차질이 빚어졌고 브라질은 우리나라와 계절이 정반대라 국내에서 AI가 집중적으로 발생하는 겨울철 대체 공급처로 활용할 가능성이 있다는 겁니다.이렇게 정부가 브라질산 달걀 매입 비용과 수입 이유를 세세하게 공개한 데에는 다 이유가 있습니다.앞서 장동혁 국민의힘 대표가 지난 7월 이재명 대통령 브라질 방문 직후 브라질산 달걀이 수입됐다며 브라질 좌파 정권을 챙겨준 것 아니냐고 비판했기 때문인데요.그러자 이재명 대통령은 허위 주장이라며 정치적 목적의 허위사실 유포를 시정해주기 바란다고 밝혔습니다.농식품부는 브라질산 달걀의 장거리 운송에 따른 비용 부담이 크다는 점은 인정하며 향후 수입 여부 등은 종합적으로 고려해 결정하겠다는 입장을 내놨는데요.급하다고 지구 반대편에서 비행기로 달걀을 실어 나르는 상황이 또 벌어지지 않도록, 국내 생산 기반을 다지는 등 우리 농가의 경쟁력을 키우는 근본적인 대책 마련이 시급해 보입니다.※ '당신의 제보가 뉴스가 됩니다'[카카오톡] YTN 검색해 채널 추가[전화] 02-398-8585[메일] social@ytn.co.kr",
-        "summary": "달걀 한 판 가격이 '4만 4천원'이라고 하면 평소 장 보는 분들 아니더라도 왜 이렇게 비싸 싶으실 겁니다.최근 정부가 브라질에서 달걀 한 판을 수입하는 데 든 비용이 약 4만 4,000원 꼴이 되는 것으로 나타났는데요.어떻게 된 일인지 함께 보시죠.농림축산식품부에 따르면요, 올해 수입된 브라질산 달걀은 약 112만 개로 수입에 총 16억 원이 쓰였습니다.달걀을 사 오는 데 든 현지 비용은 2억 원인데, 장거리 항공 운송비와 관세 등으로 무려 14억 원이 들어갔습니다.그러니까 배보다 배꼽이 더 큰 셈인데요.이를 달걀 한 판, 서른 ",
+        "fullText": "오늘부터 주문 접수, 3억3000만원부터“젊은 층 유치 위해 엔트리급 가격 책정” 프랑크 슈테펜 발리저 벤틀리모터스 회장 겸 최고경영자(CEO)는 15일 벤틀리의 첫 전기차인 토르칼(Torcal)로 한국의 젊은 소비자들을 공략하겠다고 했다. 벤틀리 라인업에서 가장 작은 체급의 순수 전기차를 내놓으면서 가격을 상대적으로 낮게 책정해 젊은 소비자층을 끌어들이는 전략이다.발리저 회장은 이날 서울 성북구 칸 스튜디오에서 토르칼 아시아 프리미어(공개 행사)를 마친 뒤 기자들과 만나 “코로나바이러스 감염증(코로나19) 사태 이후 글로벌 럭셔리 시장은 정점을 경험한 이후 중국 시장을 필두로 상당한 변화를 겪고 있다”면서 “이번 토르칼 출시로 (판매량이) 다시 성장할 것으로 기대한다”고 말했다. 15일 오후 서울 성북구에서 열린 토르칼 아시아 프리미어에서 프랑크 슈테펜 발리저 벤틀리모터스 회장 겸 최고경영자(CEO)가 발표하고 있다. /양범수 기자 벤틀리는 2023년 한국 시장에서 810대를 팔아 연간 최대 판매량을 기록했다. 이후 2024년 400대, 2025년 393대로 판매량이 줄었다. 올해는 9월까지 329대를 판매하며 회복 흐름을 보이고 있다.발리저 회장은 “토르칼은 벤틀리 자동차 중 엔트리급이라고 할 수 있다”면서 “젊은 소비자를 더 유치하고 싶었기 때문에 이렇게 가격을 책정했다”고 말했다. 발리저 회장은 “한국은 트렌드를 만드는 중요한 시장”이라면서 한국 시장의 영향력을 강조했다.토르칼은 벤틀리가 지난달 28일 영국에서 처음 공개한 준대형 전기 스포츠유틸리티차(SUV)다. 전장 5008㎜, 전폭 2025㎜, 전고 1677㎜, 축거(휠베이스) 3023㎜다. 같은 브랜드의 대형 SUV 벤테이가(Bentayga) 보다 작은 크기로, 제네시스의 준대형 SUV GV80과 비슷한 크기다.공차 중량이 2700㎏에 달하지만, 정지상태에서 시속 100㎞까지 도달하는 데 드는 시간(제로백)은 2.9초다. 전륜과 후륜에 각각 적용된 영구자석 동기식 모터가 최고 888마력(PS)의 출력과 최대 137.7㎏(1350Nm)의 토크를 발휘한다. 전압 800V, 순용량 113㎾h의 배터리는 1회 충전으로 최대 600㎞를 갈 수 있도록 만들어졌다.발리저 회장은 “전기차 기술이 많이 성숙하면서 주행 거리에서 많은 개선이 있었고 충전 인프라도 충분히 갖춰졌다”면서 “대중들의 전기차 수용도도 높아진 만큼 내년에 소비자에게 선보여질 토르칼에 큰 기대를 하고 있다”고 했다. 발리저 회장은 “한국에서 판매되는 토르칼에는 LG의 NCM(니켈-코발트-망간 산화물 삼원계 리튬이온) 배터리가 쓰인다”고 했다. 벤틀리 토르칼. /벤틀리모터스코리아 제공 벤틀리는 이날부터 주문을 받는 토르칼의 한국 판매 기본 가격을 3억3000만원으로 책정했다. 벤테이가(3억2000만원)와 비슷하게 책정하면서도 다양한 기본 옵션을 포함해 접근성을 높였다고 벤틀리코리아는 설명했다.발리저 회장은 토르칼이 벤테이가를 대체하기 위한 모델은 아니라고도 했다. 그는 “토르칼은 벤테이가보다는 아담한 SUV를 만들기 위해 차별화한 차”라고 했다.그는 “시장이 완전히 전기차로 돌아서기까지는 아직 몇 십년 정도 남았다고 본다”면서 “벤테이가는 내연기관과 플러그인하이브리드(PHEV) 두 구동계로만 출시될 것”이라고 했다.",
+        "summary": "오늘부터 주문 접수, 3억3000만원부터“젊은 층 유치 위해 엔트리급 가격 책정” 프랑크 슈테펜 발리저 벤틀리모터스 회장 겸 최고경영자(CEO)는 15일 벤틀리의 첫 전기차인 토르칼(Torcal)로 한국의 젊은 소비자들을 공략하겠다고 했다. 벤틀리 라인업에서 가장 작은 체급의 순수 전기차를 내놓으면서 가격을 상대적으로 낮게 책정해 젊은 소비자층을 끌어들이는 전략이다.발리저 회장은 이날 서울 성북구 칸 스튜디오에서 토르칼 아시아 프리미어(공개 행사)를 마친 뒤 기자들과 만나 “코로나바이러스 감염증(코로나19) 사태 이후 글로벌 럭셔리",
         "topicSignature": {
           "category": "economy",
-          "target": "관세",
-          "event": "달걀 배보다 커진",
+          "target": "전기차 토르칼",
+          "event": "벤틀리 한국은 트렌드",
           "entities": [
-            "4만",
-            "4천원"
+            "3억3000만원부터"
           ],
           "eventKey": null,
-          "text": "economy | 관세 | 4만 4천원"
+          "text": "economy | 전기차 토르칼 | 3억3000만원부터"
         },
         "newsFrame": {
           "category": "economy",
-          "classificationConfidence": "medium",
+          "classificationConfidence": "high",
           "classificationReasons": [
-            "category:economy",
-            "ambiguous"
+            "category:economy"
           ],
-          "publicInterestAnchor": "정책",
+          "publicInterestAnchor": null,
           "rejectionReason": null,
-          "subject": "관세",
+          "subject": "전기차 토르칼",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "관세"
+            "전기차",
+            "토르칼"
           ],
           "eventKind": "general",
           "eventLabel": "",
           "eventTerms": [],
           "eventKey": null,
-          "claimState": "tentative",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "",
+          "date": "오늘",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -3942,41 +4017,41 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 70,
+          "score": 95,
           "signals": [
             "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
           "penalties": [],
           "contentValueSignals": [
-            "money_impact",
-            "policy_change"
+            "money_impact"
           ],
           "observedMarketEvidence": null,
           "reason": "passes_editorial_value_gate",
           "frame": {
             "category": "economy",
-            "classificationConfidence": "medium",
+            "classificationConfidence": "high",
             "classificationReasons": [
-              "category:economy",
-              "ambiguous"
+              "category:economy"
             ],
-            "publicInterestAnchor": "정책",
+            "publicInterestAnchor": null,
             "rejectionReason": null,
-            "subject": "관세",
+            "subject": "전기차 토르칼",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "관세"
+              "전기차",
+              "토르칼"
             ],
             "eventKind": "general",
             "eventLabel": "",
             "eventTerms": [],
             "eventKey": null,
-            "claimState": "tentative",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "",
+            "date": "오늘",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -3984,19 +4059,19 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 70,
+          "baseScore": 95,
           "performancePrior": {
             "adjustment": 0,
             "window": null,
             "matched": [],
-            "reason": "insufficient_performance_samples"
+            "reason": "legacy_feature_schema_report_only"
           }
         },
         "performancePrior": {
           "adjustment": 0,
           "window": null,
           "matched": [],
-          "reason": "insufficient_performance_samples"
+          "reason": "legacy_feature_schema_report_only"
         },
         "classificationTrace": {
           "initial": {
@@ -4015,7 +4090,7 @@
             "status": "classified",
             "category": "economy",
             "excluded": [],
-            "ambiguous": true
+            "ambiguous": false
           }
         }
       },
@@ -4023,55 +4098,64 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.764,
+        "score": 0.6774,
         "method": "embedding",
-        "reason": "gray_distinct_event",
+        "reason": "below_threshold",
         "matchedPublicationKey": "diem:2026-10-12:economy:38189953082",
         "signature": {
           "category": "economy",
-          "target": "관세",
-          "event": "달걀 배보다 커진",
+          "target": "전기차 토르칼",
+          "event": "벤틀리 한국은 트렌드",
           "entities": [
-            "4만",
-            "4천원"
+            "3억3000만원부터"
           ],
           "eventKey": null,
-          "text": "economy | 관세 | 4만 4천원"
+          "text": "economy | 전기차 토르칼 | 3억3000만원부터"
         }
       },
       "editorial": null,
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3억3000만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5008\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"2025\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 0 in \"토르칼은 5008mm 전장, 2025mm 전폭, 1677mm 전고, 3023mm 휠베이스를 갖고 2.9초 0-100km/h 가속을 기록한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "updatedAt": "2026-10-15T19:47:26.061Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T19:47:26.061Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T19:47:26.061Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T19:47:26.061Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-10-16:economy:38795845431:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-15T19:47:27.296Z",
+          "slackTs": "1792093646.133159",
+          "issueNumber": 175,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/175"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-15T19:44:58.258Z",
       "hotness": {
         "ok": true,
@@ -4125,6 +4209,107 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "no_publish",
+        "attempts": 2,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3억3000만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5008\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"2025\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 0 in \"토르칼은 5008mm 전장, 2025mm 전폭, 1677mm 전고, 3023mm 휠베이스를 갖고 2.9초 0-100km/h 가속을 기록한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "candidateFailures": [
+          {
+            "title": "'한 판 4만 4천원' 브라질산 달걀...배보다 더 커진 배꼽 [앵커리포트]",
+            "url": "https://n.news.naver.com/article/052/0002419363?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 30 in \"농림축산식품부는 브라질산 달걀 30알 한 판을 수입하는 데 약 4만 4천 원이 든다고 밝혀, 일반 특란 가격을 크게 웃도는 고비용 논란을 일으켰\"; 30 in \"정부는 겨울철 조류인플루엔자 발생으로 국내 산란계 13.7%를 살처분한 뒤 공급 부족을 메우기 위해 수입을 결정했으며, 정책 가격을 30알당 3\" | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 30 in \"정부는 브라질산 달걀을 한 판(30알)당 약 4만 4천원에 수입해 가격 논란을 일으켰다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 30 in \"정부는 브라질산 달걀을 한 판(30알)당 약 4만 4천원에 수입해 가격 논란을 일으켰다.\" | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"4만 4천원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"14억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"13.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"4만 4천원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"14억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"13.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 30 in \"농림축산식품부는 브라질산 달걀 30알 한 판을 수입하는 데 약 4만 4천 원이 든다고 밝혀, 일반 특란 가격을 크게 웃도는 고비용 논란을 일으켰\"; 30 in \"정부는 겨울철 조류인플루엔자 발생으로 국내 산란계 13.7%를 살처분한 뒤 공급 부족을 메우기 위해 수입을 결정했으며, 정책 가격을 30알당 3\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 30 in \"정부는 브라질산 달걀을 한 판(30알)당 약 4만 4천원에 수입해 가격 논란을 일으켰다.\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an ungrounded numeric claim: 30 in \"정부는 브라질산 달걀을 한 판(30알)당 약 4만 4천원에 수입해 가격 논란을 일으켰다.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"4만 4천원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"14억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"13.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"4만 4천원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"14억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"13.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-15T19:45:55.406Z"
+          },
+          {
+            "title": "첫 전기차 ‘토르칼’ 공개한 벤틀리… “한국은 트렌드 만드는 시장”",
+            "url": "https://n.news.naver.com/article/366/0001198257?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3억3000만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5008\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"2025\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\" | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 0 in \"토르칼은 5008mm 전장, 2025mm 전폭, 1677mm 전고, 3023mm 휠베이스를 갖고 2.9초 0-100km/h 가속을 기록한다.\" | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"3억3000만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5008\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"2025\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an ungrounded numeric claim: 0 in \"The Torcal measures 5008 mm long, 2025 mm wide and 1677 mm high, and accelerates\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 0 in \"토르칼은 5008mm 전장, 2025mm 전폭, 1677mm 전고, 3023mm 휠베이스를 갖고 2.9초 0-100km/h 가속을 기록한다.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"400대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"2025년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-15T19:46:58.134Z"
+          }
+        ],
+        "updatedAt": "2026-10-15T19:47:26.061Z"
       }
     },
     "issue": {
