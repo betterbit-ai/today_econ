@@ -26,6 +26,7 @@ on:
           - record_moderation
           - collect_insights
           - diagnose
+          - diagnose_new_token
           - cloud_candidates
           - daily_package_validate
           - daily_package_prepare
@@ -386,7 +387,9 @@ jobs:
         run: bash scripts/commit-diem-state.sh "Refresh DIEM performance evidence without publishing"
 
   read-only-diagnostics:
-    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'diagnose'
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      (inputs.operation == 'diagnose' || inputs.operation == 'diagnose_new_token')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -420,7 +423,14 @@ jobs:
             node .codex-harness/scripts/verify-project.mjs
 
       - name: Read account and review five shadow image pairs without publishing
-        run: node src/v2/index.js diagnose --read-only --output .diem-cache/diagnostics/report.json
+        env:
+          DIAGNOSTIC_OPERATION: ${{ inputs.operation }}
+        run: |
+          if [ "$DIAGNOSTIC_OPERATION" = 'diagnose_new_token' ]; then
+            # Inspect the newly saved Secret without reading or changing the old vault.
+            unset INSTAGRAM_TOKEN_ENCRYPTION_KEY
+          fi
+          node src/v2/index.js diagnose --read-only --output .diem-cache/diagnostics/report.json
 
       - name: Preserve secret-free diagnostic evidence
         if: always()

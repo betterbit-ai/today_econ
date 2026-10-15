@@ -27,3 +27,13 @@ test('manual diagnostic job has read permissions and cannot publish, commit ledg
   assert.match(job, /-u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY/);
   assert.match(job, /-u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE/);
 });
+
+test('new Secret diagnosis bypasses the encrypted vault only within the read-only diagnostic step', () => {
+  const workflow = fs.readFileSync(path.join(__dirname, '..', '.github/workflows', 'diem_economy.yml'), 'utf8');
+  const job = workflow.slice(workflow.indexOf('  read-only-diagnostics:'), workflow.indexOf('  retry-editorial-publication:'));
+  assert.match(job, /inputs.operation == 'diagnose_new_token'/);
+  assert.match(job, /DIAGNOSTIC_OPERATION: \$\{\{ inputs.operation \}\}/);
+  assert.match(job, /if \[ "\$DIAGNOSTIC_OPERATION" = 'diagnose_new_token' \]; then[\s\S]*unset INSTAGRAM_TOKEN_ENCRYPTION_KEY[\s\S]*fi/);
+  assert.match(job, /contents: read/);
+  assert.doesNotMatch(job, /writeEncryptedToken|token.enc|git add|git commit|git push/);
+});
