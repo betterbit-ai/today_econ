@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-15T00:44:15.931Z",
+  "secretUpdatedAt": "2026-10-14T15:12:34Z",
+  "codeDeployment": {
+    "identityPullRequest": "https://github.com/betterbit-ai/today_econ/pull/162",
+    "mainSha": "ef7942caa4ccb17739eb4a44e10554bd191aeaf3"
+  },
+  "verification": {
+    "local": {
+      "runtime": "Node.js 25",
+      "tests": 457,
+      "pass": 456,
+      "skip": 1,
+      "fail": 0
+    },
+    "production": {
+      "runtime": "Node.js 20",
+      "tests": 457,
+      "pass": 454,
+      "skip": 3,
+      "fail": 0
+    },
+    "independentReview": "green"
+  },
+  "diagnostics": [
+    {
+      "runId": "38660367364",
+      "url": "https://github.com/betterbit-ai/today_econ/actions/runs/38660367364",
+      "githubSha": "fee34c4c2ad1cd7277a8be807ce913f8edad1c00",
+      "credentialSource": "environment_secret",
+      "status": "failed",
+      "instagram": {
+        "status": "failed",
+        "message": "[DIEM Diagnose] connected account mismatch",
+        "disposition": "retry_pending",
+        "errorDetails": {
+          "httpStatus": null,
+          "code": null,
+          "subcode": null,
+          "userMessage": null,
+          "traceId": null
+        }
+      },
+      "model": {
+        "status": "ok",
+        "id": "qwen/qwen3.8-27b"
+      },
+      "vision": {
+        "consecutiveSuccesses": 5,
+        "successfulRunIds": [
+          "38660367364:vision:1",
+          "38660367364:vision:2",
+          "38660367364:vision:3",
+          "38660367364:vision:4",
+          "38660367364:vision:5"
+        ],
+        "runs": [
+          {
+            "id": "38660367364:vision:1",
+            "collectedAt": "2026-10-15T00:30:35.288Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38660367364:vision:2",
+            "collectedAt": "2026-10-15T00:31:41.645Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38660367364:vision:3",
+            "collectedAt": "2026-10-15T00:32:48.006Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38660367364:vision:4",
+            "collectedAt": "2026-10-15T00:33:54.390Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38660367364:vision:5",
+            "collectedAt": "2026-10-15T00:35:00.732Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          }
+        ]
+      }
+    },
+    {
+      "runId": "38661135531",
+      "url": "https://github.com/betterbit-ai/today_econ/actions/runs/38661135531",
+      "githubSha": "ba5d7faa5887dfa4adafa9296b29f8f2861ae6c4",
+      "credentialSource": "environment_secret",
+      "status": "ok",
+      "instagram": {
+        "status": "ok",
+        "accountId": "17841433257606150",
+        "appScopedId": "26918123124531303",
+        "username": "diem.magazine"
+      },
+      "model": {
+        "status": "ok",
+        "id": "qwen/qwen3.8-27b"
+      },
+      "vision": {
+        "consecutiveSuccesses": 5,
+        "successfulRunIds": [
+          "38661135531:vision:1",
+          "38661135531:vision:2",
+          "38661135531:vision:3",
+          "38661135531:vision:4",
+          "38661135531:vision:5"
+        ],
+        "runs": [
+          {
+            "id": "38661135531:vision:1",
+            "collectedAt": "2026-10-15T00:38:28.665Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38661135531:vision:2",
+            "collectedAt": "2026-10-15T00:39:37.873Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38661135531:vision:3",
+            "collectedAt": "2026-10-15T00:40:46.889Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38661135531:vision:4",
+            "collectedAt": "2026-10-15T00:41:53.270Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          },
+          {
+            "id": "38661135531:vision:5",
+            "collectedAt": "2026-10-15T00:42:59.646Z",
+            "status": "ok",
+            "selectedId": "finance-01"
+          }
+        ]
+      }
+    }
+  ],
+  "recovery": {
+    "newSecretVerified": true,
+    "encryptedVaultReplaced": false,
+    "vaultReplacementStatus": "awaiting_explicit_public_persistence_approval",
+    "d0": null,
+    "successfulScheduledPublication": null
+  }
+}

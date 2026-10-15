@@ -16,6 +16,12 @@ PR #161은 main `e55ac73ed3d24a6855c4f7ce8c942aa88d83d81a`에 반영했다. 첫 
 
 기존 `src/check-instagram.js`와 공식 Instagram Login 필드 의미에 맞춰 `GET /me`에서 `user_id`를 우선 비교하고 설정된 사용자명도 함께 대조하도록 수정했다. `id`는 앱 범위 식별자일 수 있다. 실제 불일치는 manual_action_required로 남기고 선택된 계정 ID·앱 범위 ID·사용자명만 기록한다. 두 실패 회귀 후 수정, 전체 harness 457건 중 456 통과·1 skip·0 실패와 독립 Green을 확인했다. 수정 후 실제 새 Secret 일치는 다시 production 진단으로 확인해야 한다.
 
+수정은 [PR #162](https://github.com/betterbit-ai/today_econ/pull/162), main `ef7942caa4ccb17739eb4a44e10554bd191aeaf3`에 반영했다. 최종 [진단 38661135531](https://github.com/betterbit-ai/today_econ/actions/runs/38661135531)은 전체 success다. 새 Secret의 전문 계정 ID `17841433257606150`과 사용자명 `diem.magazine`이 설정과 일치한다. 앱 범위 ID는 `26918123124531303`으로 서로 달랐다. 기존 401 세션 무효화는 새 Secret에서 발생하지 않았다.
+
+production Node 20 전체 검사는 457건 중 454 통과·3 skip·0 실패다. Models API `qwen/qwen3.8-27b`와 실제 두 이미지 검수도 5회 연속 성공했으며 실행 ID는 `38661135531:vision:1`~`:5`다. 첫 실패와 최종 성공을 함께 `data/reports/2026-10-15-instagram-reauthentication.json`에 보존한다. raw 토큰·암호화 키·전체 API 응답은 포함하지 않는다.
+
+**새 Secret의 재인증은 확인됐지만 production vault는 교체하지 않았다.** `data/instagram-token.enc`가 기존 `855434ad` 이후 변경되지 않았음을 확인했다. 기존 자동 발행은 계속 vault-first이므로 이 진단만으로 자동 발행 복구나 D0를 선언하지 않는다. 공개 암호화 파일 갱신 승인이 남아 있다.
+
 ## 암호화 파일 갱신의 승인 경계
 
 새 Secret으로 기대 계정 ID·사용자명을 확인하고 기존 AES-256-GCM 도구로 암호화 파일만 교체하는 수동 복구 Action을 준비하려 했으나, 자동 승인 검토가 공개 저장소의 credential 파일 갱신 경로에 대한 명시적 승인을 요구해 거절했다. 코드·Action 추가와 해당 파일 갱신은 실행하지 않았다. 사용자에게 `betterbit-ai/today_econ`의 `data/instagram-token.enc`를 암호화된 형태로 갱신하는 범위를 제시해 승인을 요청했다. 응답 전 동일한 파일 갱신을 다른 도구·명령으로 우회하지 않는다.
