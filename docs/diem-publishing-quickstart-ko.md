@@ -45,6 +45,9 @@ GitHub 수동 실행 절차의 공식 근거: [Manually running a workflow](http
 | 401 / code 190 / session invalidated | Meta 앱에서 해당 계정을 재인증하고 새 토큰을 GitHub Secret `INSTAGRAM_ACCESS_TOKEN`에 저장한다. 토큰 원문은 채팅·로그에 넣지 않는다. 이후 operation `diagnose`로 읽기 접근을 확인한다. |
 | permission / code 10·200 등 | 같은 앱·같은 계정의 콘텐츠 게시/댓글 권한을 확인한다. 단순 재시도보다 권한 승인과 새 토큰 확인이 먼저다. |
 | no_candidate_passed_hotness_gate | 최신 인기·신선도 기준을 통과한 기사가 없음. 다음 후보 수집을 기다린다. |
+| no_candidate_passed_daily_floor_gates | 장기 미발행 보충 모드에서도 편집 가치·인기·시의성 등을 모두 통과한 후보가 없음. 토큰 문제가 아니므로 기사별 탈락 사유를 점검한다. |
+| recent_duplicate | 최근 게시물과 유사한 사건으로 판단됨. 원장의 기존 게시물과 대조하고, 실제로 다른 사건인지 개발 담당이 확인한다. 중복 검사를 끄고 재실행하지 않는다. |
+| extraordinary_claim_unverified | 이례적인 수치·최대 기록 등에 필요한 독립 근거를 확보하지 못함. 추가 원문 근거가 확인되거나 다른 후보를 사용해야 한다. |
 | image_context_unavailable / unmapped | 해당 사건에 맞는 검증된 이미지가 없음. 관련 자산을 검수·추가하거나 다음 후보를 사용한다. 무관 이미지를 강제로 붙이지 않는다. |
 | unsupported numeric meaning | 숫자의 기간·분모·대상 등이 근거와 맞지 않음. 해당 문구를 근거대로 고치거나 불필요한 숫자를 제거해 재검증한다. |
 | 429 / 5xx | 일시적 제한·서버 오류. 기존 제한된 재시도를 사용하고 무한 반복 실행하지 않는다. |

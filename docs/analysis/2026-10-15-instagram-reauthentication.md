@@ -1,5 +1,11 @@
 # 2026-10-15 Instagram 재인증 점검
 
+## 10월 16일 현재 상태
+
+10월 15일 밤 예약 시사 실행 [38733095776](https://github.com/betterbit-ai/today_econ/actions/runs/38733095776)의 실제 업로드에서 HTTP 401 / code 190 / 세션 무효화가 반환됐다. `repository_secret` 경로이며 공개 vault 교체 여부와 무관하다. Reel attempts 1 / externalId null / manual_action_required다. 이전 읽기 진단 성공은 이후 토큰의 유효성을 보장하지 않는다. Secret 저장 시각은 여전히 10월 15일 00:12:34 KST다.
+
+현재 읽기 진단은 [38763680621](https://github.com/betterbit-ai/today_econ/actions/runs/38763680621)로 다시 실행한다. 인증이 실패하면 계정 소유자의 정상 Meta 재연결과 GitHub Secret 갱신이 필요하다. 실제 업로드 성공 전 D0와 실험 활성화는 보류한다. 단계별 조치는 [발행 안내](../diem-publishing-quickstart-ko.md)를 따른다.
+
 사용자가 GitHub 토큰 갱신을 완료했다고 알렸다. 비밀값을 읽거나 출력하지 않고 Secrets 이름·갱신 시각만 확인했다. `INSTAGRAM_ACCESS_TOKEN` 갱신은 2026-10-15 00:12:34 KST다.
 
 기존 `resolveInstagramToken()`은 암호화 키가 있으면 `data/instagram-token.enc`를 먼저 읽는다. Secret 갱신만으로 기존 vault가 교체되는 것은 아니다.
@@ -55,3 +61,5 @@ PR #166 / main `4cb72a4d41c40ffb33a34710e40f652593352d50`에서 해당 관계일
 별도 정상 시사 실행 [38692313650](https://github.com/betterbit-ai/today_econ/actions/runs/38692313650)은 `no_candidate_passed_preparation`으로 종료했다. 비급여 진료비 기사는 숫자·의미 근거 검수, 정치 발언 후보는 관련 이미지 부재로 탈락했다. 두 실행 모두 Reel attempts 0 / externalId null이며 실제 업로드 API 검증 증거는 아니다.
 
 경제의 광범위 지수 급락 기사를 동일 원문으로 재현한 결과, 실제 시장 관측에 대한 구체 사건 점수가 없고 부수 커뮤니티 반응 때문에 감점돼 편집 가치 35로 탈락했다. 이를 전망·가정·소문·개별종목과 구분하는 제한된 관측 근거 보완을 회귀 검사 후 배포한다. 인기·시의성·일일 floor·숫자·이미지 하한은 유지한다.
+
+관측 보완은 PR #168 / main `b48af4864e6a86d8490d7d542175950f0ce70a25`에 배포됐다. 최종 전체 harness 473건 중 472 통과·1 skip·0 실패, 독립 Green이다. 정상 경제 실행 [38693618229](https://github.com/betterbit-ai/today_econ/actions/runs/38693618229)도 `no_candidate_passed_daily_floor_gates`로 종료했다. 지수 급락 후보는 편집 검사를 통과했으나 `recent_duplicate`에서 제외됐고, 다른 후보는 원문 접근·근거·인기도 등의 기준을 넘지 못했다. Reel attempts 0 / externalId null이다. 이 실행을 실제 발행 복구나 D0의 증거로 사용하지 않는다.

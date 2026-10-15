@@ -121,6 +121,7 @@ async function evaluateCandidate(candidate, {
   fetchArticleBodyImpl,
   embedder,
   semanticScores,
+  semanticQuery,
   embeddingError,
   hotMode = false,
   dailyFloorMode = false,
@@ -238,9 +239,11 @@ async function evaluateCandidate(candidate, {
   }
 
   const signature = buildTopicSignature(enrichedCandidate, category);
+  // Scores belong to the exact query encoded before hydration, not just its row.
+  const reusableSemanticScores = semanticQuery === signature.text ? semanticScores : null;
   const duplicateCheck = await evaluateAgainstHistory(signature, topicHistory, {
-    embedder: semanticScores
-      ? async () => semanticScores
+    embedder: reusableSemanticScores
+      ? async () => reusableSemanticScores
       : embeddingError
         ? async () => { throw embeddingError; }
         : embedder,
@@ -386,6 +389,7 @@ async function planDailyQueue({
           fetchArticleBodyImpl,
           embedder,
           semanticScores: embeddingMatrix?.[candidateIndex],
+          semanticQuery: signatures[candidateIndex].text,
           embeddingError,
           hotMode,
           dailyFloorMode,
@@ -399,6 +403,7 @@ async function planDailyQueue({
           record.classificationTrace = evaluation.classificationTrace;
         }
         if (!evaluation.ok) {
+          if (evaluation.reason === 'recent_duplicate') record.duplicateCheck = evaluation.duplicateCheck;
           record.rejectionReasons.push(`${category}:${evaluation.reason}`);
           continue;
         }

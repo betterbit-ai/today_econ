@@ -36,7 +36,9 @@
 - [x] 공개 vault 교체 없이 Secret을 직접 사용하는 자동 운영 배포: PR #165 / main `15020436`.
 - [x] 실제 production 경로 Secret 읽기·계정 일치·Models API·Vision 5회 확인: Action `38689473718`.
 - [x] 관계일침 경제 오분류 및 결정사→확정사 오류 차단, 미시도 planned 재선정 보호: PR #166 / main `4cb72a4d`.
-- [ ] 정상 발행 실행 `38691494873`의 실제 media ID·permalink 확인.
+- [x] 시장 관측 편집 가치 오차단 수정·473건 전체 검사·독립 Green·배포: PR #168 / main `b48af486`.
+- [x] 정상 실행 3건 결과 확인: 경제 `38691494873`, 시사 `38692313650`, 경제 `38693618229` 모두 품질/선정 기준에 따른 no_publish, 외부 발행 시도 0.
+- [ ] 적합 후보의 실제 media ID·permalink 확인. 현재 발행 완료와 D0는 미확인.
 
 새 Secret을 자동 운영에서 직접 사용한다. 공개 암호화 파일 갱신의 이전 승인 질문은 현재 발행의 필수 조건이 아니다. 장기 Secret 자동 연장은 별도 미완료다. 근거는 [재인증 기록](2026-10-15-instagram-reauthentication.md), `data/reports/2026-10-15-instagram-reauthentication.json`, [발행 안내](../diem-publishing-quickstart-ko.md)다.
 
