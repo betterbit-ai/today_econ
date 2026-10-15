@@ -4,7 +4,7 @@
   "date": "2026-10-15",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-14T17:43:00.476Z",
-  "updatedAt": "2026-10-15T14:43:22.554Z",
+  "updatedAt": "2026-10-15T14:46:11.621Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -849,7 +849,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 10월 in \"10월 15일 코스피가 전일 대비 8.21% 하락한 5,515.23포인트, 코스닥은 8.01% 떨어진 757.88포인트로 급락해 서킷브레이커가 \"; 2개월 in \"코스피·코스닥이 1단계 서킷브레이커를 동시에 작동시킨 것은 7월 29일 이후 약 2개월 반 만이며, 이는 시장 변동성 급증을 반영합니다.\" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 10% in \"코스피·코스닥이 8% 이상 급락하며 서킷브레이커가 발동, 삼성전자와 SK하이닉스는 각각 10% 이상 하락했다.\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "\"단 하루 만에 -22% 폭락?\"…또 신저가 찍은 '삼전·닉스' 레버리지",
@@ -887,7 +889,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:editorial_value_below_daily_floor"
+      ]
     },
     {
       "title": "\"하루 만에 13억 수익 났는데\"…하이닉스 49억 투자한 회장의 반전",
@@ -925,7 +929,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“국감장에서 실실 웃고 있나”…‘김어준 처남’에 여야 쓴소리",
@@ -963,7 +969,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“삼전 7만원, 하닉 20만원” 일주일 전 영상, 뒤늦게 터졌다",
@@ -1001,7 +1009,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "김용, 추미애 직격 “대통령·당 지지율 하락에 영양분 공급”…왜?",
@@ -1039,7 +1049,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "코스피·코스닥 동반 서킷브레이커…미국발 충격에 ‘검은 목요일’",
@@ -1075,7 +1087,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "서울 전역 토허제 1년…사상초유 강수 뒤 부동산 시장은?",
@@ -1111,7 +1125,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "친일파 유묵 소장자는 유홍준 관장…개인소장품 2점 전시",
@@ -1149,7 +1165,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "여권 내 불만 남아있지만…이 대통령, 청문보고서 채택에 김지용 임명",
@@ -1185,7 +1203,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "“인적 끊겨 적막감만”…‘무차별 흉기 난동’에 커지는 시민 불안",
@@ -1223,7 +1243,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] “주가 10만원까지 떨어져라”… 삼성전자 직원 글에 주주들 분통",
@@ -1259,7 +1281,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "오세훈, 정원오 ‘칸쿤 출장’ 감사 중단 요구에 “시장 권한 아니다”",
@@ -1297,7 +1321,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "TSMC, 3분기 매출 62조5000억원·영업익 36조7000억원… 역대 최대 실적",
@@ -1335,7 +1361,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "부산국제영화제 폐막… 이란 마지디 감독 ‘빵과 책’ 대상 수상",
@@ -1371,7 +1399,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "첫 전기차 ‘토르칼’ 공개한 벤틀리… “한국은 트렌드 만드는 시장”",
@@ -1409,7 +1439,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "좌석에 숨어 피를 빨아먹었다…비행기서 발견된 ‘이 벌레’, 결국 운항도 멈췄다",
@@ -1447,7 +1479,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“하루 한 잔도 위험, 오늘 당장 끊어라”…의사가 경고한 ‘이것’ 뭐길래? [헬시타임]",
@@ -1485,7 +1519,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "건강 챙기려 끊었는데…“오히려 뼈 삭는다” 전문가 경고한 ‘이 식습관’ [헬시타임]",
@@ -1523,7 +1559,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“민망해서 못 입겠네” 불만 쏟아지더니…룰루레몬, 개발 직원 7명 해고, 무슨 일?",
@@ -1561,7 +1599,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "되살아난 7월의 악몽…“앞으로 2주가 데드크로스 분수령”[검은 목요일]",
@@ -1597,7 +1637,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_urgent_threshold"
+      ]
     },
     {
       "title": "[속보] 승객 146명 싣고 베트남 가던 대한항공 여객기, 엔진 이상에 회항…“적절 보상”",
@@ -1635,7 +1677,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[속보] 70대 운전자, 어린이보호구역서 초등 2년생 들이받아…결국 사망",
@@ -1673,7 +1717,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "추미애 “소방은 골치 아픈 재정 빨대” 발언에 양대 노총 소방노조 격앙",
@@ -1711,7 +1757,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“조선은 대대로 중국의 속국”…국가공인 관광통역사 역사 왜곡 논란",
@@ -1749,7 +1797,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "17년만 풀려난 우즈벡 무기수…“‘창원 택시기사 살인’ 억울함 풀고, 고향 가고 싶어”",
@@ -1787,7 +1837,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "'검은 목요일'에 국내 증시 패닉…상장사 시총 400조 증발",
@@ -1823,7 +1875,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "시험 도중 바꿔치기도…수능 앞두고 'AI 안경' 부정행위 비상",
@@ -1861,7 +1915,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "'中시계 국산 둔갑' 제이에스티나 대표, 1심 유죄…法 \"죄책 무거워\"",
@@ -1899,7 +1955,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"주요 지표는 우수, 민생 회복은 더뎌\"…李 취임 500일 '말말말'",
@@ -1937,7 +1995,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "李대통령, 김지용 초대 중수청장 임명안 재가…지명 37일 만",
@@ -1973,7 +2033,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     }
   ],
   "candidateRuns": [
@@ -26283,7 +26345,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-15:economy:38753263927",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
         "title": "\"3억 벌었을 때 팔 걸\" 탄식…증권가 전망 믿었다가 '곡소리' [분석+]",
         "url": "https://n.news.naver.com/article/015/0005342856?ntype=RANKING",
@@ -26483,35 +26545,45 @@
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 10월 in \"10월 15일 코스피가 전일 대비 8.21% 하락한 5,515.23포인트, 코스닥은 8.01% 떨어진 757.88포인트로 급락해 서킷브레이커가 \"; 2개월 in \"코스피·코스닥이 1단계 서킷브레이커를 동시에 작동시킨 것은 7월 29일 이후 약 2개월 반 만이며, 이는 시장 변동성 급증을 반영합니다.\" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 10% in \"코스피·코스닥이 8% 이상 급락하며 서킷브레이커가 발동, 삼성전자와 SK하이닉스는 각각 10% 이상 하락했다.\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+        "updatedAt": "2026-10-15T14:46:10.329Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T14:46:10.329Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T14:46:10.329Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T14:46:10.329Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-10-15:economy:38753263927:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-15T14:46:11.613Z",
+          "slackTs": "1792075570.410399",
+          "issueNumber": 171,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/171"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-15T14:43:22.535Z",
       "hotness": {
         "ok": true,
@@ -26568,6 +26640,60 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 10월 in \"10월 15일 코스피가 전일 대비 8.21% 하락한 5,515.23포인트, 코스닥은 8.01% 떨어진 757.88포인트로 급락해 서킷브레이커가 \"; 2개월 in \"코스피·코스닥이 1단계 서킷브레이커를 동시에 작동시킨 것은 7월 29일 이후 약 2개월 반 만이며, 이는 시장 변동성 급증을 반영합니다.\" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 10% in \"코스피·코스닥이 8% 이상 급락하며 서킷브레이커가 발동, 삼성전자와 SK하이닉스는 각각 10% 이상 하락했다.\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+        "candidateFailures": [
+          {
+            "title": "\"3억 벌었을 때 팔 걸\" 탄식…증권가 전망 믿었다가 '곡소리' [분석+]",
+            "url": "https://n.news.naver.com/article/015/0005342856?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 10월 in \"10월 15일 코스피가 전일 대비 8.21% 하락한 5,515.23포인트, 코스닥은 8.01% 떨어진 757.88포인트로 급락해 서킷브레이커가 \"; 2개월 in \"코스피·코스닥이 1단계 서킷브레이커를 동시에 작동시킨 것은 7월 29일 이후 약 2개월 반 만이며, 이는 시장 변동성 급증을 반영합니다.\" | openai/gpt-oss-120b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial_structure: model returned an ungrounded numeric claim: 10% in \"코스피·코스닥이 8% 이상 급락하며 서킷브레이커가 발동, 삼성전자와 SK하이닉스는 각각 10% 이상 하락했다.\" | openai/gpt-oss-20b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 10월 in \"10월 15일 코스피가 전일 대비 8.21% 하락한 5,515.23포인트, 코스닥은 8.01% 떨어진 757.88포인트로 급락해 서킷브레이커가 \"; 2개월 in \"코스피·코스닥이 1단계 서킷브레이커를 동시에 작동시킨 것은 7월 29일 이후 약 2개월 반 만이며, 이는 시장 변동성 급증을 반영합니다.\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"8.01%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"757.88\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 10% in \"코스피·코스닥이 8% 이상 급락하며 서킷브레이커가 발동, 삼성전자와 SK하이닉스는 각각 10% 이상 하락했다.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-15T14:43:35.840Z"
+          }
+        ],
+        "updatedAt": "2026-10-15T14:46:10.329Z"
       }
     },
     "issue": {
