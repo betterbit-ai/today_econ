@@ -4,7 +4,7 @@
   "date": "2026-10-15",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-14T17:43:00.476Z",
-  "updatedAt": "2026-10-15T06:28:55.811Z",
+  "updatedAt": "2026-10-15T06:31:59.991Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -390,7 +390,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 4만 5천원 in \"같은 시술을 일산병원 등 타 병원에서는 4만 5천원에서 6만원 수준으로 진행된다\" | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 4만 5000원 in \"같은 시술을 일산병원 등에서는 4만 5000원에서 6만원 수준으로 진행된다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 4만 5000원 in \"같은 시술을 일산병원 등에서는 4만 5000원에서 6만원 수준으로 진행된다.\" | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"193만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"193만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+      ]
     },
     {
       "title": "서울 동작구 상도동에서 차량 전복…30대 운전자 사망",
@@ -428,7 +430,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] 이승환 요청 받아들인 법원…‘콘서트 취소’ 구미시장 김장호 부른다",
@@ -466,7 +470,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "‘5층서 추락’ 30살 예비신부 척추에 핀 11개…사격 국가대표 되기까지",
@@ -504,7 +510,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“윤석열 20억 부러우면 감옥 가라”는 김민전…민주 “직접 가라”",
@@ -542,7 +550,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:image_context_unavailable:[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled"
+      ]
     },
     {
       "title": "대법원에 반박한 법제처장 “재제청 요구, 헌법 위반 아니다”",
@@ -580,7 +590,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:official_denial_without_confirmed_change"
+      ]
     },
     {
       "title": "항문에 에어건 쏴 내장 10㎝ 파열…“장난” 악몽의 업주 결국",
@@ -618,7 +630,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“물타기할 돈도 없다” 개미 패닉…7일새 시총 1170조 사라졌다",
@@ -656,7 +670,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "지적장애 아내 유흥업소 보낸 남편…아내는 성폭행 당해 임신중절",
@@ -694,7 +710,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "“전남대급→고려대 입학”…친구도 바꾼 수능 만점자 공부법",
@@ -732,7 +750,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "출근해서 헬스장 갔다…근무시간 222차례 운동한 경찰 결국 강등",
@@ -770,7 +790,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"최태원도 물렸다\"…SK하이닉스 폭락에 회장님 매입가 밑으로[종목NOW]",
@@ -808,7 +830,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "이성미, 故 임윤택 사망 직전 연락…\"병원 도착했을 땐 이미 떠나\"",
@@ -846,7 +870,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"문신이 멋있어 보이긴 처음\"…인천 흉기 난동 막아선 30대 시민에 쏟아진 반전 찬사",
@@ -884,7 +910,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:local_private_crime_without_public_value"
+      ]
     },
     {
       "title": "\"故 김현이와 동명이인\"…연극배우 김현이, 사망 오인에 \"정신적 고통\" 호소",
@@ -922,7 +950,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "\"삼성전자 7만원, 하이닉스 20만원\"…반도체주 전망에 무슨 일이",
@@ -958,7 +988,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "李 “부마항쟁 47주년... 5·18민주화운동과 함께 헌법 전문 새겨야\"",
@@ -994,7 +1026,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "코스피·코스닥 양시장 ‘서킷 브레이커’…20만전자·120만닉스",
@@ -1030,7 +1064,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "[속보] 국회 행안위, 김지용 중수청장 후보자 청문보고서 채택",
@@ -1082,7 +1118,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "李 “주거·일자리·금융, ‘최우선 국정 과제’로... 전방위 노력 기울여야”",
@@ -1118,7 +1156,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "野, 임광현 집중 공세…“‘대장동 패밀리’들이 국정에 포진”",
@@ -1156,7 +1196,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "입술 갈라졌다고 립밤만?…건조한 계절 ‘구순염’ 주의",
@@ -1194,7 +1236,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“갱년기를 부탁해”…줌바·요가하는 4050 여성이 활기 찬 이유",
@@ -1232,7 +1276,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "‘폐결절’이라더니…교황 레오14세 ‘폐암’ 진단, 어떻게 다른가",
@@ -1270,7 +1316,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "아삭아삭 단단하게? 달콤하니 부드럽게?…‘감’ 어떻게 보관할까",
@@ -1308,7 +1356,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "‘휴업’ 번지는 도매시장…산지 “정부, 농가피해 최소화방안 찾아야",
@@ -1344,7 +1394,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:narrow_or_local_issue"
+      ]
     },
     {
       "title": "\"한국, 일본보다 잘살잖아…재산 돌려내라\" 경악한 망언",
@@ -1382,7 +1434,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "저수지 빠진 차량 안 사람 없었다…결국 숨진 채로 발견",
@@ -1420,7 +1474,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "북 미사일 발사 날 한반도 상공 '빙빙'…9시간 머문 정체",
@@ -1458,7 +1514,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“어떡해, 버텼는데 또 터졌다”…급락장에 개미들 ‘피눈물’",
@@ -1496,7 +1554,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "[속보] 장모 장시간 폭행해 살해…'캐리어 유기' 조재복 1심서 징역 45년",
@@ -1542,7 +1602,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "‘세계 최초’ 레이저 대공무기 천광, 드론 격추 성공…1회 발사 2000원 불과",
@@ -1580,7 +1642,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "브라질산 계란 한 판 수입에 4만4000원…16억 쓴 이유는",
@@ -1618,7 +1682,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "주한미군사령관 “전작권 전환조건이 변했다…새 기준 생겨”",
@@ -1656,7 +1722,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"군대 안 가요\" 후폭풍, 심상찮다…8년 전 살아 남은 병역특례, 이번엔?",
@@ -1694,7 +1762,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"돈 삭제\" 개미 비명 터진다...주가 10% 뚝뚝, 삼전닉스 추락의 날",
@@ -1730,7 +1800,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "6만원으로 치료 가능한데...'193만원' 비급여 권유한 의사",
@@ -1768,7 +1840,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "3살 동생 안아보려던 딸 둔기 살해…중국인 아빠 징역 22년",
@@ -1806,7 +1880,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:narrow_or_local_issue"
+      ]
     },
     {
       "title": "\"뒤통수 맞았다\" 장우혁 폭행 폭로한 전 직원…2심도 무죄",
@@ -1844,7 +1920,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     }
   ],
   "candidateRuns": [
@@ -17572,24 +17650,24 @@
     "issue": {
       "publicationKey": "diem:2026-10-15:issue:38692313650",
       "category": "issue",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
-        "title": "\"1cm 꿰매고 193만원\" 주범 '비급여'...5만 원이면 충분",
-        "url": "https://n.news.naver.com/article/018/0006388554?ntype=RANKING",
+        "title": "“윤석열 20억 부러우면 감옥 가라”는 김민전…민주 “직접 가라”",
+        "url": "https://n.news.naver.com/article/028/0002827548?ntype=RANKING",
         "publishedDate": "2026-10-15",
-        "publishedAt": "2026-10-15 13:06:18",
+        "publishedAt": "2026-10-15 10:48:21",
         "observedAt": "2026-10-15T06:28:03.300Z",
-        "popularityScore": 83.8367,
+        "popularityScore": 75.7551,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 87.36,
-          "popularityScore": 83.8367,
-          "freshnessScore": 90,
-          "editorialValueScore": 95,
-          "ageHours": 2.36,
-          "publishedAt": "2026-10-15 13:06:18",
+          "score": 73.17,
+          "popularityScore": 75.7551,
+          "freshnessScore": 80,
+          "editorialValueScore": 50,
+          "ageHours": 4.69,
+          "publishedAt": "2026-10-15 10:48:21",
           "observedAt": "2026-10-15T06:28:03.300Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -17608,26 +17686,25 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 9,
-            "normalizedScore": 83.8367,
-            "title": "\"1cm 꿰매고 193만원\" 주범 '비급여'...5만 원이면 충분",
-            "url": "https://n.news.naver.com/article/018/0006388554?ntype=RANKING"
+            "rank": 13,
+            "normalizedScore": 75.7551,
+            "title": "“윤석열 20억 부러우면 감옥 가라”는 김민전…민주 “직접 가라”",
+            "url": "https://n.news.naver.com/article/028/0002827548?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "한 성형외과서 1cm 미만 봉합에 193만원 청구'비급여' 대거 포함...타 병원 4~6만 원 선비급여 가격·사용 제한할 제도적 장치 없어급여 제품 있어도 알리지 않고 비급여 처방[이데일리 홍수현 기자] 정부의 ‘관리 사각’으로 의료기관의 무분별한 고가·비급여 진료비 청구가 심각한 수준이라는 지적이 나왔다. (사진=기사 이해를 돕기 위해 인공지능 AI를 활용해 제작한 이미지)경제정의실천시민연합(경실련)과 더불어민주당 박지원 의원은 15일 오전 경실련 강당에서 ‘비급여 가격 실태 및 환자 피해 사례 발표 기자회견’을 열었다.경실련에 따르면 제보자 A씨는 지난 7월 전자기기 모서리에 인중이 찢어진 동생과 함께 서울 서대문구의 한 성형외과를 방문했다가 과도한 비급여 진료비 폭탄을 맞았다. 당시 의원 측에서는 “근육까지 찢어져 흉이 남을 수 있으니 가장 좋은 재료를 사용해 최대한 흉이 지지 않게 하겠다”며 1㎝ 미만의 창상봉합 수술에 186만 8500원의 비급여 진료비를 안내했다.다급한 마음에 어쩔 수 없이 A씨는 비급여 비용을 포함해 총 192만 9700원을 직접 부담했다.A씨는 이후 부당함을 느껴 다른 병원에서 실밥을 풀었는데, 이 병원에서는 “이 정도 봉합이면 10만~20만원이면 됐을 것”이라고 말했다. 같은 치료에 대해 국민건강보험공단이 운영하는 일산병원은 “비급여 없는 치료로 환자 부담액 4만 5000~6만원이 예상된다”고 답변했다. 약 200만 원에 달하던 병원비가 5만 원 수준까지 떨어진 셈이다.경실련과 박 의원은 이 같은 사례를 발표하며 정부의 관리 소홀로 의료기관이 고가·비급여 진료비를 무분별하게 청구하고 있다는 문제를 제기했다.또 정부가 비급여 진료비 가격·사용을 제한할 수 있는 제도적 장치가 없어 의료기관이 정보가 부족한 환자 대상으로 급여 제품이 있다는 것을 알리지 않은 채 고액 진료비를 부담시킬 수 있다고 지적했다.단체는 환자가 급여 서비스를 선택할 수 있도록 하고, 비급여 포함 시 건강보험심사평가원(심평원)이 적정하게 진료가 이뤄졌는지를 면밀히 심사해야 한다고 제언했다.권혜영 목원대 보건의료관리학과 교수는 “의료 현장에서 ‘더 좋은 치료를 위해선 비급여 품목이 필요하다’는 주장을 환자에게 반복하면 건보 급여 체계에 대한 국민 신뢰를 훼손할 수 있다”며 “급여 적정성 기준에 부합하는 표준 진료 가이드라인을 준수하도록 체계를 강화해야 한다”고 말했다.박 의원은 “비급여가 급여 진료와 함께 쓰임에도 건강보험 범위가 아니라는 이유로 모든 책임이 환자에게 향한다”며 “정부가 비용 효과를 철저히 검증하고, 최대한 건강보험 체계 안에서 진료가 완결되도록 해야 한다”고 강조했다.경실련은 제보 사례에 대해 심평원에 진료비 확인을 신청하고 부당이득·의료법 위반 고발 등을 검토할 계획이라고 밝혔다.",
-        "summary": "한 성형외과서 1cm 미만 봉합에 193만원 청구'비급여' 대거 포함...타 병원 4~6만 원 선비급여 가격·사용 제한할 제도적 장치 없어급여 제품 있어도 알리지 않고 비급여 처방[이데일리 홍수현 기자] 정부의 ‘관리 사각’으로 의료기관의 무분별한 고가·비급여 진료비 청구가 심각한 수준이라는 지적이 나왔다. (사진=기사 이해를 돕기 위해 인공지능 AI를 활용해 제작한 이미지)경제정의실천시민연합(경실련)과 더불어민주당 박지원 의원은 15일 오전 경실련 강당에서 ‘비급여 가격 실태 및 환자 피해 사례 발표 기자회견’을 열었다.경실련에 ",
+        "fullText": "곽규택 의원도 폭소·SNS 공유까지민주 “내란 반성 없는 조롱 중단하라” 김민전 국민의힘 의원 유튜브 갈무리윤석열 전 대통령이 받은 영치금 20억원을 비판한 서영교 더불어민주당 의원에게 “부러우면 (감옥에) 가보세요”라고 말한 김민전 국민의힘 의원을 향해 민주당이 “그렇게 윤석열을 만나고 싶으면 직접 감옥에 가길 바란다”고 했다.김 의원 발언은 13일 국회 법제사법위원회 고위공직자범죄수사처(공수처) 국정감사 도중 나왔다. 법사위원장인 서 의원은 이날 공수처를 향해 “윤석열 체포 잘했다”고 한 뒤 “윤석열이 감옥에서 1년 만에 20억 벌어들였다는 게 이해가 되나”고 말했다. 윤 전 대통령은 지난해 7월10일 재구속된 뒤 지난달 9일까지 영치금 19억5천만원을 받았다. 김민전 국민의힘 의원 유튜브 갈무리그러자 김 의원은 서 의원을 향해 “부러우면 가보세요”라고 말했다. 발언을 마친 김 의원은 미소를 지었고 김 의원 오른쪽에 앉아 있던 곽규택 국민의힘 의원도 “부러우면 가보래”라며 크게 웃었다. 김 의원은 이날 자신의 발언 내용을 페이스북에 쓰며 “국민들이 보낸 마음을 조롱할 게 아니라 무너지는 사법 시스템부터 바로잡아야 한다”고 했다. 14일에는 페이스북과 유튜브 등에 해당 발언이 담긴 ‘쇼츠’(짧은 영상)도 올렸다.민주당에서는 “파렴치한 망언”이라는 비판이 나왔다. 조계원 민주당 대변인은 14일 서면브리핑에서 “이 발언을 들은 국민의힘 법사위원은 웃기까지 했다고 한다”며 “내란 사태에 대한 반성과 성찰은커녕, 윤석열을 두둔하며 조롱을 일삼는 국민의힘은 공당이 맞나”라고 했다.이어 “심지어 김 의원은 (8월27일) 박근혜 전 대통령 연찬회 연설을 듣고 (다음 날 페이스북에) ‘윤석열 대통령님도 어서 다시 뵙길 간절히 바란다’고 썼다”며 “김 의원이야말로 그렇게 윤석열을 만나고 싶으면 직접 가길 바란다”고 맞받아쳤다.조 대변인은 “국민들은 민주주의를 훼손하고 헌정질서를 위협한 내란 사태에 대한 반성도, 책임도, 쇄신도 없는 국민의힘에 분노하고 있다. 국민의힘 의원들은 연일 계속되는 막말과 망언, 조롱과 궤변을 중단하길 촉구한다”고 덧붙였다.",
+        "summary": "곽규택 의원도 폭소·SNS 공유까지민주 “내란 반성 없는 조롱 중단하라” 김민전 국민의힘 의원 유튜브 갈무리윤석열 전 대통령이 받은 영치금 20억원을 비판한 서영교 더불어민주당 의원에게 “부러우면 (감옥에) 가보세요”라고 말한 김민전 국민의힘 의원을 향해 민주당이 “그렇게 윤석열을 만나고 싶으면 직접 감옥에 가길 바란다”고 했다.김 의원 발언은 13일 국회 법제사법위원회 고위공직자범죄수사처(공수처) 국정감사 도중 나왔다. 법사위원장인 서 의원은 이날 공수처를 향해 “윤석열 체포 잘했다”고 한 뒤 “윤석열이 감옥에서 1년 만에 20억",
         "topicSignature": {
           "category": "issue",
-          "target": "1cm 꿰매고",
-          "event": "비급여 5만 원이면",
+          "target": "윤석열 20억",
+          "event": "감옥 가라 김민전",
           "entities": [
-            "1cm",
-            "193만원",
-            "5만"
+            "20억",
+            "SNS"
           ],
           "eventKey": null,
-          "text": "issue | 1cm 꿰매고 | 1cm 193만원 5만"
+          "text": "issue | 윤석열 20억 | 20억 SNS"
         },
         "newsFrame": {
           "category": "issue",
@@ -17635,22 +17712,22 @@
           "classificationReasons": [
             "category:issue"
           ],
-          "publicInterestAnchor": "제도",
+          "publicInterestAnchor": "국민",
           "rejectionReason": null,
-          "subject": "1cm 꿰매고",
+          "subject": "윤석열 20억",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "1cm",
-            "꿰매고"
+            "윤석열",
+            "20억"
           ],
           "eventKind": "general",
           "eventLabel": "",
           "eventTerms": [],
           "eventKey": null,
-          "claimState": "decided",
+          "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "15일",
+          "date": "13일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -17660,18 +17737,14 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 95,
+          "score": 50,
           "signals": [
             "reader_money_work_life_impact",
-            "concrete_event_or_decision",
-            "broad_audience_or_market_scope",
-            "issue_core_topic"
+            "broad_audience_or_market_scope"
           ],
           "penalties": [],
           "contentValueSignals": [
-            "money_impact",
-            "policy_change",
-            "safety"
+            "money_impact"
           ],
           "reason": "passes_editorial_value_gate",
           "frame": {
@@ -17680,22 +17753,22 @@
             "classificationReasons": [
               "category:issue"
             ],
-            "publicInterestAnchor": "제도",
+            "publicInterestAnchor": "국민",
             "rejectionReason": null,
-            "subject": "1cm 꿰매고",
+            "subject": "윤석열 20억",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "1cm",
-              "꿰매고"
+              "윤석열",
+              "20억"
             ],
             "eventKind": "general",
             "eventLabel": "",
             "eventTerms": [],
             "eventKey": null,
-            "claimState": "decided",
+            "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "15일",
+            "date": "13일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -17703,19 +17776,19 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 95,
+          "baseScore": 50,
           "performancePrior": {
             "adjustment": 0,
             "window": null,
             "matched": [],
-            "reason": "insufficient_performance_samples"
+            "reason": "legacy_feature_schema_report_only"
           }
         },
         "performancePrior": {
           "adjustment": 0,
           "window": null,
           "matched": [],
-          "reason": "insufficient_performance_samples"
+          "reason": "legacy_feature_schema_report_only"
         },
         "classificationTrace": {
           "initial": {
@@ -17742,56 +17815,65 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.6034,
+        "score": 0.4615,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-10-12:economy:38189953082",
+        "matchedPublicationKey": "diem:2026-10-11:issue:38118570733",
         "signature": {
           "category": "issue",
-          "target": "1cm 꿰매고",
-          "event": "비급여 5만 원이면",
+          "target": "윤석열 20억",
+          "event": "감옥 가라 김민전",
           "entities": [
-            "1cm",
-            "193만원",
-            "5만"
+            "20억",
+            "SNS"
           ],
           "eventKey": null,
-          "text": "issue | 1cm 꿰매고 | 1cm 193만원 5만"
+          "text": "issue | 윤석열 20억 | 20억 SNS"
         }
       },
       "editorial": null,
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+        "updatedAt": "2026-10-15T06:31:58.923Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T06:31:58.923Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T06:31:58.923Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-15T06:31:58.923Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-10-15:issue:38692313650:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-15T06:31:59.987Z",
+          "slackTs": "1792045918.999939",
+          "issueNumber": 167,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/167"
+        }
+      ],
+      "reason": "no_candidate_passed_preparation",
       "plannedAt": "2026-10-15T06:28:55.797Z",
       "hotness": {
         "ok": true,
@@ -17847,6 +17929,70 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "no_publish",
+        "attempts": 2,
+        "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+        "candidateFailures": [
+          {
+            "title": "\"1cm 꿰매고 193만원\" 주범 '비급여'...5만 원이면 충분",
+            "url": "https://n.news.naver.com/article/018/0006388554?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an ungrounded numeric claim: 4만 5천원 in \"같은 시술을 일산병원 등 타 병원에서는 4만 5천원에서 6만원 수준으로 진행된다\" | openai/gpt-oss-120b/editorial_repair: model returned an ungrounded numeric claim: 4만 5000원 in \"같은 시술을 일산병원 등에서는 4만 5000원에서 6만원 수준으로 진행된다.\" | openai/gpt-oss-120b/editorial: editorial repair failed: model returned an ungrounded numeric claim: 4만 5000원 in \"같은 시술을 일산병원 등에서는 4만 5000원에서 6만원 수준으로 진행된다.\" | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"193만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"193만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 4만 5천원 in \"같은 시술을 일산병원 등 타 병원에서는 4만 5천원에서 6만원 수준으로 진행된다\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an ungrounded numeric claim: 4만 5000원 in \"같은 시술을 일산병원 등에서는 4만 5000원에서 6만원 수준으로 진행된다.\""
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an ungrounded numeric claim: 4만 5000원 in \"같은 시술을 일산병원 등에서는 4만 5000원에서 6만원 수준으로 진행된다.\""
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"193만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"193만원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"5만 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-15T06:29:26.235Z"
+          },
+          {
+            "title": "“윤석열 20억 부러우면 감옥 가라”는 김민전…민주 “직접 가라”",
+            "url": "https://n.news.naver.com/article/028/0002827548?ntype=RANKING",
+            "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for unmapped; typography fallback is disabled",
+            "modelAttempts": [],
+            "reason": "image_context_unavailable",
+            "stage": "quality_gate",
+            "rejectedAt": "2026-10-15T06:30:30.610Z"
+          }
+        ],
+        "updatedAt": "2026-10-15T06:31:58.923Z"
       }
     }
   },
