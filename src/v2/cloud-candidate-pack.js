@@ -177,6 +177,7 @@ async function buildCloudCandidatePack({
           history,
           fetchArticleBodyImpl,
           semanticScores: embeddingMatrix[candidateIndex],
+          semanticQuery: preliminarySignature(candidate).text,
           embeddingError,
           hotMode,
           dailyFloorMode,
