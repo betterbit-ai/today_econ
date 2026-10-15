@@ -27,6 +27,17 @@
 
 최신 원장은 경제·시사 모두 401 세션 무효화 오류다. 계정 UI 정상 여부와 별도로 인증 확인이 필요하며 아직 D0를 잡지 않는다.
 
+### 2026-10-15 재인증 확인
+
+- [x] 사용자 갱신 Secret의 저장 시각 확인: 00:12:34 KST. 비밀값은 조회·출력하지 않았다.
+- [x] 새 Secret 읽기 진단 성공: Action `38661135531`, 기대 전문 계정 ID와 `diem.magazine` 사용자명 일치.
+- [x] production Node 20 검사 457건: 454 통과·3 skip·0 실패 및 Models API·실제 Vision 5회 연속 성공.
+- [x] 앱 범위 id와 전문 계정 user_id의 진단 비교 오류를 회귀로 수정하고 main에 반영했다.
+- [ ] 기존 공개 암호화 vault 갱신의 명시적 승인 및 새 Secret으로 파일 교체.
+- [ ] vault-first production 경로 읽기 진단과 정상 예약 발행 확인.
+
+새 Secret은 정상이며 이전 암호화 파일은 그대로다. 두 상태를 구분한다. 근거는 [재인증 기록](2026-10-15-instagram-reauthentication.md)과 `data/reports/2026-10-15-instagram-reauthentication.json`이다.
+
 ## 0. 이번 분석에서 완료한 확인
 
 - [x] 최신 원격 main fetch 및 SHA 고정: fa2043a0.
