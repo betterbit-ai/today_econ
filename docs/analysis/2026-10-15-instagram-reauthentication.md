@@ -4,13 +4,17 @@
 
 10월 15일 밤 예약 시사 실행 [38733095776](https://github.com/betterbit-ai/today_econ/actions/runs/38733095776)의 실제 업로드에서 HTTP 401 / code 190 / 세션 무효화가 반환됐다. `repository_secret` 경로이며 공개 vault 교체 여부와 무관하다. Reel attempts 1 / externalId null / manual_action_required다. 이전 읽기 진단 성공은 이후 토큰의 유효성을 보장하지 않는다. Secret 저장 시각은 여전히 10월 15일 00:12:34 KST다.
 
-현재 읽기 진단은 [38763680621](https://github.com/betterbit-ai/today_econ/actions/runs/38763680621)로 다시 실행한다. 인증이 실패하면 계정 소유자의 정상 Meta 재연결과 GitHub Secret 갱신이 필요하다. 실제 업로드 성공 전 D0와 실험 활성화는 보류한다. 단계별 조치는 [발행 안내](../diem-publishing-quickstart-ko.md)를 따른다.
+읽기 재진단 [38763680621](https://github.com/betterbit-ai/today_econ/actions/runs/38763680621)도 repository_secret에서 HTTP 401 / code 190 / subcode 0으로 실패했다. trace ID는 `A3NiVqcIOjR8wX5VocYyopa`다. Models API와 실제 이미지 두 장 Vision 5회는 정상이다. 계정 소유자의 정상 Meta 재연결과 GitHub Secret 갱신이 필요하다. 실제 업로드 성공 전 D0와 실험 활성화는 보류한다. 단계별 조치는 [발행 안내](../diem-publishing-quickstart-ko.md)를 따른다.
+
+PR #172 / main `7f852a9c01c38d103ff549477557a7b0cc10904c`에 중복 비교 query 무결성 수정을 배포했다. 전체 harness 477건 중 476 통과·1 skip·0 실패 및 독립 Green이다. 실제 YTN 원문과 최근 7일 발행 8건을 같은 임베딩 모델로 재현했다. 본문 확인 전 query `economy | 코스피`는 10월 11일 NISA 기사와 0.801856으로 중복 판정됐지만, 본문 확인 후 query `economy | 코스피 | 증시 변동`는 0.726894로 서로 다른 사건으로 판정됐다. 나머지 7건도 중복이 아니었다. 수정은 임계치가 아니라 잘못 연결된 query 점수의 재사용을 바로잡는다.
 
 사용자가 GitHub 토큰 갱신을 완료했다고 알렸다. 비밀값을 읽거나 출력하지 않고 Secrets 이름·갱신 시각만 확인했다. `INSTAGRAM_ACCESS_TOKEN` 갱신은 2026-10-15 00:12:34 KST다.
 
 기존 `resolveInstagramToken()`은 암호화 키가 있으면 `data/instagram-token.enc`를 먼저 읽는다. Secret 갱신만으로 기존 vault가 교체되는 것은 아니다.
 
-## 새 Secret을 독립 검증하는 읽기 진단
+## 새 Secret을 독립 검증하는 읽기 진단 (10월 15일 초기 이력·현재 설정 아님)
+
+아래 vault-first와 공개 파일 승인 관련 문단은 초기 진단 당시의 이력이다. 현재 자동 운영은 repository_secret을 직접 사용하며 공개 파일 갱신은 발행의 필수 조건이 아니다. 현재 인증 상태는 이 문서 상단의 10월 16일 점검 결과를 따른다.
 
 `DIEM Economy`의 수동 입력 `diagnose_new_token`은 해당 진단 subprocess에서만 `INSTAGRAM_TOKEN_ENCRYPTION_KEY`를 unset한다. 토큰 resolver는 새 환경 Secret을 선택한다. 기존 `diagnose`와 자동 발행·주간 갱신은 기존 vault-first 동작을 유지한다.
 
