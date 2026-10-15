@@ -77,6 +77,39 @@ test('unavailable models never call Vision or claim successful shadow evidence',
   assert.equal(report.vision.consecutiveSuccesses, 0);
 });
 
+test('account verification distinguishes the professional user_id from the app-scoped id', async () => {
+  const report = await diagnoseDiem({
+    settings: { instagramUserId: 'professional-account', instagramUsername: 'diem.magazine' },
+    resolveTokenImpl: () => 'secret',
+    instagramRequestImpl: async request => {
+      assert.equal(request.path, 'me');
+      assert.match(request.params.fields, /user_id/);
+      return { id: 'app-scoped-account', user_id: 'professional-account', username: 'diem.magazine' };
+    },
+  });
+  assert.equal(report.instagram.status, 'ok');
+  assert.equal(report.instagram.accountId, 'professional-account');
+  assert.equal(report.instagram.appScopedId, 'app-scoped-account');
+});
+
+test('identity or username mismatch is actionable and preserves only selected account metadata', async () => {
+  for (const profile of [
+    { id: 'app', user_id: 'another-account', username: 'diem.magazine' },
+    { id: 'app', user_id: 'account', username: 'another.username' },
+  ]) {
+    const report = await diagnoseDiem({
+      settings: { instagramUserId: 'account', instagramUsername: 'diem.magazine' },
+      resolveTokenImpl: () => 'secret',
+      instagramRequestImpl: async () => ({ ...profile, access_token: 'must-not-be-recorded' }),
+    });
+    assert.equal(report.instagram.status, 'failed');
+    assert.equal(report.instagram.disposition, 'manual_action_required');
+    assert.equal(report.instagram.accountId, profile.user_id);
+    assert.equal(report.instagram.username, profile.username);
+    assert.doesNotMatch(JSON.stringify(report), /must-not-be-recorded|access_token/);
+  }
+});
+
 test('shadow asset hash failure prevents review and path escape is rejected', t => {
   const root = fixture(t);
   fs.writeFileSync(path.join(root, 'finance-01.png'), 'tampered');

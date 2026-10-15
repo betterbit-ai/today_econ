@@ -11,6 +11,16 @@
 - 각 안의 정시 24h 10편과 분야별 충분한 표본 전에는 우열을 보류한다. unavailable은 0이 아니며 늦은 관측은 실험 비교에 넣지 않는다.
 - 첫 화면 설정으로 즉시 복구 가능하게 하고 실험 ID·배정안·근거 참조를 새 analytics에 남긴다.
 
+### 구현 위치 사전 확인 (2026-10-15, 읽기만 수행)
+
+- `src/v2/editorial.js`의 조립·검증에서 선택 필드 `firstFact: { text, claimRefs, sourceSpans }`와 기존 숫자 의미 gate를 재사용한다. 새 LLM 호출 없이 기존 응답·claim을 사용한다.
+- cloud 경로는 `src/v2/daily-content.js`에서 claim ID·text·sourceSpans가 문자열 변환이나 staging 중 유실되지 않게 먼저 보존한다. 별도 사실 저장소는 만들지 않는다.
+- 자동 `preparePublication()`과 cloud `prepareDailyPackage()`가 공통 적합성·배정 helper를 사용한다. 후보의 안정적인 ID가 없으므로 정규화된 기사 URL의 SHA-256 parity로 배정을 고정한다. 날짜·publicationKey로 군이 달라지게 하지 않는다.
+- control도 사실 근거·길이와 실제 treatment 레이아웃 적합성을 통과한 후에 배정한다. treatment만 탈락하는 표본 편향을 막는다. 적합하지 않으면 기존 flash로 유지하고 이유를 기록한다.
+- `src/v2/cover.js`의 실제 Chromium 검사에 사실 요소의 줄 수·scroll overflow·44px·안전 영역·제목/계정명 겹침을 추가한다. 2·3줄 제목과 1·2줄 사실을 모두 실제 렌더로 검증한다. 기존 integration test는 별도 환경 플래그가 있어 기본 harness만으로 렌더 검증 완료를 주장하지 않는다.
+- 양 준비 경로의 analytics에 실험 ID·variant·기사 key·적합성·근거를 저장하고, `performance-loop.js`는 실험 ID/분야/군별 정시 24h만 비교한다. 기존 Basic·explain·미배정 자료는 섞지 않는다.
+- `reel.js`의 6초·180프레임·30fps와 음악·cron은 변경하지 않는다. 설정을 끄면 신규 배정·표시만 중단하고 과거 원장은 보존한다.
+
 ## Basic 재제작의 고정 ID
 
 | 원본 ID | 새 버전 ID | 먼저 고칠 내용 |
