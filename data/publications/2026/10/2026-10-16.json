@@ -4,7 +4,7 @@
   "date": "2026-10-16",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-15T17:29:30.467Z",
-  "updatedAt": "2026-10-16T14:34:43.473Z",
+  "updatedAt": "2026-10-16T14:34:47.871Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -17216,7 +17216,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-16:economy:38916319163",
       "category": "economy",
-      "status": "ready",
+      "status": "manual_action_required",
       "candidate": {
         "title": "이 대통령 \"국무회의 전부 비공개 동의 못 해\"...직접 입장",
         "url": "https://n.news.naver.com/article/052/0002419850?ntype=RANKING",
@@ -20515,11 +20515,19 @@
         "fallback": false
       },
       "reel": {
-        "status": "ready",
-        "attempts": 0,
+        "status": "manual_action_required",
+        "attempts": 1,
         "externalId": null,
-        "error": null,
-        "updatedAt": "2026-10-16T14:34:43.451Z"
+        "error": "[Instagram] 401: Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
+        "updatedAt": "2026-10-16T14:34:46.484Z",
+        "errorDetails": {
+          "httpStatus": 401,
+          "code": 190,
+          "subcode": 0,
+          "userMessage": "Error validating access token: The session has been invalidated because the user changed their password or Facebook has changed the session for security reasons.",
+          "traceId": "AlAQToGmrQGbctbRGFeyXQ5"
+        },
+        "errorCode": 190
       },
       "story": {
         "status": "planned",
@@ -20542,7 +20550,17 @@
         "error": null,
         "updatedAt": null
       },
-      "notifications": [],
+      "notifications": [
+        {
+          "key": "diem:2026-10-16:economy:38916319163:reel:manual_action_required",
+          "status": "manual_action_required",
+          "stage": "reel",
+          "sentAt": "2026-10-16T14:34:47.867Z",
+          "slackTs": "1792161286.620739",
+          "issueNumber": 178,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/178"
+        }
+      ],
       "reason": null,
       "plannedAt": "2026-10-16T14:33:35.035Z",
       "hotness": {
