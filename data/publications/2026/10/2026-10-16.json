@@ -4,7 +4,7 @@
   "date": "2026-10-16",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-15T17:29:30.467Z",
-  "updatedAt": "2026-10-16T14:33:35.053Z",
+  "updatedAt": "2026-10-16T14:34:43.473Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -17216,7 +17216,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-16:economy:38916319163",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "이 대통령 \"국무회의 전부 비공개 동의 못 해\"...직접 입장",
         "url": "https://n.news.naver.com/article/052/0002419850?ntype=RANKING",
@@ -17396,15 +17396,3130 @@
           "text": "economy | 대통령 국무회의"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 3,
+        "category": "economy",
+        "reelFormat": "flash",
+        "formatDecision": {
+          "format": "flash",
+          "reason": "explain_disabled",
+          "eligible": false
+        },
+        "titleCandidates": [
+          {
+            "title": "국무회의 생중계\n지지 선언",
+            "lines": [
+              "국무회의 생중계",
+              "지지 선언"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "국무회의 생중계\n지지 선언",
+          "lines": [
+            "국무회의 생중계",
+            "지지 선언"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity",
+          "sourceSpans": []
+        },
+        "caption": {
+          "sentences": [
+            "이재명 대통령은 국무회의 전부 비공개를 거부하며 생중계 원칙을 지지했다.📰",
+            "그는 SNS에 “일각의 비공개 주장에 동의할 수 없다”라고 밝혔고, 국무위원 발언 꺼림을 사실과 다르다며 반박했다.",
+            "500일을 맞은 그는 ‘국정 공개’ 의지를 재확인하며, 투명성 강화에 대한 의지를 강조했다.📰"
+          ],
+          "text": "이재명 대통령은 국무회의 전부 비공개를 거부하며 생중계 원칙을 지지했다.📰\n\n그는 SNS에 “일각의 비공개 주장에 동의할 수 없다”라고 밝혔고, 국무위원 발언 꺼림을 사실과 다르다며 반박했다.\n\n500일을 맞은 그는 ‘국정 공개’ 의지를 재확인하며, 투명성 강화에 대한 의지를 강조했다.📰"
+        },
+        "scenes": [],
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #정치 #국무회의 #생중계 #대통령 #비공개 #동의",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#정치",
+            "#국무회의",
+            "#생중계",
+            "#대통령",
+            "#비공개",
+            "#동의"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#정치",
+              "#국무회의",
+              "#생중계",
+              "#대통령",
+              "#비공개",
+              "#동의"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-20b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"500일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "failed",
+              "error": "model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"500일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "failed",
+              "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"500일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "Unexpected end of JSON input"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-20b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        },
+        "formatRollout": {
+          "enabled": false,
+          "reason": "explain_disabled"
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:legislation-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-10-16T14:34:38.523Z",
+        "assetPath": "assets/fallback/generated/legislation-01.png",
+        "sha256": "692f488a9066fc69337f9240c8008771de650229285251643d071b5f4cf43b23",
+        "localSha256": "692f488a9066fc69337f9240c8008771de650229285251643d071b5f4cf43b23",
+        "generatedTopic": "legislation",
+        "generatedEnergy": "calm",
+        "description": "Unmarked legal folder and neutral wooden gavel.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "topicMatch": {
+            "ok": true,
+            "reason": "project_generated_topic_match",
+            "expectedTopic": "legislation",
+            "assetTopics": [
+              "legislation"
+            ]
+          }
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 20,
+            "suitableCount": 7,
+            "suitabilityRejected": 13,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:37375236",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:13609018",
+                "rankWithinQuery": 3,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32168739",
+                "rankWithinQuery": 4,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8574469",
+                "rankWithinQuery": 5,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5103610",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:38658307",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8102300",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6949365",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6008847",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36007720",
+                "rankWithinQuery": 12,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "room",
+                  "conference"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33827304",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "conference",
+                  "table"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:17664083",
+                "rankWithinQuery": 19,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "office"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:18787913",
+                "rankWithinQuery": 20,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [
+                  "office"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 7,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.675
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 2,
+            "suitableCount": 0,
+            "suitabilityRejected": 2,
+            "suitabilityRejections": [
+              {
+                "id": "wikimedia:23393256",
+                "rankWithinQuery": 1,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "wikimedia:23393288",
+                "rankWithinQuery": 2,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "meeting",
+                  "room",
+                  "conference",
+                  "table"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.3
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "South Korea presidential office meeting room conference table",
+            "count": 5,
+            "error": "Neither image accurately represents the primary event of the South Korean President's statement on the State Council meeting. The first image is a generic, empty office room that lacks specific context. The second image is explicitly rejected because it features a US flag and an American voting box, which constitutes a country mismatch and the presence of foreign political symbols in a story about Korean domestic politics."
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea presidential office Blue House exterior",
+            "count": 20,
+            "suitableCount": 7,
+            "suitabilityRejected": 13,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:29673494",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:26319168",
+                "rankWithinQuery": 6,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "south"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:15354089",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "blue"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35090207",
+                "rankWithinQuery": 11,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:37384706",
+                "rankWithinQuery": 12,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:19365688",
+                "rankWithinQuery": 13,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:20949044",
+                "rankWithinQuery": 14,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:13208725",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:33415078",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:12011391",
+                "rankWithinQuery": 17,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38333372",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:36880423",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:38279173",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 7,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.6286
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "South Korea presidential office Blue House exterior",
+            "count": 20,
+            "suitableCount": 5,
+            "suitabilityRejected": 15,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:cBkYnWvRq30",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [
+                  "blue"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:yCosNZ2jMuk",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:2e6xQXSYY3o",
+                "rankWithinQuery": 8,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:pB4gPDdT_Dc",
+                "rankWithinQuery": 9,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:W8xwAHoqdu8",
+                "rankWithinQuery": 10,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:r8u0vFgsCfE",
+                "rankWithinQuery": 11,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:PIZMiShfwOE",
+                "rankWithinQuery": 12,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:nJURYGCgP0o",
+                "rankWithinQuery": 13,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:SbVwB1cDyj4",
+                "rankWithinQuery": 14,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:99sbrCcocsE",
+                "rankWithinQuery": 15,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:SSzotdUHU1o",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:fEyw6zOKGSo",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:GCcL4FaKpAQ",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:IFB0lrADDdM",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:Bfv43BRBzog",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "presidential",
+                  "office",
+                  "blue",
+                  "house",
+                  "exterior"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 4,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.5786
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "South Korea presidential office Blue House exterior",
+            "count": 5,
+            "error": "vision review budget exhausted after 1 attempts"
+          },
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "South Korea government briefing room podium",
+            "count": 20,
+            "suitableCount": 1,
+            "suitabilityRejected": 19,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:28529893",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:29013548",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "south",
+                  "korea"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172582",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172612",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172593",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172585",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:37726695",
+                "rankWithinQuery": 7,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:6949933",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "room"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6949979",
+                "rankWithinQuery": 9,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172614",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172609",
+                "rankWithinQuery": 11,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6172587",
+                "rankWithinQuery": 12,
+                "reason": "foreign_political_symbol_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:31990882",
+                "rankWithinQuery": 13,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "room"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6950185",
+                "rankWithinQuery": 14,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:8730761",
+                "rankWithinQuery": 15,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8730783",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "podium"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:8731034",
+                "rankWithinQuery": 18,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:6949910",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35427330",
+                "rankWithinQuery": 20,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 1,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.5667
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "South Korea government briefing room podium",
+            "count": 14,
+            "suitableCount": 0,
+            "suitabilityRejected": 14,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:wpr-wOcaIpA",
+                "rankWithinQuery": 1,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [
+                  "room"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:_gPpbHGdTRg",
+                "rankWithinQuery": 2,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:W8xwAHoqdu8",
+                "rankWithinQuery": 3,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:Bfv43BRBzog",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:PIZMiShfwOE",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:C6TTuH-_-8A",
+                "rankWithinQuery": 6,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:cBkYnWvRq30",
+                "rankWithinQuery": 7,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:GCcL4FaKpAQ",
+                "rankWithinQuery": 8,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:SSzotdUHU1o",
+                "rankWithinQuery": 9,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:J8ESxuzbnSY",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:pB4gPDdT_Dc",
+                "rankWithinQuery": 11,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:CJYmvgAd01w",
+                "rankWithinQuery": 12,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:nJURYGCgP0o",
+                "rankWithinQuery": 13,
+                "reason": "geographic_context_mismatch",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:avu8l3AXaLw",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "south",
+                  "korea",
+                  "briefing",
+                  "room",
+                  "podium"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": "south_korea",
+                "matchedGeography": false,
+                "missingGeography": "south_korea",
+                "identity": {
+                  "required": false,
+                  "name": "주재",
+                  "role": "총리",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.4083
+          },
+          {
+            "provider": "openverse",
+            "visualRole": "context",
+            "query": "South Korea government briefing room podium",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "wikimedia",
+            "visualRole": "context",
+            "query": "South Korea government briefing room podium",
+            "count": 0,
+            "suitableCount": 0,
+            "suitabilityRejected": 0,
+            "suitabilityRejections": [],
+            "eligibleCount": 0,
+            "recentReuseBlocked": 0,
+            "bestScore": null
+          },
+          {
+            "provider": "vision-review",
+            "visualRole": "context",
+            "query": "South Korea government briefing room podium",
+            "count": 1,
+            "error": "vision review budget exhausted after 1 attempts"
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 6,
+          "recentKeyCount": 12,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:legislation-01",
+            "692f488a9066fc69337f9240c8008771de650229285251643d071b5f4cf43b23"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated legislation asset legislation-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "serious4",
+        "mood": "serious",
+        "sha256": "1877c6cf809f13231a6dbfd1b80868e49699ce0649829a1627841bab6084096a",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-16T14:34:43.451Z"
       },
       "story": {
         "status": "planned",
@@ -17483,6 +20598,19 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "analytics": {
+        "featureSchemaVersion": 3,
+        "strategyVersion": "discovery-funnel-v3",
+        "reelDurationSeconds": 6
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-10-16/economy/economy-cover.png",
+        "coverSha256": "a8b185ea54efc7c5e962cc179e61a9ed5785ece046867d365452414b5f8cacfe",
+        "scenePaths": [],
+        "reelPath": ".diem-cache/2026-10-16/economy/economy-reel.mp4",
+        "reelSha256": "c66f34abba4c9c8a023cdae3779d9d012a55b65d4709f5c93b89ac7fa09cbc16",
+        "temporary": true
       }
     },
     "issue": {
