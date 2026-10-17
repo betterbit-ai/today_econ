@@ -64,6 +64,8 @@ test('final cover review sends a bounded public summary, blocks mismatch and bin
     assert.doesNotThrow(() => assertCreativeBinding(publication));
     publication.release = { videoUrl: 'https://example.com/old.mp4', reelSha256: 'old' };
     assert.throws(() => assertCreativeBinding(publication), /Release does not match/u);
+    publication.release = { tag: 'old', reelSha256: 'old' };
+    assert.throws(() => assertCreativeBinding(publication), /Release does not match/u);
     delete publication.release;
     fs.writeFileSync(reelPath, 'changed video');
     assert.throws(() => assertCreativeBinding(publication), /bytes changed/u);

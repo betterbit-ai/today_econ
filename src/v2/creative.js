@@ -45,7 +45,7 @@ function assertCreativeBinding(publication) {
     || review.briefSha256 !== briefHash(creativeBrief(publication.candidate, publication.editorial))) {
     throw new Error('[DIEM Quality] creative approval is missing or no longer matches this cover and editorial');
   }
-  if (publication.release?.videoUrl && publication.release.reelSha256 !== review.reviewedReelSha256) {
+  if ((publication.release?.videoUrl || publication.release?.tag) && publication.release.reelSha256 !== review.reviewedReelSha256) {
     throw new Error('[DIEM Quality] stored Release does not match reviewed Reel');
   }
   const { coverPath, reelPath } = publication.artifacts || {};
