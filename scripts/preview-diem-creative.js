@@ -21,9 +21,10 @@ async function main() {
     ledger = updatePublication(ledger, item.article.category, { status: 'planned', candidate: item.article,
       publicationKey: `preview:${id}`, duplicateCheck: { signature: { target: item.article.target, event: item.article.event, entities: item.article.entities } } });
     const visualEvidence = [];
-    const nativeReview = createGroqVisionReviewer({ apiKey: config.groqApiKey, model: config.groqVisionModel });
+    let nativeReview;
     const reviewImages = async request => {
       try {
+        nativeReview ||= createGroqVisionReviewer({ apiKey: config.groqApiKey, model: config.groqVisionModel });
         const verdict = await nativeReview(request);
         visualEvidence.push({ ids: request.images.map(i => i.id), ...verdict });
         return verdict;

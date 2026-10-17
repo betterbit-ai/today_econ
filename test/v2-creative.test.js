@@ -5,7 +5,7 @@ const os = require('os');
 const path = require('path');
 const { editorialRuntime } = require('../src/v2/editorial-provider');
 const { creativeBrief, reviewRenderedCreative, assertCreativeBinding } = require('../src/v2/creative');
-const { reviewedGeneratedFallback, buildImageQueries } = require('../src/v2/image-selector');
+const { createGeneratedFallback, reviewedGeneratedFallback, buildImageQueries } = require('../src/v2/image-selector');
 const { getMood, selectMusic } = require('../src/v2/music');
 const { numericSemanticViolations } = require('../src/v2/editorial');
 
@@ -93,4 +93,28 @@ test('the real production adapter shares a twelve-call process cap across candid
   for (let i = 0; i < 12; i++) await editorialRuntime(options).callModel({ model: 'claude-opus-5-5' });
   await assert.rejects(editorialRuntime(options).callModel({ model: 'claude-opus-5-5' }), /budget exhausted/u);
   assert.equal(calls, 12);
+});
+
+test('political statements select briefing assets and never rotate into court imagery', () => {
+ const political = { title: '대통령 국무회의 공개 발언', newsFrame: { eventKind: 'political_statement', subject: '대통령 발언' } };
+ assert.equal(createGeneratedFallback(political).id, 'diem-generated:government-briefing-01-openai');
+ assert.equal(createGeneratedFallback({ title: '대통령 “개혁 내세워 내부공격”', newsFrame: {eventKind:'general', subject:'대통령 능력'} }).id, 'diem-generated:government-briefing-01-openai');
+ assert.equal(createGeneratedFallback({...political, generatedAssetId: 'legislation-01'}), null);
+ assert.equal(createGeneratedFallback({title:'법원 판결', newsFrame:{eventKind:'legislation'}, generatedAssetId:'government-briefing-01-openai'}), null);
+});
+
+test('retrial document stories use evidence review assets instead of court verdict symbolism', () => {
+ const article = {title:'재심 쟁점 된 국정원 문건 수원고법원장 발언', newsFrame:{eventKind:'general',subject:'형사소송법'}};
+ assert.equal(createGeneratedFallback({...article,editorialCaption:'북한 소재지 증거 문건은 재심 쟁점이다.'}).id,'diem-generated:legal-document-review-01-openai');
+ assert.equal(createGeneratedFallback({title:'대통령 “금리 인하 검토”',newsFrame:{eventKind:'political_statement'},editorialCaption:'금리 정책에 관한 발언이다.'}).id,'diem-generated:government-briefing-01-openai');
+ assert.equal(createGeneratedFallback({...article,generatedAssetId:'legislation-01'}),null);
+});
+
+test('final image context recheck uses the same validated copy as initial selection', () => {
+ const article={title:'코스피 급락',newsFrame:{eventKind:'general',subject:'건강 정책'}};
+ const editorial={title:{text:'코스피 급락'},caption:{text:'코스피 지수가 하락했다.'}};
+ const image=createGeneratedFallback({...article,editorialTitle:editorial.title.text,editorialCaption:editorial.caption.text});
+ assert.equal(image.generatedTopic,'markets');
+ const result=require('../src/v2/quality-gate').validatePreparedQuality({article,editorial,image});
+ assert.equal(result.image.finalReview.ok,true);
 });

@@ -108,6 +108,8 @@ function articleSourceText(candidate = {}) {
   return `${title} ${lead}`.trim();
 }
 
+function titleForVisual(candidate) { return `${candidate.title || ''} ${candidate.editorialTitle || ''}`; }
+
 function primaryVisualText(candidate = {}) {
   const frame = candidate.newsFrame || {};
   const lockedFrame = [
@@ -116,6 +118,8 @@ function primaryVisualText(candidate = {}) {
     ...(frame.subjectTerms || []),
     ...(frame.eventTerms || []),
   ].filter(Boolean);
+  // Validated final copy is more specific than legacy broad/misclassified frame tags.
+  if (candidate.editorialCaption) return `${titleForVisual(candidate)} ${candidate.editorialCaption}`.normalize('NFC');
   if (lockedFrame.length < 1) return articleSourceText(candidate);
   return lockedFrame
     .map(value => normalizeNfc(value || '').trim())
@@ -219,6 +223,7 @@ function inferFallbackTheme(candidate = {}) {
 }
 
 function generatedFallbackTopic(candidate = {}) {
+  if (['political_statement', 'legal_document_review'].includes(generatedAssetEventKind(candidate))) return 'legislation';
   const text = primaryVisualText(candidate);
   if (candidate.newsFrame?.eventKind === 'general' && candidate.newsFrame.subject === '주거 정책') return 'housing';
   if (candidate.newsFrame?.eventKind === 'general' && /농지/u.test(text)) return 'agriculture';
@@ -256,12 +261,30 @@ function generatedFallbackTopic(candidate = {}) {
   return null;
 }
 
+function generatedAssetEventKind(candidate) {
+  let kind = candidate.newsFrame?.eventKind;
+  const title = titleForVisual(candidate);
+  if ((!kind || kind === 'general') && /(대통령|총리|장관|의원)/u.test(title)
+    && /[“”"「」]|발언|말했|밝혔|비판|촉구/u.test(title)
+    && !LEGAL_JUDGMENT_CONTEXT.test(title)) kind = 'political_statement';
+  if (/(문건|문서|증거)/u.test(title) && /(재심|법원|고법|재판|국정감사)/u.test(title)) kind = 'legal_document_review';
+  return kind;
+}
+
+function generatedAssetMatchesEvent(asset, candidate) {
+  const kind = generatedAssetEventKind(candidate);
+  // Political statements must never rotate into generic court/gavel imagery.
+  if (['political_statement', 'legal_document_review'].includes(kind)) return asset.eventKinds?.includes(kind) === true;
+  return !asset.eventKinds || asset.eventKinds.includes(kind);
+}
+
 function assessGeneratedImageSuitability(image = {}, candidate = {}) {
   const expectedTopic = generatedFallbackTopic(candidate);
   const asset = (GENERATED_FALLBACK_MANIFEST.assets || [])
     .find(item => [`diem-generated:${item.id}`, `diem-library:${item.id}`].includes(image.id));
   const reason = !asset
     ? 'generated_asset_not_in_manifest'
+    : !generatedAssetMatchesEvent(asset, candidate) ? 'generated_asset_event_mismatch'
     : !expectedTopic || !asset.topics?.includes(expectedTopic) || !asset.topics?.includes(image.generatedTopic)
       ? 'generated_asset_topic_mismatch'
       : image.localSha256 !== asset.sha256 || (image.sha256 && image.sha256 !== asset.sha256)
@@ -299,7 +322,7 @@ function createGeneratedFallback(candidate = {}, {
   if (!topic || (requestedAssetId && (!requestedAsset || !requestedAsset.topics?.includes(topic)))) return null;
   const recentKeys = recentImageKeySet(recentImages);
   const matchingAssets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => (
-    !excludedAssetIds.includes(asset.id) && (requestedAssetId ? asset.id === requestedAssetId : asset.topics?.includes(topic))
+    generatedAssetMatchesEvent(asset, candidate) && !excludedAssetIds.includes(asset.id) && (requestedAssetId ? asset.id === requestedAssetId : asset.topics?.includes(topic))
   ));
   const energy = requestedAsset?.energy || generatedFallbackEnergy(candidate);
   const preferredAssets = requestedAssetId
