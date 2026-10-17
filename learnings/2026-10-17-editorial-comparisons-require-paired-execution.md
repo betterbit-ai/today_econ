@@ -11,3 +11,5 @@ Freeze both the article input hash and original publication reference. Use ident
 Missing OAuth, exhausted quota or a missing native runtime is unavailable evidence, not a zero-quality answer. A paired-completion count keeps two model denominators visible. Stop unavailable providers and keep a batch deadline so an evaluation cannot consume unlimited subscription usage or block publishing.
 
 Subscription Claude uses the official native client, an empty working/config directory, an environment allowlist and no tools/MCP. A schema-valid or gate-passing draft still needs a bounded factual/editorial review before production provider changes. Preview and mocked tests cannot establish actual model superiority.
+
+The first cloud build failed before model execution because the full suite also needs services/diem-mcp dependencies and neutral mock-publishing environment defaults. Reuse the diagnostic workflow's dependency installation and env-unset contract. Production Story switches and credential-source selection must not contaminate unit-test behavior; a CI environment failure is not model evidence.

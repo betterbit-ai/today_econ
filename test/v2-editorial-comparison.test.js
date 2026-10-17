@@ -135,6 +135,11 @@ test('shadow workflow isolates publish secrets and concurrency from live publica
   for (const name of ['INSTAGRAM_ACCESS_TOKEN', 'INSTAGRAM_TOKEN_ENCRYPTION_KEY', 'SLACK_BOT_TOKEN', 'GITHUB_TOKEN']) assert.ok(job.includes(name + ": ''"));
   assert.match(job, /contents: read/u);
   assert.match(job, /persist-credentials: false/u);
+  assert.match(job, /npm ci --prefix services\/diem-mcp --ignore-scripts/u);
+  assert.match(job, /-u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE/u);
+  assert.match(job, /-u INSTAGRAM_TOKEN_SOURCE/u);
+  assert.ok(job.includes("inputs.comparison_mode == 'live' && secrets.CLAUDE_CODE_OAUTH_TOKEN || ''"));
+  assert.ok(job.includes("inputs.comparison_mode == 'live' && secrets.GROQ_API_KEY || ''"));
   assert.doesNotMatch(job, /commit-diem-state|daily-package-publish|index.js publish/u);
   assert.match(workflow, /inputs.operation == 'compare_editorial'.*diem-editorial-shadow.*diem-v2-durable-writes/u);
 });

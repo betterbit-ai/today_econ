@@ -147,9 +147,17 @@ jobs:
           node-version: 20
           cache: npm
       - name: Install evaluation dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm ci --prefix services/diem-mcp --ignore-scripts
       - name: Verify comparison and publishing regressions
-        run: node .codex-harness/scripts/verify-project.mjs
+        # Mock publishing tests need neutral defaults, just like the diagnostic job.
+        run: |
+          env -u GROQ_API_KEY -u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY \
+            -u INSTAGRAM_TOKEN_SOURCE \
+            -u SLACK_BOT_TOKEN -u SLACK_CHANNEL_ID -u GITHUB_TOKEN \
+            -u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE \
+            node .codex-harness/scripts/verify-project.mjs
       - name: Install pinned official Claude CLI for live comparison
         if: inputs.comparison_mode == 'live'
         run: npm install --prefix "$RUNNER_TEMP/diem-claude" --no-save @anthropic-ai/claude-code@2.1.302
@@ -158,8 +166,8 @@ jobs:
           COMPARISON_MODE: ${{ inputs.comparison_mode || 'preview' }}
           COMPARISON_BATCH: ${{ inputs.comparison_batch || 'first' }}
           CLAUDE_COMPARISON_BIN: ${{ runner.temp }}/diem-claude/node_modules/.bin/claude
-          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ inputs.comparison_mode == 'live' && secrets.CLAUDE_CODE_OAUTH_TOKEN || '' }}
+          GROQ_API_KEY: ${{ inputs.comparison_mode == 'live' && secrets.GROQ_API_KEY || '' }}
         run: node scripts/compare-diem-editorial.js --mode "$COMPARISON_MODE" --batch "$COMPARISON_BATCH" --output "$RUNNER_TEMP/diem-editorial-comparison"
       - name: Upload side-by-side comparison reports
         if: always()
