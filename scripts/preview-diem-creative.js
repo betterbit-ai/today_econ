@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const { loadDataset, safeError } = require('../src/v2/editorial-comparison');
 const { createDailyLedger, updatePublication, historyFromLedgers, listLedgers } = require('../src/v2/ledger');
+const config = require('../config');
+const { createGroqVisionReviewer } = require('../src/v2/groq');
 const { preparePublication } = require('../src/v2/publisher');
 
 async function main() {
@@ -18,15 +20,28 @@ async function main() {
     let ledger = createDailyLedger(date);
     ledger = updatePublication(ledger, item.article.category, { status: 'planned', candidate: item.article,
       publicationKey: `preview:${id}`, duplicateCheck: { signature: { target: item.article.target, event: item.article.event, entities: item.article.entities } } });
+    const visualEvidence = [];
+    const nativeReview = createGroqVisionReviewer({ apiKey: config.groqApiKey, model: config.groqVisionModel });
+    const reviewImages = async request => {
+      try {
+        const verdict = await nativeReview(request);
+        visualEvidence.push({ ids: request.images.map(i => i.id), ...verdict });
+        return verdict;
+      } catch (error) {
+        visualEvidence.push({ ids: request.images.map(i => i.id), error: safeError(error, secrets) });
+        throw error;
+      }
+    };
     try {
-      const prepared = await preparePublication(ledger, item.article.category, { artifactRoot: path.join(output, id), history });
+      const prepared = await preparePublication(ledger, item.article.category, { artifactRoot: path.join(output, id), history, reviewImages });
       const p = prepared.publications[item.article.category];
       const cover = id + '.png', reel = id + '.mp4';
       fs.copyFileSync(path.resolve(p.artifacts.coverPath), path.join(output, cover));
       fs.copyFileSync(path.resolve(p.artifacts.reelPath), path.join(output, reel));
       report.cases.push({ id, status: 'ready_preview_only', sourceHash: item.inputSha256, editorial: p.editorial,
-        image: p.image, audio: p.audio, creativeReview: p.creativeReview, cover, reel });
-    } catch (error) { report.cases.push({ id, status: 'blocked', error: safeError(error, secrets) }); }
+        visualEvidence, image: p.image, audio: p.audio, creativeReview: p.creativeReview, cover, reel });
+    } catch (error) { report.cases.push({ id, status: 'blocked', visualEvidence, error: safeError(error, secrets) }); }
+    console.log(JSON.stringify({ id, status: report.cases.at(-1).status, visualReviews: visualEvidence.length }));
     // Preserve partial evidence if a later fixture times out; never write publication ledgers.
     let serialized = JSON.stringify(report, null, 2);
     for (const secret of secrets) serialized = serialized.split(secret).join('[REDACTED]');
