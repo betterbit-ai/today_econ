@@ -271,7 +271,7 @@ async function prepareBasicDraft({
     newsFrame: { eventKind: 'educational', claimState: 'confirmed', subjectTerms: [], eventTerms: [] },
   };
   mini.publications.economy.duplicateCheck = sourcePublication.duplicateCheck || null;
-  const modelCaller = callModel || (config.groqApiKey ? createGroqCaller({ apiKey: config.groqApiKey }) : undefined);
+  const modelCaller = callModel;
   const preparedLedger = await preparePublicationImpl(mini, 'economy', {
     callModel: modelCaller,
     generateEditorialImpl: (article, options) => generateBasicEditorial(article, options),

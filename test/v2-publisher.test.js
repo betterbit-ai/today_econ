@@ -222,6 +222,7 @@ test('reselects an image when its downloaded hash matches the recent seven-day h
   });
 
   assert.equal(selectionCalls, 2);
+  assert.equal(result.publications.economy.editorial.imageKeyword, 'central bank finance');
   assert.equal(result.publications.economy.image.id, 'pexels:fresh-after-hash');
   assert.equal(result.publications.economy.image.localSha256, 'fresh-binary-sha');
 });
@@ -602,4 +603,22 @@ test('transient Reel failures keep retry pending before the third attempt', asyn
       assert.equal(result.publications.economy.reel.errorDetails.httpStatus, status);
     } finally { fs.rmSync(root, { recursive: true, force: true }); }
   }
+});
+
+ test('news creative gate preserves preauthored Basic publishing', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-basic-binding-'));
+  const ledger = readyLedger(root);
+  ledger.publications.economy.contentType = 'diem_basic';
+  const previous = config.creativeReviewEnabled; config.creativeReviewEnabled = true;
+  try {
+    const result = await publishPreparedPublication(ledger, 'economy', 'token', {
+      cleanupReleasesImpl: async () => [],
+      createReleaseImpl: async () => ({ releaseId: 1, videoUrl: 'https://example.com/basic.mp4' }),
+      reconcileReelImpl: async () => ({ status: 'not_found', shouldPublish: true }),
+      publishReelImpl: async () => ({ id: 'basic', permalink: 'https://instagram.com/reel/basic/' }),
+      publishStoryImpl: async () => ({ id: 'story' }),
+      publishCommentsImpl: async publication => publication,
+    });
+    assert.equal(result.publications.economy.reel.status, 'published');
+  } finally { config.creativeReviewEnabled = previous; fs.rmSync(root, { recursive: true, force: true }); }
 });

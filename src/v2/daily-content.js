@@ -16,6 +16,8 @@ const {
 } = require('./ledger');
 const { publishPreparedPublication } = require('./publisher');
 const { selectMusic, getMood } = require('./music');
+const { creativeBrief, reviewRenderedCreative } = require('./creative');
+const { createGroqVisionReviewer } = require('./groq');
 const { createDiemReelWithMusic } = require('./reel');
 const { renderDiemCover, renderDiemScenes } = require('./cover');
 const { buildTopicSignature, classifyCandidate } = require('./topic');
@@ -456,9 +458,16 @@ async function prepareDailyPackage(ledger, category, {
   const music = selectMusicImpl({
     history,
     publicationKey: publication.publicationKey,
-    topic: article,
-    mood: getMood(`${article.title} ${article.summary} ${article.fullText}`),
+    topic: { title: publication.editorial.title.text, summary: publication.editorial.caption.text },
+    mood: creativeBrief(article, publication.editorial).mood,
+    sensitive: creativeBrief(article, publication.editorial).sensitive,
+    newsOnly: true,
   });
+  let creativeReview = null;
+  if (config.creativeReviewEnabled) {
+    creativeReview = await reviewRenderedCreative({ article, brief: creativeBrief(article, publication.editorial), coverPath,
+      reviewImages: createGroqVisionReviewer({ apiKey: config.groqApiKey, model: config.groqVisionModel }) });
+  }
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,
@@ -468,9 +477,11 @@ async function prepareDailyPackage(ledger, category, {
     music,
   });
   if (!fs.existsSync(reelResult.outputPath || reelPath)) throw new Error('[DIEM Daily] Reel artifact was not rendered.');
+  if (creativeReview) creativeReview.reviewedReelSha256 = sha256File(reelResult.outputPath || reelPath);
   const preparedAt = now.toISOString();
   return updatePublication(ledger, category, {
     status: 'ready',
+    creativeReview,
     audio: reelResult.audio,
     artifacts: {
       coverPath: path.relative(process.cwd(), coverPath),
