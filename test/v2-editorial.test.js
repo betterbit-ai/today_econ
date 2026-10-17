@@ -309,6 +309,46 @@ test('locks editorial repair to numbers that actually occur in the selected arti
   assert.match(prompt.systemPrompt, /allowedNumbers/u);
 });
 
+test('numeric evidence failures request a number-free repair instead of a different source number', () => {
+  for (const failure of [
+    'model returned an unsupported numeric meaning: 320개',
+    'model returned an ungrounded numeric claim: 16일',
+    'model returned a comparison basis that conflicts with article evidence',
+    '[DIEM Editorial] multiple numeric claims lack one shared source sentence',
+  ]) {
+    const prompt = editorialRepairPrompt(economyArticle(), new Error(failure));
+    assert.deepEqual(JSON.parse(prompt.userPrompt).allowedNumbers, []);
+    assert.match(prompt.systemPrompt, /제목과 본문에서 모든 숫자 표현을 생략/u);
+    assert.match(prompt.systemPrompt, /발언은 발언/u);
+  }
+});
+
+test('repairs an unsupported number with grounded prose under the same validation gates', async () => {
+  const requests = [];
+  const result = await generateEditorial(economyArticle(), {
+    callModel: async request => {
+      requests.push(request);
+      const repair = /편집 JSON 복구기/u.test(request.systemPrompt);
+      if (repair) assert.deepEqual(JSON.parse(request.userPrompt).allowedNumbers, []);
+      return {
+        titleCandidates: [{ title: '한국은행\n기준금리 인하' }],
+        sentences: [
+          repair ? '한국은행이 기준금리를 낮췄습니다.' : '한국은행이 기준금리를 0.50%포인트 낮췄습니다.',
+          '인하한 기준금리는 다음 달부터 적용됩니다.',
+          '금리를 낮춘 배경으로 한국은행은 물가 둔화를 들었습니다.',
+        ],
+        emojis: { first: '📰', third: '📰' },
+        topicTags: ['한국은행', '금리', '물가'],
+        imageKeyword: 'central bank building',
+      };
+    },
+  });
+  assert.equal(requests.length, 2);
+  assert.equal(result.generation.model, DEFAULT_MODELS.primary);
+  assert.doesNotMatch(result.caption.text, /\d/u);
+  assert.equal(validateEditorial(result, { article: economyArticle() }).ok, true);
+});
+
 test('does not widen one politician quote into a shared claim by several candidates', async () => {
   const article = politicalQuoteArticle();
   const result = await generateEditorial(article, {
