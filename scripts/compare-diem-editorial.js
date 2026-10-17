@@ -7,21 +7,22 @@ const { MODELS, CLI_VERSION, loadDataset, runComparison, createClaudeCaller,
   createGroqComparisonCaller, renderHtml, renderMarkdown, safeError } = require('../src/v2/editorial-comparison');
 
 function options(args) {
-  const result = { mode: 'preview', batch: 'first' };
+  const result = { mode: 'preview', batch: 'first', candidate: 'sonnet' };
   for (let index = 0; index < args.length; index += 2) {
     const key = args[index]?.replace(/^--/u, '');
-    if (!['mode', 'batch', 'output'].includes(key) || !args[index + 1]) throw new Error('Use --mode preview|live --batch first|second [--output directory]');
+    if (!['mode', 'batch', 'output', 'candidate'].includes(key) || !args[index + 1]) throw new Error('Use --mode preview|live --batch first|second [--candidate sonnet|opus] [--output directory]');
     result[key] = args[index + 1];
   }
   if (!['preview', 'live'].includes(result.mode) || !['first', 'second'].includes(result.batch)) throw new Error('Invalid comparison mode or batch');
+  if (!['sonnet', 'opus'].includes(result.candidate)) throw new Error('Invalid comparison candidate');
   return result;
 }
 
-function preflight({ mode, env = process.env, checkBinary = spawnSync } = {}) {
+function preflight({ mode, candidate = 'sonnet', env = process.env, checkBinary = spawnSync } = {}) {
   if (mode !== 'live') return { ready: false, missing: [], cli: 'not_checked_in_preview' };
   const missing = [];
   if (!env.CLAUDE_CODE_OAUTH_TOKEN) missing.push('CLAUDE_CODE_OAUTH_TOKEN');
-  if (!env.GROQ_API_KEY) missing.push('GROQ_API_KEY');
+  if (candidate !== 'opus' && !env.GROQ_API_KEY) missing.push('GROQ_API_KEY');
   const binary = env.CLAUDE_COMPARISON_BIN || 'claude';
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-cli-check-'));
   let cli = 'unavailable';
@@ -37,11 +38,11 @@ function preflight({ mode, env = process.env, checkBinary = spawnSync } = {}) {
 async function main(args = process.argv.slice(2), { env = process.env } = {}) {
   const selected = options(args);
   const dataset = loadDataset();
-  const setup = preflight({ mode: selected.mode, env });
+  const setup = preflight({ mode: selected.mode, candidate: selected.candidate, env });
   const secrets = [env.CLAUDE_CODE_OAUTH_TOKEN, env.GROQ_API_KEY].filter(Boolean);
   const metadata = [];
   const callers = setup.ready ? {
-    groq: createGroqComparisonCaller({ apiKey: env.GROQ_API_KEY }),
+    ...(selected.candidate !== 'opus' ? { groq: createGroqComparisonCaller({ apiKey: env.GROQ_API_KEY }) } : {}),
     claude: createClaudeCaller({ token: env.CLAUDE_CODE_OAUTH_TOKEN, binary: env.CLAUDE_COMPARISON_BIN || 'claude', env,
       onMetadata: item => metadata.push(item) }),
   } : {};
@@ -59,7 +60,7 @@ async function main(args = process.argv.slice(2), { env = process.env } = {}) {
   fs.writeFileSync(path.join(output, 'report.md'), renderMarkdown(safeReport));
   fs.writeFileSync(path.join(output, 'report.html'), renderHtml(safeReport));
   if (env.GITHUB_STEP_SUMMARY) fs.appendFileSync(env.GITHUB_STEP_SUMMARY,
-    '## DIEM 원고 비교: ' + report.status + '\n\n모델: ' + Object.values(MODELS).join(' / ') + '\n\n' +
+    '## DIEM 원고 비교: ' + report.status + '\n\n모델: ' + Object.values(report.models || MODELS).join(' / ') + '\n\n' +
     '결과는 이 실행의 **diem-editorial-comparison** artifact에서 report.html을 다운로드해 확인하세요. 실제 발행은 없습니다.\n\n' +
     (setup.missing.length ? '준비 필요: ' + setup.missing.join(', ') + '\n\n' : '') +
     Object.entries(report.summary).map(([provider, s]) => '- ' + provider + ': 검사 ' + s.attempted + ', 통과 ' + s.passed + ', 사용 불가 ' + s.unavailable + ', 미실행 ' + s.notRun).join('\n') + '\n');
