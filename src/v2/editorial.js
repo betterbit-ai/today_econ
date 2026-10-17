@@ -863,7 +863,10 @@ function modelPrompt(article) {
 
 function editorialRepairPrompt(article = {}, error = {}) {
   const frame = articleFrame(article);
-  const allowedNumbers = [...new Set(sourceText(article).match(NUMBER_TOKEN) || [])].slice(0, 40);
+  const numericEvidenceFailure = /unsupported numeric meaning|ungrounded numeric claim|comparison basis|numeric claims lack/u.test(String(error.message || error));
+  const allowedNumbers = numericEvidenceFailure
+    ? []
+    : [...new Set(sourceText(article).match(NUMBER_TOKEN) || [])].slice(0, 40);
   const politicalAttributionRule = frame.eventKind === 'political_statement'
     ? '정치인·평론가 발언은 첫 문장에 발언 주체와 비판했다, 지적했다, 전망했다, 말했다 중 하나를 반드시 쓰세요.'
     : '';
@@ -874,6 +877,9 @@ function editorialRepairPrompt(article = {}, error = {}) {
       'sentences는 정확히 3개입니다: 사건 요약, 핵심 근거, 기사에 명시된 맥락 또는 다음 핵심 사실.',
       '각 문장은 하나의 완결문이며 120자 이내입니다. 기사에 없는 숫자·원인·전망·조언은 금지합니다.',
       '숫자는 user JSON의 allowedNumbers에 있는 표기만 그대로 쓸 수 있습니다. 필요한 숫자가 없으면 숫자를 쓰지 마세요.',
+      numericEvidenceFailure
+        ? '숫자 근거 검증에 실패했으므로 제목과 본문에서 모든 숫자 표현을 생략하세요. 금액·비율·기간·날짜·인원 등의 수치를 다른 숫자나 한글 수사로 바꾸지 말고, 원문에 명시된 주체·사건·상태만 자연스럽게 요약하세요.'
+        : '',
       'titleCandidates는 1개 이상이며 각 title은 2~3줄, 전체 26자 이내, 각 줄 10자 이내입니다.',
       '제목은 주체·사건·보도 상태를 보존합니다. 발언은 발언, 전망은 전망, 잠정합의는 합의로 적습니다.',
       '"오라 그래", "하라 그래" 같은 간접명령형은 그대로 잘라 쓰지 말고 전체 이름과 자연스러운 직접화법으로 고치세요.',
