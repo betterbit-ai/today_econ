@@ -4,7 +4,7 @@
   "date": "2026-10-17",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-16T17:04:39.658Z",
-  "updatedAt": "2026-10-17T03:34:58.015Z",
+  "updatedAt": "2026-10-17T03:36:57.915Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -657,7 +657,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2981억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"96조9121억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"16일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"16일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+      ]
     },
     {
       "title": "“미국·중국보다 심각한 ‘환경 오염’” 한국인들 ‘꼴찌’ 굴욕…어쩌다 이렇게까지 [지구, 뭐래?]",
@@ -695,7 +697,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[영상]“성과급 모아 살래요” 동탄 국평 17억에 삼성맨 줄섰다[부동산360]",
@@ -17169,30 +17173,30 @@
     "economy": {
       "publicationKey": "diem:2026-10-17:economy:38999083431",
       "category": "economy",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "빚내서 주식 샀다가 날벼락…반대매매 3000억에 개미들 ‘곡소리’",
-        "url": "https://n.news.naver.com/article/016/0002710576?ntype=RANKING",
+        "title": "[영상]“성과급 모아 살래요” 동탄 국평 17억에 삼성맨 줄섰다[부동산360]",
+        "url": "https://n.news.naver.com/article/016/0002710615?ntype=RANKING",
         "publishedDate": "2026-10-17",
-        "publishedAt": "2026-10-17 08:44:12",
+        "publishedAt": "2026-10-17 11:01:11",
         "observedAt": "2026-10-17T03:33:51.922Z",
-        "popularityScore": 67.6735,
+        "popularityScore": 63.6327,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "daily_floor_candidate",
-          "score": 84.72,
-          "popularityScore": 67.6735,
-          "freshnessScore": 90,
-          "editorialValueScore": 70,
-          "ageHours": 3.83,
-          "publishedAt": "2026-10-17 08:44:12",
+          "score": 79.25,
+          "popularityScore": 63.6327,
+          "freshnessScore": 100,
+          "editorialValueScore": 95,
+          "ageHours": 1.58,
+          "publishedAt": "2026-10-17 11:01:11",
           "observedAt": "2026-10-17T03:33:51.922Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
           "publishedAtInvalidReason": null,
-          "urgent": true,
-          "urgencyBonus": 10,
+          "urgent": false,
+          "urgencyBonus": 0,
           "popularitySignalReliable": true,
           "thresholds": {
             "popularity": 50,
@@ -17206,26 +17210,25 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 17,
-            "normalizedScore": 67.6735,
-            "title": "빚내서 주식 샀다가 날벼락…반대매매 3000억에 개미들 ‘곡소리’",
-            "url": "https://n.news.naver.com/article/016/0002710576?ntype=RANKING"
+            "rank": 19,
+            "normalizedScore": 63.6327,
+            "title": "[영상]“성과급 모아 살래요” 동탄 국평 17억에 삼성맨 줄섰다[부동산360]",
+            "url": "https://n.news.naver.com/article/016/0002710615?ntype=RANKING"
           }
         ],
         "category": "economy",
-        "fullText": "14·15일 반대매매 연속 800억대미국 주식 순매수 전월의 3.5배 16일 서울 중구 하나은행 본점 딜링룸에 주가지수와 환율이 표시되고 있다. 이날 코스피는 전날보다 113.83포인트(2.05%) 오른 5,668.05로 장을 마치며 반등에 성공했다. 코스닥 지수는 33.96포인트(4.46%) 급등해 794.78로 마감했다. [연합][헤럴드경제=김유진 기자] 코스피가 7거래일 연속 하락하는 동안 빚을 내 주식에 투자한 이들의 반대매매 금액이 3000억원에 육박했다. 증시 급락에 투자심리가 위축된 가운데 개인 투자자들의 국내외 채권 매수세는 이어졌다.17일 금융투자협회에 따르면 지난 6∼15일 위탁매매 미수금 대비 실제 반대매매 금액은 누적 2981억원으로 집계됐다. 특히 코스피가 급락한 14일과 15일에는 각각 893억원, 805억원으로 이틀 연속 800억원대를 기록했다.반대매매는 투자자가 증권사에 빌린 돈을 갚지 못하거나 담보로 맡긴 주식의 가치가 일정 수준 아래로 떨어졌을 때 증권사가 주식을 강제로 처분하는 것을 말한다. 주가 하락으로 담보 여력이 줄어들면 투자자가 원하지 않아도 보유 주식을 팔아 빚을 갚아야 하는 상황에 놓인다.코스피는 지난 6일부터 15일까지 7거래일 연속 하락하며 5554.22까지 내려왔다. 이후 16일에는 8거래일 만에 반등해 5668.05로 거래를 마쳤다. 하지만 급락장 속에서 증시 주변 자금도 감소했다. 투자자예탁금은 15일 기준 96조9121억원으로, 지난 6일 101조486억원보다 4.1% 줄었다.주식시장에서 빠져나온 자금의 일부는 채권시장으로 향하는 모습이다. 개인 투자자의 국내 채권 순매수액은 이달 1∼16일 1조1617억원으로 집계됐다. 지난달 같은 기간인 1∼14일의 2조967억원에는 못 미치지만, 이달에도 1조원 넘는 순매수를 이어갔다. 지난달 개인의 국내 채권 순매수액은 4조225억원으로, 2024년 4월 4조5273억원 이후 2년 5개월 만에 최대를 기록했다.주식시장의 불확실성이 커지면서 상대적으로 안전자산으로 여겨지는 채권을 찾는 수요는 이어졌다. 한국예탁결제원 증권정보포털 세이브로에 따르면 이달 1∼15일 국내 투자자의 미국 채권 순매수액은 12억1000만달러(약 1조6132억원)였다. 지난 6월 1억6600만달러 순매도에서 7월 8억8800만달러 순매수로 돌아선 뒤 4개월 연속 매수 기조를 유지했다.국내 증시가 흔들리는 동안 미국 주식으로 향하는 매수 자금은 오히려 불어났다. 이달 국내 투자자의 미국 주식 순매수액은 35억달러(약 4조7201억원)로, 전월 전체 순매수액인 10억달러의 3.5배에 달했다.특히 서학개미들의 매수 상위 종목에는 공격적인 투자 성향이 두드러졌다. 지난 한 주간 국내 투자자가 가장 많이 순매수한 미국 종목은 미국 반도체지수의 일간 수익률을 3배로 추종하는 레버리지 ETF인 ‘SOXL’이었다. 순매수액은 26억13만달러(약 3조4659억원)에 달했다. 국내 증시의 일간 수익률을 3배로 추종하는 ‘KORU’가 2억3536만달러로 뒤를 이었고, 미국 양자컴퓨터 기업 아이온큐도 1억344만달러 순매수를 기록했다.박성진 하나증권 연구원은 “ETF 포트폴리오는 여전히 대표 지수형 상품들을 코어(Core·핵심) 포지션으로 유지하는 가운데 금리와 실적 방향성의 판단에 따라 ‘위성’ 포지션을 조절하는 전략이 필요하다”고 조언했다.",
-        "summary": "14·15일 반대매매 연속 800억대미국 주식 순매수 전월의 3.5배 16일 서울 중구 하나은행 본점 딜링룸에 주가지수와 환율이 표시되고 있다. 이날 코스피는 전날보다 113.83포인트(2.05%) 오른 5,668.05로 장을 마치며 반등에 성공했다. 코스닥 지수는 33.96포인트(4.46%) 급등해 794.78로 마감했다. [연합][헤럴드경제=김유진 기자] 코스피가 7거래일 연속 하락하는 동안 빚을 내 주식에 투자한 이들의 반대매매 금액이 3000억원에 육박했다. 증시 급락에 투자심리가 위축된 가운데 개인 투자자들의 국내외 채권 ",
+        "fullText": "‘아크메르 동탄’ 견본주택 개관 긴 대기줄 눈길삼성전자 화성캠퍼스 도보권, 1808가구 규모동탄1신도시 ‘귀한 신축’, 갈아타기 수요 관심 경기 화성시 동탄구 ‘아크메르 동탄’ 견본주택 개관일인 지난 16일, 입장 대기줄이 천막 밖으로 길게 이어져 있다. 윤승현 기자 재직 중인 삼성전자 화성캠퍼스 정문까지는 걸어서 10분이면 가요. 지금은 동탄1신도시 메타폴리스에 사는데, 동네는 그대로 두고 신축으로 갈아타 볼까 싶어 왔습니다. 주변 동료들도 관심 많아요.아크메르 동탄 방문객 김모(49) 씨 [헤럴드경제=윤승현·신혜원 기자] 지난 16일 오후 경기 화성시 동탄구 소재 ‘아크메르 동탄’ 견본주택은 개관 첫날부터 방문객들로 북적였다. 평일임에도 입장을 기다리는 줄은 대기 천막을 지나 도로까지 이어졌다. 어린아이를 품에 안고 방문한 신혼부부부터 40~50대 직장인까지 다양한 연령대의 방문객이 신축 주택을 보기 위해 찾았다.이날 견본주택에는 84㎡(이하 전용면적)A·C, 116㎡A, 129㎡B 등 네 가지 타입의 유니트가 마련됐다. 전 가구에 일반 아파트보다 20㎝ 높은 2.5m 천장고가 적용된 만큼, 유니트 내부에서는 탁 트인 개방감이 느껴졌다. 방문객들은 수납장과 주방, 다용도실 등을 둘러보며 “구조가 괜찮다”, “마감재가 고급스럽다”는 등 감상평을 나눴다. 경기 화성시 동탄구 ‘아크메르 동탄’ 견본주택 84㎡C 유니트 거실 모습. 윤승현 기자KB부동산신탁이 시행하고 포스코이앤씨가 시공하는 아크메르 동탄은 경기 화성시 동탄구 반송동 95·99번지 일원에 조성된다. 지하 7층~지상 최고 49층, 7개동, 총 1808가구 규모다. 아크메르 동탄 95(M1-1-2블록)는 3개동 812가구로, 아크메르 동탄 99(M1-2-2블록)는 4개동 996가구로 공급된다.아크메르 동탄의 강점은 뛰어난 입지다. 단지는 동탄1신도시 중심부에 위치해 생활 인프라가 이미 갖춰져 있다. 도보 약 10분 거리에 삼성전자 화성캠퍼스 사업장이 있고, 단지 바로 앞에 셔틀버스 정류장이 위치한다. 분양 관계자는 “아직 동탄1신도시에 ‘이런 땅이 남아 있었냐’는 반응이 나올 정도로 상징적인 입지를 자랑한다”며 “주변에 준공된 지 10년 이상 된 아파트가 많아 신축을 찾으려는 수요도 많다”고 설명했다. 아크메르 동탄 단지 모형도. 윤승현 기자현장에는 삼성전자 임직원의 발길도 이어졌다. 84㎡A 유니트 드레스룸을 구경하던 30대 초반 신혼부부는 “평택캠퍼스에서 근무 중이지만 회사 셔틀버스가 잘 갖춰져 있는 만큼 출퇴근이 편리할 것”이라고 말했다. 이어 “당첨된다면 입주일까지 성과급 등을 활용해 자금을 마련할 계획”이라 덧붙였다.생후 5개월 된 아이와 견본주택을 찾은 또 다른 삼성전자 재직자 최모씨는 “동탄 집값이 많이 올라 관심 있게 (청약을) 보고 있다”면서도 “분양가 자체는 최근 동탄 상승세에 비해 적정하게 나왔지만, 옵션 가격 등을 더 따져 봐야 한다”고 말했다. 아크메르 동탄 견본주택 84㎡A 유니트 침실 모습. 윤승현 기자교통 여건 또한 개선될 전망이다. 이날 서울 강남구 수서역에서 수도권광역급행철도(GTX)-A를 타고 동탄역까지 이동하는 데 걸린 시간은 21분이었다. 향후 GTX-A 노선이 파주 운정중앙역까지 완전 개통되면 서울역 등 서울 주요 지역으로의 접근이 더욱 쉬워진다.단지 앞에는 동탄역까지 한 정거장 거리인 동탄인덕원선 반송역(가칭)이 신설될 예정이다. 아크메르 동탄 95와 반송역 역사를 잇는 지하 통로 설치도 추진 중이다.분양가는 ▷84㎡ 16억5120만~17억1680만원 ▷99㎡ 18억5600만~19억1440만원 ▷116㎡ 21억880만~22억1350만원 ▷128㎡ 23억4940만~24억3610만원 ▷129㎡ 23억9460만~24억8290만원으로 책정됐다.분양 관계자는 “주변 구축 단지 시세와 단순 비교하긴 어렵다”며 “동탄1신도시 중심부에 오랜만에 공급되는 신축인 만큼 충분한 가격 경쟁력이 있다고 본다”고 설명했다. 한국부동산원 주간아파트가격동향조사(10월 12일 기준)에 따르면 동탄 아파트값은 올해 들어 20.14% 올랐다. 상승세가 가파른 지역 내 신규 분양 단지인 만큼 수요자들의 관심이 쏠릴 것이란 관측이다. 한국부동산원에 따르면 동탄 아파트값은 올해(10월 12일 기준) 들어 20.14% 올랐다.서울에 살다 동탄2신도시로 이사왔다는 40대 최모씨는 “밖에서는 동탄이 왜 이렇게 인기인지 이해하기 힘들겠지만 직접 살아 보면 이유를 실감한다”며 “동탄역 롯데캐슬 가격이 많이 오른 만큼 이 단지도 비슷한 효과를 기대하는 것 같다”고 말했다.이날 1시간을 기다려 견본주택에 입장한 동탄1신도시 주민 이모씨는 “분양가가 저렴하진 않지만, 5년 뒤 입주 시점에는 지하철역도 신설되는 만큼 감당할 만하다”며 “84㎡는 경쟁이 심할 것 같아 큰 평형도 고려 중”이라고 말했다. 이어 “주상복합이라 공간이 좁을 줄 알았는데 구조도 일반적인 아파트처럼 잘 나왔고, 확실히 고급 마감재를 쓴 게 느껴졌다”고 덧붙였다.아크메르 동탄은 기존 고급 아파트 펜트하우스 등에 적용되던 사양을 전 가구로 한 ‘펜트 스탠다드’ 설계를 내세웠다. 주방에는 이탈리아 주방가구 브랜드 ‘쿠치네 루베’와 독일 수전 브랜드 ‘한스그로헤’ 등이 쓰였다. 바닥재에는 이탈리아 고급 원목마루를, 주방 벽과 상판에는 이탈리아산 세라믹 타일을 사용했다. 층간소음 저감을 위해 경량충격음 1등급, 중량충격음 2등급 인증을 받은 차음재도 적용할 예정이다.분양 관계자는 “입지에 어울리는 상품을 짓자는 생각으로 시중가 2억원 상당의 고급 마감재를 도입했다”며 “단순히 소유하는 것만으로도 자부심을 느낄 수 있는 ‘트로피 하우스’ 역할을 할 수 있을 것”이라 말했다. 아크메르 동탄 견본주택에 마련된 3D 가구 배치 시뮬레이션. 윤승현 기자한편, 견본주택에는 3D 가구 배치 시뮬레이션 체험 공간, 전기차 화재 확산 방지 시스템 시연장 등도 마련돼 방문객의 눈길을 끌었다. 방문객들은 주택형을 선택해 가구를 배치하고, 실제 공간에서의 동선 등을 가늠해 볼 수 있다.청약은 오는 26일 특별공급을 시작으로 27일 1순위, 28일 2순위 접수 순으로 진행된다. 최초 계약자에게는 실거주 의무가 적용되지 않으며 전매제한 기간은 3년이다. 당첨자는 95㎡와 99㎡가 각각 다음 달 3일, 4일에 발표된다. 정당계약은 다음 달 16일부터 18일까지 사흘간 진행 예정이다.",
+        "summary": "‘아크메르 동탄’ 견본주택 개관 긴 대기줄 눈길삼성전자 화성캠퍼스 도보권, 1808가구 규모동탄1신도시 ‘귀한 신축’, 갈아타기 수요 관심 경기 화성시 동탄구 ‘아크메르 동탄’ 견본주택 개관일인 지난 16일, 입장 대기줄이 천막 밖으로 길게 이어져 있다. 윤승현 기자 재직 중인 삼성전자 화성캠퍼스 정문까지는 걸어서 10분이면 가요. 지금은 동탄1신도시 메타폴리스에 사는데, 동네는 그대로 두고 신축으로 갈아타 볼까 싶어 왔습니다. 주변 동료들도 관심 많아요.아크메르 동탄 방문객 김모(49) 씨 [헤럴드경제=윤승현·신혜원 기자] 지난 ",
         "topicSignature": {
           "category": "economy",
-          "target": "코스피",
-          "event": "증시 변동",
+          "target": "주거 정책",
+          "event": "살래요 동탄 국평",
           "entities": [
-            "3000억에",
-            "14",
-            "800억대미국"
+            "17억에",
+            "부동산360"
           ],
           "eventKey": null,
-          "text": "economy | 코스피 | 증시 변동 | 3000억에 14 800억대미국"
+          "text": "economy | 주거 정책 | 17억에 부동산360"
         },
         "newsFrame": {
           "category": "economy",
@@ -17235,43 +17238,40 @@
           ],
           "publicInterestAnchor": null,
           "rejectionReason": null,
-          "subject": "코스피",
+          "subject": "주거 정책",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "코스피",
-            "코스닥",
-            "증시"
+            "주거",
+            "정책"
           ],
-          "eventKind": "market_move",
-          "eventLabel": "증시 변동",
-          "eventTerms": [
-            "증시",
-            "변동"
-          ],
+          "eventKind": "general",
+          "eventLabel": "",
+          "eventTerms": [],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
-          "date": "15일",
+          "date": "16일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "market"
+          "readerNeed": "housing"
         },
         "editorialValue": {
           "ok": true,
-          "score": 70,
+          "score": 95,
           "signals": [
             "reader_money_work_life_impact",
+            "concrete_event_or_decision",
             "broad_audience_or_market_scope",
             "economy_core_topic"
           ],
           "penalties": [],
           "contentValueSignals": [
-            "money_impact",
-            "market_movement"
+            "policy_change",
+            "safety"
           ],
           "observedMarketEvidence": null,
           "reason": "passes_editorial_value_gate",
@@ -17283,57 +17283,51 @@
             ],
             "publicInterestAnchor": null,
             "rejectionReason": null,
-            "subject": "코스피",
+            "subject": "주거 정책",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "코스피",
-              "코스닥",
-              "증시"
+              "주거",
+              "정책"
             ],
-            "eventKind": "market_move",
-            "eventLabel": "증시 변동",
-            "eventTerms": [
-              "증시",
-              "변동"
-            ],
+            "eventKind": "general",
+            "eventLabel": "",
+            "eventTerms": [],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
-            "date": "15일",
+            "date": "16일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "market"
+            "readerNeed": "housing"
           },
-          "baseScore": 70,
+          "baseScore": 95,
           "performancePrior": {
             "adjustment": 0,
             "window": null,
             "matched": [],
-            "reason": "insufficient_performance_samples"
+            "reason": "legacy_feature_schema_report_only"
           }
         },
         "performancePrior": {
           "adjustment": 0,
           "window": null,
           "matched": [],
-          "reason": "insufficient_performance_samples"
+          "reason": "legacy_feature_schema_report_only"
         },
         "classificationTrace": {
           "initial": {
-            "status": "uncertain",
-            "category": null,
-            "excluded": [
-              "category_not_allowed"
-            ],
+            "status": "classified",
+            "category": "economy",
+            "excluded": [],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "uncertain_initial_classification"
+            "reason": "verify_primary_article"
           },
           "final": {
             "status": "classified",
@@ -17347,32 +17341,212 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.678,
+        "score": 0.4805,
         "method": "embedding",
         "reason": "below_threshold",
         "matchedPublicationKey": "diem:2026-10-12:economy:38189953082",
         "signature": {
           "category": "economy",
-          "target": "코스피",
-          "event": "증시 변동",
+          "target": "주거 정책",
+          "event": "살래요 동탄 국평",
           "entities": [
-            "3000억에",
-            "14",
-            "800억대미국"
+            "17억에",
+            "부동산360"
           ],
           "eventKey": null,
-          "text": "economy | 코스피 | 증시 변동 | 3000억에 14 800억대미국"
+          "text": "economy | 주거 정책 | 17억에 부동산360"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 3,
+        "category": "economy",
+        "reelFormat": "flash",
+        "formatDecision": {
+          "format": "flash",
+          "reason": "explain_disabled",
+          "eligible": false
+        },
+        "titleCandidates": [
+          {
+            "title": "아크메르 동탄\n견본주택 개관",
+            "lines": [
+              "아크메르 동탄",
+              "견본주택 개관"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "아크메르 동탄\n견본주택 개관",
+          "lines": [
+            "아크메르 동탄",
+            "견본주택 개관"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity",
+          "sourceSpans": []
+        },
+        "caption": {
+          "sentences": [
+            "아크메르 동탄 견본주택이 개관 첫날 긴 대기줄이 형성돼 많은 방문객이 몰렸다.📰",
+            "현장에는 삼성전자 직원 등 다양한 연령대가 신축 주택을 살펴보며 긍정적인 반응을 보였다.",
+            "이 단지는 동탄 신도시 중심에 위치해 도보 몇 분 거리의 삼성 캠퍼스와 인접해 입지적 매력을 강조한다.📰"
+          ],
+          "text": "아크메르 동탄 견본주택이 개관 첫날 긴 대기줄이 형성돼 많은 방문객이 몰렸다.📰\n\n현장에는 삼성전자 직원 등 다양한 연령대가 신축 주택을 살펴보며 긍정적인 반응을 보였다.\n\n이 단지는 동탄 신도시 중심에 위치해 도보 몇 분 거리의 삼성 캠퍼스와 인접해 입지적 매력을 강조한다.📰"
+        },
+        "scenes": [],
+        "emojis": {
+          "first": "📰",
+          "third": "📰"
+        },
+        "comments": {
+          "first": "📰",
+          "reply": "@diem.magazine #경제 #금융 #경제뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #주거 #신축 #분양 #17억에 #부동산360 #정책",
+          "compactReply": "@diem.magazine #경제 #금융 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#경제",
+            "#금융",
+            "#경제뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#주거",
+            "#신축",
+            "#분양",
+            "#17억에",
+            "#부동산360",
+            "#정책"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#경제",
+              "#금융",
+              "#경제뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#주거",
+              "#신축",
+              "#분양",
+              "#17억에",
+              "#부동산360",
+              "#정책"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "openai/gpt-oss-120b",
+          "attempts": [
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an ungrounded numeric claim: 16억5천 in \"아크메르 동탄 모델하우스 개관 첫날, 84㎡~129㎡ 평형당 16억5천~24억8천만원 가격에 10분 거리 삼성 캠퍼스 인근에서 대기줄이 도로까지\"; 24억8천만원 in \"아크메르 동탄 모델하우스 개관 첫날, 84㎡~129㎡ 평형당 16억5천~24억8천만원 가격에 10분 거리 삼성 캠퍼스 인근에서 대기줄이 도로까지\"; 20% in \"동탄 아파트값이 연간 20% 상승한 가운데, 삼성전자 임직원 등 다양한 직장인들의 관심이 집중돼 향후 분양 경쟁이 더욱 치열해질 전망이다.\""
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "openai/gpt-oss-120b",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ]
+        },
+        "formatRollout": {
+          "enabled": false,
+          "reason": "explain_disabled"
+        }
+      },
+      "image": {
+        "kind": "generated",
+        "id": "diem-generated:legislation-01",
+        "source": "diem-generated",
+        "selectedAt": "2026-10-17T03:36:53.553Z",
+        "assetPath": "assets/fallback/generated/legislation-01.png",
+        "sha256": "692f488a9066fc69337f9240c8008771de650229285251643d071b5f4cf43b23",
+        "localSha256": "692f488a9066fc69337f9240c8008771de650229285251643d071b5f4cf43b23",
+        "generatedTopic": "legislation",
+        "generatedEnergy": "calm",
+        "description": "Unmarked legal folder and neutral wooden gavel.",
+        "license": {
+          "name": "Project-owned AI-generated editorial asset",
+          "url": null
+        },
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "project_generated_topic_match",
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "topicMatch": {
+            "ok": true,
+            "reason": "project_generated_topic_match",
+            "expectedTopic": "legislation",
+            "assetTopics": [
+              "legislation"
+            ]
+          }
+        },
+        "attempts": [],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 4,
+          "recentKeyCount": 8,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "diem-generated:legislation-01",
+            "692f488a9066fc69337f9240c8008771de650229285251643d071b5f4cf43b23"
+          ]
+        },
+        "selectionReason": "licensed image unavailable or actual-image review failed; calm-first stable-shuffled project-generated legislation asset legislation-01 selected"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-sonican-lo-fi-music-loop-sentimental-jazzy-love-473154",
+        "mood": "serious",
+        "title": "Lo-fi Music Loop - Sentimental Jazzy Love",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/lofi-lo-fi-music-loop-sentimental-jazzy-love-473154/",
+        "sha256": "b319c4b5977c40b9d4068371c2636bd9e191c7ece9be0fc3666be7b02d6155af",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-17T03:36:57.883Z"
       },
       "story": {
         "status": "planned",
@@ -17457,6 +17631,72 @@
           "limit": 1,
           "remaining": 1
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-10-17/economy/economy-cover.png",
+        "coverSha256": "ca26a36273eb18064da9230db03c61a5a6eac54b55865ac96eaa1f5ad4818fb4",
+        "scenePaths": [],
+        "reelPath": ".diem-cache/2026-10-17/economy/economy-reel.mp4",
+        "reelSha256": "b73e30cdf66e2d8c79a3e565b5a7ec089438d21cc598b23ad1b41b2c5920d5a3",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "빚내서 주식 샀다가 날벼락…반대매매 3000억에 개미들 ‘곡소리’",
+            "url": "https://n.news.naver.com/article/016/0002710576?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (openai/gpt-oss-120b/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2981억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"96조9121억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-120b/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-120b/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event | openai/gpt-oss-20b/editorial_structure: Unexpected end of JSON input | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"16일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"16일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2981억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"15일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"96조9121억 원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-120b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "Unexpected end of JSON input"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"16일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":2,\"number\":\"16일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-17T03:35:57.417Z"
+          }
+        ],
+        "updatedAt": "2026-10-17T03:36:05.030Z"
+      },
+      "analytics": {
+        "featureSchemaVersion": 3,
+        "strategyVersion": "discovery-funnel-v3",
+        "reelDurationSeconds": 6
       }
     },
     "issue": {
