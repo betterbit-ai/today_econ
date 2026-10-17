@@ -19,6 +19,7 @@ on:
         type: choice
         options:
           - hot_news
+          - compare_editorial
           - publish_basic
           - retry_basic
           - retry_editorial
@@ -31,6 +32,22 @@ on:
           - daily_package_validate
           - daily_package_prepare
           - daily_package_publish
+      comparison_mode:
+        description: '비교 모드: preview는 무호출, live는 두 모델 실제 호출 (발행 없음)'
+        required: false
+        default: preview
+        type: choice
+        options:
+          - preview
+          - live
+      comparison_batch:
+        description: '고정 기사 10개 중 비교할 5개 묶음'
+        required: false
+        default: first
+        type: choice
+        options:
+          - first
+          - second
       package_path:
         description: 'content/diem-daily 아래 package.json 경로'
         required: false
@@ -60,7 +77,7 @@ on:
         type: string
 
 concurrency:
-  group: diem-v2-durable-writes
+  group: ${{ github.event_name == 'workflow_dispatch' && inputs.operation == 'compare_editorial' && 'diem-editorial-shadow' || 'diem-v2-durable-writes' }}
   cancel-in-progress: false
 
 permissions:
@@ -98,6 +115,61 @@ env:
   HF_HUB_OFFLINE: '1'
 
 jobs:
+  compare-editorial:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'compare_editorial'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    permissions:
+      contents: read
+    env:
+      INSTAGRAM_ACCESS_TOKEN: ''
+      INSTAGRAM_TOKEN_ENCRYPTION_KEY: ''
+      INSTAGRAM_USER_ID: ''
+      INSTAGRAM_USERNAME: ''
+      SLACK_BOT_TOKEN: ''
+      SLACK_CHANNEL_ID: ''
+      GROQ_API_KEY: ''
+      HF_TOKEN: ''
+      PEXELS_API_KEY: ''
+      UNSPLASH_ACCESS_KEY: ''
+      POLLINATIONS_API_KEY: ''
+      GITHUB_TOKEN: ''
+      PUBLISH_INSTAGRAM: 'false'
+      PUBLISH_INSTAGRAM_STORY: 'false'
+    steps:
+      - name: Checkout evaluation sources
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install evaluation dependencies
+        run: npm ci
+      - name: Verify comparison and publishing regressions
+        run: node .codex-harness/scripts/verify-project.mjs
+      - name: Install pinned official Claude CLI for live comparison
+        if: inputs.comparison_mode == 'live'
+        run: npm install --prefix "$RUNNER_TEMP/diem-claude" --no-save @anthropic-ai/claude-code@2.1.302
+      - name: Compare original-source editorial outputs without publishing
+        env:
+          COMPARISON_MODE: ${{ inputs.comparison_mode || 'preview' }}
+          COMPARISON_BATCH: ${{ inputs.comparison_batch || 'first' }}
+          CLAUDE_COMPARISON_BIN: ${{ runner.temp }}/diem-claude/node_modules/.bin/claude
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: node scripts/compare-diem-editorial.js --mode "$COMPARISON_MODE" --batch "$COMPARISON_BATCH" --output "$RUNNER_TEMP/diem-editorial-comparison"
+      - name: Upload side-by-side comparison reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diem-editorial-comparison-${{ github.run_id }}-${{ inputs.comparison_batch || 'first' }}
+          path: ${{ runner.temp }}/diem-editorial-comparison/
+          if-no-files-found: error
+          retention-days: 14
+
   publish-economy:
     if: >-
       (github.event_name == 'workflow_dispatch' && inputs.operation == 'hot_news') ||
