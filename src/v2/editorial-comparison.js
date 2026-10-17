@@ -118,15 +118,23 @@ function createClaudeCaller({ token, binary = 'claude', env = process.env, runFi
   };
 }
 
-function createGroqComparisonCaller({ apiKey, client } = {}) {
+function createGroqComparisonCaller({ apiKey, client, now = () => Date.now(),
+  sleep = ms => new Promise(resolve => setTimeout(resolve, ms)) } = {}) {
   const groq = client || new Groq({ apiKey, maxRetries: 0, timeout: 120_000 });
+  let lastFinished = null;
   return async ({ model, systemPrompt, userPrompt }) => {
     if (model !== MODELS.groq) throw new Error('unexpected Groq comparison model');
+    // Repairs resend the full prompt; let the previous free-tier TPM window expire.
+    if (lastFinished !== null) {
+      const wait = 65_000 - (now() - lastFinished);
+      if (wait > 0) await sleep(wait);
+    }
     const response = await groq.chat.completions.create({ model,
       messages: [{ role: 'system', content: String(systemPrompt).normalize('NFC') },
         { role: 'user', content: String(userPrompt).normalize('NFC') }],
       temperature: 0.25, max_tokens: 1800, response_format: { type: 'json_object' },
     });
+    lastFinished = now();
     return response.choices?.[0]?.message?.content || '';
   };
 }
@@ -143,7 +151,8 @@ async function compareOne(article, provider, caller, { secrets = [], now = () =>
   const start = now();
   let serviceError;
   const guarded = async request => {
-    if (now() + 120_000 > deadline) { serviceError = new Error('comparison_time_budget_exhausted'); throw serviceError; }
+    const reserveMs = provider === 'groq' ? 185_000 : 120_000;
+    if (now() + reserveMs > deadline) { serviceError = new Error('comparison_time_budget_exhausted'); throw serviceError; }
     if (requests.length >= 3) throw new Error('comparison_request_budget_exhausted');
     if (serviceError) throw serviceError;
     const step = { index: requests.length + 1, model: request.model, status: 'started' };
@@ -200,7 +209,7 @@ async function runComparison({ dataset = loadDataset(), batch = 'first', mode = 
   const selected = dataset.cases.slice(batch === 'first' ? 0 : 5, batch === 'first' ? 5 : 10);
   const report = { schemaVersion: 1, runId, githubSha, createdAt: new Date(now()).toISOString(), mode, batch,
     validatorControls: controls, datasetId: dataset.manifest.datasetId, datasetSha256: dataset.sha256, cliVersion: CLI_VERSION,
-    providerSettings: { groq: { temperature: 0.25, maxOutputTokens: 1800, networkRetries: 0 }, claude: { maxTurnsPerInvocation: 1, timeoutMs: 120000 } },
+    providerSettings: { groq: { temperature: 0.25, maxOutputTokens: 1800, networkRetries: 0, minimumQuietMs: 65000 }, claude: { maxTurnsPerInvocation: 1, timeoutMs: 120000 } },
     publicationAllowed: false, humanReview: 'pending', status: execute ? 'completed_needs_human_review' : mode === 'preview' ? 'preview' : 'setup_required', cases: [] };
   if (controls.some(c => !c.ok)) report.status = 'validator_controls_failed';
   const deadline = now() + 20 * 60_000;

@@ -2,6 +2,24 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { loadDataset, articleHash, claudeInvocation, parseClaudeOutput, runComparison, renderHtml, summarize } = require('../src/v2/editorial-comparison');
 
+test('Groq repairs wait outside the preceding TPM window without adding requests', async () => {
+  const { createGroqComparisonCaller } = require('../src/v2/editorial-comparison');
+  let clock = 0, calls = 0;
+  const waits = [];
+  const caller = createGroqComparisonCaller({ now: () => clock,
+    sleep: async ms => { waits.push(ms); clock += ms; },
+    client: { chat: { completions: { create: async () => { calls++; return { choices: [{ message: { content: '{}' } }] }; } } } },
+  });
+  const request = { model: 'openai/gpt-oss-120b', systemPrompt: '', userPrompt: '' };
+  await caller(request);
+  clock += 10_000;
+  await caller(request);
+  clock += 70_000;
+  await caller(request);
+  assert.deepEqual(waits, [55_000]);
+  assert.equal(calls, 3);
+});
+
 test('fixed dataset has five real articles in each category and rejects source drift', () => {
   const data = loadDataset();
   assert.equal(data.cases.length, 10);
