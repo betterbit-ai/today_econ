@@ -2,6 +2,49 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { loadDataset, articleHash, claudeInvocation, parseClaudeOutput, runComparison, renderHtml, summarize } = require('../src/v2/editorial-comparison');
 
+test('Opus adds a pinned single-provider evaluation without spending baseline requests', async () => {
+  let opusCalls = 0;
+  const report = await runComparison({ candidate: 'opus', mode: 'live', credentialsReady: true, callers: {
+    groq: async () => { throw new Error('baseline must not run'); },
+    claude: async request => { assert.equal(request.model, 'claude-opus-5-5'); opusCalls++; return { broken: true }; },
+  } });
+  assert.equal(opusCalls, 10);
+  assert.equal(report.summary.claude.attempted, 5);
+  assert.equal(report.summary.groq, undefined);
+  assert.equal(report.pairedCompleted, 0);
+  assert.equal(report.completedCases, 5);
+  assert.equal(report.models.claude, 'claude-opus-5-5');
+  assert.match(renderHtml(report), /claude-opus-5-5/u);
+  assert.doesNotMatch(renderHtml(report), /claude-sonnet-5-5/u);
+  assert.equal(report.publicationAllowed, false);
+});
+
+test('Opus preview is free of calls and rejects unknown candidates', async () => {
+  const report = await runComparison({ candidate: 'opus', callers: { claude: () => { throw new Error('no calls'); } } });
+  assert.equal(report.status, 'preview');
+  assert.equal(report.summary.claude.requests, 0);
+  await assert.rejects(runComparison({ candidate: 'unknown' }), /candidate must/u);
+  const { options, preflight } = require('../scripts/compare-diem-editorial');
+  assert.equal(options(['--candidate', 'opus']).candidate, 'opus');
+  assert.throws(() => options(['--candidate', 'fable']), /Invalid comparison candidate/u);
+  assert.equal(preflight({ mode: 'live', candidate: 'opus', env: { CLAUDE_CODE_OAUTH_TOKEN: 'test' },
+    checkBinary: () => ({ status: 0, stdout: '2.1.302 (Claude Code)' }) }).ready, true);
+  const call = claudeInvocation({ model: 'claude-opus-5-5' }, { token: 'test', directory: '/tmp/test' });
+  assert.equal(call.args[call.args.indexOf('--model') + 1], 'claude-opus-5-5');
+});
+
+test('Claude rejects fallback or missing execution model evidence for Opus', async () => {
+  const { createClaudeCaller } = require('../src/v2/editorial-comparison');
+  for (const ids of [[], ['claude-sonnet-5-5'], ['claude-opus-5-5']]) {
+    const caller = createClaudeCaller({ token: 'test', runFile: (_binary, _args, _options, callback) => {
+      process.nextTick(() => callback(null, JSON.stringify({ result: '{}', modelUsage: Object.fromEntries(ids.map(id => [id, {}])) })));
+      return { stdin: { on() {}, end() {} } };
+    } });
+    if (ids[0] === 'claude-opus-5-5') assert.equal(await caller({ model: 'claude-opus-5-5' }), '{}');
+    else await assert.rejects(caller({ model: 'claude-opus-5-5' }), /claude_unexpected_model/u);
+  }
+});
+
 test('Groq repairs wait outside the preceding TPM window without adding requests', async () => {
   const { createGroqComparisonCaller } = require('../src/v2/editorial-comparison');
   let clock = 0, calls = 0;
@@ -29,6 +72,18 @@ test('fixed dataset has five real articles in each category and rejects source d
   const manifest = structuredClone(data.manifest);
   manifest.cases[0].inputSha256 = '0'.repeat(64);
   assert.throws(() => loadDataset({ manifest }), /input hash mismatch/u);
+});
+
+test('unexpected JSON shapes retain the failed draft for source review', async () => {
+  const { compareOne } = require('../src/v2/editorial-comparison');
+  const article = loadDataset().cases[0].article;
+  for (const raw of [JSON.stringify([{ title: '첫 객체' }, { title: '둘째 객체' }]),
+    'null', '42', 'true', '"unusable response"', '{"unrelated":true}']) {
+    const result = await compareOne(article, 'groq', async () => raw);
+    assert.equal(result.status, 'failed');
+    assert.equal(result.requests[0].outputText, raw);
+    assert.equal(result.requests[0].output, undefined);
+  }
 });
 
 test('Claude receives only OAuth, no tools, settings, API or publishing credentials', () => {
@@ -157,7 +212,7 @@ test('shadow workflow isolates publish secrets and concurrency from live publica
   assert.match(job, /-u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE/u);
   assert.match(job, /-u INSTAGRAM_TOKEN_SOURCE/u);
   assert.ok(job.includes("inputs.comparison_mode == 'live' && secrets.CLAUDE_CODE_OAUTH_TOKEN || ''"));
-  assert.ok(job.includes("inputs.comparison_mode == 'live' && secrets.GROQ_API_KEY || ''"));
+  assert.ok(job.includes("inputs.comparison_mode == 'live' && inputs.comparison_candidate != 'opus' && secrets.GROQ_API_KEY || ''"));
   assert.doesNotMatch(job, /commit-diem-state|daily-package-publish|index.js publish/u);
   assert.match(workflow, /inputs.operation == 'compare_editorial'.*diem-editorial-shadow.*diem-v2-durable-writes/u);
 });

@@ -33,7 +33,7 @@ on:
           - daily_package_prepare
           - daily_package_publish
       comparison_mode:
-        description: '비교 모드: preview는 무호출, live는 두 모델 실제 호출 (발행 없음)'
+        description: '비교 모드: preview는 무호출, live는 선택 모델 실제 호출 (발행 없음)'
         required: false
         default: preview
         type: choice
@@ -48,6 +48,14 @@ on:
         options:
           - first
           - second
+      comparison_candidate:
+        description: 'sonnet: 기존 두 모델 비교 / opus: Opus5.5만 추가 검증'
+        required: false
+        default: sonnet
+        type: choice
+        options:
+          - sonnet
+          - opus
       package_path:
         description: 'content/diem-daily 아래 package.json 경로'
         required: false
@@ -165,10 +173,11 @@ jobs:
         env:
           COMPARISON_MODE: ${{ inputs.comparison_mode || 'preview' }}
           COMPARISON_BATCH: ${{ inputs.comparison_batch || 'first' }}
+          COMPARISON_CANDIDATE: ${{ inputs.comparison_candidate || 'sonnet' }}
           CLAUDE_COMPARISON_BIN: ${{ runner.temp }}/diem-claude/node_modules/.bin/claude
           CLAUDE_CODE_OAUTH_TOKEN: ${{ inputs.comparison_mode == 'live' && secrets.CLAUDE_CODE_OAUTH_TOKEN || '' }}
-          GROQ_API_KEY: ${{ inputs.comparison_mode == 'live' && secrets.GROQ_API_KEY || '' }}
-        run: node scripts/compare-diem-editorial.js --mode "$COMPARISON_MODE" --batch "$COMPARISON_BATCH" --output "$RUNNER_TEMP/diem-editorial-comparison"
+          GROQ_API_KEY: ${{ inputs.comparison_mode == 'live' && inputs.comparison_candidate != 'opus' && secrets.GROQ_API_KEY || '' }}
+        run: node scripts/compare-diem-editorial.js --mode "$COMPARISON_MODE" --batch "$COMPARISON_BATCH" --candidate "$COMPARISON_CANDIDATE" --output "$RUNNER_TEMP/diem-editorial-comparison"
       - name: Upload side-by-side comparison reports
         if: always()
         uses: actions/upload-artifact@v4
