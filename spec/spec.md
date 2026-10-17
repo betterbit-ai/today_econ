@@ -29,6 +29,18 @@
 
 10월 17일 주거 이미지 사고 재발 차단: 발행된 동탄 견본주택 기사의 잠긴 일반 frame `주거 정책`이 정책 단어 때문에 legislation으로 매핑된 경로를 housing으로 바로잡는다. 같은 frame의 이미지 검색도 주택·아파트를 사용하고 법률 자산 강제 선택은 거부한다. 명시적 법 개정·시장 사건 frame은 그대로 우선한다. 실제 사고 fixture와 반대 사례로 검증하고 이미 발행된 원장·게시물은 수정·삭제·재발행하지 않는다.
 
+## 2026-10-17 approved amendment: Claude Pro 원고 비교 검증
+
+사용자가 Pro 구독에서 Sonnet을 검증하고 결과를 확인할 수 있게 구축하도록 승인했다. 운영 provider·예약·발행 상한·Vision·explain 설정은 그대로 유지한다.
+
+- 과거 원장에서 고정한 실제 기사10건(경제5·시사5)을 경로·publication key·원문 입력 해시로 참조한다. 비교 중 원문이 달라지면 차단한다. 과거 성공 출력은 새 비교 결과로 재사용하지 않는다.
+- 같은 generateEditorial/modelPrompt/의미·제목·상태 검사를 GPT-OSS-120B와 claude-sonnet-5-5에 적용한다. 비교는 각 모델 하나만 사용하고 fallback을 끈다. 본문 복구1회·제목 복구1회, 기사·모델당 외부 호출 최대3회다. 처음5개/다음5개 batch를 순차 실행한다.
+- 구독은 공식 Claude Code CLI 2.1.302를 Actions에서 사용한다. REST로 구독 credential을 중계하지 않는다. 임시 빈 디렉터리·환경 allowlist·구독 토큰만 전달하고 API 키·GitHub/Instagram/Slack credential은 전달하지 않는다. 기본 도구·MCP·개인 설정·세션 저장을 끄고 호출 제한·시간 제한을 둔다. 토큰 또는 CLI가 없으면 양 모델 모두 호출하지 않고 준비 미완료 보고서를 만든다.
+- 기존 economy workflow에 수동 compare_editorial operation과 batch 입력을 추가한다. shadow 전용 concurrency로 실제 예약 발행을 막지 않고, contents read만 허용한다. shadow job은 상속된 모든 발행 Secret을 비우고 비교 모델 credential만 해당 단계에 제공한다. 게시/댓글/Slack/원장 저장/자동 provider 전환/추가 API 결제는 없다.
+- JSON/Markdown/독립 HTML 보고서는 실제 새 출력, 통과율·첫 응답 통과·복구·숫자 생략·오류·호출수·시간·원문 해시·버전을 포함한다. 누락·미실행은 실패율 분모에서 빼고 표시하며 자동으로 승자를 선언하지 않는다. 수동 사실·한국어·제목 검토가 남음을 표시한다. HTML은 출력 내용을 이스케이프하고 외부 스크립트·통신 없이 열 수 있어야 한다.
+- 3년9개월/분모/확정 상태 등의 기존 보호와 추가 비교 회귀를 실행하고 실제 HTML 렌더를 확인한다. 전량 harness와 독립 리뷰 후 배포, 비밀이 없는 preview Action으로 무게시·artifact 경로를 확인한다. 실제 Sonnet 검증은 사용자 Secret 연결 후 별도 증거로 남긴다.
+- 롤백은 compare_editorial 실행을 중단하면 된다. 운영 발행 경로와 과거 원장은 바꾸지 않는다.
+
 ### Slice 2 — Slice1 운영 증거 확인 후
 
 flash 핵심사실1개는 기존 claim·원문 참조, 최대32grapheme·2줄·최소44px다. overflow는 차단한다. 동일 적합성 통과 후 기사ID hash로 control/fact_line을 절반 배정하며 실험ID·군을 analytics에 기록한다. 길이6초·음악·시각 유지, 동일 사건 중복발행 금지. 각군 정시24h10편 및 분야별 표본 전에는 insufficient_data이고 v3학습 하한10/5는 유지한다.

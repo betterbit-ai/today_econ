@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "duration-valid",
+      "source": "지난달 주담대 금리가 3년 9개월 만에 최고 수준을 기록했습니다.",
+      "text": "주담대 금리 3년 9개월 만에 최고",
+      "expected": "pass"
+    },
+    {
+      "id": "duration-invalid",
+      "source": "지난달 주담대 금리가 3년 9개월 만에 최고 수준을 기록했습니다.",
+      "text": "주담대 금리 9개월 만에 최고",
+      "expected": "reject"
+    },
+    {
+      "id": "denominator-valid",
+      "source": "근로장려금 신청 안내를 받고도 신청하지 않은 가구 중 20대 이하가 45%에 달하는 것으로 나타났다.",
+      "text": "미신청 가구 중 20대 이하 45%",
+      "expected": "pass"
+    },
+    {
+      "id": "denominator-invalid",
+      "source": "근로장려금 신청 안내를 받고도 신청하지 않은 가구 중 20대 이하가 45%에 달하는 것으로 나타났다.",
+      "text": "근로장려금 청년 45% 미신청",
+      "expected": "reject"
+    },
+    {
+      "id": "comparison-valid",
+      "source": "미국 GDP 성장률은 전기 대비 연율 1.5%로 둔화했습니다.",
+      "text": "미국 GDP 전기 대비 연율 1.5%",
+      "expected": "pass"
+    },
+    {
+      "id": "comparison-invalid",
+      "source": "미국 GDP 성장률은 전기 대비 연율 1.5%로 둔화했습니다.",
+      "text": "미국 GDP 전년 대비 1.5%",
+      "expected": "reject"
+    },
+    {
+      "id": "money-role-valid",
+      "source": "정부는 청년에게 500만원을 지원합니다.",
+      "text": "청년 500만원 지원",
+      "expected": "pass"
+    },
+    {
+      "id": "money-role-invalid",
+      "source": "정부는 청년에게 500만원을 지원합니다.",
+      "text": "청년 500만원 납부",
+      "expected": "reject"
+    },
+    {
+      "id": "claim-state-valid",
+      "frame": {
+        "subject": "한국은행",
+        "eventKind": "general",
+        "claimState": "reported"
+      },
+      "text": "한국은행\n금리 인하 검토",
+      "expected": "pass"
+    },
+    {
+      "id": "claim-state-invalid",
+      "frame": {
+        "subject": "한국은행",
+        "eventKind": "general",
+        "claimState": "reported"
+      },
+      "text": "한국은행\n금리 인하 확정",
+      "expected": "reject"
+    }
+  ]
+}

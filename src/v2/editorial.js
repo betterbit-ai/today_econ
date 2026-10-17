@@ -983,7 +983,7 @@ async function generateEditorial(article = {}, {
   const attempts = [];
   const prompt = promptBuilder(article);
   const frame = articleFrame(article);
-  for (const model of [primaryModel, fallbackModel]) {
+  for (const model of [primaryModel, fallbackModel].filter(Boolean)) {
     try {
       const raw = await callModel({ model, ...prompt });
       let parsed;
