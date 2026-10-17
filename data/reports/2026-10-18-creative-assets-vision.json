@@ -1,0 +1,42 @@
+{
+  "stage": "individual_asset_review_only",
+  "model": "qwen/qwen3.8-27b",
+  "cases": [
+    {
+      "id": "president-quote",
+      "asset": "diem-generated:government-briefing-01-openai",
+      "ok": true,
+      "selectedId": "diem-generated:government-briefing-01-openai",
+      "reason": "The image depicts a generic, empty government conference room with a podium and microphones. This serves as an appropriate contextual illustration for a news story about a President's statement made in an official capacity (referencing a State Council meeting in the summary). It avoids misleading specific claims (like showing a specific crowd or event) while supporting the subject of high-level political discourse.",
+      "evaluations": [
+        {
+          "id": "diem-generated:government-briefing-01-openai",
+          "relevant": true,
+          "countryMismatch": false,
+          "foreignPoliticalSymbol": false,
+          "unrelatedPerson": false,
+          "reason": "The setting (a formal meeting room with a podium) is a valid contextual illustration for a story about a President's official remarks and internal political conflicts. It does not contain misleading symbols or unrelated elements."
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    },
+    {
+      "id": "court-documents",
+      "asset": "diem-generated:legal-document-review-01-openai",
+      "ok": true,
+      "selectedId": "diem-generated:legal-document-review-01-openai",
+      "reason": "The image is a contextual editorial illustration depicting legal documents and a magnifying glass in a formal setting (likely a hearing room or office). This aligns well with the article's subject matter regarding a legal retrial (re-examination) and the review of National Intelligence Service documents. It avoids the specific prohibition against using a gavel for general political statements by focusing on the 'document review' aspect of the legal argument.",
+      "evaluations": [
+        {
+          "id": "diem-generated:legal-document-review-01-openai",
+          "relevant": true,
+          "countryMismatch": false,
+          "foreignPoliticalSymbol": false,
+          "unrelatedPerson": false,
+          "reason": "The image shows documents and a magnifying glass, which serves as a valid contextual illustration for a story about reviewing legal evidence and documents for a retrial."
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  ]
+}
