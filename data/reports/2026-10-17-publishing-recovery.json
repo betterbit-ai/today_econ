@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-17",
+  "credentialSource": "repository_secret",
+  "secretUpdatedAt": "2026-10-17T02:58:27Z",
+  "diagnostic": {
+    "runId": "38997003830",
+    "githubSha": "f21b8454f9ded5865c748be6533687716d4fbf22",
+    "instagram": {
+      "status": "ok",
+      "accountId": "17841433257606150",
+      "appScopedId": "26918123124531303",
+      "username": "diem.magazine"
+    },
+    "model": {
+      "status": "ok",
+      "id": "qwen/qwen3.8-27b"
+    },
+    "vision": {
+      "consecutiveSuccesses": 5,
+      "successfulRunIds": [
+        "38997003830:vision:1",
+        "38997003830:vision:2",
+        "38997003830:vision:3",
+        "38997003830:vision:4",
+        "38997003830:vision:5"
+      ]
+    }
+  },
+  "deployments": [
+    {
+      "pr": 181,
+      "mainSha": "0d0a42a2df556a2e2e31bab9ce92b8be0e34a980",
+      "purpose": "preserve_primary_farmland_subject_and_add_reviewed_topic_assets"
+    },
+    {
+      "pr": 183,
+      "mainSha": "052666765466e0168853d4ac85554988b35df73d",
+      "purpose": "repair_numeric_evidence_failures_by_omitting_numbers_without_relaxing_validation"
+    }
+  ],
+  "verification": {
+    "harnessTests": 479,
+    "passed": 478,
+    "skipped": 1,
+    "failed": 0,
+    "diffCheck": "passed",
+    "independentReview": "green",
+    "coverRenders": [
+      {
+        "asset": "agriculture-01-openai",
+        "width": 1080,
+        "height": 1920,
+        "overflow": false
+      },
+      {
+        "asset": "agriculture-02-openai",
+        "width": 1080,
+        "height": 1920,
+        "overflow": false
+      }
+    ]
+  },
+  "normalRuns": [
+    {
+      "runId": "38997381035",
+      "category": "economy",
+      "outcome": "no_publish",
+      "reason": "no_candidate_passed_preparation",
+      "reelAttempts": 0,
+      "externalId": null
+    },
+    {
+      "runId": "38997399550",
+      "category": "issue",
+      "outcome": "no_publish",
+      "reason": "no_candidate_passed_hotness_gate",
+      "reelAttempts": 0,
+      "externalId": null
+    },
+    {
+      "runId": "38998569802",
+      "category": "economy",
+      "githubSha": "0d0a42a2df556a2e2e31bab9ce92b8be0e34a980",
+      "outcome": "no_publish",
+      "reason": "no_candidate_passed_editorial_generation",
+      "reelAttempts": 0,
+      "externalId": null
+    },
+    {
+      "runId": "38999083431",
+      "category": "economy",
+      "githubSha": "052666765466e0168853d4ac85554988b35df73d",
+      "outcome": "published",
+      "reelAttempts": 1,
+      "externalId": "17896337781413566",
+      "permalink": "https://www.instagram.com/reel/DelKOm7DsrB/",
+      "publishedAt": "2026-10-17T03:38:13+0000",
+      "title": "아크메르 동탄\n견본주택 개관",
+      "analytics": {
+        "featureSchemaVersion": 3,
+        "strategyVersion": "discovery-funnel-v3",
+        "reelDurationSeconds": 6
+      },
+      "generation": {
+        "method": "model",
+        "model": "openai/gpt-oss-120b",
+        "attempts": [
+          {
+            "model": "openai/gpt-oss-120b",
+            "stage": "editorial_structure",
+            "status": "failed",
+            "error": "model returned an ungrounded numeric claim: 16억5천 in \"아크메르 동탄 모델하우스 개관 첫날, 84㎡~129㎡ 평형당 16억5천~24억8천만원 가격에 10분 거리 삼성 캠퍼스 인근에서 대기줄이 도로까지\"; 24억8천만원 in \"아크메르 동탄 모델하우스 개관 첫날, 84㎡~129㎡ 평형당 16억5천~24억8천만원 가격에 10분 거리 삼성 캠퍼스 인근에서 대기줄이 도로까지\"; 20% in \"동탄 아파트값이 연간 20% 상승한 가운데, 삼성전자 임직원 등 다양한 직장인들의 관심이 집중돼 향후 분양 경쟁이 더욱 치열해질 전망이다.\""
+          },
+          {
+            "model": "openai/gpt-oss-120b",
+            "stage": "editorial_repair",
+            "status": "succeeded"
+          },
+          {
+            "model": "openai/gpt-oss-120b",
+            "stage": "editorial",
+            "status": "succeeded"
+          }
+        ]
+      }
+    }
+  ],
+  "operationalRecovery": "upload_restored_content_quality_incident_open",
+  "d0": null,
+  "remaining": [
+    "long_term_secret_rotation",
+    "first_screen_experiment",
+    "basic_refresh"
+  ],
+  "numericRepairVerification": {
+    "tests": 481,
+    "passed": 480,
+    "skipped": 1,
+    "failed": 0,
+    "diffCheck": "passed",
+    "independentReview": "green",
+    "liveModelResult": "succeeded_on_gpt_oss_120b_after_ungrounded_numeric_claim"
+  },
+  "instagramWriteAccess": "confirmed",
+  "qualityIncident": {
+    "publicationKey": "diem:2026-10-17:economy:38999083431",
+    "expectedTopic": "housing",
+    "observedTopic": "legislation",
+    "assetId": "diem-generated:legislation-01",
+    "status": "regression_fix_verified_original_post_unchanged",
+    "historicalLedgerPreserved": true,
+    "verification": {
+      "tests": 483,
+      "passed": 482,
+      "skipped": 1,
+      "failed": 0,
+      "independentReview": "green",
+      "correctedTopicReplay": "housing",
+      "legalAssetOverrideRejected": true
+    }
+  }
+}

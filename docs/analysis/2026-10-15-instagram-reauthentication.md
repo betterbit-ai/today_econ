@@ -1,6 +1,10 @@
 # 2026-10-15 Instagram 재인증 점검
 
-## 10월 16일 현재 상태
+## 10월 17일 최신 확인
+
+새 Secret의 계정 접근·Models API·두 이미지 Vision 5회가 정상이다. 실제 발행과 농지 이미지 보완 결과는 [10월 17일 기록](2026-10-17-publishing-recovery.md)을 따른다. 아래 401 기록은 이전 토큰의 이력이다.
+
+## 10월 16일 점검 이력
 
 10월 15일 밤 예약 시사 실행 [38733095776](https://github.com/betterbit-ai/today_econ/actions/runs/38733095776)의 실제 업로드에서 HTTP 401 / code 190 / 세션 무효화가 반환됐다. `repository_secret` 경로이며 공개 vault 교체 여부와 무관하다. Reel attempts 1 / externalId null / manual_action_required다. 이전 읽기 진단 성공은 이후 토큰의 유효성을 보장하지 않는다. Secret 저장 시각은 여전히 10월 15일 00:12:34 KST다.
 
@@ -14,7 +18,7 @@ PR #172 / main `7f852a9c01c38d103ff549477557a7b0cc10904c`에 중복 비교 query
 
 ## 새 Secret을 독립 검증하는 읽기 진단 (10월 15일 초기 이력·현재 설정 아님)
 
-아래 vault-first와 공개 파일 승인 관련 문단은 초기 진단 당시의 이력이다. 현재 자동 운영은 repository_secret을 직접 사용하며 공개 파일 갱신은 발행의 필수 조건이 아니다. 현재 인증 상태는 이 문서 상단의 10월 16일 점검 결과를 따른다.
+아래 vault-first와 공개 파일 승인 관련 문단은 초기 진단 당시의 이력이다. 현재 자동 운영은 repository_secret을 직접 사용하며 공개 파일 갱신은 발행의 필수 조건이 아니다. 현재 인증 상태는 이 문서 상단의 최신 점검 결과를 따른다.
 
 `DIEM Economy`의 수동 입력 `diagnose_new_token`은 해당 진단 subprocess에서만 `INSTAGRAM_TOKEN_ENCRYPTION_KEY`를 unset한다. 토큰 resolver는 새 환경 Secret을 선택한다. 기존 `diagnose`와 자동 발행·주간 갱신은 기존 vault-first 동작을 유지한다.
 

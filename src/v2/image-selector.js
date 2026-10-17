@@ -220,6 +220,7 @@ function inferFallbackTheme(candidate = {}) {
 
 function generatedFallbackTopic(candidate = {}) {
   const text = primaryVisualText(candidate);
+  if (candidate.newsFrame?.eventKind === 'general' && candidate.newsFrame.subject === '주거 정책') return 'housing';
   if (candidate.newsFrame?.eventKind === 'general' && /농지/u.test(text)) return 'agriculture';
   if (candidate.newsFrame?.eventKind === 'rescue_search') return 'weather';
   if (candidate.newsFrame?.eventKind === 'currency_move') return 'markets';
@@ -560,7 +561,7 @@ function buildImageQueries(candidate = {}) {
       : 'GDP economic growth chart');
   } else if (eventQueries.length === 0 && (frame.eventKind === 'legislation' || directArticleIsAboutParliament) && /(대한민국|한국|국회|여의도|청와대|대통령실)/u.test(sourceText)) {
     frameQueries.push('Korean National Assembly Seoul');
-  } else if (frame.eventKind === 'housing_policy') {
+  } else if (frame.eventKind === 'housing_policy' || (frame.eventKind === 'general' && frame.subject === '주거 정책')) {
     frameQueries.push('South Korea apartment buildings city skyline', 'apartment sale contract house keys');
   } else if (frame.eventKind === 'currency_move') {
     frameQueries.push('foreign exchange currency rate board', 'currency exchange counter bank');
