@@ -220,6 +220,7 @@ function inferFallbackTheme(candidate = {}) {
 
 function generatedFallbackTopic(candidate = {}) {
   const text = primaryVisualText(candidate);
+  if (candidate.newsFrame?.eventKind === 'general' && /농지/u.test(text)) return 'agriculture';
   if (candidate.newsFrame?.eventKind === 'rescue_search') return 'weather';
   if (candidate.newsFrame?.eventKind === 'currency_move') return 'markets';
   if (candidate.newsFrame?.eventKind === 'market_move') return 'markets';
@@ -551,7 +552,9 @@ function buildImageQueries(candidate = {}) {
   const exclusiveEventQuery = /(당대표|대표\s*경선|순회경선|전당대회|누적\s*과반|득표율|5[·.]18|광주\s*민주화운동|배달기사|배달원|폭우|집중호우|호우|침수|물폭탄|홍수|타임스스퀘어|전광판|옥외\s*광고)|(공청회|토론회|설명회).{0,120}(파행|난장판|아수라장|고성|욕설|몸싸움|충돌|난무)/u.test(sourceText);
   if (exclusiveEventQuery && eventQueries.length > 0) return eventQueries.slice(0, 5);
   const frameQueries = [];
-  if (frame.eventKind === 'gdp') {
+  if (generatedFallbackTopic(candidate) === 'agriculture') {
+    frameQueries.push('agricultural farmland parcels aerial landscape', 'cultivated farmland field boundaries');
+  } else if (frame.eventKind === 'gdp') {
     frameQueries.push(/미국|미\s*상무부/u.test(sourceText)
       ? 'United States GDP economic growth'
       : 'GDP economic growth chart');

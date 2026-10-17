@@ -1264,7 +1264,7 @@ test('verifies every committed generated fallback asset hash and vertical canvas
     assert.ok(Math.abs((width / height) - (9 / 16)) < 0.002, `${asset.id} is not a 9:16 canvas`);
   }
   assert.deepEqual([...topicCounts.keys()].sort(), [
-    'finance', 'geopolitics', 'health', 'home-security', 'housing', 'legislation', 'markets',
+    'agriculture', 'finance', 'geopolitics', 'health', 'home-security', 'housing', 'legislation', 'markets',
     'public-hearing', 'public-interest', 'public-opinion', 'technology', 'transit', 'weather', 'work',
   ]);
   for (const [topic, count] of topicCounts) assert.ok(count >= 2, `${topic} needs at least two variants`);

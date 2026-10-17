@@ -344,7 +344,10 @@ function buildNewsFrame(candidate = {}, category = classifyCandidate(candidate).
     : headlineKind === 'general' ? evidenceKind : headlineKind;
   const state = claimState(candidate, text, kind);
   const primaryActor = kind === 'political_statement' ? primaryPoliticalSpeaker(candidate) : null;
-  const subject = primaryActor || compactSubject(text, category);
+  const farmlandSubject = kind === 'general'
+    && /농지\s*(?:전수\s*)?(?:조사|거래|대출|보유|실태)/u.test(normalizeNfc(candidate.title || ''))
+    ? '농지' : null;
+  const subject = primaryActor || farmlandSubject || compactSubject(text, category);
   const headlineEventLabel = frameEventLabel(normalizeTopicAliases(candidate.title || ''), kind);
   const eventLabel = headlineEventLabel || (kind === 'general' ? '' : frameEventLabel(text, kind));
   const { subjectTerms, eventTerms } = frameTerms(subject, eventLabel, kind, text);
