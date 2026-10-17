@@ -343,7 +343,8 @@ function normalizedNumber(value = '') {
 }
 
 function numberOccurrences(value = '') {
-  return [...cleanVisibleText(value).matchAll(NUMBER_TOKEN)].map(match => ({
+  const text = cleanVisibleText(value);
+  return [...text.matchAll(NUMBER_TOKEN)].filter(match => !(text.slice(match.index - 1, match.index + match[0].length + 1) === '제3국')).map(match => ({
     number: match[0], key: normalizedNumber(match[0]), start: match.index,
     end: match.index + match[0].length,
   }));
@@ -1032,6 +1033,7 @@ async function generateEditorial(article = {}, {
       attempts.push({ model, stage: 'editorial', status: 'succeeded' });
       return assembleEditorial({
         article: augmentedArticle,
+        imageKeyword: typeof parsed.imageKeyword === 'string' ? parsed.imageKeyword.normalize('NFC').slice(0, 160) : undefined,
         titleCandidates: candidates,
         selectedTitleIndex: Number.isInteger(parsed.selectedTitleIndex) ? parsed.selectedTitleIndex : 0,
         sentenceDrafts: parsed.sentences,

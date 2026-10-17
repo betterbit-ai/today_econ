@@ -101,8 +101,8 @@ function getMood(text) {
   if (isSensitiveTopic(text)) return 'serious';
   const brightKeywords = /(상승|최고|호조|흑자|회복|기대|성공|합의|지원|완화|급등|돌파|잭팟|수혜|혁신|통과)/u;
   const seriousKeywords = /(하락|최저|부진|적자|침체|위기|실패|결렬|규제|제재|급락|붕괴|재난|참사|사망|희생|경고|우려|타격|피해)/u;
-  if (brightKeywords.test(text)) return 'bright';
   if (seriousKeywords.test(text)) return 'serious';
+  if (brightKeywords.test(text)) return 'bright';
   return 'serious'; // default to serious for economy/news if ambiguous
 }
 
@@ -156,6 +156,7 @@ function selectMusic({
   mood,
   publicationKey,
   sensitive = false,
+  newsOnly = false,
   topic = {},
   manifest = loadMusicManifest(),
   audioRoot = DEFAULT_AUDIO_ROOT,
@@ -163,14 +164,15 @@ function selectMusic({
 } = {}) {
   const sensitiveTopic = sensitive || isSensitiveTopic(topic);
   const resolvedMood = sensitiveTopic ? 'serious' : mood;
+  const newsManifest = newsOnly ? { ...manifest, tracks: manifest.tracks.filter(track => track.license && track.title && (!resolvedMood || track.mood === resolvedMood) && !/fright|horror|romantic|sentimental|love|trailer|promo rock|funk|breakbeat|summer lounge/iu.test(track.title || '')) } : manifest;
   const eligibleManifest = sensitiveTopic
     ? {
-      ...manifest,
-      tracks: manifest.tracks.filter(track => (
+      ...newsManifest,
+      tracks: newsManifest.tracks.filter(track => (
         track.mood === 'serious' && track.sensitiveEligible === true
       )),
     }
-    : manifest;
+    : newsManifest;
 
   const ranked = rankMusicTracks({
     history,

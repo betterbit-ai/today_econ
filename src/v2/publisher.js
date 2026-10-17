@@ -6,9 +6,12 @@ const { cleanupExpiredReleases, createTemporaryRelease } = require('../github-as
 const { publishReel, publishStory, searchInstagramAudio } = require('../instagram');
 const { generateEditorial } = require('./editorial');
 const { evaluateExplainRollout, loadExplainCapabilityEvidence } = require('./explain-policy');
-const { createGroqCaller, createGroqVisionReviewer } = require('./groq');
+const { createGroqVisionReviewer } = require('./groq');
+const { editorialRuntime } = require('./editorial-provider');
+const { creativeBrief, reviewRenderedCreative, assertCreativeBinding } = require('./creative');
 const {
   createGeneratedFallback,
+  reviewedGeneratedFallback,
   downloadSelectedImage,
   extractPrimaryPersonIdentity,
   imageReuseKeys,
@@ -97,6 +100,7 @@ async function preparePublication(ledger, category, {
   selectMusicImpl = selectMusic,
   createReelImpl = createDiemReelWithMusic,
   reviewImages,
+  reviewCreative,
   artifactRoot,
   history = [],
 } = {}) {
@@ -107,7 +111,7 @@ async function preparePublication(ledger, category, {
   const outputDir = artifactDirectory(ledger, category, artifactRoot);
   fs.mkdirSync(outputDir, { recursive: true });
 
-  const modelCaller = callModel || (config.groqApiKey ? createGroqCaller({ apiKey: config.groqApiKey }) : undefined);
+  const runtime = editorialRuntime({ callModel });
   const explainPolicy = evaluateExplainRollout({
     configured: config.explainReelsEnabled,
     category,
@@ -118,19 +122,23 @@ async function preparePublication(ledger, category, {
     maxPerCategory: config.explainCanaryMaxPerCategory,
   });
   const editorial = await generateEditorialImpl(article, {
-    callModel: modelCaller,
-    primaryModel: config.groqPrimaryModel,
-    fallbackModel: config.groqFallbackModel,
+    callModel: runtime.callModel,
+    primaryModel: runtime.primaryModel,
+    fallbackModel: runtime.fallbackModel,
     handle: config.instagramUsername,
     explainEnabled: explainPolicy.enabled,
   });
   editorial.formatRollout = explainPolicy;
+  editorial.generation = { ...editorial.generation, ...runtime.evidence() };
+  const brief = creativeBrief(article, editorial);
+  editorial.creativeBrief = brief;
 
   const recentImages = recentImagesForSelection(ledger, publication, history);
   const imageCandidate = {
     ...article,
     imageKeyword: editorial.imageKeyword,
     editorialTitle: editorial.title.text,
+    editorialCaption: editorial.caption.text,
   };
   const personIdentity = extractPrimaryPersonIdentity(imageCandidate);
   const imageReviewer = reviewImages || (
@@ -148,6 +156,7 @@ async function preparePublication(ledger, category, {
       reuseWindowDays: config.maxHistoryDays,
       reviewImages: imageReviewer,
       generatedFallbackEnabled: true,
+      requireGeneratedReview: config.creativeReviewEnabled,
     });
     downloaded = imageSelection;
     if (imageSelection.kind !== 'web') break;
@@ -158,7 +167,7 @@ async function preparePublication(ledger, category, {
       imageSelection = null;
       downloaded = null;
     } catch (error) {
-      imageSelection = createGeneratedFallback(imageCandidate, {
+      imageSelection = await reviewedGeneratedFallback(imageCandidate, {
         recentImages,
         reuseWindowDays: config.maxHistoryDays,
         attempts: [
@@ -166,7 +175,7 @@ async function preparePublication(ledger, category, {
           { provider: imageSelection.source, query: imageSelection.query, error: error.message, stage: 'download' },
         ],
         reason: 'licensed image download failed',
-      });
+      }, { reviewImages: imageReviewer, required: config.creativeReviewEnabled });
       if (!imageSelection) {
         throw new Error('[DIEM Image] licensed image download failed and no unused reviewed generated asset remains; typography fallback is disabled');
       }
@@ -176,11 +185,11 @@ async function preparePublication(ledger, category, {
     }
   }
   if (!imageSelection || !downloaded) {
-    imageSelection = createGeneratedFallback(imageCandidate, {
+    imageSelection = await reviewedGeneratedFallback(imageCandidate, {
       recentImages,
       reuseWindowDays: config.maxHistoryDays,
       reason: 'all licensed candidates matched a recent seven-day image hash',
-    });
+    }, { reviewImages: imageReviewer, required: config.creativeReviewEnabled });
     if (!imageSelection) {
       throw new Error('[DIEM Image] all licensed and reviewed generated assets are exhausted; typography fallback is disabled');
     }
@@ -230,15 +239,21 @@ async function preparePublication(ledger, category, {
       : [coverPath, coverPath, coverPath])
     : [];
 
-  const articleText = `${article.title} ${article.summary} ${article.fullText}`;
-  const mood = getMood(articleText);
+  const mood = brief.mood;
 
   const music = selectMusicImpl({
     history,
     publicationKey: publication.publicationKey,
-    topic: article,
+    topic: { title: brief.title, summary: brief.caption },
     mood,
+    sensitive: brief.sensitive,
+    newsOnly: true,
   });
+  let creativeReview = null;
+  if (config.creativeReviewEnabled || reviewCreative) {
+    creativeReview = await (reviewCreative || reviewRenderedCreative)({ article, brief, coverPath, reviewImages: imageReviewer });
+    if (creativeReview?.ok !== true) throw new Error('[DIEM Quality] final creative review was not affirmative');
+  }
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
   const reelResult = await createReelImpl({
     imagePath: coverPath,
@@ -247,11 +262,13 @@ async function preparePublication(ledger, category, {
     outputPath: reelPath,
     music,
   });
+  if (creativeReview) creativeReview.reviewedReelSha256 = sha256File(reelResult.outputPath);
   const preparedAt = new Date().toISOString();
 
   return updatePublication(ledger, category, {
     status: 'ready',
     editorial,
+    creativeReview,
     analytics: {
       ...(publication.analytics || {}),
       featureSchemaVersion: 3,
@@ -446,6 +463,7 @@ async function ensureTemporaryRelease(publication, reelPath, {
     repository: config.githubRepository,
     maxAgeHours: 72,
   }).catch(() => []);
+  const uploadedReelSha256 = sha256File(reelPath);
   const release = await createReleaseImpl({
     assetPaths: [{ path: reelPath, filename: releaseAssetFilename(publication), contentType: 'video/mp4' }],
     token: config.githubToken,
@@ -456,6 +474,7 @@ async function ensureTemporaryRelease(publication, reelPath, {
   return {
     ...publication,
     release: {
+      reelSha256: uploadedReelSha256,
       id: release.releaseId,
       tag: release.tag,
       videoUrl: release.videoUrl,
@@ -581,6 +600,8 @@ async function publishPreparedPublication(ledger, category, token, {
       };
       publication.status = 'published';
     } else {
+      // Preauthored Basic packages already have their own immutable 5-card/19s approval contract.
+      if (config.creativeReviewEnabled && publication.contentType !== 'diem_basic') assertCreativeBinding(publication);
       publication = await ensureTemporaryRelease(publication, reelPath, {
         cleanupReleasesImpl,
         createReleaseImpl,

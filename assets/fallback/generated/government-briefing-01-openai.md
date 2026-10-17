@@ -1,0 +1,7 @@
+# Government briefing editorial illustration
+
+Created 2026-10-18 with built-in OpenAI image generation. Person-free empty cabinet briefing room and lectern; no gavel, text, flags or logos. Reviewed visually. Restricted to political_statement events. Conceptual setting, never documentary evidence of a real meeting. Original 941 × 1672, SHA-256: 919634c5e343abfb9ca6521b3b4f2aa092b8b72c5bad69297059efd002a14892
+
+## Generation prompt
+
+Create ONE premium editorial illustration for a Korean current-affairs news Reel, vertical 9:16, 1080x1920 composition. Subject: an EMPTY contemporary government cabinet briefing room seen from the back, long conference table leading toward a plain unbranded lectern with two microphones, empty modern chairs, softly frosted windows. Calm, procedural public communication and government meeting transparency, NOT courtroom or a legislative vote. Sophisticated tactile architectural illustration, restrained slate-blue, walnut and ivory, natural morning light, realistic spatial depth but clearly illustrated, not documentary photography of any identifiable real venue. Upper 60 percent contains the room and lectern; lower 40 percent fades to very dark navy with calm negative space for a large Korean headline to be composited later. No people, faces, silhouettes, crowds, national flags, emblems, text, numbers, logos, watermarks, gavels, scales of justice, judges benches, police, handcuffs, voting ballots, fire or chaos. No text at all. A standalone full-frame finished image, no border, no collage.

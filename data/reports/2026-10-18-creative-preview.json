@@ -1,0 +1,170 @@
+{
+  "runId": "39047482786",
+  "sha": "97ceae950c524afdfe1dc3cab639b10df4c7ac7d",
+  "publicationAllowed": false,
+  "ready": 2,
+  "blocked": 1,
+  "videoInspection": {
+    "resolution": "1080x1920",
+    "durationSeconds": 6,
+    "videoCodec": "h264",
+    "audioCodec": "aac",
+    "sampleRate": 48000,
+    "reviewedReelHashMatches": true,
+    "humanAudioListeningCompleted": false
+  },
+  "cases": [
+    {
+      "id": "housing-opening",
+      "status": "blocked",
+      "error": "[DIEM Image] reviewed generated asset library unavailable or exhausted for housing; typography fallback is disabled",
+      "sourceHash": null,
+      "title": null,
+      "generation": null,
+      "imageId": null,
+      "audio": null,
+      "creativeReview": null
+    },
+    {
+      "id": "president-quote",
+      "status": "ready_preview_only",
+      "error": null,
+      "sourceHash": "d75095f59e26c17e71338d3e9579c5f128ef44e5226aabb454aea2a6892f83e1",
+      "title": "이 대통령\n개혁 빙자\n내부공격 비판",
+      "generation": {
+        "method": "model",
+        "model": "claude-opus-5-5",
+        "attempts": [
+          {
+            "model": "claude-opus-5-5",
+            "stage": "editorial",
+            "status": "succeeded"
+          }
+        ],
+        "provider": "claude-code-subscription",
+        "cliVersion": "2.1.302",
+        "execution": [
+          {
+            "modelIds": [
+              "claude-opus-5-5"
+            ],
+            "turns": 1
+          }
+        ]
+      },
+      "imageId": "diem-generated:government-briefing-01-openai",
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+        "mood": "serious",
+        "title": "Moment of Peace",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/solo-piano-moment-of-peace-mickeyscat-554494/",
+        "sha256": "2cbc249e7f038abbca64a6d849c0c37c29d132b2088171b715c0055d5339cfed",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
+      "creativeReview": {
+        "ok": true,
+        "selectedId": "rendered-cover",
+        "reason": "The image is a rendered cover that accurately displays the editorial headline '이 대통령 개혁 빙자 내부공격 비판' (President Lee criticizes internal attacks under the guise of reform). The background image of a formal government meeting room is a relevant contextual setting for a story about the President's statements on internal political conflict and reform, without implying a specific event that contradicts the text.",
+        "evaluations": [
+          {
+            "id": "rendered-cover",
+            "relevant": true,
+            "countryMismatch": false,
+            "foreignPoliticalSymbol": false,
+            "unrelatedPerson": false,
+            "reason": "The cover text matches the editorial title perfectly. The background setting (a conference room) is appropriate for a political news story involving the President and internal party dynamics."
+          }
+        ],
+        "model": "qwen/qwen3.8-27b",
+        "reviewedArtifactSha256": "74a63e7a9e4fe2b4f4381e5a223c4601b26acbbfed68e7208396cf3cdfc5fc25",
+        "sourceSha256": "d1a6853781a89f97baed5a93bb7d6232c68ddd9674795cc2c5c38ad93544ea98",
+        "briefSha256": "60df31987556fa53e5325099bee60c588f358d39797e0f3c75334ed34253a258",
+        "audioReview": "deterministic_mood_and_track_metadata_only",
+        "reviewedAt": "2026-10-17T16:04:51.754Z",
+        "reviewedReelSha256": "847d1b466b15cd815626315da07e192dcc107fba3bca4de45c71d03e20ac7d8e"
+      }
+    },
+    {
+      "id": "court-documents",
+      "status": "ready_preview_only",
+      "error": null,
+      "sourceHash": "4cf8d88fa25f3188009aa91b5daf16b1c8b616d55e3489624206e64bd411b9f9",
+      "title": "이화영 재심 쟁점\n수원고법원장 발언",
+      "generation": {
+        "method": "model",
+        "model": "claude-opus-5-5",
+        "attempts": [
+          {
+            "model": "claude-opus-5-5",
+            "stage": "editorial_structure",
+            "status": "failed",
+            "error": "model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"2019년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"7월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]"
+          },
+          {
+            "model": "claude-opus-5-5",
+            "stage": "editorial_repair",
+            "status": "succeeded"
+          },
+          {
+            "model": "claude-opus-5-5",
+            "stage": "editorial",
+            "status": "succeeded"
+          }
+        ],
+        "provider": "claude-code-subscription",
+        "cliVersion": "2.1.302",
+        "execution": [
+          {
+            "modelIds": [
+              "claude-opus-5-5"
+            ],
+            "turns": 1
+          },
+          {
+            "modelIds": [
+              "claude-opus-5-5"
+            ],
+            "turns": 1
+          }
+        ]
+      },
+      "imageId": "diem-generated:legal-document-review-01-openai",
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-serene-view-443",
+        "mood": "serious",
+        "title": "Serene View",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-serene-view-443.mp3",
+        "sha256": "93baae1bea4748b0a36d8a8b2d2af1c9391d3abb5e18f2bff270ea91d9a0fd31",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
+      "creativeReview": {
+        "ok": true,
+        "selectedId": "rendered-cover",
+        "reason": "The image is a rendered cover that accurately displays the editorial title '이화영 재심 쟁점 수원고법원장 발언' (Lee Hwa-young retrial issue, Suwon High Court President's statement). The background visual of a formal hearing room with documents and a magnifying glass serves as an appropriate contextual illustration for a legal news story regarding a retrial and court statements, without implying a specific event that contradicts the text.",
+        "evaluations": [
+          {
+            "id": "rendered-cover",
+            "relevant": true,
+            "countryMismatch": false,
+            "foreignPoliticalSymbol": false,
+            "unrelatedPerson": false,
+            "reason": "The rendered cover's text matches the headline exactly. The visual elements (hearing room, documents) are contextually appropriate for a legal article about a retrial and court proceedings."
+          }
+        ],
+        "model": "qwen/qwen3.8-27b",
+        "reviewedArtifactSha256": "c247967974c0ba688f39afde3e9eedc2a6afa432d452d8e8545bf46c84cee47f",
+        "sourceSha256": "6c1b43185b3e567a509ca4f06b838ce32d891253a4d0004599db4b796e394756",
+        "briefSha256": "bc8b54e0d1ccccb6906184b756b128715208cf2f045326832114ef16612de989",
+        "audioReview": "deterministic_mood_and_track_metadata_only",
+        "reviewedAt": "2026-10-17T16:06:32.000Z",
+        "reviewedReelSha256": "5730401ab65d2babc0b97da0a4b09a146b86ddc9023457ed309300f8b5e8273f"
+      }
+    }
+  ]
+}

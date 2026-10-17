@@ -176,14 +176,16 @@ function createGroqVisionReviewer({
         type: 'text',
         text: [
           'You are the final visual safety editor for a Korean news magazine.',
-          'Choose one image only if its ACTUAL pixels accurately represent the primary article event.',
-          'Treat newsFrame subject, eventKind, and eventLabel as the locked primary event. Do not let incidental biography or background details replace it.',
+          'Choose one image only if its ACTUAL pixels support the primary article subject and event without misleading the reader. Context images and clearly illustrative generated assets are allowed; they need not be documentary photographs of the exact venue, date, named project or crowd. Never demand identifiable people in a person-free contextual illustration. Do not accept a merely broad topic match: the depicted object or setting must explain this specific headline, without implying a different event.',
+          'Compare source title, final editorial title and final caption together. Frame tags may be broad; they do not prove relevance. Do not let incidental biography or background details replace the actual story.',
+          'Reject legal gavels for ordinary political statements without an actual legal proceeding, misleading event symbolism, and unrelated generic objects. If this is a rendered cover, assess its actual crop and readable headline together.',
           'Reject country mismatch, foreign flags or election symbols in Korean politics, unrelated people, and generic finance charts for non-market stories.',
           'Return JSON: {"ok":boolean,"selectedId":string|null,"reason":string,"evaluations":[{"id":string,"relevant":boolean,"countryMismatch":boolean,"foreignPoliticalSymbol":boolean,"unrelatedPerson":boolean,"reason":string}]}',
           ...(jsonMode ? [] : ['JSON recovery: return exactly one plain JSON object without markdown or commentary.']),
           JSON.stringify({
             title: candidate.title,
             summary: String(candidate.summary || '').slice(0, 600),
+            finalCaption: String(candidate.editorialCaption || '').slice(0, 400),
             editorialTitle: candidate.editorialTitle,
             newsFrame: candidate.newsFrame ? {
               subject: candidate.newsFrame.subject,
