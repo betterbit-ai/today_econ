@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-18",
+  "datasetId": "diem-editorial-v1",
+  "datasetSha256": "ba50c7af6121581ab668d9d8c6b2e2e26749e835e42873cdb03590dc070788d6",
+  "comparisonMethod": "Historical baseline plus Opus extension, identical frozen inputs and validators; not simultaneous runs",
+  "sourceRuns": [
+    {
+      "id": "39002555889",
+      "batch": "first",
+      "sha": "8d953334473d65aec8c679fea7aad4ddccfa8aad"
+    },
+    {
+      "id": "39003175497",
+      "batch": "second",
+      "sha": "8d953334473d65aec8c679fea7aad4ddccfa8aad"
+    },
+    {
+      "id": "39044138900",
+      "batch": "first",
+      "sha": "fa09e780edf6f7590f6d46fe1697f8c0898c6850",
+      "model": "claude-opus-5-5"
+    },
+    {
+      "id": "39044349321",
+      "batch": "second",
+      "sha": "fa09e780edf6f7590f6d46fe1697f8c0898c6850",
+      "model": "claude-opus-5-5"
+    }
+  ],
+  "evaluationObjects": {
+    "src/v2/editorial.js": "f12f092c7774704deef006cefeb00bbf0e681b82",
+    "src/v2/text.js": "8614841924f58b4b8445ba5d3ec1a12fd2a992e5",
+    "src/v2/topic.js": "105038dc25adbb9bd61c74646d950d63a2773c49",
+    "content/evaluation/diem-editorial-v1.json": "ca12fafe5af16d2425d73c32413245502327d5c9"
+  },
+  "summary": {
+    "groq": {
+      "attempted": 10,
+      "passed": 6,
+      "failed": 4,
+      "unavailable": 0,
+      "notRun": 0,
+      "firstResponsePassed": 3,
+      "passRate": 0.6,
+      "requests": 17
+    },
+    "claude": {
+      "attempted": 10,
+      "passed": 10,
+      "failed": 0,
+      "unavailable": 0,
+      "notRun": 0,
+      "firstResponsePassed": 2,
+      "passRate": 1,
+      "requests": 19
+    },
+    "opus": {
+      "attempted": 10,
+      "passed": 7,
+      "failed": 3,
+      "unavailable": 0,
+      "notRun": 0,
+      "firstResponsePassed": 1,
+      "passRate": 0.7,
+      "requests": 20
+    }
+  },
+  "opusActualModelIds": [
+    "claude-opus-5-5"
+  ],
+  "opusVerifiedResponses": 20,
+  "publicationAllowed": false,
+  "productionProviderChanged": false,
+  "humanApproval": false,
+  "editorialReviewers": [
+    "Codex",
+    "independent AI review agent"
+  ],
+  "editorialVerdicts": {
+    "groq": {
+      "allow": 0,
+      "revise": 3,
+      "block": 7
+    },
+    "sonnet": {
+      "allow": 7,
+      "revise": 2,
+      "block": 1
+    },
+    "opus": {
+      "allow": 5,
+      "revise": 2,
+      "block": 3
+    }
+  },
+  "opusFinalAcceptedFactualReview": {
+    "reviewed": 7,
+    "clearIncidentsFound": 0,
+    "scope": "Only accepted final outputs, checked against frozen source text; not a population accuracy estimate"
+  },
+  "numericOmissionFlags": {
+    "groq": 2,
+    "claude": 5,
+    "opus": 6
+  },
+  "opusCases": [
+    {
+      "id": "housing-opening",
+      "inputSha256": "77a095c99065f49c0a2cfd1f60ea455a2e16820e74bf452367b3bb57f245b0d8",
+      "status": "passed",
+      "requests": 2,
+      "firstResponsePassed": false,
+      "editorialVerdict": "수정"
+    },
+    {
+      "id": "film-statement",
+      "inputSha256": "8f7685b72088b4af72eb1f66edc7da780fe2231aa98ede63b2d43e47400952fa",
+      "status": "passed",
+      "requests": 2,
+      "firstResponsePassed": false,
+      "editorialVerdict": "허용"
+    },
+    {
+      "id": "investment-quote",
+      "inputSha256": "bfdffcac7c698f60315abfe376a184b4a5b0b678d8b53afe98b29550babd96bb",
+      "status": "failed",
+      "requests": 3,
+      "firstResponsePassed": false,
+      "editorialVerdict": "차단"
+    },
+    {
+      "id": "president-quote",
+      "inputSha256": "d75095f59e26c17e71338d3e9579c5f128ef44e5226aabb454aea2a6892f83e1",
+      "status": "passed",
+      "requests": 1,
+      "firstResponsePassed": true,
+      "editorialVerdict": "허용"
+    },
+    {
+      "id": "coin-tax",
+      "inputSha256": "7ac997e815766b868f7316f134daf47173976eb95d7d59bb973d2f5ad69595c8",
+      "status": "passed",
+      "requests": 2,
+      "firstResponsePassed": false,
+      "editorialVerdict": "수정"
+    },
+    {
+      "id": "rice-health",
+      "inputSha256": "4c0b7b2bb344589db927460717efa07d76108eaee2c45e42d213ffe80d3c3f7e",
+      "status": "passed",
+      "requests": 2,
+      "firstResponsePassed": false,
+      "editorialVerdict": "허용"
+    },
+    {
+      "id": "tax-case",
+      "inputSha256": "544cdbeda792a05568b8ffdba6c425089755493cc5067f394ac84d4c9d36d6c3",
+      "status": "failed",
+      "requests": 2,
+      "firstResponsePassed": false,
+      "editorialVerdict": "차단"
+    },
+    {
+      "id": "nobel-quote",
+      "inputSha256": "8b0350551070a70c15c3a0557b7476d631a12291deb87ff13dfdc7f4a8c48910",
+      "status": "failed",
+      "requests": 1,
+      "firstResponsePassed": false,
+      "editorialVerdict": "차단"
+    },
+    {
+      "id": "nisa-investment",
+      "inputSha256": "2a11b6bd615e7eb8659bb0c3d8681d594cc286e3147bd459fd799e452f47fe1b",
+      "status": "passed",
+      "requests": 3,
+      "firstResponsePassed": false,
+      "editorialVerdict": "허용"
+    },
+    {
+      "id": "court-documents",
+      "inputSha256": "4cf8d88fa25f3188009aa91b5daf16b1c8b616d55e3489624206e64bd411b9f9",
+      "status": "passed",
+      "requests": 2,
+      "firstResponsePassed": false,
+      "editorialVerdict": "허용"
+    }
+  ],
+  "decision": "hold_production_switch",
+  "reason": "Opus automatic acceptance 7/10 misses predefined 8/10 threshold; Sonnet had a final attribution incident; repair common validator false rejections and preserve facts before retesting.",
+  "models": {
+    "groq": "openai/gpt-oss-120b",
+    "claude": "claude-sonnet-5-5",
+    "opus": "claude-opus-5-5"
+  }
+}
