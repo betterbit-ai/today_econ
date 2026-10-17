@@ -664,3 +664,11 @@ flash-only로 유지한다.
 - `git diff --check`
 - `node .codex-harness/scripts/verify-project.mjs`
 - `npm run diem:explain-gates`가 증거 전 `passed: false`인지 확인
+
+## 2026-10-17 실제 모델 비교의 TPM 간격 보완
+
+- 첫 live 실행 39002322293은 Claude 인증·호출에 성공했으나 Groq의 두 번째
+  요청이 TPM 8000 제한으로 중단됐다. 이 자료는 미완료 실행으로 보존한다.
+- 비교 전용 Groq 호출은 직전 성공 응답 후 65초가 지난 뒤 다음 요청을 보낸다.
+  원문·프롬프트·모델·최대 3회 생성/교정·20분 예산·발행 금지는 유지한다.
+- 가짜 시계로 대기 간격과 불필요한 추가 요청이 없음을 검증한다.
