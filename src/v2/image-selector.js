@@ -223,6 +223,7 @@ function inferFallbackTheme(candidate = {}) {
 }
 
 function generatedFallbackTopic(candidate = {}) {
+  if (generatedAssetEventKind(candidate) === 'tax_assessment') return 'finance';
   if (['political_statement', 'legal_document_review'].includes(generatedAssetEventKind(candidate))) return 'legislation';
   const text = primaryVisualText(candidate);
   if (candidate.newsFrame?.eventKind === 'general' && candidate.newsFrame.subject === '주거 정책') return 'housing';
@@ -268,13 +269,16 @@ function generatedAssetEventKind(candidate) {
     && /[“”"「」]|발언|말했|밝혔|비판|촉구/u.test(title)
     && !LEGAL_JUDGMENT_CONTEXT.test(title)) kind = 'political_statement';
   if (/(문건|문서|증거)/u.test(title) && /(재심|법원|고법|재판|국정감사)/u.test(title)) kind = 'legal_document_review';
+  const taxHeading = /(세금|소득세|과세|세액공제)/u.test(title) && /(부과|추징|납부|폭탄|세액공제)/u.test(title);
+  if (!['political_statement', 'legal_document_review'].includes(kind) && taxHeading
+    && /(세무|국세|조세|소득세|세액|과세)/u.test(`${primaryVisualText(candidate)} ${articleSourceText(candidate)}`)) kind = 'tax_assessment';
   return kind;
 }
 
 function generatedAssetMatchesEvent(asset, candidate) {
   const kind = generatedAssetEventKind(candidate);
   // Political statements must never rotate into generic court/gavel imagery.
-  if (['political_statement', 'legal_document_review'].includes(kind)) return asset.eventKinds?.includes(kind) === true;
+  if (['political_statement', 'legal_document_review', 'tax_assessment'].includes(kind)) return asset.eventKinds?.includes(kind) === true;
   return !asset.eventKinds || asset.eventKinds.includes(kind);
 }
 
