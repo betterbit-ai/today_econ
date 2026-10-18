@@ -1,3 +1,4 @@
+const { rejectedDraft, diagnosticText } = require('./rejected-draft');
 const config = require('../../config');
 const { resolveInstagramToken } = require('../token-vault');
 const { CATEGORIES } = require('./constants');
@@ -467,13 +468,17 @@ function candidateFailure(publication, error, now = new Date()) {
   return {
     title: publication?.candidate?.title || null,
     url: publication?.candidate?.url || null,
-    error: error.message,
+    error: diagnosticText(error.message, 6000),
     modelAttempts: Array.isArray(error.attempts)
       ? error.attempts.map(attempt => ({
         model: attempt.model || null,
         stage: attempt.stage || 'editorial',
         status: attempt.status || 'failed',
-        error: attempt.error || null,
+        error: diagnosticText(attempt.error) || null,
+        ...(attempt.rejectedDraft ? { rejectedDraft: {
+          ...rejectedDraft(attempt.rejectedDraft, ''),
+          sourceSha256: /^[a-f0-9]{64}$/u.test(attempt.rejectedDraft.sourceSha256 || '') ? attempt.rejectedDraft.sourceSha256 : null,
+        } } : {}),
       }))
       : [],
     reason,

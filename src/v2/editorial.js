@@ -1,3 +1,4 @@
+const { rejectedDraft, diagnosticText } = require('./rejected-draft');
 const { BRAND, CATEGORIES } = require('./constants');
 const {
   graphemeCount,
@@ -770,7 +771,7 @@ function parseModelResult(value) {
   const start = text.indexOf('{');
   const end = text.lastIndexOf('}');
   if (start >= 0 && end > start) text = text.slice(start, end + 1);
-  return JSON.parse(text);
+  try { return JSON.parse(text); } catch { throw new Error('model returned invalid JSON'); }
 }
 
 function normalizeModelCandidates(values = [], frame) {
@@ -829,7 +830,9 @@ function modelPrompt(article) {
       '  "청년 월세\\n지원 확대"',
       '',
       '[3. 본문(sentences) 작성 규칙]',
-      '- 원문 문장을 절대 그대로 복사하지 말고, 에디터의 언어로 완전히 "새로 재작성(Re-writing)"하세요.',
+      '- 원문 문장을 통째로 복사하지 말고, 에디터의 언어로 "새로 재작성(Re-writing)"하세요.',
+      '- 숫자가 있는 구절은 해당 수치가 나온 같은 원문 문장/절의 주체·대상 명사구와 단위·기간·분모·비교 대상·조건·확정 상태를 보존하세요. 이 핵심 구절을 보존하는 것은 문장 통째 복사와 다릅니다. 주변 서술은 자연스럽게 다시 쓰세요.',
+      '- 회사·제품·계열사 이름을 서로 바꿔 붙이거나 다른 문장의 주체·숫자를 합치지 마세요. 새 약어 설명은 숫자 없는 별도 문장에 배치하고, 수치의 주체 표현은 원문의 같은 절에 맞추세요.',
       '- 기사 제목을 본문 문장 중 하나로 그대로 복사하지 마세요.',
       '- sentences는 정확히 3개의 문장으로 구성되며, 각 문장은 60~115자 내외로 매우 명확하고 깔끔해야 합니다.',
       '- 구체적 역할 구분:',
@@ -985,22 +988,27 @@ async function generateEditorial(article = {}, {
   const prompt = promptBuilder(article);
   const frame = articleFrame(article);
   for (const model of [primaryModel, fallbackModel].filter(Boolean)) {
+    let parsed;
+    let finalDraft;
     try {
       const raw = await callModel({ model, ...prompt });
-      let parsed;
       try {
         parsed = parseModelResult(raw);
         validateModelBody(parsed, article, frame);
       } catch (bodyError) {
-        attempts.push({ model, stage: 'editorial_structure', status: 'failed', error: bodyError.message });
+        attempts.push({ model, stage: 'editorial_structure', status: 'failed', error: diagnosticText(bodyError.message),
+          rejectedDraft: rejectedDraft(parsed, sourceText(article)) });
+        let repairedParsed;
         try {
           const repairedRaw = await callModel({ model, ...editorialRepairPrompt(article, bodyError) });
-          parsed = parseModelResult(repairedRaw);
-          validateModelBody(parsed, article, frame);
+          repairedParsed = parseModelResult(repairedRaw);
+          validateModelBody(repairedParsed, article, frame);
+          parsed = repairedParsed;
           attempts.push({ model, stage: 'editorial_repair', status: 'succeeded' });
         } catch (repairError) {
-          attempts.push({ model, stage: 'editorial_repair', status: 'failed', error: repairError.message });
-          throw new Error(`editorial repair failed: ${repairError.message}`);
+          attempts.push({ model, stage: 'editorial_repair', status: 'failed', error: diagnosticText(repairError.message),
+            rejectedDraft: rejectedDraft(repairedParsed, sourceText(article)) });
+          throw new Error(`editorial repair failed: ${diagnosticText(repairError.message)}`);
         }
       }
       let candidates = normalizeModelCandidates(parsed.titleCandidates, frame).filter(c => c.valid && titleEvidenceViolations(c.title, article, frame).length === 0);
@@ -1010,16 +1018,19 @@ async function generateEditorial(article = {}, {
           stage: 'title_generation',
           status: 'failed',
           error: 'model returned no valid title candidates for article frame or numeric meaning',
+          rejectedDraft: rejectedDraft(parsed, sourceText(article)),
         });
+        let repaired;
         try {
           const repairedRaw = await callModel({ model, ...titleRepairPrompt(article, parsed) });
-          const repaired = parseModelResult(repairedRaw);
+          repaired = parseModelResult(repairedRaw);
           candidates = normalizeModelCandidates(repaired.titleCandidates, frame).filter(candidate => candidate.valid && titleEvidenceViolations(candidate.title, article, frame).length === 0);
           if (candidates.length < 1) throw new Error('title repair returned no valid title candidates for article frame');
           attempts.push({ model, stage: 'title_repair', status: 'succeeded' });
         } catch (repairError) {
-          attempts.push({ model, stage: 'title_repair', status: 'failed', error: repairError.message });
-          throw new Error(`title repair failed: ${repairError.message}`);
+          attempts.push({ model, stage: 'title_repair', status: 'failed', error: diagnosticText(repairError.message),
+            rejectedDraft: rejectedDraft(repaired, sourceText(article)) });
+          throw new Error(`title repair failed: ${diagnosticText(repairError.message)}`);
         }
       }
       if (!numericClaimsAreGrounded(candidates.map(candidate => candidate.title), article)) {
@@ -1030,8 +1041,8 @@ async function generateEditorial(article = {}, {
         throw new Error(`model returned an ungrounded numeric title: ${ungrounded}`);
       }
       const augmentedArticle = { ...article, topicTags: parsed.topicTags || article.topicTags };
-      attempts.push({ model, stage: 'editorial', status: 'succeeded' });
-      return assembleEditorial({
+      finalDraft = { titleCandidates: candidates, sentences: parsed.sentences };
+      const editorial = assembleEditorial({
         article: augmentedArticle,
         imageKeyword: typeof parsed.imageKeyword === 'string' ? parsed.imageKeyword.normalize('NFC').slice(0, 160) : undefined,
         titleCandidates: candidates,
@@ -1042,13 +1053,16 @@ async function generateEditorial(article = {}, {
         explainEnabled,
         generation: { method: 'model', model, attempts },
       });
+      attempts.push({ model, stage: 'editorial', status: 'succeeded' });
+      return editorial;
     } catch (error) {
       if (!attempts.some(attempt => (
         attempt.model === model
         && attempt.status === 'failed'
-        && attempt.error === error.message
+        && attempt.error === diagnosticText(error.message)
       ))) {
-        attempts.push({ model, stage: 'editorial', status: 'failed', error: error.message });
+        attempts.push({ model, stage: 'editorial', status: 'failed', error: diagnosticText(error.message),
+          ...(parsed ? { rejectedDraft: rejectedDraft(finalDraft || parsed, sourceText(article)) } : {}) });
       }
     }
   }

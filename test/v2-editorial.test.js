@@ -939,7 +939,15 @@ test('fails closed after title repairs still change the numeric meaning', async 
     callModel: async request => /표지 제목 교정기/u.test(request.systemPrompt)
       ? { titleCandidates: [{ title: '주담대 금리\n9개월 만에 최고' }] }
       : { titleCandidates: [{ title: '주담대 금리\n9개월 만에 최고' }], sentences: article.verifiedFacts },
-  }), /title repair|numeric|next candidate/u);
+  }), error => {
+    assert.match(error.message, /title repair|numeric|next candidate/u);
+    for (const stage of ['title_generation', 'title_repair']) {
+      const attempt = error.attempts.find(item => item.stage === stage);
+      assert.equal(attempt.rejectedDraft.status, 'rejected_not_validated');
+      assert.match(attempt.rejectedDraft.titleCandidates[0].title, /9개월/);
+    }
+    return true;
+  });
 });
 
 
