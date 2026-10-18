@@ -118,3 +118,13 @@ test('final image context recheck uses the same validated copy as initial select
  const result=require('../src/v2/quality-gate').validatePreparedQuality({article,editorial,image});
  assert.equal(result.image.finalReview.ok,true);
 });
+
+test('the real overseas-income tax case selects tax review imagery instead of generic law assets', () => {
+ const article=require('./fixtures/editorial/tax-assessment-2026-10-18.json');
+ const image=createGeneratedFallback(article);
+ assert.equal(image.id,'diem-generated:tax-assessment-01-openai');
+ assert.equal(image.generatedTopic,'finance');
+ assert.equal(createGeneratedFallback({...article,generatedAssetId:'legislation-01'}),null);
+ assert.equal(createGeneratedFallback({title:'대통령 “세금 폭탄 비판”',newsFrame:{eventKind:'political_statement'}}).id,'diem-generated:government-briefing-01-openai');
+ assert.equal(createGeneratedFallback({title:'법원 살인 사건 항소심 선고',newsFrame:{eventKind:'legislation'},generatedAssetId:'tax-assessment-01-openai'}),null);
+});
