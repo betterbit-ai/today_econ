@@ -1,3 +1,11 @@
+function isUnattemptedPublication(publication = {}) {
+  const reel = publication.reel || {};
+  return ['planned', 'ready', 'draft', 'approved'].includes(publication.status)
+    && [undefined, null, 'planned', 'ready', 'draft'].includes(reel.status)
+    && Number(reel.attempts || 0) === 0
+    && !reel.externalId && !reel.containerId && !reel.publishedAt && !reel.ambiguousExternalState;
+}
+
 function isPublished(publication = {}) {
   return publication.status === 'published'
     || publication.reel?.status === 'published'
@@ -30,6 +38,7 @@ function assessDailyPublicationBudget(ledger = {}, category, { limit = 1 } = {})
 }
 
 module.exports = {
+  isUnattemptedPublication,
   assessDailyPublicationBudget,
   dailyPublishedCount,
   isPublished,

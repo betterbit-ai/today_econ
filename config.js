@@ -42,7 +42,7 @@ module.exports = {
   cloudEditorialRoot: process.env.CLOUD_EDITORIAL_ROOT || path.join(__dirname, 'data', 'cloud-editorial'),
   instagramTokenFile: process.env.INSTAGRAM_TOKEN_FILE || path.join(__dirname, 'data', 'instagram-token.enc'),
   maxHistoryDays: parseInt(process.env.MAX_HISTORY_DAYS || '7', 10),
-  maxDailyPublicationsPerCategory: Math.max(1, parseInt(process.env.MAX_DAILY_PUBLICATIONS_PER_CATEGORY || '1', 10)),
+  maxDailyPublicationsPerCategory: Math.max(1, parseInt(process.env.MAX_DAILY_PUBLICATIONS_PER_CATEGORY || '2', 10)),
   groqVisionModel: process.env.GROQ_VISION_MODEL || 'qwen/qwen3.8-27b',
   explainReelsEnabled: process.env.EXPLAIN_REELS_ENABLED === 'true',
   explainCapabilityEvidenceFile: process.env.EXPLAIN_CAPABILITY_EVIDENCE_FILE

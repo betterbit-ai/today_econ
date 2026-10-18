@@ -353,3 +353,53 @@ test('a published stored Reel can recover only Story and comment-chain steps', a
   assert.equal(recovered.story.status, 'published');
   assert.equal(recovered.reply.status, 'published');
 });
+
+test('stored Basic keeps the current news in the budget and uses today for an older unattempted package', async () => {
+ const today=createDailyLedger('2026-08-18');
+ today.publicationHistory.push({category:'economy',publicationKey:'first-news',status:'published',reel:{status:'published',externalId:'first'}});
+ today.publications.economy={...today.publications.economy,publicationKey:'second-news',status:'published',reel:{status:'published',externalId:'second'}};
+ const previous=createDailyLedger('2026-08-17');
+ const item=loadBasicCatalog({contentRoot:CONTENT_ROOT}).packages[0];
+ previous.publicationHistory.push(stageBasicPackage(item,{date:previous.date,now:new Date('2026-08-17T00:00:00Z')}));
+ for(const ledgers of [[today],[previous,today]]) {
+  let checked=false;
+  await assert.rejects(publishBasicPackage({date:today.date,now:new Date('2026-08-18T00:30:00Z'),contentId:item.id,ledger:today,ledgers,token:'token',verifyArtifacts:false,saveLedgerImpl:v=>v,
+   publishPreparedPublicationImpl:async(sandbox,category,token)=>{
+    checked=true;assert.equal(sandbox.date,today.date);
+    assert.equal(require('../src/v2/publication-policy').dailyPublishedCount(sandbox,'economy'),2);
+    sandbox.publications.economy.release={videoUrl:'https://example.com/reviewed-basic.mp4'};
+    return require('../src/v2/publisher').publishPreparedPublication(sandbox,category,token,{reconcileReelImpl:async()=>({status:'not_found',shouldPublish:true})});
+   }
+  }),/daily publication budget is exhausted/u);
+  assert.equal(checked,true);
+ }
+});
+
+test('reviewed legacy Basic drafts use the publication day budget and preserve older evidence', async () => {
+ const item=loadBasicCatalog({contentRoot:CONTENT_ROOT}).packages[0];
+ const previous=createDailyLedger('2026-08-17');
+ const draft=stageBasicPackage(item,{date:previous.date});
+ draft.status='approved';draft.release={videoUrl:'https://example.com/reviewed.mp4'};
+ previous.publicationHistory.push(draft);
+ const today=createDailyLedger('2026-08-18');
+ today.publicationHistory.push({category:'economy',publicationKey:'first',status:'published',reel:{status:'published',externalId:'first'}});
+ today.publications.economy={...today.publications.economy,publicationKey:'second',status:'published',reel:{status:'published',externalId:'second'}};
+ const {publishBasicDraft}=require('../src/v2/basic');
+ await assert.rejects(publishBasicDraft({publicationKey:draft.publicationKey,ledgers:[previous,today],token:'token',now:new Date('2026-08-18T00:30:00Z'),saveLedgerImpl:v=>v,
+  publishPreparedPublicationImpl:async(sandbox,category,token)=>{
+   assert.equal(sandbox.date,today.date);
+   assert.equal(require('../src/v2/publication-policy').dailyPublishedCount(sandbox,'economy'),2);
+   return require('../src/v2/publisher').publishPreparedPublication(sandbox,category,token,{reconcileReelImpl:async()=>({status:'not_found',shouldPublish:true})});
+  }
+ }),/daily publication budget is exhausted/u);
+ assert.equal(previous.publicationHistory[0].status,'approved');
+});
+
+test('a previous-day ambiguous Basic state cannot be restaged as an unattempted package', async () => {
+ const previous=createDailyLedger('2026-08-17'),today=createDailyLedger('2026-08-18');
+ const item=loadBasicCatalog({contentRoot:CONTENT_ROOT}).packages[0];
+ const ambiguous=stageBasicPackage(item,{date:previous.date});
+ ambiguous.status='manual_action_required';ambiguous.reel={status:'manual_action_required',attempts:0,error:'multiple matching Reels found during reconciliation'};
+ previous.publicationHistory.push(ambiguous);
+ await assert.rejects(publishBasicPackage({date:today.date,now:new Date('2026-08-18T00:30:00Z'),contentId:item.id,ledger:today,ledgers:[previous,today],token:'token',verifyArtifacts:false,saveLedgerImpl:()=>{throw new Error('must not restage');}}),/needs reconciliation/u);
+});

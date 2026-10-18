@@ -42,3 +42,15 @@ test('allows one publication per category and closes before a second', () => {
     remaining: 0,
   });
 });
+
+test('two-per-category budget allows the second and blocks the third while deduplicating history', () => {
+ let ledger = createDailyLedger('2026-10-18');
+ ledger = updatePublication(ledger, 'economy', {publicationKey:'first',status:'published',reel:{externalId:'ig-first',status:'published'}});
+ ledger.publicationHistory.push(structuredClone(ledger.publications.economy));
+ assert.equal(assessDailyPublicationBudget(ledger,'economy',{limit:2}).remaining,1);
+ assert.equal(assessDailyPublicationBudget(ledger,'economy',{limit:2}).allowed,true);
+ ledger = updatePublication(ledger,'economy',{publicationKey:'second',status:'published',reel:{externalId:'ig-second',status:'published'}});
+ assert.equal(assessDailyPublicationBudget(ledger,'economy',{limit:2}).allowed,false);
+ assert.equal(assessDailyPublicationBudget(ledger,'economy',{limit:2}).published,2);
+ assert.equal(assessDailyPublicationBudget(ledger,'issue',{limit:2}).remaining,2);
+});

@@ -622,3 +622,31 @@ test('transient Reel failures keep retry pending before the third attempt', asyn
     assert.equal(result.publications.economy.reel.status, 'published');
   } finally { config.creativeReviewEnabled = previous; fs.rmSync(root, { recursive: true, force: true }); }
 });
+
+test('new Reel uploads obey the category cap including Basic while reconciliation stays available', async () => {
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'diem-cap-publish-'));
+ const ledger=readyLedger(root);
+ ledger.publicationHistory=['first','second'].map(publicationKey=>({category:'economy',publicationKey,status:'published',reel:{status:'published',externalId:'ig-'+publicationKey}}));
+ let uploads=0;
+ const previous=config.maxDailyPublicationsPerCategory; config.maxDailyPublicationsPerCategory=2;
+ const options={
+  reconcileReelImpl:async()=>({status:'not_found',shouldPublish:true}),
+  cleanupReleasesImpl:async()=>[],
+  createReleaseImpl:async()=>{uploads++;throw new Error('must not upload');},
+  publishReelImpl:async()=>{throw new Error('must not publish');},
+  publishCommentsImpl:async p=>p,
+  publishStoryImpl:async()=>({id:'story'}),
+ };
+ try {
+  for(const contentType of ['hot_news','diem_basic']){
+   ledger.publications.economy.contentType=contentType;
+   await assert.rejects(publishPreparedPublication(ledger,'economy','token',options),/daily publication budget is exhausted/u);
+  }
+  assert.equal(uploads,0);
+  ledger.publications.economy.story={status:'published',externalId:'existing-story'};
+  const reconciled=await publishPreparedPublication(ledger,'economy','token',{...options,reconcileReelImpl:async()=>({status:'reconciled',match:{id:'existing-ready',permalink:'https://instagram.com/reel/existing/'}})});
+  assert.equal(reconciled.publications.economy.reel.externalId,'existing-ready');
+  assert.equal(reconciled.publications.economy.reel.reconciled,true);
+  assert.equal(uploads,0);
+ } finally {config.maxDailyPublicationsPerCategory=previous;fs.rmSync(root,{recursive:true,force:true});}
+});
