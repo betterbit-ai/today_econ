@@ -27,7 +27,7 @@ test('ships exactly two category publishing workflows on staggered six-hour sche
     assert.match(content, /HF_HUB_OFFLINE:\s*'0'/u);
     assert.match(content, /PUBLISH_INSTAGRAM_STORY:\s*'false'/u);
     assert.match(content, /MANUAL_REEL_STORY_SHARE:\s*'true'/u);
-    assert.match(content, /MAX_DAILY_PUBLICATIONS_PER_CATEGORY:\s*'1'/u);
+    assert.match(content, /MAX_DAILY_PUBLICATIONS_PER_CATEGORY:\s*'2'/u);
     assert.match(content, /GROQ_VISION_MODEL:\s*qwen\/qwen3\.8-27b/u);
     assert.match(content, /EXPLAIN_REELS_ENABLED:\s*'false'/u);
     assert.match(content, /INSTAGRAM_TOKEN_SOURCE: \$\{\{ vars.INSTAGRAM_TOKEN_SOURCE \|\| 'repository_secret' \}\}/u);

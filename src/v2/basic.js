@@ -1,3 +1,4 @@
+const { isUnattemptedPublication } = require('./publication-policy');
 const crypto = require('crypto');
 const path = require('path');
 const { WebClient } = require('@slack/web-api');
@@ -7,6 +8,7 @@ const { generateEditorial } = require('./editorial');
 const { createGroqCaller } = require('./groq');
 const {
   allLedgerPublications,
+  archivePublication,
   createDailyLedger,
   emptyPublication,
   listLedgers,
@@ -182,7 +184,7 @@ function replaceHistoryPublication(ledger, publication) {
 }
 
 function findBasicPublication(ledgers = [], publicationKey) {
-  for (const ledger of ledgers) {
+  for (const ledger of [...ledgers].sort((a, b) => String(b.date).localeCompare(String(a.date)))) {
     const index = (ledger.publicationHistory || []).findIndex(publication => (
       publication.publicationKey === publicationKey && publication.contentType === BASIC_CONTENT_TYPE
     ));
@@ -358,8 +360,13 @@ async function publishBasicDraft({
   if (!draft.release?.videoUrl) throw new Error('[DIEM Basic] Reviewed Reel preview URL is missing.');
   if (!token) throw new Error('[DIEM Basic] Instagram token is required.');
 
-  const originalCurrent = structuredClone(found.ledger.publications.economy);
-  const sandbox = structuredClone(found.ledger);
+  const date = kstDate(now);
+  if (found.ledger.date !== date && !isUnattemptedPublication(draft)) {
+    throw new Error('[DIEM Basic] an earlier attempted publication needs reconciliation before a new-day publication');
+  }
+  const targetLedger = ledgers.find(item => item.date === date) || createDailyLedger(date, now);
+  const originalCurrent = structuredClone(targetLedger.publications.economy);
+  const sandbox = archivePublication(targetLedger, 'economy');
   sandbox.publications.economy = {
     ...draft,
     status: 'ready',
@@ -374,7 +381,7 @@ async function publishBasicDraft({
     approval: sandbox.publications.economy.approval,
   };
   published = (await notifyManualStoryShareImpl(published, sandbox.publications.economy)).publication;
-  const restored = structuredClone(found.ledger);
+  const restored = structuredClone(targetLedger);
   restored.publications.economy = originalCurrent;
   return saveLedgerImpl(replaceHistoryPublication(restored, published));
 }

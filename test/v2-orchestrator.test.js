@@ -332,7 +332,7 @@ test('published history is rebuilt against the next KST day', () => {
   assert.equal(nextDate('2026-12-31'), '2027-01-01');
 });
 
-test('category polling closes after the first completed daily article', async () => {
+test('category polling allows a second daily article and preserves the first', async () => {
   let existing = createDailyLedger('2026-07-29');
   existing.publications.economy = {
     ...existing.publications.economy,
@@ -375,10 +375,9 @@ test('category polling closes after the first completed daily article', async ()
     },
   });
 
-  assert.equal(plannerOptions, null);
-  assert.equal(result.ledger.publications.economy.status, 'no_publish');
-  assert.equal(result.ledger.publications.economy.reason, 'daily_publication_budget_exhausted');
-  assert.equal(result.ledger.publications.economy.publicationBudget.published, 1);
+  assert.ok(plannerOptions);
+  assert.equal(result.ledger.publications.economy.status, 'planned');
+  assert.equal(result.ledger.publications.economy.candidate.title, '오후 경제 기사');
   assert.equal(result.ledger.publicationHistory.at(-1).candidate.title, '오전 경제 기사');
   assert.equal(result.ledger.publications.issue.candidate, null);
 });
@@ -791,6 +790,7 @@ test('does not bypass the daily cap for an operator-deleted news Reel', () => {
     loadLedgerImpl: () => source,
     listLedgersImpl: () => [source],
   }), /requires a story-specific generated asset/u);
+  source.publicationHistory.push({ ...structuredClone(source.publications.issue), publicationKey: 'already-published-second' });
   assert.throws(() => stageEditorialRetry({
     publicationKey: source.publications.issue.publicationKey,
     date: '2026-08-25',

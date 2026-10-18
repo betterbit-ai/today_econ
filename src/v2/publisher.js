@@ -1,3 +1,4 @@
+const { assessDailyPublicationBudget } = require('./publication-policy');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
@@ -600,6 +601,8 @@ async function publishPreparedPublication(ledger, category, token, {
       };
       publication.status = 'published';
     } else {
+      const budget = assessDailyPublicationBudget(ledger, category, { limit: config.maxDailyPublicationsPerCategory });
+      if (!budget.allowed) throw new Error(`[DIEM Publisher] ${category} daily publication budget is exhausted (${budget.published}/${budget.limit}).`);
       // Preauthored Basic packages already have their own immutable 5-card/19s approval contract.
       if (config.creativeReviewEnabled && publication.contentType !== 'diem_basic') assertCreativeBinding(publication);
       publication = await ensureTemporaryRelease(publication, reelPath, {

@@ -1,3 +1,4 @@
+const { isUnattemptedPublication } = require('./publication-policy');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
@@ -6,6 +7,7 @@ const { BASIC_CONTENT_TYPE, basicContentHash } = require('./basic');
 const { validateBasicKoreanVoice, validateBasicLesson } = require('./basic-cards');
 const {
   allLedgerPublications,
+  archivePublication,
   createDailyLedger,
   emptyPublication,
   listLedgers,
@@ -384,13 +386,19 @@ async function publishBasicPackage({
     && (existing.publication.status === 'published' || existing.publication.reel?.externalId)) {
     throw new Error(`[DIEM Basic] ${item.id} is already published.`);
   }
-  const targetLedger = existing?.ledger || ledger;
+  // New publications belong to today's budget, even when a reviewed package was staged earlier.
+  if (ledger.date !== date) throw new Error('[DIEM Basic] target ledger must match publication date');
+  if (existing && existing.ledger.date !== date && !deletedExisting
+    && !isUnattemptedPublication(existing.publication)) {
+    throw new Error('[DIEM Basic] an earlier attempted publication needs reconciliation before a new-day publication');
+  }
+  const targetLedger = ledger;
   const originalCurrent = structuredClone(targetLedger.publications.economy);
   const reissueNumber = basicPublications(allLedgers)
     .filter(({ publication }) => publication.basicContentId === item.id).length + 1;
   const reissuePublicationKey = deletedExisting
     ? `diem:${targetLedger.date}:economy:basic-${item.id}:reissue-${reissueNumber}`
-    : existing?.publication.publicationKey;
+    : existing?.ledger.date === date ? existing.publication.publicationKey : undefined;
   let staged = stageBasicPackage(item, {
     date: targetLedger.date,
     now,
@@ -408,7 +416,7 @@ async function publishBasicPackage({
     staged.approval.contentHash = basicContentHash(staged);
   }
   const persisted = saveLedgerImpl(replaceHistoryPublication(targetLedger, staged));
-  const sandbox = structuredClone(persisted);
+  const sandbox = archivePublication(persisted, 'economy');
   sandbox.publications.economy = staged;
   const publishedSandbox = await publishPreparedPublicationImpl(sandbox, 'economy', token);
   let published = {
