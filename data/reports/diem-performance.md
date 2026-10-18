@@ -2,17 +2,17 @@
 
 - 상태: insufficient_data
 - 발행 원장 Reel: 280편
-- 생성 시각: 2026-10-18T18:32:04.652Z
+- 생성 시각: 2026-10-18T23:58:50.194Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
 ## 24h
-- economy: 표본 86편 · reach 중앙값 165 · 시청 비율 30.27% · 공유율 0% · 저장률 0%
-- issue: 표본 99편 · reach 중앙값 216 · 시청 비율 집계 불가 · 공유율 0% · 저장률 0%
+- economy: 표본 87편 · reach 중앙값 165 · 시청 비율 38.44% · 공유율 0% · 저장률 0%
+- issue: 표본 100편 · reach 중앙값 219.5 · 시청 비율 73.25% · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 90편
-- 포맷 코호트: unknown 161편/reach 192 · flash 19편/reach 143 · explain 5편/reach 191
-- 이미지 코호트: web 49편/reach 1,073 · other 15편/reach 1,105 · library 121편/reach 158
-- 전략 코호트: legacy 184편 · discovery-funnel-v3 1편
+- 포맷 코호트: unknown 161편/reach 192 · flash 21편/reach 143 · explain 5편/reach 191
+- 이미지 코호트: web 50편/reach 1,010 · other 15편/reach 1,105 · library 122편/reach 158
+- 전략 코호트: legacy 184편 · discovery-funnel-v3 3편
 
 ## 72h
 - economy: 표본 88편 · reach 중앙값 172.5 · 시청 비율 집계 불가 · 공유율 0% · 저장률 0%
@@ -39,7 +39,7 @@
 - 최근 7일 Vision 실패: budget_exhausted 3건, model_error 2건, context_rejected 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 168건, image_context_unavailable 116건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 169건, image_context_unavailable 116건, unknown 44건
 - 제목 재정제 실패: 45건
 
 ## 해석 주의
