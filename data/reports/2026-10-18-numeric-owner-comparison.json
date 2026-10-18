@@ -1,0 +1,259 @@
+{
+  "schemaVersion": 1,
+  "publicationAllowed": false,
+  "reviewType": "agent_source_review_not_human_signoff",
+  "model": "claude-opus-5-5",
+  "datasetSha256": "ba50c7af6121581ab668d9d8c6b2e2e26749e835e42873cdb03590dc070788d6",
+  "run": {
+    "id": "39094204064",
+    "sha": "d1ed5a2a6008687a8de3e57ba90a4df502f12886",
+    "url": "https://github.com/betterbit-ai/today_econ/actions/runs/39094204064",
+    "summary": {
+      "claude": {
+        "attempted": 5,
+        "passed": 5,
+        "failed": 0,
+        "unavailable": 0,
+        "notRun": 0,
+        "firstResponsePassed": 1,
+        "passRate": 1,
+        "requests": 9
+      }
+    }
+  },
+  "baseline": {
+    "id": "39044138900",
+    "sha": "fa09e780edf6f7590f6d46fe1697f8c0898c6850",
+    "summary": {
+      "claude": {
+        "attempted": 5,
+        "passed": 4,
+        "failed": 1,
+        "unavailable": 0,
+        "notRun": 0,
+        "firstResponsePassed": 1,
+        "passRate": 0.8,
+        "requests": 10
+      }
+    }
+  },
+  "allFiveInputHashesMatch": true,
+  "interpretation": "단일 실행의 자동 통과율은 정확도나 프롬프트의 인과 효과를 입증하지 않는다. 숫자 삭제 재교정 4건과 직접인용 수정 필요 1건이 남는다.",
+  "cases": [
+    {
+      "id": "housing-opening",
+      "inputSha256": "77a095c99065f49c0a2cfd1f60ea455a2e16820e74bf452367b3bb57f245b0d8",
+      "automatedStatus": "passed",
+      "firstResponsePassed": false,
+      "numericOmissionAfterRepair": true,
+      "requestCount": 2,
+      "title": "아크메르 동탄\n견본주택 개관\n긴 대기줄",
+      "sentences": [
+        "경기 화성시 동탄구 '아크메르 동탄' 견본주택이 개관 첫날 방문객들로 북적였고, 입장 대기줄은 도로까지 이어졌다.🏢",
+        "단지가 삼성전자 화성캠퍼스 도보권에 있어 임직원 방문이 이어졌고, 성과급 등으로 자금을 마련하겠다는 방문객도 있었다.",
+        "KB부동산신탁이 시행하고 포스코이앤씨가 시공하며, 전 가구에 고급 마감재를 쓴 '펜트 스탠다드' 설계를 내세웠다.🏗️"
+      ],
+      "agentReview": "no_material_source_divergence_found",
+      "reviewNotes": "원문에 개관 대기줄, 임직원 방문, 시행·시공 및 설계 근거가 있다.",
+      "rejectedDrafts": [
+        {
+          "stage": "editorial_structure",
+          "draft": {
+            "schemaVersion": 1,
+            "status": "rejected_not_validated",
+            "sourceSha256": "e0978de35330058e82066b8975867b526b11d3ebe6107d55e187f6b542957aac",
+            "titleCandidates": [
+              {
+                "title": "동탄 국평 17억\n삼성맨 몰린\n견본주택"
+              },
+              {
+                "title": "동탄 신축\n84㎡ 17억\n27일 1순위"
+              },
+              {
+                "title": "아크메르 동탄\n견본주택\n대기줄 길게"
+              }
+            ],
+            "sentences": [
+              "경기 화성시 동탄구 '아크메르 동탄' 견본주택이 지난 16일 문을 열자 평일에도 대기줄이 도로까지 이어졌고, 84㎡ 분양가는 16억5120만~17억1680만원으로 책정됐습니다.",
+              "KB부동산신탁이 시행하고 포스코이앤씨가 시공하는 이 단지는 지하 7층~지상 최고 49층, 7개동, 총 1808가구 규모로, 삼성전자 화성캠퍼스까지 도보 약 10분 거리입니다.",
+              "한국부동산원에 따르면 동탄 아파트값은 올해(10월 12일 기준) 들어 20.14% 올랐으며, 청약은 26일 특별공급, 27일 1순위, 28일 2순위 순으로 진행됩니다."
+            ],
+            "textMayBeTruncated": true
+          }
+        }
+      ],
+      "independentEditorialReview": {
+        "decision": "revise",
+        "note": "가격·규모·청약 조건이 사라져 핵심 정보가 약하고 방문객·마감재 중심의 홍보성 요약이 됨."
+      }
+    },
+    {
+      "id": "film-statement",
+      "inputSha256": "8f7685b72088b4af72eb1f66edc7da780fe2231aa98ede63b2d43e47400952fa",
+      "automatedStatus": "passed",
+      "firstResponsePassed": false,
+      "numericOmissionAfterRepair": true,
+      "requestCount": 2,
+      "title": "주진우\n배우 인센티브\n돈벌이 비판",
+      "sentences": [
+        "주진우 국민의힘 의원은 영화 '암살자(들)' 배우들의 인센티브 계약을 공개하며 역사적 비극을 돈벌이 수단으로 삼았다고 지적했다.🎬",
+        "공개 자료에 따르면 유해진은 영화 순이익 일부를, 박해일과 이민호는 손익분기점 이후 관객 수에 따라 인센티브를 받는다.",
+        "주 의원은 모태펀드가 투자 당시 유족 명예훼손과 소송 리스크를 인지했다며 책임을 물어야 한다고 강조했다.💰"
+      ],
+      "agentReview": "no_material_source_divergence_found",
+      "reviewNotes": "비판과 책임론을 의원의 발언으로 유지한다.",
+      "rejectedDrafts": [
+        {
+          "stage": "editorial_structure",
+          "draft": {
+            "schemaVersion": 1,
+            "status": "rejected_not_validated",
+            "sourceSha256": "e9170414b9d7e0284a8d12bd9e40730f28fa3cc797096c9a81e4a0e05a47ded3",
+            "titleCandidates": [
+              {
+                "title": "주진우 의원\n배우 인센티브\n계약 공개"
+              },
+              {
+                "title": "주진우\n암살자들 배우\n인센티브 비판"
+              },
+              {
+                "title": "주진우 의원\n모태펀드 투자\n책임론 제기"
+              }
+            ],
+            "sentences": [
+              "주진우 국민의힘 의원이 8일 페이스북에 영화 '암살자(들)' 출연 배우들의 인센티브 계약 내용을 공개하며 \"역사적 비극을 돈벌이 수단으로 삼았다\"고 지적했습니다.",
+              "주 의원이 공개한 자료에 따르면 유해진은 영화 순이익의 일부를, 박해일과 이민호는 극장 손익분기점을 넘어선 뒤부터 관객 수에 따라 인센티브를 받기로 했습니다.",
+              "주 의원은 이재명 정부 모태펀드가 투자 당시 유족 명예훼손과 소송 리스크를 이미 인지하고 있었다며, 국민 돈으로 역사를 왜곡한 데 책임을 물어야 한다고 강조했습니다."
+            ],
+            "textMayBeTruncated": true
+          }
+        }
+      ],
+      "independentEditorialReview": {
+        "decision": "allow",
+        "note": "발언자 귀속과 인센티브 조건을 보존함."
+      }
+    },
+    {
+      "id": "investment-quote",
+      "inputSha256": "bfdffcac7c698f60315abfe376a184b4a5b0b678d8b53afe98b29550babd96bb",
+      "automatedStatus": "passed",
+      "firstResponsePassed": false,
+      "numericOmissionAfterRepair": true,
+      "requestCount": 2,
+      "title": "트럼프\n현대차 조지아\n투자 발언",
+      "sentences": [
+        "도널드 트럼프 미국 대통령은 현대자동차가 조지아주 웨스트포인트 공장 확장을 위해 투자하기로 했다고 말했다.🏭",
+        "트럼프 대통령은 조지아주 댈턴에서 열린 중간선거 유세 연설에서 해외 기업들의 대미 투자를 거론하며 이같이 전했다.",
+        "이번 언급은 현대차그룹 부품 계열사인 현대트랜시스의 투자 계획을 뜻하는 것으로 보이며, 앞서 켐프 조지아 주지사가 보도자료로 알렸다.🚗"
+      ],
+      "agentReview": "no_material_source_divergence_found",
+      "reviewNotes": "트럼프의 언급과 현대트랜시스 계획으로 보인다는 기사 해석을 구분한다.",
+      "rejectedDrafts": [
+        {
+          "stage": "editorial_structure",
+          "draft": {
+            "schemaVersion": 1,
+            "status": "rejected_not_validated",
+            "sourceSha256": "67d389e472c5b738d31a2dee85199541ba0765a44e60f75155b2839620516e10",
+            "titleCandidates": [
+              {
+                "title": "트럼프 발언\n현대 조지아\n7486억 투자"
+              },
+              {
+                "title": "트럼프 \"현대\n조지아 공장\n7486억 투자\""
+              },
+              {
+                "title": "트럼프 유세\n현대 대미투자\n7486억 언급"
+              }
+            ],
+            "sentences": [
+              "도널드 트럼프 미국 대통령이 현대자동차가 조지아주 웨스트포인트 공장 확장을 위해 5억 6천만 달러, 우리 돈 약 7천486억 원을 투자하기로 했다고 밝혔습니다.",
+              "트럼프 대통령은 현지시간 16일 조지아주 댈턴에서 열린 중간선거 유세 연설에서 해외 기업들의 대미 투자 사례를 거론하며 이 같은 내용을 언급했습니다.",
+              "이번 언급은 현대차그룹의 자동차 부품 계열사 현대트랜시스의 투자 계획으로 보이며, 켐프 조지아 주지사는 지난 8일 이 회사가 320개의 신규 일자리를 창출할 계획이라고 밝힌 바 있습니다."
+            ],
+            "textMayBeTruncated": true
+          }
+        }
+      ],
+      "independentEditorialReview": {
+        "decision": "revise",
+        "note": "귀속과 추정 상태는 보존했지만 투자 금액·일자리가 전부 빠져 정량적 핵심 소실."
+      }
+    },
+    {
+      "id": "president-quote",
+      "inputSha256": "d75095f59e26c17e71338d3e9579c5f128ef44e5226aabb454aea2a6892f83e1",
+      "automatedStatus": "passed",
+      "firstResponsePassed": true,
+      "numericOmissionAfterRepair": false,
+      "requestCount": 1,
+      "title": "이 대통령 X\n'능력 안되면서\n큰 자리 요구'",
+      "sentences": [
+        "이재명 대통령이 9일 엑스(X)에 \"능력도 안 되면서 큰 자리를 요구하다 뜻대로 안 되니 급진 개혁을 내세워 내부 공격을 하는 것이 더 문제\"라는 글을 올렸습니다.🗣️",
+        "이 대통령은 더불어민주당 내부 갈등을 분석한 조희연 전 서울교육감의 언론 기고문을 공유하며 이같이 적었고, 검찰개혁을 둘러싼 범여권 강경파의 반발을 의식한 발언으로 해석됩니다.",
+        "김지용 중대범죄수사청장 후보자 인선에는 추미애 경기지사 등이 거듭 공개 거부 의사를 밝혀 왔으며, 이 대통령은 5일에도 검찰개혁을 빙자해 인사·수사를 좌지우지해선 안 된다고 지적했습니다.📰"
+      ],
+      "agentReview": "revision_required",
+      "reviewNotes": "직접인용문을 축약·재서술하고 따옴표를 유지했다. 자동 통과와 별개로 원문 그대로 인용하거나 간접인용으로 수정해야 한다.",
+      "rejectedDrafts": [],
+      "independentEditorialReview": {
+        "decision": "revise",
+        "note": "직접인용을 원문과 다르게 축약함. 원문 그대로 인용하거나 간접인용으로 수정 필요."
+      }
+    },
+    {
+      "id": "coin-tax",
+      "inputSha256": "7ac997e815766b868f7316f134daf47173976eb95d7d59bb973d2f5ad69595c8",
+      "automatedStatus": "passed",
+      "firstResponsePassed": false,
+      "numericOmissionAfterRepair": true,
+      "requestCount": 2,
+      "title": "코인세 시행 앞두고\n정부 의견수렴 강조",
+      "sentences": [
+        "내년 시행을 앞둔 가상자산 과세를 두고 강행 의지를 보였던 정부가 의견 수렴을 강조하며 한발 물러선 모습이다.💰",
+        "이형일 부총리 겸 재경부 장관은 국정감사에서 국회와 전문가, 업계의 다양한 이해관계를 폭넓게 수렴하겠다고 말했다.",
+        "손실금 이월공제 미적용, 금투세 폐지에 따른 형평성, 탈중앙화거래소를 통한 과세 회피 문제 등이 제기된다.⚖️"
+      ],
+      "agentReview": "no_material_source_divergence_found",
+      "reviewNotes": "의견 수렴과 과세 시행 예정 상태를 유지하며 시행 유예 확정으로 강화하지 않는다.",
+      "rejectedDrafts": [
+        {
+          "stage": "editorial_structure",
+          "draft": {
+            "schemaVersion": 1,
+            "status": "rejected_not_validated",
+            "sourceSha256": "a8bd730be9190c229602dfd792683ac9e9260ef2a821953929e01fecd5584d73",
+            "titleCandidates": [
+              {
+                "title": "코인세 내년 시행\n정부 보완 검토"
+              },
+              {
+                "title": "가상자산 과세\n내년 시행 예정"
+              },
+              {
+                "title": "코인세 시행 앞둬\n손실 공제 없어"
+              }
+            ],
+            "sentences": [
+              "가상자산 소득 과세가 내년 1월 시행을 앞둔 가운데, 재정경제부는 예정대로 과세한다는 입장을 유지하면서도 제도 보완 가능성은 배제하지 않고 있는 것으로 알려졌습니다.",
+              "가상자산 과세는 양도·대여 소득을 기타소득으로 보고 연 250만원 기본공제 후 20%(지방세 포함 22%)의 세율을 매기며, 과거 손실을 다음 해 수익에서 빼주는 이월공제는 없습니다.",
+              "당초 2022년 시행 예정이던 이 제도는 지금까지 3번 유예됐으며, 금투세 폐지에 따른 형평성 문제와 탈중앙화거래소를 통한 과세 회피 우려가 제기되고 있습니다."
+            ],
+            "textMayBeTruncated": true
+          }
+        }
+      ],
+      "independentEditorialReview": {
+        "decision": "revise",
+        "note": "시행 입장 유지·보완 가능성·공제·세율이 빠지고 한발 물러선 모습만 남아 정책 균형이 부족함."
+      }
+    }
+  ],
+  "independentReviewSummary": {
+    "allow": 1,
+    "revise": 4,
+    "block": 0,
+    "scope": "원문 충실도와 편집 정보가치. 사람 승인이나 발행 승인을 의미하지 않음."
+  }
+}
