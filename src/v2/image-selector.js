@@ -108,6 +108,8 @@ function articleSourceText(candidate = {}) {
   return `${title} ${lead}`.trim();
 }
 
+function titleForVisual(candidate) { return `${candidate.title || ''} ${candidate.editorialTitle || ''}`; }
+
 function primaryVisualText(candidate = {}) {
   const frame = candidate.newsFrame || {};
   const lockedFrame = [
@@ -116,6 +118,8 @@ function primaryVisualText(candidate = {}) {
     ...(frame.subjectTerms || []),
     ...(frame.eventTerms || []),
   ].filter(Boolean);
+  // Validated final copy is more specific than legacy broad/misclassified frame tags.
+  if (candidate.editorialCaption) return `${titleForVisual(candidate)} ${candidate.editorialCaption}`.normalize('NFC');
   if (lockedFrame.length < 1) return articleSourceText(candidate);
   return lockedFrame
     .map(value => normalizeNfc(value || '').trim())
@@ -219,6 +223,7 @@ function inferFallbackTheme(candidate = {}) {
 }
 
 function generatedFallbackTopic(candidate = {}) {
+  if (['political_statement', 'legal_document_review'].includes(generatedAssetEventKind(candidate))) return 'legislation';
   const text = primaryVisualText(candidate);
   if (candidate.newsFrame?.eventKind === 'general' && candidate.newsFrame.subject === '주거 정책') return 'housing';
   if (candidate.newsFrame?.eventKind === 'general' && /농지/u.test(text)) return 'agriculture';
@@ -256,12 +261,30 @@ function generatedFallbackTopic(candidate = {}) {
   return null;
 }
 
+function generatedAssetEventKind(candidate) {
+  let kind = candidate.newsFrame?.eventKind;
+  const title = titleForVisual(candidate);
+  if ((!kind || kind === 'general') && /(대통령|총리|장관|의원)/u.test(title)
+    && /[“”"「」]|발언|말했|밝혔|비판|촉구/u.test(title)
+    && !LEGAL_JUDGMENT_CONTEXT.test(title)) kind = 'political_statement';
+  if (/(문건|문서|증거)/u.test(title) && /(재심|법원|고법|재판|국정감사)/u.test(title)) kind = 'legal_document_review';
+  return kind;
+}
+
+function generatedAssetMatchesEvent(asset, candidate) {
+  const kind = generatedAssetEventKind(candidate);
+  // Political statements must never rotate into generic court/gavel imagery.
+  if (['political_statement', 'legal_document_review'].includes(kind)) return asset.eventKinds?.includes(kind) === true;
+  return !asset.eventKinds || asset.eventKinds.includes(kind);
+}
+
 function assessGeneratedImageSuitability(image = {}, candidate = {}) {
   const expectedTopic = generatedFallbackTopic(candidate);
   const asset = (GENERATED_FALLBACK_MANIFEST.assets || [])
     .find(item => [`diem-generated:${item.id}`, `diem-library:${item.id}`].includes(image.id));
   const reason = !asset
     ? 'generated_asset_not_in_manifest'
+    : !generatedAssetMatchesEvent(asset, candidate) ? 'generated_asset_event_mismatch'
     : !expectedTopic || !asset.topics?.includes(expectedTopic) || !asset.topics?.includes(image.generatedTopic)
       ? 'generated_asset_topic_mismatch'
       : image.localSha256 !== asset.sha256 || (image.sha256 && image.sha256 !== asset.sha256)
@@ -289,6 +312,7 @@ function createGeneratedFallback(candidate = {}, {
   recentImages = [],
   reuseWindowDays = 7,
   reason = 'licensed image unavailable or actual-image review failed',
+  excludedAssetIds = [],
 } = {}) {
   const requestedAssetId = String(candidate.generatedAssetId || '').trim();
   const requestedAsset = requestedAssetId
@@ -298,7 +322,7 @@ function createGeneratedFallback(candidate = {}, {
   if (!topic || (requestedAssetId && (!requestedAsset || !requestedAsset.topics?.includes(topic)))) return null;
   const recentKeys = recentImageKeySet(recentImages);
   const matchingAssets = (GENERATED_FALLBACK_MANIFEST.assets || []).filter(asset => (
-    requestedAssetId ? asset.id === requestedAssetId : asset.topics?.includes(topic)
+    generatedAssetMatchesEvent(asset, candidate) && !excludedAssetIds.includes(asset.id) && (requestedAssetId ? asset.id === requestedAssetId : asset.topics?.includes(topic))
   ));
   const energy = requestedAsset?.energy || generatedFallbackEnergy(candidate);
   const preferredAssets = requestedAssetId
@@ -361,6 +385,38 @@ function createGeneratedFallback(candidate = {}, {
       },
       selectionReason: `${reason}; ${energy}-first stable-shuffled project-generated ${topic} asset ${asset.id} selected`,
     };
+  }
+  return null;
+}
+
+async function reviewedGeneratedFallback(candidate, options, { reviewImages, required = false } = {}) {
+  if (!required) return createGeneratedFallback(candidate, options);
+  if (typeof reviewImages !== 'function') return null;
+  const excludedAssetIds = [];
+  const attempts = options.attempts || [];
+  for (let review = 0; review < 2; review++) {
+    const pool = [];
+    for (let index = 0; index < 2; index++) {
+      const image = createGeneratedFallback(candidate, { ...options, excludedAssetIds });
+      if (!image) break;
+      excludedAssetIds.push(image.id.replace('diem-generated:', ''));
+      const pixels = fs.readFileSync(image.localPath);
+      if (pixels.length > 8 * 1024 * 1024) continue;
+      pool.push({ ...image, reviewUrl: 'data:image/png;base64,' + pixels.toString('base64') });
+    }
+    if (!pool.length) return null;
+    try {
+      const verdict = await reviewImages({ candidate, query: buildImageQueries(candidate)[0] || candidate.editorialTitle || candidate.title, images: pool });
+      const image = pool.find(item => item.id === verdict?.selectedId);
+      attempts.push({ provider: 'generated-vision-review', count: pool.length, ok: verdict?.ok === true,
+        reason: String(verdict?.reason || '').slice(0, 500) });
+      if (verdict?.ok === true && image) {
+        const { reviewUrl: _inlinePixels, ...durable } = image;
+        return { ...durable, attempts, finalReview: { ok: true, method: 'actual_generated_pixels', visionReview: verdict } };
+      }
+    } catch {
+      attempts.push({ provider: 'generated-vision-review', count: pool.length, ok: false, reason: 'review unavailable' });
+    }
   }
   return null;
 }
@@ -595,9 +651,11 @@ function buildImageQueries(candidate = {}) {
     || extractSignatureTokens(requestedKeyword).some(token => frameTokenSet.has(token.toLowerCase()))
   ) ? requestedKeyword : '';
   const fallbackVisuals = directArticleIsAboutParliament ? governmentVisuals : [];
-  const providerReadyKeyword = explicitKeyword && /[a-z]{3}/iu.test(explicitKeyword) ? explicitKeyword : '';
+  const storyKeyword = candidate.editorialCaption && requestedKeyword ? requestedKeyword : explicitKeyword;
+  const providerReadyKeyword = storyKeyword && /[a-z]{3}/iu.test(storyKeyword) ? storyKeyword : '';
 
   return [...new Set([
+    providerReadyKeyword,
     ...eventQueries,
     ...frameQueries,
     ...concreteVisuals,
@@ -927,16 +985,21 @@ async function selectLicensedImage(candidate, {
   reviewImages,
   maxVisionReviews = 1,
   generatedFallbackEnabled = false,
+  requireGeneratedReview = false,
 } = {}) {
   const queries = buildImageQueries(candidate);
   const attempts = [];
+  let generatedReviewPromise;
+  const getGenerated = () => generatedReviewPromise ||= reviewedGeneratedFallback(candidate, {
+    attempts, recentImages, reuseWindowDays,
+  }, { reviewImages, required: requireGeneratedReview });
   if (candidate.generatedAssetId) {
-    const generated = createGeneratedFallback(candidate, {
+    const generated = await reviewedGeneratedFallback(candidate, {
       attempts: [{ provider: 'operator-generated-asset', assetId: candidate.generatedAssetId, count: 1 }],
       recentImages,
       reuseWindowDays,
       reason: 'operator-selected story-specific generated image',
-    });
+    }, { reviewImages, required: requireGeneratedReview });
     if (!generated) throw new Error(`[DIEM Image] requested generated asset is unmapped, topic-mismatched, unavailable or recently used: ${candidate.generatedAssetId}`);
     return generated;
   }
@@ -1104,21 +1167,13 @@ async function selectLicensedImage(candidate, {
       };
     }
     if (phase.visualRole === 'context' && generatedFallbackEnabled) {
-      const generated = createGeneratedFallback(candidate, {
-        attempts,
-        recentImages,
-        reuseWindowDays,
-      });
+      const generated = await getGenerated();
       if (generated) return generated;
     }
   }
 
   if (generatedFallbackEnabled) {
-    const generated = createGeneratedFallback(candidate, {
-      attempts,
-      recentImages,
-      reuseWindowDays,
-    });
+    const generated = await getGenerated();
     if (generated) return generated;
     const topic = generatedFallbackTopic(candidate) || 'unmapped';
     throw new Error(`[DIEM Image] reviewed generated asset library unavailable or exhausted for ${topic}; typography fallback is disabled`);
@@ -1147,6 +1202,7 @@ async function downloadSelectedImage(selection, { fetchImpl = fetch, outputDir =
 }
 
 module.exports = {
+  reviewedGeneratedFallback,
   LICENSES,
   assessImageSuitability,
   assessGeneratedImageSuitability,

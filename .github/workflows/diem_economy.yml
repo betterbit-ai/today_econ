@@ -20,6 +20,7 @@ on:
         options:
           - hot_news
           - compare_editorial
+          - preview_creative
           - publish_basic
           - retry_basic
           - retry_editorial
@@ -85,7 +86,7 @@ on:
         type: string
 
 concurrency:
-  group: ${{ github.event_name == 'workflow_dispatch' && inputs.operation == 'compare_editorial' && 'diem-editorial-shadow' || 'diem-v2-durable-writes' }}
+  group: ${{ github.event_name == 'workflow_dispatch' && (inputs.operation == 'compare_editorial' || inputs.operation == 'preview_creative') && 'diem-editorial-shadow' || 'diem-v2-durable-writes' }}
   cancel-in-progress: false
 
 permissions:
@@ -99,6 +100,8 @@ env:
   GROQ_FALLBACK_MODEL: openai/gpt-oss-20b
   GROQ_VISION_MODEL: qwen/qwen3.8-27b
   EXPLAIN_REELS_ENABLED: 'false'
+  DIEM_EDITORIAL_PROVIDER: claude
+  DIEM_CREATIVE_REVIEW: 'true'
   MAX_DAILY_PUBLICATIONS_PER_CATEGORY: '1'
   PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
   UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
@@ -162,7 +165,7 @@ jobs:
         # Mock publishing tests need neutral defaults, just like the diagnostic job.
         run: |
           env -u GROQ_API_KEY -u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY \
-            -u INSTAGRAM_TOKEN_SOURCE \
+            -u INSTAGRAM_TOKEN_SOURCE -u DIEM_CREATIVE_REVIEW \
             -u SLACK_BOT_TOKEN -u SLACK_CHANNEL_ID -u GITHUB_TOKEN \
             -u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE \
             node .codex-harness/scripts/verify-project.mjs
@@ -184,6 +187,59 @@ jobs:
         with:
           name: diem-editorial-comparison-${{ github.run_id }}-${{ inputs.comparison_batch || 'first' }}
           path: ${{ runner.temp }}/diem-editorial-comparison/
+          if-no-files-found: error
+          retention-days: 14
+
+  preview-creative:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'preview_creative'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      INSTAGRAM_ACCESS_TOKEN: ''
+      INSTAGRAM_TOKEN_ENCRYPTION_KEY: ''
+      INSTAGRAM_USER_ID: ''
+      SLACK_BOT_TOKEN: ''
+      SLACK_CHANNEL_ID: ''
+      GITHUB_TOKEN: ''
+      GROQ_API_KEY: ''
+      PEXELS_API_KEY: ''
+      UNSPLASH_ACCESS_KEY: ''
+      PUBLISH_INSTAGRAM: 'false'
+      PUBLISH_INSTAGRAM_STORY: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install render and editorial runtime
+        run: |
+          npm ci
+          npm ci --prefix services/diem-mcp --ignore-scripts
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+          npm install --prefix "$RUNNER_TEMP/diem-claude" --no-save @anthropic-ai/claude-code@2.1.302
+      - name: Verify regressions with neutral runtime defaults
+        run: env -u DIEM_CREATIVE_REVIEW -u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE -u INSTAGRAM_TOKEN_SOURCE node .codex-harness/scripts/verify-project.mjs
+      - name: Prepare three unpublished coherent Reel previews
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_COMPARISON_BIN: ${{ runner.temp }}/diem-claude/node_modules/.bin/claude
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          CREATIVE_PREVIEW_OUTPUT: ${{ runner.temp }}/diem-creative-preview
+        run: node scripts/preview-diem-creative.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: diem-creative-preview-${{ github.run_id }}
+          path: ${{ runner.temp }}/diem-creative-preview/
           if-no-files-found: error
           retention-days: 14
 
@@ -242,7 +298,14 @@ jobs:
       - name: Commit economy selection
         run: bash scripts/commit-diem-state.sh "Select a timely DIEM economy candidate"
 
+      - name: Install official editorial runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/diem-claude" --no-save @anthropic-ai/claude-code@2.1.302
+          echo "$RUNNER_TEMP/diem-claude/node_modules/.bin" >> "$GITHUB_PATH"
+
       - name: Prepare economy Reel
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: node src/v2/index.js prepare --category economy
 
       - name: Commit ready economy state
@@ -508,7 +571,7 @@ jobs:
         # Production credentials and switches belong only to the diagnostic step.
         run: |
           env -u GROQ_API_KEY -u INSTAGRAM_ACCESS_TOKEN -u INSTAGRAM_TOKEN_ENCRYPTION_KEY \
-            -u INSTAGRAM_TOKEN_SOURCE \
+            -u INSTAGRAM_TOKEN_SOURCE -u DIEM_CREATIVE_REVIEW \
             -u SLACK_BOT_TOKEN -u SLACK_CHANNEL_ID -u GITHUB_TOKEN \
             -u PUBLISH_INSTAGRAM_STORY -u MANUAL_REEL_STORY_SHARE \
             node .codex-harness/scripts/verify-project.mjs
@@ -563,8 +626,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg
 
+      - name: Install official editorial runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/diem-claude" --no-save @anthropic-ai/claude-code@2.1.302
+          echo "$RUNNER_TEMP/diem-claude/node_modules/.bin" >> "$GITHUB_PATH"
+
       - name: Re-run the selected article through safe editorial generation
         env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           EDITORIAL_PUBLICATION_KEY: ${{ inputs.publication_key }}
         run: node src/v2/index.js editorial-retry --publication-key "$EDITORIAL_PUBLICATION_KEY" --publish
 
@@ -601,8 +670,14 @@ jobs:
           npx playwright install --with-deps chromium
           sudo apt-get update
           sudo apt-get install -y ffmpeg
+      - name: Install official editorial runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/diem-claude" --no-save @anthropic-ai/claude-code@2.1.302
+          echo "$RUNNER_TEMP/diem-claude/node_modules/.bin" >> "$GITHUB_PATH"
+
       - name: Reissue deleted news with the reviewed asset
         env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           NEWS_PUBLICATION_KEY: ${{ inputs.publication_key }}
           GENERATED_ASSET_ID: ${{ inputs.generated_asset_id }}
         run: node src/v2/index.js news-reissue --publication-key "$NEWS_PUBLICATION_KEY" --generated-asset-id "$GENERATED_ASSET_ID" --publish

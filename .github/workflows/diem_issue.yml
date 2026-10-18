@@ -21,6 +21,8 @@ env:
   GROQ_FALLBACK_MODEL: openai/gpt-oss-20b
   GROQ_VISION_MODEL: qwen/qwen3.8-27b
   EXPLAIN_REELS_ENABLED: 'false'
+  DIEM_EDITORIAL_PROVIDER: claude
+  DIEM_CREATIVE_REVIEW: 'true'
   MAX_DAILY_PUBLICATIONS_PER_CATEGORY: '1'
   PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
   UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
@@ -97,7 +99,14 @@ jobs:
       - name: Commit issue selection
         run: bash scripts/commit-diem-state.sh "Select a timely DIEM issue candidate"
 
+      - name: Install official editorial runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/diem-claude" --no-save @anthropic-ai/claude-code@2.1.302
+          echo "$RUNNER_TEMP/diem-claude/node_modules/.bin" >> "$GITHUB_PATH"
+
       - name: Prepare issue Reel
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: node src/v2/index.js prepare --category issue
 
       - name: Commit ready issue state

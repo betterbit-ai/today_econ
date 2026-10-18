@@ -203,7 +203,7 @@ function validateCaption(caption) {
   if (PHONE_OR_CONTACT_PATTERN.test(normalized)) errors.push('caption cannot contain newsroom contact or tip-off text');
   if (MENTION_PATTERN.test(normalized)) errors.push('caption cannot contain account mentions');
   if (HASHTAG_PATTERN.test(normalized)) errors.push('caption cannot contain hashtags');
-  if (CAPTION_BOILERPLATE_PATTERN.test(normalized)) errors.push('caption contains source boilerplate or photo caption text');
+  if (CAPTION_BOILERPLATE_PATTERN.test(normalized.replace(/(?:로이터통신|로이터)(?:은|는|에\s*따르면)/gu, '출처는'))) errors.push('caption contains source boilerplate or photo caption text');
   sentences.forEach((sentence, index) => {
     if (sentencePunctuationCount(sentence) > 1) {
       errors.push(`caption sentence ${index + 1} contains multiple source sentences`);

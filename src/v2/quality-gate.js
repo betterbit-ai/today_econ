@@ -46,13 +46,14 @@ function validateImageQuality(image = {}) {
 function validatePreparedQuality({ article = {}, editorial = {}, image = {}, handle } = {}) {
   const editorialResult = validateEditorial(editorial, { article, handle });
   const imageResult = validateImageQuality(image);
+  const imageCandidate = { ...article,
+    editorialTitle: editorial.title?.text || editorial.title || '',
+    editorialCaption: editorial.caption?.text || '',
+  };
   const finalImageReview = image.kind === 'generated'
-    ? assessGeneratedImageSuitability(image, article)
+    ? assessGeneratedImageSuitability(image, imageCandidate)
     : image.kind === 'web' && image.query && image.description
-    ? assessImageSuitability(image, image.query, {
-      ...article,
-      editorialTitle: editorial.title?.text || editorial.title || '',
-    }, {
+    ? assessImageSuitability(image, image.query, imageCandidate, {
       selectionRole: image.visualRole || 'context',
       requirePersonFreeEvidence: image.visualRole !== 'portrait',
     })
