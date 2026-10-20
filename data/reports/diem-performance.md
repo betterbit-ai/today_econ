@@ -2,7 +2,7 @@
 
 - 상태: insufficient_data
 - 발행 원장 Reel: 281편
-- 생성 시각: 2026-10-20T00:58:14.418Z
+- 생성 시각: 2026-10-20T09:10:12.810Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
@@ -15,12 +15,12 @@
 - 전략 코호트: legacy 184편 · discovery-funnel-v3 6편
 
 ## 72h
-- economy: 표본 88편 · reach 중앙값 172.5 · 시청 비율 집계 불가 · 공유율 0% · 저장률 0%
+- economy: 표본 89편 · reach 중앙값 171 · 시청 비율 31.33% · 공유율 0% · 저장률 0%
 - issue: 표본 105편 · reach 중앙값 261 · 시청 비율 집계 불가 · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 79편
-- 포맷 코호트: unknown 172편/reach 228.5 · flash 16편/reach 152.5 · explain 5편/reach 200
-- 이미지 코호트: web 56편/reach 1,103.5 · other 18편/reach 1,183 · library 119편/reach 162
-- 전략 코호트: legacy 193편
+- 포맷 코호트: unknown 172편/reach 228.5 · flash 17편/reach 147 · explain 5편/reach 200
+- 이미지 코호트: web 56편/reach 1,103.5 · other 18편/reach 1,183 · library 120편/reach 162
+- 전략 코호트: legacy 193편 · discovery-funnel-v3 1편
 
 ## 7d
 - economy: 표본 99편 · reach 중앙값 182 · 시청 비율 집계 불가 · 공유율 0% · 저장률 0%
@@ -31,7 +31,7 @@
 - 전략 코호트: legacy 217편
 
 ## 이미지·음악 운영
-- 최근 14일 계정 팔로워 순변화: -1 (중복 제거 스냅샷 28개; 게시물별 추정치 합산 금지)
+- 최근 14일 계정 팔로워 순변화: -1 (중복 제거 스냅샷 29개; 게시물별 추정치 합산 금지)
 - 타이포그래피 폴백률: 13.52%
 - 생성 배경 폴백률: 46.62% · 전체 폴백률: 60.14%
 - 이미지 공급원: diem-generated 131편, pexels 100편, diem-original 38편, unsplash 6편, wikimedia 5편, openverse 1편
