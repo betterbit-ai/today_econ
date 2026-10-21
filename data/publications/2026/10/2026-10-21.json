@@ -4,7 +4,7 @@
   "date": "2026-10-21",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-20T17:39:10.565Z",
-  "updatedAt": "2026-10-21T14:53:58.865Z",
+  "updatedAt": "2026-10-21T14:55:06.983Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -622,7 +622,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"11월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"19일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3.3%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "노원 6억·성북 9억 문턱 넘자 발길 돌린 2030…“사기도 살기도 막막”",
@@ -660,7 +662,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "“불 끄다가도 ‘의전’…정치인 안 왔으면” [이경원의 질문]",
@@ -698,7 +702,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“잘 가, 부캉이”…한 달 만에 북항 수로 벗어나 바다로",
@@ -736,7 +742,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "李 대통령, ‘소장품 끼워넣기’ 유홍준 사직안 재가…두번째 불명예 퇴진",
@@ -774,7 +782,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“만난 적 없어, 보고 싶다”…황정음, ‘전 연인’ 김용준 언급",
@@ -820,7 +830,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "김상욱, 국감서 “훈계하지 마시라”…野 “이재명 흉내 그만”",
@@ -858,7 +870,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] \"유홍준 도망치듯 사퇴\" 독립지사 유족들이 분노한 이유",
@@ -896,7 +910,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독] 레일바이크로 사람 죽었는데…이번엔 \"집라인 사업 내놔\"",
@@ -934,7 +950,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "더 추워지기 전에 \"부캉이 잘가!\"…수로 밖 외해로 나가",
@@ -972,7 +990,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] '짐 싹 뺐다' 범행 전 CCTV…'금박 특허증' 집착한 방화범",
@@ -1010,7 +1030,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "급기야 \"김혜경 여사도 부르자\"…\"뭐 죄지었냐\" 결국 고성",
@@ -1048,7 +1070,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"유니클로 비켜\"…손자부터 할아버지까지 입는 '이 옷' 뭐길래 [현장+]",
@@ -1086,7 +1110,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "음주운전으로 경찰차까지 '쾅'…전 야구선수 이용규 재판行",
@@ -1124,7 +1150,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"정말 피가 마릅니다\"…SK하이닉스 폭등에도 개미들은 '한숨' [분석+]",
@@ -1162,7 +1190,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_urgent_threshold"
+      ]
     },
     {
       "title": "\"이러다 일본처럼 무너지면 어쩌나\"…30년 전 악몽 소환한 中",
@@ -1200,7 +1230,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:inconsistent_reader_need_event_kind"
+      ]
     },
     {
       "title": "\"세계 1위라더니 반토막 났다\"…하루 새 30조원 날아간 中기업",
@@ -1238,7 +1270,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"67만전자·470만닉스\" 땡큐…삼전닉스, 힘 싣고 5% '껑충'",
@@ -1276,7 +1310,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "\"수입 0원, 돈 되는 금은 다 팔았다\"…황정음, 솔직 고백",
@@ -1314,7 +1350,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"젠슨 황이 찜했다\"…엔비디아 핵심 공급사 된 삼성전기",
@@ -1352,7 +1390,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "\"주식 거래 많이 했다고 중단?\"…개미들 당황한 이유",
@@ -1390,7 +1430,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“나 아저씨 상대했어”…15세 딸, 새까만 얼굴로 죽었다",
@@ -1428,7 +1470,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“돌연 생리 터졌는데도 완주”…쉬쉬하던 女선수들 달라진 이유",
@@ -1466,7 +1510,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:issue_low_value"
+      ]
     },
     {
       "title": "“안 갈라 카네” 수로 밖 나간 ‘부캉이’…부산 한 달 살이 끝났다",
@@ -1504,7 +1550,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "김민석 ‘조희대 탄핵’ 띄웠지만…與 주춤하자 반발하는 강경파",
@@ -1542,7 +1590,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“귓속에 벌떼” 17세 조현병 아들…아빠가 후회한 1가지 사건",
@@ -1580,7 +1630,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "'사망설' 직후 돌연…심상찮은 조짐에 전 세계 '초긴장'",
@@ -1618,7 +1670,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"겨울 코트 입어도 됩니다\"…전국 곳곳에 '한파특보'",
@@ -1654,7 +1708,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "[단독] \"현직 부장검사에 집 빌려줬더니…임대료 안 내\"",
@@ -1692,7 +1748,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "순식간에 6.3조 잃었다…70대 '계좌당 3천만 원' 손실",
@@ -1730,7 +1788,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "초강력 태풍 '참피' 북상…한국에 영향 미치나",
@@ -1766,7 +1826,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "10년 전 품은 하만, 매출 2배로…삼성 '오디오 제국' 키운다",
@@ -1804,7 +1866,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "한국 띄우던 美 증권사, 3분기 실적발표선 언급 '쏙' 빠졌다",
@@ -1842,7 +1906,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "[영상]\"이 시골에서 하몽을?\" 대기업이 먼저 알아봤다",
@@ -1880,7 +1946,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[르포]'핫플' 성수 한물갔다고?…주거·오피스까지 '핫'",
@@ -1916,7 +1984,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
       "title": "美 AI서버 호실적·외국인 매수에 삼전닉스 쌍끌이 반등",
@@ -1952,7 +2022,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     }
   ],
   "candidateRuns": [
@@ -19463,7 +19535,7 @@
     "economy": {
       "publicationKey": "diem:2026-10-21:economy:39620357063",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
         "title": "SK하이닉스, 40조 자사주 매입 완료…반도체주 수급 공백 주목 [마켓시그널]",
         "url": "https://n.news.naver.com/article/011/0004673683?ntype=RANKING",
@@ -19662,35 +19734,45 @@
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"11월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"19일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3.3%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+        "updatedAt": "2026-10-21T14:55:04.068Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-21T14:55:04.068Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-21T14:55:04.068Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-21T14:55:04.068Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-10-21:economy:39620357063:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-21T14:55:06.980Z",
+          "slackTs": "1792594504.928709",
+          "issueNumber": 204,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/204"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-21T14:53:58.853Z",
       "hotness": {
         "ok": true,
@@ -19748,6 +19830,102 @@
           "limit": 2,
           "remaining": 1
         }
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"11월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"19일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3.3%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+        "candidateFailures": [
+          {
+            "title": "SK하이닉스, 40조 자사주 매입 완료…반도체주 수급 공백 주목 [마켓시그널]",
+            "url": "https://n.news.naver.com/article/011/0004673683?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"11월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"19일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3.3%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"11월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"19일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"3.3%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "a42e164f02af232e84de43bdc68fdb06e13ce986d43bfd33b11613e184f46bda",
+                  "titleCandidates": [
+                    {
+                      "title": "SK하이닉스\n40조 자사주\n매입 완료"
+                    },
+                    {
+                      "title": "SK하이닉스\n자사주 매입\n한 달 조기완료"
+                    },
+                    {
+                      "title": "반도체주\n자사주 매입\n종료 후 수급"
+                    }
+                  ],
+                  "sentences": [
+                    "SK하이닉스가 올해 8월 20일부터 진행한 40조 원 규모의 자사주 매입을 21일 마무리했으며, 당초 공시한 종료일인 11월 19일보다 약 한 달 앞서 취득을 마쳤습니다.",
+                    "SK하이닉스는 40조 43억 4000만 원을 들여 자사주 2407만 주를 취득한 뒤 전량 소각하겠다고 밝혔으며, 이는 발행주식의 약 3.3%로 금액 기준 국내 상장사 최대 규모의 자사주 소각입니다.",
+                    "삼성전자에 이어 SK하이닉스까지 매입을 마치면서 외국인 매도세 속 증시를 떠받친 매수 기반이 약해질 수 있다는 우려가 나오며, 회사는 28일 3분기 실적 발표에서 추가 주주환원 방안을 공개할 방침입니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "a42e164f02af232e84de43bdc68fdb06e13ce986d43bfd33b11613e184f46bda",
+                  "titleCandidates": [
+                    {
+                      "title": "SK하이닉스\n자사주 매입\n완료"
+                    }
+                  ],
+                  "sentences": [
+                    "SK하이닉스가 대규모 자사주 매입을 당초 공시한 종료일보다 앞당겨 마무리했다.",
+                    "삼성전자에 이어 SK하이닉스까지 자사주 취득을 마치면서 국내 증시를 떠받친 매수 기반이 약해질 수 있다는 우려가 나온다.",
+                    "SK하이닉스는 이달 실적 발표에서 추가 주주환원 방안을 공개할 방침이다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "a42e164f02af232e84de43bdc68fdb06e13ce986d43bfd33b11613e184f46bda",
+                  "titleCandidates": [
+                    {
+                      "title": "SK하이닉스\n40조 자사주\n매입 완료"
+                    },
+                    {
+                      "title": "SK하이닉스\n자사주 매입\n한 달 조기완료"
+                    },
+                    {
+                      "title": "반도체주\n자사주 매입\n종료 후 수급"
+                    }
+                  ],
+                  "sentences": [
+                    "SK하이닉스가 올해 8월 20일부터 진행한 40조 원 규모의 자사주 매입을 21일 마무리했으며, 당초 공시한 종료일인 11월 19일보다 약 한 달 앞서 취득을 마쳤습니다.",
+                    "SK하이닉스는 40조 43억 4000만 원을 들여 자사주 2407만 주를 취득한 뒤 전량 소각하겠다고 밝혔으며, 이는 발행주식의 약 3.3%로 금액 기준 국내 상장사 최대 규모의 자사주 소각입니다.",
+                    "삼성전자에 이어 SK하이닉스까지 매입을 마치면서 외국인 매도세 속 증시를 떠받친 매수 기반이 약해질 수 있다는 우려가 나오며, 회사는 28일 3분기 실적 발표에서 추가 주주환원 방안을 공개할 방침입니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-21T14:54:23.673Z"
+          }
+        ],
+        "updatedAt": "2026-10-21T14:55:04.068Z"
       }
     },
     "issue": {
