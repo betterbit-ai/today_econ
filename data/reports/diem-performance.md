@@ -2,17 +2,17 @@
 
 - 상태: insufficient_data
 - 발행 원장 Reel: 284편
-- 생성 시각: 2026-10-21T20:05:54.198Z
+- 생성 시각: 2026-10-22T00:29:29.908Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
 ## 24h
-- economy: 표본 89편 · reach 중앙값 165 · 시청 비율 44.54% · 공유율 0% · 저장률 0%
+- economy: 표본 90편 · reach 중앙값 165 · 시청 비율 46.6% · 공유율 0% · 저장률 0%
 - issue: 표본 103편 · reach 중앙값 216 · 시청 비율 52.44% · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 90편
-- 포맷 코호트: unknown 161편/reach 192 · flash 26편/reach 143 · explain 5편/reach 191
-- 이미지 코호트: web 53편/reach 693 · other 15편/reach 1,105 · library 124편/reach 157.5
-- 전략 코호트: legacy 184편 · discovery-funnel-v3 8편
+- 포맷 코호트: unknown 161편/reach 192 · flash 27편/reach 143 · explain 5편/reach 191
+- 이미지 코호트: web 54편/reach 676.5 · other 15편/reach 1,105 · library 124편/reach 157.5
+- 전략 코호트: legacy 184편 · discovery-funnel-v3 9편
 
 ## 72h
 - economy: 표본 91편 · reach 중앙값 170 · 시청 비율 42.48% · 공유율 0% · 저장률 0%
