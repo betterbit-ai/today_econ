@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: insufficient_data
-- 발행 원장 Reel: 286편
-- 생성 시각: 2026-10-23T14:45:14.070Z
+- 발행 원장 Reel: 287편
+- 생성 시각: 2026-10-23T19:53:13.253Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
@@ -32,14 +32,14 @@
 
 ## 이미지·음악 운영
 - 최근 14일 계정 팔로워 순변화: 0 (중복 제거 스냅샷 30개; 게시물별 추정치 합산 금지)
-- 타이포그래피 폴백률: 13.29%
-- 생성 배경 폴백률: 46.5% · 전체 폴백률: 59.79%
-- 이미지 공급원: diem-generated 133편, pexels 101편, diem-original 38편, unsplash 8편, wikimedia 5편, openverse 1편
-- 최근 7일 폴백률: 50% (6/12편, 2026-10-17~2026-10-23)
+- 타이포그래피 폴백률: 13.24%
+- 생성 배경 폴백률: 46.34% · 전체 폴백률: 59.58%
+- 이미지 공급원: diem-generated 133편, pexels 102편, diem-original 38편, unsplash 8편, wikimedia 5편, openverse 1편
+- 최근 7일 폴백률: 41.67% (5/12편, 2026-10-18~2026-10-24)
 - 최근 7일 Vision 실패: budget_exhausted 5건, model_error 3건, context_rejected 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 177건, image_context_unavailable 125건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 180건, image_context_unavailable 126건, unknown 44건
 - 제목 재정제 실패: 48건
 
 ## 해석 주의
