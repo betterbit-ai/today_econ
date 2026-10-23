@@ -1,18 +1,18 @@
 # DIEM 지속 성과 리포트
 
 - 상태: insufficient_data
-- 발행 원장 Reel: 284편
-- 생성 시각: 2026-10-22T19:47:29.016Z
+- 발행 원장 Reel: 285편
+- 생성 시각: 2026-10-23T00:30:23.329Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
 ## 24h
-- economy: 표본 90편 · reach 중앙값 165 · 시청 비율 46.6% · 공유율 0% · 저장률 0%
+- economy: 표본 91편 · reach 중앙값 165 · 시청 비율 44.54% · 공유율 0% · 저장률 0%
 - issue: 표본 103편 · reach 중앙값 216 · 시청 비율 52.44% · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 90편
-- 포맷 코호트: unknown 161편/reach 192 · flash 27편/reach 143 · explain 5편/reach 191
-- 이미지 코호트: web 54편/reach 676.5 · other 15편/reach 1,105 · library 124편/reach 157.5
-- 전략 코호트: legacy 184편 · discovery-funnel-v3 9편
+- 포맷 코호트: unknown 161편/reach 192 · flash 28편/reach 143 · explain 5편/reach 191
+- 이미지 코호트: web 54편/reach 676.5 · other 15편/reach 1,105 · library 125편/reach 157
+- 전략 코호트: legacy 184편 · discovery-funnel-v3 10편
 
 ## 72h
 - economy: 표본 92편 · reach 중앙값 170.5 · 시청 비율 44.33% · 공유율 0% · 저장률 0%
@@ -31,15 +31,15 @@
 - 전략 코호트: legacy 217편
 
 ## 이미지·음악 운영
-- 최근 14일 계정 팔로워 순변화: 1 (중복 제거 스냅샷 30개; 게시물별 추정치 합산 금지)
-- 타이포그래피 폴백률: 13.38%
-- 생성 배경 폴백률: 46.48% · 전체 폴백률: 59.86%
-- 이미지 공급원: diem-generated 132편, pexels 100편, diem-original 38편, unsplash 8편, wikimedia 5편, openverse 1편
-- 최근 7일 폴백률: 50% (5/10편, 2026-10-17~2026-10-23)
+- 최근 14일 계정 팔로워 순변화: 1 (중복 제거 스냅샷 31개; 게시물별 추정치 합산 금지)
+- 타이포그래피 폴백률: 13.33%
+- 생성 배경 폴백률: 46.32% · 전체 폴백률: 59.65%
+- 이미지 공급원: diem-generated 132편, pexels 101편, diem-original 38편, unsplash 8편, wikimedia 5편, openverse 1편
+- 최근 7일 폴백률: 45.45% (5/11편, 2026-10-17~2026-10-23)
 - 최근 7일 Vision 실패: budget_exhausted 5건, model_error 3건, context_rejected 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 177건, image_context_unavailable 123건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 177건, image_context_unavailable 124건, unknown 44건
 - 제목 재정제 실패: 48건
 
 ## 해석 주의
