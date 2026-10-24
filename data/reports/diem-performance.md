@@ -1,41 +1,41 @@
 # DIEM 지속 성과 리포트
 
 - 상태: insufficient_data
-- 발행 원장 Reel: 287편
-- 생성 시각: 2026-10-24T00:18:02.331Z
+- 발행 원장 Reel: 288편
+- 생성 시각: 2026-10-24T08:42:39.480Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
 ## 24h
 - economy: 표본 91편 · reach 중앙값 165 · 시청 비율 44.54% · 공유율 0% · 저장률 0%
-- issue: 표본 104편 · reach 중앙값 214 · 시청 비율 40% · 공유율 0% · 저장률 0%
+- issue: 표본 105편 · reach 중앙값 216 · 시청 비율 52.44% · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 90편
-- 포맷 코호트: unknown 161편/reach 192 · flash 29편/reach 143 · explain 5편/reach 191
-- 이미지 코호트: web 55편/reach 660 · other 15편/reach 1,105 · library 125편/reach 157
-- 전략 코호트: legacy 184편 · discovery-funnel-v3 11편
+- 포맷 코호트: unknown 161편/reach 192 · flash 30편/reach 143 · explain 5편/reach 191
+- 이미지 코호트: web 55편/reach 660 · other 15편/reach 1,105 · library 126편/reach 157.5
+- 전략 코호트: legacy 184편 · discovery-funnel-v3 12편
 
 ## 72h
-- economy: 표본 92편 · reach 중앙값 170.5 · 시청 비율 44.33% · 공유율 0% · 저장률 0%
+- economy: 표본 93편 · reach 중앙값 171 · 시청 비율 46.17% · 공유율 0% · 저장률 0%
 - issue: 표본 109편 · reach 중앙값 261 · 시청 비율 51.47% · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 79편
-- 포맷 코호트: unknown 172편/reach 228.5 · flash 24편/reach 146.5 · explain 5편/reach 200
-- 이미지 코호트: web 60편/reach 1,093 · other 18편/reach 1,183 · library 123편/reach 162
-- 전략 코호트: legacy 193편 · discovery-funnel-v3 8편
+- 포맷 코호트: unknown 172편/reach 228.5 · flash 25편/reach 147 · explain 5편/reach 200
+- 이미지 코호트: web 61편/reach 1,090 · other 18편/reach 1,183 · library 123편/reach 162
+- 전략 코호트: legacy 193편 · discovery-funnel-v3 9편
 
 ## 7d
-- economy: 표본 99편 · reach 중앙값 182 · 시청 비율 집계 불가 · 공유율 0% · 저장률 0%
+- economy: 표본 100편 · reach 중앙값 181.5 · 시청 비율 31.15% · 공유율 0% · 저장률 0%
 - issue: 표본 118편 · reach 중앙값 363.5 · 시청 비율 집계 불가 · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 42편
-- 포맷 코호트: unknown 198편/reach 289.5 · flash 16편/reach 154 · explain 3편/reach 1,122
-- 이미지 코호트: other 22편/reach 1,206.5 · web 77편/reach 1,103 · library 118편/reach 163
-- 전략 코호트: legacy 217편
+- 포맷 코호트: unknown 198편/reach 289.5 · flash 17편/reach 150 · explain 3편/reach 1,122
+- 이미지 코호트: other 22편/reach 1,206.5 · web 77편/reach 1,103 · library 119편/reach 163
+- 전략 코호트: legacy 217편 · discovery-funnel-v3 1편
 
 ## 이미지·음악 운영
 - 최근 14일 계정 팔로워 순변화: 0 (중복 제거 스냅샷 30개; 게시물별 추정치 합산 금지)
-- 타이포그래피 폴백률: 13.24%
-- 생성 배경 폴백률: 46.34% · 전체 폴백률: 59.58%
-- 이미지 공급원: diem-generated 133편, pexels 102편, diem-original 38편, unsplash 8편, wikimedia 5편, openverse 1편
-- 최근 7일 폴백률: 41.67% (5/12편, 2026-10-18~2026-10-24)
+- 타이포그래피 폴백률: 13.19%
+- 생성 배경 폴백률: 46.18% · 전체 폴백률: 59.38%
+- 이미지 공급원: diem-generated 133편, pexels 102편, diem-original 38편, unsplash 9편, wikimedia 5편, openverse 1편
+- 최근 7일 폴백률: 38.46% (5/13편, 2026-10-18~2026-10-24)
 - 최근 7일 Vision 실패: budget_exhausted 5건, model_error 3건, context_rejected 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
