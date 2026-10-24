@@ -4,7 +4,7 @@
   "date": "2026-10-25",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-24T16:23:13.666Z",
-  "updatedAt": "2026-10-24T21:20:59.354Z",
+  "updatedAt": "2026-10-24T21:22:53.594Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -152,7 +152,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/title_generation: model returned no valid title candidates for article frame or numeric meaning | claude-opus-5-5/title_repair: title repair returned no valid title candidates for article frame | claude-opus-5-5/editorial: title repair failed: title repair returned no valid title candidates for article frame)"
+      ]
     },
     {
       "title": "윤석열 정부 때 급감한 MBC광고, 이재명 정부에서 복구?",
@@ -188,7 +190,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "'암살자(들)'과 '북한 남침' 게임에 진보가 이중잣대? TV조선 주장 따져보니",
@@ -226,7 +230,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:narrow_or_local_issue"
+      ]
     },
     {
       "title": "너도나도 쓰더니…\"회사에선 벗으세요\" 기업들 난리 난 이유 [김대영의 노무스쿨]",
@@ -264,7 +270,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:article_too_old"
+      ]
     },
     {
       "title": "\"월요일 또 줄줄 흐르게 생겼다\"…개미들 벌벌 떠는 이유",
@@ -302,7 +310,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "\"방송 나가면 난 죽어\"…전현무 맛집 촬영 거절한 사장님",
@@ -340,7 +350,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "'쫄깃·탱탱' 회가 뭐길래 '불티'…25년 횟집 사장님도 놀랐다",
@@ -378,7 +390,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"가성비 해외여행\" 입소문…한국인 세 명 중 한 명 '여기' 갔다 [신용현의 트래블랩]",
@@ -416,7 +430,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "트럼프 “또 ‘장대한 분노’ 작전할수도”…이란 “레드라인 없어”",
@@ -454,7 +470,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:insufficient_reader_value"
+      ]
     },
     {
       "title": "10월 태풍 ‘참피’ 북상…제주 하늘길·뱃길 운항 차질",
@@ -6232,24 +6250,24 @@
     "issue": {
       "publicationKey": "diem:2026-10-25:issue:40133543073",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
-        "title": "KBS 사장 내정된 웨이브 전 대표, 이태현은 누구?",
-        "url": "https://n.news.naver.com/article/006/0000138382?ntype=RANKING",
+        "title": "10월 태풍 ‘참피’ 북상…제주 하늘길·뱃길 운항 차질",
+        "url": "https://n.news.naver.com/article/056/0012280220?ntype=RANKING",
         "publishedDate": "2026-10-25",
-        "publishedAt": "2026-10-24 20:40:09",
+        "publishedAt": "2026-10-24 21:07:14",
         "observedAt": "2026-10-24T21:20:26.171Z",
-        "popularityScore": 95.9592,
+        "popularityScore": 77.7755,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 88.03,
-          "popularityScore": 95.9592,
+          "score": 72.03,
+          "popularityScore": 77.7755,
           "freshnessScore": 70,
-          "editorialValueScore": 95,
-          "ageHours": 9.67,
-          "publishedAt": "2026-10-24 20:40:09",
+          "editorialValueScore": 55,
+          "ageHours": 9.24,
+          "publishedAt": "2026-10-24 21:07:14",
           "observedAt": "2026-10-24T21:20:26.171Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -6268,24 +6286,22 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 3,
-            "normalizedScore": 95.9592,
-            "title": "KBS 사장 내정된 웨이브 전 대표, 이태현은 누구?",
-            "url": "https://n.news.naver.com/article/006/0000138382?ntype=RANKING"
+            "rank": 12,
+            "normalizedScore": 77.7755,
+            "title": "10월 태풍 ‘참피’ 북상…제주 하늘길·뱃길 운항 차질",
+            "url": "https://n.news.naver.com/article/056/0012280220?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "[미오 몰아보기] ▲이태현 KBS 사장 후보자의 웨이브 대표 시절 모습. 사진=웨이브미디어오늘이 미디어 전문 뉴스레터 미오레터를 시작합니다. 미디어 리포트, 한 주간 미디어 기사를 한 눈에 볼 수 있는 지면 기사 몰아보기 콘텐츠를 제공합니다. 미디어오늘에서 미디어 기사만 챙겨보고 싶은 분들께, 미디어 분야의 다양한 소식과 인사이트가 필요한 분들께 미오레터를 권합니다. https://media.stibee.com를 통해 구독하실 수 있습니다. - 편집자주 지난 23일 주간 미디어오늘 지면 발행에 맞춰 미디어오늘 지면을 소개합니다. KBS 새 대표이사 최종 후보자가 내정됐습니다. MBC 때와 마찬가지로 이변이 있었습니다. 범상성가가 중앙일보 인수전에 참여하면서 반향이 커지고 있습니다. 구성원들의 요구와 안팎의 우려를 담았습니다. 국정감사 현안과 기획, 인터뷰 기사들도 있습니다. KBS 사장이 된 웨이브 전 대표 MBC에 이어 KBS에서도 '이변'이 벌어졌습니다. 유력 후보군으로 꼽히지 않았던 이태현 전 웨이브 대표가 KBS 사장 최종 후보자에 선임됐습니다. 이태현 후보는 1968년생으로 1994년 KBS PD로 입사해, 편성정책부장과 콘텐츠사업국장을 거쳤으며 2019년부터 5년6개월간 토종 OTT 콘텐츠웨이브 대표이사를 지냈습니다. 웨이브 대표 시절 오리지널 콘텐츠 제작 등 여러 시도를 했습니다. 웨이브 성적표가 좋진 않았으나 그의 경험과 시행착오가 플러스 요인이 된 것 같습니다. KBS의 한 이사는 \"이태현 후보는 국민추천위원회에서 대중적이고 설득력 있는 발표를 했다는 평가가 다수였다\"고 했습니다. KBS의 한 시사교양PD는 \"경영 마인드가 있고 유머러스하며 일을 할 줄 아는 사람\"이라고 말했고요. 또 다른 시사교양PD는 \"이번 사장 후보자들 가운데 가장 시장주의자에 가깝다\"고 했습니다. 이태현 후보자는 최종 면접 자리에서 \"8년 동안 (회사를 떠나 있었기 때문에) 내부의 공백은 있지만 외부에서 다른 경쟁을 했기 때문에 조금 유연하고 냉정한 포지션이 있다고 생각한다\"고 했습니다. 그는 경영계획서를 통해선 △편성위원회 즉시 정상화 △보도책임자 임명동의제 보장 △데스크 실명제 △AI 검증팀 신설 △설명 저널리즘 강화를 비롯해 △시청행태 데이터를 콘텐츠 의사결정 기준으로 설정 △유튜브와 CTV·FAST로 글로벌 유통 등을 예고했습니다. 또 △아카이브 자산화 △통합광고 패키지 등 광고 재설계 △유휴 부동산 개발·임대 등 재원화도 공약했습니다. 이태현 후보자와 관련해선 미디어오늘 유튜브 콘텐츠 '미디어오늘내일 라이브'에서도 다뤘습니다. [관련 기사 : KBS 사장이 된 웨이브 전 대표, 그는 누구인가] [관련 기사 : [미오내 라이브] 웨이브 대표 출신이 KBS 사장으로 뽑힌 이유 \"넷플릭스에 맞서 본 사람\"] 다시 삼성가 품에 안긴 중앙일보 중앙일보 인수전이 막바지에 이르러 언론의 주목도가 매우 높아졌습니다. 우선협상자로 선정된 다우키움그룹과 '컨소시엄'을 맺은 기업들이 뒤늦게 알려졌기 때문인데요. 바로 CJ와 신세계입니다. 사실상 범삼성가가 다시 중앙일보를 소유하는 상황이 될 가능성이 높습니다. 이들은 신주 인수가를 5000억 원으로 적어낸 것으로 전해집니다. 왜 이들 기업은 중앙일보 인수전에 나섰을까요. CJ는 \"선대 이병철 회장의 창간 정신을 이어가고 미디어콘텐츠, 물류, 광고 등 사업적 시너지 등을 고려해 공동 참여를 결정했다\"는 입장입니다. '선대 회장의 정신'과 '사업적 시너지', 둘 중 어느 것이 우선했을까요? CJ와 신세계는 미디어 관련 사업을 하거나 시너지가 있는 사업군을 둔 것은 사실입니다. 하지만 방송도 아닌 '신문사' 지분을 가지는 것이 그렇게 큰 의미가 있을지는 의문입니다. 만약 선대 회장의 기업이라 되찾은 것이라면 문제는 없을까요? IB업계 관계자는 \"중앙일보를 인수하는 데 주식회사 CJ와 주식회사 신세계의 돈을 쓸 거라면 주주들과 그룹사에 도움이 되는지 치열하게 논의했어야 했다. 그 과정을 거쳤는지 의문\"이라고 지적합니다. 이제부터 해야 할 과제도 있습니다. 중앙일보 노조는 편집규약 제정·저널리즘 역량 강화 등 10대 요구안을 제시한 바 있고 빠른 소통을 요구하고 있습니다. 대기업들이 지분을 가져가는 상황, 그것도 '범삼성가'가 나선 상황이기에 편집권 보장이 제대로 이뤄질지 지켜볼 필요가 있습니다. [관련 기사 : 27년 만에 '범삼성가'에 안긴 중앙일보, 편집권 독립은?] N번방 후 6년, 원은지가 책을 낸 이유 텔레그램 성착취 'N번방 사건'이 알려진 후 6년이 지났습니다. N번방의 실체를 추적하고 취재해 처음 세상에 알린 '추적단불꽃'의 '단'이자 대표 원은지는 지난 6년 동안 더 집요하게 변형된 디지털 공간 내 성범죄를 끈질기게 쫓았습니다. N번방 사건처럼 텔레그램에서 벌어진 성착취 범죄 '엘 사건', 서울대 딥페이크 대규모 성착취 사건, 온라인 스토킹과 불법촬영물 비동의 유포 사건 등 원 대표는 가해자를 잡기 위해 범죄 현장에 잠입하고, 증거를 수집하며 수사에 결정적 단서들을 제공해온 것이죠. ▲ 미디어오늘은 10월7일 오후 서울 영등포구에서 원은지 추적단불꽃 대표를 만났다. 사진=윤유경 기자.그에게 6년은 디지털 성범죄 피해 생존자와 함께 호흡해 온 시간이기도 합니다. 피해 생존자의 곁에서 이후의 회복을 돕고, 그들이 사회와 연결돼 주변으로부터 보호받는 감각을 느낄 수 있도록 힘을 보탰습니다. 원 대표는 우리 사회가 디지털 성범죄를 바라보는 태도를 '짙은 패배감'이라고 진단합니다. 이 '짙은 패배감'을 걷어내기 위해 원 대표는 6년 간의 활동을 기록한 책 <불꽃이 꺼지지 않게>(돌고래)를 썼습니다. 그의 지난 6년에 대한 이야기를 들었습니다. [관련 기사 : N번방 후 6년, 추적단불꽃 원은지가 책으로 건넨 악수] \"피해 주지 말아야지\" \"현실 엉망\" 근로감독 후 방송비정규직 '벼랑끝' 채널A에서 지난 3월까지 PD로 일했던 김재현(가명)씨는 채널A 입사 11개월째이던 지난 1월, 인사팀으로부터 고용노동부의 근로감독을 계기로 그의 노동자성이 인정됐다는 말을 들었습니다. 회사는 그에게 37일짜리 근로계약서를 건넸습니다. 그리고 2월에 해당 계약이 만료되면 연장하지 않는다는 통보를 받았습니다. 그는 일한 지 꼭 1년이 되는 날인 3월7일 회사를 떠나게 됐습니다. KBS에선 10~20년 일해온 CG 노동자들을 무기계약직으로 전환한 뒤 '최하위 대우'로 차별받는다는 목소리가 나왔습니다. 주요 방송사의 '위장 프리랜서'들이 올초 고용노동부 근로감독에 따라 노동자성을 인정받은 뒤 회사 조치로 오히려 처우가 악화되거나 계약이 일방 종료됐다는 증언이 잇따르고 있습니다. [관련 기사 :\"피해 주지 말아야지\" \"현실 엉망\" 근로감독 후 방송비정규직 '벼랑끝'] 제보팀장, '쿠팡·SK 공갈미수' 혐의로 재판받고 있다 제보팀장이라고 아십니까? 언론계와 기업에선 유명한 업체인데요. 이용자가 제보 내용을 전달하면 언론사와 연결해주는 서비스 플랫폼입니다. 이 서비스의 대표 등이 쿠팡·SK 공갈미수 혐의로 재판에 넘겨진 것으로 확인됐습니다. 혐의는 공갈미수입니다. 서울서부지방공소청은 쿠팡이 제보팀장 측을 고소하자 지난해 12월 두 사람을 공갈미수 혐의로 불구속 기소했으며, 지난 8월 SK에 대한 공갈미수 혐의로 추가 기소했습니다. ▲ 제보팀장 홈페이지 화면 갈무리.공소청은 제보팀장 측이 기업을 상대로 제보가 공론화되지 않도록 해주는 유료 구독 서비스를 운영했다고 보고 있습니다. 공소청은 제보팀장 측이 쿠팡·SK에 접근해 부정적인 내용의 제보를 기사화하지 않는 대가로 유료 구독 서비스 가입을 요구했다는 혐의를 적용했습니다. 또 공소청은 제보팀장 측이 지난해 6월 SK 홍보팀에 연락해 '횡령 사건 등 제보를 입수했다'는 내용의 이메일을 보냈고, SK 관계자를 만나자 유료 구독 서비스를 제안했다고 봤습니다. 구독 서비스를 가입하지 않을 시 부정적인 기사가 나갈 것처럼 협박했다는 것입니다. [관련 기사 : 제보팀장, '쿠팡·SK 공갈미수' 혐의로 재판받고 있다] 51년 전, '신문사 해고' 탈을 쓴 국가 폭력…이제 국회가 답하라 24일 자유언론실천선언 52주년이 앞두고 세미나가 열렸습니다. 앞서 자유언론실천선언 이듬해 부당해고를 당한 동아투위와 조선투위는 1975년 기본권 침해를 바로잡기 위해 군사정권 당시 대법원이 확정한 해고무효 확인 소송에 대한 재판소원에 나섰습니다. 영화 '암살자(들)'의 모티브가 된 그 사건이죠. 그러나 헌법재판소는 심판청구를 각하했습니다. 신미용 변호사(전 헌법재판소 연구관)는 이날 세미나에서 \"대법원의 판결들은 언론에 대한 권력의 부당한 간섭에 항의하는 행위에 대해 언론의 자유와는 무관한 것으로 파악하고 언론인 개인의 표현 활동에 대한 헌법적 보호를 원천적으로 차단하고 있다는 점에서 '특수한 헌법침해'를 저지르고 있다\"고 비판했습니다. 이부영 동아투위 위원장은 정부와 국회를 향해 \"동아·조선 언론인 대량 해직 사건을 포함해 유신정권 하에서 국가폭력에 의해 언론탄압을 당하고 피해를 입은 언론인들을 구제하는 법안을 만들어 달라\"고 호소했습니다. [관련 기사 : 51년 전, '신문사 해고' 탈을 쓴 국가 폭력…이제 국회가 답하라] 넷플릭스·티빙·디즈니+ 로코 3편 동반 부진…\"TV 로코와 차별화 부족\" 로멘틱코미디는 인기를 잃은 걸까요? 미디어오늘 유튜브 콘텐츠 과몰입클럽에서 OTT에서 로멘틱코미디 큰 흥행을 하지 못하는 상항을 분석했습니다. 굿데이터코퍼레이션 자료에 따르면 넷플릭스 '나를 충전해줘'는 TV·OTT 드라마 화제성 6위, 티빙 '내가 떨릴 수 있게'는 7위, 디즈니+ '메리 베리 러브'는 16위를 기록했다. 같은 기간 SBS '닥터X: 하얀 마피아의 시대'가 2주 연속 1위에 올랐고 tvN '100일의 거짓말'과 ENA '연애박사'가 각각 2위와 3위를 차지한 것과 비교되는 상황입니다. 그렇다면 부진의 이유는 무엇일까요? 자세한 내용은 과몰입클럽에서 확인하실 수 있습니다. [관련 기사 : 넷플릭스·티빙·디즈니+ 로코 3편 동반 부진…\"TV 로코와 차별화 부족\"] [관련 기사 : '닥터X' 독주·OTT 로코는 부진… 유튜브선 '안원잘부' 12주 연속 1위 [과몰입클럽 EP17]] 오마이뉴스 사건팀장이 5·18 영화 만든 사연 \"어떻게 이 영상의 존재를 잘 알릴지, 그리고 팀 원버그라는 인물과 그의 삶을 어떻게 많은 이들에게 전할지 작업을 이어가다 보니 어쩌다 팔자에도 없는 영화를 만들게 됐다.\"오마이뉴스 사건팀장을 맡고 있는 소중한 기자가 영화감독이 됐습니다. 1980년 5·18민주화운동 당시 광주에 머물렀던 미국인 청년 팀 원버그(한국 이름 원덕기)의 삶을 다룬 다큐멘터리 영화 '내 이름은 원덕기'를 만들었습니다. 2019년 말 우연히 발견한 한 인물을 5년 넘게 취재하다가, 올해 초 그 인물의 육성이 담긴 46년 전 영상을 발견한 것이 영화 제작으로 이어졌습니다. 그 영상은 영화 '택시운전사'의 실제 주인공으로 알려진 독일 기자 위르겐 힌츠페터가 1980년 5월24일 촬영한 것입니다. [관련 기사 :오마이뉴스 사건팀장이 5·18 영화 만든 사연] 이진숙 \"다수 폭력 제동\"…범여권 \"이해충돌 제척유지\", 누구 말 맞나 헌법재판소가 이진숙 국민의힘 의원을 방송미디어통신위원회 등 국정감사에서 제척한 국회 과학기술정보방송통신위원회 결정 효력을 일부 정지했습니다. 민주당 의원들이 이진숙 의원이 직전 방송통신위원장으로서 이해충돌 등 문제가 있다는 점을 들어 제척에 나선 것인데요. 이진숙 의원은 \"민주당의 다수 폭력에 제동을 걸었다\"고 입장을 밝혔습니다. 하지만 헌재는 △방통위원장 재직 당시 업무와 의사결정 사안 △KBS·방송문화진흥회 이사, EBS사장 임명동의 사안 △과방위가 당시 방통위원장을 위증 혐의로 고발한 사안 △대전MBC 사장 재직 시절 법인카드 사용과 관련해 업무상 배임 혐의로 고발된 사안에 대해선 국정감사 제척 효력을 유지하도록 판단했습니다. 이진숙 의원이 적지 않은 사안에서 국감 질의에 참여할 수 없다고 본 것이죠. ▲ 이진숙 국민의힘 의원. ⓒ연합뉴스[관련 기사 : 헌재 결정에 이진숙 \"다수 폭력 제동\"…범여권 \"정신승리, 이해충돌 제척유지\"] [관련 기사 : '국감 제척' 효력정지 가처분 인용에 이진숙 \"환영\" 이정헌 \"면죄부 아냐\"] '한동훈 딸 노트북 기부 의혹' 제기한 한겨레, 무혐의 받았다 한동훈 무소속 의원이 딸의 '노트북 기부 연계' 의혹을 제기한 한겨레를 고소했으나 공소청이 무혐의 처분을 내렸습니다. 공소청은 부제목에 사실과 다른 내용이 있는 것은 맞지만 한겨레가 곧바로 정정했고, 기사 본문에 반론이 담긴 만큼 한겨레에 명예훼손 의도가 있다고 보기 힘들다고 밝혔습니다. [관련 기사 : '한동훈 딸 노트북 기부 의혹' 제기한 한겨레, 무혐의 받았다] 미디어오늘 미디어팀, 미디어리터러시어워즈 대상 수상 미디어오늘의 '5·18 왜곡대응 프로젝트'가 지난 17일 한국언론학회가 주최하는 '미디어 리터러시 어워즈' 대상을 받았습니다. 윤수현, 윤유경, 박서연, 박재령, 금준경 기자가 참여한 이 프로젝트는 5·18민주화운동과 관련한 혐오표현의 문제를 다층적으로 짚고 제도적 대안을 모색하는 내용입니다. 미디어오늘의 '5·18 왜곡대응 프로젝트'는 앞서 미디어공공성포럼 언론상 본상, 언론인권상 특별상, 민주언론시민연합 이달의 좋은 보도상을 수상했습니다.",
-        "summary": "[미오 몰아보기] ▲이태현 KBS 사장 후보자의 웨이브 대표 시절 모습. 사진=웨이브미디어오늘이 미디어 전문 뉴스레터 미오레터를 시작합니다. 미디어 리포트, 한 주간 미디어 기사를 한 눈에 볼 수 있는 지면 기사 몰아보기 콘텐츠를 제공합니다. 미디어오늘에서 미디어 기사만 챙겨보고 싶은 분들께, 미디어 분야의 다양한 소식과 인사이트가 필요한 분들께 미오레터를 권합니다. https://media.stibee.com를 통해 구독하실 수 있습니다. - 편집자주 지난 23일 주간 미디어오늘 지면 발행에 맞춰 미디어오늘 지면을 소개합니다. K",
+        "fullText": "[앵커]주말 날씨가 심상치 않습니다.늦가을로 접어드는 시기에 이례적인 태풍 소식이 전해졌습니다.태풍 참피가 북상하면서 제주도와 남부지방 긴장감이 높습니다.제주로 갑니다.강주비 기자! 태풍의 영향이 느껴집니까? [리포트] 네, 제가 나와 있는 서귀포시 법환포구엔 빗줄기가 굵어졌다 그치기를 반복하고 있습니다. 바람도 거세지면서, 높은 파도가 쉴 새 없이 밀려들고 있는데요. 현재 제주도 산지와 중산간, 동부와 남부 지역을 중심으로 호우특보가 내려져 있습니다. 어제(23일)부터 지금까지 한라산에는 220mm가 넘는 비가 내렸고, 동부 지역에도 170mm가 넘는 많은 비가 내렸습니다. 한라산 탐방로는 오전부터 전면 통제됐고요. 제주 시내 한 도로에선 맨홀이 역류하고, 비닐하우스가 침수되는 등 피해 신고 4건이 접수돼 안전조치가 이뤄졌습니다. 비는 내일(25일) 새벽까지 시간당 최대 30mm 안팎으로 강하게 쏟아지겠고, 모레(26일) 아침까지 산지와 중산간에는 200mm, 그 밖의 지역에도 80에서 150mm의 많은 비가 내릴 것으로 기상청은 예보했습니다. 제주 육상 대부분 지역에 강풍 특보가 내려진 가운데 항공편 4편이 결항됐고 120여 편이 지연됐습니다. 또 풍랑특보로 제주를 오가는 대다수 여객선의 운항도 묶였고 어선 천7백여 척이 대피하기도 했습니다. 제주 남쪽 먼바다에 태풍 예비 특보가 발효되면서 행정안전부는 제주 등 남해안 지역 풍수해 재난 위기 경보를 '주의' 단계로 격상했습니다. 제주도도 비상근무 1단계를 가동해 취약 지역 순찰을 강화하며 대비 태세를 유지하고 있습니다. 지금까지 제주 서귀포시 법환포구에서 KBS 뉴스 강주비 입니다. 촬영기자:고성호 부수홍/영상편집:김정엽/화면제공:제주도소방안전본부 ■ 제보하기▷ 전화 : 02-781-1234, 4444▷ 이메일 : kbs1234@kbs.co.kr▷ 카카오톡 : 'KBS제보' 검색, 채널 추가▷ 유튜브, 다음에서도 KBS뉴스를 구독해주세요!",
+        "summary": "[앵커]주말 날씨가 심상치 않습니다.늦가을로 접어드는 시기에 이례적인 태풍 소식이 전해졌습니다.태풍 참피가 북상하면서 제주도와 남부지방 긴장감이 높습니다.제주로 갑니다.강주비 기자! 태풍의 영향이 느껴집니까? [리포트] 네, 제가 나와 있는 서귀포시 법환포구엔 빗줄기가 굵어졌다 그치기를 반복하고 있습니다. 바람도 거세지면서, 높은 파도가 쉴 새 없이 밀려들고 있는데요. 현재 제주도 산지와 중산간, 동부와 남부 지역을 중심으로 호우특보가 내려져 있습니다. 어제(23일)부터 지금까지 한라산에는 220mm가 넘는 비가 내렸고, 동부 지역",
         "topicSignature": {
           "category": "issue",
-          "target": "KBS 사장",
-          "event": "웨이브 대표 이태현은",
-          "entities": [
-            "KBS"
-          ],
+          "target": "태풍 참피",
+          "event": "제주 하늘길 뱃길",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | KBS 사장 | KBS"
+          "text": "issue | 태풍 참피"
         },
         "newsFrame": {
           "category": "issue",
@@ -6293,22 +6309,22 @@
           "classificationReasons": [
             "category:issue"
           ],
-          "publicInterestAnchor": "정책",
+          "publicInterestAnchor": null,
           "rejectionReason": null,
-          "subject": "KBS 사장",
+          "subject": "태풍 참피",
           "primaryActor": null,
           "attributionMode": null,
           "subjectTerms": [
-            "KBS",
-            "사장"
+            "태풍",
+            "참피"
           ],
           "eventKind": "general",
           "eventLabel": "",
           "eventTerms": [],
           "eventKey": null,
-          "claimState": "decided",
+          "claimState": "reported",
           "evidenceState": "established_or_not_stated",
-          "date": "오늘",
+          "date": "내일",
           "requiredTitleTerms": [],
           "forbiddenTitleTerms": [],
           "competitiveState": null,
@@ -6318,16 +6334,15 @@
         },
         "editorialValue": {
           "ok": true,
-          "score": 95,
+          "score": 55,
           "signals": [
             "reader_money_work_life_impact",
-            "concrete_event_or_decision",
-            "broad_audience_or_market_scope",
             "issue_core_topic"
           ],
           "penalties": [],
           "contentValueSignals": [
-            "policy_change"
+            "public_service_disruption",
+            "safety"
           ],
           "observedMarketEvidence": null,
           "reason": "passes_editorial_value_gate",
@@ -6337,22 +6352,22 @@
             "classificationReasons": [
               "category:issue"
             ],
-            "publicInterestAnchor": "정책",
+            "publicInterestAnchor": null,
             "rejectionReason": null,
-            "subject": "KBS 사장",
+            "subject": "태풍 참피",
             "primaryActor": null,
             "attributionMode": null,
             "subjectTerms": [
-              "KBS",
-              "사장"
+              "태풍",
+              "참피"
             ],
             "eventKind": "general",
             "eventLabel": "",
             "eventTerms": [],
             "eventKey": null,
-            "claimState": "decided",
+            "claimState": "reported",
             "evidenceState": "established_or_not_stated",
-            "date": "오늘",
+            "date": "내일",
             "requiredTitleTerms": [],
             "forbiddenTitleTerms": [],
             "competitiveState": null,
@@ -6360,32 +6375,30 @@
             "competitiveSectors": [],
             "readerNeed": "public_interest"
           },
-          "baseScore": 95,
+          "baseScore": 55,
           "performancePrior": {
             "adjustment": 0,
             "window": null,
             "matched": [],
-            "reason": "insufficient_performance_samples"
+            "reason": "legacy_feature_schema_report_only"
           }
         },
         "performancePrior": {
           "adjustment": 0,
           "window": null,
           "matched": [],
-          "reason": "insufficient_performance_samples"
+          "reason": "legacy_feature_schema_report_only"
         },
         "classificationTrace": {
           "initial": {
-            "status": "uncertain",
-            "category": null,
-            "excluded": [
-              "category_not_allowed"
-            ],
+            "status": "classified",
+            "category": "issue",
+            "excluded": [],
             "ambiguous": false
           },
           "hydration": {
             "attempted": true,
-            "reason": "uncertain_initial_classification"
+            "reason": "verify_primary_article"
           },
           "final": {
             "status": "classified",
@@ -6399,30 +6412,1186 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.4003,
+        "score": 0.538,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-10-23:issue:39861472997",
+        "matchedPublicationKey": "diem:2026-10-19:issue:39143883177",
         "signature": {
           "category": "issue",
-          "target": "KBS 사장",
-          "event": "웨이브 대표 이태현은",
-          "entities": [
-            "KBS"
-          ],
+          "target": "태풍 참피",
+          "event": "제주 하늘길 뱃길",
+          "entities": [],
           "eventKey": null,
-          "text": "issue | KBS 사장 | KBS"
+          "text": "issue | 태풍 참피"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 3,
+        "category": "issue",
+        "reelFormat": "flash",
+        "formatDecision": {
+          "format": "flash",
+          "reason": "explain_disabled",
+          "eligible": false
+        },
+        "titleCandidates": [
+          {
+            "title": "태풍 참피 북상\n제주 하늘길·뱃길\n운항 차질",
+            "lines": [
+              "태풍 참피 북상",
+              "제주 하늘길·뱃길",
+              "운항 차질"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "태풍 참피 북상\n제주 하늘길·뱃길\n운항 차질",
+          "lines": [
+            "태풍 참피 북상",
+            "제주 하늘길·뱃길",
+            "운항 차질"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity",
+          "sourceSpans": []
+        },
+        "caption": {
+          "sentences": [
+            "태풍 참피가 북상하면서 제주도와 남부지방에 긴장감이 높아지고 있습니다.🌀",
+            "제주에 호우·강풍·풍랑특보가 내려져 항공편이 결항·지연됐고 대다수 여객선 운항이 묶였습니다.",
+            "행정안전부는 제주 등 남해안 지역 풍수해 재난 위기 경보를 '주의' 단계로 격상했고 제주도는 비상근무를 가동했습니다.⚠️"
+          ],
+          "text": "태풍 참피가 북상하면서 제주도와 남부지방에 긴장감이 높아지고 있습니다.🌀\n\n제주에 호우·강풍·풍랑특보가 내려져 항공편이 결항·지연됐고 대다수 여객선 운항이 묶였습니다.\n\n행정안전부는 제주 등 남해안 지역 풍수해 재난 위기 경보를 '주의' 단계로 격상했고 제주도는 비상근무를 가동했습니다.⚠️"
+        },
+        "scenes": [],
+        "emojis": {
+          "first": "🌀",
+          "third": "⚠️"
+        },
+        "imageKeyword": "typhoon waves harbor",
+        "comments": {
+          "first": "🌀",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #태풍참피 #제주 #호우특보 #항공결항 #여객선 #태풍",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#태풍참피",
+            "#제주",
+            "#호우특보",
+            "#항공결항",
+            "#여객선",
+            "#태풍"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#태풍참피",
+              "#제주",
+              "#호우특보",
+              "#항공결항",
+              "#여객선",
+              "#태풍"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "claude-opus-5-5",
+          "attempts": [
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"4\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"26일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"200\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+              "rejectedDraft": {
+                "schemaVersion": 1,
+                "status": "rejected_not_validated",
+                "sourceSha256": "e9b504162d368d5bed7d3bfe4ebf5ae0c86508bd39ade65a166511d6af5f4566",
+                "titleCandidates": [
+                  {
+                    "title": "태풍 참피 북상\n제주 항공편\n120여편 지연"
+                  },
+                  {
+                    "title": "태풍 참피 북상\n제주 하늘길 차질"
+                  },
+                  {
+                    "title": "태풍 참피에\n제주 여객선\n운항 묶여"
+                  }
+                ],
+                "sentences": [
+                  "10월 태풍 참피가 북상하면서 제주에서 항공편 4편이 결항되고 120여 편이 지연됐으며, 풍랑특보로 제주를 오가는 대다수 여객선 운항도 묶였습니다.",
+                  "어제(23일)부터 한라산에는 220mm가 넘는 비가, 동부 지역에도 170mm가 넘는 비가 내렸고, 맨홀 역류와 비닐하우스 침수 등 피해 신고 4건이 접수됐습니다.",
+                  "행정안전부는 제주 등 남해안 지역 풍수해 재난 위기 경보를 '주의' 단계로 격상했으며, 기상청은 모레(26일) 아침까지 산지와 중산간에 200mm, 그 밖의 지역에 80~150mm의 비를 예보했습니다."
+                ],
+                "textMayBeTruncated": true
+              }
+            },
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ],
+          "provider": "claude-code-subscription",
+          "cliVersion": "2.1.302",
+          "execution": [
+            {
+              "modelIds": [
+                "claude-opus-5-5"
+              ],
+              "turns": 1
+            },
+            {
+              "modelIds": [
+                "claude-opus-5-5"
+              ],
+              "turns": 1
+            }
+          ]
+        },
+        "formatRollout": {
+          "enabled": false,
+          "reason": "explain_disabled"
+        },
+        "creativeBrief": {
+          "schemaVersion": 1,
+          "title": "태풍 참피 북상\n제주 하늘길·뱃길\n운항 차질",
+          "caption": "태풍 참피가 북상하면서 제주도와 남부지방에 긴장감이 높아지고 있습니다.🌀\n\n제주에 호우·강풍·풍랑특보가 내려져 항공편이 결항·지연됐고 대다수 여객선 운항이 묶였습니다.\n\n행정안전부는 제주 등 남해안 지역 풍수해 재난 위기 경보를 '주의' 단계로 격상했고 제주도는 비상근무를 가동했습니다.⚠️",
+          "sourceSha256": "88e4b5a89665437045ef7e1983e3b1d68419d73989090d47c90c58e431cad55c",
+          "imageKeyword": "typhoon waves harbor",
+          "mood": "serious",
+          "sensitive": true
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-10-24T21:22:22.719Z",
+        "id": "pexels:38488524",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/motorbike-navigating-flooded-street-in-haiphong-38488524/",
+        "downloadUrl": "https://images.pexels.com/photos/38488524/pexels-photo-38488524.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Tuấn Vũ",
+        "creatorUrl": "https://www.pexels.com/@tu-n-vu-2153773491",
+        "width": 2489,
+        "height": 3733,
+        "description": "A motorbike rider braves a flooded street in Haiphong, Vietnam under rain. Urban resilience captured.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "heavy rain flooded street storm",
+        "score": 0.74,
+        "components": {
+          "semanticMetadata": 0.6,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "heavy",
+            "rain",
+            "flooded",
+            "street",
+            "storm"
+          ],
+          "matchedConcreteTokens": [
+            "rain",
+            "flooded",
+            "street"
+          ],
+          "primaryVisualAnchors": [
+            "heavy",
+            "rain",
+            "flooded",
+            "storm"
+          ],
+          "matchedPrimaryVisualAnchors": [
+            "rain",
+            "flooded"
+          ],
+          "primaryVisualAnchorMatched": true,
+          "matchRatio": 0.6,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "foreignPoliticalSymbolMismatch": false,
+          "identity": {
+            "required": false,
+            "name": null,
+            "role": null,
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 1,
+        "finalReviewScore": 0.657,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "finalReview": {
+          "ok": true,
+          "method": "vision_context_shortlist",
+          "candidateCount": 18,
+          "selectedId": "pexels:38488524",
+          "selectedScore": 0.657,
+          "shortlist": [
+            {
+              "id": "pexels:38488524",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.74,
+              "finalReviewScore": 0.657,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:36312787",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.61,
+              "finalReviewScore": 0.5355,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "unsplash:MQA9RY_vP38",
+              "source": "unsplash",
+              "query": "heavy rain flooded street storm",
+              "score": 0.56,
+              "finalReviewScore": 0.508,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:34584636",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.61,
+              "finalReviewScore": 0.4855,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:14737175",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.61,
+              "finalReviewScore": 0.4855,
+              "suitabilityReason": "concrete_subject_matched"
+            }
+          ],
+          "visionReview": {
+            "ok": true,
+            "selectedId": "pexels:38488524",
+            "reason": "The image depicts a street scene with heavy rain and flooding, which directly supports the article's subject of Typhoon Champ causing severe weather and disruption in Jeju. The visual of a flooded street aligns with the 'heavy rain' and 'storm' aspects of the headline and summary.",
+            "evaluations": [
+              {
+                "id": "pexels:38488524",
+                "relevant": true,
+                "countryMismatch": false,
+                "foreignPoliticalSymbol": false,
+                "unrelatedPerson": false,
+                "reason": "The image shows a flooded street during a heavy downpour, which is a direct visual representation of the typhoon's impact described in the article (heavy rain, storm). It serves as a valid contextual illustration for the weather event."
+              },
+              {
+                "id": "pexels:36312787",
+                "relevant": false,
+                "countryMismatch": false,
+                "foreignPoliticalSymbol": false,
+                "unrelatedPerson": false,
+                "reason": "This image shows a flooded residential area with brick buildings that appear to be in a developing region, not the urban or coastal setting of Jeju, Korea. It depicts a different type of environment and likely a different event, making it misleading for this specific news story."
+              }
+            ],
+            "model": "qwen/qwen3.8-27b"
+          },
+          "gate": "prepared_quality_context_recheck",
+          "reason": "concrete_subject_matched"
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "heavy rain flooded street storm",
+            "count": 20,
+            "suitableCount": 8,
+            "suitabilityRejected": 12,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:33628086",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "heavy",
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33261303",
+                "rankWithinQuery": 3,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33274240",
+                "rankWithinQuery": 6,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36288940",
+                "rankWithinQuery": 7,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35302178",
+                "rankWithinQuery": 13,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:39457982",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "heavy"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:30561706",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32988688",
+                "rankWithinQuery": 16,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:39457990",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18312461",
+                "rankWithinQuery": 18,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:28428673",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:17750945",
+                "rankWithinQuery": 20,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 8,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.74
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "heavy rain flooded street storm",
+            "count": 20,
+            "suitableCount": 10,
+            "suitabilityRejected": 10,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:Ogkb9e8tM3k",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:FK0TsPrJDRw",
+                "rankWithinQuery": 9,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:WHSjT5VaA5g",
+                "rankWithinQuery": 12,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:DmJeeEksw9E",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:VmqY04EUejA",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:lLE-NWq_ylA",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:CYJ8zMlqxrc",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:tFaK2b_DBl4",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:U7nXKK7xavY",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:tbS9zHMvyus",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 10,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.56
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 9,
+          "recentKeyCount": 30,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "pexels:38488524",
+            "https://www.pexels.com/photo/motorbike-navigating-flooded-street-in-haiphong-38488524/",
+            "https://images.pexels.com/photos/38488524/pexels-photo-38488524.jpeg"
+          ]
+        },
+        "selectionReason": "selected best of 5 context-reviewed unused candidates; source pexels, query rank #1, score 0.657; 22 unsuitable and 0 recent images blocked",
+        "localSha256": "ec2366a7d8109ba4e971cd8b8910117b6f7c63583e6124d8ed67b5c97f0f5b2a"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-serene-view-443",
+        "mood": "serious",
+        "title": "Serene View",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-serene-view-443.mp3",
+        "sha256": "93baae1bea4748b0a36d8a8b2d2af1c9391d3abb5e18f2bff270ea91d9a0fd31",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-24T21:22:53.580Z"
       },
       "story": {
         "status": "planned",
@@ -6499,6 +7668,138 @@
           "limit": 2,
           "remaining": 2
         }
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-10-25/issue/issue-cover.png",
+        "coverSha256": "369c4af9fef91b0334782be830166615d7aed53ab450a06e409034eb1d5feb83",
+        "scenePaths": [],
+        "reelPath": ".diem-cache/2026-10-25/issue/issue-reel.mp4",
+        "reelSha256": "63cc196594895451a381559cc699fb733d8142077727cda25816128425817cfa",
+        "temporary": true
+      },
+      "generation": {
+        "status": "rerouted",
+        "attempts": 1,
+        "candidateFailures": [
+          {
+            "title": "KBS 사장 내정된 웨이브 전 대표, 이태현은 누구?",
+            "url": "https://n.news.naver.com/article/006/0000138382?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/title_generation: model returned no valid title candidates for article frame or numeric meaning | claude-opus-5-5/title_repair: title repair returned no valid title candidates for article frame | claude-opus-5-5/editorial: title repair failed: title repair returned no valid title candidates for article frame)",
+            "modelAttempts": [
+              {
+                "model": "claude-opus-5-5",
+                "stage": "title_generation",
+                "status": "failed",
+                "error": "model returned no valid title candidates for article frame or numeric meaning",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "d477c431d7cd145c7e53438b8570d3bb4a2a4315dbf600b7c6d74c3cb0e82d4b",
+                  "titleCandidates": [
+                    {
+                      "title": "웨이브 전 대표\nKBS 사장 후보\n최종 선임"
+                    },
+                    {
+                      "title": "KBS 사장 후보\n이태현 내정"
+                    },
+                    {
+                      "title": "이태현 전 대표\nKBS 사장\n후보 선임"
+                    }
+                  ],
+                  "sentences": [
+                    "유력 후보군으로 꼽히지 않았던 이태현 전 웨이브 대표가 KBS 사장 최종 후보자로 선임되며, MBC에 이어 KBS에서도 이변이 일어났습니다.",
+                    "1968년생인 이 후보자는 1994년 KBS PD로 입사해 편성정책부장과 콘텐츠사업국장을 거쳤고, 2019년부터 5년6개월간 토종 OTT 웨이브 대표이사를 지냈습니다.",
+                    "그는 경영계획서에서 편성위원회 즉시 정상화, 보도책임자 임명동의제 보장, AI 검증팀 신설과 함께 유튜브·FAST 글로벌 유통, 유휴 부동산 개발 등 재원 확보를 공약했습니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "title_repair",
+                "status": "failed",
+                "error": "title repair returned no valid title candidates for article frame",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "d477c431d7cd145c7e53438b8570d3bb4a2a4315dbf600b7c6d74c3cb0e82d4b",
+                  "titleCandidates": [
+                    {
+                      "title": "공영방송 KBS\n사장 최종후보\n이태현 선임"
+                    },
+                    {
+                      "title": "공영방송 KBS\n사장에 이태현\n최종 내정"
+                    },
+                    {
+                      "title": "이태현\n공영방송 KBS\n사장 후보 선임"
+                    }
+                  ],
+                  "sentences": [],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "title repair failed: title repair returned no valid title candidates for article frame",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "d477c431d7cd145c7e53438b8570d3bb4a2a4315dbf600b7c6d74c3cb0e82d4b",
+                  "titleCandidates": [
+                    {
+                      "title": "웨이브 전 대표\nKBS 사장 후보\n최종 선임"
+                    },
+                    {
+                      "title": "KBS 사장 후보\n이태현 내정"
+                    },
+                    {
+                      "title": "이태현 전 대표\nKBS 사장\n후보 선임"
+                    }
+                  ],
+                  "sentences": [
+                    "유력 후보군으로 꼽히지 않았던 이태현 전 웨이브 대표가 KBS 사장 최종 후보자로 선임되며, MBC에 이어 KBS에서도 이변이 일어났습니다.",
+                    "1968년생인 이 후보자는 1994년 KBS PD로 입사해 편성정책부장과 콘텐츠사업국장을 거쳤고, 2019년부터 5년6개월간 토종 OTT 웨이브 대표이사를 지냈습니다.",
+                    "그는 경영계획서에서 편성위원회 즉시 정상화, 보도책임자 임명동의제 보장, AI 검증팀 신설과 함께 유튜브·FAST 글로벌 유통, 유휴 부동산 개발 등 재원 확보를 공약했습니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-24T21:21:30.639Z"
+          }
+        ],
+        "updatedAt": "2026-10-24T21:22:00.639Z"
+      },
+      "creativeReview": {
+        "ok": true,
+        "selectedId": "rendered-cover",
+        "reason": "The rendered cover displays a readable headline that accurately reflects the article's subject (Typhoon Champi moving north, causing disruptions in Jeju). The background image depicts a street scene in heavy rain and wind, which serves as an appropriate contextual illustration for the typhoon event without implying a different specific incident or containing misleading political symbols.",
+        "evaluations": [
+          {
+            "id": "rendered-cover",
+            "relevant": true,
+            "countryMismatch": false,
+            "foreignPoliticalSymbol": false,
+            "unrelatedPerson": false,
+            "reason": "The image shows a stormy, rainy street scene which is contextually relevant to a typhoon news story. The text overlay is legible and matches the editorial title and summary."
+          }
+        ],
+        "model": "qwen/qwen3.8-27b",
+        "reviewedArtifactSha256": "369c4af9fef91b0334782be830166615d7aed53ab450a06e409034eb1d5feb83",
+        "sourceSha256": "88e4b5a89665437045ef7e1983e3b1d68419d73989090d47c90c58e431cad55c",
+        "briefSha256": "2f30d5eb45a57e37dfbf2a2bfe0b59304bdc83aed80c4293887003095150fb90",
+        "audioReview": "deterministic_mood_and_track_metadata_only",
+        "reviewedAt": "2026-10-24T21:22:50.142Z",
+        "reviewedReelSha256": "63cc196594895451a381559cc699fb733d8142077727cda25816128425817cfa"
+      },
+      "analytics": {
+        "featureSchemaVersion": 3,
+        "strategyVersion": "discovery-funnel-v3",
+        "reelDurationSeconds": 6
       }
     }
   },
