@@ -4,7 +4,7 @@
   "date": "2026-10-25",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-24T16:23:13.666Z",
-  "updatedAt": "2026-10-25T05:30:12.356Z",
+  "updatedAt": "2026-10-25T05:31:11.159Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -11937,7 +11937,7 @@
     "issue": {
       "publicationKey": "diem:2026-10-25:issue:40165586850",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "\"딸, 언제 들어와?\" 8시만 돼도 불안...밤길 안전했던 한국, 어쩌다",
         "url": "https://n.news.naver.com/article/008/0005431139?ntype=RANKING",
@@ -12119,15 +12119,855 @@
           "text": "issue | 반도체 | 8시만 MT리포트"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 3,
+        "category": "issue",
+        "reelFormat": "flash",
+        "formatDecision": {
+          "format": "flash",
+          "reason": "explain_disabled",
+          "eligible": false
+        },
+        "titleCandidates": [
+          {
+            "title": "강력범죄 잇따라\n시민 불안 커져",
+            "lines": [
+              "강력범죄 잇따라",
+              "시민 불안 커져"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          },
+          {
+            "title": "흔들리는\n치안 강국 인식",
+            "lines": [
+              "흔들리는",
+              "치안 강국 인식"
+            ],
+            "source": "model",
+            "score": 90,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "강력범죄 잇따라\n시민 불안 커져",
+          "lines": [
+            "강력범죄 잇따라",
+            "시민 불안 커져"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity",
+          "sourceSpans": []
+        },
+        "caption": {
+          "sentences": [
+            "인천 흉기난동과 강남 연쇄 방화 등 강력범죄가 잇따르며 한국의 치안 강국 인식이 흔들리고 있다.🚨",
+            "시민들은 늦게 귀가하는 가족을 걱정하고 지하철·쇼핑몰 등 밀집 공간을 경계하는 등 일상 속 불안이 커졌다고 말했다.",
+            "이재명 대통령은 경찰의 날을 맞아 범죄 위험 신호를 조기에 포착하고 피해를 예방할 특단의 대책을 마련해야 한다고 말했다.🛡️"
+          ],
+          "text": "인천 흉기난동과 강남 연쇄 방화 등 강력범죄가 잇따르며 한국의 치안 강국 인식이 흔들리고 있다.🚨\n\n시민들은 늦게 귀가하는 가족을 걱정하고 지하철·쇼핑몰 등 밀집 공간을 경계하는 등 일상 속 불안이 커졌다고 말했다.\n\n이재명 대통령은 경찰의 날을 맞아 범죄 위험 신호를 조기에 포착하고 피해를 예방할 특단의 대책을 마련해야 한다고 말했다.🛡️"
+        },
+        "scenes": [],
+        "emojis": {
+          "first": "🚨",
+          "third": "🛡️"
+        },
+        "imageKeyword": "empty street at night",
+        "comments": {
+          "first": "🚨",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #치안 #강력범죄 #시민불안 #호신용품 #8시만 #MT리포트",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#치안",
+            "#강력범죄",
+            "#시민불안",
+            "#호신용품",
+            "#8시만",
+            "#MT리포트"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#치안",
+              "#강력범죄",
+              "#시민불안",
+              "#호신용품",
+              "#8시만",
+              "#MT리포트"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "claude-opus-5-5",
+          "attempts": [
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2024년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"28.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"2022년\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+              "rejectedDraft": {
+                "schemaVersion": 1,
+                "status": "rejected_not_validated",
+                "sourceSha256": "298abc69e44910f6744c9b3684b41fcef35105a72e57d1774686230a7e0a4afc",
+                "titleCandidates": [
+                  {
+                    "title": "한국 치안 불안\n주요범죄 9% 증가"
+                  },
+                  {
+                    "title": "강력범죄 잇따라\n안전 인식 하락"
+                  },
+                  {
+                    "title": "안전하다 느낀 국민\n28.9%로 하락"
+                  }
+                ],
+                "sentences": [
+                  "인천 흉기난동과 강남 연쇄 방화 등 일상 공간의 강력범죄가 잇따르면서, 한국 사회를 안전하다고 인식하는 비율이 2024년 28.9%로 2022년보다 약 4.4%포인트 낮아졌습니다.",
+                  "공소청에 따르면 2024년 주요 형법범죄 발생 건수는 2118건으로 2년 전(1943건)보다 약 9% 늘었고, 한국법무보호복지공단 조사 응답자의 63.9%는 과거보다 범죄 위험이 커졌다고 답했습니다.",
+                  "인천 사건 이후 지난 13일 네이버 '호신용품' 검색량 지수가 전날의 5배로 급증했으며, 이재명 대통령은 경찰의 날에 범죄 위험 신호를 조기에 포착할 특단의 대책을 주문했습니다."
+                ],
+                "textMayBeTruncated": true
+              }
+            },
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ],
+          "provider": "claude-code-subscription",
+          "cliVersion": "2.1.302",
+          "execution": [
+            {
+              "modelIds": [
+                "claude-opus-5-5"
+              ],
+              "turns": 1
+            },
+            {
+              "modelIds": [
+                "claude-opus-5-5"
+              ],
+              "turns": 1
+            }
+          ]
+        },
+        "formatRollout": {
+          "enabled": false,
+          "reason": "explain_disabled"
+        },
+        "creativeBrief": {
+          "schemaVersion": 1,
+          "title": "강력범죄 잇따라\n시민 불안 커져",
+          "caption": "인천 흉기난동과 강남 연쇄 방화 등 강력범죄가 잇따르며 한국의 치안 강국 인식이 흔들리고 있다.🚨\n\n시민들은 늦게 귀가하는 가족을 걱정하고 지하철·쇼핑몰 등 밀집 공간을 경계하는 등 일상 속 불안이 커졌다고 말했다.\n\n이재명 대통령은 경찰의 날을 맞아 범죄 위험 신호를 조기에 포착하고 피해를 예방할 특단의 대책을 마련해야 한다고 말했다.🛡️",
+          "sourceSha256": "07701adcacf81c1f030495ebd5471091a2a20c942a1ea896c86cee01443004ec",
+          "imageKeyword": "empty street at night",
+          "mood": "serious",
+          "sensitive": false
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-10-25T05:30:43.726Z",
+        "id": "pexels:12689727",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/empty-city-road-at-night-12689727/",
+        "downloadUrl": "https://images.pexels.com/photos/12689727/pexels-photo-12689727.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Erik Mclean",
+        "creatorUrl": "https://www.pexels.com/@introspectivedsgn",
+        "width": 3648,
+        "height": 5472,
+        "description": "An empty downtown street at night with city buildings and traffic lights, creating a peaceful urban scene.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "empty street at night",
+        "score": 1,
+        "components": {
+          "semanticMetadata": 1,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "empty",
+            "street",
+            "at",
+            "night"
+          ],
+          "matchedConcreteTokens": [
+            "empty",
+            "street",
+            "at",
+            "night"
+          ],
+          "primaryVisualAnchors": [
+            "empty",
+            "at",
+            "night"
+          ],
+          "matchedPrimaryVisualAnchors": [
+            "empty",
+            "at",
+            "night"
+          ],
+          "primaryVisualAnchorMatched": true,
+          "matchRatio": 1,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "foreignPoliticalSymbolMismatch": false,
+          "identity": {
+            "required": false,
+            "name": "전자",
+            "role": "감독",
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 1,
+        "finalReviewScore": 1,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": "전자",
+          "role": "감독",
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "finalReview": {
+          "ok": true,
+          "method": "vision_context_shortlist",
+          "candidateCount": 27,
+          "selectedId": "pexels:12689727",
+          "selectedScore": 1,
+          "shortlist": [
+            {
+              "id": "pexels:12689727",
+              "source": "pexels",
+              "query": "empty street at night",
+              "score": 1,
+              "finalReviewScore": 1,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:14072233",
+              "source": "pexels",
+              "query": "empty street at night",
+              "score": 1,
+              "finalReviewScore": 1,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "unsplash:q7hsIjri5PE",
+              "source": "unsplash",
+              "query": "empty street at night",
+              "score": 0.95,
+              "finalReviewScore": 0.9725,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:8942276",
+              "source": "pexels",
+              "query": "empty street at night",
+              "score": 0.8375,
+              "finalReviewScore": 0.8481,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:40293118",
+              "source": "pexels",
+              "query": "empty street at night",
+              "score": 0.8375,
+              "finalReviewScore": 0.7815,
+              "suitabilityReason": "concrete_subject_matched"
+            }
+          ],
+          "visionReview": {
+            "ok": true,
+            "selectedId": "pexels:12689727",
+            "reason": "The image depicts an empty city street at night, which serves as an appropriate contextual illustration for the article's theme of public safety concerns and anxiety about returning home late at night. It avoids misleading specific event symbolism while supporting the general mood of the report.",
+            "evaluations": [
+              {
+                "id": "pexels:12689727",
+                "relevant": true,
+                "countryMismatch": false,
+                "foreignPoliticalSymbol": false,
+                "unrelatedPerson": false,
+                "reason": "The image of a quiet, empty urban street at night effectively illustrates the article's focus on the anxiety surrounding late-night safety and the perception of public security in a city environment."
+              },
+              {
+                "id": "pexels:14072233",
+                "relevant": false,
+                "countryMismatch": true,
+                "foreignPoliticalSymbol": false,
+                "unrelatedPerson": false,
+                "reason": "The image shows a street with distinct European architectural features and signage (e.g., 'Fahrradstraße' in German), which creates a country mismatch for a news report specifically about safety in South Korea."
+              }
+            ],
+            "model": "qwen/qwen3.8-27b"
+          },
+          "gate": "prepared_quality_context_recheck",
+          "reason": "concrete_subject_matched"
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "empty street at night",
+            "count": 20,
+            "suitableCount": 16,
+            "suitabilityRejected": 4,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:17907568",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "at",
+                  "night"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:5976991",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "night"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18561542",
+                "rankWithinQuery": 19,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:19286532",
+                "rankWithinQuery": 20,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 16,
+            "recentReuseBlocked": 0,
+            "bestScore": 1
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "empty street at night",
+            "count": 20,
+            "suitableCount": 11,
+            "suitabilityRejected": 9,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:s1oMlP-RlqU",
+                "rankWithinQuery": 10,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "at",
+                  "night"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:MzVIlXk0AJg",
+                "rankWithinQuery": 12,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:AkZwfISBjBE",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:wuv1yZDZ2n8",
+                "rankWithinQuery": 15,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:Mpa3_xioTRQ",
+                "rankWithinQuery": 16,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [
+                  "night"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:D6Bk1A3-gMA",
+                "rankWithinQuery": 17,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:PpsgIw3iWZ4",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:LPWIw9YMl-o",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:Qq7A85iCzhQ",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "empty",
+                  "street",
+                  "at",
+                  "night"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": "전자",
+                  "role": "감독",
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 11,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.95
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 11,
+          "recentKeyCount": 34,
+          "blockedCandidateCount": 0,
+          "selectedImageKeys": [
+            "pexels:12689727",
+            "https://www.pexels.com/photo/empty-city-road-at-night-12689727/",
+            "https://images.pexels.com/photos/12689727/pexels-photo-12689727.jpeg"
+          ]
+        },
+        "selectionReason": "selected best of 5 context-reviewed unused candidates; source pexels, query rank #1, score 1; 13 unsuitable and 0 recent images blocked",
+        "localSha256": "b98a3ddc93120b5b586ad53a8ce79b3365f0a55c0e41cf7c6e14883a03ada5fb"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494",
+        "mood": "serious",
+        "title": "Moment of Peace",
+        "license": "Pixabay Content License",
+        "source": "https://pixabay.com/music/solo-piano-moment-of-peace-mickeyscat-554494/",
+        "sha256": "2cbc249e7f038abbca64a6d849c0c37c29d132b2088171b715c0055d5339cfed",
+        "reason": "0 recent uses; least-used rotation",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-25T05:31:11.145Z"
       },
       "story": {
         "status": "planned",
@@ -12206,6 +13046,41 @@
           "limit": 2,
           "remaining": 1
         }
+      },
+      "creativeReview": {
+        "ok": true,
+        "selectedId": "rendered-cover",
+        "reason": "The image depicts a dark, empty street scene at night, which serves as an appropriate contextual illustration for the article's theme of public anxiety regarding safety and violent crime. The headline text is clearly legible and matches the editorial title.",
+        "evaluations": [
+          {
+            "id": "rendered-cover",
+            "relevant": true,
+            "countryMismatch": false,
+            "foreignPoliticalSymbol": false,
+            "unrelatedPerson": false,
+            "reason": "The visual of a dark urban street at night effectively conveys the atmosphere of the article's subject (fear of crime/safety concerns) without implying a specific unrelated event. The text is correct."
+          }
+        ],
+        "model": "qwen/qwen3.8-27b",
+        "reviewedArtifactSha256": "7426ca2c840553193330e0203944374f267c3560d8a52693dd12c7381fc31580",
+        "sourceSha256": "07701adcacf81c1f030495ebd5471091a2a20c942a1ea896c86cee01443004ec",
+        "briefSha256": "9a3409f8c78290d25c72c2f23664be6e6dc0ac42eb03527811d161af3dde7ef0",
+        "audioReview": "deterministic_mood_and_track_metadata_only",
+        "reviewedAt": "2026-10-25T05:31:08.081Z",
+        "reviewedReelSha256": "eae6ba3c9859c01e25580e31824891c8ec5d7effb4f7c5fd6a8e225e7ac44be9"
+      },
+      "analytics": {
+        "featureSchemaVersion": 3,
+        "strategyVersion": "discovery-funnel-v3",
+        "reelDurationSeconds": 6
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-10-25/issue/issue-cover.png",
+        "coverSha256": "7426ca2c840553193330e0203944374f267c3560d8a52693dd12c7381fc31580",
+        "scenePaths": [],
+        "reelPath": ".diem-cache/2026-10-25/issue/issue-reel.mp4",
+        "reelSha256": "eae6ba3c9859c01e25580e31824891c8ec5d7effb4f7c5fd6a8e225e7ac44be9",
+        "temporary": true
       }
     }
   },
