@@ -4,7 +4,7 @@
   "date": "2026-10-26",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-25T16:55:56.136Z",
-  "updatedAt": "2026-10-25T16:56:17.042Z",
+  "updatedAt": "2026-10-25T16:57:14.785Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -1950,7 +1950,7 @@
     "issue": {
       "publicationKey": "diem:2026-10-26:issue:40213821984",
       "category": "issue",
-      "status": "planned",
+      "status": "ready",
       "candidate": {
         "title": "한라산엔 300mm 폭우…태풍 '참피' 제주 곳곳 피해",
         "url": "https://n.news.naver.com/article/437/0000517436?ntype=RANKING",
@@ -2129,15 +2129,1185 @@
           "text": "issue | 한라산엔 300mm | 300mm"
         }
       },
-      "editorial": null,
-      "image": null,
-      "audio": null,
+      "editorial": {
+        "schemaVersion": 3,
+        "category": "issue",
+        "reelFormat": "flash",
+        "formatDecision": {
+          "format": "flash",
+          "reason": "explain_disabled",
+          "eligible": false
+        },
+        "titleCandidates": [
+          {
+            "title": "태풍 참피\n제주 곳곳 피해",
+            "lines": [
+              "태풍 참피",
+              "제주 곳곳 피해"
+            ],
+            "source": "model",
+            "score": 100,
+            "valid": true
+          },
+          {
+            "title": "태풍 참피 북상\n제주 피해 잇따라",
+            "lines": [
+              "태풍 참피 북상",
+              "제주 피해 잇따라"
+            ],
+            "source": "model",
+            "score": 90,
+            "valid": true
+          }
+        ],
+        "title": {
+          "text": "태풍 참피\n제주 곳곳 피해",
+          "lines": [
+            "태풍 참피",
+            "제주 곳곳 피해"
+          ],
+          "selectedIndex": 0,
+          "selectionReason": "accuracy_format_clarity_curiosity",
+          "sourceSpans": []
+        },
+        "caption": {
+          "sentences": [
+            "관측 이래 가장 늦은 시기에 우리나라에 영향을 주는 태풍 '참피'가 제주로 북상하며 곳곳에서 피해가 발생했습니다.🌀",
+            "강한 비바람에 나무가 쓰러지고 건물 지하실이 침수됐으며, 한라산 탐방로가 전면 통제되고 항공기와 여객선 운항에도 차질이 빚어졌습니다.",
+            "태풍은 내일 새벽 제주에 가장 가깝게 다가온 뒤 일본 가고시마 쪽으로 향하며 약해지고, 내일부터 대조기가 시작돼 저지대 침수 유의가 당부됐습니다.🌊"
+          ],
+          "text": "관측 이래 가장 늦은 시기에 우리나라에 영향을 주는 태풍 '참피'가 제주로 북상하며 곳곳에서 피해가 발생했습니다.🌀\n\n강한 비바람에 나무가 쓰러지고 건물 지하실이 침수됐으며, 한라산 탐방로가 전면 통제되고 항공기와 여객선 운항에도 차질이 빚어졌습니다.\n\n태풍은 내일 새벽 제주에 가장 가깝게 다가온 뒤 일본 가고시마 쪽으로 향하며 약해지고, 내일부터 대조기가 시작돼 저지대 침수 유의가 당부됐습니다.🌊"
+        },
+        "scenes": [],
+        "emojis": {
+          "first": "🌀",
+          "third": "🌊"
+        },
+        "imageKeyword": "typhoon waves coastal harbor",
+        "comments": {
+          "first": "🌀",
+          "reply": "@diem.magazine #시사 #정책 #오늘의뉴스 #재테크초보 #뉴스요약 #릴스 #diem #diemmagazine #데일리이슈앤이코노미 #태풍참피 #제주 #한라산 #기상특보 #300mm #한라산엔",
+          "compactReply": "@diem.magazine #시사 #정책 #diem #diemmagazine #데일리이슈앤이코노미",
+          "hashtags": [
+            "#시사",
+            "#정책",
+            "#오늘의뉴스",
+            "#재테크초보",
+            "#뉴스요약",
+            "#릴스",
+            "#diem",
+            "#diemmagazine",
+            "#데일리이슈앤이코노미",
+            "#태풍참피",
+            "#제주",
+            "#한라산",
+            "#기상특보",
+            "#300mm",
+            "#한라산엔"
+          ],
+          "hashtagsByRole": {
+            "sector": [
+              "#시사",
+              "#정책",
+              "#오늘의뉴스"
+            ],
+            "audience": [
+              "#재테크초보",
+              "#뉴스요약",
+              "#릴스"
+            ],
+            "brand": [
+              "#diem",
+              "#diemmagazine",
+              "#데일리이슈앤이코노미"
+            ],
+            "topic": [
+              "#태풍참피",
+              "#제주",
+              "#한라산",
+              "#기상특보",
+              "#300mm",
+              "#한라산엔"
+            ]
+          }
+        },
+        "generation": {
+          "method": "model",
+          "model": "claude-opus-5-5",
+          "attempts": [
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial_structure",
+              "status": "failed",
+              "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"300\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"8\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"6\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+              "rejectedDraft": {
+                "schemaVersion": 1,
+                "status": "rejected_not_validated",
+                "sourceSha256": "fec17d5a3c40ef278005159403b5ae49ef838a142e56d7e3382be381f784d75c",
+                "titleCandidates": [
+                  {
+                    "title": "태풍 참피 제주\n한라산 300mm"
+                  },
+                  {
+                    "title": "태풍 참피\n제주 피해 8건"
+                  },
+                  {
+                    "title": "태풍 참피\n내일 새벽\n제주 최근접"
+                  }
+                ],
+                "sentences": [
+                  "기상 관측 이래 가장 늦은 시기에 우리나라에 영향을 주는 태풍 '참피'로 한라산 지역에 300mm가량의 비가 쏟아졌고, 제주에서 모두 8건의 태풍 피해가 접수됐습니다.",
+                  "나무가 쓰러지고 건물 지하실이 침수됐으며, 오후 6시 기준 오늘 제주공항을 오가는 항공기 2편이 결항되고 92편이 지연 운항했고 제주항 여객선 9편도 발이 묶였습니다.",
+                  "태풍은 내일 새벽 3시쯤 제주에 가장 가깝게 다가온 뒤 일본 가고시마 쪽으로 향하며 약해질 전망이며, 내일부터 대조기가 시작돼 저지대 침수에 유의해야 합니다."
+                ],
+                "textMayBeTruncated": true
+              }
+            },
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial_repair",
+              "status": "succeeded"
+            },
+            {
+              "model": "claude-opus-5-5",
+              "stage": "editorial",
+              "status": "succeeded"
+            }
+          ],
+          "provider": "claude-code-subscription",
+          "cliVersion": "2.1.302",
+          "execution": [
+            {
+              "modelIds": [
+                "claude-opus-5-5"
+              ],
+              "turns": 1
+            },
+            {
+              "modelIds": [
+                "claude-opus-5-5"
+              ],
+              "turns": 1
+            }
+          ]
+        },
+        "formatRollout": {
+          "enabled": false,
+          "reason": "explain_disabled"
+        },
+        "creativeBrief": {
+          "schemaVersion": 1,
+          "title": "태풍 참피\n제주 곳곳 피해",
+          "caption": "관측 이래 가장 늦은 시기에 우리나라에 영향을 주는 태풍 '참피'가 제주로 북상하며 곳곳에서 피해가 발생했습니다.🌀\n\n강한 비바람에 나무가 쓰러지고 건물 지하실이 침수됐으며, 한라산 탐방로가 전면 통제되고 항공기와 여객선 운항에도 차질이 빚어졌습니다.\n\n태풍은 내일 새벽 제주에 가장 가깝게 다가온 뒤 일본 가고시마 쪽으로 향하며 약해지고, 내일부터 대조기가 시작돼 저지대 침수 유의가 당부됐습니다.🌊",
+          "sourceSha256": "4ec877750a877784fb8031e442f58e94b97e167429cecd3ae80c25508e2024f6",
+          "imageKeyword": "typhoon waves coastal harbor",
+          "mood": "serious",
+          "sensitive": true
+        }
+      },
+      "image": {
+        "kind": "web",
+        "selectedAt": "2026-10-25T16:56:45.069Z",
+        "id": "pexels:13865777",
+        "source": "pexels",
+        "originalUrl": "https://www.pexels.com/photo/road-signage-near-the-flooded-road-13865777/",
+        "downloadUrl": "https://images.pexels.com/photos/13865777/pexels-photo-13865777.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800",
+        "creator": "Connor Scott McManus",
+        "creatorUrl": "https://www.pexels.com/@connorscottmcmanus",
+        "width": 4160,
+        "height": 6240,
+        "description": "A road closed sign blocks a flooded street after a storm.",
+        "license": {
+          "name": "Pexels License",
+          "url": "https://www.pexels.com/license/"
+        },
+        "query": "heavy rain flooded street storm",
+        "score": 0.74,
+        "components": {
+          "semanticMetadata": 0.6,
+          "resolution": 1,
+          "cropSafety": 1,
+          "watermarkPenalty": 0
+        },
+        "suitability": {
+          "ok": true,
+          "reason": "concrete_subject_matched",
+          "concreteQueryTokens": [
+            "heavy",
+            "rain",
+            "flooded",
+            "street",
+            "storm"
+          ],
+          "matchedConcreteTokens": [
+            "flooded",
+            "street",
+            "storm"
+          ],
+          "primaryVisualAnchors": [
+            "heavy",
+            "rain",
+            "flooded",
+            "storm"
+          ],
+          "matchedPrimaryVisualAnchors": [
+            "flooded",
+            "storm"
+          ],
+          "primaryVisualAnchorMatched": true,
+          "matchRatio": 0.6,
+          "requiredVisualRoles": [],
+          "matchedVisualRoles": [],
+          "missingVisualRoles": [],
+          "requiredGeography": null,
+          "matchedGeography": true,
+          "missingGeography": null,
+          "foreignPoliticalSymbolMismatch": false,
+          "identity": {
+            "required": false,
+            "name": null,
+            "role": null,
+            "depicted": false,
+            "verified": null,
+            "trustedProvider": null,
+            "metadataMatched": null
+          },
+          "personScreening": {
+            "detected": false,
+            "personFreeEvidence": true,
+            "requiredPersonFreeEvidence": true,
+            "safe": true
+          },
+          "selectionRole": "context"
+        },
+        "rankWithinQuery": 3,
+        "finalReviewScore": 0.657,
+        "visualRole": "context",
+        "identity": {
+          "required": false,
+          "name": null,
+          "role": null,
+          "depicted": false,
+          "verified": null,
+          "trustedProvider": null,
+          "metadataMatched": null
+        },
+        "selectedPoolIndex": 1,
+        "selectionPoolSize": 5,
+        "finalReview": {
+          "ok": true,
+          "method": "vision_context_shortlist",
+          "candidateCount": 17,
+          "selectedId": "pexels:13865777",
+          "selectedScore": 0.657,
+          "shortlist": [
+            {
+              "id": "pexels:13865777",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.74,
+              "finalReviewScore": 0.657,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:36312787",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.61,
+              "finalReviewScore": 0.5355,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "unsplash:MQA9RY_vP38",
+              "source": "unsplash",
+              "query": "heavy rain flooded street storm",
+              "score": 0.56,
+              "finalReviewScore": 0.508,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:34584636",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.61,
+              "finalReviewScore": 0.4855,
+              "suitabilityReason": "concrete_subject_matched"
+            },
+            {
+              "id": "pexels:14737175",
+              "source": "pexels",
+              "query": "heavy rain flooded street storm",
+              "score": 0.61,
+              "finalReviewScore": 0.4855,
+              "suitabilityReason": "concrete_subject_matched"
+            }
+          ],
+          "visionReview": {
+            "ok": true,
+            "selectedId": "pexels:13865777",
+            "reason": "The image depicts a flooded street with a 'ROAD CLOSED' sign, which directly supports the article's mention of damage and disruptions (specifically the closure of the Hallasan trail and general flooding) caused by Typhoon Champ. It serves as a relevant contextual illustration for the storm's impact.",
+            "evaluations": [
+              {
+                "id": "pexels:13865777",
+                "relevant": true,
+                "countryMismatch": false,
+                "foreignPoliticalSymbol": false,
+                "unrelatedPerson": false,
+                "reason": "Shows a flooded road with a closure sign, which is a direct and accurate visual representation of the storm damage and trail closures mentioned in the article."
+              },
+              {
+                "id": "pexels:36312787",
+                "relevant": false,
+                "countryMismatch": true,
+                "foreignPoliticalSymbol": false,
+                "unrelatedPerson": false,
+                "reason": "The image shows a flooded area with brick buildings and vegetation that appears to be from a developing region (likely South America), which does not match the urban or mountainous setting of Jeju Island, Korea. It risks misleading the reader about the location."
+              }
+            ],
+            "model": "qwen/qwen3.8-27b"
+          },
+          "gate": "prepared_quality_context_recheck",
+          "reason": "concrete_subject_matched"
+        },
+        "attempts": [
+          {
+            "provider": "pexels",
+            "visualRole": "context",
+            "query": "heavy rain flooded street storm",
+            "count": 20,
+            "suitableCount": 8,
+            "suitabilityRejected": 12,
+            "suitabilityRejections": [
+              {
+                "id": "pexels:30539393",
+                "rankWithinQuery": 2,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "heavy",
+                  "rain",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33628086",
+                "rankWithinQuery": 4,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "heavy",
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33261303",
+                "rankWithinQuery": 5,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:33274240",
+                "rankWithinQuery": 8,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:36288940",
+                "rankWithinQuery": 10,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded",
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:35302178",
+                "rankWithinQuery": 14,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:39457982",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "heavy"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:30561706",
+                "rankWithinQuery": 16,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:32988688",
+                "rankWithinQuery": 17,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:39457990",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "pexels:18312461",
+                "rankWithinQuery": 19,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "pexels:28428673",
+                "rankWithinQuery": 20,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              }
+            ],
+            "eligibleCount": 8,
+            "recentReuseBlocked": 1,
+            "bestScore": 0.74
+          },
+          {
+            "provider": "unsplash",
+            "visualRole": "context",
+            "query": "heavy rain flooded street storm",
+            "count": 20,
+            "suitableCount": 10,
+            "suitabilityRejected": 10,
+            "suitabilityRejections": [
+              {
+                "id": "unsplash:Ogkb9e8tM3k",
+                "rankWithinQuery": 8,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "flooded"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:FK0TsPrJDRw",
+                "rankWithinQuery": 9,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:WHSjT5VaA5g",
+                "rankWithinQuery": 12,
+                "reason": "primary_visual_anchor_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [
+                  "street"
+                ],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:DmJeeEksw9E",
+                "rankWithinQuery": 14,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:VmqY04EUejA",
+                "rankWithinQuery": 15,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:lLE-NWq_ylA",
+                "rankWithinQuery": 16,
+                "reason": "concrete_subject_missing",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": true
+                }
+              },
+              {
+                "id": "unsplash:CYJ8zMlqxrc",
+                "rankWithinQuery": 17,
+                "reason": "unverified_stock_person",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": true,
+                  "personFreeEvidence": true,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:tFaK2b_DBl4",
+                "rankWithinQuery": 18,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:U7nXKK7xavY",
+                "rankWithinQuery": 19,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              },
+              {
+                "id": "unsplash:tbS9zHMvyus",
+                "rankWithinQuery": 20,
+                "reason": "person_free_context_unverified",
+                "concreteQueryTokens": [
+                  "heavy",
+                  "rain",
+                  "flooded",
+                  "street",
+                  "storm"
+                ],
+                "matchedConcreteTokens": [],
+                "requiredVisualRoles": [],
+                "matchedVisualRoles": [],
+                "missingVisualRoles": [],
+                "requiredGeography": null,
+                "matchedGeography": true,
+                "missingGeography": null,
+                "identity": {
+                  "required": false,
+                  "name": null,
+                  "role": null,
+                  "depicted": false,
+                  "verified": null,
+                  "trustedProvider": null,
+                  "metadataMatched": null
+                },
+                "personScreening": {
+                  "detected": false,
+                  "personFreeEvidence": false,
+                  "requiredPersonFreeEvidence": true,
+                  "safe": false
+                }
+              }
+            ],
+            "eligibleCount": 10,
+            "recentReuseBlocked": 0,
+            "bestScore": 0.56
+          }
+        ],
+        "reuseGuard": {
+          "allowed": true,
+          "windowDays": 7,
+          "recentImageCount": 10,
+          "recentKeyCount": 36,
+          "blockedCandidateCount": 1,
+          "selectedImageKeys": [
+            "pexels:13865777",
+            "https://www.pexels.com/photo/road-signage-near-the-flooded-road-13865777/",
+            "https://images.pexels.com/photos/13865777/pexels-photo-13865777.jpeg"
+          ]
+        },
+        "selectionReason": "selected best of 5 context-reviewed unused candidates; source pexels, query rank #3, score 0.657; 22 unsuitable and 1 recent images blocked",
+        "localSha256": "2d9fca873fb31f503851bcff4cb8a04834f2f706a6788653c97572ff5e3efada"
+      },
+      "audio": {
+        "mode": "track",
+        "trackId": "mixkit-serene-view-443",
+        "mood": "serious",
+        "title": "Serene View",
+        "license": "Mixkit Stock Music Free License",
+        "source": "https://assets.mixkit.co/music/download/mixkit-serene-view-443.mp3",
+        "sha256": "93baae1bea4748b0a36d8a8b2d2af1c9391d3abb5e18f2bff270ea91d9a0fd31",
+        "reason": "0 recent uses; sensitive topic requires somber audio",
+        "fallback": false
+      },
       "reel": {
-        "status": "planned",
+        "status": "ready",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-25T16:57:14.778Z"
       },
       "story": {
         "status": "planned",
@@ -2214,6 +3384,41 @@
           "limit": 2,
           "remaining": 2
         }
+      },
+      "creativeReview": {
+        "ok": true,
+        "selectedId": "rendered-cover",
+        "reason": "The image depicts a flooded street with a 'ROAD CLOSED' sign, which directly illustrates the 'damage in various parts of Jeju' (제주 곳곳 피해) mentioned in the headline. The visual evidence of flooding supports the article's subject of Typhoon Champi's impact.",
+        "evaluations": [
+          {
+            "id": "rendered-cover",
+            "relevant": true,
+            "countryMismatch": false,
+            "foreignPoliticalSymbol": false,
+            "unrelatedPerson": false,
+            "reason": "The image shows a flooded road with a barrier, which is a direct and accurate visual representation of the typhoon damage described in the headline. The English text on the sign is incidental to the disaster context and does not constitute a country mismatch."
+          }
+        ],
+        "model": "qwen/qwen3.8-27b",
+        "reviewedArtifactSha256": "68e548f2654a5895d37241c44cbc15743223f5d81cd4aa42a06941b2a925d653",
+        "sourceSha256": "4ec877750a877784fb8031e442f58e94b97e167429cecd3ae80c25508e2024f6",
+        "briefSha256": "507d927334911a0255090a623498929ae9c9d1d2eefdbc78b83fa2f39c8fcbca",
+        "audioReview": "deterministic_mood_and_track_metadata_only",
+        "reviewedAt": "2026-10-25T16:57:12.508Z",
+        "reviewedReelSha256": "958a6508065d1623475ddf7b6c8f331b13b5ccddd5456e0f9dde3a5b108bcf2a"
+      },
+      "analytics": {
+        "featureSchemaVersion": 3,
+        "strategyVersion": "discovery-funnel-v3",
+        "reelDurationSeconds": 6
+      },
+      "artifacts": {
+        "coverPath": ".diem-cache/2026-10-26/issue/issue-cover.png",
+        "coverSha256": "68e548f2654a5895d37241c44cbc15743223f5d81cd4aa42a06941b2a925d653",
+        "scenePaths": [],
+        "reelPath": ".diem-cache/2026-10-26/issue/issue-reel.mp4",
+        "reelSha256": "958a6508065d1623475ddf7b6c8f331b13b5ccddd5456e0f9dde3a5b108bcf2a",
+        "temporary": true
       }
     }
   },
