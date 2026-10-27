@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 293편
-- 생성 시각: 2026-10-26T17:00:16.254Z
+- 발행 원장 Reel: 294편
+- 생성 시각: 2026-10-27T01:12:53.463Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
@@ -18,12 +18,12 @@
 - 전략 코호트: legacy 184편 · discovery-funnel-v3 17편
 
 ## 72h
-- economy: 표본 94편 · reach 중앙값 170.5 · 시청 비율 44.33% · 공유율 0% · 저장률 0%
+- economy: 표본 95편 · reach 중앙값 170 · 시청 비율 46.17% · 공유율 0% · 저장률 0%
 - issue: 표본 111편 · reach 중앙값 261 · 시청 비율 51.47% · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 79편
-- 포맷 코호트: unknown 172편/reach 228.5 · flash 28편/reach 146.5 · explain 5편/reach 200
-- 이미지 코호트: web 62편/reach 1,085.5 · other 18편/reach 1,183 · library 125편/reach 162
-- 전략 코호트: legacy 193편 · discovery-funnel-v3 12편
+- 포맷 코호트: unknown 172편/reach 228.5 · flash 29편/reach 146 · explain 5편/reach 200
+- 이미지 코호트: web 63편/reach 1,081 · other 18편/reach 1,183 · library 125편/reach 162
+- 전략 코호트: legacy 193편 · discovery-funnel-v3 13편
 
 ## 7d
 - economy: 표본 103편 · reach 중앙값 181 · 시청 비율 44.4% · 공유율 0% · 저장률 0%
@@ -35,14 +35,14 @@
 
 ## 이미지·음악 운영
 - 최근 14일 계정 팔로워 순변화: 2 (중복 제거 스냅샷 31개; 게시물별 추정치 합산 금지)
-- 타이포그래피 폴백률: 12.97%
-- 생성 배경 폴백률: 45.73% · 전체 폴백률: 58.7%
-- 이미지 공급원: diem-generated 134편, pexels 106편, diem-original 38편, unsplash 9편, wikimedia 5편, openverse 1편
-- 최근 7일 폴백률: 27.27% (3/11편, 2026-10-21~2026-10-27)
-- 최근 7일 Vision 실패: budget_exhausted 4건, model_error 1건, context_rejected 1건
+- 타이포그래피 폴백률: 12.93%
+- 생성 배경 폴백률: 45.92% · 전체 폴백률: 58.84%
+- 이미지 공급원: diem-generated 135편, pexels 106편, diem-original 38편, unsplash 9편, wikimedia 5편, openverse 1편
+- 최근 7일 폴백률: 33.33% (4/12편, 2026-10-21~2026-10-27)
+- 최근 7일 Vision 실패: budget_exhausted 6건, context_rejected 2건, model_error 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 186건, image_context_unavailable 131건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 186건, image_context_unavailable 132건, unknown 44건
 - 제목 재정제 실패: 49건
 
 ## 해석 주의
