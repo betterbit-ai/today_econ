@@ -4,7 +4,7 @@
   "date": "2026-10-28",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-10-27T15:45:06.244Z",
-  "updatedAt": "2026-10-28T06:28:39.181Z",
+  "updatedAt": "2026-10-28T06:31:39.244Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -173,7 +173,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"1\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"18일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "[속보] 올림픽경기장 투표지 247만장 ‘공개 검증’, “촬영 불허”에 몸싸움…검증 지연",
@@ -211,7 +213,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“지금은 집 안 사는게 이득입니다”…월세 살면 매달 120만원씩 아낀다는 미국",
@@ -249,7 +253,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“잘못 저지른 배경에는”…선처 호소한 ‘대마혐의’ 유명 가수",
@@ -287,7 +293,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "병장이 150만원 받는데 하사 213만원…“누가 부사관 하겠습니까?”",
@@ -325,7 +333,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“16억짜리 일산 부동산 실패”…‘아들 불륜 논란’ 홍서범, 무슨 일이",
@@ -361,7 +371,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "SK하이닉스, 6분기 연속 사상 최대 실적…3Q '꿈의 영업이익률' 80% 달성",
@@ -399,7 +411,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "동거 여자친구 둔기로 살해한 20대 남성, 징역 20년 구형",
@@ -437,7 +451,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "20대 남성, 자전거 타고 경산 남매지 투신…소방 구조",
@@ -475,7 +491,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[단독]잠든 실습생 태우고 속초로…인천 경찰관 ‘강제 이동’ 의혹",
@@ -513,7 +531,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "SK하이닉스, 올해 100조원 주주환원 본격화…주당 2만원에 내년 추가 배당",
@@ -551,7 +571,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2분기\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"40조원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)"
+      ]
     },
     {
       "title": "\"눈에 뭐가 들어간 것 같아요\"…병원 찾은 70대 '충격' [건강!톡]",
@@ -589,7 +611,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "[속보] 정부, 엘리엇 ISDS 환송중재 '패소' 취소소송 제기 안 해",
@@ -625,7 +649,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "헤이지니 해명에…前 직원 \"연봉 25% 인상 없었다\" 반박",
@@ -663,7 +689,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"카트 끌던 자리에 아파트가?\"…홈플러스 문 닫자 벌어진 일",
@@ -699,7 +727,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "젠슨 황과 치맥, 대통령엔 폴더인사…'밈스타' 된 이재용 [오너 브랜딩 시대]",
@@ -737,7 +767,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "\"호의인 척, 짜증 난다\"…이하늘, 이 대통령 '유시민 처벌불원'에 발끈",
@@ -775,7 +807,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "리디아 고 '사과 거부' 주진우 \"사석에서는 사과할 수 있죠…왜 안 했냐면\"",
@@ -813,7 +847,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "\"올해 50세, 9급 합격 첫 출근했습니다\"…늦깎이 신입에 쏟아진 응원",
@@ -851,7 +887,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:economy_low_value"
+      ]
     },
     {
       "title": "\"여론조사 181건에 36억원 쓴 대통령실…내용은 비공개\"",
@@ -889,7 +927,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "8년 넘게 다툰 '엘리엇 배상'…정부, 1530억원 패소 판정 수용",
@@ -925,7 +965,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "아까워서 그냥 마셨는데…찬장 속 묵은 원두, 몸속에서 벌어지는 일",
@@ -963,7 +1005,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“정동영 북한에 딸 있다” “기쁨조 접대”… 정 장관, 허위 주장 유포자 고소",
@@ -1001,7 +1045,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:official_denial_without_confirmed_change"
+      ]
     },
     {
       "title": "[속보] 흉기 든 50대 여성, 초등학교 인근 행인 위협…현행범 체포",
@@ -1039,7 +1085,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "[속보] 정부, 엘리엇 국제투자분쟁 최종 패소…배상 책임 확정",
@@ -1083,7 +1131,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "월~목 ‘10시간’ 일하고 금요일 쉰다?…신입의 기막힌 셈법 따져보니",
@@ -1121,7 +1171,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "침대서 엎드려 스마트폰 보다 스르륵… 목뼈에 ‘20kg 하중’ 실려 디스크 부른다 [헬스&라이프]",
@@ -1159,7 +1211,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“포르노 배우가 애를 왜 낳냐”…아오이 소라, ‘子 학폭 피해’에도 日네티즌 ‘싸늘’ [월드픽]",
@@ -1197,7 +1251,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:issue_low_value"
+      ]
     },
     {
       "title": "부부는 A형인데 아들은 B형? “여보, 나 사실…” 아내 충격 고백했다",
@@ -1235,7 +1291,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“소방관들은 ‘빨대’ 맞다, 꿀잠 자는데 영웅 대접”…현직 공무원의 저격 글 논란 [이슈픽]",
@@ -1273,7 +1331,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“딴 남자 못 만나게” 아내 얼굴에 끓는 물 부은 남편, 감형받았다… “1500만원에 합의해”",
@@ -1311,7 +1371,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "“고기만 찾지 마세요”⋯ 나이 들수록 근육 지켜주는 ‘뜻밖의 밥반찬’ 정체 [헬스픽]",
@@ -1349,7 +1411,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "모텔서 사흘간 반성문 45장 썼다…경찰 닥치자 “감사합니다” 왜",
@@ -1387,7 +1451,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "[단독] “BTS도 싸이도 당했다”…‘1곡당 2억’ AI와의 전쟁, 무슨 일",
@@ -1423,7 +1489,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "‘연봉 2억’ 아시아나 기장, 화장실 청소로 얼마 버나 봤더니",
@@ -1461,7 +1529,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "‘20대女 혼전임신설’ 뜨자 발칵…승리 이미 유부남이었다",
@@ -1499,7 +1569,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_mission_fit_anecdote"
+      ]
     },
     {
       "title": "계좌에 월 1000만원 꽂힌다…국장 고수 확신한 ‘833% 종목’",
@@ -1537,7 +1609,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "민주, ‘김혜경 황제골프’ 주장 주진우 고발하기로…朱 “즉시 맞고발”",
@@ -1575,7 +1649,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:official_denial_without_confirmed_change"
+      ]
     },
     {
       "title": "[단독] ‘미라 시신’ 유기 60대 “비닐·신문으로 내가 덮어” 시인",
@@ -1613,7 +1689,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“한국인들, 왜 이 보물 음악 몰라요?” 영국인 록 팬이 주목한 이 앨범",
@@ -1651,7 +1729,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:primary_article_inaccessible"
+      ]
     },
     {
       "title": "‘마오쩌둥 밈’으로 中서 뭇매 맞은 음바페…결국 3개국어로 사과",
@@ -1689,7 +1769,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "[단독] 증권·코인까지 무차별 해킹… 경찰 내사 착수",
@@ -1727,7 +1809,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "“초 1 여아 찾아요” 밤 10시 안내 방송에… 아파트 주민들 나섰다",
@@ -1763,7 +1847,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy"
+      ]
     },
     {
       "title": "“일주일 2만원으로 버텨요”… 주식 폭락에 직장인들 ‘무지출 챌린지’",
@@ -1801,7 +1887,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     },
     {
       "title": "잠든 태국인 아내에 끓는 물 부은 남편… 합의 후 항소심 감형",
@@ -1839,7 +1927,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:narrow_private_crime_story"
+      ]
     },
     {
       "title": "SK하이닉스 “2030년까지 메모리 공급 부족”… 中 CXMT발 피크아웃 우려 사실상 반박",
@@ -1877,7 +1967,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "issue:assigned_to_economy_after_hydration"
+      ]
     }
   ],
   "candidateRuns": [
@@ -15453,24 +15545,24 @@
     "issue": {
       "publicationKey": "diem:2026-10-28:issue:40643731984",
       "category": "issue",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
-        "title": "스타벅스, 상암MBC 사옥서 철수… “재계약 없이 영업 종료”",
-        "url": "https://n.news.naver.com/article/029/0003055707?ntype=RANKING",
+        "title": "SK하이닉스, 올해 100조원 주주환원 본격화…주당 2만원에 내년 추가 배당",
+        "url": "https://n.news.naver.com/article/003/0014284584?ntype=RANKING",
         "publishedDate": "2026-10-28",
-        "publishedAt": "2026-10-28 09:42:40",
+        "publishedAt": "2026-10-28 14:02:43",
         "observedAt": "2026-10-28T06:28:15.648Z",
-        "popularityScore": 93.9388,
+        "popularityScore": 71.7143,
         "popularitySignalReliable": true,
         "hotness": {
           "ok": true,
           "reason": "regular_hot_news",
-          "score": 89.92,
-          "popularityScore": 93.9388,
-          "freshnessScore": 80,
-          "editorialValueScore": 95,
-          "ageHours": 5.76,
-          "publishedAt": "2026-10-28 09:42:40",
+          "score": 76.19,
+          "popularityScore": 71.7143,
+          "freshnessScore": 100,
+          "editorialValueScore": 45,
+          "ageHours": 1.45,
+          "publishedAt": "2026-10-28 14:02:43",
           "observedAt": "2026-10-28T06:28:15.648Z",
           "freshnessSource": "article_published_at",
           "usedPublishedAtFallback": false,
@@ -15489,24 +15581,26 @@
           {
             "portal": "naver",
             "publisher": null,
-            "rank": 4,
-            "normalizedScore": 93.9388,
-            "title": "스타벅스, 상암MBC 사옥서 철수… “재계약 없이 영업 종료”",
-            "url": "https://n.news.naver.com/article/029/0003055707?ntype=RANKING"
+            "rank": 15,
+            "normalizedScore": 71.7143,
+            "title": "SK하이닉스, 올해 100조원 주주환원 본격화…주당 2만원에 내년 추가 배당",
+            "url": "https://n.news.naver.com/article/003/0014284584?ntype=RANKING"
           }
         ],
         "category": "issue",
-        "fullText": "스타벅스 스타벅스 코리아가 서울 마포구 상암동 MBC 사옥에 입점해 운영하던 ‘상암MBC점’의 영업을 최근 종료하고 철수했다.28일 한국경제신문 보도에 따르면, 상암동 MBC 사옥 내 상업시설인 ‘MBC몰 파크’ 1층에 위치했던 스타벅스 상암MBC점이 임대차 계약 기간 만료에 따라 재계약 없이 영업을 공식 종료했다. 양측이 계약을 연장하지 않은 구체적인 배경은 밝혀지지 않았다.앞서 스타벅스는 5·18 민주화운동 기념일이었던 지난 5월 18일, 텀블러 할인 행사를 진행하며 ‘탱크데이’, ‘책상에 탁’ 등의 문구를 사용해 비판을 받은 바 있다. 이는 5·18 당시 계엄군의 탱크와 박종철 열사 고문치사 사건 당시 정권의 은폐 발언을 연상시킨다는 지적을 받았다.논란 직후 신세계그룹은 스타벅스 코리아 대표이사를 해임하고 공식 사과문을 발표하는 등 수습에 나섰다. 지난 6월에는 전국 매장 영업을 오후 3시에 조기 종료하고 전 직원을 대상으로 역사 인식과 사회적 감수성 특별 교육을 실시했으며 외부 전문기관 자문 절차를 신설하는 등 마케팅 검증 시스템도 개편했다.당시 중단됐던 신제품 출시와 판촉 행사는 지난 7월부터 순차적으로 재개됐다. 이에 따라 매출도 회복세를 나타내고 있다.아이지에이웍스 모바일인덱스 집계에 따르면 지난달 스타벅스의 신용·체크카드 추정 결제액은 1210억8000만원으로 지난 6월 저점(1003억9000만원)을 기록한 이후 7월(1100억6000만원), 8월(1161억2000만원)에 이어 3개월 연속 증가세를 이어갔다.스타벅스는 지난 5월부터 8월까지 4개월간 투썸플레이스에 밀렸던 카드 결제액 순위에서도 9월 들어 약 106억원 차이로 앞서며 선두 자리를 탈환했다.",
-        "summary": "스타벅스 스타벅스 코리아가 서울 마포구 상암동 MBC 사옥에 입점해 운영하던 ‘상암MBC점’의 영업을 최근 종료하고 철수했다.28일 한국경제신문 보도에 따르면, 상암동 MBC 사옥 내 상업시설인 ‘MBC몰 파크’ 1층에 위치했던 스타벅스 상암MBC점이 임대차 계약 기간 만료에 따라 재계약 없이 영업을 공식 종료했다. 양측이 계약을 연장하지 않은 구체적인 배경은 밝혀지지 않았다.앞서 스타벅스는 5·18 민주화운동 기념일이었던 지난 5월 18일, 텀블러 할인 행사를 진행하며 ‘탱크데이’, ‘책상에 탁’ 등의 문구를 사용해 비판을 받은 ",
+        "fullText": "기존 분기배당 375원서 2만원으로 키옥시아 투자 수익 일부 연내 지급…잔여분은 내년 결산 후 [이천=뉴시스] 김종택 기자 = SK하이닉스가 올해 3분기 매출액 104조6155억원, 영업이익 83조3338억원을 기록했다고 28일 밝혔다. SK하이닉스가 분기 기준 매출 100조원을 넘어선 것은 이번이 처음이다.사진은 이날 경기도 이천시 SK하이닉스 본사 모습. 2026.10.28. jtk@newsis.com[서울=뉴시스]박나리 기자 = SK하이닉스가 올해 3분기 주당 2만원의 현금배당을 결정하면서 개인 주주들이 받는 배당금도 늘어날 전망이다. 이번 배당에는 일본 키옥시아 투자 수익에 따른 특별배당이 포함됐으며, 남은 특별배당은 내년 결산 이후 추가로 지급될 예정이다.SK하이닉스는 28일 이사회를 열고 3분기 현금배당을 보통주 1주당 2만원, 총 14조원 규모로 결정했다고 밝혔다.이번 배당금은 실적 개선을 반영한 정규배당 1만원과 일본 키옥시아 투자 수익에 따른 특별배당 1만원으로 구성된다.SK하이닉스는 2025~2027년 주주환원 정책에 따라 주당 연간 1500원의 고정배당을 분기별로 나눠 지급해 왔다. 이에 따라 올해 1·2분기에는 각각 주당 375원을 배당했다.이번 3분기에는 정규배당을 주당 1만원으로 대폭 늘린 데 이어, 키옥시아 투자로 거둔 수익을 특별배당으로 추가하면서 전체 배당금이 2만원으로 됐다.김우현 SK하이닉스 재무부문장은 이날 컨퍼런스콜에서 \"이번 키옥시아 투자로 거둔 성과는 직접 체감하실 수 있도록 투자 수익의 대부분을 특별배당으로 지급할 계획\"이라고 밝혔다.이어 \"올해 결산이 마무리되기 전이지만 현재까지 예상되는 투자 성과의 일부를 주주 여러분과 먼저 나누는 것이 의미 있다고 판단했다\"며 \"3분기에 특별배당 일부를 선제적으로 지급하고, 나머지 특별배당은 투자 성과가 최종 확정된 후 결산배당에 포함해 지급할 예정\"이라고 설명했다.이에 따라 주주들은 이번 3분기 배당으로 특별배당 1만원을 먼저 받고, 내년 2026년 회계연도 결산이 마무리된 이후 잔여 특별배당을 추가로 받게 된다. 이번 배당기준일은 다음 달 30일로, 국내 주식 결제 기간을 고려하면 다음 달 26일까지 주식을 매수해야 배당 대상에 포함된다. 배당금은 기준일로부터 1개월 이내인 12월 중 세금을 공제한 뒤 증권계좌로 지급될 예정이다.내년 결산배당은 별도로 정해지는 배당기준일에 주식을 보유해야 받을 수 있다. 이날 SK하이닉스는 현금배당과 함께 자사주 매입·소각 계획도 발표했다.지난 8월 발표한 40조원 규모의 자사주 매입을 최근 완료했으며, 취득한 주식은 조만간 전량 소각할 예정이다.이와 별도로 20조원 규모의 자사주 매입을 추가로 결정했다. 이 가운데 10조원은 매입 후 전량 소각하고, 나머지 10조원은 임직원 보상에 활용할 계획이다.김 부문장은 \"현재 당사의 주가는 창출하는 이익과 현금흐름을 충분히 반영하지 못하고 저평가돼 있다고 보고 있다\"며 \"이러한 상황에서 자기주식을 매입해 소각하는 것이 주당 가치를 높이는 효과적인 방법이라고 판단했다\"고 말했다.곽노정 SK하이닉스 대표이사 사장도 이날 컨퍼런스콜에서 \"사업의 성장과 투자 성과가 쌓일수록 주주 여러분과 나누는 결실도 함께 커져야 한다고 생각한다\"며 \"앞으로도 지속적인 실적 창출로 미래 성장에 대한 신뢰를 쌓고, 그 결실을 주주 여러분과 함께 나누겠다\"고 강조했다．",
+        "summary": "기존 분기배당 375원서 2만원으로 키옥시아 투자 수익 일부 연내 지급…잔여분은 내년 결산 후 [이천=뉴시스] 김종택 기자 = SK하이닉스가 올해 3분기 매출액 104조6155억원, 영업이익 83조3338억원을 기록했다고 28일 밝혔다. SK하이닉스가 분기 기준 매출 100조원을 넘어선 것은 이번이 처음이다.사진은 이날 경기도 이천시 SK하이닉스 본사 모습. 2026.10.28. jtk@newsis.com[서울=뉴시스]박나리 기자 = SK하이닉스가 올해 3분기 주당 2만원의 현금배당을 결정하면서 개인 주주들이 받는 배당금도 늘어날 ",
         "topicSignature": {
           "category": "issue",
-          "target": "스타벅스",
-          "event": "정치 발언",
+          "target": "반도체",
+          "event": "실적 발표",
           "entities": [
-            "상암MBC"
+            "SK하이닉스",
+            "100조원",
+            "2만원에"
           ],
           "eventKey": null,
-          "text": "issue | 스타벅스 | 정치 발언 | 상암MBC"
+          "text": "issue | 반도체 | 실적 발표 | SK하이닉스 100조원 2만원에"
         },
         "newsFrame": {
           "category": "issue",
@@ -15514,41 +15608,21 @@
           "classificationReasons": [
             "category:issue"
           ],
-          "publicInterestAnchor": "전국",
+          "publicInterestAnchor": "정책",
           "rejectionReason": null,
-          "subject": "스타벅스",
-          "primaryActor": "스타벅스",
-          "attributionMode": "single_speaker_quote",
+          "subject": "반도체",
+          "primaryActor": null,
+          "attributionMode": null,
           "subjectTerms": [
-            "스타벅스"
+            "반도체"
           ],
-          "eventKind": "political_statement",
-          "eventLabel": "정치 발언",
+          "eventKind": "earnings",
+          "eventLabel": "실적 발표",
           "eventTerms": [
-            "언급",
-            "발언",
-            "주장",
-            "말해",
-            "말했",
-            "라고 했다",
-            "밝혔",
-            "전했",
-            "호소",
-            "강조",
-            "비판",
-            "평가",
-            "전망",
-            "지적",
-            "진단",
-            "예상",
-            "내다",
-            "꼬집",
-            "경고",
-            "설명",
-            "분석"
+            "실적"
           ],
           "eventKey": null,
-          "claimState": "reported",
+          "claimState": "decided",
           "evidenceState": "established_or_not_stated",
           "date": "28일",
           "requiredTitleTerms": [],
@@ -15556,21 +15630,20 @@
           "competitiveState": null,
           "competitiveLeader": null,
           "competitiveSectors": [],
-          "readerNeed": "public_interest"
+          "readerNeed": "market"
         },
         "editorialValue": {
           "ok": true,
-          "score": 95,
+          "score": 45,
           "signals": [
-            "reader_money_work_life_impact",
             "concrete_event_or_decision",
-            "broad_audience_or_market_scope",
             "issue_core_topic"
           ],
           "penalties": [],
           "contentValueSignals": [
             "money_impact",
-            "policy_change"
+            "policy_change",
+            "market_movement"
           ],
           "observedMarketEvidence": null,
           "reason": "passes_editorial_value_gate",
@@ -15580,41 +15653,21 @@
             "classificationReasons": [
               "category:issue"
             ],
-            "publicInterestAnchor": "전국",
+            "publicInterestAnchor": "정책",
             "rejectionReason": null,
-            "subject": "스타벅스",
-            "primaryActor": "스타벅스",
-            "attributionMode": "single_speaker_quote",
+            "subject": "반도체",
+            "primaryActor": null,
+            "attributionMode": null,
             "subjectTerms": [
-              "스타벅스"
+              "반도체"
             ],
-            "eventKind": "political_statement",
-            "eventLabel": "정치 발언",
+            "eventKind": "earnings",
+            "eventLabel": "실적 발표",
             "eventTerms": [
-              "언급",
-              "발언",
-              "주장",
-              "말해",
-              "말했",
-              "라고 했다",
-              "밝혔",
-              "전했",
-              "호소",
-              "강조",
-              "비판",
-              "평가",
-              "전망",
-              "지적",
-              "진단",
-              "예상",
-              "내다",
-              "꼬집",
-              "경고",
-              "설명",
-              "분석"
+              "실적"
             ],
             "eventKey": null,
-            "claimState": "reported",
+            "claimState": "decided",
             "evidenceState": "established_or_not_stated",
             "date": "28일",
             "requiredTitleTerms": [],
@@ -15622,21 +15675,21 @@
             "competitiveState": null,
             "competitiveLeader": null,
             "competitiveSectors": [],
-            "readerNeed": "public_interest"
+            "readerNeed": "market"
           },
-          "baseScore": 95,
+          "baseScore": 45,
           "performancePrior": {
             "adjustment": 0,
-            "window": "24h",
+            "window": null,
             "matched": [],
-            "reason": "no_repeated_feature_signal"
+            "reason": "legacy_feature_schema_report_only"
           }
         },
         "performancePrior": {
           "adjustment": 0,
-          "window": "24h",
+          "window": null,
           "matched": [],
-          "reason": "no_repeated_feature_signal"
+          "reason": "legacy_feature_schema_report_only"
         },
         "classificationTrace": {
           "initial": {
@@ -15663,54 +15716,66 @@
       "duplicateCheck": {
         "duplicate": false,
         "repeatOverride": false,
-        "score": 0.5895,
+        "score": 0.6364,
         "method": "embedding",
         "reason": "below_threshold",
-        "matchedPublicationKey": "diem:2026-10-24:issue:40065235930",
+        "matchedPublicationKey": "diem:2026-10-25:issue:40165586850",
         "signature": {
           "category": "issue",
-          "target": "스타벅스",
-          "event": "정치 발언",
+          "target": "반도체",
+          "event": "실적 발표",
           "entities": [
-            "상암MBC"
+            "SK하이닉스",
+            "100조원",
+            "2만원에"
           ],
           "eventKey": null,
-          "text": "issue | 스타벅스 | 정치 발언 | 상암MBC"
+          "text": "issue | 반도체 | 실적 발표 | SK하이닉스 100조원 2만원에"
         }
       },
       "editorial": null,
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2분기\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"40조원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+        "updatedAt": "2026-10-28T06:31:37.897Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-28T06:31:37.897Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-28T06:31:37.897Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-10-28T06:31:37.897Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-10-28:issue:40643731984:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-10-28T06:31:39.242Z",
+          "slackTs": "1793169098.032279",
+          "issueNumber": 223,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/223"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-10-28T06:28:39.168Z",
       "hotness": {
         "ok": true,
@@ -15764,6 +15829,191 @@
           "limit": 2,
           "remaining": 1
         }
+      },
+      "artifacts": null,
+      "generation": {
+        "status": "no_publish",
+        "attempts": 2,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2분기\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"40조원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+        "candidateFailures": [
+          {
+            "title": "스타벅스, 상암MBC 사옥서 철수… “재계약 없이 영업 종료”",
+            "url": "https://n.news.naver.com/article/029/0003055707?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"1\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"18일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"1\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"5월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"18일\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "e69c2dd6570a193c1df626c0c1bf215fe36075e786550f6e1b9e87b4de577e18",
+                  "titleCandidates": [
+                    {
+                      "title": "스타벅스\n상암MBC점\n영업 종료"
+                    },
+                    {
+                      "title": "스타벅스\nMBC 사옥점\n재계약 없이 철수"
+                    },
+                    {
+                      "title": "스타벅스\n상암MBC점 철수"
+                    }
+                  ],
+                  "sentences": [
+                    "스타벅스 코리아가 서울 마포구 상암동 MBC 사옥 내 'MBC몰 파크' 1층에서 운영하던 상암MBC점의 영업을 임대차 계약 기간 만료에 따라 재계약 없이 공식 종료했습니다.",
+                    "양측이 계약을 연장하지 않은 구체적 배경은 밝혀지지 않았으며, 스타벅스는 앞서 5월 18일 텀블러 할인 행사에서 '탱크데이' 등의 문구를 사용해 비판을 받은 바 있습니다.",
+                    "모바일인덱스 집계상 스타벅스의 지난달 신용·체크카드 추정 결제액은 1210억8000만원으로 6월 저점 이후 3개월 연속 늘었고, 카드 결제액 순위에서도 9월 들어 투썸플레이스를 약 106억원 차이로 앞서며 선두를 탈환했습니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary event",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "e69c2dd6570a193c1df626c0c1bf215fe36075e786550f6e1b9e87b4de577e18",
+                  "titleCandidates": [
+                    {
+                      "title": "스타벅스\n상암MBC점\n영업 종료"
+                    }
+                  ],
+                  "sentences": [
+                    "스타벅스 코리아가 서울 마포구 상암동 MBC 사옥에 입점했던 상암MBC점의 영업을 종료하고 철수했다고 한국경제신문이 보도했다.",
+                    "해당 매장은 임대차 계약 기간 만료에 따라 재계약 없이 영업을 공식 종료했으며, 계약을 연장하지 않은 구체적 배경은 밝혀지지 않았다.",
+                    "스타벅스는 앞서 텀블러 할인 행사 문구로 비판을 받았으나 이후 신제품 출시와 판촉 행사를 재개하며 매출 회복세를 보이고 있다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary event",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "e69c2dd6570a193c1df626c0c1bf215fe36075e786550f6e1b9e87b4de577e18",
+                  "titleCandidates": [
+                    {
+                      "title": "스타벅스\n상암MBC점\n영업 종료"
+                    },
+                    {
+                      "title": "스타벅스\nMBC 사옥점\n재계약 없이 철수"
+                    },
+                    {
+                      "title": "스타벅스\n상암MBC점 철수"
+                    }
+                  ],
+                  "sentences": [
+                    "스타벅스 코리아가 서울 마포구 상암동 MBC 사옥 내 'MBC몰 파크' 1층에서 운영하던 상암MBC점의 영업을 임대차 계약 기간 만료에 따라 재계약 없이 공식 종료했습니다.",
+                    "양측이 계약을 연장하지 않은 구체적 배경은 밝혀지지 않았으며, 스타벅스는 앞서 5월 18일 텀블러 할인 행사에서 '탱크데이' 등의 문구를 사용해 비판을 받은 바 있습니다.",
+                    "모바일인덱스 집계상 스타벅스의 지난달 신용·체크카드 추정 결제액은 1210억8000만원으로 6월 저점 이후 3개월 연속 늘었고, 카드 결제액 순위에서도 9월 들어 투썸플레이스를 약 106억원 차이로 앞서며 선두를 탈환했습니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-28T06:29:03.104Z"
+          },
+          {
+            "title": "SK하이닉스, 올해 100조원 주주환원 본격화…주당 2만원에 내년 추가 배당",
+            "url": "https://n.news.naver.com/article/003/0014284584?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/editorial_structure: model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2분기\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"40조원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | claude-opus-5-5/editorial_repair: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event | claude-opus-5-5/editorial: editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event)",
+            "modelAttempts": [
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"2분기\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"8월\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":2,\"number\":\"40조원\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "7d301461687eba3155e9e72473d8b0a4c830940c9549850692cb0de9c3fbc567",
+                  "titleCandidates": [
+                    {
+                      "title": "SK하이닉스\n주당 2만원\n배당 결정"
+                    },
+                    {
+                      "title": "SK하이닉스\n3분기 배당\n14조원 결정"
+                    },
+                    {
+                      "title": "SK하이닉스\n배당 375원→\n2만원"
+                    }
+                  ],
+                  "sentences": [
+                    "SK하이닉스가 28일 이사회에서 3분기 현금배당을 보통주 1주당 2만원, 총 14조원 규모로 결정했으며, 올해 1·2분기에 각각 주당 375원이던 배당이 크게 늘었습니다.",
+                    "이번 배당은 정규배당 1만원과 일본 키옥시아 투자 수익에 따른 특별배당 1만원으로 구성되며, 남은 특별배당은 2026년 회계연도 결산 이후 추가로 지급될 예정입니다.",
+                    "SK하이닉스는 지난 8월 발표한 40조원 규모 자사주 매입을 마쳐 전량 소각하고, 20조원을 추가 매입해 10조원은 소각, 10조원은 임직원 보상에 쓸 계획입니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "7d301461687eba3155e9e72473d8b0a4c830940c9549850692cb0de9c3fbc567",
+                  "titleCandidates": [
+                    {
+                      "title": "SK하이닉스\n배당 확대 결정"
+                    }
+                  ],
+                  "sentences": [
+                    "SK하이닉스가 이사회를 열고 정규배당과 특별배당으로 구성된 현금배당을 결정했다.",
+                    "특별배당은 일본 키옥시아 투자 수익에 따른 것으로, 일부를 먼저 지급하고 잔여분은 내년 결산 이후 지급할 예정이다.",
+                    "SK하이닉스는 기존 자사주 매입을 완료해 전량 소각할 예정이며, 자사주 매입도 추가로 결정했다고 밝혔다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned content outside the primary news frame: caption first sentence omits the primary subject; caption first sentence omits the primary event",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "7d301461687eba3155e9e72473d8b0a4c830940c9549850692cb0de9c3fbc567",
+                  "titleCandidates": [
+                    {
+                      "title": "SK하이닉스\n주당 2만원\n배당 결정"
+                    },
+                    {
+                      "title": "SK하이닉스\n3분기 배당\n14조원 결정"
+                    },
+                    {
+                      "title": "SK하이닉스\n배당 375원→\n2만원"
+                    }
+                  ],
+                  "sentences": [
+                    "SK하이닉스가 28일 이사회에서 3분기 현금배당을 보통주 1주당 2만원, 총 14조원 규모로 결정했으며, 올해 1·2분기에 각각 주당 375원이던 배당이 크게 늘었습니다.",
+                    "이번 배당은 정규배당 1만원과 일본 키옥시아 투자 수익에 따른 특별배당 1만원으로 구성되며, 남은 특별배당은 2026년 회계연도 결산 이후 추가로 지급될 예정입니다.",
+                    "SK하이닉스는 지난 8월 발표한 40조원 규모 자사주 매입을 마쳐 전량 소각하고, 20조원을 추가 매입해 10조원은 소각, 10조원은 임직원 보상에 쓸 계획입니다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-10-28T06:29:49.259Z"
+          }
+        ],
+        "updatedAt": "2026-10-28T06:31:37.897Z"
       }
     }
   },
