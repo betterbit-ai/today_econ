@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 299편
-- 생성 시각: 2026-10-29T03:55:30.566Z
+- 생성 시각: 2026-10-29T10:51:30.284Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: insufficient_data
 
@@ -18,15 +18,15 @@
 - 전략 코호트: legacy 184편 · discovery-funnel-v3 23편
 
 ## 72h
-- economy: 표본 95편 · reach 중앙값 170 · 시청 비율 46.17% · 공유율 0% · 저장률 0%
-- issue: 표본 115편 · reach 중앙값 261 · 시청 비율 48.26% · 공유율 0% · 저장률 0%
+- economy: 표본 96편 · reach 중앙값 169 · 시청 비율 47.27% · 공유율 0% · 저장률 0%
+- issue: 표본 116편 · reach 중앙값 256.5 · 시청 비율 45.78% · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(17,190), 바이든 암 / 전이 확인(13,132), 선관위 / 서울시장 소청 기각(4,869), 북 미사일 발사 / 김여정 조롱(3,277), 한동훈 흉기 / 징역 1년 확정(2,761)
   - 부진 후보: 이재명 대통령 / 검찰개혁 발언(23), 모기 활동 / 주의 권고(24), 박선원 공개 / 공익제보자 위반(33), 배현진 비판 / 이재명 물(39), 송지은 눈물 / 새롭게하소서(42)
-  - 특성 신호: reader_need:market insufficient_data×5.25, reader_need:housing insufficient_data×5.19, public_decision insufficient_data×2.89, reader_need:public_interest underperformer×0.59
+  - 특성 신호: reader_need:market insufficient_data×8.79, reader_need:housing insufficient_data×8.69, household_money insufficient_data×0.98
 - 정시 비교에서 제외한 늦은 백필: 79편
-- 포맷 코호트: unknown 172편/reach 228.5 · flash 33편/reach 146 · explain 5편/reach 200
-- 이미지 코호트: web 67편/reach 1,081 · other 18편/reach 1,183 · library 125편/reach 162
-- 전략 코호트: legacy 193편 · discovery-funnel-v3 17편
+- 포맷 코호트: unknown 172편/reach 228.5 · flash 35편/reach 145 · explain 5편/reach 200
+- 이미지 코호트: web 68편/reach 1,045.5 · other 18편/reach 1,183 · library 126편/reach 161.5
+- 전략 코호트: legacy 193편 · discovery-funnel-v3 19편
 
 ## 7d
 - economy: 표본 105편 · reach 중앙값 181 · 시청 비율 44.4% · 공유율 0% · 저장률 0%
@@ -37,7 +37,7 @@
 - 전략 코호트: legacy 217편 · discovery-funnel-v3 10편
 
 ## 이미지·음악 운영
-- 최근 14일 계정 팔로워 순변화: 2 (중복 제거 스냅샷 35개; 게시물별 추정치 합산 금지)
+- 최근 14일 계정 팔로워 순변화: 3 (중복 제거 스냅샷 34개; 게시물별 추정치 합산 금지)
 - 타이포그래피 폴백률: 12.71%
 - 생성 배경 폴백률: 45.48% · 전체 폴백률: 58.19%
 - 이미지 공급원: diem-generated 136편, pexels 110편, diem-original 38편, unsplash 9편, wikimedia 5편, openverse 1편
@@ -45,7 +45,7 @@
 - 최근 7일 Vision 실패: budget_exhausted 4건, context_rejected 2건, model_error 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 191건, image_context_unavailable 135건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 191건, image_context_unavailable 138건, unknown 44건
 - 제목 재정제 실패: 49건
 
 ## 해석 주의

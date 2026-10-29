@@ -1,33 +1,33 @@
 {
   "schemaVersion": 3,
   "featureSchemaVersion": 3,
-  "generatedAt": "2026-10-29T03:55:30.566Z",
+  "generatedAt": "2026-10-29T10:51:30.284Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.",
   "publishedCount": 299,
   "basicPublishedCount": 4,
   "operations": {
-    "totalRuns": 683,
+    "totalRuns": 685,
     "noPublishReasons": {
       "no_candidate_passed_hotness_gate": {
         "count": 115,
-        "share": 33.33
+        "share": 33.14
       },
       "no_candidate_passed_editorial_generation": {
         "count": 101,
-        "share": 29.28
+        "share": 29.11
       },
       "no_candidate_passed_preparation": {
-        "count": 71,
-        "share": 20.58
+        "count": 73,
+        "share": 21.04
       },
       "daily_publication_budget_exhausted": {
         "count": 44,
-        "share": 12.75
+        "share": 12.68
       },
       "no_candidate_passed_daily_floor_gates": {
         "count": 11,
-        "share": 3.19
+        "share": 3.17
       },
       "no_candidate_passed_quality_gates": {
         "count": 2,
@@ -41,15 +41,15 @@
     "candidateFailureReasons": {
       "editorial_generation_failed": {
         "count": 191,
-        "share": 51.62
+        "share": 51.21
       },
       "image_context_unavailable": {
-        "count": 135,
-        "share": 36.49
+        "count": 138,
+        "share": 37
       },
       "unknown": {
         "count": 44,
-        "share": 11.89
+        "share": 11.8
       }
     },
     "titleRepairFailures": 49,
@@ -582,25 +582,25 @@
       }
     },
     "72h": {
-      "sampleCount": 210,
+      "sampleCount": 212,
       "excludedLateBackfills": 79,
       "categories": {
         "economy": {
           "status": "insufficient_data",
-          "samples": 95,
-          "learningSamples": 7,
+          "samples": 96,
+          "learningSamples": 8,
           "legacyReportOnlySamples": 88,
           "minimumSamples": 10,
           "metrics": {
-            "viewsMedian": 217,
-            "reachMedian": 170,
+            "viewsMedian": 216,
+            "reachMedian": 169,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "positiveSaveOrShareRate": 30.53,
-            "utilitySamples": 95,
-            "engagementRateMedian": 2.11,
-            "averageWatchTimeMedian": 2942,
-            "normalizedWatchRatioMedian": 0.4617
+            "positiveSaveOrShareRate": 30.21,
+            "utilitySamples": 96,
+            "engagementRateMedian": 2.125,
+            "averageWatchTimeMedian": 2937,
+            "normalizedWatchRatioMedian": 0.4727
           },
           "winners": [],
           "underperformers": [],
@@ -609,20 +609,20 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 115,
-          "learningSamples": 10,
+          "samples": 116,
+          "learningSamples": 11,
           "legacyReportOnlySamples": 105,
           "minimumSamples": 10,
           "metrics": {
-            "viewsMedian": 338,
-            "reachMedian": 261,
+            "viewsMedian": 336,
+            "reachMedian": 256.5,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "positiveSaveOrShareRate": 38.26,
-            "utilitySamples": 115,
-            "engagementRateMedian": 2.42,
-            "averageWatchTimeMedian": 3444,
-            "normalizedWatchRatioMedian": 0.48264999999999997
+            "positiveSaveOrShareRate": 37.93,
+            "utilitySamples": 116,
+            "engagementRateMedian": 2.4299999999999997,
+            "averageWatchTimeMedian": 3430.5,
+            "normalizedWatchRatioMedian": 0.4578
           },
           "winners": [
             {
@@ -975,43 +975,50 @@
               "feature": "reader_need:market",
               "samples": 1,
               "reachMedian": 1143,
-              "lift": 5.255,
+              "lift": 8.792,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:housing",
               "samples": 1,
               "reachMedian": 1129,
-              "lift": 5.191,
-              "signal": "insufficient_data"
-            },
-            {
-              "feature": "public_decision",
-              "samples": 4,
-              "reachMedian": 629,
-              "lift": 2.892,
+              "lift": 8.685,
               "signal": "insufficient_data"
             },
             {
               "feature": "concrete_number",
-              "samples": 10,
-              "reachMedian": 217.5,
+              "samples": 11,
+              "reachMedian": 130,
               "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "event:general",
-              "samples": 10,
-              "reachMedian": 217.5,
+              "samples": 11,
+              "reachMedian": 130,
               "lift": 1,
               "signal": "neutral"
             },
             {
+              "feature": "public_decision",
+              "samples": 5,
+              "reachMedian": 129,
+              "lift": 0.992,
+              "signal": "neutral"
+            },
+            {
               "feature": "reader_need:public_interest",
-              "samples": 8,
-              "reachMedian": 129.5,
-              "lift": 0.595,
-              "signal": "underperformer"
+              "samples": 9,
+              "reachMedian": 129,
+              "lift": 0.992,
+              "signal": "neutral"
+            },
+            {
+              "feature": "household_money",
+              "samples": 1,
+              "reachMedian": 127,
+              "lift": 0.977,
+              "signal": "insufficient_data"
             }
           ],
           "caveat": "같은 관찰 구간의 reach만 비교하며 views는 reach 대체값으로 쓰지 않습니다."
@@ -1027,8 +1034,8 @@
             "shareRateMedian": 0
           },
           "flash": {
-            "samples": 33,
-            "reachMedian": 146,
+            "samples": 35,
+            "reachMedian": 145,
             "normalizedWatchRatioMedian": 0.4617,
             "savedRateMedian": 0,
             "shareRateMedian": 0
@@ -1043,25 +1050,25 @@
         },
         "category": {
           "economy": {
-            "samples": 95,
-            "reachMedian": 170,
-            "normalizedWatchRatioMedian": 0.4617,
+            "samples": 96,
+            "reachMedian": 169,
+            "normalizedWatchRatioMedian": 0.4727,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           },
           "issue": {
-            "samples": 115,
-            "reachMedian": 261,
-            "normalizedWatchRatioMedian": 0.48264999999999997,
+            "samples": 116,
+            "reachMedian": 256.5,
+            "normalizedWatchRatioMedian": 0.4578,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           }
         },
         "image": {
           "web": {
-            "samples": 67,
-            "reachMedian": 1081,
-            "normalizedWatchRatioMedian": 0.5075,
+            "samples": 68,
+            "reachMedian": 1045.5,
+            "normalizedWatchRatioMedian": 0.4956,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           },
@@ -1073,9 +1080,9 @@
             "shareRateMedian": 0.042
           },
           "library": {
-            "samples": 125,
-            "reachMedian": 162,
-            "normalizedWatchRatioMedian": 0.40825,
+            "samples": 126,
+            "reachMedian": 161.5,
+            "normalizedWatchRatioMedian": 0.3917,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           }
@@ -1089,7 +1096,7 @@
             "shareRateMedian": 0
           },
           "discovery-funnel-v3": {
-            "samples": 17,
+            "samples": 19,
             "reachMedian": 133,
             "normalizedWatchRatioMedian": 0.4617,
             "savedRateMedian": 0,
@@ -1235,16 +1242,16 @@
   },
   "followers": {
     "periodDays": 14,
-    "snapshots": 35,
+    "snapshots": 34,
     "first": {
-      "collectedAt": "2026-10-15T06:23:53.803Z",
-      "followers": 335
+      "collectedAt": "2026-10-17T03:11:50.385Z",
+      "followers": 334
     },
     "latest": {
-      "collectedAt": "2026-10-28T20:57:52.644Z",
+      "collectedAt": "2026-10-29T10:51:26.133Z",
       "followers": 337
     },
-    "netChange": 2,
+    "netChange": 3,
     "attribution": "deduplicated_14d_account_snapshots_not_summed_post_deltas"
   },
   "successCriteria": {
@@ -1282,7 +1289,7 @@
     },
     "followerNetChange14d": {
       "target": 1,
-      "value": 2
+      "value": 3
     },
     "qualityIncidents": {
       "target": 0,
