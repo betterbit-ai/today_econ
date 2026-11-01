@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 304편
-- 생성 시각: 2026-11-01T00:54:30.128Z
+- 생성 시각: 2026-11-01T11:04:25.869Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: not_achieved
 
@@ -10,36 +10,38 @@
 - economy: 표본 97편 · reach 중앙값 159 · 시청 비율 47.48% · 공유율 0% · 저장률 0%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(48,589), 공무원 / 광고 사과(2,549), 백악관 경고 / 중국 환적 우려(1,584), 외국인 난투극 / 경찰 체포·추적(1,430), 미국 관세 압박 / 한국 대응(1,380)
   - 특성 신호: reader_need:household_cost insufficient_data×2.16, event:semiconductor insufficient_data×2.14, event:housing_policy insufficient_data×1.07, reader_need:public_interest insufficient_data×1.05, housing_money insufficient_data×1.05, reader_need:housing insufficient_data×1.05, work_life insufficient_data×0.99, reader_need:tax insufficient_data×0.98
-- issue: 표본 114편 · reach 중앙값 208 · 시청 비율 50.75% · 공유율 0% · 저장률 0%
+- issue: 표본 115편 · reach 중앙값 204 · 시청 비율 49.79% · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(12,743), 선관위 / 서울시장 소청 기각(4,775), 북 미사일 발사 / 김여정 조롱(3,258), 한동훈 흉기 / 징역 1년 확정(2,700), 트럼프 분노 / 한국 희생양(2,363)
   - 부진 후보: 이재명 대통령 / 검찰개혁 발언(20), 모기 활동 / 주의 권고(22), 박선원 공개 / 공익제보자 위반(29), 지뢰조사 지연 / 정치 대립(34), 송지은 눈물 / 새롭게하소서(36)
-  - 특성 신호: reader_need:market insufficient_data×8.45, reader_need:housing insufficient_data×4.7, household_money insufficient_data×0.92
+  - 특성 신호: reader_need:market insufficient_data×8.64, reader_need:housing insufficient_data×4.81, household_money insufficient_data×0.94
 - 정시 비교에서 제외한 늦은 백필: 90편
-- 포맷 코호트: unknown 161편/reach 192 · flash 45편/reach 139 · explain 5편/reach 191
-- 이미지 코호트: web 66편/reach 463 · other 15편/reach 1,105 · library 130편/reach 156.5
-- 전략 코호트: legacy 184편 · discovery-funnel-v3 27편
+- 포맷 코호트: unknown 161편/reach 192 · flash 46편/reach 137.5 · explain 5편/reach 191
+- 이미지 코호트: web 66편/reach 463 · other 15편/reach 1,105 · library 131편/reach 156
+- 전략 코호트: legacy 184편 · discovery-funnel-v3 28편
 
 ## 72h
-- economy: 표본 97편 · reach 중앙값 168 · 시청 비율 48.37% · 공유율 0% · 저장률 0%
+- economy: 표본 98편 · reach 중앙값 168 · 시청 비율 47.27% · 공유율 0% · 저장률 0%
+  - 반복 후보: 이재명 / ISA 개편 중단(398,437), 비거주1주택 / 징벌과세 결정(82,113), 공무원 / 광고 사과(2,693), 보유세 개편 / 결정(1,628), 백악관 경고 / 중국 환적 우려(1,601)
+  - 특성 신호: event:semiconductor insufficient_data×3.6, reader_need:household_cost insufficient_data×2.24, housing_money insufficient_data×1.04, reader_need:housing insufficient_data×1.04, event:housing_policy insufficient_data×1.04, reader_need:public_interest insufficient_data×1.01, work_life insufficient_data×0.99, reader_need:tax insufficient_data×0.95
 - issue: 표본 120편 · reach 중앙값 247 · 시청 비율 49.88% · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(17,190), 바이든 암 / 전이 확인(13,132), 선관위 / 서울시장 소청 기각(4,869), 북 미사일 발사 / 김여정 조롱(3,277), 한동훈 흉기 / 징역 1년 확정(2,761)
   - 부진 후보: 이재명 대통령 / 검찰개혁 발언(23), 모기 활동 / 주의 권고(24), 박선원 공개 / 공익제보자 위반(33), 배현진 비판 / 이재명 물(39), 송지은 눈물 / 새롭게하소서(42)
   - 특성 신호: reader_need:market insufficient_data×7.72, reader_need:housing insufficient_data×4.32, household_money insufficient_data×0.86
 - 정시 비교에서 제외한 늦은 백필: 79편
-- 포맷 코호트: unknown 172편/reach 228.5 · flash 40편/reach 145.5 · explain 5편/reach 200
-- 이미지 코호트: web 72편/reach 918.5 · other 18편/reach 1,183 · library 127편/reach 161
-- 전략 코호트: legacy 193편 · discovery-funnel-v3 24편
+- 포맷 코호트: unknown 172편/reach 228.5 · flash 41편/reach 145 · explain 5편/reach 200
+- 이미지 코호트: web 72편/reach 918.5 · other 18편/reach 1,183 · library 128편/reach 161
+- 전략 코호트: legacy 193편 · discovery-funnel-v3 25편
 
 ## 7d
 - economy: 표본 106편 · reach 중앙값 179 · 시청 비율 46.1% · 공유율 0% · 저장률 0%
-- issue: 표본 126편 · reach 중앙값 335 · 시청 비율 53.24% · 공유율 0% · 저장률 0%
+- issue: 표본 127편 · reach 중앙값 349 · 시청 비율 50.62% · 공유율 0% · 저장률 0%
 - 정시 비교에서 제외한 늦은 백필: 42편
-- 포맷 코호트: unknown 198편/reach 289.5 · flash 31편/reach 150 · explain 3편/reach 1,122
-- 이미지 코호트: other 22편/reach 1,206.5 · web 86편/reach 1,087.5 · library 124편/reach 162.5
-- 전략 코호트: legacy 217편 · discovery-funnel-v3 15편
+- 포맷 코호트: unknown 198편/reach 289.5 · flash 32편/reach 150 · explain 3편/reach 1,122
+- 이미지 코호트: other 22편/reach 1,206.5 · web 87편/reach 1,089 · library 124편/reach 162.5
+- 전략 코호트: legacy 217편 · discovery-funnel-v3 16편
 
 ## 이미지·음악 운영
-- 최근 14일 계정 팔로워 순변화: 4 (중복 제거 스냅샷 38개; 게시물별 추정치 합산 금지)
+- 최근 14일 계정 팔로워 순변화: 4 (중복 제거 스냅샷 37개; 게시물별 추정치 합산 금지)
 - 타이포그래피 폴백률: 12.5%
 - 생성 배경 폴백률: 46.05% · 전체 폴백률: 58.55%
 - 이미지 공급원: diem-generated 140편, pexels 110편, diem-original 38편, unsplash 10편, wikimedia 5편, openverse 1편
