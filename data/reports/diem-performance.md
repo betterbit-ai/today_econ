@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 310편
-- 생성 시각: 2026-11-04T21:47:10.641Z
+- 생성 시각: 2026-11-05T02:03:37.263Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: not_achieved
 
@@ -20,17 +20,17 @@
 - 전략 코호트: legacy 184편 · discovery-funnel-v3 34편
 
 ## 72h
-- economy: 표본 101편 · reach 중앙값 166 · 시청 비율 48.37% · 공유율 0% · 저장률 0%
+- economy: 표본 102편 · reach 중앙값 164.5 · 시청 비율 47.27% · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(398,437), 비거주1주택 / 징벌과세 결정(82,113), 공무원 / 광고 사과(2,693), 보유세 개편 / 결정(1,628), 백악관 경고 / 중국 환적 우려(1,601)
-  - 특성 신호: reader_need:household_cost insufficient_data×2.26, event:semiconductor insufficient_data×2.24, reader_need:public_interest insufficient_data×1.06, housing_money insufficient_data×1.04, reader_need:housing insufficient_data×1.04, event:housing_policy insufficient_data×1.04, work_life insufficient_data×1, company_event insufficient_data×0.99
+  - 특성 신호: reader_need:household_cost insufficient_data×2.27, event:semiconductor insufficient_data×2.25, reader_need:public_interest insufficient_data×1.07, housing_money insufficient_data×1.03, reader_need:housing insufficient_data×1.03, work_life insufficient_data×1, company_event insufficient_data×1, event:ipo insufficient_data×1
 - issue: 표본 123편 · reach 중앙값 242 · 시청 비율 50.31% · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(17,190), 바이든 암 / 전이 확인(13,132), 선관위 / 서울시장 소청 기각(4,869), 북 미사일 발사 / 김여정 조롱(3,277), 한동훈 흉기 / 징역 1년 확정(2,761)
   - 부진 후보: 이재명 대통령 / 검찰개혁 발언(23), 모기 활동 / 주의 권고(24), 박선원 공개 / 공익제보자 위반(33), 배현진 비판 / 이재명 물(39), 송지은 눈물 / 새롭게하소서(42)
   - 특성 신호: reader_need:market insufficient_data×7.83, reader_need:housing insufficient_data×4.38, household_money insufficient_data×0.87
 - 정시 비교에서 제외한 늦은 백필: 79편
-- 포맷 코호트: unknown 172편/reach 228.5 · flash 47편/reach 145 · explain 5편/reach 200
-- 이미지 코호트: web 74편/reach 918.5 · other 18편/reach 1,183 · library 132편/reach 160
-- 전략 코호트: legacy 193편 · discovery-funnel-v3 31편
+- 포맷 코호트: unknown 172편/reach 228.5 · flash 48편/reach 144.5 · explain 5편/reach 200
+- 이미지 코호트: web 75편/reach 827 · other 18편/reach 1,183 · library 132편/reach 160
+- 전략 코호트: legacy 193편 · discovery-funnel-v3 32편
 
 ## 7d
 - economy: 표본 108편 · reach 중앙값 176 · 시청 비율 48.37% · 공유율 0% · 저장률 0%
