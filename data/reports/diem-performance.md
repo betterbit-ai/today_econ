@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 313편
-- 생성 시각: 2026-11-07T19:54:47.389Z
+- 생성 시각: 2026-11-08T01:09:44.727Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: not_achieved
 
@@ -36,17 +36,17 @@
 - economy: 표본 112편 · reach 중앙값 172 · 시청 비율 48.37% · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(400,265), 비거주1주택 / 징벌과세 결정(89,043), 이재명 대통령 / 휴가 권고(66,348), 공무원 / 광고 사과(2,711), 청년 퇴사 / 실업급여 추진(2,659)
   - 특성 신호: reader_need:household_cost insufficient_data×2.27, event:semiconductor insufficient_data×2.25, reader_need:public_interest insufficient_data×1.08, housing_money insufficient_data×1.04, reader_need:housing insufficient_data×1.04, event:housing_policy insufficient_data×1.04, work_life insufficient_data×1, company_event insufficient_data×0.99
-- issue: 표본 134편 · reach 중앙값 303.5 · 시청 비율 49.6% · 공유율 0% · 저장률 0%
+- issue: 표본 135편 · reach 중앙값 299 · 시청 비율 50.08% · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(20,059), 바이든 암 / 전이 확인(13,276), 국방부 / 1군단장 직무배제(12,776), 태풍 돌핀 / 한반도 영향예상(7,294), 선관위 / 서울시장 소청 기각(4,935)
   - 부진 후보: 모기 활동 / 주의 권고(25), 이재명 대통령 / 검찰개혁 발언(28), 박선원 공개 / 공익제보자 위반(33), 배현진 비판 / 이재명 물(41), 송지은 눈물 / 새롭게하소서(47)
-  - 특성 신호: reader_need:market insufficient_data×8.14, reader_need:housing insufficient_data×4.55, household_money insufficient_data×0.91
+  - 특성 신호: reader_need:market insufficient_data×7.97, reader_need:housing insufficient_data×4.46, household_money insufficient_data×0.89
 - 정시 비교에서 제외한 늦은 백필: 42편
-- 포맷 코호트: unknown 198편/reach 289.5 · flash 45편/reach 146 · explain 3편/reach 1,122
-- 이미지 코호트: other 22편/reach 1,206.5 · web 94편/reach 978 · library 130편/reach 161
-- 전략 코호트: legacy 217편 · discovery-funnel-v3 29편
+- 포맷 코호트: unknown 198편/reach 289.5 · flash 46편/reach 145 · explain 3편/reach 1,122
+- 이미지 코호트: other 22편/reach 1,206.5 · web 94편/reach 978 · library 131편/reach 161
+- 전략 코호트: legacy 217편 · discovery-funnel-v3 30편
 
 ## 이미지·음악 운영
-- 최근 14일 계정 팔로워 순변화: 6 (중복 제거 스냅샷 39개; 게시물별 추정치 합산 금지)
+- 최근 14일 계정 팔로워 순변화: 5 (중복 제거 스냅샷 39개; 게시물별 추정치 합산 금지)
 - 타이포그래피 폴백률: 12.14%
 - 생성 배경 폴백률: 45.05% · 전체 폴백률: 57.19%
 - 이미지 공급원: diem-generated 141편, pexels 117편, diem-original 38편, unsplash 10편, wikimedia 6편, openverse 1편
@@ -54,7 +54,7 @@
 - 최근 7일 Vision 실패: model_error 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 199건, image_context_unavailable 151건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 200건, image_context_unavailable 152건, unknown 44건
 - 제목 재정제 실패: 49건
 
 ## 해석 주의
