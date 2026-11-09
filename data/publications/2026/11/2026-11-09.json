@@ -4,7 +4,7 @@
   "date": "2026-11-09",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-11-08T20:12:18.002Z",
-  "updatedAt": "2026-11-09T07:26:09.197Z",
+  "updatedAt": "2026-11-09T07:26:29.367Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -11371,7 +11371,7 @@
     "issue": {
       "publicationKey": "diem:2026-11-09:issue:42578827770",
       "category": "issue",
-      "status": "ready",
+      "status": "retry_pending",
       "candidate": {
         "title": "허리 감싸고 볼 뽀뽀…젠슨 황-불륜女, 스킨십 티났다",
         "url": "https://n.news.naver.com/article/020/0003761066?ntype=RANKING",
@@ -12599,11 +12599,19 @@
         "fallback": false
       },
       "reel": {
-        "status": "ready",
-        "attempts": 0,
+        "status": "retry_pending",
+        "attempts": 1,
         "externalId": null,
-        "error": null,
-        "updatedAt": "2026-11-09T07:26:09.184Z"
+        "error": "[Instagram] Container 18109443467108587 failed: ERROR",
+        "updatedAt": "2026-11-09T07:26:27.609Z",
+        "errorDetails": {
+          "httpStatus": null,
+          "code": null,
+          "subcode": null,
+          "userMessage": null,
+          "traceId": null
+        },
+        "errorCode": null
       },
       "story": {
         "status": "planned",
@@ -12626,7 +12634,17 @@
         "error": null,
         "updatedAt": null
       },
-      "notifications": [],
+      "notifications": [
+        {
+          "key": "diem:2026-11-09:issue:42578827770:reel:retry_pending",
+          "status": "retry_pending",
+          "stage": "reel",
+          "sentAt": "2026-11-09T07:26:29.365Z",
+          "slackTs": "1794209188.179889",
+          "issueNumber": 242,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/242"
+        }
+      ],
       "reason": null,
       "plannedAt": "2026-11-09T07:24:39.958Z",
       "hotness": {
@@ -12712,6 +12730,14 @@
         "reelPath": ".diem-cache/2026-11-09/issue/issue-reel.mp4",
         "reelSha256": "6820f5c8962c48002c44120bf52e889cf01322a1e929d84577f83f98e6aa2771",
         "temporary": true
+      },
+      "release": {
+        "reelSha256": "6820f5c8962c48002c44120bf52e889cf01322a1e929d84577f83f98e6aa2771",
+        "id": 438837744,
+        "tag": "instagram-assets-diem-2026-11-09-issue-42578827770-1794209172573",
+        "videoUrl": "https://github.com/betterbit-ai/today_econ/releases/download/instagram-assets-diem-2026-11-09-issue-42578827770-1794209172573/diem-2026-11-09-issue-42578827770.mp4",
+        "createdAt": "2026-11-09T04:12:08Z",
+        "deleteAfter": "2026-11-12T07:26:14.444Z"
       }
     }
   },
