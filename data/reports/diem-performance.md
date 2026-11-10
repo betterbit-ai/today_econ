@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 316편
-- 생성 시각: 2026-11-09T12:35:33.134Z
+- 생성 시각: 2026-11-10T00:01:58.379Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: not_achieved
 
@@ -10,14 +10,14 @@
 - economy: 표본 103편 · reach 중앙값 156 · 시청 비율 49.38% · 공유율 0% · 저장률 0%
   - 반복 후보: 비거주1주택 / 징벌과세 결정(48,589), 공무원 / 광고 사과(2,549), 백악관 경고 / 중국 환적 우려(1,584), 외국인 난투극 / 경찰 체포·추적(1,430), 미국 관세 압박 / 한국 대응(1,380)
   - 특성 신호: reader_need:household_cost insufficient_data×2.21, work_life insufficient_data×1.02, company_event insufficient_data×1.01, event:ipo insufficient_data×1.01, reader_need:tax insufficient_data×1, event:housing_policy insufficient_data×0.98, reader_need:market insufficient_data×0.95, event:political_statement insufficient_data×0.91
-- issue: 표본 120편 · reach 중앙값 199.5 · 시청 비율 50.75% · 공유율 0% · 저장률 0%
+- issue: 표본 122편 · reach 중앙값 199.5 · 시청 비율 50.75% · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(12,743), 선관위 / 서울시장 소청 기각(4,775), 북 미사일 발사 / 김여정 조롱(3,258), 한동훈 흉기 / 징역 1년 확정(2,700), 트럼프 분노 / 한국 희생양(2,363)
   - 부진 후보: 이재명 대통령 / 검찰개혁 발언(20), 모기 활동 / 주의 권고(22), 박선원 공개 / 공익제보자 위반(29), 지뢰조사 지연 / 정치 대립(34), 송지은 눈물 / 새롭게하소서(36)
-  - 특성 신호: reader_need:market insufficient_data×8.45, reader_need:housing insufficient_data×4.7, household_money insufficient_data×0.92
+  - 특성 신호: reader_need:market insufficient_data×8.27, reader_need:housing insufficient_data×4.6, household_money insufficient_data×0.9
 - 정시 비교에서 제외한 늦은 백필: 90편
-- 포맷 코호트: unknown 161편/reach 192 · flash 57편/reach 135 · explain 5편/reach 191
-- 이미지 코호트: web 74편/reach 427.5 · other 15편/reach 1,105 · library 134편/reach 155
-- 전략 코호트: legacy 184편 · discovery-funnel-v3 39편
+- 포맷 코호트: unknown 161편/reach 192 · flash 59편/reach 136 · explain 5편/reach 191
+- 이미지 코호트: web 76편/reach 391 · other 15편/reach 1,105 · library 134편/reach 155
+- 전략 코호트: legacy 184편 · discovery-funnel-v3 41편
 
 ## 72h
 - economy: 표본 105편 · reach 중앙값 163 · 시청 비율 48.37% · 공유율 0% · 저장률 0%
@@ -50,11 +50,11 @@
 - 타이포그래피 폴백률: 12.03%
 - 생성 배경 폴백률: 44.62% · 전체 폴백률: 56.65%
 - 이미지 공급원: diem-generated 141편, pexels 120편, diem-original 38편, unsplash 10편, wikimedia 6편, openverse 1편
-- 최근 7일 폴백률: 11.11% (1/9편, 2026-11-03~2026-11-09)
+- 최근 7일 폴백률: 12.5% (1/8편, 2026-11-04~2026-11-10)
 - 최근 7일 Vision 실패: model_error 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 200건, image_context_unavailable 154건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 201건, image_context_unavailable 156건, unknown 44건
 - 제목 재정제 실패: 49건
 
 ## 해석 주의
