@@ -2,7 +2,7 @@
 
 - 상태: ready
 - 발행 원장 Reel: 317편
-- 생성 시각: 2026-11-10T21:45:11.255Z
+- 생성 시각: 2026-11-11T01:50:38.298Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: not_achieved
 
@@ -46,7 +46,7 @@
 - 전략 코호트: legacy 217편 · discovery-funnel-v3 34편
 
 ## 이미지·음악 운영
-- 최근 14일 계정 팔로워 순변화: 7 (중복 제거 스냅샷 36개; 게시물별 추정치 합산 금지)
+- 최근 14일 계정 팔로워 순변화: 7 (중복 제거 스냅샷 35개; 게시물별 추정치 합산 금지)
 - 타이포그래피 폴백률: 11.99%
 - 생성 배경 폴백률: 44.48% · 전체 폴백률: 56.47%
 - 이미지 공급원: diem-generated 141편, pexels 121편, diem-original 38편, unsplash 10편, wikimedia 6편, openverse 1편
@@ -54,7 +54,7 @@
 - 최근 7일 Vision 실패: model_error 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
-- 편집 후보 실패: editorial_generation_failed 202건, image_context_unavailable 158건, unknown 44건
+- 편집 후보 실패: editorial_generation_failed 203건, image_context_unavailable 158건, unknown 44건
 - 제목 재정제 실패: 49건
 
 ## 해석 주의
