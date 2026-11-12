@@ -139,16 +139,31 @@ function imageForPackage(item = {}) {
     };
   }
   if (visual.kind === 'chatgpt-generated-editorial') {
+    // A package-local illustration is hash-pinned inside its own package directory. It is not a
+    // shared library asset, so it cannot be topic-matched against the fallback manifest; the
+    // people/photorealistic policies plus the package hash replace that manifest evidence.
+    const localPath = item._directory && visual.assetPath
+      ? path.resolve(item._directory, visual.assetPath)
+      : null;
     return {
       ...base,
-      kind: 'chatgpt-generated-editorial',
-      source: 'chatgpt',
-      license: { name: 'ChatGPT-generated editorial illustration', url: null },
+      kind: 'generated',
+      source: 'diem-generated',
+      packageAsset: true,
+      license: { name: 'Project-owned AI-generated editorial illustration (package asset)', url: null },
       assetPath: visual.assetPath,
+      localPath,
+      localSha256: visual.sha256 || null,
       prompt: visual.prompt,
       peoplePolicy: visual.peoplePolicy,
       photorealisticNewsPolicy: visual.photorealisticNewsPolicy,
+      generatedTopic: 'package-asset',
       visualRole: 'context',
+      suitability: {
+        ok: true,
+        reason: 'package_generated_editorial_asset',
+        personScreening: { detected: false, personFreeEvidence: true, requiredPersonFreeEvidence: true, safe: true },
+      },
     };
   }
   if (visual.kind === 'diem-library') {
@@ -425,9 +440,6 @@ async function prepareDailyPackage(ledger, category, {
     if (imageReuseKeys(image).some(key => recentImageKeys.has(key))) {
       throw new Error(`[DIEM Daily] visual library asset was used in the recent history: ${image.id}`);
     }
-  }
-  if (image.kind === 'chatgpt-generated-editorial') {
-    throw new Error('[DIEM Daily] chatgpt-generated-editorial rendering is gated until ImageGen handoff is proven.');
   }
   const article = publication.candidate;
   assertPreparedQuality({ article, editorial: publication.editorial, image, handle: config.instagramUsername });

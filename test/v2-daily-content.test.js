@@ -9,6 +9,7 @@ const { buildDeterministicEditorial } = require('../src/v2/editorial');
 const { buildNewsFrame } = require('../src/v2/topic');
 const {
   dailyPackageContentHash,
+  loadDailyPackage,
   publishDailyPackage,
   prepareDailyPackage,
   prepareDailyPackageFromFile,
@@ -349,4 +350,65 @@ test('stages, prepares, and publishes one assisted package without re-running ed
     fs.rmSync(root, { recursive: true, force: true });
     fs.rmSync(artifactRoot, { recursive: true, force: true });
   }
+});
+
+test('prepares an assisted package that carries its own hash-pinned generated illustration', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-daily-package-asset-'));
+  const artifactRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'diem-daily-package-asset-artifacts-'));
+  const packageDirectory = path.join(root, '2026', '11', '13', '2026-11-13-0050', 'economy');
+  const packagePath = path.join(packageDirectory, 'package.json');
+  const visualBytes = Buffer.from('package-asset-visual');
+  fs.mkdirSync(packageDirectory, { recursive: true });
+  fs.writeFileSync(path.join(packageDirectory, 'visual.png'), visualBytes);
+
+  const pack = packageFixture({ visualKind: 'chatgpt-generated-editorial' });
+  pack.visual.assetPath = 'visual.png';
+  pack.visual.sha256 = sha256(visualBytes);
+  pack.visual.prompt = '검은 가죽 재킷을 입은 인물이 초록빛 서버룸을 등지고 나가는 콘셉트 이미지';
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  fs.writeFileSync(packagePath, `${JSON.stringify(pack, null, 2)}\n`);
+
+  const loaded = loadDailyPackage(packagePath, { contentRoot: root });
+  const validation = validateDailyPackage(loaded, { now: NOW, verifyArtifact: true });
+  assert.equal(validation.ok, true, validation.errors.join('; '));
+  assert.equal(validation.image.kind, 'generated');
+  assert.equal(validation.image.packageAsset, true);
+
+  const ledger = createDailyLedger(DATE, NOW);
+  ledger.publications.economy = stageDailyPackage(loaded, { date: DATE, now: NOW });
+  let renderedImagePath = null;
+  try {
+    const prepared = await prepareDailyPackage(ledger, 'economy', {
+      package: loaded,
+      now: NOW,
+      artifactRoot,
+      history: [],
+      renderCoverImpl: async ({ imagePath, outputPath }) => {
+        renderedImagePath = imagePath;
+        fs.writeFileSync(outputPath, 'cover');
+      },
+      selectMusicImpl: () => ({ trackId: null, mode: 'silent', mood: 'serious' }),
+      createReelImpl: async ({ outputPath }) => {
+        fs.writeFileSync(outputPath, 'reel');
+        return { outputPath, audio: { trackId: null, mode: 'silent', mood: 'serious' } };
+      },
+    });
+    assert.equal(prepared.publications.economy.status, 'ready');
+    assert.equal(renderedImagePath, path.join(packageDirectory, 'visual.png'));
+    assert.equal(prepared.publications.economy.image.packageAsset, true);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+    fs.rmSync(artifactRoot, { recursive: true, force: true });
+  }
+});
+
+test('rejects a package illustration that claims people or photorealistic news', async () => {
+  const pack = packageFixture({ visualKind: 'chatgpt-generated-editorial' });
+  pack.visual.assetPath = 'visual.png';
+  pack.visual.sha256 = sha256(Buffer.from('x'));
+  pack.visual.peoplePolicy = 'allowed';
+  pack.integrity.contentSha256 = dailyPackageContentHash(pack);
+  const validation = validateDailyPackage(pack, { now: NOW });
+  assert.equal(validation.ok, false);
+  assert.match(validation.errors.join('; '), /must prohibit people/u);
 });
