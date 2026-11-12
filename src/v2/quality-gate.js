@@ -1,6 +1,16 @@
 const { validateEditorial } = require('./editorial');
 const { assessGeneratedImageSuitability, assessImageSuitability } = require('./image-selector');
 
+function assessPackageAssetSuitability(image = {}) {
+  const errors = [];
+  if (!/^[a-f0-9]{64}$/u.test(image.localSha256 || '')) errors.push('package asset hash is missing');
+  if (!image.prompt) errors.push('package asset needs its generation prompt');
+  if (image.peoplePolicy !== 'prohibited') errors.push('package asset must prohibit people');
+  if (image.photorealisticNewsPolicy !== 'prohibited') errors.push('package asset must prohibit photorealistic news depiction');
+  if (image.suitability?.personScreening?.safe !== true) errors.push('package asset needs person-free evidence');
+  return { ok: errors.length === 0, reason: errors.length === 0 ? 'package_generated_editorial_asset' : errors[0], errors };
+}
+
 function validateImageQuality(image = {}) {
   const errors = [];
   if (!['web', 'generated', 'typographic'].includes(image.kind)) {
@@ -20,7 +30,10 @@ function validateImageQuality(image = {}) {
 
   if (image.kind === 'generated') {
     if (image.source !== 'diem-generated') errors.push('generated fallback must be a project-owned DIEM asset');
-    if (!image.assetPath || !image.localSha256 || !image.generatedTopic) {
+    if (!image.assetPath || !image.localSha256) {
+      errors.push('generated fallback must record its asset path and hash');
+    }
+    if (!image.packageAsset && !image.generatedTopic) {
       errors.push('generated fallback must record its asset path, hash, and topic');
     }
     if (image.identity?.depicted === true) errors.push('generated fallback cannot claim to depict a named person');
@@ -51,7 +64,7 @@ function validatePreparedQuality({ article = {}, editorial = {}, image = {}, han
     editorialCaption: editorial.caption?.text || '',
   };
   const finalImageReview = image.kind === 'generated'
-    ? assessGeneratedImageSuitability(image, imageCandidate)
+    ? image.packageAsset ? assessPackageAssetSuitability(image) : assessGeneratedImageSuitability(image, imageCandidate)
     : image.kind === 'web' && image.query && image.description
     ? assessImageSuitability(image, image.query, imageCandidate, {
       selectionRole: image.visualRole || 'context',
