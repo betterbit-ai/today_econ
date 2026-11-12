@@ -459,7 +459,7 @@ jobs:
     permissions:
       contents: write
     env:
-      GROQ_API_KEY: ''
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
       PUBLISH_INSTAGRAM: ${{ inputs.operation == 'daily_package_publish' && 'true' || 'false' }}
       PEXELS_API_KEY: ''
       UNSPLASH_ACCESS_KEY: ''
