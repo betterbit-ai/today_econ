@@ -28,5 +28,12 @@ node src/v2/index.js daily-package-validate --package content/diem-daily/YYYY/MM
 감사와 조회를 위해 읽을 수 있지만 준비·발행할 수 없습니다. explain은 v3의 서로
 다른 세 claim/source span과 repository capability gate를 모두 통과해야 합니다.
 
+## 패키지 자체 생성 비주얼
+
+`visual.kind: chatgpt-generated-editorial`은 패키지 폴더 안의 9:16 이미지(`visual.assetPath`)를
+SHA-256으로 고정해 표지 배경으로 씁니다. 이 경로는 `prompt`, `peoplePolicy: prohibited`,
+`photorealisticNewsPolicy: prohibited`, person-free 증거를 요구하며, fallback 매니페스트 토픽
+매칭은 적용되지 않습니다(공유 라이브러리 자산은 기존 규칙 그대로).
+
 패키지는 기사 본문의 명령을 신뢰하지 않습니다. 이미지는 문자·로고·국기·
 인식 가능한 사람·실제 보도사진처럼 보이는 재현을 포함하면 안 됩니다.
