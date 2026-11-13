@@ -4,15 +4,15 @@
   "date": "2026-11-14",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-11-13T20:10:29.057Z",
-  "updatedAt": "2026-11-13T20:12:58.643Z",
+  "updatedAt": "2026-11-13T21:51:43.192Z",
   "popularityFallback": null,
   "candidates": [
     {
-      "title": "\"불가능한 점수\" 쏟아진 의구심…논란 커지자",
-      "url": "https://n.news.naver.com/article/055/0001402914?ntype=RANKING",
+      "title": "\"하루 600만원 벌었다\"…주식 '단타' 전문 60대 여성, 현재 계좌보니",
+      "url": "https://n.news.naver.com/article/088/0001040182?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 100,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -23,8 +23,8 @@
           "publisher": null,
           "rank": 1,
           "normalizedScore": 100,
-          "title": "\"불가능한 점수\" 쏟아진 의구심…논란 커지자",
-          "url": "https://n.news.naver.com/article/055/0001402914?ntype=RANKING"
+          "title": "\"하루 600만원 벌었다\"…주식 '단타' 전문 60대 여성, 현재 계좌보니",
+          "url": "https://n.news.naver.com/article/088/0001040182?ntype=RANKING"
         }
       ],
       "category": null,
@@ -49,15 +49,34 @@
         }
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
-      ]
+        "economy:recent_duplicate"
+      ],
+      "duplicateCheck": {
+        "duplicate": true,
+        "repeatOverride": false,
+        "score": 0.8253,
+        "method": "embedding",
+        "reason": "automatic_threshold",
+        "matchedPublicationKey": "diem:2026-11-13:economy:daily-2026-11-13-2240-economy-bitcoin-70k-collapse",
+        "signature": {
+          "category": "economy",
+          "target": "하루 600만원",
+          "event": "증시 변동",
+          "entities": [
+            "600만원",
+            "60대"
+          ],
+          "eventKey": null,
+          "text": "economy | 하루 600만원 | 증시 변동 | 600만원 60대"
+        }
+      }
     },
     {
-      "title": "차량 깔린 킥보드…학원 가던 7세, 스쿨존서 참변",
-      "url": "https://n.news.naver.com/article/055/0001402910?ntype=RANKING",
+      "title": "\"11년째 복역\" 최순실, 긴급 형집행정지?…정유라 \"돌아가실 수도\"",
+      "url": "https://n.news.naver.com/article/088/0001040180?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 97.9796,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -68,8 +87,8 @@
           "publisher": null,
           "rank": 2,
           "normalizedScore": 97.9796,
-          "title": "차량 깔린 킥보드…학원 가던 7세, 스쿨존서 참변",
-          "url": "https://n.news.naver.com/article/055/0001402910?ntype=RANKING"
+          "title": "\"11년째 복역\" 최순실, 긴급 형집행정지?…정유라 \"돌아가실 수도\"",
+          "url": "https://n.news.naver.com/article/088/0001040180?ntype=RANKING"
         }
       ],
       "category": null,
@@ -96,15 +115,15 @@
         }
       },
       "rejectionReasons": [
-        "issue:category_not_allowed_after_hydration"
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
-      "title": "\"난 쓰레기\" 자포자기…단 2주 만에 씁쓸한 추락",
-      "url": "https://n.news.naver.com/article/055/0001402908?ntype=RANKING",
+      "title": "\"안경 평생 안 썼다\"…세무사 '차석' 합격자, 즉석 문제풀이 영상 공개",
+      "url": "https://n.news.naver.com/article/088/0001040177?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 95.9592,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -115,8 +134,8 @@
           "publisher": null,
           "rank": 3,
           "normalizedScore": 95.9592,
-          "title": "\"난 쓰레기\" 자포자기…단 2주 만에 씁쓸한 추락",
-          "url": "https://n.news.naver.com/article/055/0001402908?ntype=RANKING"
+          "title": "\"안경 평생 안 썼다\"…세무사 '차석' 합격자, 즉석 문제풀이 영상 공개",
+          "url": "https://n.news.naver.com/article/088/0001040177?ntype=RANKING"
         }
       ],
       "category": null,
@@ -134,22 +153,24 @@
           "reason": "uncertain_initial_classification"
         },
         "final": {
-          "status": "classified",
-          "category": "issue",
-          "excluded": [],
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
           "ambiguous": false
         }
       },
       "rejectionReasons": [
-        "issue:low_editorial_value:insufficient_reader_value"
+        "economy:category_not_allowed_after_hydration"
       ]
     },
     {
-      "title": "[단독] \"장동혁 암살하겠다\" 협박 문자 보낸 20대 남성 현행범 체포",
-      "url": "https://n.news.naver.com/article/055/0001402933?ntype=RANKING",
+      "title": "한동훈 \"최민희 말이 맞아…李대통령, 재판만 열리면 끝나는 시한부\"",
+      "url": "https://n.news.naver.com/article/088/0001040176?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 93.9388,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -160,8 +181,8 @@
           "publisher": null,
           "rank": 4,
           "normalizedScore": 93.9388,
-          "title": "[단독] \"장동혁 암살하겠다\" 협박 문자 보낸 20대 남성 현행범 체포",
-          "url": "https://n.news.naver.com/article/055/0001402933?ntype=RANKING"
+          "title": "한동훈 \"최민희 말이 맞아…李대통령, 재판만 열리면 끝나는 시한부\"",
+          "url": "https://n.news.naver.com/article/088/0001040176?ntype=RANKING"
         }
       ],
       "category": null,
@@ -178,23 +199,18 @@
           "attempted": true,
           "reason": "uncertain_initial_classification"
         },
-        "final": {
-          "status": "classified",
-          "category": "issue",
-          "excluded": [],
-          "ambiguous": false
-        }
+        "final": null
       },
       "rejectionReasons": [
-        "issue:low_editorial_value:missing_content_value_signal"
+        "economy:primary_article_inaccessible"
       ]
     },
     {
-      "title": "'AI 황제' 쫓겨나다…'바람'에 날아간 650조 원",
-      "url": "https://n.news.naver.com/article/055/0001402905?ntype=RANKING",
+      "title": "집권 2년차 찬바람 불 때 文 52%·李 39%…13%p 지지도 격차, 뭐가 달랐나? [금주의 이슈]",
+      "url": "https://n.news.naver.com/article/088/0001040184?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 91.9184,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -205,8 +221,8 @@
           "publisher": null,
           "rank": 5,
           "normalizedScore": 91.9184,
-          "title": "'AI 황제' 쫓겨나다…'바람'에 날아간 650조 원",
-          "url": "https://n.news.naver.com/article/055/0001402905?ntype=RANKING"
+          "title": "집권 2년차 찬바람 불 때 文 52%·李 39%…13%p 지지도 격차, 뭐가 달랐나? [금주의 이슈]",
+          "url": "https://n.news.naver.com/article/088/0001040184?ntype=RANKING"
         }
       ],
       "category": null,
@@ -223,23 +239,18 @@
           "attempted": true,
           "reason": "uncertain_initial_classification"
         },
-        "final": {
-          "status": "classified",
-          "category": "economy",
-          "excluded": [],
-          "ambiguous": true
-        }
+        "final": null
       },
       "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
+        "economy:primary_article_inaccessible"
       ]
     },
     {
-      "title": "이재용, 삼성전자 주식 1,115만8,000주 증여 완료… 증여세 1조6,000억 육박할 듯",
-      "url": "https://n.news.naver.com/article/469/0000965480?ntype=RANKING",
+      "title": "'딸 둘 아빠' 남대문 스카프 아저씨…\"사람 빼고 다 팔아본 듯\"",
+      "url": "https://n.news.naver.com/article/422/0000925852?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 89.898,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -250,8 +261,8 @@
           "publisher": null,
           "rank": 6,
           "normalizedScore": 89.898,
-          "title": "이재용, 삼성전자 주식 1,115만8,000주 증여 완료… 증여세 1조6,000억 육박할 듯",
-          "url": "https://n.news.naver.com/article/469/0000965480?ntype=RANKING"
+          "title": "'딸 둘 아빠' 남대문 스카프 아저씨…\"사람 빼고 다 팔아본 듯\"",
+          "url": "https://n.news.naver.com/article/422/0000925852?ntype=RANKING"
         }
       ],
       "category": null,
@@ -268,25 +279,18 @@
           "attempted": true,
           "reason": "uncertain_initial_classification"
         },
-        "final": {
-          "status": "excluded",
-          "category": null,
-          "excluded": [
-            "economy_low_value"
-          ],
-          "ambiguous": false
-        }
+        "final": null
       },
       "rejectionReasons": [
-        "issue:economy_low_value"
+        "economy:primary_article_inaccessible"
       ]
     },
     {
-      "title": "\"나는 쓰레기 같은 인간\"… 무너진 젠슨 황 \"아내와 그녀들 삶이 걱정\"",
-      "url": "https://n.news.naver.com/article/469/0000965461?ntype=RANKING",
+      "title": "\"젠슨 황 불륜 상대, 中국가안전부 반도체팀 소속\"",
+      "url": "https://n.news.naver.com/article/422/0000926039?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 87.8776,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -297,870 +301,8 @@
           "publisher": null,
           "rank": 7,
           "normalizedScore": 87.8776,
-          "title": "\"나는 쓰레기 같은 인간\"… 무너진 젠슨 황 \"아내와 그녀들 삶이 걱정\"",
-          "url": "https://n.news.naver.com/article/469/0000965461?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": true,
-          "reason": "uncertain_initial_classification"
-        },
-        "final": null
-      },
-      "rejectionReasons": [
-        "issue:primary_article_inaccessible"
-      ]
-    },
-    {
-      "title": "\"이건희가 살아 돌아왔나\"… 안경 벗은 이재용 회장 모습 '눈길'",
-      "url": "https://n.news.naver.com/article/469/0000965391?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 85.8571,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 8,
-          "normalizedScore": 85.8571,
-          "title": "\"이건희가 살아 돌아왔나\"… 안경 벗은 이재용 회장 모습 '눈길'",
-          "url": "https://n.news.naver.com/article/469/0000965391?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": true,
-          "reason": "uncertain_initial_classification"
-        },
-        "final": {
-          "status": "classified",
-          "category": "issue",
-          "excluded": [],
-          "ambiguous": false
-        }
-      },
-      "rejectionReasons": [
-        "issue:low_editorial_value:missing_content_value_signal"
-      ]
-    },
-    {
-      "title": "\"헤드라이트 앞 얼어붙은 사슴\"… 젠슨 황이 깎아내렸던 후임 CEO",
-      "url": "https://n.news.naver.com/article/469/0000965495?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 83.8367,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 9,
-          "normalizedScore": 83.8367,
-          "title": "\"헤드라이트 앞 얼어붙은 사슴\"… 젠슨 황이 깎아내렸던 후임 CEO",
-          "url": "https://n.news.naver.com/article/469/0000965495?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": true,
-          "reason": "uncertain_initial_classification"
-        },
-        "final": {
-          "status": "classified",
-          "category": "economy",
-          "excluded": [],
-          "ambiguous": true
-        }
-      },
-      "rejectionReasons": [
-        "issue:assigned_to_economy_after_hydration"
-      ]
-    },
-    {
-      "title": "[단독] 살해된 15세 소녀, '성매매 교사' 피해도 털어놨다… 살인범 가족이 알았나",
-      "url": "https://n.news.naver.com/article/469/0000965468?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 81.8163,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 10,
-          "normalizedScore": 81.8163,
-          "title": "[단독] 살해된 15세 소녀, '성매매 교사' 피해도 털어놨다… 살인범 가족이 알았나",
-          "url": "https://n.news.naver.com/article/469/0000965468?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": true,
-          "reason": "uncertain_initial_classification"
-        },
-        "final": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        }
-      },
-      "rejectionReasons": [
-        "issue:category_not_allowed_after_hydration"
-      ]
-    },
-    {
-      "title": "\"예약 중단합니다\"‥마운자로 반입 허가에 난리 난 日 병원들",
-      "url": "https://n.news.naver.com/article/214/0001535501?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 79.7959,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 11,
-          "normalizedScore": 79.7959,
-          "title": "\"예약 중단합니다\"‥마운자로 반입 허가에 난리 난 日 병원들",
-          "url": "https://n.news.naver.com/article/214/0001535501?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": true,
-          "reason": "uncertain_initial_classification"
-        },
-        "final": null
-      },
-      "rejectionReasons": [
-        "issue:primary_article_inaccessible"
-      ]
-    },
-    {
-      "title": "[단독] \"와‥300km! 이걸 걸어갔어?\" 경찰도 혀 내두른 '절도 대장정'",
-      "url": "https://n.news.naver.com/article/214/0001535506?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 77.7755,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 12,
-          "normalizedScore": 77.7755,
-          "title": "[단독] \"와‥300km! 이걸 걸어갔어?\" 경찰도 혀 내두른 '절도 대장정'",
-          "url": "https://n.news.naver.com/article/214/0001535506?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": true,
-          "reason": "uncertain_initial_classification"
-        },
-        "final": {
-          "status": "classified",
-          "category": "issue",
-          "excluded": [],
-          "ambiguous": false
-        }
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "\"의원님! 미국 출장 가시죠?\" 묻자 공항 '질주' 추격전 [다시간다]",
-      "url": "https://n.news.naver.com/article/214/0001535503?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 75.7551,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 13,
-          "normalizedScore": 75.7551,
-          "title": "\"의원님! 미국 출장 가시죠?\" 묻자 공항 '질주' 추격전 [다시간다]",
-          "url": "https://n.news.naver.com/article/214/0001535503?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "[단독] \"배현진 1년\"·\"제명\"‥장동혁 측 외부 인사가 징계 수위 전달",
-      "url": "https://n.news.naver.com/article/214/0001535504?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 73.7347,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 14,
-          "normalizedScore": 73.7347,
-          "title": "[단독] \"배현진 1년\"·\"제명\"‥장동혁 측 외부 인사가 징계 수위 전달",
-          "url": "https://n.news.naver.com/article/214/0001535504?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "excluded",
-          "category": null,
-          "excluded": [
-            "economy_low_value"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "\"산 높으니 골도 깊어\"‥붉은 넥타이 매고 \"시장 정상화\"",
-      "url": "https://n.news.naver.com/article/214/0001535513?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 71.7143,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 15,
-          "normalizedScore": 71.7143,
-          "title": "\"산 높으니 골도 깊어\"‥붉은 넥타이 매고 \"시장 정상화\"",
-          "url": "https://n.news.naver.com/article/214/0001535513?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "“초대남에 성관계 점수 받아라”…바늘로 몸 꿰맨 남자들, 왜",
-      "url": "https://n.news.naver.com/article/025/0003565056?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 69.6939,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 16,
-          "normalizedScore": 69.6939,
-          "title": "“초대남에 성관계 점수 받아라”…바늘로 몸 꿰맨 남자들, 왜",
-          "url": "https://n.news.naver.com/article/025/0003565056?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "“겁먹은 사슴, 보고만 할 줄 알아” 젠슨 황이 망신줬던 후임 CEO",
-      "url": "https://n.news.naver.com/article/025/0003565081?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 67.6735,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 17,
-          "normalizedScore": 67.6735,
-          "title": "“겁먹은 사슴, 보고만 할 줄 알아” 젠슨 황이 망신줬던 후임 CEO",
-          "url": "https://n.news.naver.com/article/025/0003565081?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "비행기표 취소해야 하나…“더 큰 지진 가능성” 日정부까지 경고",
-      "url": "https://n.news.naver.com/article/025/0003565079?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 65.6531,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 18,
-          "normalizedScore": 65.6531,
-          "title": "비행기표 취소해야 하나…“더 큰 지진 가능성” 日정부까지 경고",
-          "url": "https://n.news.naver.com/article/025/0003565079?ntype=RANKING"
-        }
-      ],
-      "category": "issue",
-      "classificationTrace": {
-        "initial": {
-          "status": "classified",
-          "category": "issue",
-          "excluded": [],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "“딸 둘 아빠, 사람 빼고 다 팔아봤다”…남대문 스카프 아저씨 정체",
-      "url": "https://n.news.naver.com/article/025/0003565075?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 63.6327,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 19,
-          "normalizedScore": 63.6327,
-          "title": "“딸 둘 아빠, 사람 빼고 다 팔아봤다”…남대문 스카프 아저씨 정체",
-          "url": "https://n.news.naver.com/article/025/0003565075?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "“진짜 보스 돌려달라”…엔비디아 직원들, 젠슨 황 복귀 청원",
-      "url": "https://n.news.naver.com/article/025/0003565080?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 61.6122,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 20,
-          "normalizedScore": 61.6122,
-          "title": "“진짜 보스 돌려달라”…엔비디아 직원들, 젠슨 황 복귀 청원",
-          "url": "https://n.news.naver.com/article/025/0003565080?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "“엔비디아 임시 CEO, 젠슨 황으로부터 ‘겁먹은 사슴 같다’ 혹평 듣던 인물”",
-      "url": "https://n.news.naver.com/article/032/0003482594?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 59.5918,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 21,
-          "normalizedScore": 59.5918,
-          "title": "“엔비디아 임시 CEO, 젠슨 황으로부터 ‘겁먹은 사슴 같다’ 혹평 듣던 인물”",
-          "url": "https://n.news.naver.com/article/032/0003482594?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "“이미지 실추로 손해, 모델료 반환해야”···법원, 배우 김수현 측 11억여원 반환 판결",
-      "url": "https://n.news.naver.com/article/032/0003482591?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 57.5714,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 22,
-          "normalizedScore": 57.5714,
-          "title": "“이미지 실추로 손해, 모델료 반환해야”···법원, 배우 김수현 측 11억여원 반환 판결",
-          "url": "https://n.news.naver.com/article/032/0003482591?ntype=RANKING"
-        }
-      ],
-      "category": "issue",
-      "classificationTrace": {
-        "initial": {
-          "status": "classified",
-          "category": "issue",
-          "excluded": [],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "우메~오이시이!··· ‘고독한 미식가’ 마츠시게 유타카, 남도 음식 일본에 알린다",
-      "url": "https://n.news.naver.com/article/032/0003482514?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 55.551,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 23,
-          "normalizedScore": 55.551,
-          "title": "우메~오이시이!··· ‘고독한 미식가’ 마츠시게 유타카, 남도 음식 일본에 알린다",
-          "url": "https://n.news.naver.com/article/032/0003482514?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "“싱가포르 정부, 작년 앨리스 황 수사 협조 요청···미 정부는 묵살”",
-      "url": "https://n.news.naver.com/article/032/0003482499?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 53.5306,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 24,
-          "normalizedScore": 53.5306,
-          "title": "“싱가포르 정부, 작년 앨리스 황 수사 협조 요청···미 정부는 묵살”",
-          "url": "https://n.news.naver.com/article/032/0003482499?ntype=RANKING"
-        }
-      ],
-      "category": "issue",
-      "classificationTrace": {
-        "initial": {
-          "status": "classified",
-          "category": "issue",
-          "excluded": [],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "‘AI 안경 의혹’ 세무사 수석 합격자, CCTV는 없었지만 감독관 바로 앞에서 시험",
-      "url": "https://n.news.naver.com/article/032/0003482485?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 51.5102,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 25,
-          "normalizedScore": 51.5102,
-          "title": "‘AI 안경 의혹’ 세무사 수석 합격자, CCTV는 없었지만 감독관 바로 앞에서 시험",
-          "url": "https://n.news.naver.com/article/032/0003482485?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "\"유독 심하게 졸리다 했는데…\" 명의가 찾아낸 '뜻밖의 범인'",
-      "url": "https://n.news.naver.com/article/015/0005353718?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 49.4898,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 26,
-          "normalizedScore": 49.4898,
-          "title": "\"유독 심하게 졸리다 했는데…\" 명의가 찾아낸 '뜻밖의 범인'",
-          "url": "https://n.news.naver.com/article/015/0005353718?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "\"두 딸 키우며 10년 장사\"…남대문 스카프 아저씨의 인생 역전",
-      "url": "https://n.news.naver.com/article/015/0005353635?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 47.4694,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 27,
-          "normalizedScore": 47.4694,
-          "title": "\"두 딸 키우며 10년 장사\"…남대문 스카프 아저씨의 인생 역전",
-          "url": "https://n.news.naver.com/article/015/0005353635?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "\"땡큐 젠슨 황\"…공포의 폭락장서 '매수 버튼' 광클한 개미들 [분석+]",
-      "url": "https://n.news.naver.com/article/015/0005353754?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 45.449,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 28,
-          "normalizedScore": 45.449,
-          "title": "\"땡큐 젠슨 황\"…공포의 폭락장서 '매수 버튼' 광클한 개미들 [분석+]",
-          "url": "https://n.news.naver.com/article/015/0005353754?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "기혼 아들을 미혼으로…이혜훈, '80억' 반포 아파트 몰수 위기",
-      "url": "https://n.news.naver.com/article/015/0005353599?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 43.4286,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 29,
-          "normalizedScore": 43.4286,
-          "title": "기혼 아들을 미혼으로…이혜훈, '80억' 반포 아파트 몰수 위기",
-          "url": "https://n.news.naver.com/article/015/0005353599?ntype=RANKING"
+          "title": "\"젠슨 황 불륜 상대, 中국가안전부 반도체팀 소속\"",
+          "url": "https://n.news.naver.com/article/422/0000926039?ntype=RANKING"
         }
       ],
       "category": "economy",
@@ -1172,20 +314,45 @@
           "ambiguous": false
         },
         "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
+          "attempted": true,
+          "reason": "verify_primary_article"
         },
-        "final": null
+        "final": {
+          "status": "classified",
+          "category": "economy",
+          "excluded": [],
+          "ambiguous": false
+        }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:recent_duplicate"
+      ],
+      "duplicateCheck": {
+        "duplicate": true,
+        "repeatOverride": false,
+        "score": 0.9555,
+        "method": "embedding",
+        "reason": "automatic_threshold",
+        "matchedPublicationKey": "diem:2026-11-13:economy:daily-2026-11-13-0050-economy-nvidia-resignation",
+        "signature": {
+          "category": "economy",
+          "target": "반도체",
+          "event": "국가안전부 반도체팀 소속",
+          "entities": [
+            "CEO의"
+          ],
+          "eventKey": null,
+          "text": "economy | 반도체 | CEO의"
+        }
+      }
     },
     {
-      "title": "\"책 너덜너덜해져\"…AI 안경 논란에 세무사 차석 합격자 등판",
-      "url": "https://n.news.naver.com/article/015/0005353584?ntype=RANKING",
+      "title": "\"통일교가 김민석 밀어\"…최민희 녹취록 추가 파장",
+      "url": "https://n.news.naver.com/article/422/0000925990?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 41.4082,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 85.8571,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1193,10 +360,10 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 30,
-          "normalizedScore": 41.4082,
-          "title": "\"책 너덜너덜해져\"…AI 안경 논란에 세무사 차석 합격자 등판",
-          "url": "https://n.news.naver.com/article/015/0005353584?ntype=RANKING"
+          "rank": 8,
+          "normalizedScore": 85.8571,
+          "title": "\"통일교가 김민석 밀어\"…최민희 녹취록 추가 파장",
+          "url": "https://n.news.naver.com/article/422/0000925990?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1210,20 +377,27 @@
           "ambiguous": false
         },
         "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
         },
-        "final": null
+        "final": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
-      "title": "\"내린 뒤 안 보여서\"...승객 살린 버스 기사 눈썰미",
-      "url": "https://n.news.naver.com/article/052/0002432494?ntype=RANKING",
+      "title": "\"겁먹은 사슴·보고만 할 줄 알아\"…엔비디아 새 수장이 젠슨 황에 들은 혹평은",
+      "url": "https://n.news.naver.com/article/422/0000926011?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 39.3878,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 83.8367,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1231,10 +405,10 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 31,
-          "normalizedScore": 39.3878,
-          "title": "\"내린 뒤 안 보여서\"...승객 살린 버스 기사 눈썰미",
-          "url": "https://n.news.naver.com/article/052/0002432494?ntype=RANKING"
+          "rank": 9,
+          "normalizedScore": 83.8367,
+          "title": "\"겁먹은 사슴·보고만 할 줄 알아\"…엔비디아 새 수장이 젠슨 황에 들은 혹평은",
+          "url": "https://n.news.naver.com/article/422/0000926011?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1248,20 +422,76 @@
           "ambiguous": false
         },
         "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
         },
-        "final": null
+        "final": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
+    },
+    {
+      "title": "안경 벗은 이재용 근황에 깜짝…\"이건희 회장 살아온 줄\"",
+      "url": "https://n.news.naver.com/article/422/0000925924?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 81.8163,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 10,
+          "normalizedScore": 81.8163,
+          "title": "안경 벗은 이재용 근황에 깜짝…\"이건희 회장 살아온 줄\"",
+          "url": "https://n.news.naver.com/article/422/0000925924?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        }
+      },
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "\"젠슨 황 해임은 세기의 실수\"...직원들은 눈물만 [앵커리포트]",
       "url": "https://n.news.naver.com/article/052/0002432497?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 37.3673,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 79.7959,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1269,8 +499,8 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 32,
-          "normalizedScore": 37.3673,
+          "rank": 11,
+          "normalizedScore": 79.7959,
           "title": "\"젠슨 황 해임은 세기의 실수\"...직원들은 눈물만 [앵커리포트]",
           "url": "https://n.news.naver.com/article/052/0002432497?ntype=RANKING"
         }
@@ -1286,20 +516,27 @@
           "ambiguous": false
         },
         "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
         },
-        "final": null
+        "final": {
+          "status": "classified",
+          "category": "economy",
+          "excluded": [],
+          "ambiguous": false
+        }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
-      "title": "박수홍, 친형 부부 상대로 낸 98억원대 소송 1심 패소",
-      "url": "https://n.news.naver.com/article/052/0002432442?ntype=RANKING",
+      "title": "\"내린 뒤 안 보여서\"...승객 살린 버스 기사 눈썰미",
+      "url": "https://n.news.naver.com/article/052/0002432494?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 35.3469,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 77.7755,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1307,8 +544,55 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 33,
-          "normalizedScore": 35.3469,
+          "rank": 12,
+          "normalizedScore": 77.7755,
+          "title": "\"내린 뒤 안 보여서\"...승객 살린 버스 기사 눈썰미",
+          "url": "https://n.news.naver.com/article/052/0002432494?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        }
+      },
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
+    },
+    {
+      "title": "박수홍, 친형 부부 상대로 낸 98억원대 소송 1심 패소",
+      "url": "https://n.news.naver.com/article/052/0002432442?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 75.7551,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 13,
+          "normalizedScore": 75.7551,
           "title": "박수홍, 친형 부부 상대로 낸 98억원대 소송 1심 패소",
           "url": "https://n.news.naver.com/article/052/0002432442?ntype=RANKING"
         }
@@ -1324,20 +608,27 @@
           "ambiguous": false
         },
         "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
         },
-        "final": null
+        "final": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "이건희 살아 돌아온 줄...안경 벗은 이재용 회장에 '화들짝' [앵커리포트]",
       "url": "https://n.news.naver.com/article/052/0002432393?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 33.3265,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 73.7347,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1345,8 +636,8 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 34,
-          "normalizedScore": 33.3265,
+          "rank": 14,
+          "normalizedScore": 73.7347,
           "title": "이건희 살아 돌아온 줄...안경 벗은 이재용 회장에 '화들짝' [앵커리포트]",
           "url": "https://n.news.naver.com/article/052/0002432393?ntype=RANKING"
         }
@@ -1362,20 +653,27 @@
           "ambiguous": false
         },
         "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
         },
-        "final": null
+        "final": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"조희대, 선 넘으면 모든 책임\"...탄핵도 다시 고개",
       "url": "https://n.news.naver.com/article/052/0002432535?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 31.3061,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 71.7143,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1383,8 +681,8 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 35,
-          "normalizedScore": 31.3061,
+          "rank": 15,
+          "normalizedScore": 71.7143,
           "title": "\"조희대, 선 넘으면 모든 책임\"...탄핵도 다시 고개",
           "url": "https://n.news.naver.com/article/052/0002432535?ntype=RANKING"
         }
@@ -1400,20 +698,27 @@
           "ambiguous": false
         },
         "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
         },
-        "final": null
+        "final": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
-      "title": "“앨리스황, 중국 국가안전부 공작원”…중국, 예의주시",
-      "url": "https://n.news.naver.com/article/056/0012293634?ntype=RANKING",
+      "title": "젠슨 황 노린 '미인계'였나…\"불륜상대 中국가안전부 소속\"",
+      "url": "https://n.news.naver.com/article/008/0005440992?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 29.2857,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 69.6939,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1421,10 +726,438 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 36,
-          "normalizedScore": 29.2857,
-          "title": "“앨리스황, 중국 국가안전부 공작원”…중국, 예의주시",
-          "url": "https://n.news.naver.com/article/056/0012293634?ntype=RANKING"
+          "rank": 16,
+          "normalizedScore": 69.6939,
+          "title": "젠슨 황 노린 '미인계'였나…\"불륜상대 中국가안전부 소속\"",
+          "url": "https://n.news.naver.com/article/008/0005440992?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": {
+          "status": "classified",
+          "category": "economy",
+          "excluded": [],
+          "ambiguous": true
+        }
+      },
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
+    },
+    {
+      "title": "\"이수만 걸그룹 제쳤다\"...AI로 만든 '이 노래', 사상 첫 멜론 1위",
+      "url": "https://n.news.naver.com/article/008/0005440975?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 65.6531,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 18,
+          "normalizedScore": 65.6531,
+          "title": "\"이수만 걸그룹 제쳤다\"...AI로 만든 '이 노래', 사상 첫 멜론 1위",
+          "url": "https://n.news.naver.com/article/008/0005440975?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        }
+      },
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
+    },
+    {
+      "title": "\"로봇 개 산책시킬 분 찾아요\"...시급 2만6000원",
+      "url": "https://n.news.naver.com/article/008/0005440982?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 63.6327,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 19,
+          "normalizedScore": 63.6327,
+          "title": "\"로봇 개 산책시킬 분 찾아요\"...시급 2만6000원",
+          "url": "https://n.news.naver.com/article/008/0005440982?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": {
+          "status": "classified",
+          "category": "economy",
+          "excluded": [],
+          "ambiguous": true
+        }
+      },
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
+    },
+    {
+      "title": "혈관 못 찾아 4번 찌른 부산 병원…\"안 맞았어도 이미 만든 수액 값 내라\"",
+      "url": "https://n.news.naver.com/article/421/0009286831?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 59.5918,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 21,
+          "normalizedScore": 59.5918,
+          "title": "혈관 못 찾아 4번 찌른 부산 병원…\"안 맞았어도 이미 만든 수액 값 내라\"",
+          "url": "https://n.news.naver.com/article/421/0009286831?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        }
+      },
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
+    },
+    {
+      "title": "'160문제 중 하나' 틀린 세무사 수석, 변호사 선임…\"악플 대응 아니길\"",
+      "url": "https://n.news.naver.com/article/421/0009288643?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 57.5714,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 22,
+          "normalizedScore": 57.5714,
+          "title": "'160문제 중 하나' 틀린 세무사 수석, 변호사 선임…\"악플 대응 아니길\"",
+          "url": "https://n.news.naver.com/article/421/0009288643?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "excluded",
+          "category": null,
+          "excluded": [
+            "economy_low_value"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "explicitly_excluded"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
+    },
+    {
+      "title": "\"난 쓰레기\" 젠슨 황, 해임 직전 자포자기…'그녀들' 걱정도 했다",
+      "url": "https://n.news.naver.com/article/421/0009287646?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 55.551,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 23,
+          "normalizedScore": 55.551,
+          "title": "\"난 쓰레기\" 젠슨 황, 해임 직전 자포자기…'그녀들' 걱정도 했다",
+          "url": "https://n.news.naver.com/article/421/0009287646?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
+    },
+    {
+      "title": "\"드디어 세종에 맥도날드\" 새벽 2시부터 줄섰다...난리 난 첫 날",
+      "url": "https://n.news.naver.com/article/008/0005440981?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 54.5409,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 17,
+          "normalizedScore": 67.6735,
+          "title": "\"드디어 세종에 맥도날드\" 새벽 2시부터 줄섰다...난리 난 첫 날",
+          "url": "https://n.news.naver.com/article/008/0005440981?ntype=RANKING"
+        },
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 30,
+          "normalizedScore": 41.4082,
+          "title": "“새벽 2시부터 5시간 기다렸어요”…세종 ‘첫 맥도날드’에 오픈런",
+          "url": "https://n.news.naver.com/article/009/0005763419?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
+    },
+    {
+      "title": "\"내가 마주한 세상 너무 작아\"…성북구 피살 15세 소녀의 마지막 편지",
+      "url": "https://n.news.naver.com/article/421/0009288375?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 53.5306,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 24,
+          "normalizedScore": 53.5306,
+          "title": "\"내가 마주한 세상 너무 작아\"…성북구 피살 15세 소녀의 마지막 편지",
+          "url": "https://n.news.naver.com/article/421/0009288375?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
+    },
+    {
+      "title": "익산역 선로에 사람 진입…KTX 등 열차 5대 최대 40분 지연(종합)",
+      "url": "https://n.news.naver.com/article/421/0009288645?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 51.5102,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 25,
+          "normalizedScore": 51.5102,
+          "title": "익산역 선로에 사람 진입…KTX 등 열차 5대 최대 40분 지연(종합)",
+          "url": "https://n.news.naver.com/article/421/0009288645?ntype=RANKING"
+        }
+      ],
+      "category": "issue",
+      "classificationTrace": {
+        "initial": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "assigned_to_issue"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
+    },
+    {
+      "title": "“이러다 노후 자금 다 날리겠어”…5060 폐업 급증에 찾아낸 생존법 [배짱 편한 은퇴]",
+      "url": "https://n.news.naver.com/article/009/0005763524?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 49.4898,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 26,
+          "normalizedScore": 49.4898,
+          "title": "“이러다 노후 자금 다 날리겠어”…5060 폐업 급증에 찾아낸 생존법 [배짱 편한 은퇴]",
+          "url": "https://n.news.naver.com/article/009/0005763524?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": true,
+          "reason": "uncertain_initial_classification"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
+    },
+    {
+      "title": "“촬영 할 수 없을 정도로 심각”…‘강제 휴식 가졌다’는 이정재, 무슨일이",
+      "url": "https://n.news.naver.com/article/009/0005763528?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 47.4694,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 27,
+          "normalizedScore": 47.4694,
+          "title": "“촬영 할 수 없을 정도로 심각”…‘강제 휴식 가졌다’는 이정재, 무슨일이",
+          "url": "https://n.news.naver.com/article/009/0005763528?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1439,19 +1172,21 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "‘40억 로또청약’ 반포아파트 날아가나…이혜훈 사기 혐의 송치",
-      "url": "https://n.news.naver.com/article/056/0012293636?ntype=RANKING",
+      "title": "주가 하락에 ‘줍줍’ 美 개미들…“엔비디아서 당장 나와라” 투자거물 경고, 왜?",
+      "url": "https://n.news.naver.com/article/009/0005763553?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 27.2653,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 45.449,
       "popularitySignalReliable": true,
       "hotness": null,
       "crossPortal": false,
@@ -1459,10 +1194,10 @@
         {
           "portal": "naver",
           "publisher": null,
-          "rank": 37,
-          "normalizedScore": 27.2653,
-          "title": "‘40억 로또청약’ 반포아파트 날아가나…이혜훈 사기 혐의 송치",
-          "url": "https://n.news.naver.com/article/056/0012293636?ntype=RANKING"
+          "rank": 28,
+          "normalizedScore": 45.449,
+          "title": "주가 하락에 ‘줍줍’ 美 개미들…“엔비디아서 당장 나와라” 투자거물 경고, 왜?",
+          "url": "https://n.news.naver.com/article/009/0005763553?ntype=RANKING"
         }
       ],
       "category": "economy",
@@ -1474,19 +1209,360 @@
           "ambiguous": false
         },
         "hydration": {
+          "attempted": true,
+          "reason": "verify_primary_article"
+        },
+        "final": {
+          "status": "excluded",
+          "category": null,
+          "excluded": [
+            "economy_low_value"
+          ],
+          "ambiguous": false
+        }
+      },
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
+    },
+    {
+      "title": "“20년 알고 지낸 미용실 원장입니다”…‘학폭 논란’ 차예련에 지인 등판",
+      "url": "https://n.news.naver.com/article/009/0005763355?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 43.4286,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 29,
+          "normalizedScore": 43.4286,
+          "title": "“20년 알고 지낸 미용실 원장입니다”…‘학폭 논란’ 차예련에 지인 등판",
+          "url": "https://n.news.naver.com/article/009/0005763355?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "스쿨존 횡단보도 건너던 초등생…우회전 차량에 치여 숨져",
-      "url": "https://n.news.naver.com/article/056/0012293637?ntype=RANKING",
+      "title": "간부 60명에게 보고받던 젠슨 황 떠났다…엔비디아에 남은 과제는?",
+      "url": "https://n.news.naver.com/article/003/0014321550?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 39.3878,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 31,
+          "normalizedScore": 39.3878,
+          "title": "간부 60명에게 보고받던 젠슨 황 떠났다…엔비디아에 남은 과제는?",
+          "url": "https://n.news.naver.com/article/003/0014321550?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "candidate_outside_top_25"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
+    },
+    {
+      "title": "\"AI 안경 안 썼다\"…세무사 시험 차석 합격자의 '실력 인증'",
+      "url": "https://n.news.naver.com/article/003/0014321674?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 37.3673,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 32,
+          "normalizedScore": 37.3673,
+          "title": "\"AI 안경 안 썼다\"…세무사 시험 차석 합격자의 '실력 인증'",
+          "url": "https://n.news.naver.com/article/003/0014321674?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "candidate_outside_top_25"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
+    },
+    {
+      "title": "\"피해자인데 모델료 반환이라니\"…김수현, 11억 반환 판결에 항소",
+      "url": "https://n.news.naver.com/article/008/0005440976?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 34,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 20,
+          "normalizedScore": 61.6122,
+          "title": "\"피해자인데 모델료 반환이라니\"…김수현, 11억 반환 판결에 항소",
+          "url": "https://n.news.naver.com/article/008/0005440976?ntype=RANKING"
+        },
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 33,
+          "normalizedScore": 35.3469,
+          "title": "법원 \"김수현, 광고 중단 기간 모델료 11억 돌려줘야\"",
+          "url": "https://n.news.naver.com/article/003/0014321596?ntype=RANKING"
+        },
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 48,
+          "normalizedScore": 5.0408,
+          "title": "법원 “김수현, 위약금 책임 없지만 광고 못 쓴 부분 배상해야”... 모델료 11억 반환 판결",
+          "url": "https://n.news.naver.com/article/023/0004009507?ntype=RANKING"
+        }
+      ],
+      "category": "issue",
+      "classificationTrace": {
+        "initial": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "assigned_to_issue"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
+    },
+    {
+      "title": "외교부, '뱁새가 황새 따라가면' 이란 메시지에…\"전쟁 불관여 원칙\"",
+      "url": "https://n.news.naver.com/article/003/0014321611?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 33.3265,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 34,
+          "normalizedScore": 33.3265,
+          "title": "외교부, '뱁새가 황새 따라가면' 이란 메시지에…\"전쟁 불관여 원칙\"",
+          "url": "https://n.news.naver.com/article/003/0014321611?ntype=RANKING"
+        }
+      ],
+      "category": "issue",
+      "classificationTrace": {
+        "initial": {
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "assigned_to_issue"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
+    },
+    {
+      "title": "\"커피 4잔 주문\" 세탁실 갇힌 작업자들, 기발한 SOS",
+      "url": "https://n.news.naver.com/article/003/0014321649?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 31.3061,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 35,
+          "normalizedScore": 31.3061,
+          "title": "\"커피 4잔 주문\" 세탁실 갇힌 작업자들, 기발한 SOS",
+          "url": "https://n.news.naver.com/article/003/0014321649?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "candidate_outside_top_25"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
+    },
+    {
+      "title": "대법원 \"한덕수 석방 단정 보도 자제 부탁\" MBC 앵커 \"그럼 달라질까\"",
+      "url": "https://n.news.naver.com/article/006/0000138746?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 29.2857,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 36,
+          "normalizedScore": 29.2857,
+          "title": "대법원 \"한덕수 석방 단정 보도 자제 부탁\" MBC 앵커 \"그럼 달라질까\"",
+          "url": "https://n.news.naver.com/article/006/0000138746?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "candidate_outside_top_25"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
+    },
+    {
+      "title": "이용철 '대장동 아는 게 없다'더니 12년전 \"단계적으로 발전시켜\"",
+      "url": "https://n.news.naver.com/article/006/0000138742?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
+      "popularityScore": 27.2653,
+      "popularitySignalReliable": true,
+      "hotness": null,
+      "crossPortal": false,
+      "sources": [
+        {
+          "portal": "naver",
+          "publisher": null,
+          "rank": 37,
+          "normalizedScore": 27.2653,
+          "title": "이용철 '대장동 아는 게 없다'더니 12년전 \"단계적으로 발전시켜\"",
+          "url": "https://n.news.naver.com/article/006/0000138742?ntype=RANKING"
+        }
+      ],
+      "category": null,
+      "classificationTrace": {
+        "initial": {
+          "status": "uncertain",
+          "category": null,
+          "excluded": [
+            "category_not_allowed"
+          ],
+          "ambiguous": false
+        },
+        "hydration": {
+          "attempted": false,
+          "reason": "candidate_outside_top_25"
+        },
+        "final": null
+      },
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
+    },
+    {
+      "title": "'재혼황후' 디즈니+ 글로벌 반응 역대급…국내에선 '항마력 테스트' 반응도",
+      "url": "https://n.news.naver.com/article/006/0000138743?ntype=RANKING",
+      "publishedDate": "2026-11-14",
+      "publishedAt": null,
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 25.2449,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1497,8 +1573,8 @@
           "publisher": null,
           "rank": 38,
           "normalizedScore": 25.2449,
-          "title": "스쿨존 횡단보도 건너던 초등생…우회전 차량에 치여 숨져",
-          "url": "https://n.news.naver.com/article/056/0012293637?ntype=RANKING"
+          "title": "'재혼황후' 디즈니+ 글로벌 반응 역대급…국내에선 '항마력 테스트' 반응도",
+          "url": "https://n.news.naver.com/article/006/0000138743?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1513,18 +1589,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "“몇십 년간 술 마신 곳인데?”…‘서울역 일대 금주령’ 현장은? [현장K]",
-      "url": "https://n.news.naver.com/article/056/0012293651?ntype=RANKING",
+      "title": "'안원잘부', '신인감독 김연경2' 제쳤다…\"TV·OTT·유튜브 통틀어 가장 핫한 콘텐츠\"",
+      "url": "https://n.news.naver.com/article/006/0000138737?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 23.2245,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1535,8 +1613,8 @@
           "publisher": null,
           "rank": 39,
           "normalizedScore": 23.2245,
-          "title": "“몇십 년간 술 마신 곳인데?”…‘서울역 일대 금주령’ 현장은? [현장K]",
-          "url": "https://n.news.naver.com/article/056/0012293651?ntype=RANKING"
+          "title": "'안원잘부', '신인감독 김연경2' 제쳤다…\"TV·OTT·유튜브 통틀어 가장 핫한 콘텐츠\"",
+          "url": "https://n.news.naver.com/article/006/0000138737?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1551,18 +1629,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "평균 30점 과목서 100점…‘이례적 고득점’에 AI안경 의혹",
-      "url": "https://n.news.naver.com/article/056/0012293650?ntype=RANKING",
+      "title": "과방위, TBS 지원 73억 등 내년 예산안 가결…국민의힘 퇴장",
+      "url": "https://n.news.naver.com/article/006/0000138740?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 21.2041,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1573,34 +1653,34 @@
           "publisher": null,
           "rank": 40,
           "normalizedScore": 21.2041,
-          "title": "평균 30점 과목서 100점…‘이례적 고득점’에 AI안경 의혹",
-          "url": "https://n.news.naver.com/article/056/0012293650?ntype=RANKING"
+          "title": "과방위, TBS 지원 73억 등 내년 예산안 가결…국민의힘 퇴장",
+          "url": "https://n.news.naver.com/article/006/0000138740?ntype=RANKING"
         }
       ],
-      "category": null,
+      "category": "issue",
       "classificationTrace": {
         "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
+          "status": "classified",
+          "category": "issue",
+          "excluded": [],
           "ambiguous": false
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "assigned_to_issue"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue"
+      ]
     },
     {
-      "title": "“비행기표 다 끊어놨는데 어쩌나”…공포 휩싸인 日 “진짜 큰 지진 올 수도”",
-      "url": "https://n.news.naver.com/article/011/0004681870?ntype=RANKING",
+      "title": "\"불가능한 점수\" 쏟아진 의구심…논란 커지자",
+      "url": "https://n.news.naver.com/article/055/0001402914?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 19.1837,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1611,8 +1691,8 @@
           "publisher": null,
           "rank": 41,
           "normalizedScore": 19.1837,
-          "title": "“비행기표 다 끊어놨는데 어쩌나”…공포 휩싸인 日 “진짜 큰 지진 올 수도”",
-          "url": "https://n.news.naver.com/article/011/0004681870?ntype=RANKING"
+          "title": "\"불가능한 점수\" 쏟아진 의구심…논란 커지자",
+          "url": "https://n.news.naver.com/article/055/0001402914?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1627,18 +1707,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "“담배 피우는 것보다 심장에 더 안 좋다”…의사가 절대 하지 말라는 ‘이 습관’ [헬시타임]",
-      "url": "https://n.news.naver.com/article/011/0004682048?ntype=RANKING",
+      "title": "[단독] \"장동혁 암살하겠다\" 협박 문자 보낸 20대 남성 현행범 체포",
+      "url": "https://n.news.naver.com/article/055/0001402933?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 17.1633,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1649,8 +1731,8 @@
           "publisher": null,
           "rank": 42,
           "normalizedScore": 17.1633,
-          "title": "“담배 피우는 것보다 심장에 더 안 좋다”…의사가 절대 하지 말라는 ‘이 습관’ [헬시타임]",
-          "url": "https://n.news.naver.com/article/011/0004682048?ntype=RANKING"
+          "title": "[단독] \"장동혁 암살하겠다\" 협박 문자 보낸 20대 남성 현행범 체포",
+          "url": "https://n.news.naver.com/article/055/0001402933?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1665,18 +1747,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "“손님 뺏길라” 한 그릇 3000원대로 ‘뚝’…일본 유명 우동집의 속사정, 무슨 일?",
-      "url": "https://n.news.naver.com/article/011/0004682065?ntype=RANKING",
+      "title": "차량 깔린 킥보드…학원 가던 7세, 스쿨존서 참변",
+      "url": "https://n.news.naver.com/article/055/0001402910?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 15.1429,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1687,8 +1771,8 @@
           "publisher": null,
           "rank": 43,
           "normalizedScore": 15.1429,
-          "title": "“손님 뺏길라” 한 그릇 3000원대로 ‘뚝’…일본 유명 우동집의 속사정, 무슨 일?",
-          "url": "https://n.news.naver.com/article/011/0004682065?ntype=RANKING"
+          "title": "차량 깔린 킥보드…학원 가던 7세, 스쿨존서 참변",
+          "url": "https://n.news.naver.com/article/055/0001402910?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1703,18 +1787,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "“앨리스 황, 中 국가안전부 ‘칩 팀’ 요원”",
-      "url": "https://n.news.naver.com/article/011/0004682023?ntype=RANKING",
+      "title": "개미 1만 명 울린 LG가 3세, 도피 8년 만에 구속",
+      "url": "https://n.news.naver.com/article/055/0001402917?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 13.1224,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1725,8 +1811,8 @@
           "publisher": null,
           "rank": 44,
           "normalizedScore": 13.1224,
-          "title": "“앨리스 황, 中 국가안전부 ‘칩 팀’ 요원”",
-          "url": "https://n.news.naver.com/article/011/0004682023?ntype=RANKING"
+          "title": "개미 1만 명 울린 LG가 3세, 도피 8년 만에 구속",
+          "url": "https://n.news.naver.com/article/055/0001402917?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1741,18 +1827,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "“관광이 악몽으로” 부산 사격장서 日 관광객 등 15명 참변…불길 번지는 데 단 3초였다 [오늘의 그날]",
-      "url": "https://n.news.naver.com/article/011/0004682084?ntype=RANKING",
+      "title": "\"난 쓰레기\" 자포자기…단 2주 만에 씁쓸한 추락",
+      "url": "https://n.news.naver.com/article/055/0001402908?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 11.102,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1763,8 +1851,8 @@
           "publisher": null,
           "rank": 45,
           "normalizedScore": 11.102,
-          "title": "“관광이 악몽으로” 부산 사격장서 日 관광객 등 15명 참변…불길 번지는 데 단 3초였다 [오늘의 그날]",
-          "url": "https://n.news.naver.com/article/011/0004682084?ntype=RANKING"
+          "title": "\"난 쓰레기\" 자포자기…단 2주 만에 씁쓸한 추락",
+          "url": "https://n.news.naver.com/article/055/0001402908?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1779,18 +1867,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "'젠슨 황 추락' 판 뒤집혔다…수혜 터진 한국 기업 2곳[주末머니]",
-      "url": "https://n.news.naver.com/article/277/0005842515?ntype=RANKING",
+      "title": "손흥민·96라인 손잡았지만... 사우디에 21년 만의 충격패",
+      "url": "https://n.news.naver.com/article/023/0004009527?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 9.0816,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1801,8 +1891,8 @@
           "publisher": null,
           "rank": 46,
           "normalizedScore": 9.0816,
-          "title": "'젠슨 황 추락' 판 뒤집혔다…수혜 터진 한국 기업 2곳[주末머니]",
-          "url": "https://n.news.naver.com/article/277/0005842515?ntype=RANKING"
+          "title": "손흥민·96라인 손잡았지만... 사우디에 21년 만의 충격패",
+          "url": "https://n.news.naver.com/article/023/0004009527?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1817,18 +1907,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "\"살다 살다 이런 오픈런 처음 본다\"…새벽 2시부터 '우르르' 맥날 개점에 난리난 도시",
-      "url": "https://n.news.naver.com/article/277/0005842518?ntype=RANKING",
+      "title": "젠슨 황, 바람 맘대로 폈지만.... 재산 192조 처분은 아내 허락 받아야",
+      "url": "https://n.news.naver.com/article/023/0004009423?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 7.0612,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1839,8 +1931,8 @@
           "publisher": null,
           "rank": 47,
           "normalizedScore": 7.0612,
-          "title": "\"살다 살다 이런 오픈런 처음 본다\"…새벽 2시부터 '우르르' 맥날 개점에 난리난 도시",
-          "url": "https://n.news.naver.com/article/277/0005842518?ntype=RANKING"
+          "title": "젠슨 황, 바람 맘대로 폈지만.... 재산 192조 처분은 아내 허락 받아야",
+          "url": "https://n.news.naver.com/article/023/0004009423?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1855,56 +1947,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "\"이만한 사람 없어, 한 번 더 기회 주자\" 직원 74%, 젠슨 황 퇴진 반대",
-      "url": "https://n.news.naver.com/article/277/0005842471?ntype=RANKING",
+      "title": "“나는 쓰레기 같은 X... 여성들 삶 망칠까 걱정” 젠슨 황의 마지막 말",
+      "url": "https://n.news.naver.com/article/023/0004009458?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
-      "popularityScore": 5.0408,
-      "popularitySignalReliable": true,
-      "hotness": null,
-      "crossPortal": false,
-      "sources": [
-        {
-          "portal": "naver",
-          "publisher": null,
-          "rank": 48,
-          "normalizedScore": 5.0408,
-          "title": "\"이만한 사람 없어, 한 번 더 기회 주자\" 직원 74%, 젠슨 황 퇴진 반대",
-          "url": "https://n.news.naver.com/article/277/0005842471?ntype=RANKING"
-        }
-      ],
-      "category": null,
-      "classificationTrace": {
-        "initial": {
-          "status": "uncertain",
-          "category": null,
-          "excluded": [
-            "category_not_allowed"
-          ],
-          "ambiguous": false
-        },
-        "hydration": {
-          "attempted": false,
-          "reason": "pending_evaluation"
-        },
-        "final": null
-      },
-      "rejectionReasons": []
-    },
-    {
-      "title": "\"갑자기 한쪽 눈이 안 보여\"…국내서도 나타난 비만약 '뜻밖의 증상'",
-      "url": "https://n.news.naver.com/article/277/0005842243?ntype=RANKING",
-      "publishedDate": "2026-11-14",
-      "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 3.0204,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1915,8 +1971,8 @@
           "publisher": null,
           "rank": 49,
           "normalizedScore": 3.0204,
-          "title": "\"갑자기 한쪽 눈이 안 보여\"…국내서도 나타난 비만약 '뜻밖의 증상'",
-          "url": "https://n.news.naver.com/article/277/0005842243?ntype=RANKING"
+          "title": "“나는 쓰레기 같은 X... 여성들 삶 망칠까 걱정” 젠슨 황의 마지막 말",
+          "url": "https://n.news.naver.com/article/023/0004009458?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1931,18 +1987,20 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     },
     {
-      "title": "\"주말에 출근하게 생겼네\" 초유의 사태…'업무 마비' 초래한 MS 먹통",
-      "url": "https://n.news.naver.com/article/277/0005842229?ntype=RANKING",
+      "title": "성추행에 공연음란 의혹까지... 수사관 감찰에 바쁜 중수청",
+      "url": "https://n.news.naver.com/article/023/0004009509?ntype=RANKING",
       "publishedDate": "2026-11-14",
       "publishedAt": null,
-      "observedAt": "2026-11-13T20:10:29.057Z",
+      "observedAt": "2026-11-13T21:50:05.015Z",
       "popularityScore": 1,
       "popularitySignalReliable": true,
       "hotness": null,
@@ -1953,8 +2011,8 @@
           "publisher": null,
           "rank": 50,
           "normalizedScore": 1,
-          "title": "\"주말에 출근하게 생겼네\" 초유의 사태…'업무 마비' 초래한 MS 먹통",
-          "url": "https://n.news.naver.com/article/277/0005842229?ntype=RANKING"
+          "title": "성추행에 공연음란 의혹까지... 수사관 감찰에 바쁜 중수청",
+          "url": "https://n.news.naver.com/article/023/0004009509?ntype=RANKING"
         }
       ],
       "category": null,
@@ -1969,20 +2027,1998 @@
         },
         "hydration": {
           "attempted": false,
-          "reason": "pending_evaluation"
+          "reason": "candidate_outside_top_25"
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:uncertain_category_hydration_budget_exhausted"
+      ]
     }
   ],
-  "candidateRuns": [],
+  "candidateRuns": [
+    {
+      "publicationKey": "diem:2026-11-14:issue:43498684370",
+      "category": "issue",
+      "observedAt": "2026-11-13T20:12:58.643Z",
+      "candidates": [
+        {
+          "title": "\"불가능한 점수\" 쏟아진 의구심…논란 커지자",
+          "url": "https://n.news.naver.com/article/055/0001402914?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 100,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 1,
+              "normalizedScore": 100,
+              "title": "\"불가능한 점수\" 쏟아진 의구심…논란 커지자",
+              "url": "https://n.news.naver.com/article/055/0001402914?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "classified",
+              "category": "economy",
+              "excluded": [],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": [
+            "issue:assigned_to_economy_after_hydration"
+          ]
+        },
+        {
+          "title": "차량 깔린 킥보드…학원 가던 7세, 스쿨존서 참변",
+          "url": "https://n.news.naver.com/article/055/0001402910?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 97.9796,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 2,
+              "normalizedScore": 97.9796,
+              "title": "차량 깔린 킥보드…학원 가던 7세, 스쿨존서 참변",
+              "url": "https://n.news.naver.com/article/055/0001402910?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": [
+            "issue:category_not_allowed_after_hydration"
+          ]
+        },
+        {
+          "title": "\"난 쓰레기\" 자포자기…단 2주 만에 씁쓸한 추락",
+          "url": "https://n.news.naver.com/article/055/0001402908?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 95.9592,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 3,
+              "normalizedScore": 95.9592,
+              "title": "\"난 쓰레기\" 자포자기…단 2주 만에 씁쓸한 추락",
+              "url": "https://n.news.naver.com/article/055/0001402908?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "classified",
+              "category": "issue",
+              "excluded": [],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": [
+            "issue:low_editorial_value:insufficient_reader_value"
+          ]
+        },
+        {
+          "title": "[단독] \"장동혁 암살하겠다\" 협박 문자 보낸 20대 남성 현행범 체포",
+          "url": "https://n.news.naver.com/article/055/0001402933?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 93.9388,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 4,
+              "normalizedScore": 93.9388,
+              "title": "[단독] \"장동혁 암살하겠다\" 협박 문자 보낸 20대 남성 현행범 체포",
+              "url": "https://n.news.naver.com/article/055/0001402933?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "classified",
+              "category": "issue",
+              "excluded": [],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": [
+            "issue:low_editorial_value:missing_content_value_signal"
+          ]
+        },
+        {
+          "title": "'AI 황제' 쫓겨나다…'바람'에 날아간 650조 원",
+          "url": "https://n.news.naver.com/article/055/0001402905?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 91.9184,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 5,
+              "normalizedScore": 91.9184,
+              "title": "'AI 황제' 쫓겨나다…'바람'에 날아간 650조 원",
+              "url": "https://n.news.naver.com/article/055/0001402905?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "classified",
+              "category": "economy",
+              "excluded": [],
+              "ambiguous": true
+            }
+          },
+          "rejectionReasons": [
+            "issue:assigned_to_economy_after_hydration"
+          ]
+        },
+        {
+          "title": "이재용, 삼성전자 주식 1,115만8,000주 증여 완료… 증여세 1조6,000억 육박할 듯",
+          "url": "https://n.news.naver.com/article/469/0000965480?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 89.898,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 6,
+              "normalizedScore": 89.898,
+              "title": "이재용, 삼성전자 주식 1,115만8,000주 증여 완료… 증여세 1조6,000억 육박할 듯",
+              "url": "https://n.news.naver.com/article/469/0000965480?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "excluded",
+              "category": null,
+              "excluded": [
+                "economy_low_value"
+              ],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": [
+            "issue:economy_low_value"
+          ]
+        },
+        {
+          "title": "\"나는 쓰레기 같은 인간\"… 무너진 젠슨 황 \"아내와 그녀들 삶이 걱정\"",
+          "url": "https://n.news.naver.com/article/469/0000965461?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 87.8776,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 7,
+              "normalizedScore": 87.8776,
+              "title": "\"나는 쓰레기 같은 인간\"… 무너진 젠슨 황 \"아내와 그녀들 삶이 걱정\"",
+              "url": "https://n.news.naver.com/article/469/0000965461?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": null
+          },
+          "rejectionReasons": [
+            "issue:primary_article_inaccessible"
+          ]
+        },
+        {
+          "title": "\"이건희가 살아 돌아왔나\"… 안경 벗은 이재용 회장 모습 '눈길'",
+          "url": "https://n.news.naver.com/article/469/0000965391?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 85.8571,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 8,
+              "normalizedScore": 85.8571,
+              "title": "\"이건희가 살아 돌아왔나\"… 안경 벗은 이재용 회장 모습 '눈길'",
+              "url": "https://n.news.naver.com/article/469/0000965391?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "classified",
+              "category": "issue",
+              "excluded": [],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": [
+            "issue:low_editorial_value:missing_content_value_signal"
+          ]
+        },
+        {
+          "title": "\"헤드라이트 앞 얼어붙은 사슴\"… 젠슨 황이 깎아내렸던 후임 CEO",
+          "url": "https://n.news.naver.com/article/469/0000965495?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 83.8367,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 9,
+              "normalizedScore": 83.8367,
+              "title": "\"헤드라이트 앞 얼어붙은 사슴\"… 젠슨 황이 깎아내렸던 후임 CEO",
+              "url": "https://n.news.naver.com/article/469/0000965495?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "classified",
+              "category": "economy",
+              "excluded": [],
+              "ambiguous": true
+            }
+          },
+          "rejectionReasons": [
+            "issue:assigned_to_economy_after_hydration"
+          ]
+        },
+        {
+          "title": "[단독] 살해된 15세 소녀, '성매매 교사' 피해도 털어놨다… 살인범 가족이 알았나",
+          "url": "https://n.news.naver.com/article/469/0000965468?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 81.8163,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 10,
+              "normalizedScore": 81.8163,
+              "title": "[단독] 살해된 15세 소녀, '성매매 교사' 피해도 털어놨다… 살인범 가족이 알았나",
+              "url": "https://n.news.naver.com/article/469/0000965468?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": [
+            "issue:category_not_allowed_after_hydration"
+          ]
+        },
+        {
+          "title": "\"예약 중단합니다\"‥마운자로 반입 허가에 난리 난 日 병원들",
+          "url": "https://n.news.naver.com/article/214/0001535501?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 79.7959,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 11,
+              "normalizedScore": 79.7959,
+              "title": "\"예약 중단합니다\"‥마운자로 반입 허가에 난리 난 日 병원들",
+              "url": "https://n.news.naver.com/article/214/0001535501?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": null
+          },
+          "rejectionReasons": [
+            "issue:primary_article_inaccessible"
+          ]
+        },
+        {
+          "title": "[단독] \"와‥300km! 이걸 걸어갔어?\" 경찰도 혀 내두른 '절도 대장정'",
+          "url": "https://n.news.naver.com/article/214/0001535506?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 77.7755,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 12,
+              "normalizedScore": 77.7755,
+              "title": "[단독] \"와‥300km! 이걸 걸어갔어?\" 경찰도 혀 내두른 '절도 대장정'",
+              "url": "https://n.news.naver.com/article/214/0001535506?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": true,
+              "reason": "uncertain_initial_classification"
+            },
+            "final": {
+              "status": "classified",
+              "category": "issue",
+              "excluded": [],
+              "ambiguous": false
+            }
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"의원님! 미국 출장 가시죠?\" 묻자 공항 '질주' 추격전 [다시간다]",
+          "url": "https://n.news.naver.com/article/214/0001535503?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 75.7551,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 13,
+              "normalizedScore": 75.7551,
+              "title": "\"의원님! 미국 출장 가시죠?\" 묻자 공항 '질주' 추격전 [다시간다]",
+              "url": "https://n.news.naver.com/article/214/0001535503?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "[단독] \"배현진 1년\"·\"제명\"‥장동혁 측 외부 인사가 징계 수위 전달",
+          "url": "https://n.news.naver.com/article/214/0001535504?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 73.7347,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 14,
+              "normalizedScore": 73.7347,
+              "title": "[단독] \"배현진 1년\"·\"제명\"‥장동혁 측 외부 인사가 징계 수위 전달",
+              "url": "https://n.news.naver.com/article/214/0001535504?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "excluded",
+              "category": null,
+              "excluded": [
+                "economy_low_value"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"산 높으니 골도 깊어\"‥붉은 넥타이 매고 \"시장 정상화\"",
+          "url": "https://n.news.naver.com/article/214/0001535513?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 71.7143,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 15,
+              "normalizedScore": 71.7143,
+              "title": "\"산 높으니 골도 깊어\"‥붉은 넥타이 매고 \"시장 정상화\"",
+              "url": "https://n.news.naver.com/article/214/0001535513?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“초대남에 성관계 점수 받아라”…바늘로 몸 꿰맨 남자들, 왜",
+          "url": "https://n.news.naver.com/article/025/0003565056?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 69.6939,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 16,
+              "normalizedScore": 69.6939,
+              "title": "“초대남에 성관계 점수 받아라”…바늘로 몸 꿰맨 남자들, 왜",
+              "url": "https://n.news.naver.com/article/025/0003565056?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“겁먹은 사슴, 보고만 할 줄 알아” 젠슨 황이 망신줬던 후임 CEO",
+          "url": "https://n.news.naver.com/article/025/0003565081?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 67.6735,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 17,
+              "normalizedScore": 67.6735,
+              "title": "“겁먹은 사슴, 보고만 할 줄 알아” 젠슨 황이 망신줬던 후임 CEO",
+              "url": "https://n.news.naver.com/article/025/0003565081?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "비행기표 취소해야 하나…“더 큰 지진 가능성” 日정부까지 경고",
+          "url": "https://n.news.naver.com/article/025/0003565079?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 65.6531,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 18,
+              "normalizedScore": 65.6531,
+              "title": "비행기표 취소해야 하나…“더 큰 지진 가능성” 日정부까지 경고",
+              "url": "https://n.news.naver.com/article/025/0003565079?ntype=RANKING"
+            }
+          ],
+          "category": "issue",
+          "classificationTrace": {
+            "initial": {
+              "status": "classified",
+              "category": "issue",
+              "excluded": [],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“딸 둘 아빠, 사람 빼고 다 팔아봤다”…남대문 스카프 아저씨 정체",
+          "url": "https://n.news.naver.com/article/025/0003565075?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 63.6327,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 19,
+              "normalizedScore": 63.6327,
+              "title": "“딸 둘 아빠, 사람 빼고 다 팔아봤다”…남대문 스카프 아저씨 정체",
+              "url": "https://n.news.naver.com/article/025/0003565075?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“진짜 보스 돌려달라”…엔비디아 직원들, 젠슨 황 복귀 청원",
+          "url": "https://n.news.naver.com/article/025/0003565080?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 61.6122,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 20,
+              "normalizedScore": 61.6122,
+              "title": "“진짜 보스 돌려달라”…엔비디아 직원들, 젠슨 황 복귀 청원",
+              "url": "https://n.news.naver.com/article/025/0003565080?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“엔비디아 임시 CEO, 젠슨 황으로부터 ‘겁먹은 사슴 같다’ 혹평 듣던 인물”",
+          "url": "https://n.news.naver.com/article/032/0003482594?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 59.5918,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 21,
+              "normalizedScore": 59.5918,
+              "title": "“엔비디아 임시 CEO, 젠슨 황으로부터 ‘겁먹은 사슴 같다’ 혹평 듣던 인물”",
+              "url": "https://n.news.naver.com/article/032/0003482594?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“이미지 실추로 손해, 모델료 반환해야”···법원, 배우 김수현 측 11억여원 반환 판결",
+          "url": "https://n.news.naver.com/article/032/0003482591?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 57.5714,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 22,
+              "normalizedScore": 57.5714,
+              "title": "“이미지 실추로 손해, 모델료 반환해야”···법원, 배우 김수현 측 11억여원 반환 판결",
+              "url": "https://n.news.naver.com/article/032/0003482591?ntype=RANKING"
+            }
+          ],
+          "category": "issue",
+          "classificationTrace": {
+            "initial": {
+              "status": "classified",
+              "category": "issue",
+              "excluded": [],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "우메~오이시이!··· ‘고독한 미식가’ 마츠시게 유타카, 남도 음식 일본에 알린다",
+          "url": "https://n.news.naver.com/article/032/0003482514?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 55.551,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 23,
+              "normalizedScore": 55.551,
+              "title": "우메~오이시이!··· ‘고독한 미식가’ 마츠시게 유타카, 남도 음식 일본에 알린다",
+              "url": "https://n.news.naver.com/article/032/0003482514?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“싱가포르 정부, 작년 앨리스 황 수사 협조 요청···미 정부는 묵살”",
+          "url": "https://n.news.naver.com/article/032/0003482499?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 53.5306,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 24,
+              "normalizedScore": 53.5306,
+              "title": "“싱가포르 정부, 작년 앨리스 황 수사 협조 요청···미 정부는 묵살”",
+              "url": "https://n.news.naver.com/article/032/0003482499?ntype=RANKING"
+            }
+          ],
+          "category": "issue",
+          "classificationTrace": {
+            "initial": {
+              "status": "classified",
+              "category": "issue",
+              "excluded": [],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "‘AI 안경 의혹’ 세무사 수석 합격자, CCTV는 없었지만 감독관 바로 앞에서 시험",
+          "url": "https://n.news.naver.com/article/032/0003482485?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 51.5102,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 25,
+              "normalizedScore": 51.5102,
+              "title": "‘AI 안경 의혹’ 세무사 수석 합격자, CCTV는 없었지만 감독관 바로 앞에서 시험",
+              "url": "https://n.news.naver.com/article/032/0003482485?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"유독 심하게 졸리다 했는데…\" 명의가 찾아낸 '뜻밖의 범인'",
+          "url": "https://n.news.naver.com/article/015/0005353718?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 49.4898,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 26,
+              "normalizedScore": 49.4898,
+              "title": "\"유독 심하게 졸리다 했는데…\" 명의가 찾아낸 '뜻밖의 범인'",
+              "url": "https://n.news.naver.com/article/015/0005353718?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"두 딸 키우며 10년 장사\"…남대문 스카프 아저씨의 인생 역전",
+          "url": "https://n.news.naver.com/article/015/0005353635?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 47.4694,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 27,
+              "normalizedScore": 47.4694,
+              "title": "\"두 딸 키우며 10년 장사\"…남대문 스카프 아저씨의 인생 역전",
+              "url": "https://n.news.naver.com/article/015/0005353635?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"땡큐 젠슨 황\"…공포의 폭락장서 '매수 버튼' 광클한 개미들 [분석+]",
+          "url": "https://n.news.naver.com/article/015/0005353754?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 45.449,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 28,
+              "normalizedScore": 45.449,
+              "title": "\"땡큐 젠슨 황\"…공포의 폭락장서 '매수 버튼' 광클한 개미들 [분석+]",
+              "url": "https://n.news.naver.com/article/015/0005353754?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "기혼 아들을 미혼으로…이혜훈, '80억' 반포 아파트 몰수 위기",
+          "url": "https://n.news.naver.com/article/015/0005353599?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 43.4286,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 29,
+              "normalizedScore": 43.4286,
+              "title": "기혼 아들을 미혼으로…이혜훈, '80억' 반포 아파트 몰수 위기",
+              "url": "https://n.news.naver.com/article/015/0005353599?ntype=RANKING"
+            }
+          ],
+          "category": "economy",
+          "classificationTrace": {
+            "initial": {
+              "status": "classified",
+              "category": "economy",
+              "excluded": [],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"책 너덜너덜해져\"…AI 안경 논란에 세무사 차석 합격자 등판",
+          "url": "https://n.news.naver.com/article/015/0005353584?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 41.4082,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 30,
+              "normalizedScore": 41.4082,
+              "title": "\"책 너덜너덜해져\"…AI 안경 논란에 세무사 차석 합격자 등판",
+              "url": "https://n.news.naver.com/article/015/0005353584?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"내린 뒤 안 보여서\"...승객 살린 버스 기사 눈썰미",
+          "url": "https://n.news.naver.com/article/052/0002432494?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 39.3878,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 31,
+              "normalizedScore": 39.3878,
+              "title": "\"내린 뒤 안 보여서\"...승객 살린 버스 기사 눈썰미",
+              "url": "https://n.news.naver.com/article/052/0002432494?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"젠슨 황 해임은 세기의 실수\"...직원들은 눈물만 [앵커리포트]",
+          "url": "https://n.news.naver.com/article/052/0002432497?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 37.3673,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 32,
+              "normalizedScore": 37.3673,
+              "title": "\"젠슨 황 해임은 세기의 실수\"...직원들은 눈물만 [앵커리포트]",
+              "url": "https://n.news.naver.com/article/052/0002432497?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "박수홍, 친형 부부 상대로 낸 98억원대 소송 1심 패소",
+          "url": "https://n.news.naver.com/article/052/0002432442?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 35.3469,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 33,
+              "normalizedScore": 35.3469,
+              "title": "박수홍, 친형 부부 상대로 낸 98억원대 소송 1심 패소",
+              "url": "https://n.news.naver.com/article/052/0002432442?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "이건희 살아 돌아온 줄...안경 벗은 이재용 회장에 '화들짝' [앵커리포트]",
+          "url": "https://n.news.naver.com/article/052/0002432393?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 33.3265,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 34,
+              "normalizedScore": 33.3265,
+              "title": "이건희 살아 돌아온 줄...안경 벗은 이재용 회장에 '화들짝' [앵커리포트]",
+              "url": "https://n.news.naver.com/article/052/0002432393?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"조희대, 선 넘으면 모든 책임\"...탄핵도 다시 고개",
+          "url": "https://n.news.naver.com/article/052/0002432535?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 31.3061,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 35,
+              "normalizedScore": 31.3061,
+              "title": "\"조희대, 선 넘으면 모든 책임\"...탄핵도 다시 고개",
+              "url": "https://n.news.naver.com/article/052/0002432535?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“앨리스황, 중국 국가안전부 공작원”…중국, 예의주시",
+          "url": "https://n.news.naver.com/article/056/0012293634?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 29.2857,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 36,
+              "normalizedScore": 29.2857,
+              "title": "“앨리스황, 중국 국가안전부 공작원”…중국, 예의주시",
+              "url": "https://n.news.naver.com/article/056/0012293634?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "‘40억 로또청약’ 반포아파트 날아가나…이혜훈 사기 혐의 송치",
+          "url": "https://n.news.naver.com/article/056/0012293636?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 27.2653,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 37,
+              "normalizedScore": 27.2653,
+              "title": "‘40억 로또청약’ 반포아파트 날아가나…이혜훈 사기 혐의 송치",
+              "url": "https://n.news.naver.com/article/056/0012293636?ntype=RANKING"
+            }
+          ],
+          "category": "economy",
+          "classificationTrace": {
+            "initial": {
+              "status": "classified",
+              "category": "economy",
+              "excluded": [],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "스쿨존 횡단보도 건너던 초등생…우회전 차량에 치여 숨져",
+          "url": "https://n.news.naver.com/article/056/0012293637?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 25.2449,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 38,
+              "normalizedScore": 25.2449,
+              "title": "스쿨존 횡단보도 건너던 초등생…우회전 차량에 치여 숨져",
+              "url": "https://n.news.naver.com/article/056/0012293637?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“몇십 년간 술 마신 곳인데?”…‘서울역 일대 금주령’ 현장은? [현장K]",
+          "url": "https://n.news.naver.com/article/056/0012293651?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 23.2245,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 39,
+              "normalizedScore": 23.2245,
+              "title": "“몇십 년간 술 마신 곳인데?”…‘서울역 일대 금주령’ 현장은? [현장K]",
+              "url": "https://n.news.naver.com/article/056/0012293651?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "평균 30점 과목서 100점…‘이례적 고득점’에 AI안경 의혹",
+          "url": "https://n.news.naver.com/article/056/0012293650?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 21.2041,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 40,
+              "normalizedScore": 21.2041,
+              "title": "평균 30점 과목서 100점…‘이례적 고득점’에 AI안경 의혹",
+              "url": "https://n.news.naver.com/article/056/0012293650?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“비행기표 다 끊어놨는데 어쩌나”…공포 휩싸인 日 “진짜 큰 지진 올 수도”",
+          "url": "https://n.news.naver.com/article/011/0004681870?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 19.1837,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 41,
+              "normalizedScore": 19.1837,
+              "title": "“비행기표 다 끊어놨는데 어쩌나”…공포 휩싸인 日 “진짜 큰 지진 올 수도”",
+              "url": "https://n.news.naver.com/article/011/0004681870?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“담배 피우는 것보다 심장에 더 안 좋다”…의사가 절대 하지 말라는 ‘이 습관’ [헬시타임]",
+          "url": "https://n.news.naver.com/article/011/0004682048?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 17.1633,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 42,
+              "normalizedScore": 17.1633,
+              "title": "“담배 피우는 것보다 심장에 더 안 좋다”…의사가 절대 하지 말라는 ‘이 습관’ [헬시타임]",
+              "url": "https://n.news.naver.com/article/011/0004682048?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“손님 뺏길라” 한 그릇 3000원대로 ‘뚝’…일본 유명 우동집의 속사정, 무슨 일?",
+          "url": "https://n.news.naver.com/article/011/0004682065?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 15.1429,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 43,
+              "normalizedScore": 15.1429,
+              "title": "“손님 뺏길라” 한 그릇 3000원대로 ‘뚝’…일본 유명 우동집의 속사정, 무슨 일?",
+              "url": "https://n.news.naver.com/article/011/0004682065?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“앨리스 황, 中 국가안전부 ‘칩 팀’ 요원”",
+          "url": "https://n.news.naver.com/article/011/0004682023?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 13.1224,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 44,
+              "normalizedScore": 13.1224,
+              "title": "“앨리스 황, 中 국가안전부 ‘칩 팀’ 요원”",
+              "url": "https://n.news.naver.com/article/011/0004682023?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "“관광이 악몽으로” 부산 사격장서 日 관광객 등 15명 참변…불길 번지는 데 단 3초였다 [오늘의 그날]",
+          "url": "https://n.news.naver.com/article/011/0004682084?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 11.102,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 45,
+              "normalizedScore": 11.102,
+              "title": "“관광이 악몽으로” 부산 사격장서 日 관광객 등 15명 참변…불길 번지는 데 단 3초였다 [오늘의 그날]",
+              "url": "https://n.news.naver.com/article/011/0004682084?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "'젠슨 황 추락' 판 뒤집혔다…수혜 터진 한국 기업 2곳[주末머니]",
+          "url": "https://n.news.naver.com/article/277/0005842515?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 9.0816,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 46,
+              "normalizedScore": 9.0816,
+              "title": "'젠슨 황 추락' 판 뒤집혔다…수혜 터진 한국 기업 2곳[주末머니]",
+              "url": "https://n.news.naver.com/article/277/0005842515?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"살다 살다 이런 오픈런 처음 본다\"…새벽 2시부터 '우르르' 맥날 개점에 난리난 도시",
+          "url": "https://n.news.naver.com/article/277/0005842518?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 7.0612,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 47,
+              "normalizedScore": 7.0612,
+              "title": "\"살다 살다 이런 오픈런 처음 본다\"…새벽 2시부터 '우르르' 맥날 개점에 난리난 도시",
+              "url": "https://n.news.naver.com/article/277/0005842518?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"이만한 사람 없어, 한 번 더 기회 주자\" 직원 74%, 젠슨 황 퇴진 반대",
+          "url": "https://n.news.naver.com/article/277/0005842471?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 5.0408,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 48,
+              "normalizedScore": 5.0408,
+              "title": "\"이만한 사람 없어, 한 번 더 기회 주자\" 직원 74%, 젠슨 황 퇴진 반대",
+              "url": "https://n.news.naver.com/article/277/0005842471?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"갑자기 한쪽 눈이 안 보여\"…국내서도 나타난 비만약 '뜻밖의 증상'",
+          "url": "https://n.news.naver.com/article/277/0005842243?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 3.0204,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 49,
+              "normalizedScore": 3.0204,
+              "title": "\"갑자기 한쪽 눈이 안 보여\"…국내서도 나타난 비만약 '뜻밖의 증상'",
+              "url": "https://n.news.naver.com/article/277/0005842243?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        },
+        {
+          "title": "\"주말에 출근하게 생겼네\" 초유의 사태…'업무 마비' 초래한 MS 먹통",
+          "url": "https://n.news.naver.com/article/277/0005842229?ntype=RANKING",
+          "publishedDate": "2026-11-14",
+          "publishedAt": null,
+          "observedAt": "2026-11-13T20:10:29.057Z",
+          "popularityScore": 1,
+          "popularitySignalReliable": true,
+          "hotness": null,
+          "crossPortal": false,
+          "sources": [
+            {
+              "portal": "naver",
+              "publisher": null,
+              "rank": 50,
+              "normalizedScore": 1,
+              "title": "\"주말에 출근하게 생겼네\" 초유의 사태…'업무 마비' 초래한 MS 먹통",
+              "url": "https://n.news.naver.com/article/277/0005842229?ntype=RANKING"
+            }
+          ],
+          "category": null,
+          "classificationTrace": {
+            "initial": {
+              "status": "uncertain",
+              "category": null,
+              "excluded": [
+                "category_not_allowed"
+              ],
+              "ambiguous": false
+            },
+            "hydration": {
+              "attempted": false,
+              "reason": "pending_evaluation"
+            },
+            "final": null
+          },
+          "rejectionReasons": []
+        }
+      ]
+    }
+  ],
   "publicationHistory": [],
   "publications": {
     "economy": {
-      "publicationKey": "diem:2026-11-14:economy",
+      "publicationKey": "diem:2026-11-14:economy:43513768301",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": null,
       "corroboration": null,
       "duplicateCheck": null,
@@ -1990,34 +4026,73 @@
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
         "updatedAt": null
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
         "updatedAt": null
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
         "updatedAt": null
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
         "updatedAt": null
       },
-      "notifications": []
+      "notifications": [],
+      "reason": "no_candidate_passed_hotness_gate",
+      "selectionDiagnostics": {
+        "candidateCount": 47,
+        "rejectedCandidateCount": 47,
+        "rejectionCounts": {
+          "uncertain_category_hydration_budget_exhausted": 18,
+          "primary_article_inaccessible": 7,
+          "category_not_allowed_after_hydration": 6,
+          "assigned_to_issue_after_hydration": 5,
+          "assigned_to_issue": 4,
+          "recent_duplicate": 2,
+          "not_hot:popularity_below_threshold": 2,
+          "economy_low_value": 2,
+          "not_hot:article_too_old": 1
+        },
+        "publicationHealth": {
+          "lastPublishedAt": "2026-11-13T20:12:56.930Z",
+          "monitoringStartedAt": "2026-07-25T07:10:45.856Z",
+          "hoursSinceLastPublished": 1.62,
+          "dailyFloorDue": false,
+          "overdue": false,
+          "watchdogAlertDue": false,
+          "lastWatchdogAt": "2026-11-11T22:31:40.038Z",
+          "thresholds": {
+            "dailyFloorAfterHours": 18,
+            "overdueAfterHours": 24,
+            "alertCooldownHours": 24
+          }
+        },
+        "publicationBudget": {
+          "allowed": true,
+          "reason": "daily_publication_budget_available",
+          "category": "economy",
+          "published": 0,
+          "limit": 2,
+          "remaining": 2
+        }
+      },
+      "observedAt": "2026-11-13T21:51:43.182Z"
     },
     "issue": {
       "publicationKey": "diem:2026-11-14:issue:43498684370",
@@ -4058,7 +6133,7 @@
       }
     }
   },
-  "candidateCategory": "issue",
-  "candidatePublicationKey": "diem:2026-11-14:issue:43498684370",
+  "candidateCategory": "economy",
+  "candidatePublicationKey": "diem:2026-11-14:economy:43513768301",
   "selectionMode": "hot"
 }
