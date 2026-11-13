@@ -6,7 +6,7 @@ module.exports = {
   groqApiKey: process.env.GROQ_API_KEY,
   groqPrimaryModel: process.env.GROQ_PRIMARY_MODEL || 'openai/gpt-oss-120b',
   groqFallbackModel: process.env.GROQ_FALLBACK_MODEL || 'openai/gpt-oss-20b',
-  editorialProvider: process.env.DIEM_EDITORIAL_PROVIDER || 'claude',
+  editorialProvider: process.env.DIEM_EDITORIAL_PROVIDER || 'groq',
   claudeCodeOauthToken: process.env.CLAUDE_CODE_OAUTH_TOKEN,
   claudeCodeBinary: process.env.CLAUDE_COMPARISON_BIN || 'claude',
   creativeReviewEnabled: process.env.DIEM_CREATIVE_REVIEW === 'true',
