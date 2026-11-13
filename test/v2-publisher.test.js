@@ -650,3 +650,35 @@ test('new Reel uploads obey the category cap including Basic while reconciliatio
   assert.equal(uploads,0);
  } finally {config.maxDailyPublicationsPerCategory=previous;fs.rmSync(root,{recursive:true,force:true});}
 });
+
+test('an operator-dispatched daily package publishes past the polling budget and records why', async () => {
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'diem-daily-override-'));
+ const ledger=readyLedger(root);
+ ledger.publications.economy.contentType='diem_daily';
+ ledger.publicationHistory=['first','second'].map(publicationKey=>({category:'economy',publicationKey,status:'published',reel:{status:'published',externalId:'ig-'+publicationKey}}));
+ let uploads=0;
+ const previous=config.maxDailyPublicationsPerCategory; config.maxDailyPublicationsPerCategory=2;
+ const options={
+  reconcileReelImpl:async()=>({status:'not_found',shouldPublish:true}),
+  cleanupReleasesImpl:async()=>[],
+  createReleaseImpl:async()=>{uploads++;return {releaseId:1,videoUrl:'https://example.com/daily.mp4'};},
+  publishReelImpl:async()=>({id:'daily-third',permalink:'https://instagram.com/reel/daily-third/'}),
+  publishCommentsImpl:async p=>p,
+  publishStoryImpl:async()=>({id:'story'}),
+ };
+ try{
+  await assert.rejects(publishPreparedPublication(ledger,'economy','token',options),/daily publication budget is exhausted/u);
+  assert.equal(uploads,0);
+  const published=await publishPreparedPublication(ledger,'economy','token',{...options,allowOperatorBudgetOverride:true});
+  assert.equal(uploads,1);
+  assert.equal(published.publications.economy.reel.status,'published');
+  assert.equal(published.publications.economy.reel.externalId,'daily-third');
+  assert.equal(published.publications.economy.publicationBudget.override,'operator_dispatched_daily_package');
+  assert.equal(published.publications.economy.publicationBudget.published,2);
+  assert.equal(published.publications.economy.publicationBudget.limit,2);
+  const newsLedger=readyLedger(root);
+  newsLedger.publications.economy.contentType='hot_news';
+  newsLedger.publicationHistory=['first','second'].map(publicationKey=>({category:'economy',publicationKey,status:'published',reel:{status:'published',externalId:'ig-'+publicationKey}}));
+  await assert.rejects(publishPreparedPublication(newsLedger,'economy','token',{...options,allowOperatorBudgetOverride:true}),/daily publication budget is exhausted/u);
+ }finally{config.maxDailyPublicationsPerCategory=previous;fs.rmSync(root,{recursive:true,force:true});}
+});

@@ -544,6 +544,9 @@ async function publishIndependentStory(publication, {
 }
 
 async function publishPreparedPublication(ledger, category, token, {
+  // An operator dispatches a named daily package to publish it now; the polling budget paces
+  // automatic runs and must not block that explicit approval.
+  allowOperatorBudgetOverride = false,
   cleanupReleasesImpl = cleanupExpiredReleases,
   createReleaseImpl = createTemporaryRelease,
   reconcileReelImpl = reconcileRecentReel,
@@ -602,7 +605,14 @@ async function publishPreparedPublication(ledger, category, token, {
       publication.status = 'published';
     } else {
       const budget = assessDailyPublicationBudget(ledger, category, { limit: config.maxDailyPublicationsPerCategory });
-      if (!budget.allowed) throw new Error(`[DIEM Publisher] ${category} daily publication budget is exhausted (${budget.published}/${budget.limit}).`);
+      const operatorOverride = allowOperatorBudgetOverride && publication.contentType === 'diem_daily';
+      if (!budget.allowed && !operatorOverride) throw new Error(`[DIEM Publisher] ${category} daily publication budget is exhausted (${budget.published}/${budget.limit}).`);
+      publication = {
+        ...publication,
+        publicationBudget: operatorOverride && !budget.allowed
+          ? { ...budget, override: 'operator_dispatched_daily_package' }
+          : budget,
+      };
       // Preauthored Basic packages already have their own immutable 5-card/19s approval contract.
       if (config.creativeReviewEnabled && publication.contentType !== 'diem_basic') assertCreativeBinding(publication);
       publication = await ensureTemporaryRelease(publication, reelPath, {

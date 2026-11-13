@@ -596,7 +596,9 @@ async function publishDailyPackage({
   if (persisted.publications[item.category].status !== 'ready') {
     throw new Error('[DIEM Daily] package must be prepared before publishing.');
   }
-  const published = await publishPreparedPublicationImpl(persisted, item.category, token);
+  const published = await publishPreparedPublicationImpl(persisted, item.category, token, {
+    allowOperatorBudgetOverride: true,
+  });
   return saveLedgerImpl(published);
 }
 
