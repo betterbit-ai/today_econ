@@ -6,6 +6,7 @@ const { spawnSync } = require('node:child_process');
 const test = require('node:test');
 
 const { createDailyLedger, updatePublication } = require('../src/v2/ledger');
+const config = require('../config');
 const {
   BASIC_CONTENT_TYPE,
   basicContentHash,
@@ -354,7 +355,8 @@ test('a published stored Reel can recover only Story and comment-chain steps', a
   assert.equal(recovered.reply.status, 'published');
 });
 
-test('stored Basic keeps the current news in the budget and uses today for an older unattempted package', async () => {
+test('stored Basic keeps the current news in the budget and uses today for an older unattempted package', async (t) => {
+ const previousLimit=config.maxDailyPublicationsPerCategory;config.maxDailyPublicationsPerCategory=2;t.after(()=>{config.maxDailyPublicationsPerCategory=previousLimit;});
  const today=createDailyLedger('2026-08-18');
  today.publicationHistory.push({category:'economy',publicationKey:'first-news',status:'published',reel:{status:'published',externalId:'first'}});
  today.publications.economy={...today.publications.economy,publicationKey:'second-news',status:'published',reel:{status:'published',externalId:'second'}};
@@ -375,7 +377,8 @@ test('stored Basic keeps the current news in the budget and uses today for an ol
  }
 });
 
-test('reviewed legacy Basic drafts use the publication day budget and preserve older evidence', async () => {
+test('reviewed legacy Basic drafts use the publication day budget and preserve older evidence', async (t) => {
+ const previousLimit=config.maxDailyPublicationsPerCategory;config.maxDailyPublicationsPerCategory=2;t.after(()=>{config.maxDailyPublicationsPerCategory=previousLimit;});
  const item=loadBasicCatalog({contentRoot:CONTENT_ROOT}).packages[0];
  const previous=createDailyLedger('2026-08-17');
  const draft=stageBasicPackage(item,{date:previous.date});

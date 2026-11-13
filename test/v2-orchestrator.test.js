@@ -12,6 +12,7 @@ const {
 } = require('../src/v2/orchestrator');
 const { transitionEvents } = require('../src/v2/operations');
 const { nextDate } = require('../src/v2/index');
+const config = require('../config');
 
 function plannedResult(date = '2026-07-25') {
   const selected = category => ({
@@ -640,7 +641,8 @@ test('category polling repairs a pending Story before selecting another article'
   assert.equal(result.ledger.publications.issue.reel.externalId, 'reel-story-recovery');
 });
 
-test('category polling records no_publish without selecting after the daily budget is spent', async () => {
+test('category polling records no_publish without selecting after the daily budget is spent', async (t) => {
+ const previousLimit=config.maxDailyPublicationsPerCategory;config.maxDailyPublicationsPerCategory=2;t.after(()=>{config.maxDailyPublicationsPerCategory=previousLimit;});
   let existing = createDailyLedger('2026-08-23');
   existing.publicationHistory.push({
     ...structuredClone(existing.publications.economy),
@@ -764,7 +766,8 @@ test('refreshes stale news-frame rules before retrying a political statement', (
   assert.ok(terms.includes('전망'));
 });
 
-test('does not bypass the daily cap for an operator-deleted news Reel', () => {
+test('does not bypass the daily cap for an operator-deleted news Reel', (t) => {
+ const previousLimit=config.maxDailyPublicationsPerCategory;config.maxDailyPublicationsPerCategory=2;t.after(()=>{config.maxDailyPublicationsPerCategory=previousLimit;});
   let source = createDailyLedger('2026-08-25');
   source = updatePublication(source, 'issue', {
     publicationKey: 'diem:2026-08-25:issue:deleted-news',
