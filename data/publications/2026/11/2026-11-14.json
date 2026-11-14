@@ -4,7 +4,7 @@
   "date": "2026-11-14",
   "timezone": "Asia/Seoul",
   "createdAt": "2026-11-13T20:10:29.057Z",
-  "updatedAt": "2026-11-14T02:00:27.274Z",
+  "updatedAt": "2026-11-14T02:03:35.324Z",
   "popularityFallback": null,
   "candidates": [
     {
@@ -395,7 +395,9 @@
           "ambiguous": false
         }
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:editorial_generation_failed:[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/title_generation: model returned no valid title candidates for article frame or numeric meaning | claude-opus-5-5/title_repair: title repair returned no valid title candidates for article frame | claude-opus-5-5/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])"
+      ]
     },
     {
       "title": "\"주말에 출근하게 생겼네\" 초유의 사태…'업무 마비' 초래한 MS 먹통",
@@ -433,7 +435,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "\"예약 중단합니다\"‥마운자로 반입 허가에 난리 난 日 병원들",
@@ -471,7 +475,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "\"의원님! 미국 출장 가시죠?\" 묻자 공항 '질주' 추격전 [다시간다]",
@@ -509,7 +515,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "미 전역 항공기 이륙 중단‥교통장관 \"관제센터 통신문제\"",
@@ -547,7 +555,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[단독] \"배현진 1년\"·\"제명\"‥장동혁 측 외부 인사가 징계 수위 전달",
@@ -585,7 +595,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:economy_low_value"
+      ]
     },
     {
       "title": "[단독] \"와‥300km! 이걸 걸어갔어?\" 경찰도 혀 내두른 '절도 대장정'",
@@ -623,7 +635,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:same_event_already_selected_or_attempted"
+      ]
     },
     {
       "title": "[단독] 세무사 수석 합격자 한원석씨 \"AI 안경? 말도 안 된다\"",
@@ -661,7 +675,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "한때 '등골 브레이커'였는데…5만원도 안 되는 패딩에 '열광' [장서우의 하입:hype]",
@@ -699,7 +715,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "젠슨 황 불륜에 날아든 '청구서'…한국인 노후가 흔들린다 [신현보의 딥데이터]",
@@ -737,7 +755,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"하룻밤 자는데 140만원?\"…서울 특급호텔값 치솟는 이유",
@@ -775,7 +795,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"하루 매출 3500만원?\"…남대문 스카프 아저씨 온라인몰 '폭주'",
@@ -813,7 +835,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "캠핑하다 실종된 호주 10대 소년, 엿새만에 발견…“감자칩 1봉과 개울물로 버텨”",
@@ -851,7 +875,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "젠슨 황이 떠날 때 노렸나…美 개미들, '폭락' 엔비디아 30분 만에 '1500억' 줍줍",
@@ -889,7 +915,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "50대 청소부 외모가 배우급…“기억을 잃은 재벌 회장님 아니냐” SNS 난리",
@@ -927,7 +955,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "“비행기표 이미 끊었는데”…日, 한 달 새 강진 이어져 “더 큰 지진” 경고까지",
@@ -965,7 +995,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "우울증·골다골증 경고에도…日 2030 여성, 저체중에 목숨 거는 까닭",
@@ -1003,7 +1035,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "[속보] 미국공항 이슈로 인천공항 출발 항공기 잇단 지연",
@@ -1041,7 +1075,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "미국 모든 공항에 이륙 금지 명령...수만 명 발 묶여",
@@ -1079,7 +1115,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "\"트럼프, 전작권 전환 주한미군 철수 수단으로 인식\"",
@@ -1117,7 +1155,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "엔비디아 직원들, 젠슨 황 복귀 청원...엔비디아 차기 수장 놓고 '시끌'",
@@ -1155,7 +1195,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "'젠슨 황 사태' 코너 몰린 러트닉...베선트도 공개 저격",
@@ -1193,7 +1235,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:missing_content_value_signal"
+      ]
     },
     {
       "title": "'성동·강동구 하락' 한강벨트까지 냉기 번졌다",
@@ -1231,7 +1275,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "이마트·롯데마트, 홈플러스 '반사 이익' 제대로 누렸다",
@@ -1269,7 +1315,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "[ETF워치]같은 엔비디아 ETF인데…누군 잃고 누군 벌었다",
@@ -1307,7 +1355,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "33년 쌓은 AI 제국, 스캔들에 흔들…젠슨 황 불명예 퇴진",
@@ -1345,7 +1395,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "이재명 대통령 \"자본시장 개혁 방심했다\"…전담 TF 신속 구성 지시",
@@ -1383,7 +1435,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "‘남대문 스카프 아저씨’ 보조 알바 해보니… 아이돌급 환호에 이유 있었다",
@@ -1421,7 +1475,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "좋다고 해서 매일 쓴 그 안마기, 내 몸을 망가뜨리고 있었다",
@@ -1459,7 +1515,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“아는 게 없다” 때리더니… 인천공항 사장 또 낙하산",
@@ -1497,7 +1555,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "손흥민·96라인 손잡았지만... 사우디에 21년 만의 충격패",
@@ -1535,7 +1595,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "“중국 가전은 ‘싸구려’ 낙인에서 탈출하고 있다” 중국 전문가들의 경고",
@@ -1573,7 +1635,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "폭등할 때 지켜보다가 반토막 때 샀다...국민연금 3분기 3900억 지른 종목",
@@ -1609,7 +1673,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:inconsistent_reader_need_event_kind"
+      ]
     },
     {
       "title": "“6학년 하굣길에 남학생이 나를”…‘학폭 피해’ 고백한 전소미, 눈물",
@@ -1647,7 +1713,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "엔비디아 임시 CEO 누군가 했더니…젠슨 황 “겁먹은 사슴”",
@@ -1685,7 +1753,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:article_too_old"
+      ]
     },
     {
       "title": "“모든 공항 항공기 이륙 중단됐다”…‘올스톱’ 사태 미국, 무슨일이",
@@ -1723,7 +1793,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:assigned_to_issue_after_hydration"
+      ]
     },
     {
       "title": "“자택에서 성폭력 당했다”…유명 아동 소설 작가 성범죄 의혹 ‘충격’",
@@ -1761,7 +1833,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "李 대통령, ‘주가조작 혐의’ 범LG家 3세 검거에… “이제 새 한국에선 법·질서 지켜야”",
@@ -1797,7 +1871,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:low_editorial_value:official_denial_without_confirmed_change"
+      ]
     },
     {
       "title": "‘세계 최초’ 한화 vs ‘점유율 64%’ 삼성… FLNG 경쟁 다시 붙나",
@@ -1835,7 +1911,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:not_hot:popularity_below_threshold"
+      ]
     },
     {
       "title": "[문득 궁금] 청사 팔려면 ‘용도폐지’부터?… 광교청사 매각 무산된 이유",
@@ -1873,7 +1951,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:category_not_allowed_after_hydration"
+      ]
     },
     {
       "title": "美 전역 항공기 이륙 중단…관제 통신 시스템 장애에 무게(종합)",
@@ -1911,7 +1991,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     },
     {
       "title": "[비즈톡톡] 스피커 구멍 없앤 아이패드 미니… 스마트폰서 자취 감춘 ‘화면 진동’ 다시 꺼내",
@@ -1949,7 +2031,9 @@
         },
         "final": null
       },
-      "rejectionReasons": []
+      "rejectionReasons": [
+        "economy:primary_article_inaccessible"
+      ]
     }
   ],
   "candidateRuns": [
@@ -6049,7 +6133,7 @@
     "economy": {
       "publicationKey": "diem:2026-11-14:economy:43543575439",
       "category": "economy",
-      "status": "planned",
+      "status": "no_publish",
       "candidate": {
         "title": "\"이번 계모임은 여기서 하자\" 60대 우르르…'MZ 맛집'인줄 알았는데 '반전'",
         "url": "https://n.news.naver.com/article/277/0005842536?ntype=RANKING",
@@ -6236,35 +6320,45 @@
       "image": null,
       "audio": null,
       "reel": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
-        "error": null,
-        "updatedAt": null
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/title_generation: model returned no valid title candidates for article frame or numeric meaning | claude-opus-5-5/title_repair: title repair returned no valid title candidates for article frame | claude-opus-5-5/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "updatedAt": "2026-11-14T02:03:33.817Z"
       },
       "story": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-11-14T02:03:33.817Z"
       },
       "comment": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-11-14T02:03:33.817Z"
       },
       "reply": {
-        "status": "planned",
+        "status": "no_publish",
         "attempts": 0,
         "externalId": null,
         "error": null,
-        "updatedAt": null
+        "updatedAt": "2026-11-14T02:03:33.817Z"
       },
-      "notifications": [],
-      "reason": null,
+      "notifications": [
+        {
+          "key": "diem:2026-11-14:economy:43543575439:selection:no_publish",
+          "status": "no_publish",
+          "stage": "selection",
+          "sentAt": "2026-11-14T02:03:35.323Z",
+          "slackTs": "1794621813.973419",
+          "issueNumber": 253,
+          "issueUrl": "https://github.com/betterbit-ai/today_econ/issues/253"
+        }
+      ],
+      "reason": "no_candidate_passed_editorial_generation",
       "plannedAt": "2026-11-14T02:00:27.268Z",
       "hotness": {
         "ok": true,
@@ -6320,6 +6414,172 @@
           "limit": 2,
           "remaining": 2
         }
+      },
+      "generation": {
+        "status": "no_publish",
+        "attempts": 1,
+        "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/title_generation: model returned no valid title candidates for article frame or numeric meaning | claude-opus-5-5/title_repair: title repair returned no valid title candidates for article frame | claude-opus-5-5/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+        "candidateFailures": [
+          {
+            "title": "\"이번 계모임은 여기서 하자\" 60대 우르르…'MZ 맛집'인줄 알았는데 '반전'",
+            "url": "https://n.news.naver.com/article/277/0005842536?ntype=RANKING",
+            "error": "[DIEM Editorial] Model attempts failed; deterministic fallback is disabled; try the next candidate (claude-opus-5-5/title_generation: model returned no valid title candidates for article frame or numeric meaning | claude-opus-5-5/title_repair: title repair returned no valid title candidates for article frame | claude-opus-5-5/editorial: title repair failed: title repair returned no valid title candidates for article frame | openai/gpt-oss-20b/editorial_structure: model returned invalid sentence structure | openai/gpt-oss-20b/editorial_repair: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}] | openai/gpt-oss-20b/editorial: editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}])",
+            "modelAttempts": [
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":0,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":0,\"number\":\"8.9%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "f66ba1bfedc4f785953b6ff321cf44a64324d18c51de6a054fafd729cd33ae09",
+                  "titleCandidates": [
+                    {
+                      "title": "60대 뷔페 이용↑\n외식 21.7%↑"
+                    }
+                  ],
+                  "sentences": [
+                    "엠브레인 조사에 따르면 60대 뷔페 이용이 전년 대비 21.7% 급증해 전체 외식 지출이 8.9% 증가했다. 📰",
+                    "지난 1년(9월~8월) 뷔페 프랜차이즈 매출은 1조8946억원으로 전년 동기 대비 8.9% 늘었으며, 60대 매출 비중이 가장 크게 상승했다.",
+                    "가격 대비 다양한 메뉴를 한 번에 즐길 수 있는 가성비 뷔페가 고물가 속 중장년층 모임 장소로 자리 잡으며, 쇼핑몰 입점 확대와 시즌 메뉴 강화가 성장 요인으로 작용하고 있다. 📈"
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial_repair",
+                "status": "succeeded",
+                "error": null
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "title_generation",
+                "status": "failed",
+                "error": "model returned no valid title candidates for article frame or numeric meaning",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "f66ba1bfedc4f785953b6ff321cf44a64324d18c51de6a054fafd729cd33ae09",
+                  "titleCandidates": [
+                    {
+                      "title": "계모임은 여기서\n뱃포 급증\n보도"
+                    }
+                  ],
+                  "sentences": [
+                    "Buffet restaurants are increasingly chosen as meeting venues by middle‑aged groups, overtaking their former focus on younger families.",
+                    "Market research shows a sharp rise in buffet spending, with the strongest growth seen among seniors.",
+                    "The trend is driven by buffet chains moving into malls and adding varied seasonal menus, boosting attraction for older diners."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "title_repair",
+                "status": "failed",
+                "error": "title repair returned no valid title candidates for article frame",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "f66ba1bfedc4f785953b6ff321cf44a64324d18c51de6a054fafd729cd33ae09",
+                  "titleCandidates": [
+                    {
+                      "title": "계모임은 여기서\n60대 급증\n뱃포 인기"
+                    }
+                  ],
+                  "sentences": [],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "claude-opus-5-5",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "title repair failed: title repair returned no valid title candidates for article frame",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "f66ba1bfedc4f785953b6ff321cf44a64324d18c51de6a054fafd729cd33ae09",
+                  "titleCandidates": [
+                    {
+                      "title": "계모임은 여기서\n뱃포 급증\n보도"
+                    }
+                  ],
+                  "sentences": [
+                    "Buffet restaurants are increasingly chosen as meeting venues by middle‑aged groups, overtaking their former focus on younger families.",
+                    "Market research shows a sharp rise in buffet spending, with the strongest growth seen among seniors.",
+                    "The trend is driven by buffet chains moving into malls and adding varied seasonal menus, boosting attraction for older diners."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_structure",
+                "status": "failed",
+                "error": "model returned invalid sentence structure",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "f66ba1bfedc4f785953b6ff321cf44a64324d18c51de6a054fafd729cd33ae09",
+                  "titleCandidates": [
+                    {
+                      "title": "60대 급증\n뷔페 프랜차이즈"
+                    }
+                  ],
+                  "sentences": [],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial_repair",
+                "status": "failed",
+                "error": "model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "f66ba1bfedc4f785953b6ff321cf44a64324d18c51de6a054fafd729cd33ae09",
+                  "titleCandidates": [
+                    {
+                      "title": "가성비 뷔페\n60대 급증"
+                    }
+                  ],
+                  "sentences": [
+                    "60대 고객이 가성비 뷔페를 모임 장소로 급증했다.",
+                    "엠브레인 조사에 따르면 60대 외식금액이 21.7% 상승했다.",
+                    "뷔페가 쇼핑몰 입점으로 접근성이 좋아 중장년층에 인기를 끌었다."
+                  ],
+                  "textMayBeTruncated": true
+                }
+              },
+              {
+                "model": "openai/gpt-oss-20b",
+                "stage": "editorial",
+                "status": "failed",
+                "error": "editorial repair failed: model returned an unsupported numeric meaning: [{\"index\":1,\"number\":\"60대\",\"reason\":\"numeric meaning lacks a supporting source sentence\"},{\"index\":1,\"number\":\"21.7%\",\"reason\":\"numeric meaning lacks a supporting source sentence\"}]",
+                "rejectedDraft": {
+                  "schemaVersion": 1,
+                  "status": "rejected_not_validated",
+                  "sourceSha256": "f66ba1bfedc4f785953b6ff321cf44a64324d18c51de6a054fafd729cd33ae09",
+                  "titleCandidates": [
+                    {
+                      "title": "60대 급증\n뷔페 프랜차이즈"
+                    }
+                  ],
+                  "sentences": [],
+                  "textMayBeTruncated": true
+                }
+              }
+            ],
+            "reason": "editorial_generation_failed",
+            "stage": "editorial_generation",
+            "rejectedAt": "2026-11-14T02:01:13.427Z"
+          }
+        ],
+        "updatedAt": "2026-11-14T02:03:33.817Z"
       }
     },
     "issue": {
