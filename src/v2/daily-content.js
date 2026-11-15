@@ -6,6 +6,7 @@ const config = require('../../config');
 const { assertPreparedQuality } = require('./quality-gate');
 const {
   allLedgerPublications,
+  archivePublication,
   createDailyLedger,
   emptyPublication,
   historyFromLedgers,
@@ -18,8 +19,9 @@ const { publishPreparedPublication } = require('./publisher');
 const { selectMusic, getMood } = require('./music');
 const { creativeBrief, reviewRenderedCreative } = require('./creative');
 const { createGroqVisionReviewer } = require('./groq');
-const { createDiemReelWithMusic } = require('./reel');
+const { createDiemReelWithMusic, createDiemCardReelWithMusic } = require('./reel');
 const { renderDiemCover, renderDiemScenes } = require('./cover');
+const { renderDiemCards } = require('./cards');
 const { buildTopicSignature, classifyCandidate } = require('./topic');
 const { generatedFallbackTopic, imageReuseKeys } = require('./image-selector');
 const { validateEditorial } = require('./editorial');
@@ -28,6 +30,9 @@ const { normalizeNfc } = require('./text');
 const { resolveVisualLibraryAsset } = require('./visual-library');
 
 const DAILY_CONTENT_TYPE = 'diem_daily';
+// Finished lengths of the multi-cut card Reel, keyed by cut count.
+const CARD_REEL_SECONDS = Object.freeze({ 3: 12, 4: 15 });
+const CARD_SCENE_DURATIONS = Object.freeze({ 3: [4.1, 4.1, 3.8], 4: [3.8, 3.8, 3.8, 3.6] });
 const DAILY_PACKAGE_SCHEMA_VERSION = 3;
 const DAILY_CONTENT_ROOT = path.join(process.cwd(), 'content', 'diem-daily');
 const MAX_DAILY_IMAGE_BYTES = 8 * 1024 * 1024;
@@ -266,6 +271,18 @@ function validateDailyPackage(item = {}, {
   }
   const editorialResult = validateEditorial(item.editorial || {}, { article, handle });
   if (!editorialResult.ok) errors.push(...editorialResult.errors.map(error => `editorial: ${error}`));
+  if (item.editorial?.reelFormat === 'cards') {
+    // Card copy is rendered straight onto the Reel, so every number on it must already exist
+    // in the grounded source evidence.
+    const evidenceDigits = text.replace(/[^0-9]/gu, '');
+    const cardText = JSON.stringify(item.editorial.cards || []);
+    for (const token of cardText.match(/\d[\d,]*/gu) || []) {
+      const digits = token.replace(/,/gu, '');
+      if (digits.length >= 2 && !evidenceDigits.includes(digits)) {
+        errors.push(`card copy uses an ungrounded number: ${token}`);
+      }
+    }
+  }
   if (item.editorial?.reelFormat === 'explain' && !explainEnabled) {
     errors.push('explain Reels are disabled');
   }
@@ -290,8 +307,18 @@ function validateDailyPackage(item = {}, {
     if (item.editorial?.schemaVersion !== 3) errors.push('v3 package requires editorial schemaVersion 3');
     if (item.analytics?.featureSchemaVersion !== 3) errors.push('v3 analytics.featureSchemaVersion must be 3');
     if (item.analytics?.strategyVersion !== 'discovery-funnel-v3') errors.push('v3 analytics.strategyVersion must be discovery-funnel-v3');
-    const expectedDuration = item.editorial?.reelFormat === 'explain' ? 13 : 6;
-    if (item.analytics?.reelDurationSeconds !== expectedDuration) {
+    const format = item.editorial?.reelFormat || 'flash';
+    const expectedDuration = format === 'explain' ? 13 : 6;
+    if (format === 'cards') {
+      const duration = item.analytics?.reelDurationSeconds;
+      const declaredCards = Array.isArray(item.editorial?.cards) ? item.editorial.cards.length : 0;
+      const expected = CARD_REEL_SECONDS[declaredCards];
+      if (expected == null) {
+        errors.push('v3 cards format requires three or four cards');
+      } else if (duration !== expected) {
+        errors.push(`v3 cards format requires analytics.reelDurationSeconds ${expected} for ${declaredCards} cuts`);
+      }
+    } else if (item.analytics?.reelDurationSeconds !== expectedDuration) {
       errors.push(`v3 analytics.reelDurationSeconds must be ${expectedDuration}`);
     }
   }
@@ -329,6 +356,16 @@ function validateDailyPackage(item = {}, {
   else if (dailyPackageContentHash(item) !== item.integrity.contentSha256) errors.push('content hash mismatch');
 
   return { ok: errors.length === 0, errors, article, image, editorial: editorialResult };
+}
+
+function reelSecondsFor(item = {}) {
+  const format = item.editorial?.reelFormat || 'flash';
+  if (format === 'explain') return 13;
+  if (format === 'cards') {
+    const count = Array.isArray(item.editorial?.cards) ? item.editorial.cards.length : 0;
+    return CARD_REEL_SECONDS[count] || 6;
+  }
+  return 6;
 }
 
 function stageDailyPackage(item, {
@@ -374,7 +411,7 @@ function stageDailyPackage(item, {
       ...(item.analytics || {}),
       featureSchemaVersion: 3,
       strategyVersion: 'discovery-funnel-v3',
-      reelDurationSeconds: item.editorial?.reelFormat === 'explain' ? 13 : 6,
+      reelDurationSeconds: reelSecondsFor(item),
     },
     image,
     source: {
@@ -410,8 +447,10 @@ async function prepareDailyPackage(ledger, category, {
   history = [],
   renderCoverImpl = renderDiemCover,
   renderScenesImpl = renderDiemScenes,
+  renderCardsImpl = renderDiemCards,
   selectMusicImpl = selectMusic,
   createReelImpl = createDiemReelWithMusic,
+  createCardReelImpl = createDiemCardReelWithMusic,
 } = {}) {
   if (item?.review?.mode === 'shadow') throw new Error('[DIEM Daily] shadow package cannot be prepared.');
   if (item?.review?.mode !== 'assisted') throw new Error('[DIEM Daily] only assisted packages can be prepared.');
@@ -449,24 +488,40 @@ async function prepareDailyPackage(ledger, category, {
   const packageImagePath = item.visual?.assetPath || item.visual?.kind === 'diem-library'
     ? visualFilePath(item)
     : null;
-  await renderCoverImpl({
-    editorial: publication.editorial,
-    date: ledger.date,
-    category,
-    contentType: DAILY_CONTENT_TYPE,
-    imagePath: packageImagePath,
-    fallbackTheme: image.fallbackTheme,
-    fallbackVariant: image.fallbackVariant,
-    visualFingerprint: image.visualFingerprint,
-    outputPath: coverPath,
-  });
-  if (!fs.existsSync(coverPath)) throw new Error('[DIEM Daily] Cover artifact was not rendered.');
   const reelFormat = publication.editorial.reelFormat || 'flash';
+  // A multi-cut card package is its own artwork: the opening cut doubles as the cover artifact
+  // that review and the Story hand-off read.
+  let cardPaths = [];
+  if (reelFormat === 'cards') {
+    cardPaths = await renderCardsImpl({
+      cards: publication.editorial.cards,
+      style: publication.editorial.style?.name || 'diem-dark',
+      accent: publication.editorial.style?.accent,
+      date: ledger.date,
+      category,
+      outputDir,
+    });
+    fs.copyFileSync(cardPaths[0], coverPath);
+  } else {
+    await renderCoverImpl({
+      editorial: publication.editorial,
+      date: ledger.date,
+      category,
+      contentType: DAILY_CONTENT_TYPE,
+      imagePath: packageImagePath,
+      fallbackTheme: image.fallbackTheme,
+      fallbackVariant: image.fallbackVariant,
+      visualFingerprint: image.visualFingerprint,
+      outputPath: coverPath,
+    });
+  }
+  if (!fs.existsSync(coverPath)) throw new Error('[DIEM Daily] Cover artifact was not rendered.');
   const sceneImagePaths = reelFormat === 'explain'
     ? (renderCoverImpl === renderDiemCover
       ? await renderScenesImpl({ scenes: publication.editorial.scenes, imagePath: packageImagePath, outputDir })
       : [coverPath, coverPath, coverPath])
     : [];
+  const cardPathsFinal = cardPaths;
   const music = selectMusicImpl({
     history,
     publicationKey: publication.publicationKey,
@@ -481,13 +536,20 @@ async function prepareDailyPackage(ledger, category, {
       reviewImages: createGroqVisionReviewer({ apiKey: config.groqApiKey, model: config.groqVisionModel }) });
   }
   const reelPath = path.join(outputDir, `${category}-reel.mp4`);
-  const reelResult = await createReelImpl({
-    imagePath: coverPath,
-    sceneImagePaths,
-    format: reelFormat,
-    outputPath: reelPath,
-    music,
-  });
+  const reelResult = reelFormat === 'cards'
+    ? await createCardReelImpl({
+      cardPaths,
+      sceneDurations: CARD_SCENE_DURATIONS[cardPaths.length],
+      outputPath: reelPath,
+      music,
+    })
+    : await createReelImpl({
+      imagePath: coverPath,
+      sceneImagePaths,
+      format: reelFormat,
+      outputPath: reelPath,
+      music,
+    });
   if (!fs.existsSync(reelResult.outputPath || reelPath)) throw new Error('[DIEM Daily] Reel artifact was not rendered.');
   if (creativeReview) creativeReview.reviewedReelSha256 = sha256File(reelResult.outputPath || reelPath);
   const preparedAt = now.toISOString();
@@ -499,6 +561,7 @@ async function prepareDailyPackage(ledger, category, {
       coverPath: path.relative(process.cwd(), coverPath),
       coverSha256: sha256File(coverPath),
       scenePaths: sceneImagePaths.map(scenePath => path.relative(process.cwd(), scenePath)),
+      cardPaths: cardPathsFinal.map(cardPath => path.relative(process.cwd(), cardPath)),
       reelPath: path.relative(process.cwd(), reelResult.outputPath || reelPath),
       reelSha256: sha256File(reelResult.outputPath || reelPath),
       temporary: true,
@@ -525,7 +588,21 @@ function stagePackageInLedger(ledger, item, { date, now } = {}) {
   const current = ledger.publications?.[item.category];
   if (!current) throw new Error(`[DIEM Daily] Missing ${item.category} publication.`);
   if (current.dailyPackageId === item.packageId) return ledger;
-  if (current.candidate || !['planned', 'no_publish'].includes(current.status)) {
+  // A published publication can be followed by another package on the same date. The earlier one
+  // moves into publicationHistory so no publication record or measurement is overwritten.
+  const published = current.status === 'published'
+    || current.reel?.status === 'published'
+    || Boolean(current.reel?.externalId);
+  if (current.candidate && !published) {
+    throw new Error(`[DIEM Daily] ${item.category} already contains a different publication.`);
+  }
+  if (current.candidate && published) {
+    const archived = archivePublication(ledger, item.category);
+    const next = structuredClone(archived);
+    next.publications[item.category] = stageDailyPackage(item, { date, now });
+    return next;
+  }
+  if (!['planned', 'no_publish'].includes(current.status)) {
     throw new Error(`[DIEM Daily] ${item.category} already contains a different publication.`);
   }
   const next = structuredClone(ledger);
@@ -603,6 +680,8 @@ async function publishDailyPackage({
 }
 
 module.exports = {
+  CARD_REEL_SECONDS,
+  CARD_SCENE_DURATIONS,
   DAILY_CONTENT_ROOT,
   DAILY_CONTENT_TYPE,
   DAILY_PACKAGE_SCHEMA_VERSION,

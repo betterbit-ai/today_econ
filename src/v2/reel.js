@@ -26,6 +26,16 @@ const DIEM_EXPLAIN_REEL = Object.freeze({
   audioSampleRate: 48_000,
   audioVolume: 0.3,
 });
+const DIEM_CARD_REEL = Object.freeze({
+  width: 1080,
+  height: 1920,
+  // Card durations already include the crossfade tail; the sum is the finished Reel length.
+  sceneDurations: Object.freeze([3.8, 3.8, 3.8, 3.6]),
+  transitionSeconds: 0.4,
+  fps: 30,
+  audioSampleRate: 48_000,
+  audioVolume: 0.26,
+});
 const DIEM_BASIC_REEL = Object.freeze({
   width: 1080,
   height: 1920,
@@ -187,6 +197,167 @@ function buildDiemBasicReelArgs({
     outputPath,
   );
   return args;
+}
+
+function diemCardDurations(sceneDurations, cardCount) {
+  const durations = Array.isArray(sceneDurations) && sceneDurations.length === cardCount
+    ? sceneDurations
+    : DIEM_CARD_REEL.sceneDurations.slice(0, cardCount);
+  if (durations.length !== cardCount) throw new Error('[DIEM Card Reel] A duration is required for every card.');
+  return durations;
+}
+
+function buildDiemCardReelArgs({
+  cardPaths = [],
+  sceneDurations,
+  transitionSeconds = DIEM_CARD_REEL.transitionSeconds,
+  audioPath,
+  outputPath,
+} = {}) {
+  if (cardPaths.length < 3 || cardPaths.length > 4) {
+    throw new Error('[DIEM Card Reel] Three or four cards are required.');
+  }
+  const durations = diemCardDurations(sceneDurations, cardPaths.length);
+  const totalDuration = Number(durations.reduce((sum, value) => sum + value, 0).toFixed(3));
+  const { fps, audioSampleRate, audioVolume, width, height } = DIEM_CARD_REEL;
+  const args = ['-y'];
+  cardPaths.forEach((cardPath, index) => {
+    const encodedDuration = index < cardPaths.length - 1 ? durations[index] + transitionSeconds : durations[index];
+    args.push('-loop', '1', '-framerate', String(fps), '-t', encodedDuration.toFixed(3), '-i', cardPath);
+  });
+  if (audioPath) args.push('-stream_loop', '-1', '-i', audioPath);
+  else args.push('-f', 'lavfi', '-t', String(totalDuration), '-i', `anullsrc=channel_layout=stereo:sample_rate=${audioSampleRate}`);
+
+  const scaled = cardPaths.map((_, index) => (
+    `[${index}:v]fps=${fps},scale=${width}:${height}:force_original_aspect_ratio=increase,crop=${width}:${height},setsar=1,format=yuv420p[v${index}]`
+  ));
+  const offsets = durations.slice(0, -1).reduce((values, duration) => {
+    const previous = values.length ? values[values.length - 1] : 0;
+    values.push(Number((previous + duration).toFixed(3)));
+    return values;
+  }, []);
+  const transitions = offsets.map((offset, index) => {
+    const left = index === 0 ? '[v0]' : `[x${index}]`;
+    const right = `[v${index + 1}]`;
+    const output = index === offsets.length - 1 ? '[v]' : `[x${index + 1}]`;
+    return `${left}${right}xfade=transition=fade:duration=${transitionSeconds}:offset=${offset}${output}`;
+  });
+  const audioIndex = cardPaths.length;
+  const fadeOutStart = Math.max(0, totalDuration - 0.6);
+  const audio = `[${audioIndex}:a]atrim=duration=${totalDuration},asetpts=N/SR/TB,volume=${audioVolume},`
+    + `afade=t=in:st=0:d=0.25,afade=t=out:st=${fadeOutStart}:d=0.6,aresample=${audioSampleRate}[a]`;
+  args.push(
+    '-filter_complex', [...scaled, ...transitions, audio].join(';'),
+    '-map', '[v]',
+    '-map', '[a]',
+    '-frames:v', String(Math.round(totalDuration * fps)),
+    '-t', String(totalDuration),
+    '-r', String(fps),
+    '-c:v', 'libx264',
+    '-preset', 'veryfast',
+    '-crf', '20',
+    '-profile:v', 'high',
+    '-level', '4.0',
+    '-pix_fmt', 'yuv420p',
+    '-g', '60',
+    '-keyint_min', '60',
+    '-sc_threshold', '0',
+    '-c:a', 'aac',
+    '-b:a', '96k',
+    '-ar', String(audioSampleRate),
+    '-ac', '2',
+    '-movflags', '+faststart',
+    outputPath,
+  );
+  return { args, totalDuration };
+}
+
+async function createDiemCardReelVideo({
+  cardPaths,
+  sceneDurations,
+  transitionSeconds,
+  outputPath = path.join(os.tmpdir(), `diem-card-reel-${Date.now()}.mp4`),
+  audioPath = null,
+  execFileImpl,
+  fsImpl = fs,
+  ffmpegPath,
+} = {}) {
+  if (!Array.isArray(cardPaths) || cardPaths.length < 3 || cardPaths.length > 4) {
+    throw new Error('[DIEM Card Reel] Three or four cards are required.');
+  }
+  for (const cardPath of cardPaths) {
+    if (!cardPath || !fsImpl.existsSync(cardPath)) throw new Error(`[DIEM Card Reel] Card not found: ${cardPath || '(missing)'}`);
+  }
+  if (audioPath && !fsImpl.existsSync(audioPath)) throw new Error(`[DIEM Card Reel] Audio not found: ${audioPath}`);
+  fsImpl.mkdirSync(path.dirname(outputPath), { recursive: true });
+  const { args, totalDuration } = buildDiemCardReelArgs({
+    cardPaths,
+    sceneDurations,
+    transitionSeconds,
+    audioPath,
+    outputPath,
+  });
+  await runFfmpeg(args, { execFileImpl, ffmpegPath });
+  return { outputPath, durationSeconds: totalDuration };
+}
+
+async function createDiemCardReelWithMusic({
+  cardPaths,
+  sceneDurations,
+  transitionSeconds,
+  outputPath,
+  music,
+  execFileImpl,
+  fsImpl = fs,
+  ffmpegPath,
+  createVideoImpl = createDiemCardReelVideo,
+} = {}) {
+  const candidates = music?.mode === 'track'
+    ? (music.candidates || [{ trackId: music.trackId, path: music.path }]).slice(0, 2)
+    : [];
+  const attempts = [];
+  for (const candidate of candidates) {
+    try {
+      const rendered = await createVideoImpl({
+        cardPaths, sceneDurations, transitionSeconds, outputPath, audioPath: candidate.path, execFileImpl, fsImpl, ffmpegPath,
+      });
+      attempts.push({ mode: 'track', trackId: candidate.trackId, status: 'succeeded' });
+      return {
+        outputPath: rendered.outputPath || outputPath,
+        durationSeconds: rendered.durationSeconds,
+        audio: {
+          mode: 'track',
+          trackId: candidate.trackId,
+          category: candidate.category || music.category,
+          mood: candidate.mood || music.mood,
+          title: candidate.title || music.title,
+          license: candidate.license || music.license,
+          source: candidate.source || music.source,
+          sha256: candidate.sha256 || music.sha256,
+          reason: attempts.length > 1 ? 'selected track mix failed; alternate track used' : music.reason,
+          fallback: attempts.length > 1,
+        },
+        attempts,
+      };
+    } catch (error) {
+      attempts.push({ mode: 'track', trackId: candidate.trackId, status: 'failed', error: error.message });
+    }
+  }
+  const silent = await createVideoImpl({
+    cardPaths, sceneDurations, transitionSeconds, outputPath, audioPath: null, execFileImpl, fsImpl, ffmpegPath,
+  });
+  attempts.push({ mode: 'silent', trackId: null, status: 'succeeded' });
+  return {
+    outputPath: silent.outputPath || outputPath,
+    durationSeconds: silent.durationSeconds,
+    audio: {
+      mode: 'silent',
+      trackId: null,
+      reason: candidates.length ? 'audio mixing failed twice' : (music?.reason || 'silent selected'),
+      fallback: candidates.length > 0,
+    },
+    attempts,
+  };
 }
 
 async function createDiemReelVideo({
@@ -368,13 +539,17 @@ async function createDiemBasicReelWithMusic({
 
 module.exports = {
   DIEM_BASIC_REEL,
+  DIEM_CARD_REEL,
   DIEM_EXPLAIN_REEL,
   DIEM_REEL,
   buildDiemBasicReelArgs,
+  buildDiemCardReelArgs,
   buildDiemReelArgs,
   buildDiemVideoFilter,
   createDiemBasicReelVideo,
   createDiemBasicReelWithMusic,
+  createDiemCardReelVideo,
+  createDiemCardReelWithMusic,
   createDiemReelVideo,
   createDiemReelWithMusic,
   runFfmpeg,

@@ -1078,6 +1078,67 @@ async function generateEditorial(article = {}, {
   throw detailedEditorialError(attempts, 'deterministic fallback is disabled; try the next candidate');
 }
 
+const CARD_FORMATS = Object.freeze({
+  hook: { minLines: 2, maxLines: 3, maxLine: 11, sub: 28, kicker: 16 },
+  stat: { minLines: 0, maxLines: 2, maxLine: 12, sub: 0, kicker: 16 },
+  list: { minLines: 0, maxLines: 2, maxLine: 12, sub: 34, kicker: 16 },
+  cta: { minLines: 2, maxLines: 3, maxLine: 11, sub: 30, kicker: 16 },
+});
+const CARD_STYLE_NAMES = Object.freeze(['diem-dark', 'bright-magazine']);
+
+function validateCards(cards, style) {
+  const errors = [];
+  if (!Array.isArray(cards) || cards.length < 3 || cards.length > 4) {
+    errors.push('cards Reel requires three or four cards');
+    return errors;
+  }
+  if (cards[0]?.role !== 'hook') errors.push('cards Reel must open with a hook card');
+  if (cards[cards.length - 1]?.role !== 'cta') errors.push('cards Reel must close with a cta card');
+  const seen = new Set();
+  cards.forEach((card, index) => {
+    const label = `card ${index + 1}`;
+    const format = CARD_FORMATS[card?.role];
+    if (!format) {
+      errors.push(`${label} has an unsupported role`);
+      return;
+    }
+    if (seen.has(card.role)) errors.push(`${label} repeats the ${card.role} role`);
+    seen.add(card.role);
+    if (card.kicker && graphemeCount(card.kicker) > format.kicker) errors.push(`${label} kicker is too long`);
+    const titleLines = typeof card.title === 'string' ? card.title.split('\n').filter(line => line.trim()) : [];
+    if (titleLines.length < format.minLines || titleLines.length > format.maxLines) {
+      errors.push(`${label} needs ${format.minLines}-${format.maxLines} title lines`);
+    }
+    if (titleLines.some(line => graphemeCount(line.trim()) > format.maxLine)) {
+      errors.push(`${label} title line exceeds ${format.maxLine} graphemes`);
+    }
+    if (card.sub && graphemeCount(card.sub) > format.sub) errors.push(`${label} sub text is too long`);
+    if (card.role === 'stat') {
+      if (!card.value) errors.push(`${label} needs a stat value`);
+      else if (graphemeCount(card.value) > 12) errors.push(`${label} stat value is too long`);
+      if (card.valueLabel && graphemeCount(card.valueLabel) > 20) errors.push(`${label} stat label is too long`);
+      const bullets = card.bullets || [];
+      if (bullets.length > 2) errors.push(`${label} allows at most two bullets`);
+      if (bullets.some(bullet => graphemeCount(bullet) > 30)) errors.push(`${label} bullet is too long`);
+    }
+    if (card.role === 'list') {
+      const rows = card.rows || [];
+      if (rows.length < 2 || rows.length > 3) errors.push(`${label} needs two or three rows`);
+      rows.forEach((row, rowIndex) => {
+        if (!row?.label || !row?.value) errors.push(`${label} row ${rowIndex + 1} needs a label and value`);
+        else if (graphemeCount(row.value) > 16) errors.push(`${label} row ${rowIndex + 1} value is too long`);
+        if (row?.label && graphemeCount(row.label) > 12) errors.push(`${label} row ${rowIndex + 1} label is too long`);
+        if (row?.note && graphemeCount(row.note) > 24) errors.push(`${label} row ${rowIndex + 1} note is too long`);
+      });
+    }
+  });
+  if (style != null) {
+    if (!CARD_STYLE_NAMES.includes(style?.name)) errors.push('cards Reel style must be diem-dark or bright-magazine');
+    if (style?.accent && !/^#[0-9a-fA-F]{6}$/u.test(style.accent)) errors.push('cards Reel accent must be a hex color');
+  }
+  return errors;
+}
+
 function validateEditorial(editorial, { article = {}, handle } = {}) {
   const errors = [];
   const frame = articleFrame(article);
@@ -1106,8 +1167,8 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
   if (!editorial?.titleCandidates?.some(candidate => candidate.title === editorial?.title?.text)) {
     errors.push('selected title must be one of the title candidates');
   }
-  if (editorial?.reelFormat != null && !['flash', 'explain'].includes(editorial.reelFormat)) {
-    errors.push('reelFormat must be flash or explain');
+  if (editorial?.reelFormat != null && !['flash', 'explain', 'cards'].includes(editorial.reelFormat)) {
+    errors.push('reelFormat must be flash, explain, or cards');
   }
   if (Number(editorial?.schemaVersion) >= 3) {
     if (!editorial?.formatDecision || editorial.formatDecision.format !== editorial.reelFormat) {
@@ -1150,6 +1211,9 @@ function validateEditorial(editorial, { article = {}, handle } = {}) {
         });
       }
     }
+  }
+  if (editorial?.reelFormat === 'cards') {
+    errors.push(...validateCards(editorial.cards, editorial.style));
   }
   const captionValidation = validateCaption(editorial?.caption?.text || '');
   if (!captionValidation.ok) errors.push(...captionValidation.errors);
@@ -1198,6 +1262,7 @@ module.exports = {
   buildCommentChain,
   buildDeterministicEditorial,
   chooseReelFormat,
+  validateCards,
   editorialRepairPrompt,
   buildDeterministicTitleCandidates,
   generateEditorial,
