@@ -192,7 +192,7 @@ jobs:
 
   preview-creative:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'preview_creative'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     permissions:
       contents: read
@@ -247,7 +247,7 @@ jobs:
     if: >-
       (github.event_name == 'workflow_dispatch' && inputs.operation == 'hot_news') ||
       (github.event_name == 'schedule' && github.event.schedule == '0 4,10,16,22 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -347,7 +347,7 @@ jobs:
     if: >-
       (github.event_name == 'workflow_dispatch' && inputs.operation == 'cloud_candidates') ||
       (github.event_name == 'schedule' && github.event.schedule == '0 0,6,12,18 * * *')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     env:
@@ -422,7 +422,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' &&
       inputs.operation == 'daily_package_validate'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     env:
@@ -455,7 +455,7 @@ jobs:
       (inputs.operation == 'daily_package_prepare' ||
        inputs.operation == 'daily_package_publish') &&
       (inputs.operation != 'daily_package_publish' || github.ref == 'refs/heads/main')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
     env:
@@ -513,7 +513,7 @@ jobs:
 
   collect-performance-insights:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'collect_insights'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -543,7 +543,7 @@ jobs:
     if: >-
       github.event_name == 'workflow_dispatch' &&
       (inputs.operation == 'diagnose' || inputs.operation == 'diagnose_new_token')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: read
@@ -596,7 +596,7 @@ jobs:
 
   retry-editorial-publication:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'retry_editorial'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Require an exact failed publication key
         env:
@@ -643,7 +643,7 @@ jobs:
 
   reissue-deleted-news:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'reissue_news'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Require deleted publication and generated asset
         env:
@@ -689,7 +689,7 @@ jobs:
     if: >-
       (github.event_name == 'workflow_dispatch' && inputs.operation == 'publish_basic') ||
       (github.event_name == 'schedule' && github.event.schedule == '30 0 * * 0')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -722,7 +722,7 @@ jobs:
 
   retry-diem-basic:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'retry_basic'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Require an exact publication key
         env:
@@ -759,7 +759,7 @@ jobs:
 
   record-moderation:
     if: github.event_name == 'workflow_dispatch' && inputs.operation == 'record_moderation'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Require moderation metadata
         env:
@@ -801,7 +801,7 @@ jobs:
     if: >-
       github.event_name == 'schedule' && github.event.schedule == '30 20 * * 0' &&
       vars.INSTAGRAM_TOKEN_SOURCE == 'encrypted_vault'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
