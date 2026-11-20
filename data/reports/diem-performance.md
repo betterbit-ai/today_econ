@@ -1,8 +1,8 @@
 # DIEM 지속 성과 리포트
 
 - 상태: ready
-- 발행 원장 Reel: 337편
-- 생성 시각: 2026-11-19T23:04:18.157Z
+- 발행 원장 Reel: 338편
+- 생성 시각: 2026-11-20T12:34:14.967Z
 - 원칙: 24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.
 - 최종 목표 판정: not_achieved
 
@@ -33,25 +33,25 @@
 - 전략 코호트: legacy 193편 · discovery-funnel-v3 52편
 
 ## 7d
-- economy: 표본 119편 · reach 중앙값 167 · 시청 비율 49.22% · 공유율 0% · 저장률 0%
+- economy: 표본 121편 · reach 중앙값 167 · 시청 비율 49.22% · 공유율 0% · 저장률 0%
   - 반복 후보: 이재명 / ISA 개편 중단(400,265), 비거주1주택 / 징벌과세 결정(89,043), 이재명 대통령 / 휴가 권고(66,348), 공무원 / 광고 사과(2,711), 청년 퇴사 / 실업급여 추진(2,659)
-  - 특성 신호: reader_need:household_cost insufficient_data×2.35, event:market_move insufficient_data×1.26, market_shock insufficient_data×1.26, work_life insufficient_data×1.03, company_event insufficient_data×1.03, event:ipo insufficient_data×1.03, reader_need:market insufficient_data×1.03, reader_need:tax insufficient_data×1
+  - 특성 신호: reader_need:household_cost insufficient_data×2.35, event:market_move insufficient_data×1.15, market_shock insufficient_data×1.15, reader_need:market insufficient_data×1.03, company_event insufficient_data×1.03, event:ipo insufficient_data×1.03, work_life insufficient_data×1, reader_need:tax insufficient_data×1
 - issue: 표본 141편 · reach 중앙값 283 · 시청 비율 50.08% · 공유율 0% · 저장률 0%
   - 반복 후보: 주진우 증언 / 우원식표결지연(20,059), 바이든 암 / 전이 확인(13,276), 국방부 / 1군단장 직무배제(12,776), 태풍 돌핀 / 한반도 영향예상(7,294), 선관위 / 서울시장 소청 기각(4,935)
   - 부진 후보: 모기 활동 / 주의 권고(25), 이재명 대통령 / 검찰개혁 발언(28), 박선원 공개 / 공익제보자 위반(33), 배현진 비판 / 이재명 물(41), 송지은 눈물 / 새롭게하소서(47)
   - 특성 신호: reader_need:market insufficient_data×7.6, reader_need:housing insufficient_data×4.25, household_money insufficient_data×0.85
 - 정시 비교에서 제외한 늦은 백필: 43편
-- 포맷 코호트: unknown 198편/reach 289.5 · flash 59편/reach 141 · explain 3편/reach 1,122
-- 이미지 코호트: other 22편/reach 1,206.5 · web 105편/reach 674 · library 133편/reach 161
-- 전략 코호트: legacy 217편 · discovery-funnel-v3 43편
+- 포맷 코호트: unknown 198편/reach 289.5 · flash 61편/reach 140 · explain 3편/reach 1,122
+- 이미지 코호트: other 22편/reach 1,206.5 · web 105편/reach 674 · library 135편/reach 161
+- 전략 코호트: legacy 217편 · discovery-funnel-v3 45편
 
 ## 이미지·음악 운영
-- 최근 14일 계정 팔로워 순변화: -2 (중복 제거 스냅샷 27개; 게시물별 추정치 합산 금지)
-- 타이포그래피 폴백률: 14.24%
-- 생성 배경 폴백률: 44.21% · 전체 폴백률: 58.46%
-- 이미지 공급원: diem-generated 149편, pexels 123편, diem-original 48편, unsplash 10편, wikimedia 6편, openverse 1편
-- 최근 7일 폴백률: 87.5% (14/16편, 2026-11-14~2026-11-20)
-- 최근 7일 Vision 실패: model_error 1건, budget_exhausted 1건
+- 최근 14일 계정 팔로워 순변화: -4 (중복 제거 스냅샷 26개; 게시물별 추정치 합산 금지)
+- 타이포그래피 폴백률: 14.2%
+- 생성 배경 폴백률: 44.38% · 전체 폴백률: 58.58%
+- 이미지 공급원: diem-generated 150편, pexels 123편, diem-original 48편, unsplash 10편, wikimedia 6편, openverse 1편
+- 최근 7일 폴백률: 88.24% (15/17편, 2026-11-14~2026-11-20)
+- 최근 7일 Vision 실패: budget_exhausted 5건, model_error 1건, context_rejected 1건
 - 음악: 현재 20% 초과 단일 트랙 편중 경고 없음
 - 음악 판단 원칙: 한 트랙 사용률이 20%를 넘거나 충분한 표본에서 반복 피로가 확인될 때만 음원을 추가합니다.
 - 편집 후보 실패: editorial_generation_failed 210건, image_context_unavailable 171건, unknown 44건
