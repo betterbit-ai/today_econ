@@ -1,13 +1,13 @@
 {
   "schemaVersion": 3,
   "featureSchemaVersion": 3,
-  "generatedAt": "2026-11-24T02:46:31.283Z",
+  "generatedAt": "2026-11-24T14:34:49.242Z",
   "status": "ready",
   "observationRule": "24h, 72h, 7d 지표를 섞지 않고 reach를 대표 성과로 고정하며 feature schema v3 카테고리별 10편, 특성별 5편 이상에서만 패턴을 학습합니다.",
-  "publishedCount": 346,
+  "publishedCount": 349,
   "basicPublishedCount": 4,
   "operations": {
-    "totalRuns": 814,
+    "totalRuns": 817,
     "noPublishReasons": {
       "no_candidate_passed_hotness_gate": {
         "count": 152,
@@ -911,7 +911,7 @@
       }
     },
     "72h": {
-      "sampleCount": 249,
+      "sampleCount": 250,
       "excludedLateBackfills": 85,
       "categories": {
         "economy": {
@@ -1293,22 +1293,56 @@
         },
         "issue": {
           "status": "ready",
-          "samples": 129,
-          "learningSamples": 24,
+          "samples": 130,
+          "learningSamples": 25,
           "legacyReportOnlySamples": 105,
           "minimumSamples": 10,
           "metrics": {
-            "viewsMedian": 332,
-            "reachMedian": 238,
+            "viewsMedian": 332.5,
+            "reachMedian": 240,
             "savedRateMedian": 0,
             "shareRateMedian": 0,
-            "positiveSaveOrShareRate": 37.21,
-            "utilitySamples": 129,
+            "positiveSaveOrShareRate": 37.69,
+            "utilitySamples": 130,
             "engagementRateMedian": 2.5,
-            "averageWatchTimeMedian": 3367,
-            "normalizedWatchRatioMedian": 0.4975
+            "averageWatchTimeMedian": 3378,
+            "normalizedWatchRatioMedian": 0.4988
           },
           "winners": [
+            {
+              "publicationKey": "diem:2026-11-21:issue:44881954580",
+              "category": "issue",
+              "title": "리트 만점자 / 사망 당일 / 자취방 들러",
+              "permalink": "https://www.instagram.com/reel/Df_vWdKggY9/",
+              "views": 43986,
+              "reach": 23937,
+              "saved": 16,
+              "shares": 307,
+              "savedRate": 0.067,
+              "shareRate": 1.283,
+              "engagementRate": 2.05,
+              "averageWatchTime": 8128,
+              "reelDurationSeconds": 6,
+              "normalizedWatchRatio": 1.3547,
+              "format": "flash",
+              "strategyVersion": "discovery-funnel-v3",
+              "featureSchemaVersion": 3,
+              "features": [
+                "concrete_number",
+                "event:general",
+                "reader_need:public_interest"
+              ],
+              "image": {
+                "kind": "web",
+                "source": "pexels",
+                "cohort": "web"
+              },
+              "audio": {
+                "mode": "track",
+                "trackId": "mixkit-serene-view-443",
+                "mood": "serious"
+              }
+            },
             {
               "publicationKey": "diem:2026-08-12:issue:31605450490",
               "category": "issue",
@@ -1442,40 +1476,6 @@
               "audio": {
                 "mode": "track",
                 "trackId": "serious1",
-                "mood": "serious"
-              }
-            },
-            {
-              "publicationKey": "diem:2026-08-11:issue:31471395092",
-              "category": "issue",
-              "title": "한동훈 흉기 / 징역 1년 확정",
-              "permalink": "https://www.instagram.com/reel/Db5HnexgGBP/",
-              "views": 3959,
-              "reach": 2761,
-              "saved": 0,
-              "shares": 0,
-              "savedRate": 0,
-              "shareRate": 0,
-              "engagementRate": 0.91,
-              "averageWatchTime": 5682,
-              "reelDurationSeconds": null,
-              "normalizedWatchRatio": null,
-              "format": "unknown",
-              "strategyVersion": "legacy",
-              "featureSchemaVersion": 0,
-              "features": [
-                "concrete_number",
-                "event:housing_policy",
-                "public_decision"
-              ],
-              "image": {
-                "kind": "web",
-                "source": "pexels",
-                "cohort": "web"
-              },
-              "audio": {
-                "mode": "track",
-                "trackId": "pixabay-bransboynd-night-summer-lounge-473222",
                 "mood": "serious"
               }
             }
@@ -1659,49 +1659,49 @@
               "feature": "reader_need:market",
               "samples": 1,
               "reachMedian": 1143,
-              "lift": 7.829,
+              "lift": 7.723,
               "signal": "insufficient_data"
             },
             {
               "feature": "reader_need:housing",
               "samples": 2,
               "reachMedian": 639.5,
-              "lift": 4.38,
+              "lift": 4.321,
               "signal": "insufficient_data"
             },
             {
               "feature": "public_decision",
               "samples": 12,
               "reachMedian": 149,
-              "lift": 1.021,
+              "lift": 1.007,
               "signal": "neutral"
             },
             {
               "feature": "concrete_number",
-              "samples": 22,
-              "reachMedian": 146,
+              "samples": 23,
+              "reachMedian": 148,
               "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "event:general",
-              "samples": 24,
-              "reachMedian": 146,
+              "samples": 25,
+              "reachMedian": 148,
               "lift": 1,
               "signal": "neutral"
             },
             {
               "feature": "reader_need:public_interest",
-              "samples": 21,
-              "reachMedian": 139,
-              "lift": 0.952,
+              "samples": 22,
+              "reachMedian": 141.5,
+              "lift": 0.956,
               "signal": "neutral"
             },
             {
               "feature": "household_money",
               "samples": 1,
               "reachMedian": 127,
-              "lift": 0.87,
+              "lift": 0.858,
               "signal": "insufficient_data"
             }
           ],
@@ -1718,9 +1718,9 @@
             "shareRateMedian": 0
           },
           "flash": {
-            "samples": 65,
+            "samples": 66,
             "reachMedian": 139,
-            "normalizedWatchRatioMedian": 0.4988,
+            "normalizedWatchRatioMedian": 0.5008,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           },
@@ -1748,18 +1748,18 @@
             "shareRateMedian": 0
           },
           "issue": {
-            "samples": 129,
-            "reachMedian": 238,
-            "normalizedWatchRatioMedian": 0.4975,
+            "samples": 130,
+            "reachMedian": 240,
+            "normalizedWatchRatioMedian": 0.4988,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           }
         },
         "image": {
           "web": {
-            "samples": 85,
-            "reachMedian": 493,
-            "normalizedWatchRatioMedian": 0.5047,
+            "samples": 86,
+            "reachMedian": 546.5,
+            "normalizedWatchRatioMedian": 0.5061,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           },
@@ -1787,9 +1787,9 @@
             "shareRateMedian": 0
           },
           "discovery-funnel-v3": {
-            "samples": 56,
-            "reachMedian": 131,
-            "normalizedWatchRatioMedian": 0.4727,
+            "samples": 57,
+            "reachMedian": 132,
+            "normalizedWatchRatioMedian": 0.4837,
             "savedRateMedian": 0,
             "shareRateMedian": 0
           }
@@ -2698,14 +2698,14 @@
     "periodDays": 14,
     "snapshots": 26,
     "first": {
-      "collectedAt": "2026-11-10T12:26:10.806Z",
-      "followers": 343
+      "collectedAt": "2026-11-11T11:45:13.196Z",
+      "followers": 345
     },
     "latest": {
-      "collectedAt": "2026-11-24T02:46:26.125Z",
+      "collectedAt": "2026-11-24T14:34:45.998Z",
       "followers": 344
     },
-    "netChange": 1,
+    "netChange": -1,
     "attribution": "deduplicated_14d_account_snapshots_not_summed_post_deltas"
   },
   "successCriteria": {
@@ -2743,7 +2743,7 @@
     },
     "followerNetChange14d": {
       "target": 1,
-      "value": 1
+      "value": -1
     },
     "qualityIncidents": {
       "target": 0,
@@ -2754,46 +2754,46 @@
     "kindDistribution": {
       "generated": {
         "count": 151,
-        "share": 43.64
+        "share": 43.27
       },
       "web": {
-        "count": 147,
-        "share": 42.49
+        "count": 150,
+        "share": 42.98
       },
       "typographic": {
         "count": 48,
-        "share": 13.87
+        "share": 13.75
       }
     },
     "sourceDistribution": {
       "diem-generated": {
         "count": 151,
-        "share": 43.64
+        "share": 43.27
       },
       "pexels": {
         "count": 126,
-        "share": 36.42
+        "share": 36.1
       },
       "diem-original": {
         "count": 48,
-        "share": 13.87
+        "share": 13.75
+      },
+      "wikimedia": {
+        "count": 13,
+        "share": 3.72
       },
       "unsplash": {
         "count": 10,
-        "share": 2.89
-      },
-      "wikimedia": {
-        "count": 10,
-        "share": 2.89
+        "share": 2.87
       },
       "openverse": {
         "count": 1,
         "share": 0.29
       }
     },
-    "typographyFallbackRate": 13.87,
-    "generatedFallbackRate": 43.64,
-    "combinedFallbackRate": 57.51,
+    "typographyFallbackRate": 13.75,
+    "generatedFallbackRate": 43.27,
+    "combinedFallbackRate": 57.02,
     "visionFailureDistribution": {
       "model_not_found": {
         "count": 53,
@@ -2827,9 +2827,9 @@
     "recentSevenDays": {
       "startDate": "2026-11-18",
       "endDate": "2026-11-24",
-      "publishedCount": 11,
+      "publishedCount": 14,
       "fallbackCount": 3,
-      "fallbackRate": 27.27,
+      "fallbackRate": 21.43,
       "visionFailureDistribution": {
         "budget_exhausted": {
           "count": 4,
@@ -2845,86 +2845,86 @@
   "music": {
     "trackDistribution": {
       "mixkit-serene-view-443": {
-        "count": 56,
-        "share": 16.92
+        "count": 58,
+        "share": 17.37
       },
       "pixabay-mickeyscat-moment-of-peace-mickeyscat-554494": {
         "count": 50,
-        "share": 15.11
+        "share": 14.97
       },
       "mixkit-tech-house-vibes-130": {
         "count": 26,
-        "share": 7.85
+        "share": 7.78
       },
       "mixkit-driving-ambition-32": {
-        "count": 21,
-        "share": 6.34
+        "count": 22,
+        "share": 6.59
       },
       "serious1": {
         "count": 20,
-        "share": 6.04
+        "share": 5.99
       },
       "pixabay-magpiemusic-action-trailer-promo-rock-513687": {
         "count": 19,
-        "share": 5.74
+        "share": 5.69
       },
       "bright2": {
         "count": 19,
-        "share": 5.74
+        "share": 5.69
       },
       "bright3": {
         "count": 17,
-        "share": 5.14
+        "share": 5.09
       },
       "bright1": {
         "count": 17,
-        "share": 5.14
+        "share": 5.09
       },
       "pixabay-alexguz-funk-amp-breakbeat-541097": {
         "count": 14,
-        "share": 4.23
+        "share": 4.19
       },
       "mixkit-dirty-thinkin-989": {
         "count": 14,
-        "share": 4.23
+        "share": 4.19
       },
       "pixabay-bransboynd-night-summer-lounge-473222": {
         "count": 12,
-        "share": 3.63
+        "share": 3.59
       },
       "serious2": {
         "count": 11,
-        "share": 3.32
+        "share": 3.29
       },
       "serious3": {
         "count": 11,
-        "share": 3.32
+        "share": 3.29
       },
       "pixabay-sonican-lo-fi-music-loop-sentimental-jazzy-love-473154": {
         "count": 10,
-        "share": 3.02
+        "share": 2.99
       },
       "serious4": {
         "count": 8,
-        "share": 2.42
+        "share": 2.4
       },
       "mixkit-fright-night-871": {
         "count": 6,
-        "share": 1.81
+        "share": 1.8
       }
     },
     "moodDistribution": {
       "serious": {
-        "count": 184,
-        "share": 53.18
+        "count": 186,
+        "share": 53.3
       },
       "bright": {
-        "count": 147,
-        "share": 42.49
+        "count": 148,
+        "share": 42.41
       },
       "unknown": {
         "count": 15,
-        "share": 4.34
+        "share": 4.3
       }
     },
     "diversityWarning": null,
